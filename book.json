@@ -15,7 +15,7 @@
             ]
         },
         "versions": {
-            "type": "tags"
+            "type": "branches"
         },
         "code": {
             "copyButtons": true
