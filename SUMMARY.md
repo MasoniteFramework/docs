@@ -14,6 +14,7 @@
 * [Requests](requests.md)
 * [The Craft Command](the-craft-command.md)
 * [Static Files](static-files.md)
+* [Helper Functions](helper-functions.md)
 
 ## Architectural Concepts
 
