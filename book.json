@@ -1,5 +1,5 @@
 {
-    "plugins": [ "theme-api", "versions" ],
+    "plugins": [ "theme-api", "versions", "code" ],
     "pluginsConfig": {
         "theme-api": {
             "languages": [
@@ -16,6 +16,9 @@
         },
         "versions": {
             "type": "tags"
-        }
+        },
+        "code": {
+            "copyButtons": true
+          }
     }
 }
