@@ -29,9 +29,10 @@
 * [Publishing Packages](publishing-packages.md)
 * [Compiling Assets](compiling-assets.md)
 * [Validation](validation.md)
+* [View Composers and Sharing](view-composers.md)
 * [Email](email.md)
   * [Creating an Email Driver](email/creating-an-email-driver.md)
-* [View Composers and Sharing](view-composers.md)
+* [Uploading](uploading-user-files.md)
 
 ## Database
 
