@@ -1,4 +1,4 @@
-# Creating an Email Driver
+# Creating a Mail Driver
 
 # Introduction
 

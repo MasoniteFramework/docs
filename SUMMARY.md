@@ -31,9 +31,9 @@
 * [Compiling Assets](compiling-assets.md)
 * [Validation](validation.md)
 * [View Composers and Sharing](view-composers.md)
-* [Email](email.md)
-  * [Creating an Email Driver](email/creating-an-email-driver.md)
 * [Uploading](uploading-user-files.md)
+* [Mail](email.md)
+  * [Creating a Mail Driver](email/creating-an-email-driver.md)
 
 ## Database
 
