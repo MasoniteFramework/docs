@@ -96,3 +96,27 @@ Get().route('/dashboard/@id:string', 'Controller@show')
 ```
 
 This will match `/dashboard/joseph` and not `/dashboard/128372`. Currently only the integer and string types are supported.
+
+### Subdomain Routing
+
+You may wish to only render routes if they are to a specific subdomain. For example you may want `example.com/dashboard` to route to a different controller than `joseph.example.com/dashboard`. To do this we can use the `.domain()` method on our routes like so:
+
+```python
+Get().domain('joseph').route('/dashboard', 'Controller@show')
+```
+
+This route will match to `joseph.example.com/dashboard` but not to `example.com/dashboard` or `test.example.com/dashboard`.
+
+It may be much more common to match to any subdomain. For this we can pass in an asterisk instead.
+
+```python
+Get().domain('*').route('/dashboard', 'Controller@show')
+```
+
+This will match all subdomains such as `test.example.com/dashboard`, `joseph.example.com/dashboard` but not `example.com/dashboard`
+
+
+
+
+
+
