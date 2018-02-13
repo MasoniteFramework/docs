@@ -27,6 +27,24 @@ def show(self, Request):
 
 **NOTE: There is no difference between **`GET`** and **`POST`** when it comes to getting input data. They are both retrieved through this **`.input()`** method so there is no need to make a distinction if the request is **`GET`** or **`POST`
 
+#### Helper Function
+
+Masonite ships with a `HelpersProvider` Service Provider which adds several helper functions. One of these helper functions is the `request()` function. This function will return the request object. Because of this, these two pieces of code are identical:
+
+```python
+def show(self, Request):
+    Request.input('username')
+```
+
+```python
+def show(self):
+    request().input('username')
+```
+
+Notice we didn't import anything at the top of our file and also didn't retrieve any objects from the IOC container. Masonite helper functions act just like any other built in Python function.
+
+#### Method Options
+
 In order to get all the request input variables such as input data from form data or from a query string. This will return all the available request input variables for that request as a dictionary.
 
 ```python

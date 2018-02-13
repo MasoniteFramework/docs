@@ -3,6 +3,8 @@
 ## Prologue
 
 * [Introduction](README.md)
+* TODO - Contributing
+* TODO - Release Cycle
 
 ## The Basics
 
