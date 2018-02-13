@@ -1,5 +1,5 @@
 {
-    "plugins": [ "theme-api" ],
+    "plugins": [ "theme-api", "versions" ],
     "pluginsConfig": {
         "theme-api": {
             "languages": [
@@ -13,6 +13,9 @@
                     "name": "Go"
                 }
             ]
+        }
+        "versions": {
+            "type": "branches"
         }
     }
 }
