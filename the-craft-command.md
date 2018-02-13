@@ -70,7 +70,19 @@ If you’d like to start a new project, you can run:
 $ craft new project_name
 ```
 
-This will download a zip file over the internet and unzip it into your directory.
+This will download a zip file of the `MasoniteFramework/masonite` repository and unzip it into your current working directory. This command will default to the latest release of the repo.
+
+You may also specify some options. The `--version` option will create a new project depending on the releases from the `MasoniteFramework/masonite` repository.
+
+```
+$ craft new project_name --version 1.3.0
+```
+
+Or you can specify the branch you would like to create a new project with:
+
+```
+$ craft new project_name --branch develop
+```
 
 After you have created a new project, you will have a `requirements.txt` file with all of the projects dependencies. In addition to this file, you will also have a `.env-example` file which contains a boiler plate of a `.env` file. In order to install the dependencies, as well as copy the example environment file to a `.env` file, just run:
 
