@@ -15,6 +15,12 @@
 * [The Craft Command](the-craft-command.md)
 * [Static Files](static-files.md)
 
+## Architectural Concepts
+
+* [Request Lifecycle](request-lifecycle.md)
+* [Service Providers](service-container/service-providers.md)
+* [Service Container](service-container.md)
+
 ## Advanced
 
 * [Middleware](middleware.md)
@@ -25,6 +31,7 @@
 * [Validation](validation.md)
 * [Email](email.md)
   * [Creating an Email Driver](email/creating-an-email-driver.md)
+* [View Composers and Sharing](view-composers.md)
 
 ## Database
 
@@ -38,12 +45,6 @@
 ## Orator ORM
 
 * [Introduction](orator-orm/introduction.md)
-
-## Architectural Concepts
-
-* [Request Lifecycle](request-lifecycle.md)
-* [Service Providers](service-container/service-providers.md)
-* [Service Container](service-container.md)
 
 ## Official Packages
 
