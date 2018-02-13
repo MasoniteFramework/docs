@@ -4,7 +4,7 @@
 
 * [Introduction](README.md)
 * [Contributing](todo-contributing.md)
-* [TODO - Release Cycle](todo-release-cycle.md)
+* [Release Cycle](todo-release-cycle.md)
 
 ## The Basics
 
