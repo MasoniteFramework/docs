@@ -2,7 +2,7 @@
 
 # Introduction
 
-The Masonite framework itself follows the RomVer versioning schema which is HUMAN.MAJOR.MINOR although all Masonite packages follow the SemVer versioning schema which is MAJOR.MINOR.FEATURE/BUGFIX.
+The Masonite framework itself follows the RomVer versioning schema which is PARADIGM.MAJOR.MINOR although all Masonite packages follow the SemVer versioning schema which is MAJOR.MINOR.FEATURE/BUGFIX.
 
 This means that a framework version of 1.3.20 will have breaking changes with version 1.4.0.
 
