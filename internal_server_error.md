@@ -54,13 +54,23 @@ Get().route('/dashboard', 'DashboardController@show').middleware('auth', 'anothe
 
 This middleware will execute either before or after the route is executed depending on the middleware.
 
-### Module Controllers
+### Deeper Module Controllers
 
-All controllers are located in `app/http/controllers` but sometimes you may wish to put your controllers in different modules inside the controllers directory. For example, you may wish to put all your product controllers in `app/http/controllers/products` or all of your dashboard controllers in `app/http/controllers/users`. In order to access these controllers in your routes we can simply specify the controller uses our usual dot notation:
+All controllers are located in `app/http/controllers` but sometimes you may wish to put your controllers in different modules **deeper** inside the controllers directory. For example, you may wish to put all your product controllers in `app/http/controllers/products` or all of your dashboard controllers in `app/http/controllers/users`. In order to access these controllers in your routes we can simply specify the controller uses our usual dot notation:
 
 ```python
 Get().route('/dashboard', 'users.DashboardController@show')
 ```
+
+### Change Controller Modules
+
+Controllers are defaulted to the `app/http/controllers` directory but you may wish to completely change the directory for a certain route. We can change this by using the `.module()` method:
+
+```python
+Get().module('thirdparty.package').route('/dashboard', 'users.DashboardController@show')
+```
+
+This will look for the controller in `thirdparty.package.users` module instead of the normal `app.http.controllers` module.
 
 ## Route Parameters
 
