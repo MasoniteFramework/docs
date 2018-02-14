@@ -30,7 +30,7 @@ This will create a template under `resources/templates/hello.html`.
 
 ### Helper Function
 
-There are several ways we can call views in our controllers. The first way is using the `view()` function. Masonite ships with a `HelpersProvider` Service Provider. This provider will add several new built in functions to your project. These helper functions can be used as shorthand for several commonly used classes such as the `View` and `Request` class. See the "Helper Functions" documentation for more information.
+There are several ways we can call views in our controllers. The first recommended way is using the `view()` function. Masonite ships with a `HelpersProvider` Service Provider. This provider will add several new built in functions to your project. These helper functions can be used as shorthand for several commonly used classes such as the `View` and `Request` class. See the "Helper Functions" documentation for more information.
 
 One of the helper functions is the `view()` function which is accessible like any other built in Python function.
 
@@ -63,14 +63,14 @@ This is exactly the same as using the helper function above. So if you choose to
 
 ## Passing Data to Views
 
-A lot of the time we’ll need to pass in data to our views. This data is passed in with a dictionary that contains a key which is the variable that the view will use as well as the value. We can pass data to the function like so:
+A lot of the time we’ll need to pass in data to our views. This data is passed in with a dictionary that contains a key which is the variable that the view will with the corresponding value. We can pass data to the function like so:
 
 ```python
 def show(self, Request):
     return view('dashboard', {'id': Request.param('id')})
 ```
 
-**Remember that by passing in values like `Request` to the controller method, we can retrieve objects from the IOC container. Read more about the IOC container in the "Service Container" documentation.**
+**Remember that by passing in parameters like **`Request`** to the controller method, we can retrieve objects from the IOC container. Read more about the IOC container in the "Service Container" documentation.**
 
 This will send a variable named `id` to the view which can then be rendered like:
 
