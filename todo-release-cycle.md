@@ -22,7 +22,19 @@ Once this stable release has been achieved, Masonite will move to a 6 month majo
 
 ## Creating Releases
 
-Masonite is made up of three different repositories. There is the main repo where development is done on the repo that installs on peoples systems.
+Masonite is made up of three different repositories. There is 
+
+* The main repository where development is done on the repo that installs on peoples systems.
+* The core repository which is where the main Masonite pip package is located.
+* The cli repository where the craft command tool is located.
+
+Major releases will be released on after the release date when all repositories are able to be released at the same time, as well as passing all tests.
+
+Whenever the `MasoniteFramework/cli` and `MasoniteFramework/core` repositories are released on Github, Travis CI will run tests and automatically deploy to PyPi.
+
+The main repository which is `MasoniteFramework/masonite` which does not have a corresponding PyPi package and is only for installing new Masonite projects. See the `craft new` command under "The Craft Command" documentation.
+
+Once all three repositories are ready for release, they will all be released on GitHub under the new version number.
 
 
 
