@@ -11,7 +11,7 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 The framework has three main parts.
 
-* This official `MiraFramework/masonite` repository where most work will be done primarily in the `develop` release branches. This is the main repository that will download when creating new projects using the `craft new` command.
+* This official `MiraFramework/masonite` repository is where most work will be done, primarily in the `develop` or release branches. This is the main repository that will install when creating new projects using the `craft new` command.
 * The ``MiraFramework/core` repository where the main `masonite` pip package lives.
     * This is where the `from masonite ...` module lives. 
 * The `MiraFramework/cli` repository where the `craft` command lives
