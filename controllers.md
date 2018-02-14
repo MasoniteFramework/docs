@@ -18,7 +18,7 @@ When we run this command we now have a new class under `app/http/controllers/Das
 
 ## Defining a Controller Method
 
-Controller methods are very similar to function based views in a Django application except this is . Our controller methods should look like:
+Controller methods are very similar to function based views in a Django application except this is just a normal class method. Our controller methods at a minimum should look like:
 
 ```python
 def show(self):
