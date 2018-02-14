@@ -56,7 +56,7 @@ This middleware will execute either before or after the route is executed depend
 
 ### Deeper Module Controllers
 
-All controllers are located in `app/http/controllers` but sometimes you may wish to put your controllers in different modules **deeper** inside the controllers directory. For example, you may wish to put all your product controllers in `app/http/controllers/products` or all of your dashboard controllers in `app/http/controllers/users`. In order to access these controllers in your routes we can simply specify the controller uses our usual dot notation:
+All controllers are located in `app/http/controllers` but sometimes you may wish to put your controllers in different modules **deeper** inside the controllers directory. For example, you may wish to put all your product controllers in `app/http/controllers/products` or all of your dashboard controllers in `app/http/controllers/users`. In order to access these controllers in your routes we can simply specify the controller using our usual dot notation:
 
 ```python
 Get().route('/dashboard', 'users.DashboardController@show')
@@ -74,7 +74,7 @@ This will look for the controller in `thirdparty.package.users` module instead o
 
 ## Route Parameters
 
-Very often you’ll need to specify parameters in your route in order to retrieve information from your URI. These parameters could be an `id` to use in retrieving a certain model. Specifying route parameters in Masonite is very easy and simply looks like:
+Very often you’ll need to specify parameters in your route in order to retrieve information from your URI. These parameters could be an `id` for the use in retrieving a certain model. Specifying route parameters in Masonite is very easy and simply looks like:
 
 ```python
 Get().route('/dashboard/@id', 'Controller@show')
@@ -85,8 +85,8 @@ That’s it. This will create a dictionary inside the `Request` object which can
 In order to retrieve our parameters from the request we can use the `param` method on the `Request` object like so:
 
 ```python
-def show(self, request):
-    request.param('id')
+def show(self, Request):
+    Request.param('id')
 ```
 
 ### Route Parameter Options
@@ -97,9 +97,9 @@ Sometimes you will want to make sure that the route parameter is of a certain ty
 Get().route('/dashboard/@id:int', 'Controller@show')
 ```
 
-This will match all integers but not strings. So for example will match `/dashboard/10283` and not `/dashboard/joseph`
+This will match all integers but not strings. So for example it will match `/dashboard/10283` and not `/dashboard/joseph`
 
-If we want to match all strings but not integers we can pass .
+If we want to match all strings but not integers we can pass:
 
 ```python
 Get().route('/dashboard/@id:string', 'Controller@show')
@@ -109,7 +109,7 @@ This will match `/dashboard/joseph` and not `/dashboard/128372`. Currently only 
 
 ### Subdomain Routing
 
-You may wish to only render routes if they are to a specific subdomain. For example you may want `example.com/dashboard` to route to a different controller than `joseph.example.com/dashboard`. To do this we can use the `.domain()` method on our routes like so:
+You may wish to only render routes if they are on a specific subdomain. For example you may want `example.com/dashboard` to route to a different controller than `joseph.example.com/dashboard`. To do this we can use the `.domain()` method on our routes like so:
 
 ```python
 Get().domain('joseph').route('/dashboard', 'Controller@show')
@@ -128,8 +128,8 @@ This will match all subdomains such as `test.example.com/dashboard`, `joseph.exa
 If a match is found, it will also add a `subdomain` parameter to the Request class. We can retrieve the current subdomain like so:
 
 ```python
-def show(self):
-    print(request().param('subdomain'))
+def show(self, Request):
+    print(Request.param('subdomain'))
 ```
 
 
