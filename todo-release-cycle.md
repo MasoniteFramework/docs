@@ -19,3 +19,11 @@ Once this stable release has been achieved, Masonite will move to a 6 month majo
 * v1.5 - May 2018
 * v2.0 - June 2018
 * v2.1 - December 2018
+
+## Creating Releases
+
+Masonite is made up of three different repositories. There is the main repo where development is done on the repo that installs on peoples systems.
+
+
+
+
