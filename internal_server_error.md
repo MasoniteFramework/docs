@@ -123,7 +123,14 @@ It may be much more common to match to any subdomain. For this we can pass in an
 Get().domain('*').route('/dashboard', 'Controller@show')
 ```
 
-This will match all subdomains such as `test.example.com/dashboard`, `joseph.example.com/dashboard` but not `example.com/dashboard`
+This will match all subdomains such as `test.example.com/dashboard`, `joseph.example.com/dashboard` but not `example.com/dashboard`. 
+
+If a match is found, it will also add a `subdomain` parameter to the Request class. We can retrieve the current subdomain like so:
+
+```python
+def show(self):
+    print(request().param('subdomain'))
+```
 
 
 
