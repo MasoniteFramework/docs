@@ -2,11 +2,11 @@
 
 # Introduction
 
-Almost all applications can make use of queues. Queues are a great way to make time intensive tasks immediate by sending the task into the background. 
+Almost all applications can make use of queues. Queues are a great way to make time intensive tasks immediate by sending the task into the background. It's great to send anything and everything into the queue that doesn't require an immediate return value -- such as sending an email or firing an API call.
 
 ## Getting Started
 
-All configuration settings by default are in the `config/queue.py` file. Out of the box, Masonite only supports the `async` driver which simply sends jobs into the background using multithreading.
+All configuration settings by default are in the `config/queue.py` file. Out of the box, Masonite only supports the `async` driver which simply sends jobs into the background using multithreading. You are free to create more drivers. If you do create a driver, consider making it available on PyPi so others can also install it.
 
 ## Jobs
 
@@ -59,7 +59,7 @@ class SendWelcomeEmail(Queueable):
         self.mail = Mail
 
     def handle(self):
-        self.mail.driver('smtp').to(self.request.user().email).template('mail/welcome').send()
+        self.mail.driver('mailgun').to(self.request.user().email).template('mail/welcome').send()
 ```
 
 That's it! We just created a job that can send to to the queue!
@@ -70,6 +70,21 @@ We can run jobs by using the `Queue` alias from the container. Let's run this jo
 
 ```python
 from app.jobs.SendWelcomeEmail import SendWelcomeEmail
+
 def show(self, Queue):
-    Queue.push()
+    Queue.push(SendWelcomeEmail)
 ```
+
+That's it! This job will be loaded into the queue. By default, Masonite uses the `async` driver which just sends tasks into the background.
+
+We can also send multiple jobs to the queue by passing more of them into the `.push()` method:
+
+```python
+from app.jobs.SendWelcomeEmail import SendWelcomeEmail
+from app.jobs.TutorialEmail import TutorialEmail
+
+def show(self, Queue):
+    Queue.push(SendWelcomeEmail, TutorialEmail)
+```
+
+
