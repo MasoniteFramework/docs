@@ -38,6 +38,7 @@ from masonite.queues.Queueable import Queueable
 class SendWelcomeEmail(Queueable):
 
     def __init__(self, Request, Mail):
+        self.request = Request
         self.mail = Mail
 
     def handle(self):
