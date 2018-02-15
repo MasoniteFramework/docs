@@ -10,7 +10,6 @@ For example, In Django you may need to do something like:
 $ django-admin startproject
 $ python manage.py runserver
 $ python manage.py migrate
-$ git push heroku master
 ```
 
 The craft tool condenses all commonly used commands into its own namespace
@@ -19,10 +18,7 @@ The craft tool condenses all commonly used commands into its own namespace
 $ craft new
 $ craft serve
 $ craft migrate
-$ craft deploy
 ```
-
-Not all commands can be encompassed into craft commands out of the box but the most common ones are supported.
 
 All scaffolding of Masonite can be done manually \(manually creating a controller and importing the `view` function for example\) but the craft command tool is used for speeding up development and cutting down on mundane development time.
 
@@ -50,7 +46,7 @@ If you wish to scaffold a controller, just run:
 $ craft controller
 ```
 
-This command will create a new controller under `app/http/controller`. By convention, all controllers should have an appended “Controller”. For example in order to make a dashboard controller, you should run `craft controller DashboardController` and not `craft controller Dashboard` although you can name your controllers however you’d like.
+This command will create a new controller under `app/http/controller`. By convention, all controllers should have an appended “Controller”. For example in order to make a dashboard controller, you should run `craft controller DashboardController` and not `craft controller Dashboard` although you can name your controllers however you like.
 
 ### Deployment
 
@@ -92,7 +88,7 @@ $ craft install
 
 ### Creating Migrations
 
-All frameworks have a way to create migrations in order to manipulate database tables. Masonite uses a little bit of a different approach to migrations than other Python frameworks and makes the developer edit the migration file. More information on why can be found in the “Why not Django?” documentation. This is the command to make a migration for an existing table:
+All frameworks have a way to create migrations in order to manipulate database tables. Masonite uses a little bit of a different approach to migrations than other Python frameworks and makes the developer edit the migration file. This is the command to make a migration for an existing table:
 
 ```
 $ craft migration name_of_migration —-table users
@@ -104,9 +100,11 @@ If you are creating a migration for a table that does not exist yet which the mi
 $ craft migration name_of_migration --create users
 ```
 
+These two flags will create slightly different types of migrations.
+
 ### Migrating
 
-After your migrations have been created, edited, and are ready for migrating, we can now migrate them into the database. To migrate all of your immigrated migrations, just run:
+After your migrations have been created, edited, and are ready for migrating, we can now migrate them into the database. To migrate all of your unmigrated migrations, just run:
 
 ```
 $ craft migrate
@@ -124,7 +122,7 @@ You can also rollback all migrations without remigrating
 $ craft migrate:reset
 ```
 
-Lastly, you can rollback just the last migration you tried migrating
+Lastly, you can rollback just the last set of migrations you tried migrating
 
 ```
 $ craft migrate:rollback
@@ -143,20 +141,22 @@ This will scaffold a model under \`app/ModelName\` and import everything needed.
 If you need to create a model in a specific folder starting from the `app` folder, then just run:
 
 ```
-$ craft model Models\ModelName
+$ craft model Models/ModelName
 ```
 
 This will create a model in `app/Models/ModelName.py.`
 
 ### Creating a Service Provider
 
-Service Providers is a really powerful feature of Masonite. If you'd like to create your own service provider, just run:
+Service Providers are a really powerful feature of Masonite. If you'd like to create your own service provider, just run:
 
 ```
 $ craft provider DashboardProvider
 ```
 
 This will create a file at `app/providers/DashboardProvider.py`
+
+Read more about Service Providers under the "Service Provider" documentation.
 
 ### Creating Views
 
@@ -167,6 +167,14 @@ $ craft view blog
 ```
 
 This command will create a template at `resources/templates/blog.html`
+
+You can also create a view deeper inside the `resources/templates` directory.
+
+```
+$ craft view auth/home
+```
+
+This will create a view under `resources/templates/auth/home.html` but keep in mind that it will not create the directory for you. If the `auth` directory does not exist, this command will fail.
 
 ### Packages
 
@@ -205,3 +213,4 @@ $ craft key
 This will generate a 32 bit string which you can paste into your `.env` file under the `KEY` setting.
 
 Great! You are now a master at the craft command line tool.
+

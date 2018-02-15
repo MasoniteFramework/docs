@@ -115,7 +115,7 @@ def show(self, Request):
     return Request.redirectTo('dashboard')
 ```
 
-You can also go back to a named route specified from the form parameter `back`. This will get the request input named `back` and redirect to that named route. This is great if you want to redirect the user to a login page and then back to where they came from. Just remember during your form submission that you need to supply a `back` input.
+You can also go back to a named route specified from the form input `back`. This will get the request input named `back` and redirect to that named route. This is great if you want to redirect the user to a login page and then back to where they came from. Just remember during your form submission that you need to supply a `back` input.
 
 ```python
 def show(self, Request):
