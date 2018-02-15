@@ -34,6 +34,7 @@
 * [Uploading](uploading-user-files.md)
 * [Mail](email.md)
   * [Creating a Mail Driver](email/creating-an-email-driver.md)
+* [Queues](queues.md)
 
 ## Database
 
