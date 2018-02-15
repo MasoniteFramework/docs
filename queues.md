@@ -45,3 +45,23 @@ class SendWelcomeEmail(Queueable):
         pass
 ```
 
+Remember that anything that is resolved by the container is able to retrieve anything from the container by simply passing in parameters of objects that are located in the container. Read more about the container in the "Service Container" documentation.
+
+Whenever jobs are executed, it simply executes the handle method. Because of this we can send our welcome email:
+
+```python
+from masonite.queues.Queueable import Queueable
+
+class SendWelcomeEmail(Queueable):
+
+    def __init__(self, Request, Mail):
+        self.request = Request
+        self.mail = Mail
+
+    def handle(self):
+        self.mail.driver('smtp').to(
+            self.request.user().email
+        ).template('mail/welcome').send()
+```
+
+
