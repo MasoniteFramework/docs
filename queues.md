@@ -59,9 +59,17 @@ class SendWelcomeEmail(Queueable):
         self.mail = Mail
 
     def handle(self):
-        self.mail.driver('smtp').to(
-            self.request.user().email
-        ).template('mail/welcome').send()
+        self.mail.driver('smtp').to(self.request.user().email).template('mail/welcome').send()
 ```
 
+That's it! We just created a job that can send to to the queue!
 
+## Running Jobs
+
+We can run jobs by using the `Queue` alias from the container. Let's run this job from a controller method:
+
+```python
+from app.jobs.SendWelcomeEmail import SendWelcomeEmail
+def show(self, Queue):
+    Queue.push()
+```
