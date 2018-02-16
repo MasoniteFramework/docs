@@ -28,11 +28,40 @@ def show(self, Mail):
 
 That's it! There are a few methods we can attach to extend how we send email.
 
+All mail drivers are managed by the `MailManager` class and bootstrapped with the `MailProvider` Service Provider. Let's take a look at that:
+
+```python
+class MailProvider(ServiceProvider):
+
+wsgi = False
+
+def register(self):
+self.app.bind('MailConfig', mail)
+self.app.bind('MailSmtpDriver', MailSmtpDriver)
+self.app.bind('MailMailgunDriver', MailMailgunDriver)
+self.app.bind('MailManager', MailManager(self.app))
+
+def boot(self, MailConfig):
+self.app.bind('Mail', MailManager(self.app).driver(MailConfig.DRIVER))
+```
+
+We can specify which driver we want to use. Although Masonite will use the `DRIVER` variable in our config file, we can change the driver on the fly.
+
+You can see that we can use the `MailManager` class to change the drivers:
+
+```python
+def show(self, MailManager):
+    MailManager.driver('mailgun') # now uses the Mailgun driver
+```
+
+
+
 ## Methods
 
-We can specify which driver we want to use. Although Masonite will use the `DRIVER` variable in our config file, we can change the driver on the fly:
+We can specify which driver we want to use. Although Masonite will use the `DRIVER` variable in our config file, we can change the driver on the fly.
 
-    Mail.driver('mailgun').to('hello@email.com').send('Welcome!')
+
+
 
 We can also specify the subject:
 
