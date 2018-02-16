@@ -49,7 +49,7 @@ class UserModelProvider(ServiceProvider):
     def register(self):
         self.app.bind('User', User)
 
-    def boot(self, request: Request):
+    def boot(self):
         pass
 
 ```
@@ -65,7 +65,7 @@ The service container is injected into the `Request` object and can be retrieved
 
 ```python
 def show(self, Request):
-Request.app() # will return the service container
+    Request.app() # will return the service container
 ```
 
 ### Using the container
@@ -77,9 +77,10 @@ The container can be used in two ways: **making** and **resolving**.
 In order to retrieve a class from the service container, we can simply use the `make` method.
 
 ```
+>>> from app.User import User
 >>> app.bind('User', User)
 >>> app.make('User')
-User
+<class app.User.User>
 ```
 
 That's it! This is useful as an IOC container which you can load a single class into the container and use that class everywhere throughout your project.
@@ -106,7 +107,7 @@ def show(self, request: Request)
     request.user()
 ```
 
-Masonite will know that you are trying to get the `Request` class and will actually retrieve that class from the container. Masonite will search the container for a `Request` class, retrieve it, and pass it into the controller method.
+Masonite will know that you are trying to get the `Request` class and will actually retrieve that class from the container. Masonite will search the container for a `Request` class regardless of what the key is in the container, retrieve it, and inject it into the controller method. Effectively creating an IOC container with dependency injection.
 
 Pretty powerful stuff, eh?
 
@@ -126,6 +127,6 @@ def show(self, Request):
     Request.app().resolve(randomFunction) # Will print the User object
 ```
 
-**Remember not to call it and only reference the function.**
+**Remember not to call it and only reference the function. The Service Container needs to inject dependencies into the object so it requires a reference and not a callable.**
 
 This will fetch all of the parameters of `randomFunction` and retrieve them from the service container. There probably won't be many times you'll have to resolve your own code but the option is there.
