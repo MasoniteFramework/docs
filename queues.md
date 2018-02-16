@@ -2,7 +2,7 @@
 
 # Introduction
 
-Almost all applications can make use of queues. Queues are a great way to make time intensive tasks immediate by sending the task into the background. It's great to send anything and everything into the queue that doesn't require an immediate return value -- such as sending an email or firing an API call.
+Almost all applications can make use of queues. Queues are a great way to make time intensive tasks immediate by sending the task into the background. It's great to send anything and everything into the queue that doesn't require an immediate return value -- such as sending an email or firing an API call. The queue system is loaded into masonite via the `QueueProvider` Service Provider.
 
 ## Getting Started
 
