@@ -83,5 +83,5 @@ This will look for the controller in the `thirdparty.routes` module.
 
 ## 10. Added Queues and Jobs
 
-Masonite now ships with a `QueueManager` class which can be used to build queue drivers. Masonite ships with an `async` driver which sends jobs to a background thread. These queues can process Jobs which ca be created with the new `craft job` command. See the "Queues and Jobs" documentation for more information.
+Masonite now ships with a `QueueManager` class which can be used to build queue drivers. Masonite ships with an `async` driver which sends jobs to a background thread. These queues can process Jobs which ca be created with the new `craft job` command. See the [Queues and Jobs](/queues.md) documentation for more information.
  
