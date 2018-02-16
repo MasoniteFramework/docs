@@ -6,7 +6,7 @@ Masonite comes with email support out of the box. Most applications will need to
 
 ## Getting Started
 
-All mail configuration is inside `config/mail.py` and contains several well documented options. There are several built in drivers you can use but you can make your own if you'd like. You can follow the documentation here at "Making an Email Driver." If you do make your own, consider making it available on PyPi so others can install it. We may even put it in Masonite by default.
+All mail configuration is inside `config/mail.py` and contains several well documented options. There are several built in drivers you can use but you can make your own if you'd like. You can follow the documentation here at [Creating a Mail Driver](/email/creating-an-email-driver.md). If you do make your own, consider making it available on PyPi so others can install it. We may even put it in Masonite by default.
 
 By default, Masonite uses the `smtp` driver. Inside your `.env` file, just put your smtp credentials. If you are using Mailgun then switch your driver to `mailgun` and put your Mailgun credentials in your `.env` file. 
 

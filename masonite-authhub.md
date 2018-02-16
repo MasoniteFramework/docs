@@ -30,7 +30,7 @@ SITE_PACKAGES = [
 ]
 ```
 
-This will allow `craft publish` to find our dependencies installed on our virtual environment. Read the “Publishing Packages“ documentation for more information.
+This will allow `craft publish` to find our dependencies installed on our virtual environment. Read the [Publishing Packages](/publishing-packages.md) documentation for more information.
 
 ### Publishing
 

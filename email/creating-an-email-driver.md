@@ -91,7 +91,7 @@ If you are wondering where the `self.message_body` and `self.config` are coming 
 
 ### Registering Your Mail Driver
 
-Since the `MailManager` class creates the driver on boot, we can simply register the driver into the container via any service providers register method. We could create a new Service Provider and register it there. You can read more about created Service Providers under the "Service Providers" documentation. For now, we will just register it from within our `AppProvider`.
+Since the `MailManager` class creates the driver on boot, we can simply register the driver into the container via any service providers register method. We could create a new Service Provider and register it there. You can read more about created Service Providers under the [Service Providers](/service-container/service-providers.md) documentation. For now, we will just register it from within our `AppProvider`.
 
 Our `AppProvider` class might look something like this:
 

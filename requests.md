@@ -2,7 +2,7 @@
 
 # Introduction
 
-The Request class is initialized when the server first starts and changes based on every request by the framework. The Request class is loaded into the IOC container so any Service Provider will have access to it. The IOC container allows all parts of the framework to be resolved by the IOC container and auto inject any dependencies they need. Read more about the IOC container in the "Service Container" documentation.
+The Request class is initialized when the server first starts and changes based on every request by the framework. The Request class is loaded into the IOC container so any Service Provider will have access to it. The IOC container allows all parts of the framework to be resolved by the IOC container and auto inject any dependencies they need. Read more about the IOC container in the [Service Container](/service-container.md) documentation.
 
 ### Getting Started
 
@@ -28,7 +28,7 @@ def show(self):
     request().input('username')
 ```
 
-Notice we didn't import anything at the top of our file and also didn't retrieve any objects from the IOC container. Masonite helper functions act just like any other built in Python function. Read more about helper functions in the "Helper Functions" documentation.
+Notice we didn't import anything at the top of our file and also didn't retrieve any objects from the IOC container. Masonite helper functions act just like any other built in Python function. Read more about helper functions in the [Helper Functions](/helper-functions.md) documentation.
 
 ### Usage
 

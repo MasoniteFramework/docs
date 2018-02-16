@@ -13,7 +13,7 @@ $ pip install triggers
 $ craft publish triggers
 ```
 
-If publishing does not work, you may be using a virtual environment and may not have the correct `site_packages` directory added to your `config/packages.py` file. Read more about this in the `Publishing Packages` documentation.
+If publishing does not work, you may be using a virtual environment and may not have the correct `site_packages` directory added to your `config/packages.py` file. Read more about this in the [Publishing Packages](/publishing-packages.md) documentation.
 
 ## Usage
 

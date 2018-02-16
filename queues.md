@@ -45,7 +45,7 @@ class SendWelcomeEmail(Queueable):
         pass
 ```
 
-Remember that anything that is resolved by the container is able to retrieve anything from the container by simply passing in parameters of objects that are located in the container. Read more about the container in the "Service Container" documentation.
+Remember that anything that is resolved by the container is able to retrieve anything from the container by simply passing in parameters of objects that are located in the container. Read more about the container in the [Service Container](/service-container.md) documentation.
 
 Whenever jobs are executed, it simply executes the handle method. Because of this we can send our welcome email:
 
