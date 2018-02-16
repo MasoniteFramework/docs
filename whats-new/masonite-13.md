@@ -46,7 +46,7 @@ def show(self):
     return view('welcome')
 ```
 
-Notice how we never imported anything from the module or Service Container. See the "Helper Functions" documentation for a more exhaustive list
+Notice how we never imported anything from the module or Service Container. See the [Helper Functions](/helper-functions.md) documentation for a more exhaustive list
 
 ## 6. Added a way to have global template variables
 
@@ -69,7 +69,7 @@ Specify the subdomain you want to target with your route. It's common to want to
 Get().domain('test').route('/dashboard', 'DashboardController@show')
 ```
 
-Which will target `test.example.com/dashboard` and not `example.com/dashboard`. Read more about subdomains in the "Routes" documentation.
+Which will target `test.example.com/dashboard` and not `example.com/dashboard`. Read more about subdomains in the [Routing](/routing.md) documentation.
 
  ## 9. Added new module method to Get and Post routes
  
