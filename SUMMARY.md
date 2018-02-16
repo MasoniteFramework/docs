@@ -32,7 +32,7 @@
 * [Validation](validation.md)
 * [View Composers and Sharing](view-composers.md)
 * [Uploading](uploading-user-files.md)
-* [Queues](queues.md)
+* [Queues and Jobs](queues.md)
 * [Mail](email.md)
   * [Creating a Mail Driver](email/creating-an-email-driver.md)
 
