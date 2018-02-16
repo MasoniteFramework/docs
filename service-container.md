@@ -22,8 +22,8 @@ Once you create your service provider, you'll have to add it to your `PROVIDERS`
 
 ```python
 PROVIDERS = [
-'app.providers.UserModelProvider.UserModelProvider'
-'app.providers.DashboardProvider.DashboardProvider'
+    'app.providers.UserModelProvider.UserModelProvider'
+    'app.providers.DashboardProvider.DashboardProvider'
 ]
 ```
 
@@ -42,6 +42,7 @@ In order to bind classes into the container, we will just need to use a simple `
 ```python
 from masonite.provider import ServiceProvider
 from app.User import User
+from masonite.request import Request
 
 class UserModelProvider(ServiceProvider):
 
@@ -49,7 +50,7 @@ class UserModelProvider(ServiceProvider):
         self.app.bind('User', User)
 
     def boot(self, request: Request):
-        print(request) # returns the Request object
+        pass
 
 ```
 
