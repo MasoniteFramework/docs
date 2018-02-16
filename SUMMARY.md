@@ -6,6 +6,10 @@
 * [Contributing](todo-contributing.md)
 * [Release Cycle](todo-release-cycle.md)
 
+## What's New
+
+* [Masonite 1.3](whats-new/masonite-13.md)
+
 ## The Basics
 
 * [Routing](internal_server_error.md)

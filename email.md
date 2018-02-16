@@ -32,11 +32,12 @@ Because this is SMTP, we can utilize all SMTP services such as mailtrap and gmai
 
 Thats it! As long as the authentication works, we can send emails. Remember that it is save to put sensitive data in your `.env` file because it is not committed to source control and it is inside the `.gitignore` file by default.
 
-### Mailgun
+### Mailgun Driver
 
 Mailgun does not use SMTP and instead uses API calls to their service to send emails. Mailgun only requires 2 configuration settings:
 
 ```
+MAIL_DRIVER=mailgun
 MAILGUN_SECRET=key-xx
 MAILGUN_DOMAIN=sandboxXX.mailgun.org
 ```
@@ -103,7 +104,7 @@ def show(self, MailManager):
 
 ## Queues
 
-Sending an email may take several seconds so it might be a good idea to create a Job. Jobs are simply Python classes that inherit from the `Queueable` class. We could send emails asynchronously by creating a job and sending emails like so:
+Sending an email may take several seconds so it might be a good idea to create a Job. Jobs are simply Python classes that inherit from the `Queueable` class and can be pushed to queues or ran asynchronously. This will look something like:
 
 ```python
 from app.jobs.SendWelcomeEmail import SendWelcomeEmail
@@ -112,14 +113,13 @@ def show(self, Queue):
     Queue.push(SendWelcomeEmail)
 ```
 
+Instead of taking seconds to send an email, this will seem immediate and be sent using whatever queue driver is set. The `async` driver is set by default which requires no additional configuration and simply sends jobs into a new thread to be ran in the background.
+
 Read more about creating Jobs and sending emails asynchronously in the "Queues and Jobs" documentation.
 
 ## Methods
 
 We can specify which driver we want to use. Although Masonite will use the `DRIVER` variable in our config file, we can change the driver on the fly.
-
-
-
 
 We can also specify the subject:
 
