@@ -16,7 +16,7 @@ The `Mail` class is loaded into the container via the the `MailProvider` Service
 
 ```python
 def show(self, Mail):
-    print(Mail) # returns Mail class
+    print(Mail) # returns Mail Driver
 ```
 
 We can send an email like so:
