@@ -39,7 +39,7 @@ class SendWelcomeEmail(object):
         print('Send Welcome Email')
 ```
 
-By default, all triggers will fire the `action` method on your class. You can specify which method to fire by using the `@` symbol. More information on this later in the documentation.
+By default, all triggers will fire the `action` method on your class.
 
 You may now activate that trigger by using the `trigger()` function:
 
@@ -49,7 +49,7 @@ from triggers.helpers import trigger
 trigger('sendWelcomeEmail')
 ```
 
-Again, all triggers will default to the `action` method. You can specify a different method by calling:
+All triggers will default to the `action` method. You can specify a different method by calling:
 
 ```python
 trigger('sendWelcomeEmail@premium')
