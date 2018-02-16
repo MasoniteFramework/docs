@@ -20,7 +20,7 @@ $ craft serve
 $ craft migrate
 ```
 
-All scaffolding of Masonite can be done manually \(manually creating a controller and importing the `view` function for example\) but the craft command tool is used for speeding up development and cutting down on mundane development time.
+All scaffolding of Masonite can be done manually (manually creating a controller and importing the `view` function for example) but the craft command tool is used for speeding up development and cutting down on mundane development time.
 
 ## Commands
 
@@ -47,16 +47,6 @@ $ craft controller
 ```
 
 This command will create a new controller under `app/http/controller`. By convention, all controllers should have an appended “Controller”. For example in order to make a dashboard controller, you should run `craft controller DashboardController` and not `craft controller Dashboard` although you can name your controllers however you like.
-
-### Deployment
-
-If you’d like to deploy your application to Heroku, Masonite comes with a command for that out of the box. You do not have to use this command and you do not have to deploy to Heroku. You may choose any deployment site but for quick development purposes, it might be convenient for you to quickly upload to Heroku to test a typical deployment.
-
-```
-$ craft deploy
-```
-
-Read the “Deployment” documentation for more information on deploying Masonite.
 
 ### Creating a New Project
 
@@ -136,7 +126,7 @@ If you'd like to create a model, you can run:
 $ craft model ModelName
 ```
 
-This will scaffold a model under \`app/ModelName\` and import everything needed.
+This will scaffold a model under `app/ModelName` and import everything needed.
 
 If you need to create a model in a specific folder starting from the `app` folder, then just run:
 
@@ -156,7 +146,7 @@ $ craft provider DashboardProvider
 
 This will create a file at `app/providers/DashboardProvider.py`
 
-Read more about Service Providers under the "Service Provider" documentation.
+Read more about Service Providers under the [Service Provider](/service-container/service-providers.md) documentation.
 
 ### Creating Views
 
@@ -176,9 +166,19 @@ $ craft view auth/home
 
 This will create a view under `resources/templates/auth/home.html` but keep in mind that it will not create the directory for you. If the `auth` directory does not exist, this command will fail.
 
+### Creating Jobs
+
+Jobs are designed to be loaded into queues. We can take time consuming tasks and throw them inside of a Job. We can then use this Job to push to a queue to speed up the performance of our application and prevent bottlenecks and slowdowns.
+
+```
+$ craft job SendWelcomeEmail
+```
+
+Jobs will be put inside the `app/jobs` directory. See the [Queues and Jobs](/queues.md) documentation for more information.
+
 ### Packages
 
-You may create a PyPi package with an added `integrations.py` file which is specific to Masonite. You can learn more about packages by reading the "Creating Packages" documentation. To create a package boilerplate, just run:
+You may create a PyPi package with an added `integrations.py` file which is specific to Masonite. You can learn more about packages by reading the [Creating Packages](/creating-packages.md) documentation. To create a package boilerplate, just run:
 
 ```
 $ craft package name_of_package
@@ -186,7 +186,7 @@ $ craft package name_of_package
 
 ### Publishing
 
-Packages that are built specifically for Masonite in mind will typically support publishing commands. Publishing commands are a way that packages can scaffold and integrate into Masonite. Publishing commands can allow third parties to: create or append to configuration files, create controllers, create routes and other integrations. Read more about publishing by reading our "Publishing Packages" documentation. To publish a package just run:
+Packages that are built specifically for Masonite in mind will typically support publishing commands. Publishing commands are a way that packages can scaffold and integrate into Masonite. Publishing commands can allow third parties to: create or append to configuration files, create controllers, create routes and other integrations. Read more about publishing by reading our [Publishing Packages](/publishing-packages.md) documentation. To publish a package just run:
 
 ```
 $ craft publish name_of_package
@@ -202,7 +202,7 @@ $ craft serve
 
 ### Encryption
 
-Masonite comes with a way to encrypt data and by default, encrypts all cookies set by the framework. Masonite uses a `key` to encrypt and decrypt data. Read the "Encryption" documentation for more information on encryption.
+Masonite comes with a way to encrypt data and by default, encrypts all cookies set by the framework. Masonite uses a `key` to encrypt and decrypt data. Read the [Encryption](/security/encryption.md) documentation for more information on encryption.
 
 To generate a secret `key`, we can run:
 
