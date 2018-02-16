@@ -1,4 +1,4 @@
-# Queues and Jobs
+# Queues
 
 # Introduction
 
