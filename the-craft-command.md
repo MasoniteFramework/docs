@@ -148,6 +148,17 @@ This will create a file at `app/providers/DashboardProvider.py`
 
 Read more about Service Providers under the [Service Provider](/service-container/service-providers.md) documentation.
 
+### Creating a Job
+
+Jobs are used for Masonite's queue systems. You can create these `Queueable` classes and they will be able to be loaded into different queues. To create a job, run:
+
+```
+$ craft job JobName
+```
+
+This will create a job inside the `app/jobs` directory.
+  
+
 ### Creating Views
 
 Views are simply html files located in `resources/templates` and can be created easily from running the command:

@@ -76,8 +76,8 @@ In order to check the input data we receive from a request, such as a form submi
 ```python
 from app.validators.RegistrationValidator import RegistrationValidator
 
-def show(self, request):
-    validate = RegistrationValidator(request)
+def show(self, Request):
+    validate = RegistrationValidator(Request)
     validate.register_form()
     validate.check() # returns True or False
     validate.errors() # returns a dictionary of errors if any
@@ -93,7 +93,7 @@ Sometimes we may wish to use our validator class without request data. In order 
 ```python
 from app.validators.RegistrationValidator import RegistrationValidator
 
-def show(self, request):
+def show(self):
     validate = RegistrationValidator()
     validate.register_form()
     validate.check({'username': 'John'}) # returns True or False

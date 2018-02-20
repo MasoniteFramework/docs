@@ -3,7 +3,8 @@
 ## Prologue
 
 * [Introduction](README.md)
-* [Contributing](todo-contributing.md)
+* [Contributing Guide](todo-contributing.md)
+* [How To Contribute](how-to-contribute.md)
 * [Release Cycle](todo-release-cycle.md)
 
 ## What's New

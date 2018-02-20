@@ -1,9 +1,8 @@
-# Contributing
+# Contributing Guide
 
 # Introduction
 
-When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners or contributors of this repository before making a change. 
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners or contributors of this repository before making a change. 
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
@@ -33,9 +32,9 @@ This repo is simple and will be able to be installed following the installation 
     * `git push origin change-default-orm`
 * Open a pull request and follow the PR process below
 
-### Editing the masonite core repository 
+### Editing the Masonite core repository 
 
-The trick to this is that we need it to be pip installed and then quickly editable until we like it, and then pushed back to the repo for a PR. Do this only if you want to make changes to the core masonite package
+The trick to this is that we need it to be pip installed and then quickly editable until we like it, and then pushed back to the repo for a PR. Do this only if you want to make changes to the core Masonite package
 
 To do this just:
 
@@ -131,21 +130,16 @@ It's important to note that there should have exactly 75 `-` above and below the
 
 1. Ensure any changes are well commented and any configuration files that are added have a flagpole comment on the variables it's setting.
 2. Update the README.md and `MasoniteFramework/docs` repo with details of changes to the interface, this includes new environment variables, new file locations, container parameters etc.
-3. Must add unit testing for any changes made. Only the `cli` and `core` repos require unit testing.
-4. Increase the version numbers in any example files and the README.md to the new version that this
-   Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/) for both `core` and `cli` or [RomVer](http://blog.legacyteam.info/2015/12/romver-romantic-versioning/) for the main `masonite` repo.
-5. The PR must pass the Travis CI build. The Pull Request can be merged in once you have the sign-off of two other developers, or the repo owner. 
+3. Must add unit testing for any changes made. Of the three repositories listed above, only the `cli` and `core` repos require unit testing.
+4. Increase the version numbers in any example files and the README.md to the new version that this Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/) for both `core` and `cli` or [RomVer](http://blog.legacyteam.info/2015/12/romver-romantic-versioning/) for the main Masontie repo.
+5. The PR must pass the Travis CI build. The Pull Request can be merged in once you have the sign-off of two other collaborators, or the feature maintainer for your specific feature improvement or the repo owner. 
 
 ## Code of Conduct
 
 ### Our Pledge
 
 In the interest of fostering an open and welcoming environment, we as
-contributors and maintainers pledge to making participation in our project and
-our community a harassment-free experience for everyone, regardless of age, body
-size, disability, ethnicity, gender identity and expression, level of experience,
-nationality, personal appearance, race, religion, or sexual identity and
-orientation.
+contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
 ### Our Standards
 

@@ -1,6 +1,18 @@
 # Introduction
 
-The Masonite framework is an amazing Python web framework inspired by Laravel.  Masonite strives on beautifully elegant syntax, out of the box functionality and easily extendable. Masonite works hard to be fast and easy from install to deployment so developers can work as efficient as possible. Try it once and you’ll fall in love.
+Masonite is the rapid application Python development framework that strives for beautiful and elegant syntax, actual batteries included with a lot of out of the box functionality, and extremely extendable. Masonite works hard to be fast and easy from install to deployment so developers can go from concept to creation in as quick and efficiently as possible. Try it once and you’ll fall in love.
+
+## Some Notable Features Shipped With Masonite
+
+* Easily send emails with the Mail Provider and the SMTP and Mailgun drivers
+* Send websocket requests from your server with the Broadcast Provider and Pusher and Ably drivers
+* IOC container and auto resolving dependency injection.
+* Extremely simple static files configured and ready to go
+* Create job classes to push to your queues
+* Active Record style ORM called Orator
+* An extremely useful command line tool called craft commands
+
+These are all shipped out of the box and ready to go. Use what you need when you need it and forget what you don't.
 
 ## Requirements
 
@@ -45,12 +57,22 @@ This should show a list of command options. We are currently only interested in 
 
 ```
 $ craft new project_name
-```
-
-This will get the latest Masonite project template and unzip it for you. We just need to go into our new project directory and install the dependencies in our `requirements.txt` file.  If you use virtual environments then create your virtual environment. We can do this simply by using a `craft` command:
-
-```
 $ cd project_name
+```
+
+This will get the latest Masonite project template and unzip it for you. We just need to go into our new project directory and install the dependencies in our `requirements.txt` file.  
+
+You can optionally create a virtual environment if you don't want to install all of masonite's dependencies on your systems Python. If you use virtual environments then create your virtual environment by running:
+
+```
+$ python -m venv venv
+$ source venv/bin/activate
+```
+
+ 
+Now lets install our dependencies. We can do this simply by using a `craft` command:
+
+```
 $ craft install
 ```
 
@@ -61,3 +83,4 @@ $ craft serve
 ```
 
 Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications.
+
