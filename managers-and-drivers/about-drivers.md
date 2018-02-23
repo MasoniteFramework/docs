@@ -2,7 +2,7 @@
 
 # Introduction
 
-Drivers are simply extensions to features that are managed by the Manager Pattern. If we have a `UploadManager` then we might also create a `UploadDiskDriver` and a `UploadS3Driver` which will be able to upload to both the file system (disk) and Amazon S3. In the future if we have to upload to Microsoft Azure or Google Cloud Storage then we simply create new drivers like `UploadAzureDriver` and `UploadGoogleStorage` which are very simple to create.
+Drivers are simply extensions to features that are managed by the Manager Pattern. If we have a `UploadManager` then we might also create a `UploadDiskDriver` and a `UploadS3Driver` which will be able to upload to both the file system (disk) and Amazon S3. In the future if we have to upload to Microsoft Azure or Google Cloud Storage then we simply create new drivers like `UploadAzureDriver` and `UploadGoogleStorage` which are very simple to create. Drivers can be as small as a single method or have dozens of methods. The Manager Pattern makes it dead simple to expand the functionality of a Manager and add capabilities to Masonite's features.
 
 ## Creating a Driver
 
