@@ -26,7 +26,7 @@ In order to use Masonite, you’ll need:
 If you are running on a Linux flavor, you’ll need a few extra packages. You can download these packages by running:
 
 ```
-$ sudo apt-get install python-dev
+$ sudo apt-get install libmysqlclient-dev python-dev
 ```
 
 Or you may need to specify your python version
