@@ -54,6 +54,11 @@
 
 * [Introduction](orator-orm/introduction.md)
 
+## Managers and Drivers
+
+* [About Managers](managers-and-drivers/about-managers.md)
+* [About Drivers](managers-and-drivers/about-drivers.md)
+
 ## Official Packages
 
 * [Masonite AuthHub](masonite-authhub.md)
