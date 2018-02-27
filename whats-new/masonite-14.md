@@ -1,0 +1,29 @@
+# Masonite 1.4
+
+# Introduction
+
+Masonite 1.4 brings several new features to Masonite. These features include caching, template caching, websocket support with Masonite calls Broadcasting and much more testing to make Masonite as stable as possible. If you would like to contribute to Masonite, please read the [Contributing Guide](/todo-contributing.md) and the [How To Contribute](/how-to-contribute.md) documentation.
+
+## Broadcast Support
+
+We recognize that in order for frameworks to keep up with modern web application, they require real time broadcasting. Masonite 1.4 brings basic broadcasting of events to masonite and comes with two drivers out of the box: `pusher` and `ably`. If you'd like to create more drivers then you can do so easily by reading the [About Drivers](/managers-and-drivers/about-drivers.md) documentation. If you do create a driver, please consider making it available on PyPi so others can install it into their projects or open an issue on GitHub and make to add it to the built in drivers.
+
+## Caching
+
+Masonite now has a built in caching class that you can use to either cache forever or cache for a specific amount of time.
+
+## Template Caching
+
+Templates may have a lot of logic that are only updated every few minutes or even every few months. With template caching you can now cache your templates anywhere from every few seconds to every few years. This is an extremely powerful caching technique that will allow your servers to run less intensively and easily increase the performance of your application.
+
+If a page gets hit 100 times every second then you can cache for 5, 10 or 15 seconds at a time to lessen the load on your server.
+
+This feature only activates if you have the `CacheProvider` loaded into your `PROVIDERS` list. If you try to use these features without that provider then you will be hit with a `RequiredContainerBindingNotFound` exception letting you know you are missing a required binding from a service provider. This provider comes out of the box in Masonite 1.4.
+
+## PEP 8 Standards
+
+We have also updated the code to closely conform to PEP 8 standards.
+
+## Added a New Folder and Configuration File
+
+Because of the caching features, we have added a `bootstrap/cache` folder where all caching will be put but you can change this in the new `config/cache.py` file. 
