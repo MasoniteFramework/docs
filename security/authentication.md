@@ -73,8 +73,8 @@ Masonite ships with a `LoadUser` middleware that will load the user into the req
 Using this `LoadUser` middleware you can retrieve the current user using:
 
 ```python
-def show(self, request):
-    request.user()
+def show(self, Request):
+    Request.user()
 ```
 
 If you wish not to use middleware to load the user into the request you can get the request by again using the `Auth` class
@@ -82,8 +82,8 @@ If you wish not to use middleware to load the user into the request you can get 
 ```python
 from masonite.facades.Auth import Auth
 
-def show(self, request):
-    Auth(request).user()
+def show(self, Request):
+    Auth(Request).user()
 ```
 
 ### Checking if the User is Authenticated
@@ -91,9 +91,9 @@ def show(self, request):
 If you would like to simply check if the user is authenticated, `request.user()` or `Auth(request).user()` will return `False` if the user is not authenticated. This will look like:
 
 ```python
-def show(self, request):
-    if request.user():
-        user_email = request.user().email
+def show(self, Request):
+    if Request.user():
+        user_email = Request.user().email
 ```
 
 **Remember that the `request.user()` capability is disabled by default because it currently requires a database connection to work. We can enable this feature by simply uncommented the `LoadUserMiddleware` inside the `config/middleware.py` file.**
@@ -121,9 +121,9 @@ Auth(request).logout()
 This will delete the cookie that was set when logging in. This will not redirect the user to where they need to go. A complete logout view might look like:
 
 ```python
-def logout(self, request):
-    Auth(request).logout()
-    return request.redirect('/login')
+def logout(self, Request):
+    Auth(Request).logout()
+    return Request.redirect('/login')
 ```
 
 Great! You’ve mastered how Masonite uses authentication. Remember that this is just out of the box functionality and you can create a completely different authentication system but this will suffice for most applications.
