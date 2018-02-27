@@ -51,6 +51,7 @@ def show(self, Cache):
     Cache.store_for('key', 'value', 5, 'seconds')
 ```
 
+This will store the cache for 5 seconds. If you try to retrieve this value after 5 seconds, the Cache class will return `None` so be sure to check.
 
 
 ## Getting
@@ -61,6 +62,43 @@ It wouldn't be very good if we could only store values and not retrieve them. So
 def show(self, Cache):
     Cache.get('key')
 ```
+
+Again this will return `None` if a cache is expired. If there is no time limit on the cache, this will simply always return the cache value.
+
+## Checking Validity
+
+You can also explicitly check if a cache is still valid by doing:
+
+```python
+def show(self, Cache):
+    Cache.is_valid('key')
+```
+
+This will return a boolean if a key is valid. This means it is not expired.
+
+## Checking Cache Exists
+
+We'll have to sometimes check if a cache even exists so we can do that by running:
+
+```python
+def show(self, Cache):
+    Cache.cache_exists('key')
+```
+
+Which will return a boolean if the cache exists or not.
+
+## Deleting
+
+You can delete a cache by key using:
+
+```python
+def show(self, Cache):
+    Cache.delete('key')
+```
+
+
+
+
 
 
 
