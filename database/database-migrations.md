@@ -91,7 +91,7 @@ Check the [Orator documentation](https://orator-orm.com/docs/0.9/schema_builder.
 
 ### Changing Columns
 
-There are two types of columns that we will need to change over the course of developing our application. These columns are normal columns like `string` and `int` which are very simple to change and there are foreign key columns that are slightly more difficult because of how Masonite handles those.
+There are two types of columns that we will need to change over the course of developing our application. Changing columns is extremely simple. If you're using MySQL 5.6.6 and below, see the caveat below.
 
 To change a column, we can just use the `.change()` method on it. Since we need to create a new migration to do this, we can do something like:
 
@@ -107,6 +107,21 @@ table.integer('status').nullable().default(0).change()
 
 When we run `craft migrate` it will change the column instead of adding a new one.
 
+### Changing Foreign Keys Prior to MySQL 5.6.6
+
+Because of the constraints that foreign keys put on columns prior to MySQL 5.6.6, it's not as straight forward as appending a `.change()` to the foreign key column. We must first:
+
+* drop the foreign key relationship
+* change the column
+* recreate the foreign key
+
+We can do this simply like so:
+
+```python
+table.drop_foreign('posts_user_id_foreign')
+table.rename_column('user_id', 'author_id')
+table.foreign('author_id').references('id').on('users')
+```
 
 
 
