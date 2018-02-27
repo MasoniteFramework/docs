@@ -95,13 +95,3 @@ You can delete a cache by key using:
 def show(self, Cache):
     Cache.delete('key')
 ```
-
-
-
-
-
-
-
-
-
-
