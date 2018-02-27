@@ -38,6 +38,7 @@
 * [View Composers and Sharing](view-composers.md)
 * [Uploading](uploading-user-files.md)
 * [Queues and Jobs](queues.md)
+* [Template Caching](template-caching.md)
 * [Mail](email.md)
   * [Creating a Mail Driver](email/creating-an-email-driver.md)
 
