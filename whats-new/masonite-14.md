@@ -4,6 +4,8 @@
 
 Masonite 1.4 brings several new features to Masonite. These features include caching, template caching, websocket support with Masonite calls Broadcasting and much more testing to make Masonite as stable as possible. If you would like to contribute to Masonite, please read the [Contributing Guide](/todo-contributing.md) and the [How To Contribute](/how-to-contribute.md) documentation.
 
+If you are upgrading from Masonite 1.3 then please read the [Masonite 1.3 to 1.4](/upgrade-guide/masonite-13-to-14.md) documentation
+
 ## Broadcast Support
 
 We recognize that in order for frameworks to keep up with modern web application, they require real time broadcasting. Masonite 1.4 brings basic broadcasting of events to masonite and comes with two drivers out of the box: `pusher` and `ably`. If you'd like to create more drivers then you can do so easily by reading the [About Drivers](/managers-and-drivers/about-drivers.md) documentation. If you do create a driver, please consider making it available on PyPi so others can install it into their projects or open an issue on GitHub and make to add it to the built in drivers.
