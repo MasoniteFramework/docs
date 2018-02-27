@@ -88,3 +88,30 @@ table.foreign('user_id').references('id').on('users')
 What this does is sets a foreign key on the `user_id` column which references the `id` column on the `users` table. That's it! It's that easy and expressive to set up a foreign key.
 
 Check the [Orator documentation](https://orator-orm.com/docs/0.9/schema_builder.html#adding-columns) for more information on creating a migration file.
+
+### Changing Columns
+
+There are two types of columns that we will need to change over the course of developing our application. These columns are normal columns like `string` and `int` which are very simple to change and there are foreign key columns that are slightly more difficult because of how Masonite handles those.
+
+To change a column, we can just use the `.change()` method on it. Since we need to create a new migration to do this, we can do something like:
+
+```python
+$ craft migration change_default_status --table dashboard
+```
+
+and then simply create a new migration but use the `.change()` method to let Masonite you want to change an existing column instead of adding a new one:
+
+```python
+table.integer('status').nullable().default(0).change()
+```
+
+When we run `craft migrate` it will change the column instead of adding a new one.
+
+
+
+
+
+
+
+
+
