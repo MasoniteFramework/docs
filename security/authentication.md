@@ -88,7 +88,7 @@ def show(self, Request):
 
 ### Checking if the User is Authenticated
 
-If you would like to simply check if the user is authenticated, `request.user()` or `Auth(request).user()` will return `False` if the user is not authenticated. This will look like:
+If you would like to simply check if the user is authenticated, `Request.user()` or `Auth(Request).user()` will return `False` if the user is not authenticated. This will look like:
 
 ```python
 def show(self, Request):
@@ -96,7 +96,7 @@ def show(self, Request):
         user_email = Request.user().email
 ```
 
-**Remember that the `request.user()` capability is disabled by default because it currently requires a database connection to work. We can enable this feature by simply uncommented the `LoadUserMiddleware` inside the `config/middleware.py` file.**
+**Remember that the `Request.user()` capability is disabled by default because it currently requires a database connection to work. We can enable this feature by simply uncommented the `LoadUserMiddleware` inside the `config/middleware.py` file.**
 
 ## Protecting Routes
 
