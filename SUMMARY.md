@@ -65,6 +65,7 @@
 
 * [About Managers](managers-and-drivers/about-managers.md)
 * [About Drivers](managers-and-drivers/about-drivers.md)
+* [Contracts](managers-and-drivers/contracts.md)
 
 ## Official Packages
 
