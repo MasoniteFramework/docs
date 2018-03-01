@@ -51,6 +51,7 @@
 ## Database
 
 * [Database Migrations](database/database-migrations.md)
+* [Orator ORM](database/orator-orm.md)
 
 ## Security
 
