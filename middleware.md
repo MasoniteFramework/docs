@@ -23,8 +23,8 @@ Again, middleware should live inside the `app/http/middleware` folder and should
 class AuthenticationMiddleware(object):
     ''' Middleware class '''
 
-    def __init__(self, request):
-        self.request = request
+    def __init__(self, Request):
+        self.request = Request
 
     def before(self):
         pass
@@ -32,6 +32,8 @@ class AuthenticationMiddleware(object):
     def after(self):
         pass
 ```
+
+Middleware constructors are resolved by the container so simply pass in whatever you like in the parameter list and it will be injected for you. Read more about this in the [Service Container](/service-container.md) documentation.
 
 If Masonite is running a “before” middleware, that is middleware that should be ran before the request, Masonite will check all middleware and look for a `before` method and execute that. The same for “after” middleware.
 
@@ -43,8 +45,8 @@ This is a boilerplate for middleware. It's simply a class with a before and/or a
 class AuthenticationMiddleware(object):
     ''' Middleware class which loads the current user into the request '''
 
-    def __init__(self, request):
-        self.request = request
+    def __init__(self, Request):
+        self.request = Request
 
     def before(self):
         if not self.request.user():
