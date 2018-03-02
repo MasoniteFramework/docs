@@ -43,9 +43,6 @@
 
 ## Database
 
-* [Database Migrations](database/database-migrations.md)
-* [Orator ORM](database/orator-orm.md)
-
 ## Security
 
 * [Authentication](security/authentication.md)
@@ -53,7 +50,13 @@
 
 ## Orator ORM
 
-* [Introduction](orator-orm/introduction.md)
+* [Basic Usage](https://orator-orm.com/docs/0.9/basic_usage.html)
+* [Query Builder](https://orator-orm.com/docs/0.9/query_builder.html)
+* [ORM](https://orator-orm.com/docs/0.9/orm.html)
+* [Pagination](https://orator-orm.com/docs/0.9/pagination.html)
+* [Schema Builder](https://orator-orm.com/docs/0.9/schema_builder.html)
+* [Database Migrations](database/database-migrations.md)
+* [Collections](https://orator-orm.com/docs/0.9/collections.html)
 
 ## Managers and Drivers
 
