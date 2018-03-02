@@ -48,8 +48,6 @@
 * [Mail](email.md)
   * [Creating a Mail Driver](email/creating-an-email-driver.md)
 
-## Database
-
 ## Security
 
 * [Authentication](security/authentication.md)
