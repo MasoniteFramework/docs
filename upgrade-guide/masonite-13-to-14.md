@@ -59,10 +59,27 @@ Lastly, put that middleware into the `HTTP_MIDDLEWARE` list inside `config/middl
 
 ```python
 HTTP_MIDDLEWARE = [
-    'app.http.middleware.CsrfMiddleware.CsrfMiddleware'
+    'app.http.middleware.LoadUserMiddleware.LoadUserMiddleware',
+    'app.http.middleware.CsrfMiddleware.CsrfMiddleware',
 ]
 ```
 
 ## Changes to Database Configuration
 
-There has been a slight change in the constants used in the [config/database.py](https://github.com/MasoniteFramework/masonite/blob/master/config/database.py) file. Mainly just for consistency and coding standards. Your file may have some slight changes but this change is optional.
+There has been a slight change in the constants used in the [config/database.py](https://github.com/MasoniteFramework/masonite/blob/master/config/database.py) file. Mainly just for consistency and coding standards. Your file may have some slight changes but this change is optional. If you do make this change, be sure to change any places in your code where you have used the Orator Query Builder. For example any place you may have: 
+
+```python
+from config import database
+
+database.db.table(...)
+```
+
+should now be:
+
+```python
+from config import database
+
+database.DB.table(...)
+```
+
+with this change
