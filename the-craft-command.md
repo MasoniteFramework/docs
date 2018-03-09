@@ -76,6 +76,8 @@ After you have created a new project, you will have a `requirements.txt` file wi
 $ craft install
 ```
 
+The `craft install` command will also run `craft key --store` as well which generates a secret key and places it in the `.env` file.
+
 ### Creating Migrations
 
 All frameworks have a way to create migrations in order to manipulate database tables. Masonite uses a little bit of a different approach to migrations than other Python frameworks and makes the developer edit the migration file. This is the command to make a migration for an existing table:
@@ -222,6 +224,14 @@ $ craft key
 ```
 
 This will generate a 32 bit string which you can paste into your `.env` file under the `KEY` setting.
+
+You may also pass the `--store` flag which will automatically add the key to your `.env` file:
+
+```
+$ craft key --store
+```
+
+This command is ran whenever you run `craft install`
 
 Great! You are now a master at the craft command line tool.
 
