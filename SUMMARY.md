@@ -2,7 +2,7 @@
 
 ## Prologue
 
-* [Introduction](README.md)
+* [Introduction and Installaton](README.md)
 * [Contributing Guide](todo-contributing.md)
 * [How To Contribute](how-to-contribute.md)
 * [Release Cycle](todo-release-cycle.md)

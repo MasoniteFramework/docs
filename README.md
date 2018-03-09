@@ -23,13 +23,13 @@ In order to use Masonite, you’ll need:
 
 ### Linux
 
-If you are running on a Linux flavor, you’ll need a few extra packages. You can download these packages by running:
+If you are running on a Linux flavor, you’ll need the Python dev package. You can download this package by running:
 
 ```
-$ sudo apt-get install libmysqlclient-dev python-dev
+$ sudo apt-get install python-dev
 ```
 
-Or you may need to specify your python version
+Or you may need to specify your `python3.x-dev` version:
 
 ```
 $ sudo apt-get install python3.6-dev
@@ -53,7 +53,7 @@ Great! We are now ready to create our first project. We should have the new `cra
 $ craft
 ```
 
-This should show a list of command options. We are currently only interested in the `craft new` command. To create a new project just run:
+This should show a list of command options. If it doesn't then try closing your terminal and reopening it or running it with `sudo` if you are on a UNIX machine. We are currently only interested in the `craft new` command. To create a new project just run:
 
 ```
 $ craft new project_name
@@ -69,6 +69,12 @@ $ python -m venv venv
 $ source venv/bin/activate
 ```
 
+or if you are on Windows:
+
+```
+$ python -m venv venv
+$ ./venv/Scripts/activate
+```
  
 Now lets install our dependencies. We can do this simply by using a `craft` command:
 
@@ -76,11 +82,11 @@ Now lets install our dependencies. We can do this simply by using a `craft` comm
 $ craft install
 ```
 
-Let this install all the required dependencies of Masonite. After it’s done we can just run the server by using another `craft` command:
+This installs all the required dependencies of Masonite, creates a `.env` file for us, generates a new secret key, and puts that secret key in our `.env` file. After it’s done we can just run the server by using another `craft` command:
 
 ```
 $ craft serve
 ```
 
-Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications.
+Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications. You can learn more about craft by reading [The Craft Command](/the-craft-command.md) documentation.
 

@@ -28,4 +28,23 @@ We have also updated the code to closely conform to PEP 8 standards.
 
 ## Added a New Folder and Configuration File
 
-Because of the caching features, we have added a `bootstrap/cache` folder where all caching will be put but you can change this in the new `config/cache.py` file. 
+Because of the caching features, we have added a `bootstrap/cache` folder where all caching will be put but you can change this in the new `config/cache.py` file.
+
+ ## Added Contracts
+ 
+ Masonite 1.4 brings the idea of contracts which are very similar to interfaces in other languages. Contracts ensure that a driver or manager inherits has the same functionality across all classes of the same type.
+ 
+ ## Added CSRF Protection
+ 
+ Cross-Site Request Forgery is a crucial security milestone to hit and Masonite 1.4 brings that ability. With a new Service Provider and middleware, we can now add a simple `{{ csrf_field|safe }}` to our forms and ensure we are protected from CSRF attacks.
+ 
+ ## Changed Managers
+ 
+ Managers were very redundant before this release so we made it much easier to create managers with 2 simple class attributes instead of the redundant method. Managers are used to manage features and drivers to Masonite.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
