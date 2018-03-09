@@ -63,7 +63,7 @@ This is exactly the same as using the helper function above. So if you choose to
 
 ## Passing Data to Views
 
-A lot of the time we’ll need to pass in data to our views. This data is passed in with a dictionary that contains a key which is the variable that the view will with the corresponding value. We can pass data to the function like so:
+A lot of the time we’ll need to pass in data to our views. This data is passed in with a dictionary that contains a key which is the variable with the corresponding value. We can pass data to the function like so:
 
 ```python
 def show(self, Request):

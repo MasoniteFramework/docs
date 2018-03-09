@@ -6,6 +6,7 @@
 * [Contributing Guide](todo-contributing.md)
 * [How To Contribute](how-to-contribute.md)
 * [Release Cycle](todo-release-cycle.md)
+* [TODO](todo.md)
 
 ## What's New
 
@@ -47,11 +48,13 @@
 * [Template Caching](template-caching.md)
 * [Mail](email.md)
   * [Creating a Mail Driver](email/creating-an-email-driver.md)
+* [Extending Classes](extending-classes.md)
 
 ## Security
 
 * [Authentication](security/authentication.md)
 * [Encryption](security/encryption.md)
+* [CSRF Protection](security/csrf-protection.md)
 
 ## Orator ORM
 
