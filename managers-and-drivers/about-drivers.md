@@ -13,9 +13,11 @@ If you are creating a driver it can live wherever you like but if you are creati
 We should make a class that looks something like:
 
 ```python
-class UploadDiskDriver(object):
+class UploadDiskDriver:
     pass
 ```
+
+**Depending on what type of driver you are making, you may need to inherit from a contract. To ensure this documentation is generalized, we'll leave out contracts for now. Contracts are essentially interfaces that ensure that your driver conforms to all other drivers of the same type. Read more about contracts in the [Contracts](/managers-and-drivers/contracts.md) documentation.**
 
 Simple enough, now we can start coding what our API looks like. In the endgame, we want developers to do something like this from their controllers:
 
@@ -27,7 +29,7 @@ def show(self, Upload):
 So we can go ahead and make a `store` method.
 
 ```python
-class UploadDiskDriver(object):
+class UploadDiskDriver:
     
     def store(self, fileitem, location=None):
         pass
@@ -36,7 +38,7 @@ class UploadDiskDriver(object):
 Ok great. Now here is the important part. Our Manager for this driver (which is the `UploadManager`) will resolve the constructor of this driver. This basically means that anything we put in our constructor will be automatically injected into this driver. So for our purposes of this driver, we will need the storage and the application configuration.
 
 ```python
-class UploadDiskDriver(object):
+class UploadDiskDriver:
 
     def __init__(self, StorageConfig, Application):
         self.config = StorageConfig
@@ -51,7 +53,7 @@ Great. If you're confused about how the dependency injection Service Container w
 Now that we have our configuration we need injected into our class, we can go ahead and build out the `store()` method.:
 
 ```python
-class UploadDiskDriver(object):
+class UploadDiskDriver:
 
     def __init__(self, StorageConfig, Application):
         self.config = StorageConfig
@@ -74,7 +76,7 @@ Ok great! You can see that our `store()` method simply takes the file and write 
 
 ## Using Our Driver
 
-So now that our driver is created, we can tell our Manager about it. Our manager will know of all drivers that are inside the Service Container. We can create a new service provider which we can use to register classes into our container. Here is an example of what the `UploadProvider` will look like:
+So now that our driver is created, we can tell our Manager about it. Learn how to create managers under the [About Managers](/managers-and-drivers/about-managers.md) documentation. Our manager will know of all drivers that are inside the Service Container. We can create a new service provider which we can use to register classes into our container. Here is an example of what the `UploadProvider` will look like:
 
 ```python
 from masonite.provider import ServiceProvider

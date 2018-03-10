@@ -39,16 +39,19 @@
 * [Creating Commands](creating-commands.md)
 * [Creating Packages](creating-packages.md)
 * [Publishing Packages](publishing-packages.md)
-* [Compiling Assets](compiling-assets.md)
 * [Validation](validation.md)
-* [View Composers and Sharing](view-composers.md)
+* [Extending Classes](extending-classes.md)
+
+## Useful Features
+
+* [Compiling Assets](compiling-assets.md)
 * [Uploading](uploading-user-files.md)
 * [Queues and Jobs](queues.md)
-* [Caching](caching.md)
-* [Template Caching](template-caching.md)
 * [Mail](email.md)
   * [Creating a Mail Driver](email/creating-an-email-driver.md)
-* [Extending Classes](extending-classes.md)
+* [View Composers and Sharing](view-composers.md)
+* [Caching](caching.md)
+* [Template Caching](template-caching.md)
 
 ## Security
 

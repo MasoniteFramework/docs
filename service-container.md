@@ -6,36 +6,13 @@ The Service Container is an extremely powerful feature of Masonite and should be
 
 ## Getting Started
 
-The Service Container is just a container where classes are loaded into it by key-value pairs, and then can be retrieved by either the key or value. That's it.
+The Service Container is just a dictionary where classes are loaded into it by key-value pairs, and then can be retrieved by either the key or value. That's it.
 
-The container is contained inside the `App` class which is instantiated throughout in the beginning of the framework and passed through various parts of the project such as controllers, middleware and drivers.
+The container is contained inside the `App` class which is instantiated in the beginning of the framework and passed through various parts of the project such as controllers, middleware and drivers.
 
-We can create easily create service providers using a craft command:
+There are four methods that are important in interacting with the container: `bind`, `make` and `resolve`
 
-
-$ craft provider DashboardProvider
-This will create a new service provider in `app/providers/DashboardServiceProvider.py`. Inside our new service provider we will have a `register` method and a `boot` method. It's important to know what each one does. We'll discuss both in a little bit.
-
-### Configuration
-
-Once you create your service provider, you'll have to add it to your `PROVIDERS` list inside your `config/application.py` file. This should be a string to the location of the class:
-
-```python
-PROVIDERS = [
-    'app.providers.UserModelProvider.UserModelProvider'
-    'app.providers.DashboardProvider.DashboardProvider'
-]
-```
-
-### Register
-
-The `register` methods on all service providers are executed first, then all the `boot` methods are executed after. Because of this, the `register` method should only be used to **load things into the container**.
-
-### Boot
-
-The boot method is executed on all service providers after the `register` methods on all service providers have been called. Because of this, the boot method will have access to everything inside the container and is resolved by Masonite's container.
-
-### Binding
+### Bind
 
 In order to bind classes into the container, we will just need to use a simple `bind` method on our `app` container. In a service provider, that will look like:
 
@@ -56,23 +33,19 @@ class UserModelProvider(ServiceProvider):
 
 This will load the key value pair in the `providers` dictionary in the container. The dictionary after this call will look like:
 
-```
+```python
 >>> app.providers
-{'User': User}
+{'User': <class masonite.User.User>}
 ```
 
-The service container is injected into the `Request` object and can be retrieved by:
+The service container is available in the `Request` object and can be retrieved by:
 
 ```python
 def show(self, Request):
     Request.app() # will return the service container
 ```
 
-### Using the container
-
-The container can be used in two ways: **making** and **resolving**.
-
-#### Making
+#### Make
 
 In order to retrieve a class from the service container, we can simply use the `make` method.
 
@@ -85,7 +58,7 @@ In order to retrieve a class from the service container, we can simply use the `
 
 That's it! This is useful as an IOC container which you can load a single class into the container and use that class everywhere throughout your project.
 
-#### Resolving
+#### Resolve
 
 This is the most useful part of the container. It is possible to retrieve objects from the container by simply passing them into the parameters. Certain aspects of Masonite are resolved such as controller methods, middleware and drivers.
 
@@ -96,24 +69,24 @@ def show(self, Request)
     Request.user()
 ```
 
-In this example, Masonite will look inside the container for a key called `Request` and return that value from the container. `Request` is already loaded into the container for you out of the box.
+In this example, before the show method is called, Masonite will look at the parameters and look inside the container for a key with the same name. In this example we are looking for `Request` so Masonite will look for a key inside the provider dictionary called `Request` and inject that value from the container into our method for us. `Request` is already loaded into the container for you out of the box.
 
 Another way to resolve classes is by using Python 3 annotations:
 
 ```python
 from masonite.request import Request
 
-def show(self, request: Request)
-    request.user()
+def show(self, request_class: Request)
+    request_class.user()
 ```
 
-Masonite will know that you are trying to get the `Request` class and will actually retrieve that class from the container. Masonite will search the container for a `Request` class regardless of what the key is in the container, retrieve it, and inject it into the controller method. Effectively creating an IOC container with dependency injection.
+Masonite will know that you are trying to get the `Request` class and will actually retrieve that class from the container. Masonite will search the container for a `Request` class regardless of what the key is in the container, retrieve it, and inject it into the controller method. Effectively creating an IOC container with dependency injection. Think of this as a **get by value** instead of a **get by key** like the earlier example.
 
 Pretty powerful stuff, eh?
 
 #### Resolving your own code
 
-The service container can also be used outside of the flow of Masonite. Masonite takes in a function or class method, and resolves it's dependencies by finding them in the service container and injecting them.
+The service container can also be used outside of the flow of Masonite. Masonite takes in a function or class method, and resolves it's dependencies by finding them in the service container and injecting them for you.
 
 Because of this, you can resolve any of your own classes or functions.
 

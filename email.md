@@ -1,4 +1,4 @@
-# Email
+# Mail
 
 # Introduction
 

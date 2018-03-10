@@ -6,7 +6,7 @@ Middleware is an extremely important aspect of web applications as it allows you
 
 ## Getting Started
 
-Middleware classes are placed inside the `app/http/middleware`  by convention but can be placed anywhere you like. All middleware are just classes that take in a request and contain a `before` method or an `after` method.
+Middleware classes are placed inside the `app/http/middleware`  by convention but can be placed anywhere you like. All middleware are just classes that contain a `before` method and/or an `after` method.
 
 There are four types of middleware in total:
 
@@ -20,7 +20,7 @@ There are four types of middleware in total:
 Again, middleware should live inside the `app/http/middleware` folder and should look something like:
 
 ```python
-class AuthenticationMiddleware(object):
+class AuthenticationMiddleware:
     ''' Middleware class '''
 
     def __init__(self, Request):
@@ -37,12 +37,12 @@ Middleware constructors are resolved by the container so simply pass in whatever
 
 If Masonite is running a “before” middleware, that is middleware that should be ran before the request, Masonite will check all middleware and look for a `before` method and execute that. The same for “after” middleware.
 
-You may exclude either class if you do not wish for that middleware to run before or after.
+You may exclude either method if you do not wish for that middleware to run before or after.
 
-This is a boilerplate for middleware. It's simply a class with a before and/or after method. Creating a middleware is that simple. Let's create a middleware that checks if the user is authenticated and redirect to the login page if they are not. Because we have access to the request object, we can do something like:
+This is a boilerplate for middleware. It's simply a class with a before and/or after method. Creating a middleware is that simple. Let's create a middleware that checks if the user is authenticated and redirect to the login page if they are not. Because we have access to the request object from the Service Container, we can do something like:
 
 ```python
-class AuthenticationMiddleware(object):
+class AuthenticationMiddleware:
     ''' Middleware class which loads the current user into the request '''
 
     def __init__(self, Request):

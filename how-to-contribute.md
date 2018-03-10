@@ -54,4 +54,10 @@ Questions will come in eventually either through the GitHub issues or through we
 
 ## Review Code on Pull Requests
 
-Most pull requests will sit inside GitHub for a few days while it gets quality tested. The main `develop` branch pull requests could sit there for as much as long as 6 months and will only be merged in on releases. With that being said, you can look at the file changes of these pull requests and ensure they meet the community guidelines, the API is similar to other aspects of the project and that they are being respectful and following pull requests rules in accordance with the [Contributing Guide](/todo-contributing.md) documentation.
+Most pull requests will sit inside GitHub for a few days while it gets quality tested. The main `develop` branch pull requests could sit there for as long as 6 months and will only be merged in on releases. With that being said, you can look at the file changes of these pull requests and ensure they meet the community guidelines, the API is similar to other aspects of the project and that they are being respectful and following pull requests rules in accordance with the [Contributing Guide](/todo-contributing.md) documentation.
+
+## Discuss Issues
+
+Every now and then will be a `requires discussion` label on an issue or pull request. If you see this label then be sure to add your thoughts on an issue. All issues are open for discussion and Masonite strives off of developer input so feel free to enter a discussion.
+
+

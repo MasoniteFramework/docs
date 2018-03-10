@@ -27,42 +27,20 @@ class TaskManager(Manager):
     pass
 ```
 
-Awesome! Inheriting from the Manager class will give our manager almost all the methods it needs. The only thing we need now is to tell this manager how to create drivers. So do to this we need a `create_driver()` method.
+Awesome! Inheriting from the Manager class will give our manager almost all the methods it needs. The only thing we need now is to tell this manager how to create drivers. So to do this all we need are two attributes:
 
 ```python
 from masonite.managers.Manager import Manager
 
 class TaskManager(Manager):
     
-    def create_driver(self):
-        pass
+    config = 'TaskConfig'
+    driver_prefix = 'Task'
 ```
 
-Perfect. Now the logic of this create driver should be pretty straight forward and should be almost identical to all other managers because we are simply instantiating drivers with different namespaces:
+Perfect. Managers are both extremely powerful and easy to create. That's it. That's our entire provider. The config attribute is the configuration file you want which is key in the container and the `driver_prefix` is the drivers you want to manager. In this case it is the `TaskDriver`. This manager will manage all drivers in the container that conform to the namespaces of `Task{0}Driver` like `TaskTodoDriver` and `TaskNoteDriver`.
 
-```python
-from masonite.managers.Manager import Manager
-from masonite.exceptions import DriverNotFound
-
-class TaskManager(Manager):
-
-    def create_driver(self, driver=None):
-        if not driver:
-            driver = self.container.make('TaskConfig').DRIVER.capitalize()
-        else:
-            driver = driver.capitalize()
-
-        try:
-            self.manage_driver = self.container.make(
-                'Task{0}Driver'.format(driver))
-        except KeyError:
-            raise DriverNotFound(
-                'Could not find the Task{0}Driver from the service container. Are you missing a service provider?'.format(driver))
-```
-
-Ok so that was a bit of code. Although it's pretty straight forward, let's explain what's happening here.
-
-So if the driver doesn't exist, we need to create a new driver depending on what's inside the configuration file loaded inside the container. This makes sense because we need to create a driver based off of something. If the developer didn't supply us with one then we need to grab it from the configuration file. Since we are using `TaskConfig` here we will eventually have to load it into the container. In a Service Provider, this might look something like:
+Notice that the config is `TaskConfig` and not `task`. This attribute is the binding name and not the config name. We can bind the `task` config into the container like so:
 
 ```python
 from config import task
@@ -70,11 +48,7 @@ from config import task
 container.bind('TaskConfig', task)
 ```
 
-So we will need to load that into the Service Container in order for this manager to work. We will create a Service Provider later on but for now just know that that's where we get that configuration from. We also capitalize the string to ensure consistency across drivers.
-
-Next we simply call the `TaskXDriver` from the container and set that as the driver we want to manage which is done by setting the `manage_driver` class attribute.
-
-If we cannot find the driver in the container then we have a `KeyError` and we call the `DriverNotFound` exception which we imported above. This is only called when the `DRIVER` we set in our configuration does not have a corresponding driver inside the container. For example if the developer sets `DRIVER='todo'` and we have not set the `TaskTodoDriver`
+Which will be required to use our new task manager since it relies on the task configuration. You can do this inside the Service Provider that will ship with this manager. We will create a Service Provider later on but for now just know that that's where that configuration comes from.
 
 ## Using Our Manager
 
@@ -105,6 +79,8 @@ Great! We can put this Service Provider in our `app/application.py` file inside 
 def show(self, Task):
     Task.method_here()
 ```
+
+Notice that we binded the `TaskManager` into the container under the `Task` key. Because of this we can now pass the `Task` in any parameter set that is resolved by the container like a controller method. Since we passed the `Task` into the parameter set, Masonite will automatically inject whatever the `Task` key from the container contains. 
 
 Read about how to create drivers for your Manager class under the [About Drivers](/managers-and-drivers/about-drivers.md) documentation.
 
