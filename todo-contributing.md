@@ -128,11 +128,12 @@ It's important to note that there should have exactly 75 `-` above and below the
 
 ## Pull Request Process
 
-1. Ensure any changes are well commented and any configuration files that are added have a flagpole comment on the variables it's setting.
-2. Update the README.md and `MasoniteFramework/docs` repo with details of changes to the interface, this includes new environment variables, new file locations, container parameters etc.
-3. You must add unit testing for any changes made. Of the three repositories listed above, only the `cli` and `core` repos require unit testing.
-4. Increase the version numbers in any example files and the README.md to the new version that this Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/) for both `core` and `cli` or [RomVer](http://blog.legacyteam.info/2015/12/romver-romantic-versioning/) for the main Masontie repo.
-5. The PR must pass the Travis CI build. The Pull Request can be merged in once you have a success review of two other collaborators, or the feature maintainer for your specific feature improvement or the repo owner. 
+1. You should open an issue before making any pull requests. Not all features will be added to the framework and some may be better off as a third party package. It wouldn't be good if you worked on a feature for several days and the pull request gets rejected for reasons that could have been discussed in an issue.
+2. Ensure any changes are well commented and any configuration files that are added have a flagpole comment on the variables it's setting.
+3. Update the README.md and `MasoniteFramework/docs` repo with details of changes to the interface, this includes new environment variables, new file locations, container parameters etc.
+4. You must add unit testing for any changes made. Of the three repositories listed above, only the `cli` and `core` repos require unit testing.
+5. Increase the version numbers in any example files and the README.md to the new version that this Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/) for both `core` and `cli` or [RomVer](http://blog.legacyteam.info/2015/12/romver-romantic-versioning/) for the main Masontie repo.
+6. The PR must pass the Travis CI build. The Pull Request can be merged in once you have a success review of two other collaborators, or the feature maintainer for your specific feature improvement or the repo owner. 
 
 ## Code of Conduct
 
