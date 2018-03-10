@@ -41,6 +41,7 @@
 * [Publishing Packages](publishing-packages.md)
 * [Validation](validation.md)
 * [Extending Classes](extending-classes.md)
+* [Creating a Mail Driver](email/creating-an-email-driver.md)
 
 ## Useful Features
 
@@ -48,7 +49,6 @@
 * [Uploading](uploading-user-files.md)
 * [Queues and Jobs](queues.md)
 * [Mail](email.md)
-  * [Creating a Mail Driver](email/creating-an-email-driver.md)
 * [View Composers and Sharing](view-composers.md)
 * [Caching](caching.md)
 * [Template Caching](template-caching.md)
