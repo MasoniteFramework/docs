@@ -2,7 +2,7 @@
 
 # Introduction
 
-Masonite comes with bcrypt out of the box but leaves it up to the developer to actually encrypt things like passwords. You can opt to use any other hashing library but bcrypt is the standard of a lot of libraries and comes with some one way hashing algorithms with no known vulnerabilities. Although, many of hashing algorithms like SHA-1 and MD5 are not secure and you should not use them in your application. You can read the [bcrypt documentation here](https://github.com/pyca/bcrypt).
+Masonite comes with bcrypt out of the box but leaves it up to the developer to actually encrypt things like passwords. You can opt to use any other hashing library but bcrypt is the standard of a lot of libraries and comes with some one way hashing algorithms with no known vulnerabilities. Many of hashing algorithms like SHA-1 and MD5 are not secure and you should not use them in your application. You can read the [bcrypt documentation here](https://github.com/pyca/bcrypt).
 
 
 ## Background
@@ -18,6 +18,10 @@ In your `.env` file, you will find a setting called `KEY=your-secret-key`. This 
     $ craft key
     
 This will generate a new key in your terminal which you can copy and paste into your `.env` file. Your `config/application.py` file uses this environment variable to set the `KEY` configuration setting.
+
+Additionally you can pass the `--store` flag which will automatically set the `KEY=` value in your `.env` file for you:
+
+    $ craft key --store
 
 **Remember to not share this secret key as a loss of this key could lead to someone being able to decrypt any cookies set by your application. If you find that your secret key is compromised, just generate a new key.**
 
@@ -35,7 +39,7 @@ sign.encrypt('value') # PSJDUudbs87SB....
 sign.decrypt('value') # 'value'
 ```
 
-By default, `Sign()` uses the encryption key in your `config/applicaiton.py` file. You could also pass in your own key.
+By default, `Sign()` uses the encryption key in your `config/application.py` file but you could also pass in your own key.
 
 ```python
 from masonite.auth.Sign import Sign
