@@ -52,6 +52,7 @@
 * [View Composers and Sharing](view-composers.md)
 * [Caching](caching.md)
 * [Template Caching](template-caching.md)
+* [Broadcasting](broadcasting.md)
 
 ## Security
 
