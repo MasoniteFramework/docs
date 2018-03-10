@@ -6,7 +6,6 @@
 * [Contributing Guide](todo-contributing.md)
 * [How To Contribute](how-to-contribute.md)
 * [Release Cycle](todo-release-cycle.md)
-* [TODO](todo.md)
 
 ## What's New
 
