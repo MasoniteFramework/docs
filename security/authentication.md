@@ -20,7 +20,7 @@ class User(Model):
     __auth__ = 'name'
 ```
 
-All models that should be authenticated in addition to specifying a `__auth__` attribute also needs to have a `password` field as well in order to use the out of the box authentication that comes with Masonite.
+**All models that should be authenticated in addition to specifying a `__auth__` attribute also needs to have a `password` field as well in order to use the out of the box authentication that comes with Masonite.**
 
 ## Authenticating a Model
 
@@ -31,7 +31,8 @@ In order to authenticate a model this will look like:
 ```python
 from masonite.facades.Auth import Auth
 
-Auth.login('user@email.com', 'password')
+def show(self, Request):
+    Auth(Request).login('user@email.com', 'password')
 ```
 
 This will find a model with the supplied username, check if the password matches using `bcrypt` and return the model. If it is not found or the password does not match, it will return `False`.
@@ -45,12 +46,12 @@ You may change the column to be authenticated by simply changing the column valu
 ```python
 class User(Model):
 
-    __fillable__ = ['username', 'email', 'password']
+    __fillable__ = ['name', 'email', 'password']
 
-    __auth__ = 'username'
+    __auth__ = 'email'
 ```
 
-This will look inside the `username` column and check that column and password. The authentication column is `email` by default.
+This will look inside the `email` column now and check that column and password. The authentication column is `email` by default.
 
 ## Creating an Authentication System
 
@@ -95,8 +96,6 @@ def show(self, Request):
     if Request.user():
         user_email = Request.user().email
 ```
-
-**Remember that the `Request.user()` capability is disabled by default because it currently requires a database connection to work. We can enable this feature by simply uncommented the `LoadUserMiddleware` inside the `config/middleware.py` file.**
 
 ## Protecting Routes
 

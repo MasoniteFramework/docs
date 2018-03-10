@@ -20,7 +20,7 @@ Templates may have a lot of logic that are only updated every few minutes or eve
 
 If a page gets hit 100 times every second then you can cache for 5, 10 or 15 seconds at a time to lessen the load on your server.
 
-This feature only activates if you have the `CacheProvider` loaded into your `PROVIDERS` list. If you try to use these features without that provider then you will be hit with a `RequiredContainerBindingNotFound` exception letting you know you are missing a required binding from a service provider. This provider comes out of the box in Masonite 1.4.
+This feature only activates if you have the `CacheProvider` loaded in your `PROVIDERS` list. If you try to use these features without that provider then you will be hit with a `RequiredContainerBindingNotFound` exception letting you know you are missing a required binding from a service provider. This provider comes out of the box in Masonite 1.4.
 
 ## PEP 8 Standards
 

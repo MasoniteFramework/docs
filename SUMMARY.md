@@ -44,14 +44,14 @@
 
 ## Useful Features
 
-* [Compiling Assets](compiling-assets.md)
-* [Uploading](uploading-user-files.md)
-* [Queues and Jobs](queues.md)
+* [Template Caching](template-caching.md)
 * [Mail](email.md)
+* [Uploading](uploading-user-files.md)
 * [View Composers and Sharing](view-composers.md)
 * [Caching](caching.md)
-* [Template Caching](template-caching.md)
 * [Broadcasting](broadcasting.md)
+* [Queues and Jobs](queues.md)
+* [Compiling Assets](compiling-assets.md)
 
 ## Security
 
