@@ -68,11 +68,18 @@ def show(self, Request):
     return Request.param('firstname')
 ```
 
-You may also set a cookie in the browser. The below code will set a cookie named `key` to the value of `value`
+You may also set a cookie in the browser. The below code will set a cookie named `key` to the value of `value`. By default, all cookies are encrypted with your secret key which is generated in your `.env` file when you installed Masonite.
 
 ```python
 def show(self, Request):
     return request.cookie('key', 'value')
+```
+
+If you choose to not encrypt your values and create cookies with the plain text value then you can pass a third value of `True` or `False`. You can also be more explicit if you like:
+
+```python
+def show(self, Request):
+    return request.cookie('key', 'value', encrypt=False)
 ```
 
 You can get all the cookies set from the browser
@@ -89,7 +96,16 @@ def show(self, Request):
     return Request.get_cookie('key')
 ```
 
-Get the current user from the request. This requires the `LoadUserMiddleware` middleware which is in Masonite by default. This will return an instance of the current user.
+Again, all cookies are encrypted by default so if you set a cookie with encryption then this method will decrypt the cookie. If you set a cookie in plain text then you should pass the `False` as the second parameter here to tell Masonite not to decrypt your plain text cookie value. If you do not do this then Masonite will throw an invalid token exception:
+
+```python
+def show(self, Request):
+    return Request.get_cookie('key', decrypt=False)
+```
+
+This will return the plain text version of the cookie.
+
+You can also get the current user from the request. This requires the `LoadUserMiddleware` middleware which is in Masonite by default. This will return an instance of the current user.
 
 ```python
 def show(self, Request):
