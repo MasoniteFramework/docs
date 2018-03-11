@@ -42,8 +42,13 @@ Because of the caching features, we have added a `bootstrap/cache` folder where 
  
  Managers were very redundant before this release so we made it much easier to create managers with 2 simple class attributes instead of the redundant method. Managers are used to manage features and drivers to Masonite.
  
- 
- 
+## Middleware is now resolved by the container
+
+Now the constructor of all middleware is resolved by the container. This means you may use the IOC dependency injection techniques like controller methods and drivers.
+
+## Fixed unused imports
+
+There were two unused imports in the models that Masonite created. These have been removed completely.
  
  
  
