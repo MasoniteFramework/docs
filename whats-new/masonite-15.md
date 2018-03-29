@@ -40,4 +40,8 @@ The Cache driver now has an update method which can update a cache value by key.
 
 You can now add more migration directories by adding it to the container with a key ending in `MigrationDirectory`. This will add the directory to the list of directory that run when migrate commands are ran. You can read more about this in the [Creating Packages](/creating-packages.md) documentation.
 
+## Craft Auto Adds Site Packages
+
+In previous versions, Masonite has not been able to fetch the site packages directory if you were in a virtual environment because virtual environment directories are dynamically named depending on who created it. We have found a way to detect the virtual environment and the site packages directory so now there is no need to add the site packages directory manually to the packages configuration file
+
 
