@@ -26,6 +26,12 @@
 * [Static Files](static-files.md)
 * [Helper Functions](helper-functions.md)
 
+## The Craft Command
+
+* [Introduction](the-craft-command/introduction.md)
+* [Creating Commands](the-craft-command/creating-commands.md)
+* Authentication System
+
 ## Architectural Concepts
 
 * [Request Lifecycle](request-lifecycle.md)
