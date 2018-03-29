@@ -11,6 +11,7 @@ Masonite is the rapid application Python development framework that strives for:
 * Extremely simple static files configured and ready to go.
 * Active Record style ORM called Orator.
 * An extremely useful command line tool called craft commands.
+* Extremely extendable.
 
 These, among many other features, are all shipped out of the box and ready to go. Use what you need when you need it.
 
