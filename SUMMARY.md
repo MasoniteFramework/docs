@@ -43,10 +43,8 @@
 ## Advanced
 
 * [Middleware](middleware.md)
-* [Creating Commands](creating-commands.md)
-* [Creating Packages](creating-packages.md)
-* [Publishing Packages](publishing-packages.md)
 * [Validation](validation.md)
+* [Creating Packages](creating-packages.md)
 * [Extending Classes](extending-classes.md)
 * [Creating a Mail Driver](email/creating-an-email-driver.md)
 

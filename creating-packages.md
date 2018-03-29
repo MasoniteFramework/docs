@@ -2,7 +2,7 @@
 
 # Introduction
 
-Creating packages is very simple for Masonite. You can get a package created and on PyPi is less than 5 minutes. With Masonite packages you'll easily be able to integrate and scaffold all Masonite projects with ease. Masonite comes with several helper functions in order to create packages that can add configuration files, routes, controllers, views and commands.
+Creating packages is very simple for Masonite. You can get a package created and on PyPi is less than 5 minutes. With Masonite packages you'll easily be able to integrate and scaffold all Masonite projects with ease. Masonite comes with several helper functions in order to create packages which can add configuration files, routes, controllers, views, commands and more.
 
 ## Getting Started
 
@@ -10,17 +10,19 @@ As a developer, you will be responsible for both making packages and consuming p
 
 Masonite, being a Python framework, can obviously utilize all Python packages that aren’t designed for a specific framework. For example, Masonite can obviously use a library like requests but can’t use Django Rest Framework.
 
-Similarly to how Django Rest Framework was built for Django, you can also build packages specific to Masonite.
+Similarly to how Django Rest Framework was built for Django, you can also build packages specific to Masonite. Although you can just as simply build packages for both, as long as you add some sort of Service Provider to your package that can integrate your library into Masonite.
 
 ### About Packages
 
-There are several key functions that Masonite uses in order to create applications. These include primarily: routes, controllers, views, and craft commands. Creating a package is simple and conveniently Masonite comes with several helper functions in order to create all of these. The developer using your package just needs to run `craft publish your-package-name` and your package can scaffold out their application for them.
+There are several key functions that Masonite uses in order to create applications. These include primarily: routes, controllers, views, and craft commands. Creating a package is simple. Conveniently Masonite comes with several helper functions in order to create all of these. 
 
-You do not have to use this functionality and instead have the developer copy and paste things that they need but having great setup process is a great way to promote developer happiness.
+You can easily create a command like `craft mypackage:install` and can scaffold out and install controllers, routes, etc into a Masonite project.
+
+You do not have to use this functionality and instead have the developer copy and paste things that they need to from your documentation but having a great setup process is a great way to promote developer happiness which is what Masonite is all about.
 
 ### Creating a Package
 
-Like other parts of Masonite, in order to make a package, we can use a craft command. The `craft package` command will scaffold out a simple Masonite package and is fully able to be uploaded directly to PyPi.
+Like other parts of Masonite, in order to make a package, we can use a craft command. The `craft package` command will scaffold out a simple PyPi package and is fully able to be uploaded directly to PyPi.
 
 This should be done in a separate folder outside of your project.
 
@@ -40,12 +42,6 @@ MANIFEST.in
 setup.py
 ```
 
-The `integration.py` file is important and should not be removed. This is the file that will be used when our users use the `craft publish` command.
-
-If we open this file we'll notice a single `boot()` function. Whenever the user \(the developer using Masonite\) uses the `craft publish testpackage` command, craft will execute `testpackage.integration.boot()` so it's wise to load anything you want to be executed on in this function.
-
-You'll notice a helper function imported for you at the top. This `create_or_append_config()` function does exactly what it says. It will take a config file from your package and put it into the project by either creating it \(if it does not exist\) or appending it \(if it does exist\). We'll talk about helper functions later on.
-
 #### Creating a Config Package
 
 Lets create a simple package that will add or append a config file from our package and into the project.
@@ -63,7 +59,7 @@ MANIFEST.in
 setup.py
 ```
 
-Great! inside the `services.py` lets put a configuration setting:
+Great! inside the `services.py` lets put a configuration setting. This configuration file will be directly added into a Masonite project so you can put doctrings or flagpole comments directly in here:
 
 ```
 TESTPACKAGE_PAYMENTS = {
@@ -80,16 +76,66 @@ Perfect! Now we'll just need to tell PyPi to include this file when we upload it
 include testpackage/snippets/configs/*
 ```
 
-Almost done. Now we just need to put our `masonite.package` helper function in our boot file. The location we put in our `create_or_append_config()` function should be an absolute path location to our package. To do this, Masonite has put a variable called `package_directory` inside our `integrations.py` file. Our boot method should look something like:
+#### Creating an Install Command
+
+It's great (and convenient) to add craft commands to a project so developers can use your package more efficiently. You can head over the [Creating Commands](/the-craft-command/creating-commands.md) to learn how to create a command. It only involves a normal command class and a Service Provider. 
+
+Head over to that documentation page and create an `InstallCommand` and an `InstallProvider`. This step should take less than a few minutes. Once those are created we can continue to the adding package helpers below.
+
+#### Adding Migration Directories
+
+Masonite packages allow you to add new migrations to a project. For example, this could be used to add a new `package_subscriptions` table if you are building a package that works for subscribing users to Stripe.
+
+Inside the Service Provider you plan to use for your package we can register our directory:
 
 ```python
-def boot():
-    create_or_append_config(
-        os.path.join(
-            package_directory, 'snippets/configs/services.py'
+from masonite.provider import ServiceProvider
+
+package_directory = os.path.dirname(os.path.realpath(__file__))
+
+class ApiProvider(ServiceProvider):
+
+    def register(self):
+        self.app.bind(
+            'TestPackageMigrationDirectory',
+            os.path.join(package_directory, '../migrations')
         )
-    )
+
+``` 
+
+Masonite will find any keys in the container that end with `MigrationDirectory` and will add it to the list of migrations being ran whenever `craft migrate` and `craft migrate:*` commands are ran.
+
+The `package_directory` variable contains the absolute path to the current file so the migration directory being added should also be an absolute path to the migration directory as demonstrated here. Notice the `../migrations` syntax. This is going back one directory and into a migration directory there.
+
+#### Package Helpers
+
+Almost done. Now we just need to put our `masonite.package` helper functions in our install command. The location we put in our `create_or_append_config()` function should be an absolute path location to our package. To help with this, Masonite has put a variable called `package_directory` inside the `integration.py` file. Our handle method inside our install command should look something like:
+
+```python
+import os
+from cleo import Command
+from masonite.packages import create_or_append_config
+
+
+package_directory = os.path.dirname(os.path.realpath(__file__))
+
+class InstallCommand(Command):
+    """
+    Installs needed configuration files into a Masonite project
+
+    testpackage:install
+    """
+
+    def handle(self):
+        create_or_append_config(
+            os.path.join(
+                package_directory,
+                '../testpackage/snippets/configs/services.py'
+            )
+        )
 ```
+
+**Make sure this command is added to your Service Provider and the developer using your package adds it to the `PROVIDERS` list as per the [Creating Commands](/the-craft-command/creating-commands.md) documentation.**
 
 This will append the configuration file that has the same name as our package configuration file. In this case the configuration file we are creating or appending to is `config/services.py` because our packages configuration file is `services.py`. If we want to append to another configuration file we can simply change the name of our package configuration file.
 
@@ -109,19 +155,7 @@ If you want to be able to make changes without having to constantly reinstall yo
 $ pip install --editable .
 ```
 
-This will install your new package into your virtual environment. Go back to your project root so we can run our `craft publish` command. If we run `craft publish testpackage` we should get a module not found error.
-
-It's important to note that `craft publish` does not have access to your virtual environment by default, only your system packages. What we can do is add our virtual environments `site_packages` directory to our `config/packages.py` config file which should look something like:
-
-```python
-SITE_PACKAGES = [
-    'venv/lib/python3.6/site-packages'
-]
-```
-
-This will take that path and add it to the `sys.path` for the `craft publish` script.
-
-Now if we run `craft publish` we should see that our new configuration file is now in `config/services.py` file. Awesome! We tried making package support super easy. You of course don't need to integrate directly or scaffold the project but the option is there if you choose to make a package to do so.
+This will install your new package into your virtual environment. Go back to your project root so we can run our `craft testpackage:install` command. If we run that we should have a new configuration file under `config/services.py`.
 
 #### Uploading to PyPi
 
@@ -147,10 +181,23 @@ Now that your package is on PyPi we can just run:
 
 ```
 $ pip install super_awesome_package
-$ craft publish super_awesome_package
 ```
 
-Again, not all packages will need to be published. Only packages that need to scaffold the project. You will know if a package needs to be published by reading the packages install documentation.
+Then add your Service Provider to the `PROVIDERS` list:
+
+```PYTHON
+PROVIDERS = [
+    ...
+    # New Provider
+    'testpackage.providers.InstallProvider.InstallProvider',
+]
+```
+
+and then run:
+
+    $ craft testpackage:install
+
+Again, not all packages will need to be installed. Only packages that need to scaffold the project. You will know if a package needs to be published by reading the packages install documentation.
 
 ## Helper Functions
 
