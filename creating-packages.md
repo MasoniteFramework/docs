@@ -197,11 +197,15 @@ and then run:
 
     $ craft testpackage:install
 
-Again, not all packages will need to be installed. Only packages that need to scaffold the project. You will know if a package needs to be published by reading the packages install documentation.
+Remember our Service Provider added the command automatically to craft.
+
+Again, not all packages will need to be installed or even need commands. Only packages that need to scaffold the project or something similar need one. This should be a judgment call on the package author instead of a requirement. 
+
+You will know if a package needs to be installed by reading the packages install documentation that is written by the package authors.
 
 ## Helper Functions
 
-These helper functions are used inside the `boot` function and are only needed when you need your package to be published.
+These helper functions are used inside the install commands or anywhere else in your package where you need to scaffold a Masonite project.
 
 The `location` specified as parameters here are absolute path locations. You can achieve this by using the `package_directory` variable in your `integration.py` file.
 
@@ -221,7 +225,11 @@ All helper functions are located in the `masonite.packages` module. To use these
 from masonite.packages import create_or_append_config
 ```
 
+#### Creating Configuration Files
+
 `create_or_append_config(location)` will create a configuration file based on a configuration file from your package.
+
+#### Creating Web Routes
 
 `append_web_routes(location)` will append web routes to the `routes/web.py` file. Your web routes should have a `+=` to the `ROUTES` constant and should look something like:
 
@@ -231,6 +239,8 @@ ROUTES += [
 ]
 ```
 
+#### Creating Api Routes
+
 `append_api_routes(location)` will append api routes to a masonite project under `routes/api.py`. Your api routes should have a `+=` to the `ROUTES` constant and should look something like:
 
 ```python
@@ -239,4 +249,19 @@ ROUTES += [
 ]
 ```
 
-`create_controller(location)` will take a controller from your package and append it under the `app.http.controllers` namespace.
+#### Creating Controllers
+
+`create_controller(location)` will take a controller from your package and append it under the `app.http.controllers` namespace by default. 
+
+You can also optionally add a `to` parameter to specify which directory you want to install the controller into. The directory will automatically be created.
+
+```python
+create_controller(
+    os.path.join(
+        package_directory, 'snippets/controller/ControllerHere.py'
+    ),
+    to = 'app/http/controllers/Vendor/Package'
+)
+```
+
+This will create the controller in `app.http.controller.Vendor.Package.ControllerHere.py`
