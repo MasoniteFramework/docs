@@ -11,7 +11,7 @@
 
 * [Masonite 1.3](whats-new/masonite-13.md)
 * [Masonite 1.4](whats-new/masonite-14.md)
-* Masonite 1.5
+* [Masonite 1.5](whats-new/masonite-15.md)
 
 ## Upgrade Guide
 
