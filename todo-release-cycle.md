@@ -16,6 +16,8 @@ Masonite is currently on a 1 month major release cycle. This means that once eve
 
 Once this stable release has been achieved, Masonite will move to a 6 month major release cycle with minor releases as often as every few days to as much as every few months.
 
+Releases are planned to be upgradable from the previous release in 10 minutes or less. If they break that requirement then they should be considered for the next Paradigm release (the `x.0.0` release)
+
 ## Scheduled Releases
 
 - [x] v1.3 - February 2018
@@ -35,7 +37,7 @@ Masonite is made up of three different repositories. There is
 
 Major 1 month releases will be released on or after the release date when all repositories are able to be released at the same time, as well as passing all tests.
 
-Whenever the `MasoniteFramework/cli` and `MasoniteFramework/core` repositories are released on Github, Travis CI will run tests and automatically deploy to PyPi. These major version numbers should correspond to the version of Masonite they support. For example, if the `MasoniteFramework/masonite` releases to version 1.4, `MasoniteFramework/core` should bump up to 1.4.x regardless of changes.
+Whenever the `MasoniteFramework/craft` and `MasoniteFramework/core` repositories are released on Github, Travis CI will run tests and automatically deploy to PyPi. These major version numbers should correspond to the version of Masonite they support. For example, if the `MasoniteFramework/masonite` releases to version 1.4, `MasoniteFramework/core` should bump up to 1.4.x regardless of changes.
 
 The main repository which is `MasoniteFramework/masonite` does not have a corresponding PyPi package and is only for installing new Masonite projects. See the `craft new` command under [The Craft Command](/the-craft-command.md) documentation.
 
