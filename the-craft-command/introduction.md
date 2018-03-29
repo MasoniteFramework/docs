@@ -149,16 +149,6 @@ $ craft provider DashboardProvider
 This will create a file at `app/providers/DashboardProvider.py`
 
 Read more about Service Providers under the [Service Provider](/service-container/service-providers.md) documentation.
-
-### Creating a Job
-
-Jobs are used for Masonite's queue systems. You can create these `Queueable` classes and they will be able to be loaded into different queues. To create a job, run:
-
-```
-$ craft job JobName
-```
-
-This will create a job inside the `app/jobs` directory.
   
 
 ### Creating Views
@@ -197,13 +187,15 @@ You may create a PyPi package with an added `integrations.py` file which is spec
 $ craft package name_of_package
 ```
 
-### Publishing
+### Creating Commands
 
-Packages that are built specifically for Masonite in mind will typically support publishing commands. Publishing commands are a way that packages can scaffold and integrate into Masonite. Publishing commands can allow third parties to: create or append to configuration files, create controllers, create routes and other integrations. Read more about publishing by reading our [Publishing Packages](/publishing-packages.md) documentation. To publish a package just run:
+You can scaffold out basic command boilerplate:
 
 ```
-$ craft publish name_of_package
+$ craft command HelloCommand
 ```
+
+This will create a `app/commands/HelloCommand.py` file with the `HelloCommand` class.
 
 ### Running the WSGI Server
 
