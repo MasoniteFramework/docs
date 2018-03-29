@@ -31,7 +31,7 @@ Masonite is made up of three different repositories. There is
 
 * The main repository where development is done on the repo that installs on developer's systems.
 * The core repository which is where the main Masonite pip package is located.
-* The cli repository where the craft command tool is located.
+* The craft repository where the craft command tool is located.
 
 Major 1 month releases will be released on or after the release date when all repositories are able to be released at the same time, as well as passing all tests.
 

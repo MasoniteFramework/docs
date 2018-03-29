@@ -12,6 +12,12 @@ Of course the project requires contributions to the main development aspects but
 
 It would also be good to read about the [Release Cycle](/todo-release-cycle.md) to get familiar with how Masonite does releases (SemVer and RomVer).
 
+## Become a Feature Maintainer
+
+Feature Maintainers are people who are in charge of specific features (such as [Caching](/caching.md) or [Creating Packages](/creating-packages.md)). These developers will be in charge of reviewing PR's and merging them into the development branch and also have direct contact with the repository owner to discuss.
+
+Feature maintainers must already have significant contributions to development of the repository they are trying to be a Feature Maintainer for. Although they do not have to be contributors to the actual feature they plan to maintain.
+
 ## Comment the Code
 
 If you don't want to touch the code and instead want to just look at it and figure it out, contribute some comments! Comments are an excellent way for future developers to read and understand the framework. Masonite strives on being extremely commented. Although most of the code itself does not need to be commented, some of the classes, modules, methods and functions do (although a lot of them already are).
