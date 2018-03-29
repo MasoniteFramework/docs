@@ -225,6 +225,20 @@ Request.header('AUTHORIZATION', 'Bearer some-secret-key', http_prefix=None)
 
 This will set the `AUTHORIZATION` header instead of the `HTTP_AUTHORIZATION` header.
 
+## Status Codes
+
+Masonite will set a status code of `404 Not Found` at the beginning of every request. If the status code is not changed throughout the code, either through the developer or third party packages, then the status code will continue to be `404 Not Found` when the output is generated. You do not have to explicitly change specify this as the framework itself handles status codes. You could change this status code in either any of your controllers or even a third party package.
+
+For example, the Masonite Entry package sets certain status codes upon certain actions on an API endpoint. These can be `429 Too Many Requests` or `201 Created`. These status codes need to be set before the `StartProvider` is ran so if you have a third party package that sets status codes or headers, then they will need to be places above this Service Provider in a project.
+
+If you are not specifying status codes in a package and simple specifying them in a controller then you can do so freely without any caveats. You can set status codes like so:
+
+```python
+Request.status('429 Too Many Requests')
+```
+
+This will set the correct status code before the output is sent to the browser. You can look up a list of HTTP status codes from an online resource and specify any you need to, there are no limitations to which ones you can use.
+
 ## Changing Request Method in Forms
 
 Typically, forms only have support for `GET` and `POST`. You may want to change what http method is used when submitting a form such as `PATCH`.
