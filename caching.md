@@ -87,6 +87,15 @@ def show(self, Cache):
 
 Which will return a boolean if the cache exists or not.
 
+## Updating
+
+We may also want to update a cache. For a real world example, this is used for API's for example when updating the cache for rate limiting:
+
+```python
+def show(self, Cache):
+    Cache.update('key', 'value')
+```
+
 ## Deleting
 
 You can delete a cache by key using:
