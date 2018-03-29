@@ -36,6 +36,16 @@ You can now get and set any header information using the new `Request.header` me
 
 The Cache driver now has an update method which can update a cache value by key. This is useful if you want to change a key value or increment it. Storing a cache file also now auto creates that directory. Read more about this in the [Caching](/caching.md) documentation. 
 
+## An All New Craft Command
+
+Craft commands have been built from the ground up with the cleo package. It's an excellent package that is built around the extendability of commands by using primarily classes (instead of decorator functions). Read more under [The Craft Command](/the-craft-command/introduction.md) documentation
+
+ 
+
+## Adding Commands
+
+It is now possible to add craft commands to craft. You can read more about how under [The Craft Command](/the-craft-command/introduction.md) documentation
+
 ## Adding Migration Directories
 
 You can now add more migration directories by adding it to the container with a key ending in `MigrationDirectory`. This will add the directory to the list of directory that run when migrate commands are ran. You can read more about this in the [Creating Packages](/creating-packages.md) documentation.
