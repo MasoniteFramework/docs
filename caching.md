@@ -42,6 +42,8 @@ def show(self, Cache):
 
 This will create a `bootstrap/cache/key.txt` file which contains a simple `value`.
 
+**Also note that the directory will be automatically created if it does not exist.**
+
 ## Caching For Time
 
 We may only want to cache something for a few seconds or a few days so we can do something like:
@@ -89,7 +91,7 @@ Which will return a boolean if the cache exists or not.
 
 ## Updating
 
-We may also want to update a cache. For a real world example, this is used for API's for example when updating the cache for rate limiting:
+We may also want to update a cache. For a real world example, this is used for API's for example when updating the cache for rate limiting. This will not reset the expiration, only update the value.
 
 ```python
 def show(self, Cache):
