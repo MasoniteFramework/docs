@@ -32,7 +32,7 @@ def show(self):
 
 Notice we didn't import anything at the top of our file and also didn't retrieve any objects from the IOC container. Masonite helper functions act just like any other built in Python function. Read more about helper functions in the [Helper Functions](/helper-functions.md) documentation.
 
-### Usage
+## Usage
 
 The `Request` has several helper methods attached to it in order to interact with various aspects of the request.
 
@@ -43,15 +43,28 @@ def show(self, Request):
     Request.input('username')
 ```
 
-**NOTE: There is no difference between **`GET`** and **`POST`** when it comes to getting input data. They are both retrieved through this **`.input()`** method so there is no need to make a distinction if the request is **`GET`** or **`POST`
+**NOTE: There is no difference between any HTTP methods (GET, POST, PUT, etc etc) when it comes to getting input data. They are both retrieved through this **`.input()`** method so there is no need to make a distinction if the request is **`GET`** or **`POST`
 
-#### Method Options
+## Method Options
 
-We can get all the request input variables such as input data from a POST form request or GET data from a query string. This will return all the available request input variables for that request as a dictionary.
+
+
+### Input Data
+
+We can get all the request input variables such as input data from a form request or GET data from a query string. Note that it does not matter what HTTP method you are using, the input method will know what input data to get dependent on the current HTTP method (`GET`, `POST`, `PUT`, etc)
+
+This will return all the available request input variables for that request as a dictionary.
 
 ```python
 def show(self, Request):
     return Request.all()
+```
+
+To get a specific input:
+
+```python
+def show(self, Request):
+    return Request.input('firstname')
 ```
 
 To check if some request input data exists:
@@ -61,12 +74,18 @@ def show(self, Request):
     return Request.has('variable')
 ```
 
+
+
+### URL Parameters
+
 To get the request parameter retrieved from the url. This is used to get variables inside: `/dashboard/@firstname` for example.
 
 ```python
 def show(self, Request):
     return Request.param('firstname')
 ```
+
+### Cookies
 
 You may also set a cookie in the browser. The below code will set a cookie named `key` to the value of `value`. By default, all cookies are encrypted with your secret key which is generated in your `.env` file when you installed Masonite.
 
@@ -112,6 +131,7 @@ def show(self, Request):
     return Request.user()
 ```
 
+### Redirection
 You can specify a url to redirect to
 
 ```python
@@ -170,4 +190,30 @@ Request.key(key)
 ```
 
 This will load a secret key into the request which will be used for encryptions purposes throughout your Masonite project. **Note that by default, the secret key is pulled from your configuration file so you do NOT need to supply a secret key, but the option is there if you need to change it**
+
+## Changing Request Method in Forms
+
+Typically, forms only have support for `GET` and `POST`. You may want to change what http method is used when submitting a form such as `PATCH`.
+
+This looks like this:
+
+```html
+<form action="" method="POST">
+    <input type="hidden" name="request_method" value="PUT">
+</form>
+```
+
+or you can use a new helper method:
+
+```html
+<form action="" method="POST">
+    {{ request_method('PUT')|safe }}
+</form>
+```
+
+When the form is submitted, is it will process as a PUT request instead of a POST request
+
+
+
+
 

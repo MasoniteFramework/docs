@@ -21,6 +21,7 @@ Notice the controller here is a string. This is a great way to specify controlle
 If you wish to not use string controllers and wish to instead import your controller then you can do so by specifying the controller as well as well as only passing a reference to the method.  This will look like:
 
 ```python
+...
 from app.http.controllers.DashboardController import DashboardController
 
 ROUTES = [
@@ -33,6 +34,36 @@ It’s important here to recognize that we initialized the controller but only p
 ## Route Options
 
 There are a few methods you can use to enhance your routes. Masonite typically uses a setters approach to building instead of a parameter approach so to add functionality, we can simply attach more methods.
+
+### HTTP Verbs
+
+There are several HTTP verbs you can use for routes:
+
+```python
+from masonite.routes import Get, Post, Put, Patch, Delete
+
+Get().route(...)
+Post().route(...)
+Put().route(...)
+Patch().route(...)
+Delete().route(...)
+```
+
+#### HTTP Helpers
+
+If the syntax is a bit cumbersome, you just want to make it shorter or you like using shorthand helper functions, then you can also use these:
+
+```python
+from masonite.helpers.routes import get, post, put, patch, delete
+
+ROUTES = [
+    get('/url/here', 'Controller@method'),
+    post('/url/here', 'Controller@method'),
+    put('/url/here', 'Controller@method'),
+    patch('/url/here', 'Controller@method'),
+    delete('/url/here', 'Controller@method'),
+]
+```
 
 ### Named Routes
 
