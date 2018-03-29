@@ -24,7 +24,6 @@
 * [Controllers](controllers.md)
 * [Views](views.md)
 * [Requests](requests.md)
-* [The Craft Command](the-craft-command.md)
 * [Static Files](static-files.md)
 * [Helper Functions](helper-functions.md)
 
@@ -83,7 +82,5 @@
 
 ## Official Packages
 
-* [Masonite AuthHub](masonite-authhub.md)
-* [Masonite Clerk](masonite-clerk.md)
-* [Masonite Triggers](masonite-triggers.md)
+* [Masonite Entry](https://masoniteframework.gitbooks.io/masonite-entry/content/)
 
