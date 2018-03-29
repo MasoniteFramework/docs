@@ -203,7 +203,7 @@ This looks like this:
 </form>
 ```
 
-or you can use a new helper method:
+or you can optionally use a helper method:
 
 ```html
 <form action="" method="POST">
@@ -211,9 +211,4 @@ or you can use a new helper method:
 </form>
 ```
 
-When the form is submitted, is it will process as a PUT request instead of a POST request
-
-
-
-
-
+When the form is submitted, it will process as a PUT request instead of a POST request.
