@@ -183,6 +183,8 @@ def show(self, Request):
     return Request.redirectTo('dashboard').send({'firstname': 'Joseph', 'lastname': 'Mancuso'})
 ```
 
+### Encryption Key
+
 You can load a specific secret key into the request by using:
 
 ```python
@@ -190,6 +192,38 @@ Request.key(key)
 ```
 
 This will load a secret key into the request which will be used for encryptions purposes throughout your Masonite project. **Note that by default, the secret key is pulled from your configuration file so you do NOT need to supply a secret key, but the option is there if you need to change it**
+
+### Headers
+
+You can also get and set any headers that the request has. You can get all header information by printing:
+
+```python
+print(Request.environ)
+```
+
+This will print the environment setup by the WSGI server.
+
+You can also get a specific header:
+
+```python
+Request.header('AUTHORIZATION')
+```
+
+This will return whatever the `HTTP_AUTHORIZATION` header if one exists. If that does not exist then the `AUTHORIZATION` header will be returned. If that does not exist then `None` will be returned.
+
+We can also set headers:
+
+```python
+Request.header('AUTHORIZATION', 'Bearer some-secret-key')
+```
+
+Masonite will automatically prepend a `HTTP_` to the header being set for standards purposes so this will set the `HTTP_AUTHORIZATION` header. If you do not want the http prefix then pass a third parameter:
+
+```python
+Request.header('AUTHORIZATION', 'Bearer some-secret-key', http_prefix=None)
+```
+
+This will set the `AUTHORIZATION` header instead of the `HTTP_AUTHORIZATION` header.
 
 ## Changing Request Method in Forms
 
@@ -199,7 +233,7 @@ This looks like this:
 
 ```html
 <form action="" method="POST">
-    <input type="hidden" name="request_method" value="PUT">
+    <input type="hidden" name="request_method" value="PATCH">
 </form>
 ```
 
@@ -207,7 +241,7 @@ or you can optionally use a helper method:
 
 ```html
 <form action="" method="POST">
-    {{ request_method('PUT')|safe }}
+    {{ request_method('PATCH')|safe }}
 </form>
 ```
 
