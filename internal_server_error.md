@@ -79,7 +79,7 @@ We can name our routes so we can utilize these names later when or if we choose 
 Get().route('/dashboard', 'DashboardController@show').name('dashboard')
 ```
 
-It is good convention to name your routes since route url’s can change but the name should always stay the same.
+It is good convention to name your routes since route URI's can change but the name should always stay the same.
 
 ### Route Middleware
 
