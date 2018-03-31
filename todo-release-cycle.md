@@ -39,7 +39,13 @@ Major 1 month releases will be released on or after the release date when all re
 
 Whenever the `MasoniteFramework/craft` and `MasoniteFramework/core` repositories are released on Github, Travis CI will run tests and automatically deploy to PyPi. These major version numbers should correspond to the version of Masonite they support. For example, if the `MasoniteFramework/masonite` releases to version 1.4, `MasoniteFramework/core` should bump up to 1.4.x regardless of changes.
 
-The main repository which is `MasoniteFramework/masonite` does not have a corresponding PyPi package and is only for installing new Masonite projects. See the `craft new` command under [The Craft Command](/the-craft-command.md) documentation.
+## Main Repository and New Projects 
+
+The main repository which is `MasoniteFramework/masonite` does not have a corresponding PyPi package and is only for installing new Masonite projects. See the `craft new` command under [The Craft Command](/the-craft-command.md) documentation. The `craft new` command will download a zip of the latest release of Masonite, unzip it and rename the folder. Once the next release for this repository is ready, it will be released but marked as a `Pre-release` and therefore will not be installable by the default `craft new` command. 
+
+This is so developers and maintainers will be able to test the new pre release with their applications. Once all QA tests have passed, it will be marked as a normal release and therefore all new applications created from there on out will be the new release.
+
+Developers will still have the option of doing something like: `craft new project_name --version 1.5` and installing that version of Masonite.
 
 Once all three repositories are ready for release, they will all be released on GitHub under the respective new version numbers.
 
