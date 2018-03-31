@@ -65,6 +65,12 @@ ROUTES = [
 ]
 ```
 
+These return instances of their respective classes so you can append on to them:
+
+```python
+get('/url/here', 'Controller@method').middleware(...),
+```
+
 ### Named Routes
 
 We can name our routes so we can utilize these names later when or if we choose to redirect to them. We can specify a route name like so:
