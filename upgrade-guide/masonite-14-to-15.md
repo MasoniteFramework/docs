@@ -23,6 +23,8 @@ Remove the `masonite.providers.ApiProvider.ApiProvider` from the `PROVIDERS` lis
 
 If you are using the `Api()` route inside `routes/api.py` for API endpoints then remove this as well. You will need to implement API endpoints using the new Official Masonite Entry package instead.
 
+You'll also have to add a new `RESOURCES = []` line to your `routes/api.py` file for the new Masonite Entry package.
+
 ## Craft Commands
 
 This release works with the new craft command release. Upgrade to version `masonite-cli / 1.1+`. `<1.1` will only work with Masonite 1.4 and below.
