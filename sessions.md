@@ -45,8 +45,19 @@ Very often, you will want to see if a value exists in the session:
 
 ```python
 def show(self, Session):
-    Session.all('key') # Returns 'value'
+    Session.has('key') # Returns True
 ```
+
+## Getting all Data
+
+You can get all data for the current user:
+
+```python
+def show(self, Session):
+    Session.all() # Returns 'value'
+```
+
+
 
 
 
