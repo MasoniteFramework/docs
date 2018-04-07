@@ -8,7 +8,7 @@ The Session features are adding to the framework though the `SessionProvider` Se
 
 ## Getting Started
 
-There are a two ideas behind sessions. There is **session data** and **flash data**. Session data is any data that is persistent for the duration of the session and flash data is data that is only persisted on the next request.
+There are a two ideas behind sessions. There is **session data** and **flash data**. Session data is any data that is persistent for the duration of the session and flash data is data that is only persisted on the next request. Flash data is useful for showing things like success or warning messages after a redirection.
 
 ## Using Sessions
 
@@ -148,4 +148,4 @@ def show(self, Session):
     Session.reset(flash_only=True)
 ```
 
-Remember that Masonite will reset flashed data at the end of a successful `200 OK` request.
+Remember that Masonite will reset flashed data at the end of a successful `200 OK` requests anyway so you will most likely not use the `flash_only=True` keyword parameter.
