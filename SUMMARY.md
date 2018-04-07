@@ -46,6 +46,7 @@
 * [Creating Packages](creating-packages.md)
 * [Extending Classes](extending-classes.md)
 * [Creating a Mail Driver](email/creating-an-email-driver.md)
+* [Sessions](sessions.md)
 
 ## Useful Features
 
