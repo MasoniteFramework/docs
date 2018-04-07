@@ -54,8 +54,31 @@ You can get all data for the current user:
 
 ```python
 def show(self, Session):
-    Session.all() # Returns 'value'
+    Session.all() # Returns {'key': 'value'}
 ```
+
+## Flashing Data
+
+Data can be inserted only for the next request. This is useful when using redirection and displaying a success message.
+
+```python
+def show(self, Session):
+    Session.flash('success', 'Your action is successful')
+```
+
+## Templates
+
+The `SessionProvider` comes with a helper method that is automatically attached to all templates. You can use the session helper just like you would use the `Session` class.
+
+```python
+{% if session().has('success') %}
+    <div class="alert alert-success">
+        {{ session().get('success')
+    </div>
+{% endif %}
+```
+
+
 
 
 
