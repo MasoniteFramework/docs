@@ -66,21 +66,86 @@ def show(self, Session):
     Session.flash('success', 'Your action is successful')
 ```
 
-## Templates
+## Request Class
 
-The `SessionProvider` comes with a helper method that is automatically attached to all templates. You can use the session helper just like you would use the `Session` class.
+The `SessionProvider` attaches a `session` attribute to the `Request` class. This attribute is the `Session` class itself.
 
 ```python
-{% if session().has('success') %}
-    <div class="alert alert-success">
-        {{ session().get('success')
-    </div>
-{% endif %}
+def show(self):
+    request().session.flash('success', 'Your action is successful')
 ```
 
 
 
+## Templates
+
+The `SessionProvider` comes with a helper method that is automatically injected into all templates. You can use the session helper just like you would use the `Session` class.
+
+```python
+{% if session().has('success') %}
+    <div class="alert alert-success">
+        {{ session().get('success') }}
+    </div>
+{% endif %}
+```
+
+You could use this to create a simple Jinja include template that can show success, warning or error messages. Your template could be located inside a `resources/templates/helpers/messages.html`:
+
+```python
+{% if session().has('success') %}
+
+    <div class="alert alert-success">
+        {{ session().get('success') }}
+    </div>
+    
+{% elif session().has('warning') %}
+
+    <div class="alert alert-warning">
+        {{ session().get('warning') }}
+    </div>
+    
+{% if session().has('danger') %}
+
+    <div class="alert alert-danger">
+        {{ session().get('danger') }}
+    </div>
+    
+{% endif %}
+```
+
+Then inside your working template you could add:
+
+```html
+{% include 'helpers/messages.html' %}
+```
+
+Then inside your controller you could do something like:
+
+```python
+def show(self):
+    return request().redirect('/dashboard') \
+        .session.flash('success', 'Action Successful!')
+```
+
+Which will show the correct message and message type. 
 
 
+## Resetting Data
 
+You can reset a both the flash data and the session data through the `reset` method.
 
+To reset just the session data:
+
+```python
+def show(self, Session):
+    Session.reset()
+```
+
+Or to reset only the flash data:
+
+```python
+def show(self, Session):
+    Session.reset(flash_only=True)
+```
+
+Remember that Masonite will reset flashed data at the end of a successful `200 OK` request.
