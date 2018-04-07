@@ -139,7 +139,7 @@ Which will show the correct message and message type.
 
 ## Resetting Data
 
-You can reset a both the flash data and the session data through the `reset` method.
+You can reset both the flash data and the session data through the `reset` method.
 
 To reset just the session data:
 
