@@ -75,8 +75,6 @@ def show(self):
     request().session.flash('success', 'Your action is successful')
 ```
 
-
-
 ## Templates
 
 The `SessionProvider` comes with a helper method that is automatically injected into all templates. You can use the session helper just like you would use the `Session` class.
@@ -125,6 +123,15 @@ Then inside your controller you could do something like:
 def show(self):
     return request().redirect('/dashboard') \
         .session.flash('success', 'Action Successful!')
+```
+
+or as separate statements
+
+```python
+def show(self, Session):
+    Session.flash('success', 'Action Successful!')
+
+    return request().redirect('/dashboard')
 ```
 
 Which will show the correct message and message type. 
