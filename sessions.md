@@ -4,7 +4,7 @@
 
 You'll find yourself needing to add temporary data to an individual user. Sessions allow you to do this by adding a key value pair and attaching it to the user's IP address. You can reset the session data anytime you want; which is usually done on logout or login actions.
 
-The Session features are adding to the framework though the `SessionProvider` Service Provider.
+The Session features are adding to the framework though the `SessionProvider` Service Provider. This provider needs to be between the `AppProvider` and the `RouteProvider`. For Masonite 1.5+, this provider is already available for you.
 
 ## Getting Started
 
