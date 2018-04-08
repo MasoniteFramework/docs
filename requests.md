@@ -91,21 +91,21 @@ You may also set a cookie in the browser. The below code will set a cookie named
 
 ```python
 def show(self, Request):
-    return request.cookie('key', 'value')
+    return Request.cookie('key', 'value')
 ```
 
 If you choose to not encrypt your values and create cookies with the plain text value then you can pass a third value of `True` or `False`. You can also be more explicit if you like:
 
 ```python
 def show(self, Request):
-    return request.cookie('key', 'value', encrypt=False)
+    return Request.cookie('key', 'value', encrypt=False)
 ```
 
 All cookies are set as session cookies. This means that when the user closes out the browser completely, all cookies will be deleted.
 
 ```python
 def show(self, Request):
-    return request.cookie('key', 'value', expires="5 minutes")
+    return Request.cookie('key', 'value', expires="5 minutes")
 ```
 
 This will set a cookie thats expires 5 minutes from the current time.
@@ -114,7 +114,7 @@ You can get all the cookies set from the browser
 
 ```python
 def show(self, Request):
-    return request.get_cookies()
+    return Request.get_cookies()
 ```
 
 You can get a specific cookie set from the browser
