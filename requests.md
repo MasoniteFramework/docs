@@ -101,6 +101,15 @@ def show(self, Request):
     return request.cookie('key', 'value', encrypt=False)
 ```
 
+All cookies are set as session cookies. This means that when the user closes out the browser completely, all cookies will be deleted.
+
+```python
+def show(self, Request):
+    return request.cookie('key', 'value', expires="5 minutes")
+```
+
+This will set a cookie thats expires 5 minutes from the current time.
+
 You can get all the cookies set from the browser
 
 ```python
