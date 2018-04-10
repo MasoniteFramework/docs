@@ -12,6 +12,8 @@ It's important to note that the Session will default to the `memory` driver. Thi
 
 There are a two ideas behind sessions. There is **session data** and **flash data**. Session data is any data that is persistent for the duration of the session and flash data is data that is only persisted on the next request. Flash data is useful for showing things like success or warning messages after a redirection.
 
+Session data is automatically encrypted and decrypted using your secret key
+
 ## Using Sessions
 
 Sessions are loaded into the container with the `Session` key. So you may access the `Session` class in any part of code that is resolved by the container. These include controllers, drivers, middleware etc:
