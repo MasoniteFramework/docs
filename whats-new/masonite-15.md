@@ -28,6 +28,8 @@ You can now use functions for routes instead of the classes. These new functions
 
 In Masonite 1.4 and below was the `Api()` route which added some very basic API endpoints. All references to API's have been removed from core and added to the new Masonite Entry official package. 
 
+If you would like to use API's you will have to use the Masonite Entry package instead.
+
 ## Headers
 
 You can now get and set any header information using the new `Request.header` method. This also allows third party packages to manipulate header information. Read more about this in the [Requests](/requests.md) documentation. 
