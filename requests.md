@@ -89,6 +89,8 @@ def show(self, Request):
 
 You may also set a cookie in the browser. The below code will set a cookie named `key` to the value of `value`. By default, all cookies are encrypted with your secret key which is generated in your `.env` file when you installed Masonite.
 
+#### Creating
+
 ```python
 def show(self, Request):
     return Request.cookie('key', 'value')
@@ -109,6 +111,8 @@ def show(self, Request):
 ```
 
 This will set a cookie thats expires 5 minutes from the current time.
+
+#### Reading
 
 You can get all the cookies set from the browser
 
@@ -132,6 +136,19 @@ def show(self, Request):
 ```
 
 This will return the plain text version of the cookie.
+
+
+#### Deleting
+
+You may also delete a cookie. This will remove it from the browser as well.
+
+```python
+def show(self, Request):
+    return Request.delete_cookie('key', decrypt=False)
+```
+
+
+### User
 
 You can also get the current user from the request. This requires the `LoadUserMiddleware` middleware which is in Masonite by default. This will return an instance of the current user.
 
