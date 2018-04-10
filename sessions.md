@@ -12,7 +12,7 @@ It's important to note that the Session will default to the `memory` driver. Thi
 
 There are a two ideas behind sessions. There is **session data** and **flash data**. Session data is any data that is persistent for the duration of the session and flash data is data that is only persisted on the next request. Flash data is useful for showing things like success or warning messages after a redirection.
 
-Session data is automatically encrypted and decrypted using your secret key
+Session data is automatically encrypted and decrypted using your secret key when using the `cookie` driver.
 
 ## Using Sessions
 
