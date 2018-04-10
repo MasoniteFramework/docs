@@ -32,6 +32,10 @@ In Masonite 1.4 and below was the `Api()` route which added some very basic API 
 
 You can now get and set any header information using the new `Request.header` method. This also allows third party packages to manipulate header information. Read more about this in the [Requests](/requests.md) documentation. 
 
+## Cookies
+
+You can now delete cookies using the `delete_cookie` method as well as set expiration dates for them. See the [Requests](/requests.md) documentation for more information.
+
 ## Caching Driver Update
 
 The Cache driver now has an update method which can update a cache value by key. This is useful if you want to change a key value or increment it. Storing a cache file also now auto creates that directory. Read more about this in the [Caching](/caching.md) documentation. 
@@ -49,6 +53,10 @@ It is now possible to add craft commands to craft. You can read more about how u
 ## Adding Migration Directories
 
 You can now add more migration directories by adding it to the container with a key ending in `MigrationDirectory`. This will add the directory to the list of directory that run when migrate commands are ran. You can read more about this in the [Creating Packages](/creating-packages.md) documentation.
+
+## Added Sessions
+
+You can now add data to sessions using the new Sessions feature which comes with a memory and cookie driver for storing data.
 
 ## Craft Auto Adds Site Packages
 
