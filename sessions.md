@@ -4,9 +4,9 @@
 
 You'll find yourself needing to add temporary data to an individual user. Sessions allow you to do this by adding a key value pair and attaching it to the user's IP address. You can reset the session data anytime you want; which is usually done on logout or login actions.
 
-The Session features are adding to the framework though the `SessionProvider` Service Provider. This provider needs to be between the `AppProvider` and the `RouteProvider`. For Masonite 1.5+, this provider is already available for you.
+The Session features are added to the framework through the `SessionProvider` Service Provider. This provider needs to be between the `AppProvider` and the `RouteProvider`. For Masonite 1.5+, this provider is already available for you.
 
-It's important to note that the Session will default to the `memory` driver. This means that 
+It's important to note that the Session will default to the `memory` driver. This means that all session data is stored in an instantiated object when the server starts and is destroyed when the server stops. This is not good when using a WSGI server like Gunicorn which might use multiple workers because each worker will create it's own memory state and requests may jump from worker to worker unpredictably. If you are only using 1 worker then this won't be an issue as long as the worker doesn't die and reset for the duration of the server's life. In this case you should use another driver that doesn't have the memory issue like the `cookie` driver which will store all session information as cookies instead of in memory.
 
 ## Getting Started
 
@@ -14,7 +14,7 @@ There are a two ideas behind sessions. There is **session data** and **flash dat
 
 ## Using Sessions
 
-Sessions is loaded into the container with the `Session` key. So you may access the `Session` class in any parts of the code that is resolved by the container. These include controllers, drivers, middleware etc:
+Sessions are loaded into the container with the `Session` key. So you may access the `Session` class in any part of code that is resolved by the container. These include controllers, drivers, middleware etc:
 
 ```python
 def show(self, Session):
@@ -23,7 +23,7 @@ def show(self, Session):
 
 ## Setting Data
 
-Data can easily be persisted to the current user by using the `set` method.
+Data can easily be persisted to the current user by using the `set` method. If you are using the `memory` driver, it will connect the current user's IP address to the data. If you are using the `cookie` then it will simply set a cookie with a `s_` prefix to notify that it is a session and allows better handling of session cookies compared to other cookies.
 
 ```python
 def show(self, Session):
@@ -68,6 +68,19 @@ def show(self, Session):
     Session.flash('success', 'Your action is successful')
 ```
 
+When using the `cookie` driver, the cookie will automatically be deleted after 2 seconds of being set.
+
+## Changing Drivers
+
+You can of course change the drivers on the fly by using the `SessionManager` key from the container:
+
+```python
+def show(self, SessionManager):
+    SessionManager.driver('cookie').set('key', 'value')
+```
+
+It's important to note that changing the drivers will not change the `session()` function inside your templates (more about templates below). 
+
 ## Request Class
 
 The `SessionProvider` attaches a `session` attribute to the `Request` class. This attribute is the `Session` class itself.
@@ -80,6 +93,8 @@ def show(self):
 ## Templates
 
 The `SessionProvider` comes with a helper method that is automatically injected into all templates. You can use the session helper just like you would use the `Session` class.
+
+This helper method will only point to the default driver set inside `config/session.py` file. It will not point to the correct driver when it is changed using the `SessionManager` class. If you need to use other drivers, consider passing in a new function method through your view or changing the driver value inside `config/session.py`
 
 ```python
 {% if session().has('success') %}
@@ -157,4 +172,4 @@ def show(self, Session):
     Session.reset(flash_only=True)
 ```
 
-Remember that Masonite will reset flashed data at the end of a successful `200 OK` requests anyway so you will most likely not use the `flash_only=True` keyword parameter.
+Remember that Masonite will reset flashed data at the end of a successful `200 OK` request anyway so you will most likely not use the `flash_only=True` keyword parameter.

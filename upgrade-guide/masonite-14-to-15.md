@@ -37,6 +37,46 @@ $ pip install --upgrade masonite-cli
 
 **You may have to run sudo if you are using a UNIX machine.**
 
+## Sessions
+
+Masonite 1.5 now has sessions that can be used to hold temporary data. It comes with the cookie and memory drivers. Memory stores all data in a class which is lost when the server restarts and the cookie driver sets cookies in the browser.
+
+There is a new `config/session.py` file you can copy and paste:
+
+```python
+''' Session Settings '''
+
+'''
+|--------------------------------------------------------------------------
+| Session Driver
+|--------------------------------------------------------------------------
+|
+| Sessions are able to be linked to an individual user and carry data from
+| request to request. The memory driver will store all the session data
+| inside memory which will delete when the server stops running.
+|
+| Supported: 'memory', 'cookie'
+| 
+'''
+
+DRIVER = 'memory'
+```
+
+As well as add the `SessionProvider` inside your `PROVIDERS` list just below the `AppProvider`:
+
+```python
+PROVIDERS = [
+    # Framework Providers
+    'masonite.providers.AppProvider.AppProvider',
+    
+    # New Provider
+    'masonite.providers.SessionProvider.SessionProvider',
+    
+    'masonite.providers.RouteProvider.RouteProvider',
+    ....
+]
+```
+
 ## Finished
 
 That's it! You have officially upgrades to Masonite 1.5
