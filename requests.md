@@ -144,7 +144,7 @@ You may also delete a cookie. This will remove it from the browser as well.
 
 ```python
 def show(self, Request):
-    return Request.delete_cookie('key', decrypt=False)
+    return Request.delete_cookie('key')
 ```
 
 
