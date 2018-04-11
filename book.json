@@ -1,5 +1,5 @@
 {
-    "plugins": [ "theme-api", "versions", "code" ],
+    "plugins": [ "theme-api", "versions", "code", "hints" ],
     "pluginsConfig": {
         "theme-api": {
             "languages": [
