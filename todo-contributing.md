@@ -10,10 +10,10 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 The framework has three main parts.
 
-* This official `MiraFramework/masonite` repository is where most work will be done, primarily in the `develop` or release branches. This is the main repository that will install when creating new projects using the `craft new` command.
-* The ``MiraFramework/core` repository where the main `masonite` pip package lives.
+* This official `MasoniteFramework/masonite` repository is where most work will be done, primarily in the `develop` or release branches. This is the main repository that will install when creating new projects using the `craft new` command.
+* The ``MasoniteFramework/core` repository where the main `masonite` pip package lives.
     * This is where the `from masonite ...` module lives. 
-* The `MiraFramework/cli` repository where the `craft` command lives
+* The `MasoniteFramework/craft` repository where the `craft` command lives
     
 ### Getting this repository up and running to be edited
 
@@ -47,13 +47,13 @@ To do this just:
 * Run `pip install .` from inside the masonite-core directory. This will install masonite as a pip package.
 * Any changes you make to this package just push it to your feature branch on your fork and follow the PR process below.
 
-### Editing the cli repository (`craft` commands)
+### Editing the craft repository (`craft` commands)
 
 Craft commands make up a large part of the workflow for Masonite. Follow these instructions to get the masonite-cli package on your computer and editable.
 
-* Fork the `MasoniteFramework/cli` repo,
+* Fork the `MasoniteFramework/craft` repo,
 * Clone that repo into your computer:
-    * `git clone http://github.com/your-username/cli.git`
+    * `git clone http://github.com/your-username/craft.git`
 * Activate your masonite virtual environment (optional)
     * Go to where you installed masonite and activate the environment
 * While inside the virtual environment, cd into the directory you installed cli
