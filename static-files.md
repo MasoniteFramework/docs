@@ -20,7 +20,7 @@ STATICFILES = {
 
 Now in our templates we can use:
 
-```
+```html
 <img src="/css/style.css">
 ```
 
