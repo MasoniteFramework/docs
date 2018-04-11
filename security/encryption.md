@@ -76,7 +76,7 @@ Bcrypt is very easy to use an basically consists of a 1 way hash, and then a che
 
 ### Hashing Passwords
 
-Again, all values passed into bcrypt need to be in bytes so we can has a password 
+Again, all values passed into bcrypt need to be in bytes so we can pass in a password:
 
 ```py
 password = bcrypt.hashpw(
