@@ -29,7 +29,11 @@ ROUTES = [
 ]
 ```
 
+{% hint style='info' %}
 It’s important here to recognize that we initialized the controller but only passed a reference to the method and did not actually call the method. This is so Masonite can pass parameters into the method when it executes the route.
+{% endhint %}
+
+
 
 ## Route Options
 
