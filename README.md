@@ -46,9 +46,7 @@ We can download our `craft` command line tool by just running:
 $ pip install masonite-cli
 ```
 
-
-
-{% hint style='working' %}
+{% hint style='danger' %}
 You may have to use sudo if you are on a UNIX machine
 {% endhint %}
 
