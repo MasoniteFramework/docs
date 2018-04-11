@@ -46,7 +46,12 @@ We can download our `craft` command line tool by just running:
 $ pip install masonite-cli
 ```
 
-**You may have to use sudo if you are on a UNIX machine**
+
+
+{% hint style='tip' %}
+You may have to use sudo if you are on a UNIX machine
+{% endhint %}
+
 
 Great! We are now ready to create our first project. We should have the new `craft` command. We can check this by running:
 
