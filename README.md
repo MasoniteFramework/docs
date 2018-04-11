@@ -48,7 +48,7 @@ $ pip install masonite-cli
 
 
 
-{% hint style='tip' %}
+{% hint style='working' %}
 You may have to use sudo if you are on a UNIX machine
 {% endhint %}
 
