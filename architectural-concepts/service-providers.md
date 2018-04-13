@@ -1,7 +1,5 @@
 # Service Providers
 
-## Service Providers
-
 ## Introduction
 
 Service Providers are the key building blocks to Masonite. The only thing they do is register things into the Service Container, or retrieve things from the Service Container. You can read more about the Service Container in the [Service Container](service-container.md) documentation. If you look inside the `config/application.py` file, you will find a `PROVIDERS` list which contains all the Service Providers involved in building the framework.

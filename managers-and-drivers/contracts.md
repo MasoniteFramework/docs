@@ -1,7 +1,5 @@
 # Contracts
 
-## Contracts
-
 ## Introduction
 
 Contracts are used when creating drivers to ensure they conform to Masonite requirements. They are a form of interface in other languages where the child class is required to have the minimum number of methods needed for that driver to work. It is a promise to the class that it has the exact methods required.

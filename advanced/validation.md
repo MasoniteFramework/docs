@@ -1,7 +1,5 @@
 # Validation
 
-## Validation
-
 ## Introduction
 
 Very often you will find a need to validate forms after you have submitted them. Masonite comes with a very simple and reusable way to validate input data with the Masonite `Validator()` class. In this documentation, we'll talk about how you can create your own validator to use within your project. Masonite uses the `validator.py` library for this feature.

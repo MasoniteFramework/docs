@@ -1,7 +1,5 @@
 # Template Caching
 
-## Template Caching
-
 ## Introduction
 
 Sometimes your templates will not change that often and may have a lot of logic that takes times to run such as several loops or even a very large order of magnitude. If this page is being hit several times per day or even several times per second, you can use template caching in order to put less strain on your server.

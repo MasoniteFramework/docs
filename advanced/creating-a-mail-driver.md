@@ -1,7 +1,5 @@
 # Creating a Mail Driver
 
-## Creating a Mail Driver
-
 ## Introduction
 
 Because of Masonite's Service Container, It is extremely easy to make drivers that can be used by simply adding your service provider.

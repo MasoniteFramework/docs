@@ -1,7 +1,5 @@
 # Creating Commands
 
-## Creating Commands
-
 ## Introduction
 
 It's extremely simple to add commands to Masonite via the craft command tool and Service Providers. If you have been using Masonite for any amount of time you will learn that commands are a huge part of developing web applications with Masonite. We have made it extremely easy to create these commands and add them to craft to build really fast personal commands that you might use often.

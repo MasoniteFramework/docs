@@ -1,7 +1,5 @@
 # CSRF Protection
 
-## CSRF Protection
-
 ## Introduction
 
 Masonite 1.4+ now has out of the box CSRF protection. CSRF, or Cross-Site Request Forgery is when malicious actors attempt to send requests \(primarily POST requests\) on your behalf. CSRF protection typically entails setting a unique token to the user for that page request that matches the same token on the server. This prevents any person from submitting a form without the correct token. There are many online resources that teach what CSRF does and how it works but Masonite makes it really simple to use.

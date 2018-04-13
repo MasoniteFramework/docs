@@ -1,7 +1,5 @@
 # How To Contribute
 
-## How To Contribute
-
 ## Introduction
 
 There are plenty of ways to contribute to open source. Many of which don't even rely on writing code. A great open source project should have excellent documentation and have as little bugs as possible. Below I will explain how to contribute to this project in different ways.

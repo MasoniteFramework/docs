@@ -1,7 +1,5 @@
 # Mail
 
-## Mail
-
 ## Introduction
 
 Masonite comes with email support out of the box. Most applications will need to send email upon actions like account creation or notifications. Because email is used so often with software applications, masonite provides mail support with several drivers.

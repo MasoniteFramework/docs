@@ -1,7 +1,5 @@
 # Routing
 
-## Routing
-
 ## Introduction
 
 Masonite Routing is an extremely simple but powerful routing system that at a minimum takes a url and a controller. Masonite will take this route and match it against the requested route and execute the controller on a match.

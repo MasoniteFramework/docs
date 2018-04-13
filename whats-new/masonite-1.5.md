@@ -1,7 +1,5 @@
 # Masonite 1.5
 
-## Masonite 1.5
-
 ## Introduction
 
 Masonite 1.5 is focused on a few bug fixes and changes to several core classes in order to expand on the support of third party package integration.

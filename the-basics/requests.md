@@ -1,7 +1,5 @@
 # Requests
 
-## Requests
-
 ## Introduction
 
 The Request class is initialized when the server first starts and changes based on every request by the framework. The Request class is loaded into the IOC container so any Service Provider will have access to it. The IOC container allows all parts of the framework to be resolved by the IOC container and auto inject any dependencies they need. Read more about the IOC container in the [Service Container](../architectural-concepts/service-container.md) documentation.

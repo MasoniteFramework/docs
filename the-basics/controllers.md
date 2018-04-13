@@ -1,7 +1,5 @@
 # Controllers
 
-## Controllers
-
 ## Introduction
 
 Controllers are a vital part of Masonite and is mainly what differs it from other Python frameworks that implement the MVC structure differently. Controllers are simply classes with methods. These methods take a `self` parameter which is the normal self that Python class methods require. Controller methods can be looked at as function based views if you are coming from django as they are simply methods inside a class and function the exact same way.

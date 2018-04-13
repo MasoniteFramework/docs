@@ -1,7 +1,5 @@
 # Database Migrations
 
-## Database Migrations
-
 ## Introduction
 
 Database migrations in Masonite is very different than other Python frameworks. Other Python frameworks create migrations based on a model which historically uses Data Mapper type ORM's. Because Masonite uses an Active Record ORM by default, Migrations are completely separated from models. This is great as it allows a seamless switch of ORM's without interfering with migrations. In addition to creating this separation of migrations and models, it makes managing the relationship between models and tables extremely basic with very little magic which leads to faster debugging as well as fewer migration issues.

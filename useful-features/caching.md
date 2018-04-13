@@ -1,7 +1,5 @@
 # Caching
 
-## Caching
-
 ## Introduction
 
 Caching is an important aspect to any project and typically is used to speed up data that never changes and required a lot of resources to get. Powerful caching support is important in any application and Masonite comes with great caching support out of the box.

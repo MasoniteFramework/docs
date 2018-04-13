@@ -1,7 +1,5 @@
 # Creating Packages
 
-## Creating a Masonite Package
-
 ## Introduction
 
 Creating packages is very simple for Masonite. You can get a package created and on PyPi is less than 5 minutes. With Masonite packages you'll easily be able to integrate and scaffold all Masonite projects with ease. Masonite comes with several helper functions in order to create packages which can add configuration files, routes, controllers, views, commands and more.

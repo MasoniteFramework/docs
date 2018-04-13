@@ -1,7 +1,5 @@
 # Introduction
 
-## The Craft Command
-
 ## Introduction
 
 The craft command tool is a powerful developer tool that lets you quickly scaffold your project with models, controllers, views, commands, providers, etc. which will condense nearly everything down to it’s simplest form via the craft namespace. No more redundancy in your development time creating boilerplate code. Masonite condenses all common development tasks into a single namespace.

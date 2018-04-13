@@ -1,7 +1,5 @@
 # Extending Classes
 
-## Extending Classes
-
 ## Introduction
 
 It's common to want to use a Service Provider to add new methods to a class. For example, you may want to add a `is_authenticated` method to the `Request` class. Your package and Service Provider may be for a better authentication system.

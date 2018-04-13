@@ -1,7 +1,5 @@
 # View Composers and Sharing
 
-## View Composers and Sharing
-
 ## Introduction
 
 Very often you will find yourself adding the same variables to a view again and again. This might look something like

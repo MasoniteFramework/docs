@@ -1,7 +1,5 @@
 # Uploading
 
-## Uploading
-
 ## Introduction
 
 Very often you will need to upload user images such as a profile image. Masonite let's you handle this very elegantly and allows you to upload to both the disk, and Amazon S3 out of the box. The `UploadProvider` Service Provider is what adds this functionality. Out of the box Masonite supports the `disk` driver which uploads directly to your file system and the `s3` driver which uploads directly to your Amazon S3 bucket.

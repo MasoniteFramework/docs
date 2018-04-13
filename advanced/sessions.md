@@ -1,7 +1,5 @@
 # Sessions
 
-## Sessions
-
 ## Introduction
 
 You'll find yourself needing to add temporary data to an individual user. Sessions allow you to do this by adding a key value pair and attaching it to the user's IP address. You can reset the session data anytime you want; which is usually done on logout or login actions.

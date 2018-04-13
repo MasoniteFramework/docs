@@ -1,7 +1,5 @@
 # Middleware
 
-## Middleware
-
 ## Introduction
 
 Middleware is an extremely important aspect of web applications as it allows you to run important code either before or after every request or even before or after certain routes. In this documentation we'll talk about how middleware works, how to consume middleware and how to create your own middleware. Middleware is only ran when the route is found and a status code of 200 will be returned.

@@ -1,7 +1,5 @@
 # Masonite 1.4
 
-## Masonite 1.4
-
 ## Introduction
 
 Masonite 1.4 brings several new features to Masonite. These features include caching, template caching, websocket support with Masonite calls Broadcasting and much more testing to make Masonite as stable as possible. If you would like to contribute to Masonite, please read the [Contributing Guide](../prologue/contributing-guide.md) and the [How To Contribute](../prologue/how-to-contribute.md) documentation.

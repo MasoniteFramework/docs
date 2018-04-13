@@ -1,7 +1,5 @@
 # Request Lifecycle
 
-## Request Lifecycle
-
 ## Introduction
 
 It's important to know the life cycle of the request so you can understand what is going on under the hood in order to write better software. Whenever you have a better understanding of how your development tools work, you will feel more confident as you'll understand what exactly is going on. This documentation will try to explain in as much detail as needed the flow of the request from initiation to execution. To read about how to use the `Request` class, read the [Requests](../the-basics/requests.md) documentation.

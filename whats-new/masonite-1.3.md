@@ -1,7 +1,5 @@
 # Masonite 1.3
 
-## Masonite 1.3
-
 ## Introduction
 
 Masonite 1.3 comes with a plethora of improvements over previous versioning. This version brings new features such as Queue and Mail drivers as well as various bug fixes.

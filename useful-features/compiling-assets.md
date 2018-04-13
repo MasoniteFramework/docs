@@ -1,7 +1,5 @@
 # Compiling Assets
 
-## Compiling Assets
-
 ## Introduction
 
 Understanding that modern frameworks need to handle modern web applications. Many developers are starting to use third party packages, like Sass, to write CSS. Normally, many people who write Sass in other frameworks will need to run other third party services like Webpack or grunt. Masonite tries to make this as simple as possible and comes with Sass built in. So you just need to write Sass and it will compile into CSS when you run the server.

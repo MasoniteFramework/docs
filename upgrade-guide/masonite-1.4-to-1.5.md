@@ -1,7 +1,5 @@
 # Masonite 1.4 to 1.5
 
-## Masonite 1.4 to 1.5
-
 ## Introduction
 
 Masonite 1.5 doesn't bring many file changes to Masonite so this upgrade is fairly straight forward and should take less than 10 minutes.

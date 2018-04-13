@@ -1,7 +1,5 @@
 # Views
 
-## Views
-
 ## Introduction
 
 Views contain all the HTML that you’re application will use to render to the user. Unlike Django, views in Masonite are your HTML templates. All views are located inside `resources/templates`

@@ -1,7 +1,5 @@
 # Authentication
 
-## Authentication
-
 ## Introduction
 
 Masonite comes with some authentication out of the box but leaves it up to the developer to implement. Everything is already configured for you by default. The default authentication model is the `app/User` model but you can change this in the `config/auth.py` configuration file.

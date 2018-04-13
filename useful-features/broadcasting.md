@@ -1,7 +1,5 @@
 # Broadcasting
 
-## Broadcasting
-
 ## Introduction
 
 Masonite understands the developer need for building modern web applications so Masonite 1.4+ ships with WebSocket support. With a new Service Provider, configuration file and support for the `pusher` and `ably` drivers out of the box, we can now have full web socket support quickly and easily.

@@ -1,7 +1,5 @@
 # Release Cycle
 
-## Release Cycle
-
 ## Introduction
 
 The Masonite framework itself follows the RomVer versioning schema which is PARADIGM.MAJOR.MINOR although all Masonite packages follow the SemVer versioning schema which is MAJOR.MINOR.FEATURE/BUGFIX.

@@ -1,7 +1,5 @@
 # Masonite 1.3 to 1.4
 
-## Masonite 1.3 to 1.4
-
 ## Introduction
 
 Masonite 1.4 brings several new features and a few new files. This is a very simple upgrade and most of the changes were done in the pip package of Masonite. **The upgrade from 1.3 to 1.4 should take less than 10 minutes**

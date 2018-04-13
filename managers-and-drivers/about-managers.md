@@ -1,7 +1,5 @@
 # About Managers
 
-## About Managers
-
 ## Introduction
 
 Masonite uses an extremely powerful pattern commonly known as the Manager Pattern; also known as the Builder Pattern. Because Masonite uses classes with the `XManager` namespace, we will call it the Manager Pattern throughout this documentation.
