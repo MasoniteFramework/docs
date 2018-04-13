@@ -1,21 +1,24 @@
 # Creating Commands
 
-# Introduction
+## Creating Commands
+
+## Introduction
 
 It's extremely simple to add commands to Masonite via the craft command tool and Service Providers. If you have been using Masonite for any amount of time you will learn that commands are a huge part of developing web applications with Masonite. We have made it extremely easy to create these commands and add them to craft to build really fast personal commands that you might use often.
 
 Masonite uses the Cleo package for creating and consuming commands so for more extensive documentation on how to utilize commands themselves, how to get arguments and options, and how to print colorful text to the command line, visit the [Cleo Documentation](http://cleo.readthedocs.io/en/latest/).
 
-## Getting Started
+### Getting Started
 
 You can create commands by using craft itself:
 
-    $ craft command HelloCommand
-    
+```text
+$ craft command HelloCommand
+```
+
 This will create a `app/commands/HelloCommand.py` file with boiler plate code that looks like this:
 
 ```python
-
 """ A HelloCommand Command """
 from cleo import Command
 
@@ -32,7 +35,7 @@ class HelloCommand(Command):
         pass
 ```
 
-Let's create a simple hello name application which prints "hello <your-name>" to the console. Where it says `command:name` inside the docstring we can put `hello` and inside the argument we can put `name` like so:
+Let's create a simple hello name application which prints "hello " to the console. Where it says `command:name` inside the docstring we can put `hello` and inside the argument we can put `name` like so:
 
 ```python
 """ A HelloCommand Command """
@@ -62,13 +65,15 @@ def handle(self):
 
 That's it! Now we just have to add it to our craft command.
 
-## Adding Our Command To Craft
+### Adding Our Command To Craft
 
 We can add commands to craft by creating a Service Provider and registering our command into the container. Craft will automatically run all the register methods on all containers and retrieve all the commands.
 
 Let's create a Service Provider:
 
-    $ craft provider HelloProvider
+```text
+$ craft provider HelloProvider
+```
 
 This will create a provider in `app/providers/HelloProvider.py` that looks like:
 
@@ -103,9 +108,9 @@ class HelloProvider(ServiceProvider):
         pass
 ```
 
-**Make sure you instantiate the command. Also the command name needs to end in "Command". So binding `HelloCommand` will work but binding `Hello` will not. Craft will only pick up commands that end in `Command`. This is also case sensitive so make sure `Command` is capitalized.**
+**Make sure you instantiate the command. Also the command name needs to end in "Command". So binding **`HelloCommand`** will work but binding **`Hello`** will not. Craft will only pick up commands that end in **`Command`**. This is also case sensitive so make sure **`Command`** is capitalized.**
 
-## Adding The Service Provider
+### Adding The Service Provider
 
 Like normal, we need to add our Service Provider to the `PROVIDERS` list inside our `config/application.py` file:
 
@@ -123,7 +128,9 @@ PROVIDERS = [
 
 That's it! Now if we run:
 
-    $ craft
+```text
+$ craft
+```
 
 We will see our new `hello` command:
 
@@ -135,13 +142,13 @@ We will see our new `hello` command:
 
 and if we run:
 
-    $ craft hello Joseph
-    
+```text
+$ craft hello Joseph
+```
+
 We will see an output of:
 
-    Hello Joseph
-
-
-
-
+```text
+Hello Joseph
+```
 

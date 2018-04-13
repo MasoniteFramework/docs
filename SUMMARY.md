@@ -1,31 +1,33 @@
-# Summary
+# Table of contents
+
+* [Introduction](README.md)
 
 ## Prologue
 
-* [Introduction and Installaton](README.md)
-* [Contributing Guide](todo-contributing.md)
-* [How To Contribute](how-to-contribute.md)
-* [Release Cycle](todo-release-cycle.md)
+* [Introduction and Installaton](prologue/introduction-and-installaton.md)
+* [Contributing Guide](prologue/contributing-guide.md)
+* [How To Contribute](prologue/how-to-contribute.md)
+* [Release Cycle](prologue/release-cycle.md)
 
 ## What's New
 
-* [Masonite 1.3](whats-new/masonite-13.md)
-* [Masonite 1.4](whats-new/masonite-14.md)
-* [Masonite 1.5](whats-new/masonite-15.md)
+* [Masonite 1.3](whats-new/masonite-1.3.md)
+* [Masonite 1.4](whats-new/masonite-1.4.md)
+* [Masonite 1.5](whats-new/masonite-1.5.md)
 
 ## Upgrade Guide
 
-* [Masonite 1.3 to 1.4](upgrade-guide/masonite-13-to-14.md)
-* [Masonite 1.4 to 1.5](upgrade-guide/masonite-14-to-15.md)
+* [Masonite 1.3 to 1.4](upgrade-guide/masonite-1.3-to-1.4.md)
+* [Masonite 1.4 to 1.5](upgrade-guide/masonite-1.4-to-1.5.md)
 
 ## The Basics
 
-* [Routing](internal_server_error.md)
-* [Controllers](controllers.md)
-* [Views](views.md)
-* [Requests](requests.md)
-* [Static Files](static-files.md)
-* [Helper Functions](helper-functions.md)
+* [Routing](the-basics/routing.md)
+* [Controllers](the-basics/controllers.md)
+* [Views](the-basics/views.md)
+* [Requests](the-basics/requests.md)
+* [Static Files](the-basics/static-files.md)
+* [Helper Functions](the-basics/helper-functions.md)
 
 ## The Craft Command
 
@@ -35,29 +37,29 @@
 
 ## Architectural Concepts
 
-* [Request Lifecycle](request-lifecycle.md)
-* [Service Providers](service-container/service-providers.md)
-* [Service Container](service-container.md)
+* [Request Lifecycle](architectural-concepts/request-lifecycle.md)
+* [Service Providers](architectural-concepts/service-providers.md)
+* [Service Container](architectural-concepts/service-container.md)
 
 ## Advanced
 
-* [Middleware](middleware.md)
-* [Validation](validation.md)
-* [Creating Packages](creating-packages.md)
-* [Extending Classes](extending-classes.md)
-* [Creating a Mail Driver](email/creating-an-email-driver.md)
-* [Sessions](sessions.md)
+* [Middleware](advanced/middleware.md)
+* [Validation](advanced/validation.md)
+* [Creating Packages](advanced/creating-packages.md)
+* [Extending Classes](advanced/extending-classes.md)
+* [Creating a Mail Driver](advanced/creating-a-mail-driver.md)
+* [Sessions](advanced/sessions.md)
 
 ## Useful Features
 
-* [Template Caching](template-caching.md)
-* [Mail](email.md)
-* [Uploading](uploading-user-files.md)
-* [View Composers and Sharing](view-composers.md)
-* [Caching](caching.md)
-* [Broadcasting](broadcasting.md)
-* [Queues and Jobs](queues.md)
-* [Compiling Assets](compiling-assets.md)
+* [Template Caching](useful-features/template-caching.md)
+* [Mail](useful-features/mail.md)
+* [Uploading](useful-features/uploading.md)
+* [View Composers and Sharing](useful-features/view-composers-and-sharing.md)
+* [Caching](useful-features/caching.md)
+* [Broadcasting](useful-features/broadcasting.md)
+* [Queues and Jobs](useful-features/queues-and-jobs.md)
+* [Compiling Assets](useful-features/compiling-assets.md)
 
 ## Security
 
@@ -72,7 +74,7 @@
 * [ORM](https://orator-orm.com/docs/0.9/orm.html)
 * [Pagination](https://orator-orm.com/docs/0.9/pagination.html)
 * [Schema Builder](https://orator-orm.com/docs/0.9/schema_builder.html)
-* [Database Migrations](database/database-migrations.md)
+* [Database Migrations](orator-orm/database-migrations.md)
 * [Collections](https://orator-orm.com/docs/0.9/collections.html)
 
 ## Managers and Drivers
