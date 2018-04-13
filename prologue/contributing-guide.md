@@ -8,7 +8,7 @@ When contributing to this repository, please first discuss the change you wish t
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
-### Getting Started
+## Getting Started
 
 The framework has three main parts.
 

@@ -34,7 +34,7 @@ def show(self):
 
 Notice we didn't import anything at the top of our file and also didn't retrieve any objects from the IOC container. Masonite helper functions act just like any other built in Python function. Read more about helper functions in the [Helper Functions](helper-functions.md) documentation.
 
-### Usage
+## Usage
 
 The `Request` has several helper methods attached to it in order to interact with various aspects of the request.
 
