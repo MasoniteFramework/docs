@@ -1,6 +1,8 @@
 # About Managers
 
-# Introduction
+## About Managers
+
+## Introduction
 
 Masonite uses an extremely powerful pattern commonly known as the Manager Pattern; also known as the Builder Pattern. Because Masonite uses classes with the `XManager` namespace, we will call it the Manager Pattern throughout this documentation.
 
@@ -10,7 +12,7 @@ For an actual example inside Masonite, there are currently two classes for the U
 
 This is extremely useful for extending functionality of the managers. If we need to upload to Google, we can just make a `UploadGoogleDriver` and put it inside the container. If we set our configuration `DRIVER` to `google`, our `UploadManager` will now use that class to store files.
 
-## Creating a Manager
+### Creating a Manager
 
 Masonite obviously comes with several managers such as the `UploadManager` and the `MailManager`. Let's walk through how to create a new manager called the `TaskManager`.
 
@@ -33,7 +35,7 @@ Awesome! Inheriting from the Manager class will give our manager almost all the 
 from masonite.managers.Manager import Manager
 
 class TaskManager(Manager):
-    
+
     def create_driver(self):
         pass
 ```
@@ -76,9 +78,9 @@ Next we simply call the `TaskXDriver` from the container and set that as the dri
 
 If we cannot find the driver in the container then we have a `KeyError` and we call the `DriverNotFound` exception which we imported above. This is only called when the `DRIVER` we set in our configuration does not have a corresponding driver inside the container. For example if the developer sets `DRIVER='todo'` and we have not set the `TaskTodoDriver`
 
-## Using Our Manager
+### Using Our Manager
 
-We can use our manager simply by loading it into the container. We can do this by creating a Service Provider. Learn more about how to create a Service Provider in the [Service Providers](/service-container/service-providers.md) documentation. Let's show what a basic Service Provider might look like:
+We can use our manager simply by loading it into the container. We can do this by creating a Service Provider. Learn more about how to create a Service Provider in the [Service Providers](../architectural-concepts/service-providers.md) documentation. Let's show what a basic Service Provider might look like:
 
 ```python
 from masonite.provider import ServiceProvider
@@ -106,9 +108,5 @@ def show(self, Task):
     Task.method_here()
 ```
 
-Read about how to create drivers for your Manager class under the [About Drivers](/managers-and-drivers/about-drivers.md) documentation.
-
-
-
-
+Read about how to create drivers for your Manager class under the [About Drivers](about-drivers.md) documentation.
 
