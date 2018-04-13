@@ -6,7 +6,7 @@
 
 Masonite understands the developer need for building modern web applications so Masonite 1.4+ ships with WebSocket support. With a new Service Provider, configuration file and support for the `pusher` and `ably` drivers out of the box, we can now have full web socket support quickly and easily.
 
-### Configuration
+## Configuration
 
 All broadcasting configuration is located in the `config/broadcast.py` file. There are only two options: `DRIVER` and `DRIVERS`. The `DRIVER` should hold the value of the driver you want to use such as `pusher`:
 
@@ -33,7 +33,7 @@ Each driver may require it's own individual setting values so be sure to check t
 
 Make sure that the key in the `DRIVER` setting has a corresponding key in the `DRIVERS` setting.
 
-### Usage
+## Usage
 
 Since we have a `ServiceProvider` Service Provider which takes care of the container bindings for us, we can now it simply by passing `Broadcast` into our parameter list in our controller methods like so:
 

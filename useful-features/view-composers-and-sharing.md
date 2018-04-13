@@ -31,7 +31,7 @@ class ViewProvider(ServiceProvider):
 
 As you can see, we bind the view class itself to `ViewClass` and the render method to the `View` alias.
 
-### View Sharing
+## View Sharing
 
 We can share variables with all templates by simply specifying them in the `.share()` method like so:
 
@@ -107,7 +107,7 @@ PROVIDERS = [
 
 And we're done! When you next start your server, the `request` variable will be available on all templates.
 
-#### View Composing
+## View Composing
 
 In addition to sharing these variables with all templates, we can also specify only certain templates. All steps will be exactly the same but instead of the `.share()` method, we can use the `.compose()` method:
 

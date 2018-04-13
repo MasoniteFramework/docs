@@ -6,7 +6,7 @@
 
 Caching is an important aspect to any project and typically is used to speed up data that never changes and required a lot of resources to get. Powerful caching support is important in any application and Masonite comes with great caching support out of the box.
 
-### Getting Started
+## Getting Started
 
 We need the `CacheProvider` in order to activate caching with Masonite. We do so simple by going to our `config/application.py` file and adding the Service Provider `masonite.providers.CacheProvider.CacheProvider` to the `PROVIDERS` list.
 
@@ -22,7 +22,7 @@ DRIVERS = {
 }
 ```
 
-### Using the Cache
+## Using the Cache
 
 To start using the cache, we can use the `Cache` alias that is loaded into the container from the `CacheProvider` Service Provider. We can retrieve this from the container inside any method that is resolved by the container such as drivers, middleware and controllers. For example we can retrieve it from our controller method like so:
 

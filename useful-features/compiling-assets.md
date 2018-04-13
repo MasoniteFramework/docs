@@ -6,7 +6,7 @@
 
 Understanding that modern frameworks need to handle modern web applications. Many developers are starting to use third party packages, like Sass, to write CSS. Normally, many people who write Sass in other frameworks will need to run other third party services like Webpack or grunt. Masonite tries to make this as simple as possible and comes with Sass built in. So you just need to write Sass and it will compile into CSS when you run the server.
 
-### Getting Started
+## Getting Started
 
 Now although Masonite comes with the ability to compile Sass, it is deliberately missing the `libsass` dependency. This dependency takes several minutes to install and therefore was left out of the requirements to speed up the process of creating a new project.
 
@@ -20,7 +20,7 @@ pip install libsass
 
 Awesome! We're good to go. All Sass put inside `resources/static` will compile into `resources/compiled` .
 
-### Configuration
+## Configuration
 
 Masonite comes with a configuration file that will allow you to tweak the locations of files that Sass will be looked for, as well as where it will compile into. This setting page can be found in `config/storage.py` . The configuration constant looks something like:
 

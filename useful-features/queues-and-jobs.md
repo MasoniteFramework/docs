@@ -6,7 +6,7 @@
 
 Almost all applications can make use of queues. Queues are a great way to make time intensive tasks immediate by sending the task into the background. It's great to send anything and everything into the queue that doesn't require an immediate return value -- such as sending an email or firing an API call. The queue system is loaded into masonite via the `QueueProvider` Service Provider.
 
-### Getting Started
+## Getting Started
 
 All configuration settings by default are in the `config/queue.py` file. Out of the box, Masonite only supports the `async` driver which simply sends jobs into the background using multithreading. You are free to create more drivers. If you do create a driver, consider making it available on PyPi so others can also install it.
 

@@ -10,13 +10,13 @@ The Session features are added to the framework through the `SessionProvider` Se
 
 It's important to note that the Session will default to the `memory` driver. This means that all session data is stored in an instantiated object when the server starts and is destroyed when the server stops. This is not good when using a WSGI server like Gunicorn which might use multiple workers because each worker will create it's own memory state and requests may jump from worker to worker unpredictably. If you are only using 1 worker then this won't be an issue as long as the worker doesn't die and reset for the duration of the server's life. In this case you should use another driver that doesn't have the memory issue like the `cookie` driver which will store all session information as cookies instead of in memory.
 
-### Getting Started
+## Getting Started
 
 There are a two ideas behind sessions. There is **session data** and **flash data**. Session data is any data that is persistent for the duration of the session and flash data is data that is only persisted on the next request. Flash data is useful for showing things like success or warning messages after a redirection.
 
 Session data is automatically encrypted and decrypted using your secret key when using the `cookie` driver.
 
-### Using Sessions
+## Using Sessions
 
 Sessions are loaded into the container with the `Session` key. So you may access the `Session` class in any part of code that is resolved by the container. These include controllers, drivers, middleware etc:
 

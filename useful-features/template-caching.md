@@ -8,7 +8,7 @@ Sometimes your templates will not change that often and may have a lot of logic 
 
 This is a powerful feature that will reduce the load of your server for those resource hungry and complex templates.
 
-### Getting Started
+## Getting Started
 
 This feature is introduced in Masonite 1.4 and above. You can check your Masonite version by running `pip show masonite` which will give you the details of the masonite package you have installed.
 
@@ -42,7 +42,7 @@ DRIVERS = {
 }
 ```
 
-### Caching Templates
+## Caching Templates
 
 In order to cache templates for any given amount of time, you can attach the `.cache_for()` method onto your view. This looks like:
 

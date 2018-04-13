@@ -10,11 +10,11 @@ You may build more drivers if you wish to expand Masonite's capabilities. If you
 
 Read the "Creating an Email Driver" for more information on how to create drivers. Also look at the `drivers` directory inside the `MasoniteFramework/core` repository.
 
-### Configuration
+## Configuration
 
 All uploading configuration settings are inside `config/storage.py`. The settings that pertain to file uploading are just the `DRIVER` and the `DRIVERS` settings.
 
-#### Driver and DRIVERS Settings
+### Driver and DRIVERS Settings
 
 This setting looks like:
 

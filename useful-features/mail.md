@@ -6,7 +6,7 @@
 
 Masonite comes with email support out of the box. Most applications will need to send email upon actions like account creation or notifications. Because email is used so often with software applications, masonite provides mail support with several drivers.
 
-### Getting Started
+## Getting Started
 
 All mail configuration is inside `config/mail.py` and contains several well documented options. There are several built in drivers you can use but you can make your own if you'd like. You can follow the documentation here at [Creating a Mail Driver](../advanced/creating-a-mail-driver.md). If you do make your own, consider making it available on PyPi so others can install it. We may even put it in Masonite by default.
 
