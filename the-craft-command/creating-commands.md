@@ -65,7 +65,7 @@ def handle(self):
 
 That's it! Now we just have to add it to our craft command.
 
-### Adding Our Command To Craft
+## Adding Our Command To Craft
 
 We can add commands to craft by creating a Service Provider and registering our command into the container. Craft will automatically run all the register methods on all containers and retrieve all the commands.
 
@@ -108,9 +108,11 @@ class HelloProvider(ServiceProvider):
         pass
 ```
 
+{% hint style="warning" %}
 **Make sure you instantiate the command. Also the command name needs to end in "Command". So binding **`HelloCommand`** will work but binding **`Hello`** will not. Craft will only pick up commands that end in **`Command`**. This is also case sensitive so make sure **`Command`** is capitalized.**
+{% endhint %}
 
-### Adding The Service Provider
+## Adding The Service Provider
 
 Like normal, we need to add our Service Provider to the `PROVIDERS` list inside our `config/application.py` file:
 

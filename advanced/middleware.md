@@ -17,7 +17,7 @@ There are four types of middleware in total:
 * Middleware ran before certain routes
 * Middleware ran after certain routes
 
-### Creating Middleware
+## Creating Middleware
 
 Again, middleware should live inside the `app/http/middleware` folder and should look something like:
 
@@ -35,7 +35,11 @@ class AuthenticationMiddleware:
         pass
 ```
 
-Middleware constructors are resolved by the container so simply pass in whatever you like in the parameter list and it will be injected for you. Read more about this in the [Service Container](../architectural-concepts/service-container.md) documentation.
+Middleware constructors are resolved by the container so simply pass in whatever you like in the parameter list and it will be injected for you. 
+
+{% hint style="success" %}
+Read more about this in the [Service Container](../architectural-concepts/service-container.md) documentation.
+{% endhint %}
 
 If Masonite is running a “before” middleware, that is middleware that should be ran before the request, Masonite will check all middleware and look for a `before` method and execute that. The same for “after” middleware.
 
@@ -62,7 +66,7 @@ That's it! Now we just have to make sure our route picks this up. If we wanted t
 
 Since we are not utilizing the `after` method, we may exclude it all together. Masonite will check if the method exists before executing it.
 
-### Configuration
+## Configuration
 
 We have one of two configuration constants we need to work with. These constants both reside in our `config/middleware.py` file and are `HTTP_MIDDLEWARE` and `ROUTE_MIDDLEWARE`.
 
@@ -90,7 +94,7 @@ ROUTE_MIDDLEWARE = {
 }
 ```
 
-### Consuming Middleware
+## Consuming Middleware
 
 Using middleware is also simple. If we put our middleware in the `HTTP_MIDDLEWARE` constant then we don't have to worry about it anymore. It will run on every successful request, that is when a route match is found from our `web.py` file.
 

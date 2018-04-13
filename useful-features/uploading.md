@@ -114,7 +114,9 @@ DRIVERS = {
 }
 ```
 
-**Make sure that your user has the permission for uploading to your S3 bucket.**
+{% hint style="warning" %}
+Make sure that your user has the permission for uploading to your S3 bucket.
+{% endhint %}
 
 Then in our controller:
 

@@ -22,7 +22,9 @@ class User(Model):
     __auth__ = 'name'
 ```
 
+{% hint style="info" %}
 **All models that should be authenticated in addition to specifying a **`__auth__`** attribute also needs to have a **`password`** field as well in order to use the out of the box authentication that comes with Masonite.**
+{% endhint %}
 
 ## Authenticating a Model
 
@@ -39,7 +41,9 @@ def show(self, Request):
 
 This will find a model with the supplied username, check if the password matches using `bcrypt` and return the model. If it is not found or the password does not match, it will return `False`.
 
+{% hint style="warning" %}
 Again all authenticating models need to have a `password` column. The column being used to authenticate, such as a username or email field can be specified in the model using the `__auth__` class attribute.
+{% endhint %}
 
 ### Changing The Authentication Model
 

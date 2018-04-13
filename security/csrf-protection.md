@@ -10,7 +10,9 @@ If you are using Masonite 1.4 already then you already have the correct middlewa
 
 ## Getting Started
 
+{% hint style="info" %}
 If you are running a version of Masonite before 1.4 then check the upgrade guide for [Masonite 1.3 to 1.4](../upgrade-guide/masonite-1.3-to-1.4.md) for learning how to upgrade.
+{% endhint %}
 
 ## Usage
 

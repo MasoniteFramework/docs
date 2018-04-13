@@ -44,7 +44,7 @@ MANIFEST.in
 setup.py
 ```
 
-**Creating a Config Package**
+### **Creating a Config Package**
 
 Lets create a simple package that will add or append a config file from our package and into the project.
 
@@ -78,13 +78,13 @@ Perfect! Now we'll just need to tell PyPi to include this file when we upload it
 include testpackage/snippets/configs/*
 ```
 
-**Creating an Install Command**
+### **Creating an Install Command**
 
 It's great \(and convenient\) to add craft commands to a project so developers can use your package more efficiently. You can head over the [Creating Commands](../the-craft-command/creating-commands.md) to learn how to create a command. It only involves a normal command class and a Service Provider.
 
 Head over to that documentation page and create an `InstallCommand` and an `InstallProvider`. This step should take less than a few minutes. Once those are created we can continue to the adding package helpers below.
 
-**Adding Migration Directories**
+### **Adding Migration Directories**
 
 Masonite packages allow you to add new migrations to a project. For example, this could be used to add a new `package_subscriptions` table if you are building a package that works for subscribing users to Stripe.
 
@@ -108,7 +108,7 @@ Masonite will find any keys in the container that end with `MigrationDirectory` 
 
 The `package_directory` variable contains the absolute path to the current file so the migration directory being added should also be an absolute path to the migration directory as demonstrated here. Notice the `../migrations` syntax. This is going back one directory and into a migration directory there.
 
-**Package Helpers**
+### **Package Helpers**
 
 Almost done. Now we just need to put our `masonite.package` helper functions in our install command. The location we put in our `create_or_append_config()` function should be an absolute path location to our package. To help with this, Masonite has put a variable called `package_directory` inside the `integration.py` file. Our handle method inside our install command should look something like:
 
@@ -136,11 +136,13 @@ class InstallCommand(Command):
         )
 ```
 
+{% hint style="warning" %}
 **Make sure this command is added to your Service Provider and the developer using your package adds it to the **`PROVIDERS`** list as per the **[**Creating Commands**](../the-craft-command/creating-commands.md)** documentation.**
+{% endhint %}
 
 This will append the configuration file that has the same name as our package configuration file. In this case the configuration file we are creating or appending to is `config/services.py` because our packages configuration file is `services.py`. If we want to append to another configuration file we can simply change the name of our package configuration file.
 
-**Working With Our Package**
+### **Working With Our Package**
 
 We can either test our package locally or upload our package to PyPi.
 
@@ -158,7 +160,7 @@ $ pip install --editable .
 
 This will install your new package into your virtual environment. Go back to your project root so we can run our `craft testpackage:install` command. If we run that we should have a new configuration file under `config/services.py`.
 
-**Uploading to PyPi**
+### **Uploading to PyPi**
 
 If you have never set up a package before then you'll need to [check how to make a `.pypirc` file](http://peterdowns.com/posts/first-time-with-pypi.html). This file will hold our PyPi credentials.
 
@@ -176,7 +178,7 @@ If `python` doesn’t default to Python 3 or if PyPi throws errors than you may 
 $ python3 setup.py sdist upload
 ```
 
-**Consuming a package.**
+### **Consuming a package.**
 
 Now that your package is on PyPi we can just run:
 
@@ -206,7 +208,7 @@ Again, not all packages will need to be installed or even need commands. Only pa
 
 You will know if a package needs to be installed by reading the packages install documentation that is written by the package authors.
 
-### Helper Functions
+## Helper Functions
 
 These helper functions are used inside the install commands or anywhere else in your package where you need to scaffold a Masonite project.
 
@@ -220,19 +222,17 @@ location = os.path.join(
         )
 ```
 
-#### Functions
-
 All helper functions are located in the `masonite.packages` module. To use these functions you’ll need to import the function to be used like:
 
 ```python
 from masonite.packages import create_or_append_config
 ```
 
-**Creating Configuration Files**
+### **Creating Configuration Files**
 
 `create_or_append_config(location)` will create a configuration file based on a configuration file from your package.
 
-**Creating Web Routes**
+### **Creating Web Routes**
 
 `append_web_routes(location)` will append web routes to the `routes/web.py` file. Your web routes should have a `+=` to the `ROUTES` constant and should look something like:
 
@@ -242,7 +242,7 @@ ROUTES += [
 ]
 ```
 
-**Creating Api Routes**
+### **Creating Api Routes**
 
 `append_api_routes(location)` will append api routes to a masonite project under `routes/api.py`. Your api routes should have a `+=` to the `ROUTES` constant and should look something like:
 
@@ -252,7 +252,7 @@ ROUTES += [
 ]
 ```
 
-**Creating Controllers**
+### **Creating Controllers**
 
 `create_controller(location)` will take a controller from your package and append it under the `app.http.controllers` namespace by default.
 

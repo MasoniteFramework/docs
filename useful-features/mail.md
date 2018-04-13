@@ -12,11 +12,11 @@ All mail configuration is inside `config/mail.py` and contains several well docu
 
 By default, Masonite uses the `smtp` driver. Inside your `.env` file, just put your smtp credentials. If you are using Mailgun then switch your driver to `mailgun` and put your Mailgun credentials in your `.env` file.
 
-### Configuring Drivers
+## Configuring Drivers
 
 There are two drivers out of the box that masonite uses and there is a tiny bit of configuration for both.
 
-#### SMTP Driver
+### SMTP Driver
 
 The SMTP driver takes several configuration files we can all put in our `.env` file.
 
@@ -34,7 +34,7 @@ Because this is SMTP, we can utilize all SMTP services such as mailtrap and gmai
 
 Thats it! As long as the authentication works, we can send emails. Remember that it is save to put sensitive data in your `.env` file because it is not committed to source control and it is inside the `.gitignore` file by default.
 
-#### Mailgun Driver
+### Mailgun Driver
 
 Mailgun does not use SMTP and instead uses API calls to their service to send emails. Mailgun only requires 2 configuration settings:
 
@@ -62,7 +62,7 @@ DRIVERS = {
 }
 ```
 
-### Sending an Email
+## Sending an Email
 
 The `Mail` class is loaded into the container via the the `MailProvider` Service Provider. We can fetch this `Mail` class via our controller methods:
 
@@ -104,7 +104,7 @@ def show(self, MailManager):
     MailManager.driver('mailgun') # now uses the Mailgun driver
 ```
 
-### Queues
+## Queues
 
 Sending an email may take several seconds so it might be a good idea to create a Job. Jobs are simply Python classes that inherit from the `Queueable` class and can be pushed to queues or ran asynchronously. This will look something like:
 
@@ -119,7 +119,7 @@ Instead of taking seconds to send an email, this will seem immediate and be sent
 
 Read more about creating Jobs and sending emails asynchronously in the "Queues and Jobs" documentation.
 
-### Methods
+## Methods
 
 We can specify which driver we want to use. Although Masonite will use the `DRIVER` variable in our config file, we can change the driver on the fly.
 
@@ -135,7 +135,7 @@ You can specify which address you want the email to appear from:
 Mail.send_from('Admin@email.com').to('hello@email.com').send('Welcome!')
 ```
 
-#### Templates
+### Templates
 
 If you don't want to pass a string as the message, you can pass a view template.
 

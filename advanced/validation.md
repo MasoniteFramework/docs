@@ -43,7 +43,7 @@ class RegistrationValidator(Validator):
         )
 ```
 
-### Custom Error Messages
+## Custom Error Messages
 
 By default, Masonite will supply you with a dictionary of errors depending on the validator class. More information on what the default error messages are found below.
 
@@ -70,7 +70,7 @@ class RegistrationValidator(Validator):
 
 This will change the default error messages to the defaults provided. If you do not specify a custom error message for a validation field then the default one will display as usual.
 
-#### Requests
+### Requests
 
 In order to check the input data we receive from a request, such as a form submission, we can use this validator like so:
 
@@ -86,7 +86,7 @@ def show(self, Request):
 
 Notice that we pass in the request inside the constructor of our `RequestValidator` class. Our class is using the constructor inherited from Masonite's `Validator` class.
 
-#### Non Requests
+### Non Requests
 
 Sometimes we may wish to use our validator class without request data. In order to do this we can just pass a dictionary of values into our `.check()` method like so:
 
@@ -102,7 +102,7 @@ def show(self):
 
 Notice how we passed a dictionary into our `.check()` method here and didn't pass the request object in the constructor.
 
-### Validator Options
+## Validator Options
 
 There are a plethora of options that you can use to validate your forms. In addition to validating your request input, we also get a dictionary of errors. In order to get the errors if a validation fails, we can get use the method:
 
@@ -112,13 +112,13 @@ validate.errors() # {'username': 'must be present'}
 
 This method will return a dictionary of errors that will be different depending on the validation class used but this method will return `None` if there are no errors. Below each option will be what the value of `.errors()` will be as well as how you would use them inside Masonite.
 
-#### Required
+### Required
 
 By default, all keys registered for validation are optional. Any key that doesn't exist in the validation will skip any of the missing input data. For example, if a validation is not set for `password` then it will simply not check any validation on that specific request input. In this case, we can leave our `password` validation out entirely.
 
 Unlike other validator classes, this class does not need to be instantiated \(contain parenthesis at the end\). So `Required` is the correct usage and not `Required()`.
 
-**Usage**
+#### **Usage**
 
 ```python
 from validate import Required
@@ -128,17 +128,17 @@ self.validate({
 })
 ```
 
-**Error**
+#### **Error**
 
 ```python
 {"username": ["must be present"]}
 ```
 
-#### Truthy
+### Truthy
 
 The `Truthy()` validator class will check whatever is truthy to Python. This includes True, non-0 integers, non-empty lists, and strings
 
-**Usage**
+#### **Usage**
 
 ```python
 from validate import Truthy
@@ -148,17 +148,17 @@ self.validate({
 })
 ```
 
-**Error**
+#### **Error**
 
 ```python
 {"username": ["must be True-equivalent value"]}
 ```
 
-#### Equals
+### Equals
 
 This validator will check that a value is equal to the value given.
 
-**Usage**
+#### **Usage**
 
 ```python
 from validate import Equals
@@ -168,15 +168,17 @@ self.validate({
 })
 ```
 
-**Error**
+#### **Error**
 
 ```python
 {"username": ["must be equal to 'Joseph'"]}
 ```
 
+{% hint style="warning" %}
 **Note that all request input data will be a string. so make sure you use **`Equals('1')`** and not **`Equals(1)`**. Just be sure to maintain the data type in your validation.**
+{% endhint %}
 
-#### Range
+### Range
 
 This validator checks that the dictionary value falls inclusively between the start and end values passed to it.
 
@@ -188,17 +190,17 @@ self.validate({
 })
 ```
 
-**Error**
+#### **Error**
 
 ```python
 {"age": ["must fall between 1 and 100"]}
 ```
 
-#### Pattern
+### Pattern
 
 The Pattern validator checks that the dictionary value matches the regex pattern that was passed to it.
 
-**Usage**
+#### **Usage**
 
 ```python
 from validate import Pattern
@@ -208,7 +210,7 @@ self.validate({
 })
 ```
 
-**Error**
+#### **Error**
 
 ```python
 {"age": ["must match regex pattern \d+"]}
@@ -241,17 +243,17 @@ self.validate({
 })
 ```
 
-**Error**
+#### **Error**
 
 ```python
 {"age": ["must be one of <collection here>"]}
 ```
 
-#### Not
+### Not
 
 This validator negates a validator that is passed to it and checks the dictionary value against that negated validator.
 
-**Usage**
+#### **Usage**
 
 ```python
 from validate import Not
@@ -263,17 +265,17 @@ self.validate({
 })
 ```
 
-**Error**
+#### **Error**
 
 ```python
 {"age": ["must be one of <collection here>"]}
 ```
 
-#### InstanceOf
+### InstanceOf
 
 This validator checks that the dictionary value is an instance of the base class passed to it, or an instance of one of its subclasses.
 
-**Usage**
+#### **Usage**
 
 ```python
 from validate import InstanceOf
@@ -283,17 +285,17 @@ self.validate({
 })
 ```
 
-**Error**
+#### **Error**
 
 ```python
 {"age": ["must be an instance of basestring or its subclasses"]}
 ```
 
-#### SubclassOf
+### SubclassOf
 
 This validator checks that the dictionary value inherits from the base class passed to it. To be clear, this means that the dictionary value is expected to be a class, not an instance of a class.
 
-**Usage**
+#### **Usage**
 
 ```python
 from validate import SubclassOf
@@ -303,17 +305,17 @@ self.validate({
 })
 ```
 
-**Error**
+#### **Error**
 
 ```python
 {"age": ["must be a subclass of str"]}
 ```
 
-#### Length
+### Length
 
 This validator checks that value the must have at least minimum elements and optionally at most maximum elements.
 
-**Usage**
+#### **Usage**
 
 ```python
 from validate import Length
@@ -323,7 +325,7 @@ self.validate({
 })
 ```
 
-**Error**
+#### **Error**
 
 ```python
 {"age": ["must be at most 5 elements in length"]}

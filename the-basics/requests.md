@@ -45,11 +45,13 @@ def show(self, Request):
     Request.input('username')
 ```
 
-**NOTE: There is no difference between any HTTP methods \(GET, POST, PUT, etc etc\) when it comes to getting input data. They are both retrieved through this **`.input()`** method so there is no need to make a distinction if the request is **`GET`** or **`POST`
+{% hint style="info" %}
+**There is no difference between any HTTP methods \(GET, POST, PUT, etc\) when it comes to getting input data. They are both retrieved through this **`.input()`** method so there is no need to make a distinction if the request is **`GET`** or **`POST`
+{% endhint %}
 
-### Method Options
+## Method Options
 
-#### Input Data
+### Input Data
 
 We can get all the request input variables such as input data from a form request or GET data from a query string. Note that it does not matter what HTTP method you are using, the input method will know what input data to get dependent on the current HTTP method \(`GET`, `POST`, `PUT`, etc\)
 
@@ -74,7 +76,7 @@ def show(self, Request):
     return Request.has('variable')
 ```
 
-#### URL Parameters
+### URL Parameters
 
 To get the request parameter retrieved from the url. This is used to get variables inside: `/dashboard/@firstname` for example.
 
@@ -83,11 +85,11 @@ def show(self, Request):
     return Request.param('firstname')
 ```
 
-#### Cookies
+## Cookies
 
 You may also set a cookie in the browser. The below code will set a cookie named `key` to the value of `value`. By default, all cookies are encrypted with your secret key which is generated in your `.env` file when you installed Masonite.
 
-**Creating**
+### **Creating**
 
 ```python
 def show(self, Request):
@@ -110,7 +112,7 @@ def show(self, Request):
 
 This will set a cookie thats expires 5 minutes from the current time.
 
-**Reading**
+### **Reading**
 
 You can get all the cookies set from the browser
 
@@ -135,7 +137,7 @@ def show(self, Request):
 
 This will return the plain text version of the cookie.
 
-**Deleting**
+### **Deleting**
 
 You may also delete a cookie. This will remove it from the browser as well.
 
@@ -144,7 +146,7 @@ def show(self, Request):
     return Request.delete_cookie('key')
 ```
 
-#### User
+## User
 
 You can also get the current user from the request. This requires the `LoadUserMiddleware` middleware which is in Masonite by default. This will return an instance of the current user.
 
@@ -153,7 +155,7 @@ def show(self, Request):
     return Request.user()
 ```
 
-#### Redirection
+## Redirection
 
 You can specify a url to redirect to
 
@@ -206,7 +208,7 @@ def show(self, Request):
     return Request.redirectTo('dashboard').send({'firstname': 'Joseph', 'lastname': 'Mancuso'})
 ```
 
-#### Encryption Key
+## Encryption Key
 
 You can load a specific secret key into the request by using:
 
@@ -214,9 +216,13 @@ You can load a specific secret key into the request by using:
 Request.key(key)
 ```
 
-This will load a secret key into the request which will be used for encryptions purposes throughout your Masonite project. **Note that by default, the secret key is pulled from your configuration file so you do NOT need to supply a secret key, but the option is there if you need to change it**
+This will load a secret key into the request which will be used for encryptions purposes throughout your Masonite project. 
 
-#### Headers
+{% hint style="warning" %}
+Note that by default, the secret key is pulled from your configuration file so you do NOT need to supply a secret key, but the option is there if you need to change it for testing and development purposes.
+{% endhint %}
+
+## Headers
 
 You can also get and set any headers that the request has. You can get all header information by printing:
 
@@ -248,7 +254,7 @@ Request.header('AUTHORIZATION', 'Bearer some-secret-key', http_prefix=None)
 
 This will set the `AUTHORIZATION` header instead of the `HTTP_AUTHORIZATION` header.
 
-### Status Codes
+## Status Codes
 
 Masonite will set a status code of `404 Not Found` at the beginning of every request. If the status code is not changed throughout the code, either through the developer or third party packages, then the status code will continue to be `404 Not Found` when the output is generated. You do not have to explicitly change specify this as the framework itself handles status codes. You could change this status code in either any of your controllers or even a third party package.
 
@@ -262,7 +268,7 @@ Request.status('429 Too Many Requests')
 
 This will set the correct status code before the output is sent to the browser. You can look up a list of HTTP status codes from an online resource and specify any you need to, there are no limitations to which ones you can use.
 
-### Changing Request Method in Forms
+## Changing Request Method in Forms
 
 Typically, forms only have support for `GET` and `POST`. You may want to change what http method is used when submitting a form such as `PATCH`.
 

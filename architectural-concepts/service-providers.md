@@ -18,7 +18,7 @@ $ craft provider DashboardProvider
 
 This will create a new Service Provider under our `app/providers/DashboardProvider.py`. This new Service Provider will have two simple methods, a `register` method and a `boot` method. We'll explain both in detail.
 
-#### Service Provider Execution
+## Service Provider Execution
 
 There are a few architectural examples we will walk through to get you familiar with how Service Providers work under the hood. Let's look at a simple provider and walk through it.
 
@@ -40,15 +40,15 @@ class UserModelProvider(ServiceProvider):
 
 We can see that we have a simple provider that registers the `User` model into the container. There are three key features we have to go into detail here.
 
-#### WSGI
+## WSGI
 
 First, the `wsgi = False` just tells Masonite that this specific provider does not need the WSGI server to be running. When the WSGI server first starts, it will execute all service providers that have `wsgi` set to `False`. Whenever a provider only binds things into the container and we don't need things like requests or routes, then consider setting `wsgi` to `False`. the `ServiceProvider` class we inherited from sets `wsgi` to `True` by default. Whenever `wsgi` is `True` then the service provider will fire on every request.
 
-#### Register
+## Register
 
 In our `register` method, it's important that we only bind things into the container. When the server is booted, Masonite will execute all register methods on all service providers. This is so the `boot` method will have access to the entire container.
 
-#### Boot
+## Boot
 
 The boot method will have access to everything that is registered in the container and is actually resolved by the container. Because of this, we can actually rewrite our provider above as this:
 

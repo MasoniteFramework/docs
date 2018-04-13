@@ -175,5 +175,7 @@ def show(self, Session):
     Session.reset(flash_only=True)
 ```
 
+{% hint style="warning" %}
 Remember that Masonite will reset flashed data at the end of a successful `200 OK` request anyway so you will most likely not use the `flash_only=True` keyword parameter.
+{% endhint %}
 

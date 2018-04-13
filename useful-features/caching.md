@@ -44,7 +44,9 @@ def show(self, Cache):
 
 This will create a `bootstrap/cache/key.txt` file which contains a simple `value`.
 
-**Also note that the directory will be automatically created if it does not exist.**
+{% hint style="info" %}
+Also note that the directory will be automatically created if it does not exist.
+{% endhint %}
 
 ### Caching For Time
 

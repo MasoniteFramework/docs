@@ -18,7 +18,9 @@ Most of your routes will consist of a structure like this. All URI’s should ha
 Post().route('/url/here', 'WelcomeController@store')
 ```
 
+{% hint style="info" %}
 Notice the controller here is a string. This is a great way to specify controllers as you do not have to import anything into your `web.py` file. All imports will be done in the backend. More on controllers later.
+{% endhint %}
 
 If you wish to not use string controllers and wish to instead import your controller then you can do so by specifying the controller as well as well as only passing a reference to the method. This will look like:
 

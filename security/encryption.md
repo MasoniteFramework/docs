@@ -4,7 +4,11 @@
 
 ## Introduction
 
-Masonite comes with bcrypt out of the box but leaves it up to the developer to actually encrypt things like passwords. You can opt to use any other hashing library but bcrypt is the standard of a lot of libraries and comes with some one way hashing algorithms with no known vulnerabilities. Many of hashing algorithms like SHA-1 and MD5 are not secure and you should not use them in your application. You can read the [bcrypt documentation here](https://github.com/pyca/bcrypt).
+Masonite comes with bcrypt out of the box but leaves it up to the developer to actually encrypt things like passwords. You can opt to use any other hashing library but bcrypt is the standard of a lot of libraries and comes with some one way hashing algorithms with no known vulnerabilities. Many of hashing algorithms like SHA-1 and MD5 are not secure and you should not use them in your application. 
+
+{% hint style="success" %}
+You can read the [bcrypt documentation here](https://github.com/pyca/bcrypt).
+{% endhint %}
 
 ## Background
 
@@ -14,7 +18,7 @@ Other frameworks use cryptographic signing which attached a special key to your 
 
 ## Secret Key
 
-In your `.env` file, you will find a setting called `KEY=your-secret-key`. This is the SALT that is used to encrypt and decrypt your cookies. It is important to change this key sometime before development. **Masonite does not currently set this key for you.** You can generate new secret keys by running:
+In your `.env` file, you will find a setting called `KEY=your-secret-key`. This is the SALT that is used to encrypt and decrypt your cookies. It is important to change this key sometime before development. You can generate new secret keys by running:
 
 ```text
 $ craft key
@@ -28,7 +32,9 @@ Additionally you can pass the `--store` flag which will automatically set the `K
 $ craft key --store
 ```
 
-**Remember to not share this secret key as a loss of this key could lead to someone being able to decrypt any cookies set by your application. If you find that your secret key is compromised, just generate a new key.**
+{% hint style="danger" %}
+Remember to not share this secret key as a loss of this key could lead to someone being able to decrypt any cookies set by your application. If you find that your secret key is compromised, just generate a new key.
+{% endhint %}
 
 ## Cryptographic Signing
 
@@ -77,9 +83,13 @@ Just remember to store the key you generated or you will not be able to decrypt 
 
 ## Using bcrypt
 
-Bcrypt is very easy to use an basically consists of a 1 way hash, and then a check to verify if that 1 way hash matches an input given to it. **It's important to note that any values passed to bcrypt need to be in bytes.**
+Bcrypt is very easy to use an basically consists of a 1 way hash, and then a check to verify if that 1 way hash matches an input given to it. 
 
-#### Hashing Passwords
+{% hint style="warning" %}
+It's important to note that any values passed to bcrypt need to be in bytes.
+{% endhint %}
+
+### Hashing Passwords
 
 Again, all values passed into bcrypt need to be in bytes so we can pass in a password:
 
@@ -101,9 +111,11 @@ User.create(
 )
 ```
 
-**Do not store unhashed passwords in your database. Also, do not use unsafe encryption methods like MD5 or SHA-1. **
+{% hint style="danger" %}
+Do not store unhashed passwords in your database. Also, do not use unsafe encryption methods like MD5 or SHA-1.
+{% endhint %}
 
-#### Checking Hashed Passwords
+### Checking Hashed Passwords
 
 In order to check if a password matches it's hashed form, such as trying to login a user, we can use the `bcrypt.checkpw()` function:
 

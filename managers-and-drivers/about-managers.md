@@ -84,5 +84,7 @@ def show(self, Task):
 
 Notice that we binded the `TaskManager` into the container under the `Task` key. Because of this we can now pass the `Task` in any parameter set that is resolved by the container like a controller method. Since we passed the `Task` into the parameter set, Masonite will automatically inject whatever the `Task` key from the container contains.
 
+{% hint style="success" %}
 Read about how to create drivers for your Manager class under the [About Drivers](about-drivers.md) documentation.
+{% endhint %}
 
