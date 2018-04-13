@@ -6,7 +6,7 @@
 
 Masonite 1.5 doesn't bring many file changes to Masonite so this upgrade is fairly straight forward and should take less than 10 minutes.
 
-### Requirements.txt
+## Requirements.txt
 
 All requirements are now gone with the exception of the WSGI server \(`waitress`\) and the Masonite dependency. You should remove all dependencies and only put:
 
@@ -15,11 +15,11 @@ waitress==1.1.0
 masonite>=1.5,<=1.5.99
 ```
 
-### Site Packages Configuration
+## Site Packages Configuration
 
 If you have added your site packages directory to our packages configuration file, you can now remove this because Craft commands can now detect your site packages directory in your virtual environment.
 
-### Api Removal
+## Api Removal
 
 Remove the `masonite.providers.ApiProvider.ApiProvider` from the `PROVIDERS` list as this has been removed completely in 1.5
 
@@ -27,7 +27,7 @@ If you are using the `Api()` route inside `routes/api.py` for API endpoints then
 
 You'll also have to add a new `RESOURCES = []` line to your `routes/api.py` file for the new Masonite Entry package.
 
-### Craft Commands
+## Craft Commands
 
 This release works with the new craft command release. Upgrade to version `masonite-cli / 1.1+`. `<1.1` will only work with Masonite 1.4 and below.
 
@@ -39,7 +39,7 @@ $ pip install --upgrade masonite-cli
 
 **You may have to run sudo if you are using a UNIX machine.**
 
-### Sessions
+## Sessions
 
 Masonite 1.5 now has sessions that can be used to hold temporary data. It comes with the cookie and memory drivers. Memory stores all data in a class which is lost when the server restarts and the cookie driver sets cookies in the browser.
 
@@ -79,7 +79,7 @@ PROVIDERS = [
 ]
 ```
 
-### Finished
+## Finished
 
 That's it! You have officially upgrades to Masonite 1.5
 
