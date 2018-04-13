@@ -32,7 +32,7 @@ class HelpersProvider(ServiceProvider):
 
 Notice how we simply just add builtin functions via this provider.
 
-### Request
+## Request
 
 The Request class has a simple `request()` helper function.
 
@@ -48,7 +48,7 @@ def show(self, Request):
     Request.input('id')
 ```
 
-### View
+## View
 
 The `view()` function is just a shortcut to the `View` class.
 
@@ -64,7 +64,7 @@ def show(self, View):
     return View('template_name')
 ```
 
-### Auth
+## Auth
 
 The `auth()` function is a shortcut around getting the current user. We can retrieve the user like so:
 
@@ -82,7 +82,7 @@ def show(self, Request):
 
 This will return `None` if there is no user.
 
-### Container
+## Container
 
 We can get the container by using the `container()` function
 
@@ -98,7 +98,7 @@ def show(self, Request):
     Request.app().make('User')
 ```
 
-### Env
+## Env
 
 We may need to get some environment variables inside our controller or other parts of our application. For this we can use the `env()` function.
 
@@ -116,7 +116,7 @@ def show(self):
     os.environ.get('S3_SECRET')
 ```
 
-### Resolve
+## Resolve
 
 We can resolve anything from the container by using his `resolve()` function.
 

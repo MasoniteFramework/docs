@@ -6,7 +6,7 @@
 
 Creating packages is very simple for Masonite. You can get a package created and on PyPi is less than 5 minutes. With Masonite packages you'll easily be able to integrate and scaffold all Masonite projects with ease. Masonite comes with several helper functions in order to create packages which can add configuration files, routes, controllers, views, commands and more.
 
-### Getting Started
+## Getting Started
 
 As a developer, you will be responsible for both making packages and consuming packages. In this documentation we'll talk about both. We'll start by talking about how to make a package and then talk about how to use that package or other third party packages.
 
@@ -14,7 +14,7 @@ Masonite, being a Python framework, can obviously utilize all Python packages th
 
 Similarly to how Django Rest Framework was built for Django, you can also build packages specific to Masonite. Although you can just as simply build packages for both, as long as you add some sort of Service Provider to your package that can integrate your library into Masonite.
 
-#### About Packages
+### About Packages
 
 There are several key functions that Masonite uses in order to create applications. These include primarily: routes, controllers, views, and craft commands. Creating a package is simple. Conveniently Masonite comes with several helper functions in order to create all of these.
 
@@ -22,7 +22,7 @@ You can easily create a command like `craft mypackage:install` and can scaffold 
 
 You do not have to use this functionality and instead have the developer copy and paste things that they need to from your documentation but having a great setup process is a great way to promote developer happiness which is what Masonite is all about.
 
-#### Creating a Package
+### Creating a Package
 
 Like other parts of Masonite, in order to make a package, we can use a craft command. The `craft package` command will scaffold out a simple PyPi package and is fully able to be uploaded directly to PyPi.
 

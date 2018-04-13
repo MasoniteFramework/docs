@@ -24,7 +24,7 @@ $ craft migrate
 
 All scaffolding of Masonite can be done manually \(manually creating a controller and importing the `view` function for example\) but the craft command tool is used for speeding up development and cutting down on mundane development time.
 
-### Commands
+## Commands
 
 The possible commands for craft include:
 

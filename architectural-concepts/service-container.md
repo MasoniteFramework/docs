@@ -6,7 +6,7 @@
 
 The Service Container is an extremely powerful feature of Masonite and should be used to the fullest extent possible. It's important to understand the concepts of the Service Container. It's a simple concept but is a bit magical if you don't understand what's going on under the hood.
 
-### Getting Started
+## Getting Started
 
 The Service Container is just a dictionary where classes are loaded into it by key-value pairs, and then can be retrieved by either the key or value. That's it.
 

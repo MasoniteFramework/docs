@@ -8,7 +8,7 @@ Service Providers are the key building blocks to Masonite. The only thing they d
 
 You may create your own service provider and add it to your providers list to extend Masonite, or even remove some providers if you don't need their functionality. If you do create your own Service Provider, consider making it available on PyPi so others can install it into their framework.
 
-### Creating a Provider
+## Creating a Provider
 
 We can create a Service Provider but simply using a craft command:
 

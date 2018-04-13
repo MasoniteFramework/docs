@@ -6,7 +6,7 @@
 
 Masonite tries to make static files extremely easy and comes with whitenoise out of the box. White noise wraps the WSGI application and listens for certain URI requests that can be resistered in your configuration files.
 
-### Configuration
+## Configuration
 
 All configurations that are specific to static files can be found in config/storage.py. In this file you'll find a constant file called `STATICFILES` which is simply a dictionary of directories as they keys and aliases as the value.
 

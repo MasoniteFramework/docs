@@ -8,7 +8,7 @@ It's extremely simple to add commands to Masonite via the craft command tool and
 
 Masonite uses the Cleo package for creating and consuming commands so for more extensive documentation on how to utilize commands themselves, how to get arguments and options, and how to print colorful text to the command line, visit the [Cleo Documentation](http://cleo.readthedocs.io/en/latest/).
 
-### Getting Started
+## Getting Started
 
 You can create commands by using craft itself:
 
