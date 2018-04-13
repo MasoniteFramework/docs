@@ -1,4 +1,4 @@
-# Introduction
+# Introduction and Installaton
 
 Masonite is the rapid application Python development framework that strives for: beautiful and elegant syntax, actual batteries included with a lot of out of the box functionality, and extremely extendable. Masonite works hard to be fast and easy from install to deployment so developers can go from concept to creation in as quick and efficiently as possible. Try it once and you’ll fall in love.
 
@@ -88,5 +88,5 @@ This installs all the required dependencies of Masonite, creates a `.env` file f
 $ craft serve
 ```
 
-Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications. You can learn more about craft by reading [The Craft Command](the-basics/the-craft-command.md) documentation.
+Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications. You can learn more about craft by reading [The Craft Command](../the-basics/the-craft-command.md) documentation.
 

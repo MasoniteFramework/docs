@@ -1,19 +1,22 @@
 # Creating Commands
 
-# Introduction
+## Creating Commands
+
+## Introduction
 
 It's extremely simple to add commands to Masonite via the craft command tool and Service Providers. If you have been using Masonite for any amount of time you will learn that commands are a huge part of developing web applications with Masonite. We have made it extremely easy to create these commands and add them to craft to build really fast personal commands that you might use often.
 
-## Getting Started
+### Getting Started
 
 You can create commands by using craft itself:
 
-    $ craft command HelloWorldCommand
-    
+```text
+$ craft command HelloWorldCommand
+```
+
 This will create a `app/commands/HelloWorldCommand.py` file with boiler plate code that looks like this:
 
 ```python
-
 """ A HelloWorldCommand Command """
 from cleo import Command
 
@@ -41,10 +44,5 @@ def handle(self):
 
 That's it! Now we just have to add it to our craft command.
 
-## Adding Our Command To Craft
-
-
-
-
-
+### Adding Our Command To Craft
 
