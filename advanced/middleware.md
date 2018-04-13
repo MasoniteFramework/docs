@@ -1,12 +1,14 @@
 # Middleware
 
-# Introduction
+## Middleware
+
+## Introduction
 
 Middleware is an extremely important aspect of web applications as it allows you to run important code either before or after every request or even before or after certain routes. In this documentation we'll talk about how middleware works, how to consume middleware and how to create your own middleware. Middleware is only ran when the route is found and a status code of 200 will be returned.
 
-## Getting Started
+### Getting Started
 
-Middleware classes are placed inside the `app/http/middleware`  by convention but can be placed anywhere you like. All middleware are just classes that take in a request and contain a `before` method or an `after` method.
+Middleware classes are placed inside the `app/http/middleware` by convention but can be placed anywhere you like. All middleware are just classes that take in a request and contain a `before` method or an `after` method.
 
 There are four types of middleware in total:
 
@@ -15,7 +17,7 @@ There are four types of middleware in total:
 * Middleware ran before certain routes
 * Middleware ran after certain routes
 
-### Creating Middleware
+#### Creating Middleware
 
 Again, middleware should live inside the `app/http/middleware` folder and should look something like:
 
@@ -58,7 +60,7 @@ That's it! Now we just have to make sure our route picks this up. If we wanted t
 
 Since we are not utilizing the `after` method, we may exclude it all together. Masonite will check if the method exists before executing it.
 
-### Configuration
+#### Configuration
 
 We have one of two configuration constants we need to work with. These constants both reside in our `config/middleware.py` file and are `HTTP_MIDDLEWARE` and `ROUTE_MIDDLEWARE`.
 
@@ -86,7 +88,7 @@ ROUTE_MIDDLEWARE = {
 }
 ```
 
-### Consuming Middleware
+#### Consuming Middleware
 
 Using middleware is also simple. If we put our middleware in the `HTTP_MIDDLEWARE` constant then we don't have to worry about it anymore. It will run on every successful request, that is when a route match is found from our `web.py` file.
 
@@ -100,3 +102,4 @@ Get().route('/login', 'LoginController@show').name('login')
 This will execute the auth middleware only when the user visits the `/dashboard` url and as per our middleware will be redirected to the named route of `login`
 
 Awesome! You’re now an expert at how middleware works with Masonite.
+

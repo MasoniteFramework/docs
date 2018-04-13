@@ -1,10 +1,12 @@
 # Creating a Mail Driver
 
-# Introduction
+## Creating a Mail Driver
+
+## Introduction
 
 Because of Masonite's Service Container, It is extremely easy to make drivers that can be used by simply adding your service provider.
 
-## Getting Started
+### Getting Started
 
 Masonite comes shipped with a Service Provider called `MailProvider` which loads a few classes into the container as well as boots the default mail driver using the `MailManager`. This manager class will fetch drivers from the container and instantiate them. We can look at the `MailProvider` class which will gives us a better explanation as to what's going on:
 
@@ -20,14 +22,13 @@ class MailProvider(ServiceProvider):
 
     def boot(self):
         self.app.bind('Mail', MailManager(self.app))
-
 ```
 
 We can see here that because we are only binding things into the container and we don't need the WSGI server to be running, we set `wsgi = False`. Service Providers that set `wsgi` to `False` will only run when the server starts and not on every request.
 
 We can see here that we are binding a few drivers into the container and then binding the `MailManager` on boot. Remember that our boot method has access to everything that has been registered into the container. The register methods are executed on all providers before the boot methods are executed.
 
-### Mail Manager
+#### Mail Manager
 
 The `MailManager` here is important to understand. When the `MailManager` is instantiated, it accepts the container as a parameter. When the `MailManager` is instantiated, it fires a `create_driver` method which will grab the driver from the configuration file and retrieve a `MailXDriver` from the container. The `create_driver` method is a very simple method:
 
@@ -44,9 +45,9 @@ def create_driver(self, driver=None):
         raise DriverNotFound('Could not find the Mail{0}Driver from the service container. Are you missing a service provider?'.format(driver))
 ```
 
-Notice that when the driver is created, it tries to get a `Mail{0}Driver` from the container. Therefore, all we need to do is register a `MailXDriver` into the container ('X' being the name of the driver) and Masonite will know to grab that driver.
+Notice that when the driver is created, it tries to get a `Mail{0}Driver` from the container. Therefore, all we need to do is register a `MailXDriver` into the container \('X' being the name of the driver\) and Masonite will know to grab that driver.
 
-### Creating a Driver
+#### Creating a Driver
 
 So now we know that we need a `MailXDriver` so let's walk through how we could create a `maildrill` email driver.
 
@@ -84,12 +85,11 @@ class MailMailgunDriver(BaseMailDriver):
                   "to": [self.to_address, "{0}".format(self.config.FROM['address'])],
                 "subject": self.message_subject,
                 "html": message})
-
 ```
 
 If you are wondering where the `self.message_body` and `self.config` are coming from, check the `BaseMailDriver`. All driver constructors are resolved by the service container so you can grab anything you need from the container to make your driver work. Notice here that we don't need a constructor because we inherited it from the `BaseMailDriver`
 
-### Registering Your Mail Driver
+#### Registering Your Mail Driver
 
 Since the `MailManager` class creates the driver on boot, we can simply register the driver into the container via any service providers register method. We could create a new Service Provider and register it there. You can read more about created Service Providers under the "Service Providers" documentation. For now, we will just register it from within our `AppProvider`.
 
@@ -106,14 +106,13 @@ class AppProvider(ServiceProvider):
         self.app.bind('ApiRoutes', api.ROUTES)
         self.app.bind('Response', None)
         self.app.bind('Storage', storage)
-        
+
         # Register new mail driver
         self.app.bind('MailMandrillDriver', MailMandrillDriver)
 
     def boot(self, Environ):
         self.app.bind('Request', Request(Environ))
         self.app.bind('Route', Route(Environ))
-
 ```
 
 Great! Our new driver is registered into the container. It is now able to be created with Masonite's `MailManager` class. We can retrieve your new driver by doing:
@@ -123,7 +122,7 @@ def show(self, Mail)
     Mail.driver('mandrill') # fetches MailMandrillDriver from container
 ```
 
-### Configuration
+#### Configuration
 
 If we want the `MailManager` to use our new driver by default, change the `DRIVER` in our `config/mail.py` file. In addition, you may have the users of your driver require a special dictionary entry to the `DRIVERS` dictionary:
 
@@ -148,6 +147,5 @@ DRIVERS = {
 
 This way, users can easily swap drivers by simply changing the driver in the config file.
 
-
-
 That's it! We just extended our Masonite project and created a new driver. Consider making it available on PyPi so others can install it!
+

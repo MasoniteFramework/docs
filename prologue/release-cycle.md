@@ -1,22 +1,24 @@
 # Release Cycle
 
-# Introduction
+## Release Cycle
+
+## Introduction
 
 The Masonite framework itself follows the RomVer versioning schema which is PARADIGM.MAJOR.MINOR although all Masonite packages follow the SemVer versioning schema which is MAJOR.MINOR.FEATURE/BUGFIX.
 
 This means that a framework version of 1.3.20 will have breaking changes with version 1.4.0.
 
-## Reasoning for RomVer over SemVer
+### Reasoning for RomVer over SemVer
 
-The Masonite main repository (the `MiraFramework/masonite` repository) contains only the basic file structure of the application. All of the core framework functionality is inside the `MasoniteFramework/core` repository which can be updated as much as every day or once per month and therefore will follow normal SemVer. Because `MiraFramework/masonite` does not require major updates, we can follow RomVer nicely and keep the versioning number artificially lower. Any major updates to this repsository will likely just be file structure changes which should rarely happen unless there are major architectural changes.
+The Masonite main repository \(the `MiraFramework/masonite` repository\) contains only the basic file structure of the application. All of the core framework functionality is inside the `MasoniteFramework/core` repository which can be updated as much as every day or once per month and therefore will follow normal SemVer. Because `MiraFramework/masonite` does not require major updates, we can follow RomVer nicely and keep the versioning number artificially lower. Any major updates to this repsository will likely just be file structure changes which should rarely happen unless there are major architectural changes.
 
-## Cycle
+### Cycle
 
 Masonite is currently on a 1 month major release cycle. This means that once every month will be a new 1.x release. This 1 month release cycle will continue until Masonite has reached a release that is stable enough to move far into the future with that releases architecture.
 
 Once this stable release has been achieved, Masonite will move to a 6 month major release cycle with minor releases as often as every few days to as much as every few months.
 
-## Scheduled Releases
+### Scheduled Releases
 
 * v1.3 - February 2018
 * v1.4 - March 2018
@@ -25,7 +27,7 @@ Once this stable release has been achieved, Masonite will move to a 6 month majo
 * v2.0 - June 2018
 * v2.1 - December 2018
 
-## Creating Releases
+### Creating Releases
 
 Masonite is made up of three different repositories. There is
 
@@ -40,6 +42,4 @@ Whenever the `MasoniteFramework/cli` and `MasoniteFramework/core` repositories a
 The main repository which is `MasoniteFramework/masonite` does not have a corresponding PyPi package and is only for installing new Masonite projects. See the `craft new` command under "The Craft Command" documentation.
 
 Once all three repositories are ready for release, they will all be released on GitHub under the respective new version numbers.
-
-
 

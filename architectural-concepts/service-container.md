@@ -1,10 +1,12 @@
 # Service Container
 
-# Introduction
+## Service Container
+
+## Introduction
 
 The Service Container is an extremely powerful feature of Masonite and should be used to the fullest extent possible. It's important to understand the concepts of the Service Container. It's a simple concept but is a bit magical if you don't understand what's going on under the hood.
 
-## Getting Started
+### Getting Started
 
 The Service Container is just a container where classes are loaded into it by key-value pairs, and then can be retrieved by either the key or value. That's it.
 
@@ -12,11 +14,9 @@ The container is contained inside the `App` class which is instantiated througho
 
 We can create easily create service providers using a craft command:
 
+$ craft provider DashboardProvider This will create a new service provider in `app/providers/DashboardServiceProvider.py`. Inside our new service provider we will have a `register` method and a `boot` method. It's important to know what each one does. We'll discuss both in a little bit.
 
-$ craft provider DashboardProvider
-This will create a new service provider in `app/providers/DashboardServiceProvider.py`. Inside our new service provider we will have a `register` method and a `boot` method. It's important to know what each one does. We'll discuss both in a little bit.
-
-### Configuration
+#### Configuration
 
 Once you create your service provider, you'll have to add it to your `PROVIDERS` list inside your `config/application.py` file. This should be a string to the location of the class:
 
@@ -27,15 +27,15 @@ PROVIDERS = [
 ]
 ```
 
-### Register
+#### Register
 
 The `register` methods on all service providers are executed first, then all the `boot` methods are executed after. Because of this, the `register` method should only be used to **load things into the container**.
 
-### Boot
+#### Boot
 
 The boot method is executed on all service providers after the `register` methods on all service providers have been called. Because of this, the boot method will have access to everything inside the container and is resolved by Masonite's container.
 
-### Binding
+#### Binding
 
 In order to bind classes into the container, we will just need to use a simple `bind` method on our `app` container. In a service provider, that will look like:
 
@@ -50,12 +50,11 @@ class UserModelProvider(ServiceProvider):
 
     def boot(self, request: Request):
         print(request) # returns the Request object
-
 ```
 
 This will load the key value pair in the `providers` dictionary in the container. The dictionary after this call will look like:
 
-```
+```text
 >>> app.providers
 {'User': User}
 ```
@@ -67,15 +66,15 @@ def show(self, Request):
 Request.app() # will return the service container
 ```
 
-### Using the container
+#### Using the container
 
 The container can be used in two ways: **making** and **resolving**.
 
-#### Making
+**Making**
 
 In order to retrieve a class from the service container, we can simply use the `make` method.
 
-```
+```text
 >>> app.bind('User', User)
 >>> app.make('User')
 User
@@ -83,7 +82,7 @@ User
 
 That's it! This is useful as an IOC container which you can load a single class into the container and use that class everywhere throughout your project.
 
-#### Resolving
+**Resolving**
 
 This is the most useful part of the container. It is possible to retrieve objects from the container by simply passing them into the parameters. Certain aspects of Masonite are resolved such as controller methods, middleware and drivers.
 
@@ -109,7 +108,7 @@ Masonite will know that you are trying to get the `Request` class and will actua
 
 Pretty powerful stuff, eh?
 
-#### Resolving your own code
+**Resolving your own code**
 
 The service container can also be used outside of the flow of Masonite. Masonite takes in a function or class method, and resolves it's dependencies by finding them in the service container and injecting them.
 
@@ -128,3 +127,4 @@ def show(self, Request):
 **Remember not to call it and only reference the function.**
 
 This will fetch all of the parameters of `randomFunction` and retrieve them from the service container. There probably won't be many times you'll have to resolve your own code but the option is there.
+

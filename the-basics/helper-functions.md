@@ -1,10 +1,12 @@
 # Helper Functions
 
-# Introduction
+## Helper Functions
+
+## Introduction
 
 Masonite works on getting rid of all those mundane tasks that developers either dread writing or dread writing over and over again. Because of this, Masonite has several helper functions that allows you to quickly write the code you want to write without worrying about imports or retrieving things from the Service Container. Many things inside the Service Container are simply retrieved using several functions that Masonite sets as builtin functions.
 
-These functions do not require any imports and are simply just available which is similiar to the `print()` function. These functions are all set inside the `HelpersProvider` Service Provider. 
+These functions do not require any imports and are simply just available which is similiar to the `print()` function. These functions are all set inside the `HelpersProvider` Service Provider.
 
 It may make more sense if we take a peak at this Service Provider:
 
@@ -30,7 +32,7 @@ class HelpersProvider(ServiceProvider):
 
 Notice how we simply just add builtin functions via this provider.
 
-## Request
+### Request
 
 The Request class has a simple `request()` helper function.
 
@@ -46,7 +48,7 @@ def show(self, Request):
     Request.input('id')
 ```
 
-## View
+### View
 
 The `view()` function is just a shortcut to the `View` class.
 
@@ -62,13 +64,13 @@ def show(self, View):
     return View('template_name')
 ```
 
-## Auth
+### Auth
 
 The `auth()` function is a shortcut around getting the current user. We can retrieve the user like so:
 
 ```python
 def show(self):
-    auth().id 
+    auth().id
 ```
 
 is exactly the same as:
@@ -80,7 +82,7 @@ def show(self, Request):
 
 This will return `None` if there is no user.
 
-## Container
+### Container
 
 We can get the container by using the `container()` function
 
@@ -96,7 +98,7 @@ def show(self, Request):
     Request.app().make('User')
 ```
 
-## Env
+### Env
 
 We may need to get some environment variables inside our controller or other parts of our application. For this we can use the `env()` function.
 
@@ -114,7 +116,7 @@ def show(self):
     os.environ.get('S3_SECRET')
 ```
 
-## Resolve
+### Resolve
 
 We can resolve anything from the container by using his `resolve()` function.
 
@@ -137,3 +139,4 @@ def show(self, Request):
 ```
 
 That's it! These are simply just functions that are added to Python's builtin functions.
+

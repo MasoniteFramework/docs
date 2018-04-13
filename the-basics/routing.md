@@ -1,10 +1,12 @@
 # Routing
 
-# Introduction
+## Routing
+
+## Introduction
 
 Masonite Routing is an extremely simple but powerful routing system that at a minimum takes a url and a controller. Masonite will take this route and match it against the requested route and execute the controller on a match.
 
-All routes are created inside `routes/web.py` and are contained in a `ROUTES` constant.  All routes consist of either a `Get()` route or a `Post()` route. At the bare minimum, a route will look like:
+All routes are created inside `routes/web.py` and are contained in a `ROUTES` constant. All routes consist of either a `Get()` route or a `Post()` route. At the bare minimum, a route will look like:
 
 ```python
 Get().route('/url/here', 'WelcomeController@show')
@@ -18,7 +20,7 @@ Post().route('/url/here', 'WelcomeController@store')
 
 Notice the controller here is a string. This is a great way to specify controllers as you do not have to import anything into your `web.py` file. All imports will be done in the backend. More on controllers later.
 
-If you wish to not use string controllers and wish to instead import your controller then you can do so by specifying the controller as well as well as only passing a reference to the method.  This will look like:
+If you wish to not use string controllers and wish to instead import your controller then you can do so by specifying the controller as well as well as only passing a reference to the method. This will look like:
 
 ```python
 from app.http.controllers.DashboardController import DashboardController
@@ -30,11 +32,11 @@ ROUTES = [
 
 It’s important here to recognize that we initialized the controller but only passed a reference to the method and did not actually call the method. This is so Masonite can pass parameters into the method when it executes the route.
 
-## Route Options
+### Route Options
 
 There are a few methods you can use to enhance your routes. Masonite typically uses a setters approach to building instead of a parameter approach so to add functionality, we can simply attach more methods.
 
-### Named Routes
+#### Named Routes
 
 We can name our routes so we can utilize these names later when or if we choose to redirect to them. We can specify a route name like so:
 
@@ -44,7 +46,7 @@ Get().route('/dashboard', 'DashboardController@show').name('dashboard')
 
 It is good convention to name your routes since route url’s can change but the name should always stay the same.
 
-### Route Middleware
+#### Route Middleware
 
 Middleware is a great way to execute classes, tasks or actions either before or after requests. We can specify middleware specific to a route after we have registered it in our `config/middleware.py` file but we can go more in detail in the middleware documentation. To add route middleware we can use the middleware method like so:
 
@@ -54,7 +56,7 @@ Get().route('/dashboard', 'DashboardController@show').middleware('auth', 'anothe
 
 This middleware will execute either before or after the route is executed depending on the middleware.
 
-### Deeper Module Controllers
+#### Deeper Module Controllers
 
 All controllers are located in `app/http/controllers` but sometimes you may wish to put your controllers in different modules **deeper** inside the controllers directory. For example, you may wish to put all your product controllers in `app/http/controllers/products` or all of your dashboard controllers in `app/http/controllers/users`. In order to access these controllers in your routes we can simply specify the controller using our usual dot notation:
 
@@ -62,7 +64,7 @@ All controllers are located in `app/http/controllers` but sometimes you may wish
 Get().route('/dashboard', 'users.DashboardController@show')
 ```
 
-### Change Controller Modules
+#### Change Controller Modules
 
 Controllers are defaulted to the `app/http/controllers` directory but you may wish to completely change the directory for a certain route. We can change this by using the `.module()` method:
 
@@ -72,7 +74,7 @@ Get().module('thirdparty.package').route('/dashboard', 'users.DashboardControlle
 
 This will look for the controller in `thirdparty.package.users` module instead of the normal `app.http.controllers` module.
 
-## Route Parameters
+### Route Parameters
 
 Very often you’ll need to specify parameters in your route in order to retrieve information from your URI. These parameters could be an `id` for the use in retrieving a certain model. Specifying route parameters in Masonite is very easy and simply looks like:
 
@@ -89,7 +91,7 @@ def show(self, Request):
     Request.param('id')
 ```
 
-### Route Parameter Options
+#### Route Parameter Options
 
 Sometimes you will want to make sure that the route parameter is of a certain type. For example you may want to match a URI like `/dashboard/1` but not `/dashboard/joseph`. In order to do this we simply need to pass a type to our parameter. If we do not specify a type then our parameter will default to matching all alphanumeric and underscore characters.
 
@@ -107,7 +109,7 @@ Get().route('/dashboard/@id:string', 'Controller@show')
 
 This will match `/dashboard/joseph` and not `/dashboard/128372`. Currently only the integer and string types are supported.
 
-### Subdomain Routing
+#### Subdomain Routing
 
 You may wish to only render routes if they are on a specific subdomain. For example you may want `example.com/dashboard` to route to a different controller than `joseph.example.com/dashboard`. To do this we can use the `.domain()` method on our routes like so:
 
@@ -131,6 +133,4 @@ If a match is found, it will also add a `subdomain` parameter to the Request cla
 def show(self, Request):
     print(Request.param('subdomain'))
 ```
-
-
 

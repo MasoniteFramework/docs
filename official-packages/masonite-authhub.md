@@ -1,6 +1,8 @@
 # Masonite AuthHub
 
-# Introduction
+## Masonite AuthHub
+
+## Introduction
 
 Masonite AuthHub brings a centralized and easy to integrate OAuth system to the Masonite Framework. Simply add a few lines of code and the entire OAuth workflow is done for you.
 
@@ -8,7 +10,7 @@ Masonite AuthHub brings a centralized and easy to integrate OAuth system to the 
 
 To install Masonite AuthHub just pip install it:
 
-```
+```text
 $ pip install authhub
 ```
 
@@ -36,7 +38,7 @@ This will allow `craft publish` to find our dependencies installed on our virtua
 
 Publish AuthHub by running:
 
-```
+```text
 $ craft publish authhub
 ```
 
@@ -57,7 +59,7 @@ AUTH_PROVIDERS = {
 
 Just add the corresponding environment variables to your `.env` file:
 
-```
+```text
 GITHUB_CLIENT=XXX
 GITHUB_SECRET=XXX
 GITHUB_REDIRECT=http://your-redirect-url/
@@ -125,4 +127,5 @@ class LoginController(object):
         return user['login'] # returns github username
 ```
 
-Thats it! Check your platform’s typically response in order to see what is in the  user object. It’s a good idea to store the access token in your `app/User` table and use that token to perform API requests on behest of the user. Many providers like GitHub, Facebook and Twitter all have great Python libraries you can use the token with.
+Thats it! Check your platform’s typically response in order to see what is in the user object. It’s a good idea to store the access token in your `app/User` table and use that token to perform API requests on behest of the user. Many providers like GitHub, Facebook and Twitter all have great Python libraries you can use the token with.
+

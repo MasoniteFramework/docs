@@ -1,12 +1,14 @@
 # The Craft Command
 
-# Introduction
+## The Craft Command
+
+## Introduction
 
 The craft command tool is a powerful developer tool that lets you quickly scaffold your project with models, controllers and views as well as condense nearly everything down to it’s simplest form via the craft namespace.
 
 For example, In Django you may need to do something like:
 
-```
+```text
 $ django-admin startproject
 $ python manage.py runserver
 $ python manage.py migrate
@@ -14,7 +16,7 @@ $ python manage.py migrate
 
 The craft tool condenses all commonly used commands into its own namespace
 
-```
+```text
 $ craft new
 $ craft serve
 $ craft migrate
@@ -22,15 +24,15 @@ $ craft migrate
 
 All scaffolding of Masonite can be done manually \(manually creating a controller and importing the `view` function for example\) but the craft command tool is used for speeding up development and cutting down on mundane development time.
 
-## Commands
+### Commands
 
 The possible commands for craft include:
 
-### Creating an Authentication System
+#### Creating an Authentication System
 
 To create an authentication system with a login, register and a dashboard system, just run:
 
-```
+```text
  $ craft auth
 ```
 
@@ -38,31 +40,31 @@ This command will create several new templates, controllers and routes so you do
 
 These new controllers are not apart of the framework itself but now apart of your project. Do not look at editing these controllers as editing the framework source code.
 
-### Creating Controllers
+#### Creating Controllers
 
 If you wish to scaffold a controller, just run:
 
-```
+```text
 $ craft controller
 ```
 
 This command will create a new controller under `app/http/controller`. By convention, all controllers should have an appended “Controller”. For example in order to make a dashboard controller, you should run `craft controller DashboardController` and not `craft controller Dashboard` although you can name your controllers however you like.
 
-### Deployment
+#### Deployment
 
 If you’d like to deploy your application to Heroku, Masonite comes with a command for that out of the box. You do not have to use this command and you do not have to deploy to Heroku. You may choose any deployment site but for quick development purposes, it might be convenient for you to quickly upload to Heroku to test a typical deployment.
 
-```
+```text
 $ craft deploy
 ```
 
 Read the “Deployment” documentation for more information on deploying Masonite.
 
-### Creating a New Project
+#### Creating a New Project
 
 If you’d like to start a new project, you can run:
 
-```
+```text
 $ craft new project_name
 ```
 
@@ -70,69 +72,69 @@ This will download a zip file of the `MasoniteFramework/masonite` repository and
 
 You may also specify some options. The `--version` option will create a new project depending on the releases from the `MasoniteFramework/masonite` repository.
 
-```
+```text
 $ craft new project_name --version 1.3.0
 ```
 
 Or you can specify the branch you would like to create a new project with:
 
-```
+```text
 $ craft new project_name --branch develop
 ```
 
 After you have created a new project, you will have a `requirements.txt` file with all of the projects dependencies. In addition to this file, you will also have a `.env-example` file which contains a boiler plate of a `.env` file. In order to install the dependencies, as well as copy the example environment file to a `.env` file, just run:
 
-```
+```text
 $ craft install
 ```
 
-### Creating Migrations
+#### Creating Migrations
 
 All frameworks have a way to create migrations in order to manipulate database tables. Masonite uses a little bit of a different approach to migrations than other Python frameworks and makes the developer edit the migration file. This is the command to make a migration for an existing table:
 
-```
+```text
 $ craft migration name_of_migration —-table users
 ```
 
 If you are creating a migration for a table that does not exist yet which the migration will create it, you can pass the `--create` flag like so:
 
-```
+```text
 $ craft migration name_of_migration --create users
 ```
 
 These two flags will create slightly different types of migrations.
 
-### Migrating
+#### Migrating
 
 After your migrations have been created, edited, and are ready for migrating, we can now migrate them into the database. To migrate all of your unmigrated migrations, just run:
 
-```
+```text
 $ craft migrate
 ```
 
 You can also refresh and rollback all of your migrations and remigrate them. **This will basically rebuild your entire database.**
 
-```
+```text
 $ craft migrate:refresh
 ```
 
 You can also rollback all migrations without remigrating
 
-```
+```text
 $ craft migrate:reset
 ```
 
 Lastly, you can rollback just the last set of migrations you tried migrating
 
-```
+```text
 $ craft migrate:rollback
 ```
 
-### Models
+#### Models
 
 If you'd like to create a model, you can run:
 
-```
+```text
 $ craft model ModelName
 ```
 
@@ -140,17 +142,17 @@ This will scaffold a model under \`app/ModelName\` and import everything needed.
 
 If you need to create a model in a specific folder starting from the `app` folder, then just run:
 
-```
+```text
 $ craft model Models/ModelName
 ```
 
 This will create a model in `app/Models/ModelName.py.`
 
-### Creating a Service Provider
+#### Creating a Service Provider
 
 Service Providers are a really powerful feature of Masonite. If you'd like to create your own service provider, just run:
 
-```
+```text
 $ craft provider DashboardProvider
 ```
 
@@ -158,22 +160,21 @@ This will create a file at `app/providers/DashboardProvider.py`
 
 Read more about Service Providers under the "Service Provider" documentation.
 
-### Creating a Job
+#### Creating a Job
 
 Jobs are used for Masonite's queue systems. You can create these `Queueable` classes and they will be able to be loaded into different queues. To create a job, run:
 
-```
+```text
 $ craft job JobName
 ```
 
 This will create a job inside the `app/jobs` directory.
-  
 
-### Creating Views
+#### Creating Views
 
 Views are simply html files located in `resources/templates` and can be created easily from running the command:
 
-```
+```text
 $ craft view blog
 ```
 
@@ -181,43 +182,43 @@ This command will create a template at `resources/templates/blog.html`
 
 You can also create a view deeper inside the `resources/templates` directory.
 
-```
+```text
 $ craft view auth/home
 ```
 
 This will create a view under `resources/templates/auth/home.html` but keep in mind that it will not create the directory for you. If the `auth` directory does not exist, this command will fail.
 
-### Packages
+#### Packages
 
 You may create a PyPi package with an added `integrations.py` file which is specific to Masonite. You can learn more about packages by reading the "Creating Packages" documentation. To create a package boilerplate, just run:
 
-```
+```text
 $ craft package name_of_package
 ```
 
-### Publishing
+#### Publishing
 
 Packages that are built specifically for Masonite in mind will typically support publishing commands. Publishing commands are a way that packages can scaffold and integrate into Masonite. Publishing commands can allow third parties to: create or append to configuration files, create controllers, create routes and other integrations. Read more about publishing by reading our "Publishing Packages" documentation. To publish a package just run:
 
-```
+```text
 $ craft publish name_of_package
 ```
 
-### Running the WSGI Server
+#### Running the WSGI Server
 
 You can run the WSGI server by simply running:
 
-```
+```text
 $ craft serve
 ```
 
-### Encryption
+#### Encryption
 
 Masonite comes with a way to encrypt data and by default, encrypts all cookies set by the framework. Masonite uses a `key` to encrypt and decrypt data. Read the "Encryption" documentation for more information on encryption.
 
 To generate a secret `key`, we can run:
 
-```
+```text
 $ craft key
 ```
 

@@ -1,23 +1,25 @@
 # Masonite Triggers
 
-# Introduction
+## Masonite Triggers
+
+## Introduction
 
 Masonite Triggers is a way to add support for triggering classes within various parts of your project. A great use case is to create a class that sends an email and then simple use `trigger('sendWelcomeEmail')` anywhere in your project.
 
-## Installation
+### Installation
 
 At the root of your Masonite project just run:
 
-```
+```text
 $ pip install triggers
 $ craft publish triggers
 ```
 
 If publishing does not work, you may be using a virtual environment and may not have the correct `site_packages` directory added to your `config/packages.py` file. Read more about this in the `Publishing Packages` documentation.
 
-## Usage
+### Usage
 
-The publish command will create a new configuration file under `config/triggers.py` where you can register all of your trigger classes.  To register your class, just enter an alias you’d like to use for your class as the key and then a string with the full module path to the class.
+The publish command will create a new configuration file under `config/triggers.py` where you can register all of your trigger classes. To register your class, just enter an alias you’d like to use for your class as the key and then a string with the full module path to the class.
 
 This configuration file may look something like:
 
@@ -77,3 +79,4 @@ class SendWelcomeEmail(object):
 ```
 
 That’s it! Triggers are very simple but very powerful.
+

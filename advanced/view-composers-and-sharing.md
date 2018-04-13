@@ -1,6 +1,8 @@
 # View Composers and Sharing
 
-# Introduction
+## View Composers and Sharing
+
+## Introduction
 
 Very often you will find yourself adding the same variables to a view again and again. This might look something like
 
@@ -29,7 +31,7 @@ class ViewProvider(ServiceProvider):
 
 As you can see, we bind the view class itself to `ViewClass` and the render method to the `View` alias.
 
-## View Sharing
+### View Sharing
 
 We can share variables with all templates by simply specifying them in the `.share()` method like so:
 
@@ -39,7 +41,7 @@ ViewClass.share({'request': request()})
 
 The best place to put this is in a new Service Provider. Let's create one now called `ViewComposer`.
 
-```
+```text
 $ craft provider ViewComposer
 ```
 
@@ -71,7 +73,7 @@ class ViewComposer(ServiceProvider):
 
 Great!
 
-Since we need the request, we can throw it in the `boot` method which has access to everything registered into the service container, including the `Request` class. 
+Since we need the request, we can throw it in the `boot` method which has access to everything registered into the service container, including the `Request` class.
 
 ```python
 class ViewComposer(ServiceProvider):
@@ -88,7 +90,6 @@ class ViewComposer(ServiceProvider):
 Lastly we need to load this into our `PROVIDERS` list inside our `config/application.py` file.
 
 ```python
-
 PROVIDERS = [
     # Framework Providers
     ...
@@ -106,7 +107,7 @@ PROVIDERS = [
 
 And we're done! When you next start your server, the `request` variable will be available on all templates.
 
-### View Composing
+#### View Composing
 
 In addition to sharing these variables with all templates, we can also specify only certain templates. All steps will be exactly the same but instead of the `.share()` method, we can use the `.compose()` method:
 
@@ -115,7 +116,7 @@ def boot(self, ViewClass, Request):
     ViewClass.compose('dashboard', {'request': Request})
 ```
 
-Now anytime the `dashboard` template is accessed (the one at `resources/templates/dashboard.html`) the `request` variable will be available.
+Now anytime the `dashboard` template is accessed \(the one at `resources/templates/dashboard.html`\) the `request` variable will be available.
 
 We can also specify several templates which will do the same as above but this time with the `resources/templates/dashboard.html` template AND the `resources/templates/dashboard/user.html` template:
 
@@ -132,16 +133,4 @@ def boot(self, ViewClass, Request):
 ```
 
 Note that this has exactly the same behavior as `ViewClass.share()`
-
-
-
-
-
-
-
-
-
-
-
-
 
