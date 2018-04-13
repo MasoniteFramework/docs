@@ -8,11 +8,11 @@ The Masonite framework itself follows the RomVer versioning schema which is PARA
 
 This means that a framework version of 1.3.20 will have breaking changes with version 1.4.0.
 
-### Reasoning for RomVer over SemVer
+## Reasoning for RomVer over SemVer
 
 The Masonite main repository \(the `MiraFramework/masonite` repository\) contains only the basic file structure of the application. All of the core framework functionality is inside the `MasoniteFramework/core` repository which can be updated as much as every day or once per month and therefore will follow normal SemVer. Because `MiraFramework/masonite` does not require major updates, we can follow RomVer nicely and keep the versioning number artificially lower. Any major updates to this repsository will likely just be file structure changes which should rarely happen unless there are major architectural changes.
 
-### Cycle
+## Releases and Release Cycles
 
 Masonite is currently on a 1 month major release cycle. This means that once every month will be a new 1.x release. This 1 month release cycle will continue until Masonite has reached a release that is stable enough to move far into the future with that releases architecture.
 
@@ -41,7 +41,7 @@ Major 1 month releases will be released on or after the release date when all re
 
 Whenever the `MasoniteFramework/craft` and `MasoniteFramework/core` repositories are released on Github, Travis CI will run tests and automatically deploy to PyPi. These major version numbers should correspond to the version of Masonite they support. For example, if the `MasoniteFramework/masonite` releases to version 1.4, `MasoniteFramework/core` should bump up to 1.4.x regardless of changes.
 
-### Main Repository and New Projects
+## Main Repository and New Projects
 
 The main repository which is `MasoniteFramework/masonite` does not have a corresponding PyPi package and is only for installing new Masonite projects. See the `craft new` command under [The Craft Command](https://github.com/MasoniteFramework/docs/tree/ba9d9f8ac3e41d58b9d92d951f92c898fb16a2a4/the-craft-command.md) documentation. The `craft new` command will download a zip of the latest release of Masonite, unzip it and rename the folder. Once the next release for this repository is ready, it will be released but marked as a `Pre-release` and therefore will not be installable by the default `craft new` command.
 
