@@ -12,7 +12,7 @@ For an actual example inside Masonite, there are currently two classes for the U
 
 This is extremely useful for extending functionality of the managers. If we need to upload to Google, we can just make a `UploadGoogleDriver` and put it inside the container. If we set our configuration `DRIVER` to `google`, our `UploadManager` will now use that class to store files.
 
-### Creating a Manager
+## Creating a Manager
 
 Masonite obviously comes with several managers such as the `UploadManager` and the `MailManager`. Let's walk through how to create a new manager called the `TaskManager`.
 
@@ -52,7 +52,7 @@ container.bind('TaskConfig', task)
 
 Which will be required to use our new task manager since it relies on the task configuration. You can do this inside the Service Provider that will ship with this manager. We will create a Service Provider later on but for now just know that that's where that configuration comes from.
 
-### Using Our Manager
+## Using Our Manager
 
 We can use our manager simply by loading it into the container. We can do this by creating a Service Provider. Learn more about how to create a Service Provider in the [Service Providers](../architectural-concepts/service-providers.md) documentation. Let's show what a basic Service Provider might look like:
 

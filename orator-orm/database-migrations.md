@@ -8,7 +8,7 @@ Database migrations in Masonite is very different than other Python frameworks. 
 
 In this documentation, we'll talk about how to make migrations with Masonite.
 
-### Getting Started
+## Getting Started
 
 Because models and migrations are separated, we never have to touch our model in order to make alterations to our database tables. In order to make a migration we can run a craft command:
 
@@ -73,7 +73,7 @@ Ok let's go ahead and break down what we just created.
 
 Notice that we are using a context processor which is our schema builder. All we have to worry about is whats inside it. Notice that we have a `table` object that has a few methods that are related to columns. Most of these columns are pretty obvious and you can read about different [Orator Schema Columns](https://orator-orm.com/docs/0.9/schema_builder.html#adding-columns) you can use. We'll mention the foreign key here though.
 
-#### Foreign Keys
+### Foreign Keys
 
 So adding columns is really straight forward and Orator has some great documentation on their website. In order to add a foreign key, we'll need an unsigned integer column which we specified above called:
 
@@ -91,7 +91,7 @@ What this does is sets a foreign key on the `user_id` column which references th
 
 Check the [Orator documentation](https://orator-orm.com/docs/0.9/schema_builder.html#adding-columns) for more information on creating a migration file.
 
-#### Changing Columns
+### Changing Columns
 
 There are two types of columns that we will need to change over the course of developing our application. Changing columns is extremely simple. If you're using MySQL 5.6.6 and below, see the caveat below.
 
@@ -109,7 +109,7 @@ table.integer('status').nullable().default(0).change()
 
 When we run `craft migrate` it will change the column instead of adding a new one.
 
-#### Changing Foreign Keys Prior to MySQL 5.6.6
+### Changing Foreign Keys Prior to MySQL 5.6.6
 
 Because of the constraints that foreign keys put on columns prior to MySQL 5.6.6, it's not as straight forward as appending a `.change()` to the foreign key column. We must first:
 

@@ -6,7 +6,7 @@
 
 Drivers are simply extensions to features that are managed by the Manager Pattern. If we have a `UploadManager` then we might also create a `UploadDiskDriver` and a `UploadS3Driver` which will be able to upload to both the file system \(disk\) and Amazon S3. In the future if we have to upload to Microsoft Azure or Google Cloud Storage then we simply create new drivers like `UploadAzureDriver` and `UploadGoogleStorage` which are very simple to create. Drivers can be as small as a single method or have dozens of methods. The Manager Pattern makes it dead simple to expand the functionality of a Manager and add capabilities to Masonite's features.
 
-### Creating a Driver
+## Creating a Driver
 
 Let's go ahead and create a simple driver which is already in the framework called the `UploadDiskDriver`.
 
@@ -76,7 +76,7 @@ class UploadDiskDriver:
 
 Ok great! You can see that our `store()` method simply takes the file and write the contents of the `fileitem` to the disk.
 
-### Using Our Driver
+## Using Our Driver
 
 So now that our driver is created, we can tell our Manager about it. Learn how to create managers under the [About Managers](about-managers.md) documentation. Our manager will know of all drivers that are inside the Service Container. We can create a new service provider which we can use to register classes into our container. Here is an example of what the `UploadProvider` will look like:
 

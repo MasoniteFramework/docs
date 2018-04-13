@@ -6,13 +6,13 @@
 
 Masonite comes with bcrypt out of the box but leaves it up to the developer to actually encrypt things like passwords. You can opt to use any other hashing library but bcrypt is the standard of a lot of libraries and comes with some one way hashing algorithms with no known vulnerabilities. Many of hashing algorithms like SHA-1 and MD5 are not secure and you should not use them in your application. You can read the [bcrypt documentation here](https://github.com/pyca/bcrypt).
 
-### Background
+## Background
 
 Also, we make sure that Javascript cannot read your cookies. It's important to know that although your website may be secure, you are susceptible to attacks if you import third party Javascript packages \(since those libraries could be hackable\) which can read all cookies on your website and send them to the hacker.
 
 Other frameworks use cryptographic signing which attached a special key to your cookies that prevents manipulation. This does't make sense as a major part of XSS protection is preventing third parties from reading cookies. It doesn't make sense to attach a digital signature to a plaintext cookie if you don't want third parties to see the cookie \(such as a session id\). Masonite takes one step further and encrypts the entire string and can only be decrypted using your secret key \(so make sure you keep it secret\).
 
-### Secret Key
+## Secret Key
 
 In your `.env` file, you will find a setting called `KEY=your-secret-key`. This is the SALT that is used to encrypt and decrypt your cookies. It is important to change this key sometime before development. **Masonite does not currently set this key for you.** You can generate new secret keys by running:
 
@@ -30,7 +30,7 @@ $ craft key --store
 
 **Remember to not share this secret key as a loss of this key could lead to someone being able to decrypt any cookies set by your application. If you find that your secret key is compromised, just generate a new key.**
 
-### Cryptographic Signing
+## Cryptographic Signing
 
 You can use the same cryptographic signing that Masonite uses to encrypt cookies on any data you want. Just import the `masonite.sign.Sign` class. A complete signing will look something like:
 
@@ -75,7 +75,7 @@ sign.decrypt('value') # 'value'
 
 Just remember to store the key you generated or you will not be able to decrypt any values that you encrypted.
 
-### Using bcrypt
+## Using bcrypt
 
 Bcrypt is very easy to use an basically consists of a 1 way hash, and then a check to verify if that 1 way hash matches an input given to it. **It's important to note that any values passed to bcrypt need to be in bytes.**
 

@@ -12,7 +12,7 @@ Drivers are designed to easily switch the functionality of a specific feature su
 
 Contracts ensure that all drivers of a similar type such as upload, queue and mail drivers all contain the same methods. While drivers that inherit from a contract can have more methods than required, they should not.
 
-### Getting Started
+## Getting Started
 
 Contracts are currently used to create drivers and are located in the `masonite.contracts` namespace. Creating a driver and using a contract looks like:
 
@@ -25,7 +25,7 @@ class UploadGoogleDriver(UploadContract):
 
 Now this class will constantly throw exceptions until it overrides all the required methods in the class.
 
-### Contracts
+## Contracts
 
 There are several contracts that are required when creating a driver. If you feel like you need to have a new type of driver for a new feature then you should create a contract first and code to a contract instead of an implementation. Below are the types of contracts available. All contracts correspond to their drivers. So an `UploadContract` is required to create an upload driver.
 
