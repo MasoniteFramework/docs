@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Controllers are a vital part of Masonite and is mainly what differs it from other Python frameworks that implement the MVC structure differently. Controllers are simply classes with methods. These methods take a `self` parameter which is the normal self that Python class methods require. Controller methods can be looked at as function based views if you are coming from django as they are simply methods inside a class and function the exact same way.
+Controllers are a vital part of Masonite and is mainly what differs it from other Python frameworks that implement the MVC structure differently. Controllers are simply classes with methods. These methods take a `self` parameter which is the normal self that Python class methods require. Controller methods can be looked at as function based views if you are coming from Django as they are simply methods inside a class and work in similar ways.
 
-Controllers have an added benefit over straight function based views as the developer has access to to a full class they can manipulate however they want but are also not limiting like Django's class based views. They provide a lot of flexibility.
+Controllers have an added benefit over straight function based views as the developer has access to to a full class they can manipulate however they want. In other words, controller methods may utilize class attributes or private methods to break up logic. They provide a lot of flexibility.
 
 ## Defining a Controller
 
@@ -18,7 +18,7 @@ $ craft controller DashboardController
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-When we run this command we now have a new class under `app/http/controllers/DashboardController` called `DashboardController`. By convention, Masonite expects that all controllers have their own file since it’s an extremely easy way to keep track of all your classes since the class name is the same name as the file but you can obviously name this class wherever you like.
+When we run this command we now have a new class in `app/http/controllers/DashboardController.py` called `DashboardController`. By convention, Masonite expects that all controllers have their own file since it’s an extremely easy way to keep track of all your classes since the class name is the same name as the file but you can obviously name this class wherever you like.
 
 ## Defining a Controller Method
 
