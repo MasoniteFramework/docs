@@ -234,7 +234,7 @@ This will match all subdomains such as `test.example.com/dashboard`, `joseph.exa
 If a match is found, it will also add a `subdomain` parameter to the Request class. We can retrieve the current subdomain like so:
 
 {% code-tabs %}
-{% code-tabs-item title="app/controllers/YourController.py" %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     print(Request.param('subdomain'))
