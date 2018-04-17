@@ -8,6 +8,8 @@ These functions do not require any imports and are simply just available which i
 
 It may make more sense if we take a peak at this Service Provider:
 
+{% code-tabs %}
+{% code-tabs-item title="masonite.providers.HelpersProvider" %}
 ```python
 class HelpersProvider(ServiceProvider):
 
@@ -27,6 +29,8 @@ class HelpersProvider(ServiceProvider):
 
         ViewClass.share({'request': Request.helper, 'auth': Request.user})
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Notice how we simply just add builtin functions via this provider.
 
@@ -45,6 +49,8 @@ is exactly the same as:
 def show(self, Request):
     Request.input('id')
 ```
+
+Notice we didn't import anything at the top of the file, nor did we inject anything from the Service Container.
 
 ## View
 
@@ -78,7 +84,15 @@ def show(self, Request):
     Request.user().id
 ```
 
-This will return `None` if there is no user.
+This will return `None` if there is no user so in a real world application this may look something like:
+
+```python
+def show(self):
+    if auth():
+        auth().id
+```
+
+This is because you can't call the `.id` attribute on `None`
 
 ## Container
 
@@ -116,7 +130,7 @@ def show(self):
 
 ## Resolve
 
-We can resolve anything from the container by using his `resolve()` function.
+We can resolve anything from the container by using this `resolve()` function.
 
 ```python
 def some_function(Request):
