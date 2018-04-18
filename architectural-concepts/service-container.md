@@ -6,9 +6,17 @@ The Service Container is an extremely powerful feature of Masonite and should be
 
 ## Getting Started
 
-The Service Container is just a dictionary where classes are loaded into it by key-value pairs, and then can be retrieved by either the key or value. That's it.
+The Service Container is just a dictionary where classes are loaded into it by key-value pairs, and then can be retrieved by either the key or value through resolving objects. That's it.
 
-The container is contained inside the `App` class which is instantiated in the beginning of the framework and passed through various parts of the project such as controllers, middleware and drivers.
+{% hint style="info" %}
+Think of "resolving objects" as Masonite saying "what does your object need? Ok, I have them in this dictionary, let me get them for you."
+{% endhint %}
+
+The container holds all of the frameworks classes and features so adding features to Masonite only entails adding classes into the container to be used by the developer later on. This typically means "registering" these classes into the container \(more about this later on\).
+
+This allows Masonite to be extremely modular.
+
+There are a few objects that are resolved by the container by default. These include your controller methods \(which are the most common and you have probably used them so far\) driver and middleware constructors and any other classes that are specified in the documentation.
 
 There are four methods that are important in interacting with the container: `bind`, `make` and `resolve`
 
@@ -34,7 +42,7 @@ This will load the key value pair in the `providers` dictionary in the container
 
 ```python
 >>> app.providers
-{'User': <class masonite.User.User>}
+{'User': <class app.User.User>}
 ```
 
 The service container is available in the `Request` object and can be retrieved by:
@@ -48,7 +56,7 @@ def show(self, Request):
 
 In order to retrieve a class from the service container, we can simply use the `make` method.
 
-```text
+```python
 >>> from app.User import User
 >>> app.bind('User', User)
 >>> app.make('User')
