@@ -70,7 +70,7 @@ Delete().route(...)
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-**HTTP Helpers**
+### **HTTP Helpers**
 
 If the syntax is a bit cumbersome, you just want to make it shorter or you like using shorthand helper functions, then you can also use these:
 
