@@ -110,8 +110,6 @@ def show(self, Upload, request_class: Request)
 {% endcode-tabs %}
 {% endhint %}
 
-
-
 Pretty powerful stuff, eh?
 
 ### **Resolving your own code**
