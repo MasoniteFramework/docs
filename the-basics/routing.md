@@ -129,7 +129,7 @@ Get().route('/dashboard', 'DashboardController@show').middleware('auth', 'anothe
 This middleware will execute either before or after the route is executed depending on the middleware.
 
 {% hint style="success" %}
-Read more about how to use a create middleware in the [Middleware ](../advanced/middleware.md)documentation.
+Read more about how to use and create middleware in the [Middleware ](../advanced/middleware.md)documentation.
 {% endhint %}
 
 ### Deeper Module Controllers
