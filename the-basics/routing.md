@@ -128,6 +128,10 @@ Get().route('/dashboard', 'DashboardController@show').middleware('auth', 'anothe
 
 This middleware will execute either before or after the route is executed depending on the middleware.
 
+{% hint style="success" %}
+Read more about how to use a create middleware in the [Middleware ](../advanced/middleware.md)documentation.
+{% endhint %}
+
 ### Deeper Module Controllers
 
 All controllers are located in `app/http/controllers` but sometimes you may wish to put your controllers in different modules **deeper** inside the controllers directory. For example, you may wish to put all your product controllers in `app/http/controllers/products` or all of your dashboard controllers in `app/http/controllers/users`. In order to access these controllers in your routes we can simply specify the controller using our usual dot notation:
