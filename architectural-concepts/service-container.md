@@ -81,6 +81,37 @@ def show(self, request_class: Request)
 
 Masonite will know that you are trying to get the `Request` class and will actually retrieve that class from the container. Masonite will search the container for a `Request` class regardless of what the key is in the container, retrieve it, and inject it into the controller method. Effectively creating an IOC container with dependency injection. Think of this as a **get by value** instead of a **get by key** like the earlier example.
 
+{% hint style="warning" %}
+Because of how objects are resolved, you can only use annotations at the end of your parameter list. For example:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+from masonite.request import Request
+
+def show(self, request_class: Request, Upload)
+    request_class.user()
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+will throw an error because Masonite gets annotations last and will not catch the Upload parameter. If you need to use both normal parameters and annotations then you will need to specify them at the end:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+from masonite.request import Request
+
+def show(self, Upload, request_class: Request)
+    request_class.user()
+    Upload.store(request_class.input('file'))
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endhint %}
+
+
+
 Pretty powerful stuff, eh?
 
 ### **Resolving your own code**
