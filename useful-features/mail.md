@@ -152,7 +152,7 @@ You can specify which address you want the email to appear from:
 Mail.send_from('Admin@email.com').to('hello@email.com').send('Welcome!')
 ```
 
-## Templates
+### Templates
 
 If you don't want to pass a string as the message, you can pass a view template.
 
