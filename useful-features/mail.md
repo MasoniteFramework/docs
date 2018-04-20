@@ -10,29 +10,6 @@ All mail configuration is inside `config/mail.py` and contains several well docu
 
 By default, Masonite uses the `smtp` driver. Inside your `.env` file, just put your smtp credentials. If you are using Mailgun then switch your driver to `mailgun` and put your Mailgun credentials in your `.env` file.
 
-This should look something like with using the `smtp` driver:
-
-{% code-tabs %}
-{% code-tabs-item title=".env" %}
-```text
-MAIL_DRIVER=smtp
-MAIL_FROM_ADDRESS=admin@gmail.com
-MAIL_FROM_NAME=Awesome Service
-MAIL_HOST=smtp.google.com
-MAIL_PORT=465
-MAIL_USERNAME=admin@gmail.com
-MAIL_PASSWORD=secret-password1!
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-Or if you are using the `mailgun` driver:
-
-```text
-MAILGUN_SECRET=
-MAILGUN_DOMAIN=
-```
-
 ## Configuring Drivers
 
 There are two drivers out of the box that masonite uses and there is a tiny bit of configuration for both.
@@ -53,17 +30,24 @@ MAIL_PASSWORD=password
 
 Because this is SMTP, we can utilize all SMTP services such as mailtrap and gmail.
 
-Thats it! As long as the authentication works, we can send emails. Remember that it is save to put sensitive data in your `.env` file because it is not committed to source control and it is inside the `.gitignore` file by default.
+Thats it! As long as the authentication works, we can send emails. 
+
+{% hint style="danger" %}
+Remember that it is save to put sensitive data in your `.env` file because it is not committed to source control and it is inside the `.gitignore` file by default.
+{% endhint %}
 
 ### Mailgun Driver
 
 Mailgun does not use SMTP and instead uses API calls to their service to send emails. Mailgun only requires 2 configuration settings:
 
 ```text
-MAIL_DRIVER=mailgun
 MAILGUN_SECRET=key-xx
 MAILGUN_DOMAIN=sandboxXX.mailgun.org
 ```
+
+If you change to using Mailgun then you will need to change the driver. By default the driver looks like:
+
+
 
 as well as changing the `DRIVER` inside `config/mail.py`
 
