@@ -4,7 +4,7 @@ description: >-
   need to create our blog application.
 ---
 
-# Part 1 - Routing
+# Part 1 - Creating Our First Routing
 
 ## Getting Started
 
