@@ -16,11 +16,11 @@ This should look something like with using the `smtp` driver:
 {% code-tabs-item title=".env" %}
 ```text
 MAIL_DRIVER=smtp
-MAIL_FROM_ADDRESS=admin@test.com
+MAIL_FROM_ADDRESS=admin@gmail.com
 MAIL_FROM_NAME=Awesome Service
 MAIL_HOST=smtp.google.com
 MAIL_PORT=465
-MAIL_USERNAME=admin@test.com
+MAIL_USERNAME=admin@gmail.com
 MAIL_PASSWORD=secret-password1!
 ```
 {% endcode-tabs-item %}
