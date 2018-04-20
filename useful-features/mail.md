@@ -6,7 +6,11 @@ Masonite comes with email support out of the box. Most projects you make will ne
 
 ## Getting Started
 
-All mail configuration is inside `config/mail.py` and contains several well documented options. There are several built in drivers you can use but you can make your own if you'd like. You can follow the documentation here at [Creating a Mail Driver](../advanced/creating-a-mail-driver.md). If you do make your own, consider making it available on PyPi so others can install it. We may even put it in Masonite by default.
+All mail configuration is inside `config/mail.py` and contains several well documented options. There are several built in drivers you can use but you can make your own if you'd like. 
+
+{% hint style="success" %}
+You can follow the documentation here at [Creating a Mail Driver](../advanced/creating-a-mail-driver.md). If you do make your own, consider making it available on PyPi so others can install it. We may even put it in Masonite by default.
+{% endhint %}
 
 By default, Masonite uses the `smtp` driver. Inside your `.env` file, just put your smtp credentials. If you are using Mailgun then switch your driver to `mailgun` and put your Mailgun credentials in your `.env` file.
 
@@ -18,6 +22,8 @@ There are two drivers out of the box that masonite uses and there is a tiny bit 
 
 The SMTP driver takes several configuration files we can all put in our `.env` file.
 
+{% code-tabs %}
+{% code-tabs-item title=".env" %}
 ```text
 MAIL_DRIVER=smtp
 MAIL_FROM_ADDRESS=admin@email.com
@@ -27,6 +33,8 @@ MAIL_PORT=465
 MAIL_USERNAME=admin@email.com
 MAIL_PASSWORD=password
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Because this is SMTP, we can utilize all SMTP services such as mailtrap and gmail.
 
@@ -40,16 +48,24 @@ Remember that it is save to put sensitive data in your `.env` file because it is
 
 Mailgun does not use SMTP and instead uses API calls to their service to send emails. Mailgun only requires 2 configuration settings:
 
+{% code-tabs %}
+{% code-tabs-item title=".env" %}
 ```text
 MAILGUN_SECRET=key-xx
 MAILGUN_DOMAIN=sandboxXX.mailgun.org
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 If you change to using Mailgun then you will need to change the driver. By default the driver looks like:
 
+{% code-tabs %}
+{% code-tabs-item title="config/mail.py" %}
 ```python
 DRIVER = os.getenv('MAIL_DRIVER', 'smtp')
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 This means you can specify the mail driver in the .env file:
 
@@ -73,6 +89,8 @@ DRIVER = 'mailgun'
 
 Masonite will retrieve the configuration settings for the mailgun driver from the `DRIVERS` configuration setting which Masonite has by default, you do not have to change this.
 
+{% code-tabs %}
+{% code-tabs-item title="config/mail.py" %}
 ```python
 DRIVERS = {
     ...
@@ -82,6 +100,8 @@ DRIVERS = {
     }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## Sending an Email
 
@@ -152,7 +172,7 @@ You can specify which address you want the email to appear from:
 Mail.send_from('Admin@email.com').to('hello@email.com').send('Welcome!')
 ```
 
-### Templates
+## Templates
 
 If you don't want to pass a string as the message, you can pass a view template.
 
