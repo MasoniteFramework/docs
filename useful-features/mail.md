@@ -47,13 +47,29 @@ MAILGUN_DOMAIN=sandboxXX.mailgun.org
 
 If you change to using Mailgun then you will need to change the driver. By default the driver looks like:
 
+```python
+DRIVER = os.getenv('MAIL_DRIVER', 'smtp')
+```
 
+This means you can specify the mail driver in the .env file:
 
-as well as changing the `DRIVER` inside `config/mail.py`
+{% code-tabs %}
+{% code-tabs-item title=".env" %}
+```text
+MAIL_DRIVER=mailgun
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
+or we can specify the driver directly inside `config/mail.py`
+
+{% code-tabs %}
+{% code-tabs-item title="config/mail.py" %}
 ```python
 DRIVER = 'mailgun'
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Masonite will retrieve the configuration settings for the mailgun driver from the `DRIVERS` configuration setting which Masonite has by default, you do not have to change this.
 
@@ -83,22 +99,18 @@ def show(self, Mail):
     Mail.to('hello@email.com').send('Welcome!')
 ```
 
-All mail drivers are managed by the `MailManager` class and bootstrapped with the `MailProvider` Service Provider. Let's take a look at that:
+You can also obviously specify a specific user:
 
 ```python
-class MailProvider(ServiceProvider):
-
-wsgi = False
-
-def register(self):
-    self.app.bind('MailConfig', mail)
-    self.app.bind('MailSmtpDriver', MailSmtpDriver)
-    self.app.bind('MailMailgunDriver', MailMailgunDriver)
-    self.app.bind('MailManager', MailManager(self.app))
-
-def boot(self, MailConfig):
-    self.app.bind('Mail',     MailManager(self.app).driver(MailConfig.DRIVER))
+from app.User import User
+...
+def show(self, Mail):
+    Mail.to(User.find(1).email).send('Welcome!')
 ```
+
+## Switching Drivers
+
+All mail drivers are managed by the `MailManager` class and bootstrapped with the `MailProvider` Service Provider.
 
 We can specify which driver we want to use. Although Masonite will use the `DRIVER` variable in our `mail` config file by default, we can change the driver on the fly.
 
@@ -122,29 +134,29 @@ def show(self, Queue):
 
 Instead of taking seconds to send an email, this will seem immediate and be sent using whatever queue driver is set. The `async` driver is set by default which requires no additional configuration and simply sends jobs into a new thread to be ran in the background.
 
-Read more about creating Jobs and sending emails asynchronously in the "Queues and Jobs" documentation.
+{% hint style="success" %}
+Read more about creating Jobs and sending emails asynchronously in the [Queues and Jobs](queues-and-jobs.md) documentation.
+{% endhint %}
 
 ## Methods
 
-We can specify which driver we want to use. Although Masonite will use the `DRIVER` variable in our config file, we can change the driver on the fly.
-
 We can also specify the subject:
 
-```text
+```python
 Mail.subject('Welcome!').to('hello@email.com').send('Welcome!')
 ```
 
 You can specify which address you want the email to appear from:
 
-```text
+```python
 Mail.send_from('Admin@email.com').to('hello@email.com').send('Welcome!')
 ```
 
-### Templates
+## Templates
 
 If you don't want to pass a string as the message, you can pass a view template.
 
-```text
+```python
 Mail.to('idmann509@gmail.com').template('mail/welcome').send()
 ```
 
