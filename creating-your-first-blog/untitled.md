@@ -4,7 +4,7 @@ description: >-
   need to create our blog application.
 ---
 
-# Part 1 - Creating Our First Routing
+# Part 1 - Creating Our First Route
 
 ## Getting Started
 
@@ -30,7 +30,22 @@ A controller is a simple class that holds controller methods. These controller m
 Think of a controller method as a function in the `views.py` file if you are coming from the Django framework
 {% endhint %}
 
-Let's create our first route now. We can put all routes inside `routes/web.py` and inside the `ROUTES` list:
+Let's create our first route now. We can put all routes inside `routes/web.py` and inside the `ROUTES` list. You'll see we have a route for the home page. Let's add a route for creating blogs.
+
+```python
+ROUTES = [
+    Get().route('/', 'WelcomeController@show').name('welcome'),
+    
+    # Blog
+    Get().route('/blog', 'BlogController@show')
+]
+```
+
+You'll notice here we have a `BlogController@show` string. This means "use the blog controller's show method to render this route". The only problem here is that we don't yet have a blog controller.
+
+{% hint style="success" %}
+Let's create the `BlogController` in the next step: [Part 2 - Creating Our First Controller](2.-controllers.md)
+{% endhint %}
 
 
 
