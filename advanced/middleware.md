@@ -1,14 +1,12 @@
 # Middleware
 
-## Middleware
-
 ## Introduction
 
 Middleware is an extremely important aspect of web applications as it allows you to run important code either before or after every request or even before or after certain routes. In this documentation we'll talk about how middleware works, how to consume middleware and how to create your own middleware. Middleware is only ran when the route is found and a status code of 200 will be returned.
 
-### Getting Started
+## Getting Started
 
-Middleware classes are placed inside the `app/http/middleware` by convention but can be placed anywhere you like. All middleware are just classes that take in a request and contain a `before` method or an `after` method.
+Middleware classes are placed inside the `app/http/middleware` by convention but can be placed anywhere you like. All middleware are just classes that contain a `before` method and/or an `after` method.
 
 There are four types of middleware in total:
 
@@ -17,16 +15,16 @@ There are four types of middleware in total:
 * Middleware ran before certain routes
 * Middleware ran after certain routes
 
-#### Creating Middleware
+## Creating Middleware
 
 Again, middleware should live inside the `app/http/middleware` folder and should look something like:
 
 ```python
-class AuthenticationMiddleware(object):
+class AuthenticationMiddleware:
     ''' Middleware class '''
 
-    def __init__(self, request):
-        self.request = request
+    def __init__(self, Request):
+        self.request = Request
 
     def before(self):
         pass
@@ -35,18 +33,24 @@ class AuthenticationMiddleware(object):
         pass
 ```
 
+Middleware constructors are resolved by the container so simply pass in whatever you like in the parameter list and it will be injected for you. 
+
+{% hint style="success" %}
+Read more about this in the [Service Container](../architectural-concepts/service-container.md) documentation.
+{% endhint %}
+
 If Masonite is running a “before” middleware, that is middleware that should be ran before the request, Masonite will check all middleware and look for a `before` method and execute that. The same for “after” middleware.
 
-You may exclude either class if you do not wish for that middleware to run before or after.
+You may exclude either method if you do not wish for that middleware to run before or after.
 
-This is a boilerplate for middleware. It's simply a class with a before and/or after method. Creating a middleware is that simple. Let's create a middleware that checks if the user is authenticated and redirect to the login page if they are not. Because we have access to the request object, we can do something like:
+This is a boilerplate for middleware. It's simply a class with a before and/or after method. Creating a middleware is that simple. Let's create a middleware that checks if the user is authenticated and redirect to the login page if they are not. Because we have access to the request object from the Service Container, we can do something like:
 
 ```python
-class AuthenticationMiddleware(object):
+class AuthenticationMiddleware:
     ''' Middleware class which loads the current user into the request '''
 
-    def __init__(self, request):
-        self.request = request
+    def __init__(self, Request):
+        self.request = Request
 
     def before(self):
         if not self.request.user():
@@ -60,7 +64,7 @@ That's it! Now we just have to make sure our route picks this up. If we wanted t
 
 Since we are not utilizing the `after` method, we may exclude it all together. Masonite will check if the method exists before executing it.
 
-#### Configuration
+## Configuration
 
 We have one of two configuration constants we need to work with. These constants both reside in our `config/middleware.py` file and are `HTTP_MIDDLEWARE` and `ROUTE_MIDDLEWARE`.
 
@@ -88,7 +92,7 @@ ROUTE_MIDDLEWARE = {
 }
 ```
 
-#### Consuming Middleware
+## Consuming Middleware
 
 Using middleware is also simple. If we put our middleware in the `HTTP_MIDDLEWARE` constant then we don't have to worry about it anymore. It will run on every successful request, that is when a route match is found from our `web.py` file.
 
