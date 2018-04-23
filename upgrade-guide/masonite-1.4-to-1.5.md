@@ -21,9 +21,9 @@ If you have added your site packages directory to our packages configuration fil
 
 Remove the `masonite.providers.ApiProvider.ApiProvider` from the `PROVIDERS` list as this has been removed completely in 1.5
 
-If you are using the `Api()` route inside `routes/api.py` for API endpoints then remove this as well. You will need to implement API endpoints using the new Official Masonite Entry package instead.
+If you are using the `Api()` route inside `routes/api.py` for API endpoints then remove this as well. You will need to implement API endpoints using the new Official [Masonite Entry](http://entry.masoniteproject.com) package instead.
 
-You'll also have to add a new `RESOURCES = []` line to your `routes/api.py` file for the new Masonite Entry package.
+You'll also have to add a new `RESOURCES = []` line to your `routes/api.py` file for the new Masonite Entry package if you choose to use it.
 
 ## Craft Commands
 
@@ -35,7 +35,9 @@ Simply run:
 $ pip install --upgrade masonite-cli
 ```
 
+{% hint style="warning" %}
 **You may have to run sudo if you are using a UNIX machine.**
+{% endhint %}
 
 ## Sessions
 
@@ -71,7 +73,6 @@ PROVIDERS = [
 
     # New Provider
     'masonite.providers.SessionProvider.SessionProvider',
-
     'masonite.providers.RouteProvider.RouteProvider',
     ....
 ]
