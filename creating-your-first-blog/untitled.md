@@ -6,6 +6,10 @@ description: >-
 
 # Part 1 - Creating Our First Route
 
+{% hint style="danger" %}
+This section is incomplete
+{% endhint %}
+
 ## Getting Started
 
 All routes are located in routes/web.py and are extremely simple to understand. They consist of a request method and a route method. For example, to create a GET request it will look like:
