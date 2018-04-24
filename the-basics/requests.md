@@ -71,7 +71,7 @@ There is no difference between any HTTP methods \(GET, POST, PUT, etc\) when it 
 
 ## Method Options
 
-### Input Data
+## Input Data
 
 We can get all the request input variables such as input data from a form request or GET data from a query string. Note that it does not matter what HTTP method you are using, the input method will know what input data to get dependent on the current HTTP method \(`GET`, `POST`, `PUT`, etc\)
 
@@ -114,7 +114,11 @@ def show(self, Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### URL Parameters
+### Incoming JSON Requests
+
+All data can be retrieved as usual by using the input method above for incoming requests like form requests. Masnoite will handle application/json requests slightly differently.
+
+## URL Parameters
 
 To get the request parameter retrieved from the url. This is used to get variables inside: `/dashboard/@firstname` for example.
 
