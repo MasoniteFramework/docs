@@ -116,7 +116,16 @@ def show(self, Request):
 
 ### Incoming JSON Requests
 
-All data can be retrieved as usual by using the input method above for incoming requests like form requests. Masnoite will handle application/json requests slightly differently.
+All data can be retrieved as usual by using the input method above for incoming requests like form requests. Masnoite will handle `application/json` requests slightly differently. When the incoming request is JSON, masonite will load the JSON into a `payload` input which will return a dictionary representation of the JSON string.
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self, Request):
+    return Request.input('payload') # returns {'id': 1, ...}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## URL Parameters
 
