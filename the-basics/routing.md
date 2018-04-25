@@ -158,6 +158,14 @@ Get().module('thirdparty.package').route('/dashboard', 'users.DashboardControlle
 
 This will look for the controller in `thirdparty.package.users` module instead of the normal `app.http.controllers` module.
 
+You may also start the controller string with a / which will look for the controller as a global package:
+
+```python
+Get().route('/dashboard', '/thirdparty.package.users.DashboardController@show')
+```
+
+Which will look for the package in the exact same way as before.
+
 ## Route Parameters
 
 Very often you’ll need to specify parameters in your route in order to retrieve information from your URI. These parameters could be an `id` for the use in retrieving a certain model. Specifying route parameters in Masonite is very easy and simply looks like:
