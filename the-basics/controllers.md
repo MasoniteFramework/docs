@@ -13,12 +13,24 @@ Its very easy to create a controller with Masonite with the help of our `craft` 
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft controller DashboardController
+$ craft controller Dashboard
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
 When we run this command we now have a new class in `app/http/controllers/DashboardController.py` called `DashboardController`. By convention, Masonite expects that all controllers have their own file since it’s an extremely easy way to keep track of all your classes since the class name is the same name as the file but you can obviously name this class wherever you like.
+
+{% hint style="info" %}
+Notice that we passed in `Dashboard` but created a `DashboardController`. Masonite will always assume you want to append `Controller` to the end.
+{% endhint %}
+
+If you want to create the exact name of the controller then you can pass a `-e` flag.
+
+```text
+$ craft controller Dashboard -e
+```
+
+This will create a `Dashboard` controller located in `app/http/controllers/Dashboard.py`
 
 ## Defining a Controller Method
 
