@@ -158,6 +158,14 @@ Get().module('thirdparty.package').route('/dashboard', 'users.DashboardControlle
 
 This will look for the controller in `thirdparty.package.users` module instead of the normal `app.http.controllers` module.
 
+Instead of using the module method we can use a forward slash in the beginning of the controller namespace:
+
+```python
+Get().route('/dashboard', '/thirdparty.package.users.DashboardController@show')
+```
+
+This snippet is the exact same functionality as above. This is shorter and cleaner but less obvious.
+
 ## Route Parameters
 
 Very often you’ll need to specify parameters in your route in order to retrieve information from your URI. These parameters could be an `id` for the use in retrieving a certain model. Specifying route parameters in Masonite is very easy and simply looks like:
