@@ -83,6 +83,33 @@ This is exactly the same as using the helper function above. So if you choose to
 If this looks weird to you or you are not sure how the container integrates with Masonite, make sure you read the [Service Container](../architectural-concepts/service-container.md) documentation
 {% endhint %}
 
+### Global Views
+
+Some views may not reside in the `resources/templates` directory and may even reside in third party packages such as a dashboard package. We can locate these views by passing a `/` in front of our view.
+
+For example as a use case we might pip install a package:
+
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
+```text
+$ pip install package-dashboard
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+and then be directed or required to return one of their views
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self):
+    return view('/package/views/dashboard')
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+This will look inside the `dashboard.views` package for a `dashboard.html` file and return that. You can obviously pass in data as usual.
+
 ## Passing Data to Views
 
 A lot of the time we’ll need to pass in data to our views. This data is passed in with a dictionary that contains a key which is the variable with the corresponding value. We can pass data to the function like so:
