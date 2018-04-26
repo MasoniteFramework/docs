@@ -24,6 +24,8 @@ All scaffolding of Masonite can be done manually \(manually creating a controlle
 
 ## Commands
 
+When craft is used outside of masonite directory, it will only show a few commands such as the `new` and `install` commands. All commands are loaded into the framework itself and fetched when craft is ran. This allows version specific Masonite commands to be efficiently handled on each subsequent version as well as third party commands to be loaded in which expands craft itself.
+
 The possible commands for craft include:
 
 ### Creating an Authentication System
