@@ -31,6 +31,30 @@ Each driver may require it's own individual setting values so be sure to check t
 
 Make sure that the key in the `DRIVER` setting has a corresponding key in the `DRIVERS` setting.
 
+### Pusher
+
+If you are using Pusher you will need the Pusher library:
+
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
+```text
+$ pip install pusher
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### Ably
+
+If you are using Ably you will need the ably driver:
+
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
+```text
+$ pip install ably
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ## Usage
 
 Since we have a `ServiceProvider` Service Provider which takes care of the container bindings for us, we can now it simply by passing `Broadcast` into our parameter list in our controller methods like so:

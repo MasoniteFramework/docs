@@ -12,7 +12,7 @@ Read the "Creating an Email Driver" for more information on how to create driver
 
 All uploading configuration settings are inside `config/storage.py`. The settings that pertain to file uploading are just the `DRIVER` and the `DRIVERS` settings.
 
-### Driver and DRIVERS Settings
+### DRIVER and DRIVERS Settings
 
 This setting looks like:
 
@@ -49,7 +49,7 @@ DRIVERS = {
 
 Some deployment platforms are Ephemeral. This means that either hourly or daily, they will completely clean their file systems which will lead to the deleting of anything you put on the file system after you deployed it. In other words, any user uploads will be wiped. To get around this, you'll need to upload your images to Amazon S3 or other asset hosting services which is why Masonite comes with Amazon S3 capability out of the box.
 
-### Uploading
+## Uploading
 
 Uploading with masonite is extremely simple. We can use the `Upload` class which is loaded into the container via the `UploadProvider` Service Provider. Whenever a file is uploaded, we can retrieve it using the normal `Request.input()` method. This will look something like:
 
@@ -94,6 +94,16 @@ prepend_name_newupload.png
 ```
 
 ### Uploading to S3
+
+Before you get started with uploading to Amazon S3, you will need the boto3 library:
+
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
+```text
+$ pip install boto3
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Uploading to S3 is exactly the same. Simply add your username, secret key and bucket to the S3 setting:
 
