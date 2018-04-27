@@ -134,7 +134,7 @@ def show(self, Request):
 You may also set a cookie in the browser. The below code will set a cookie named `key` to the value of `value`. 
 
 {% hint style="info" %}
-By default, all cookies are encrypted with your secret key which is generated in your `.env` file when you installed Masonite. This is a security measure to ensure malicious Javascript code cannot fetch cookies if they are somehow retrieved. All cookies are set with the HTTP\_ONLY flag meaning that Javascript cannot read them althuogh you can turn this off using a parameter.
+By default, all cookies are encrypted with your secret key which is generated in your `.env` file when you installed Masonite. This is a security measure to ensure malicious Javascript code cannot fetch cookies if they are somehow retrieved. All cookies are set with the HTTP\_ONLY flag meaning that Javascript cannot read them although you can turn this off using a parameter.
 {% endhint %}
 
 ### **Creating**
