@@ -24,7 +24,11 @@ All scaffolding of Masonite can be done manually \(manually creating a controlle
 
 ## Commands
 
-When craft is used outside of masonite directory, it will only show a few commands such as the `new` and `install` commands. All commands are loaded into the framework itself and fetched when craft is ran. This allows version specific Masonite commands to be efficiently handled on each subsequent version as well as third party commands to be loaded in which expands craft itself.
+When craft is used outside of masonite directory, it will only show a few commands such as the `new` and `install` commands. Other commands such as commands for creating controllers or models are loaded in from the Masonite project itself.
+
+{% hint style="info" %}
+Many commands are loaded into the framework itself and fetched when craft is ran in a Masonite project directory. This allows version specific Masonite commands to be efficiently handled on each subsequent version as well as third party commands to be loaded in which expands craft itself.
+{% endhint %}
 
 The possible commands for craft include:
 
@@ -45,10 +49,38 @@ These new controllers are not apart of the framework itself but now apart of you
 If you wish to scaffold a controller, just run:
 
 ```text
-$ craft controller
+$ craft controller Dashboard
 ```
 
-This command will create a new controller under `app/http/controller`. By convention, all controllers should have an appended “Controller”. For example in order to make a dashboard controller, you should run `craft controller DashboardController` and not `craft controller Dashboard` although you can name your controllers however you like.
+This command will create a new controller under `app/http/controllers/DashboardController.py`. By convention, all controllers should have an appended “Controller” and therefore Masonite will append "Controller" to the controller created. 
+
+You can create a controller without appending "Controller" to the end by running:
+
+```text
+$ craft controller Dashboard -e
+```
+
+This will create a app/http/controllers/Dashboard.py file with a Dashboard controller. Notice that "Controller" is not appended.
+
+{% hint style="info" %}
+`-e` is short for` --exact`. Either flag will work.
+{% endhint %}
+
+You may also create resource controllers which include standard resource actions such as show, create, update, etc:
+
+```text
+$ craft controller Dashboard -r
+```
+
+{% hint style="info" %}
+`-r` is short for `--resource`. Either flag will work.
+{% endhint %}
+
+You can also obviously combine them:
+
+```text
+$ craft controller Dashboard -r -e
+```
 
 ### Creating a New Project
 
