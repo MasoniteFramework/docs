@@ -66,7 +66,7 @@ def show(self, Request):
 {% endcode-tabs %}
 
 {% hint style="info" %}
-There is no difference between any HTTP methods \(GET, POST, PUT, etc\) when it comes to getting input data. They are both retrieved through this `.input()` method so there is no need to make a distinction if the request is `GET` or `POST`
+There is no difference between any HTTP methods \(GET, POST, PUT, etc\) when it comes to getting input data. They are all retrieved through this `.input()` method so there is no need to make a distinction if the request is `GET` or `POST`
 {% endhint %}
 
 ## Method Options
