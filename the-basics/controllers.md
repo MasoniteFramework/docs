@@ -6,7 +6,7 @@ Controllers are a vital part of Masonite and is mainly what differs it from othe
 
 Controllers have an added benefit over straight function based views as the developer has access to to a full class they can manipulate however they want. In other words, controller methods may utilize class attributes or private methods to break up logic. They provide a lot of flexibility.
 
-## Defining a Controller
+## Creating a Controller
 
 Its very easy to create a controller with Masonite with the help of our `craft` command tool. We can simply create a new file inside `app/http/controllers`, name the class the same name as the file and then create a class with methods. We can also use the `craft controller` command to do all of that for us which is:
 
@@ -24,13 +24,78 @@ When we run this command we now have a new class in `app/http/controllers/Dashbo
 Notice that we passed in `Dashboard` but created a `DashboardController`. Masonite will always assume you want to append `Controller` to the end.
 {% endhint %}
 
-If you want to create the exact name of the controller then you can pass a `-e` flag.
+### Exact Controllers
 
+Remember that Masonite will automatically append Controller to the end of all controllers. If you want to create the exact name of the controller then you can pass a `-e` or `--exact` flag.
+
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
 ```text
 $ craft controller Dashboard -e
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+or
+
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
+```text
+$ craft controller Dashboard --exact
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 This will create a `Dashboard` controller located in `app/http/controllers/Dashboard.py`
+
+### Resource Controllers
+
+Resource controllers are controllers that have basic CRUD / resource style methods to them such as create, update, show, store etc. We can create a resource controller by running:
+
+```text
+$ craft controller Dashboard -r
+```
+
+or
+
+```text
+$ craft controller Dashboard --resource
+```
+
+this will create a controller that looks like:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/DashboardController.py" %}
+```python
+''' A Module Description '''
+
+class DashboardController: 
+ ''' Class Docstring Description '''
+ 
+    def show(self): 
+        pass
+        
+    def index(self): 
+        pass
+        
+    def create(self): 
+        pass
+        
+    def store(self): 
+        pass
+        
+    def edit(self): 
+        pass
+        
+    def update(self): 
+        pass
+    
+    def destroy(self): 
+        pass
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## Defining a Controller Method
 
