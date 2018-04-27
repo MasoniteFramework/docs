@@ -133,7 +133,7 @@ def show(self, Request):
 
 You may also set a cookie in the browser. The below code will set a cookie named `key` to the value of `value`. 
 
-{% hint style="info" %}
+{% hint style="warning" %}
 By default, all cookies are encrypted with your secret key which is generated in your `.env` file when you installed Masonite. This is a security measure to ensure malicious Javascript code cannot fetch cookies if they are somehow retrieved. All cookies are set with the HTTP\_ONLY flag meaning that Javascript cannot read them although you can turn this off using a parameter.
 {% endhint %}
 
@@ -148,6 +148,8 @@ def show(self, Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+#### Not Encrypting
+
 If you choose to not encrypt your values and create cookies with the plain text value then you can pass a third value of `True` or `False`. You can also be more explicit if you like:
 
 {% code-tabs %}
@@ -158,6 +160,8 @@ def show(self, Request):
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+#### Expirations
 
 All cookies are set as session cookies. This means that when the user closes out the browser completely, all cookies will be deleted.
 
@@ -171,6 +175,8 @@ def show(self, Request):
 {% endcode-tabs %}
 
 This will set a cookie thats expires 5 minutes from the current time.
+
+#### HttpOnly
 
 Again, as a security measure, all cookies automatically are set with the `HttpOnly` flag which makes it unavailable to any Javascript code. You can turn this off:
 
