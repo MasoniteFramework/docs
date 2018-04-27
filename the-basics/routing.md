@@ -144,7 +144,7 @@ Get().route('/dashboard', 'users.DashboardController@show')
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### Change Controller Modules
+### Global Controllers
 
 Controllers are defaulted to the `app/http/controllers` directory but you may wish to completely change the directory for a certain route. We can change this by using the `.module()` method:
 
