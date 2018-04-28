@@ -72,7 +72,7 @@ This is the most useful part of the container. It is possible to retrieve object
 For example, we can hint that we want to get the `Request` class and put it into our controller. All controller methods are resolved by the container.
 
 ```python
-def show(self, Request)
+def show(self, Request):
     Request.user()
 ```
 
@@ -83,17 +83,28 @@ Another way to resolve classes is by using Python 3 annotations:
 ```python
 from masonite.request import Request
 
-def show(self, request_class: Request)
+def show(self, request_class: Request):
     request_class.user()
 ```
 
 Masonite will know that you are trying to get the `Request` class and will actually retrieve that class from the container. Masonite will search the container for a `Request` class regardless of what the key is in the container, retrieve it, and inject it into the controller method. Effectively creating an IOC container with dependency injection. Think of this as a **get by value** instead of a **get by key** like the earlier example.
 
+You can pass in keys and annotations in any order:
+
+```python
+from masonite.request import Request
+
+def show(self, Upload, request_class: Request, Broadcast):
+    Upload.store(...)
+    request_class.user()
+    Broadcast.channel(...)
+```
+
 Pretty powerful stuff, eh?
 
 ### Resolving Instances
 
-Another powerful feature of the container is it can actually return instances of classes you annotate. For example, all Upload drivers inherit from the UploadContract which simply acts as an interface. Many programming paradigms say that developers should code to an interface instead of an implementation so Masonite allows instances of classes to be returned for this specific use case
+Another powerful feature of the container is it can actually return instances of classes you annotate. For example, all `Upload` drivers inherit from the `UploadContract` which simply acts as an interface for all `Upload` drivers. Many programming paradigms say that developers should code to an interface instead of an implementation so Masonite allows instances of classes to be returned for this specific use case.
 
 Take this example:
 
