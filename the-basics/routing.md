@@ -146,25 +146,13 @@ Get().route('/dashboard', 'users.DashboardController@show')
 
 ### Global Controllers
 
-Controllers are defaulted to the `app/http/controllers` directory but you may wish to completely change the directory for a certain route. We can change this by using the `.module()` method:
-
-{% code-tabs %}
-{% code-tabs-item title="routes/web.py" %}
-```python
-Get().module('thirdparty.package').route('/dashboard', 'users.DashboardController@show')
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-This will look for the controller in `thirdparty.package.users` module instead of the normal `app.http.controllers` module.
-
-Instead of using the module method we can use a forward slash in the beginning of the controller namespace:
+Controllers are defaulted to the `app/http/controllers` directory but you may wish to completely change the directory for a certain route. We can use a forward slash in the beginning of the controller namespace:
 
 ```python
 Get().route('/dashboard', '/thirdparty.package.users.DashboardController@show')
 ```
 
-This snippet is the exact same functionality as above. This is shorter and cleaner but less obvious.
+This can enable us to use controllers in third party packages.
 
 ## Route Parameters
 
