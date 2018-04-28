@@ -97,7 +97,7 @@ $ pip install package-dashboard
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-and then be directed or required to return one of their views
+and then be directed or required to return one of their views:
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
@@ -109,6 +109,47 @@ def show(self):
 {% endcode-tabs %}
 
 This will look inside the `dashboard.views` package for a `dashboard.html` file and return that. You can obviously pass in data as usual.
+
+#### Caveats
+
+It's important to note that if you are building a third party package that integrates with Masonite that you place any `.html` files inside a Python package instead of directly inside a module. For example, you should place .html files inside a file structure that looks like:
+
+```python
+package/
+  views/
+    __init__.py
+    index.html
+    dashboard.html
+setup.py
+MANIFEST.in
+...
+```
+
+and not inside the package directory. This is a Jinja limitation that says that all templates should be located in packages.
+
+Accessing a global view such as:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self):
+    return view('/package/dashboard')
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+will perform a relative import for your Masonite project. For example it will catch:
+
+```text
+app/
+config/
+databases/
+...
+package/
+  dashboard.html
+```
+
+So if you are making a package for Masonite then keep this in mind in where you should put your templates
 
 ## Passing Data to Views
 
