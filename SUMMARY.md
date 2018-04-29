@@ -20,6 +20,7 @@
 
 * [Masonite 1.3 to 1.4](upgrade-guide/masonite-1.3-to-1.4.md)
 * [Masonite 1.4 to 1.5](upgrade-guide/masonite-1.4-to-1.5.md)
+* [Masonite 1.5 to 1.6](upgrade-guide/masonite-1.5-to-1.6.md)
 
 ## The Basics
 
