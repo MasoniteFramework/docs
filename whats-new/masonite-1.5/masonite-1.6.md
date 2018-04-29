@@ -24,7 +24,7 @@ pip install masonite-cli==2.0
 
 Before, you had to use the Manager class associated with a driver to switch a driver. For example:
 
-```text
+```python
 def show(self, Upload, UploadManager):
     Upload.store(...) # default driver
     UploadManager.driver('s3').store(...) # switched drivers
@@ -32,9 +32,51 @@ def show(self, Upload, UploadManager):
 
 Now you can switch drivers from the driver itself:
 
-```text
+```python
 def show(self, Upload):
     Upload.store(...) # default driver
     Upload.driver('s3').store(...) # switched drivers
 ```
+
+## New Absolute Controllers Syntax
+
+This version has been fine tuned for adding packages to Masonite. This version will come along with a new Masonite Billing package. The development of Masonite Billing has discovered some rough spots in package integrations. One of these rough spots were adding controllers that were not in the project. For example, Masonite Billing allows adding a controller that handles incoming Stripe webhooks. Although this was possible before this release, Masonite 1.6 has added a new syntax:
+
+```python
+ROUTES = [
+    ...
+    # Old Syntax:
+    Get().route('/url/here', 'Controller@show').module('billing.controllers')
+    
+    # New Syntax:
+    Get().route('/url/here', '/billing.controllers.Controller@show')
+    ...
+]
+```
+
+Notice the new forward slash in the beginning where the string controller goes.
+
+## Added Global Views
+
+Just like the global controllers, some packages may require you to add a view that is located in their package \(like the new exception debug view in 1.6\) so you may now add views in different namespaces:
+
+```python
+def show(self):
+    return view('/masonite/views/index')
+```
+
+This will get a template that is located in the masonite package itself.
+
+## Changed Container Resolving
+
+The container was one of the first features coded in the 1.x release line. For Masonite 1.6 we have revisited how the container resolves objects. Before this release you had to put all annotation classes in the back of the parameter list:
+
+```python
+from masonite.request import Request
+
+def show(self, Upload, request: Request):
+    pass
+```
+
+
 
