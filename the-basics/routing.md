@@ -115,7 +115,7 @@ ROUTES = [
 ]
 ```
 
-These routes can be grouped using a the `group` helper:
+These routes can be grouped using the `group` helper:
 
 ```python
 from masonite.helpers.routes import group
