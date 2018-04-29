@@ -13,7 +13,8 @@
 
 * [Masonite 1.3](whats-new/masonite-1.3.md)
 * [Masonite 1.4](whats-new/masonite-1.4.md)
-* [Masonite 1.5](whats-new/masonite-1.5.md)
+* [Masonite 1.5](whats-new/masonite-1.5/README.md)
+  * [Masonite 1.6](whats-new/masonite-1.5/masonite-1.6.md)
 
 ## Upgrade Guide
 
