@@ -100,6 +100,10 @@ get('/url/here', 'Controller@method').middleware(...),
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### Route Groups
+
+Route 
+
 ### Named Routes
 
 We can name our routes so we can utilize these names later when or if we choose to redirect to them. We can specify a route name like so:
