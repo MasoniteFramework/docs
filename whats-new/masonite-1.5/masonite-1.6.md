@@ -56,6 +56,38 @@ ROUTES = [
 
 Notice the new forward slash in the beginning where the string controller goes.
 
+## Changed How Controllers Are Created
+
+Previously, controllers were created as they were specified. For example:
+
+```text
+$ craft controller DashboardController
+```
+
+created a DashboardController. Now the "Controller" part of the controller is appended by default for you. Now we can just specify:
+
+```text
+$ craft controller Dashboard
+```
+
+to create our DashboardController. You may was to actually just create a controller called Dashboard. We can do this by specifying a flag:
+
+```text
+$ craft controller Dashboard -e
+```
+
+short for "exact"
+
+## Added Resource Controllers
+
+It's also really good practice to create 1 controller per "action type." For example we might have a `BlogController` and a `PostController`. It's easy to not be sure what action should be in what controllers or what to name your actions. Now you can create a "Resource Controller" which will give you a list of actions such as show, `store`, `create`, `update` etc etc. If what you want to do does not fit with an action you have then you may want to consider making another controller \(such as an `AuthorController`\)
+
+You can now create these Resource Controllers like:
+
+```text
+craft controller Dashboard -r
+```
+
 ## Added Global Views
 
 Just like the global controllers, some packages may require you to add a view that is located in their package \(like the new exception debug view in 1.6\) so you may now add views in different namespaces:
@@ -77,6 +109,36 @@ from masonite.request import Request
 def show(self, Upload, request: Request):
     pass
 ```
+
+If we put the annotation in the beginning it would have thrown an error because of how the container resolved.
+
+Now we can put them in any order and the container will grab each one and resolve it.
+
+```python
+from masonite.request import Request
+
+def show(self, Upload, request: Request, Broadcast):
+    pass
+```
+
+This will now work when previously it did not.
+
+## Resolving Instances
+
+The container will now resolve instances of classes as well. It's a common paradigm to "code to an interface and not an implementation." Because of this paradigm, Masonite comes with contracts that act as interfaces but in addition to this, we can also resolve instances of classes. 
+
+For example, all Upload drivers inherit the UploadContract contract so we can simply resolve the UploadContract which will return an Upload Driver:
+
+```python
+from masonite.contracts.UploadContract import UploadContract
+
+def show(self, upload: UploadContract):
+    upload.store(...)
+```
+
+Notice here that we annotated an UploadContract but got back the actual upload driver.
+
+## Removed Some Dependencies
 
 
 
