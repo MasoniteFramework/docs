@@ -100,6 +100,8 @@ get('/url/here', 'Controller@method').middleware(...),
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Most developers will choose to use these instead of the classes.
+
 ### Route Groups
 
 Sometimes routes can be very similiar such as having many dashboard or profile routes:
