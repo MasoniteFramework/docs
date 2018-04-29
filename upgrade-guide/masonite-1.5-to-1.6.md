@@ -31,3 +31,11 @@ except Exception as e:
 
 This will also display an exception view whenever an exception is it.
 
+## Finished
+
+That's all the changes we have to make for our project.
+
+{% hint style="success" %}
+Read [What's New in Masonite 1.6](../whats-new/masonite-1.6.md) for any futher changes you may want or have to make to your code base.
+{% endhint %}
+
