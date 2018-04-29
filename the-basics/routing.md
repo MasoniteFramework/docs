@@ -102,7 +102,35 @@ get('/url/here', 'Controller@method').middleware(...),
 
 ### Route Groups
 
-Route 
+Sometimes routes can be very similiar such as having many dashboard or profile routes:
+
+```python
+ROUTES = [
+    Get().route('/home', ...),
+    Get().route('/dashboard', ...),
+    Get().route('/dashboard/user', ...),
+    Get().route('/dashboard/user/@id', ...),
+    Get().route('/dashboard/friends', ...),
+    ...
+]
+```
+
+These routes can be grouped using a the `group` helper:
+
+```python
+from masonite.helpers.routes import group
+
+ROUTES = [
+    Get().route('/home', 'DashboardController@show'),
+    group('/dashboard', [
+        Get().route('/user', ...)
+        Get().route('/user/@id', ...)
+        Get().route('/user/friends', ...)
+    ])
+]
+```
+
+Notice that this is the same as above and can help organize and group routes. This feature will also be expanded on in future releases of Masonite.
 
 ### Named Routes
 
