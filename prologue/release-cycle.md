@@ -21,8 +21,8 @@ Releases are planned to be upgradable from the previous release in 10 minutes or
 ### Scheduled Releases
 
 * [x] v1.3 - February 2018
-* [x] v1.4 - March 2018
-* v1.5 - April 2018
+* [x] v1.4 - March 2018 
+* [x] v1.5 - April 2018
 * v1.6 - May 2018
 * v2.0 - June 2018
 * v2.1 - December 2018
