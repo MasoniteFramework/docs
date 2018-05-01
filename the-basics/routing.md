@@ -100,7 +100,7 @@ get('/url/here', 'Controller@method').middleware(...),
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Most developers will choose to use these instead of the classes.
+Most developers choose to use these instead of the classes.
 
 ### Route Groups
 
