@@ -65,6 +65,32 @@ In order to retrieve a class from the service container, we can simply use the `
 
 That's it! This is useful as an IOC container which you can load a single class into the container and use that class everywhere throughout your project.
 
+## Collecting
+
+You may want to collect specific kinds of objects from the container based on the key. For example we may want all objects that start with "Exception" and end with "Hook" or want all keys that end with "ExceptionHook" if we are building an exception handler. We can do this easily:
+
+```python
+app.collect('*ExceptionHook')
+```
+
+This will return a dictionary of all objects that are binded to the container that start with anything and end with "ExceptionHook" such as "SentryExceptionHook" or "AwesomeExceptionHook".
+
+We can also do the opposite and collect everything that starts with a specific key:
+
+```python
+app.collect('Sentry*')
+```
+
+This will collect all keys that start with "Sentry" such as "SentryWebhook" or "SentryExceptionHandler."
+
+Lastly, we may want to collect things that start with "Sentry" and end with "Hook"
+
+```python
+app.collect('Sentry*Hook')
+```
+
+This will get keys like "SentryExceptionHook" and "SentryHandlerHook"
+
 ## **Resolve**
 
 This is the most useful part of the container. It is possible to retrieve objects from the container by simply passing them into the parameters. Certain aspects of Masonite are resolved such as controller methods, middleware and drivers.
