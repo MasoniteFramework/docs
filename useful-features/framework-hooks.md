@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Framework hooks are essentially events that are emitted that you are able to "hook" into. If you need want to add support for [Sentry](http://sentry.io), which is an exception and error tracking solution, then you want to tie into the Exception Hook. When an exception is encountered it will look for your class in the container and execute it.
+Framework hooks are essentially events that are emitted that you are able to "hook" into. If you want to add support for [Sentry](http://sentry.io), which is an exception and error tracking solution, then you want to tie into the Exception Hook. When an exception is encountered it will look for your class in the container and execute it.
 
 {% hint style="info" %}
 Currently there is only the Exception Hook that you can tie into but there will be other hooks in later releases of Masonite such as View Hooks and Mail Hooks.
