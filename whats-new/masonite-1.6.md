@@ -138,6 +138,16 @@ def show(self, upload: UploadContract):
 
 Notice here that we annotated an UploadContract but got back the actual upload driver.
 
+## Container Collection
+
+You can now search the container and "collect" objects from it by key using the new collect method:
+
+```text
+app.collect('Sentry*Hook')
+```
+
+which will find all keys in the container such as SentryExceptionHook and SentryWebHook and make a new dictionary out of them.
+
 ## Removed Some Dependencies
 
 A complaint a few developers pointed out was that Masonite has too many dependencies. Masonite added Pusher, Ably and Boto3 packages by default which added a bit of overhead, especially if developers have no intentions on real time event broadcasting \(which most applications probably won't\). These dependencies have now been removed and will throw an exception if they are used without the required dependencies.
