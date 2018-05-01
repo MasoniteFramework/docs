@@ -60,7 +60,6 @@
 * [Broadcasting](useful-features/broadcasting.md)
 * [Queues and Jobs](useful-features/queues-and-jobs.md)
 * [Compiling Assets](useful-features/compiling-assets.md)
-* [Framework Hooks](useful-features/framework-hooks.md)
 
 ## Security
 
