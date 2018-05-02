@@ -99,6 +99,27 @@ def show(self):
 
 This will get a template that is located in the masonite package itself.
 
+## Added Route Groups
+
+You can now group routes based on a specific string prefix. This will now look like:
+
+{% code-tabs %}
+{% code-tabs-item title="routes/web.py" %}
+```python
+from masonite.helpers.routes import get, group
+ROUTES = [
+    get('/home', ...)
+    group('/dashboard', [
+        get('/user', ...)
+        get('/user/1')
+    ])
+]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+which will compile down into `/dashboard/user` and `/dashboard/user/1`
+
 ## Changed Container Resolving
 
 The container was one of the first features coded in the 1.x release line. For Masonite 1.6 we have revisited how the container resolves objects. Before this release you had to put all annotation classes in the back of the parameter list:
