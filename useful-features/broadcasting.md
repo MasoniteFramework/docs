@@ -43,8 +43,8 @@ def show(self, Broadcast):
 We can change the driver on the fly as well:
 
 ```python
-def show(self, Broadcast):
-    print(Broadcast.driver('ably')) # prints the ably driver class
+def show(self, BroadcastManager):
+    print(BroadcastManager.driver('ably')) # prints the ably driver class
 ```
 
 All drivers have the same methods so don't worry about different drivers having different methods.
