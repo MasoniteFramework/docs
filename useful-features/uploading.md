@@ -67,7 +67,7 @@ And inside our controller we can do:
 
 ```python
 def upload(self, Upload):
-    Upload.driver('disk').store(Request.input('file_upload'))
+    Upload.store(Request.input('file_upload'))
 ```
 
 That's it! We specified the driver we want to use and just uploaded an image to our file system.
@@ -75,7 +75,7 @@ That's it! We specified the driver we want to use and just uploaded an image to 
 This action will return the file system location. We could use that to input into our database if we want:
 
 ```python
->>> Upload.driver('disk').store(Request.input('file_upload'))
+>>> Upload.store(Request.input('file_upload'))
 storage/uploads/new_upload.png
 ```
 
@@ -89,7 +89,7 @@ new_upload.png
 Lastly, we may need to prepend the file name with something like a `uuid` or something or even just a normal string. We can do so by using the `storePrepend()` method:
 
 ```python
->>> Upload.driver('disk').store(Request.input('file_upload'), 'prepend_name_')
+>>> Upload.store(Request.input('file_upload'), 'prepend_name_')
 prepend_name_newupload.png
 ```
 
@@ -119,8 +119,8 @@ Make sure that your user has the permission for uploading to your S3 bucket.
 Then in our controller:
 
 ```python
-def upload(self, Upload):
-    Upload.driver('s3').store(Request.input('file_upload'))
+def upload(self, UploadManager):
+    UploadManager.driver('s3').store(Request.input('file_upload'))
 ```
 
 How the S3 driver currently works is it uploads to your file system using the `disk` driver, and then uploads that file to your Amazon S3 bucket. So do not get rid of the `disk` setting in the `DRIVERS` dictionary.
