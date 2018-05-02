@@ -152,3 +152,7 @@ which will find all keys in the container such as SentryExceptionHook and Sentry
 
 A complaint a few developers pointed out was that Masonite has too many dependencies. Masonite added Pusher, Ably and Boto3 packages by default which added a bit of overhead, especially if developers have no intentions on real time event broadcasting \(which most applications probably won't\). These dependencies have now been removed and will throw an exception if they are used without the required dependencies.
 
+## Framework Hooks
+
+Masonite 1.6 + will slowly be rolling out various framework hooks. These hooks will allow developers and third party packages to integrate into various events that are fired throughout the framework. Currently there is the abilitity to tie into the exception hook which will call any objects loaded into the container whenever an exception is hit. This is great if you want to add things like Sentry into your project. Other hooks will be implemented such as View, Mail and Upload Hooks.
+
