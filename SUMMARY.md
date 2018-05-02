@@ -86,6 +86,7 @@
 ## Official Packages
 
 * [Masonite Entry](https://masoniteframework.gitbooks.io/masonite-entry/content/)
+* [Masonite Billing](http://billing.masoniteproject.com)
 
 ## Tutorials
 
