@@ -24,16 +24,16 @@ In order to use Masonite, you’ll need:
 
 ### Linux
 
-If you are running on a Linux flavor, you’ll need the Python dev package. You can download this package by running:
+If you are running on a Linux flavor, you’ll need the Python dev package and OpenSSL. You can download this package by running:
 
 ```text
-$ sudo apt-get install python-dev
+$ sudo apt-get install python-dev libssl-dev
 ```
 
 Or you may need to specify your `python3.x-dev` version:
 
 ```text
-$ sudo apt-get install python3.6-dev
+$ sudo apt-get install python3.6-dev libssl-dev
 ```
 
 ## Installation
