@@ -1,7 +1,5 @@
 # Helper Functions
 
-## Helper Functions
-
 ## Introduction
 
 Masonite works on getting rid of all those mundane tasks that developers either dread writing or dread writing over and over again. Because of this, Masonite has several helper functions that allows you to quickly write the code you want to write without worrying about imports or retrieving things from the Service Container. Many things inside the Service Container are simply retrieved using several functions that Masonite sets as builtin functions.
@@ -10,6 +8,8 @@ These functions do not require any imports and are simply just available which i
 
 It may make more sense if we take a peak at this Service Provider:
 
+{% code-tabs %}
+{% code-tabs-item title="masonite.providers.HelpersProvider" %}
 ```python
 class HelpersProvider(ServiceProvider):
 
@@ -29,10 +29,12 @@ class HelpersProvider(ServiceProvider):
 
         ViewClass.share({'request': Request.helper, 'auth': Request.user})
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Notice how we simply just add builtin functions via this provider.
 
-### Request
+## Request
 
 The Request class has a simple `request()` helper function.
 
@@ -48,7 +50,9 @@ def show(self, Request):
     Request.input('id')
 ```
 
-### View
+Notice we didn't import anything at the top of the file, nor did we inject anything from the Service Container.
+
+## View
 
 The `view()` function is just a shortcut to the `View` class.
 
@@ -64,7 +68,7 @@ def show(self, View):
     return View('template_name')
 ```
 
-### Auth
+## Auth
 
 The `auth()` function is a shortcut around getting the current user. We can retrieve the user like so:
 
@@ -80,9 +84,17 @@ def show(self, Request):
     Request.user().id
 ```
 
-This will return `None` if there is no user.
+This will return `None` if there is no user so in a real world application this may look something like:
 
-### Container
+```python
+def show(self):
+    if auth():
+        auth().id
+```
+
+This is because you can't call the `.id` attribute on `None`
+
+## Container
 
 We can get the container by using the `container()` function
 
@@ -98,7 +110,7 @@ def show(self, Request):
     Request.app().make('User')
 ```
 
-### Env
+## Env
 
 We may need to get some environment variables inside our controller or other parts of our application. For this we can use the `env()` function.
 
@@ -116,9 +128,9 @@ def show(self):
     os.environ.get('S3_SECRET')
 ```
 
-### Resolve
+## Resolve
 
-We can resolve anything from the container by using his `resolve()` function.
+We can resolve anything from the container by using this `resolve()` function.
 
 ```python
 def some_function(Request):

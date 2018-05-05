@@ -1,21 +1,19 @@
 # Contributing Guide
 
-## Contributing Guide
-
 ## Introduction
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners or contributors of this repository before making a change.
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
-### Getting Started
+## Getting Started
 
 The framework has three main parts.
 
-* This official `MiraFramework/masonite` repository is where most work will be done, primarily in the `develop` or release branches. This is the main repository that will install when creating new projects using the `craft new` command.
-* The ```MiraFramework/core`` repository where the main `masonite` pip package lives.
+* This official `MasoniteFramework/masonite` repository is where most work will be done, primarily in the `develop` or release branches. This is the main repository that will install when creating new projects using the `craft new` command.
+* The ```MasoniteFramework/core`` repository where the main `masonite` pip package lives.
   * This is where the `from masonite ...` module lives. 
-* The `MiraFramework/cli` repository where the `craft` command lives
+* The `MasoniteFramework/craft` repository where the `craft` command lives
 
 #### Getting this repository up and running to be edited
 
@@ -49,17 +47,17 @@ To do this just:
 * Run `pip install .` from inside the masonite-core directory. This will install masonite as a pip package.
 * Any changes you make to this package just push it to your feature branch on your fork and follow the PR process below.
 
-#### Editing the cli repository \(`craft` commands\)
+#### Editing the craft repository \(`craft` commands\)
 
 Craft commands make up a large part of the workflow for Masonite. Follow these instructions to get the masonite-cli package on your computer and editable.
 
-* Fork the `MasoniteFramework/cli` repo,
+* Fork the `MasoniteFramework/craft` repo,
 * Clone that repo into your computer:
-  * `git clone http://github.com/your-username/cli.git`
+  * `git clone http://github.com/your-username/craft.git`
 * Activate your masonite virtual environment \(optional\)
   * Go to where you installed masonite and activate the environment
 * While inside the virtual environment, cd into the directory you installed cli
-* Run `pip install --editable .` from inside the masonite-cli directory. This will install cli \(which contains the craft commands\) as a pip package but also keep a reference to the folder so you can make changes freely to craft commands while not having to worry about continuously reinstalling it.
+* Run `pip install --editable .` from inside the masonite-cli directory. This will install craft \(which contains the craft commands\) as a pip package but also keep a reference to the folder so you can make changes freely to craft commands while not having to worry about continuously reinstalling it.
 * Any changes you make to this package just push it to your feature branch on your fork and follow the PR process below.
 
 ### Comments
@@ -129,11 +127,12 @@ It's important to note that there should have exactly 75 `-` above and below the
 
 ### Pull Request Process
 
-1. Ensure any changes are well commented and any configuration files that are added have a flagpole comment on the variables it's setting.
-2. Update the README.md and `MasoniteFramework/docs` repo with details of changes to the interface, this includes new environment variables, new file locations, container parameters etc.
-3. Must add unit testing for any changes made. Of the three repositories listed above, only the `cli` and `core` repos require unit testing.
-4. Increase the version numbers in any example files and the README.md to the new version that this Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/) for both `core` and `cli` or [RomVer](http://blog.legacyteam.info/2015/12/romver-romantic-versioning/) for the main Masontie repo.
-5. The PR must pass the Travis CI build. The Pull Request can be merged in once you have the sign-off of two other collaborators, or the feature maintainer for your specific feature improvement or the repo owner. 
+1. You should open an issue before making any pull requests. Not all features will be added to the framework and some may be better off as a third party package. It wouldn't be good if you worked on a feature for several days and the pull request gets rejected for reasons that could have been discussed in an issue.
+2. Ensure any changes are well commented and any configuration files that are added have a flagpole comment on the variables it's setting.
+3. Update the README.md and `MasoniteFramework/docs` repo with details of changes to the interface, this includes new environment variables, new file locations, container parameters etc.
+4. You must add unit testing for any changes made. Of the three repositories listed above, only the `craft` and `core` repos require unit testing.
+5. Increase the version numbers in any example files and the README.md to the new version that this Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/) for both `core` and `craft` or [RomVer](http://blog.legacyteam.info/2015/12/romver-romantic-versioning/) for the main Masonite repo.
+6. The PR must pass the Travis CI build. The Pull Request can be merged in once you have a successful review from two other collaborators, or the feature maintainer for your specific feature improvement or the repo owner. 
 
 ### Code of Conduct
 
