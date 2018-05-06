@@ -47,7 +47,7 @@ $ craft view update
 </form>
 ```
 
-## Create The Route:
+## Create The Routes:
 
 Remember we made 2 controller methods so let's attach them to a route here:
 
@@ -55,4 +55,49 @@ Remember we made 2 controller methods so let's attach them to a route here:
 Get().route('/post/@id/update', 'PostController@update'),
 Post().route('/post/@id/update', 'PostController@store'),
 ```
+
+That should be it! We can now update our posts.
+
+## Delete Method 
+
+Let's expand a bit and made a delete method.
+
+```python
+def delete(self):
+    post = Post.find(request().param('id'))
+    
+    post.delete()
+    
+    return 'post deleted'
+```
+
+## Make the route:
+
+```python
+Get().route('/post/@id/delete', 'PostController@delete'),
+```
+
+Notice we used a GET route here, It would be much better to use a POST method but for simplicity sake will assume you can create one by now. We will just add a link to our update method which will delete the post.
+
+## Update the Template
+
+We can throw a delete link right inside our update template:
+
+```markup
+<form action="/post/{{ post.id }}/update" action="POST">
+    {{ csrf_field|safe }}
+
+    <label for="">Title</label>
+    <input type="text" name="title"><br>
+
+    <label>Body</label>
+    <textarea name="body"></textarea><br>
+
+    <input type="submit" value="Update">
+    
+    <a href="/post/{{ post.id }}/delete"> Delete </a>
+</form>
+```
+
+Great! You now have a blog that you can use to create, view, update and delete posts! Go on to create amazing things!
 
