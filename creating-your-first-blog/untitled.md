@@ -8,7 +8,7 @@ description: >-
 
 ## Getting Started
 
-All routes are located in routes/web.py and are extremely simple to understand. They consist of a request method and a route method. For example, to create a GET request it will look like:
+All routes are located in `routes/web.py` and are extremely simple to understand. They consist of a request method and a route method. For example, to create a `GET` request it will look like:
 
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
