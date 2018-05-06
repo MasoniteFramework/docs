@@ -4,7 +4,7 @@ description: >-
   We'll be using a basic Bootstrap 3 template.
 ---
 
-# Part 3 - Designing Our Blog
+# Part 6 - Designing Our Blog
 
 {% hint style="danger" %}
 This section is incomplete
@@ -12,7 +12,98 @@ This section is incomplete
 
 ## Getting Started
 
-Let's setup a little HTML and CSS so we can learn a bit more about how views work as well as learn about static files.
+Let's setup a little HTML and CSS so we can learn a bit more about how views work as well as learn about static files. In this part we will setup a really basic template in order to not clog up this part with too much HTML but we will learn the basics enough that you can move forward and create a really awesome blog template \(or collect one from the internet\).
+
+Now that we have all the models and migrations setup, we have everything in the backend that we need to create layout and start creating and updating blog posts.
+
+We will check if the user logged in before creating a template.
+
+## The Template For Creating
+
+The template for creating will be located at blog/create and will be a simple form for creating a blog post
+
+```markup
+<form action="/blog/create" method="POST">
+    {{ csrf_field|safe }}
+
+    <input type="name" name="title">
+    <textarea name="body"></textarea>
+</form>
+```
+
+Notice here we have this strange {{ csrf\_field\|safe }} looking text. Masonite comes with CSRF protection so we need a token to render with the CSRF field.
+
+Now because we have a foreign key in our posts table, we need to make sure the user is logged in before creating this so let's change up our template a bit:
+
+```markup
+{% if auth() %}
+    <form action="/blog/create" method="POST">
+        {{ csrf_field|safe }}
+
+        <label> Title </label>
+        <input type="name" name="title"><br>
+        
+        <label> Body </label>
+        <textarea name="body"></textarea>
+        
+        <input type="submit" value="Post!">
+    </form>
+{% else %}
+    <a href="/login">Please Login</a>
+{% endif %}
+```
+
+{% hint style="success" %}
+Masonite uses Jinja2 templating so if you don't understand this templating, be sure to [read their documentation](http://jinja.pocoo.org/docs/2.10/).
+{% endhint %}
+
+## The Controller For Creating
+
+Notice that our action is going to /blog/create so we need to direct a route to our controller method. In this case we will direct it to a `store` method.
+
+Let's open back up routes/web.py and create a new route. Just add this to the ROUTES list:
+
+```python
+Post().route('/blog/create', 'BlogController@store'),
+```
+
+and create a new store method on our controller:
+
+```python
+....
+def show(self): 
+    return view('blog')
+
+# New store Method
+def store(self): 
+     pass
+```
+
+Now notice above in the form we are going to be receiving 2 form inputs: title and body. So let's import the Post model and create a new post with the input.
+
+```python
+from app.Post import Post
+...
+
+def store(self):
+    Post.create(
+        title=request().input('title'),
+        body=request().input('body'),
+        author_id=request().user().id
+    )
+
+    return 'post created'
+```
+
+Notice that we used `request()` here. This is what Masonite calls Helper Functions which speed up development. We didn't import anything but we are able to use them. This is because Masonite ships with a Service Provider that adds builtin functions to the project.
+
+Also notice we used an input\(\) method. Masonite does not discriminate against different request methods so getting input on a GET or a POST request doesn't matter. You will always use this input method.
+
+Go ahead and run the server using craft serve and head over to `localhost:8000/blog` and create a post. This should hit the blog/create route with the POST request method and we should see "post created".
+
+
+
+
 
 
 

@@ -55,3 +55,23 @@ $ craft migrate
 
 This will create our users table for us along with a migrations table to keep track of any migrations we add later.
 
+## Creating Users
+
+Now that we have the authentication and the migrations all migrated in, let's create our first user. Remember that we ran craft auth so we have a few new templates and controllers. 
+
+Go ahead and run the server:
+
+```text
+$ craft serve
+```
+
+and head over to localhost:8000/register and fill out the form. You can use whatever name and email you like but for this purpose we will use:
+
+```text
+Username: demo
+Email: demo@email.com
+Password: password
+```
+
+Once that's done we can move on to the next part.
+
