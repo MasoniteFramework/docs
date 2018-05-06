@@ -34,7 +34,7 @@ $ craft view update
 ```
 
 ```markup
-<form action="/post/update" action="POST">
+<form action="/post/{{ post.id }}/update" action="POST">
     {{ csrf_field|safe }}
 
     <label for="">Title</label>
