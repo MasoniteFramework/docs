@@ -6,8 +6,6 @@ It's important to know the life cycle of the request so you can understand what 
 
 ## Lifecycle Overview
 
-### The Setup
-
 Masonite is bootstrapped via [Service Providers](service-providers.md), these providers load features, hooks, drivers and other objects into the [Service Container](service-container.md) which can then be pulled out by you, the developer, and used in your views, middleware and drivers.
 
 With that being said, not all Service Providers need to be ran on every request and there are good times to load objects into the container. For example, loading routes into the container does not need to be ran on every request. Mainly because they won't change before the server is restarted again.
@@ -26,7 +24,7 @@ Once all the register methods are ran and all the boot methods of Service Provid
 
 We then make an instance of the WSGI key from the container and set it to an application variable in order to better show what is happening. Then this is where the WSGI server is started.
 
-### The Server
+## The Server
 
 Now that we have the server running, we have a new entry point for our requests. This entry point is the app function inside bootstrap/start.py. 
 
@@ -34,7 +32,7 @@ Now all wsgi servers set a variable called environ. In order for our Service Pro
 
 Next we run all of our Service Providers where wsgi is true now \(because the WSGI server is running\).
 
-### WSGI Service Providers
+## WSGI Service Providers
 
 The Request Life Cycle is now going to hit all of these providers. Although you can obviously add any Service Providers you at any point in the request, Masonite comes with 5 providers that should remain in the order they are in. These providers have been commented as `# Framework Providers`. Because the request needs to hit each of these in succession, they should be in order although you may put any amount of any kind of Service Providers in between them.
 
@@ -62,5 +60,5 @@ This Service Provider collects a few classes that have been manipulated by the a
 
 ## Leaving the Providers
 
-Once these 5 providers have been hit, we have enough information to show the output. We leave the Service Provider loop and set the response and output which are specific to WSGI. The output is then sent to the browser with any cookies to set, any new headers, the response, status code, and everything else you need to display html \(or json\) to the browser.
+Once these 5 providers have been hit \(and any you add\), we have enough information to show the output. We leave the Service Provider loop and set the response and output which are specific to WSGI. The output is then sent to the browser with any cookies to set, any new headers, the response, status code, and everything else you need to display html \(or json\) to the browser.
 
