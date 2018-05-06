@@ -11,7 +11,7 @@ description: >-
 
 We will be walking through step by step and go into great detail on each part we will be building.
 
-Our application will consist of a blog that can create, read, update and delete posts. It will be very basic and won't have much styling. This is so you can get the basics down on the framwork without too much HTML boilerplate code.
+Our application will consist of a blog that can create, read, update and delete posts. It will be very basic and won't have much styling. This is so you can get the basics down on the framework without too much HTML boilerplate code.
 
 We will also roughly going over the [Service Container](../architectural-concepts/service-container.md) but any extensive explanation you need will be found in the respective documentation locations.
 
