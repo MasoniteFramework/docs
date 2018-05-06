@@ -102,6 +102,5 @@
 * [Part 4 - Migrations](creating-your-first-blog/4.-migrations.md)
 * [Part 5 - Models](creating-your-first-blog/untitled-2.md)
 * [Part 6 - Designing Our Blog](creating-your-first-blog/untitled-1.md)
-* [Part 5 - Registering Users](creating-your-first-blog/part-5-registering-users.md)
-* Untitled
+* [Part 7 - Showing Our Posts](creating-your-first-blog/untitled-3.md)
 
