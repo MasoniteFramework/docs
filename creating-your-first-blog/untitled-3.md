@@ -77,7 +77,7 @@ Notice here we have a @id string. We can use this to grab that section of the UR
 
 ## Single Method
 
-Let's create a single method so we show a single post
+Let's create a single method so we show a single post.
 
 ```python
 from app.Post import Post

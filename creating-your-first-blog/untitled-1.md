@@ -119,11 +119,11 @@ Javascript files are the same exact thing:
 For more information on static files, checkout the [Static Files](../the-basics/static-files.md) documentaton.
 {% endhint %}
 
-## The Controller For Creating
+## The Controller For Creating And The Container
 
-Notice that our action is going to /blog/create so we need to direct a route to our controller method. In this case we will direct it to a `store` method.
+Notice that our action is going to `/blog/create` so we need to direct a route to our controller method. In this case we will direct it to a `store` method.
 
-Let's open back up routes/web.py and create a new route. Just add this to the ROUTES list:
+Let's open back up routes/web.py and create a new route. Just add this to the `ROUTES` list:
 
 ```python
 Post().route('/blog/create', 'BlogController@store'),
@@ -147,6 +147,28 @@ Now notice above in the form we are going to be receiving 2 form inputs: title a
 from app.Post import Post
 ...
 
+def store(self, Request):
+    Post.create(
+        title=Request.input('title'),
+        body=Request.input('body'),
+        author_id=Request.user().id
+    )
+
+    return 'post created'
+```
+
+Notice that we used `Request` here. This is the `Request` object. Where did this come from? This is the power and beauty of Masonite and your first introduction to the [Service Container](../architectural-concepts/service-container.md). The Service Container is an extremely powerful implementation as allows you to ask Masonite for an object \(in this case `Request`\) and get the `Request` object.
+
+{% hint style="success" %}
+Read more about the [Service Container](../architectural-concepts/service-container.md) here.
+{% endhint %}
+
+More likely, you will use the request helper and it will look something like this instead:
+
+```python
+from app.Post import Post
+...
+
 def store(self):
     Post.create(
         title=request().input('title'),
@@ -157,11 +179,11 @@ def store(self):
     return 'post created'
 ```
 
-Notice that we used `request()` here. This is what Masonite calls Helper Functions which speed up development. We didn't import anything but we are able to use them. This is because Masonite ships with a Service Provider that adds builtin functions to the project.
+We can use the `request()` function. This is what Masonite calls Helper Functions which speed up development. We didn't import anything but we are able to use them. This is because Masonite ships with a Service Provider that adds builtin functions to the project.
 
 Also notice we used an input\(\) method. Masonite does not discriminate against different request methods so getting input on a GET or a POST request doesn't matter. You will always use this input method.
 
-Go ahead and run the server using craft serve and head over to `localhost:8000/blog` and create a post. This should hit the blog/create route with the POST request method and we should see "post created".
+Go ahead and run the server using craft serve and head over to `localhost:8000/blog` and create a post. This should hit the `/blog/create` route with the POST request method and we should see "post created".
 
 
 
