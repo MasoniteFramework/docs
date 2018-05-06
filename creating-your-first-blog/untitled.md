@@ -14,9 +14,13 @@ This section is incomplete
 
 All routes are located in routes/web.py and are extremely simple to understand. They consist of a request method and a route method. For example, to create a GET request it will look like:
 
+{% code-tabs %}
+{% code-tabs-item title="routes/web.py" %}
 ```python
 Get().route('/url', 'Controller@method')
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 We'll talk about the controller in a little bit.
 
@@ -36,6 +40,8 @@ Think of a controller method as a function in the `views.py` file if you are com
 
 Let's create our first route now. We can put all routes inside `routes/web.py` and inside the `ROUTES` list. You'll see we have a route for the home page. Let's add a route for creating blogs.
 
+{% code-tabs %}
+{% code-tabs-item title="routes/web.py" %}
 ```python
 ROUTES = [
     Get().route('/', 'WelcomeController@show').name('welcome'),
@@ -44,6 +50,8 @@ ROUTES = [
     Get().route('/blog', 'BlogController@show')
 ]
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 You'll notice here we have a `BlogController@show` string. This means "use the blog controller's show method to render this route". The only problem here is that we don't yet have a blog controller.
 
