@@ -53,6 +53,49 @@ Now because we have a foreign key in our posts table, we need to make sure the u
 Masonite uses Jinja2 templating so if you don't understand this templating, be sure to [read their documentation](http://jinja.pocoo.org/docs/2.10/).
 {% endhint %}
 
+## Static Files
+
+For simplicity sake, we won't by styling our blog with something like Bootstrap but it is important to learn how static files such as CSS files work with Masonite so let's walk through how to add a CSS file and add it to our blog.
+
+Firstly, head to storage/static/ and make a blog.css file and throw anything you like in it. For this tutorial we will make the html page slightly grey.
+
+{% code-tabs %}
+{% code-tabs-item title="storage/static/blog.css" %}
+```css
+html {
+    background-color: #ddd;
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Now we can add it to our template like so:
+
+```markup
+<link href="/static/blog.css" rel="stylesheet">
+{% if auth() %}
+    <form action="/blog/create" method="POST">
+        {{ csrf_field|safe }}
+
+        <label> Title </label>
+        <input type="name" name="title"><br>
+        
+        <label> Body </label>
+        <textarea name="body"></textarea>
+        
+        <input type="submit" value="Post!">
+    </form>
+{% else %}
+    <a href="/login">Please Login</a>
+{% endif %}
+```
+
+That's it. Static files are really simple. It's important to know how they work but for this tutorial we will ignore them for now and focus on more of the backend.
+
+{% hint style="success" %}
+For more information on static files, checkout the [Static Files](../the-basics/static-files.md) documentaton.
+{% endhint %}
+
 ## The Controller For Creating
 
 Notice that our action is going to /blog/create so we need to direct a route to our controller method. In this case we will direct it to a `store` method.
