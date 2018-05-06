@@ -15,7 +15,7 @@ def update(self):
     return view('update', {'post': post})
     
 def store(self):
-    post = Post.find(request().input('id'))
+    post = Post.find(request().param('id'))
     
     post.title = request().input('title')
     post.body = request().input('body')
@@ -24,6 +24,8 @@ def store(self):
     
     return 'post updated'
 ```
+
+Since we are more comfortable with controllers we can go ahead and make two at once. We made one that shows a view that updates and then one that actually updates the post.
 
 ## Create The View
 
@@ -47,5 +49,10 @@ $ craft view update
 
 ## Create The Route:
 
+Remember we made 2 controller methods so let's attach them to a route here:
 
+```python
+Get().route('/post/@id/update', 'PostController@update'),
+Post().route('/post/@id/update', 'PostController@store'),
+```
 
