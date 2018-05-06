@@ -12,7 +12,7 @@ This section is incomplete
 
 ## Getting Started
 
-Here we will copy and paste some default bootstrap code to get our application looking more .. "bloggy" :\)
+Let's setup a little HTML and CSS so we can learn a bit more about how views work as well as learn about static files.
 
 
 
