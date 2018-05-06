@@ -1,9 +1,5 @@
 # Part 5 - Models
 
-{% hint style="danger" %}
-This section is incomplete
-{% endhint %}
-
 ## Getting Started
 
 Now that we have our tables and migrations all done and we have a posts table, let's create a model for it.

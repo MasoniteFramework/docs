@@ -7,10 +7,6 @@ description: >-
 
 # Introduction
 
-{% hint style="danger" %}
-This section is incomplete
-{% endhint %}
-
 ## Getting Started
 
 We will be walking through step by step and go into great detail on each part we will be building.
