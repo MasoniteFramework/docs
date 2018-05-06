@@ -61,7 +61,7 @@ Go ahead and run the server:
 $ craft serve
 ```
 
-and head over to localhost:8000/register and fill out the form. You can use whatever name and email you like but for this purpose we will use:
+and head over to `localhost:8000/register` and fill out the form. You can use whatever name and email you like but for this purpose we will use:
 
 ```text
 Username: demo
