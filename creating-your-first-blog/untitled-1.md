@@ -12,7 +12,7 @@ This section is incomplete
 
 ## Getting Started
 
-Let's setup a little HTML and CSS so we can learn a bit more about how views work as well as learn about static files. In this part we will setup a really basic template in order to not clog up this part with too much HTML but we will learn the basics enough that you can move forward and create a really awesome blog template \(or collect one from the internet\).
+Let's setup a little HTML so we can learn a bit more about how views work. In this part we will setup a really basic template in order to not clog up this part with too much HTML but we will learn the basics enough that you can move forward and create a really awesome blog template \(or collect one from the internet\).
 
 Now that we have all the models and migrations setup, we have everything in the backend that we need to create layout and start creating and updating blog posts.
 

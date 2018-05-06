@@ -103,4 +103,5 @@
 * [Part 5 - Models](creating-your-first-blog/untitled-2.md)
 * [Part 6 - Designing Our Blog](creating-your-first-blog/untitled-1.md)
 * [Part 7 - Showing Our Posts](creating-your-first-blog/untitled-3.md)
+* [Part 8 - Updating and Deleting Posts](creating-your-first-blog/part-8-updating-and-deleting-posts.md)
 
