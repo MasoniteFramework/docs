@@ -92,6 +92,29 @@ Now we can add it to our template like so:
 
 That's it. Static files are really simple. It's important to know how they work but for this tutorial we will ignore them for now and focus on more of the backend.
 
+Javascript files are the same exact thing:
+
+```markup
+<link href="/static/blog.css" rel="stylesheet">
+{% if auth() %}
+    <form action="/blog/create" method="POST">
+        {{ csrf_field|safe }}
+
+        <label> Title </label>
+        <input type="name" name="title"><br>
+        
+        <label> Body </label>
+        <textarea name="body"></textarea>
+        
+        <input type="submit" value="Post!">
+    </form>
+{% else %}
+    <a href="/login">Please Login</a>
+{% endif %}
+
+<script src="/static/script.js"></script>
+```
+
 {% hint style="success" %}
 For more information on static files, checkout the [Static Files](../the-basics/static-files.md) documentaton.
 {% endhint %}
