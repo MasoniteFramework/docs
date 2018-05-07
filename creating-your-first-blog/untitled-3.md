@@ -83,6 +83,23 @@ Our posts view can be very simple:
 
 Go ahead and run the server and head over to `localhost:8000/posts` route. You should see a basic representation of your posts. If you only see 1, go to `localhost:8000/blog` to create more so we can show an individual post.
 
+### Showing The Author
+
+Remember we made our author relationship before. Orator will take that relationship and make an attribute from it so we can display the author's name as well:
+
+{% code-tabs %}
+{% code-tabs-item title="resources/templates/posts.html" %}
+```markup
+{% for post in posts %}
+    {{ post.title }} by {{ post.author.name }}
+    <br>
+    {{ post.body }}
+    <hr>
+{% endfor %}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 Let's repeat the process but change our workflow a bit.
 
 ## Single Post Route
