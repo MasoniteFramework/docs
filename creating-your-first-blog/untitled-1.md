@@ -16,8 +16,10 @@ We will check if the user logged in before creating a template.
 
 ## The Template For Creating
 
-The template for creating will be located at blog/create and will be a simple form for creating a blog post
+The template for creating will be located at `/blog/create` and will be a simple form for creating a blog post
 
+{% code-tabs %}
+{% code-tabs-item title="resources/templates/blog.html" %}
 ```markup
 <form action="/blog/create" method="POST">
     {{ csrf_field|safe }}
@@ -26,11 +28,15 @@ The template for creating will be located at blog/create and will be a simple fo
     <textarea name="body"></textarea>
 </form>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-Notice here we have this strange {{ csrf\_field\|safe }} looking text. Masonite comes with CSRF protection so we need a token to render with the CSRF field.
+Notice here we have this strange `{{ csrf_field|safe }}` looking text. Masonite comes with CSRF protection so we need a token to render with the CSRF field.
 
 Now because we have a foreign key in our posts table, we need to make sure the user is logged in before creating this so let's change up our template a bit:
 
+{% code-tabs %}
+{% code-tabs-item title="resources/templates/blog.html" %}
 ```markup
 {% if auth() %}
     <form action="/blog/create" method="POST">
@@ -48,6 +54,8 @@ Now because we have a foreign key in our posts table, we need to make sure the u
     <a href="/login">Please Login</a>
 {% endif %}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 {% hint style="success" %}
 Masonite uses Jinja2 templating so if you don't understand this templating, be sure to [read their documentation](http://jinja.pocoo.org/docs/2.10/).
@@ -71,6 +79,8 @@ html {
 
 Now we can add it to our template like so:
 
+{% code-tabs %}
+{% code-tabs-item title="resources/templates/blog.html" %}
 ```markup
 <link href="/static/blog.css" rel="stylesheet">
 {% if auth() %}
@@ -89,11 +99,15 @@ Now we can add it to our template like so:
     <a href="/login">Please Login</a>
 {% endif %}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 That's it. Static files are really simple. It's important to know how they work but for this tutorial we will ignore them for now and focus on more of the backend.
 
 Javascript files are the same exact thing:
 
+{% code-tabs %}
+{% code-tabs-item title="resources/templates/blog.html" %}
 ```markup
 <link href="/static/blog.css" rel="stylesheet">
 {% if auth() %}
@@ -114,6 +128,8 @@ Javascript files are the same exact thing:
 
 <script src="/static/script.js"></script>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 {% hint style="success" %}
 For more information on static files, checkout the [Static Files](../the-basics/static-files.md) documentaton.
@@ -125,12 +141,18 @@ Notice that our action is going to `/blog/create` so we need to direct a route t
 
 Let's open back up routes/web.py and create a new route. Just add this to the `ROUTES` list:
 
+{% code-tabs %}
+{% code-tabs-item title="routes/web.py" %}
 ```python
 Post().route('/blog/create', 'BlogController@store'),
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 and create a new store method on our controller:
 
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/BlogController.py" %}
 ```python
 ....
 def show(self): 
@@ -140,9 +162,13 @@ def show(self):
 def store(self): 
      pass
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Now notice above in the form we are going to be receiving 2 form inputs: title and body. So let's import the `Post` model and create a new post with the input.
 
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/BlogController.py" %}
 ```python
 from app.Post import Post
 ...
@@ -156,8 +182,10 @@ def store(self, Request):
 
     return 'post created'
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-Notice that we used `Request` here. This is the `Request` object. Where did this come from? This is the power and beauty of Masonite and your first introduction to the [Service Container](../architectural-concepts/service-container.md). The Service Container is an extremely powerful implementation as allows you to ask Masonite for an object \(in this case `Request`\) and get the `Request` object.
+Notice that we used `Request` here. This is the `Request` object. Where did this come from? This is the power and beauty of Masonite and your first introduction to the [Service Container](../architectural-concepts/service-container.md). The [Service Container](../architectural-concepts/service-container.md) is an extremely powerful implementation as allows you to ask Masonite for an object \(in this case `Request`\) and get that object. This is an important concept to grasp so be sure to read the documentation further.
 
 {% hint style="success" %}
 Read more about the [Service Container](../architectural-concepts/service-container.md) here.
@@ -165,6 +193,8 @@ Read more about the [Service Container](../architectural-concepts/service-contai
 
 More likely, you will use the request helper and it will look something like this instead:
 
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/BlogController.py" %}
 ```python
 from app.Post import Post
 ...
@@ -178,10 +208,12 @@ def store(self):
 
     return 'post created'
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-We can use the `request()` function. This is what Masonite calls [Helper Functions](../the-basics/helper-functions.md) which speed up development. We didn't import anything but we are able to use them. This is because Masonite ships with a [Service Provider](../architectural-concepts/service-providers.md) that adds builtin functions to the project.
+Notice we used the `request()` function. This is what Masonite calls [Helper Functions](../the-basics/helper-functions.md) which speed up development. We didn't import anything but we are able to use them. This is because Masonite ships with a [Service Provider](../architectural-concepts/service-providers.md) that adds builtin functions to the project.
 
-Also notice we used an input\(\) method. Masonite does not discriminate against different request methods so getting input on a GET or a POST request doesn't matter. You will always use this input method.
+Also notice we used an `input()` method. Masonite does not discriminate against different request methods so getting input on a `GET` or a `POST` request doesn't matter. You will always use this input method.
 
 Go ahead and run the server using craft serve and head over to `localhost:8000/blog` and create a post. This should hit the `/blog/create` route with the `POST` request method and we should see "post created".
 

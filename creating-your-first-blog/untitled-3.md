@@ -8,10 +8,14 @@ Lets go ahead and show how we can show the posts we just created. In this part w
 
 Let's create 2 new templates.
 
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
 ```text
 $ craft view posts
 $ craft view single
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Let's start with showing all posts
 
@@ -19,9 +23,13 @@ Let's start with showing all posts
 
 Let's create a controller for the posts to separate it out from the `BlogController`.
 
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
 ```text
 $ craft controller Post
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Great! So now in our `show` method we will show all posts and then we will create a `single` method to show a specific post.
 
@@ -29,6 +37,8 @@ Great! So now in our `show` method we will show all posts and then we will creat
 
 Let's get the `show` method to return the posts view with all the posts:
 
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/PostController.py" %}
 ```python
 from app.Post import Post
 
@@ -39,19 +49,27 @@ def show(self):
     
     return view('posts', {'posts': posts})
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## Posts Route
 
 We need to add a route for this method:
 
+{% code-tabs %}
+{% code-tabs-item title="routes/web.py" %}
 ```python
 Get().route('/posts', 'PostController@show')
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## Posts View
 
 Our posts view can be very simple:
 
+{% code-tabs %}
+{% code-tabs-item title="resources/templates/posts.html" %}
 ```markup
 {% for post in posts %}
     {{ post.title }}
@@ -60,6 +78,8 @@ Our posts view can be very simple:
     <hr>
 {% endfor %}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Go ahead and run the server and head over to `localhost:8000/posts` route. You should see a basic representation of your posts. If you only see 1, go to `localhost:8000/blog` to create more so we can show an individual post.
 
@@ -69,9 +89,13 @@ Let's repeat the process but change our workflow a bit.
 
 Next we want to just show a single post. We need to add a route for this method:
 
+{% code-tabs %}
+{% code-tabs-item title="routes/web.py" %}
 ```python
 Get().route('/post/@id', 'PostController@single')
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Notice here we have a `@id` string. We can use this to grab that section of the URL in our controller in the next section below.
 
@@ -79,6 +103,8 @@ Notice here we have a `@id` string. We can use this to grab that section of the 
 
 Let's create a `single` method so we show a single post.
 
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/PostController.py" %}
 ```python
 from app.Post import Post
 
@@ -89,6 +115,8 @@ def single(self):
     
     return view('single', {'post': post})
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 We use the `param` method to fetch the id from the URL. Remember this key was set in the route above when we specified the `@id`
 
@@ -100,12 +128,16 @@ For a real application we might do something like `@slug` and then fetch it with
 
 We just need to display 1 post so lets just put together a simple view:
 
+{% code-tabs %}
+{% code-tabs-item title="resources/templates/single.html" %}
 ```markup
 {{ post.title }}
 <br>
 {{ post.body }}
 <hr>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Go ahead and run the server and head over the `localhost:8000/post/1` route and then `localhost:8000/post/2` and see how the posts are different.
 
