@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-By now, all of the logic we have gone over so far will take you a long way so let's just finish up quickly with updating and deleting a posts.
+By now, all of the logic we have gone over so far will take you a long way so let's just finish up quickly with updating and deleting a posts. We'll assume you are comfortable with what we have learned so far so we will run through this faster since this is just more of what were in the previous parts.
 
 ## Update Controller Method
 
@@ -25,7 +25,7 @@ def store(self):
     return 'post updated'
 ```
 
-Since we are more comfortable with controllers we can go ahead and make two at once. We made one that shows a view that updates and then one that actually updates the post.
+Since we are more comfortable with controllers we can go ahead and make two at once. We made one that shows a view that shows a form to update a post and then one that actually updates the post with the database.
 
 ## Create The View
 
@@ -77,7 +77,7 @@ def delete(self):
 Get().route('/post/@id/delete', 'PostController@delete'),
 ```
 
-Notice we used a GET route here, It would be much better to use a POST method but for simplicity sake will assume you can create one by now. We will just add a link to our update method which will delete the post.
+Notice we used a `GET` route here, It would be much better to use a `POST` method but for simplicity sake will assume you can create one by now. We will just add a link to our update method which will delete the post.
 
 ## Update the Template
 

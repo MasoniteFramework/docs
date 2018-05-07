@@ -141,7 +141,7 @@ def store(self):
      pass
 ```
 
-Now notice above in the form we are going to be receiving 2 form inputs: title and body. So let's import the Post model and create a new post with the input.
+Now notice above in the form we are going to be receiving 2 form inputs: title and body. So let's import the `Post` model and create a new post with the input.
 
 ```python
 from app.Post import Post
@@ -179,11 +179,11 @@ def store(self):
     return 'post created'
 ```
 
-We can use the `request()` function. This is what Masonite calls Helper Functions which speed up development. We didn't import anything but we are able to use them. This is because Masonite ships with a Service Provider that adds builtin functions to the project.
+We can use the `request()` function. This is what Masonite calls [Helper Functions](../the-basics/helper-functions.md) which speed up development. We didn't import anything but we are able to use them. This is because Masonite ships with a [Service Provider](../architectural-concepts/service-providers.md) that adds builtin functions to the project.
 
 Also notice we used an input\(\) method. Masonite does not discriminate against different request methods so getting input on a GET or a POST request doesn't matter. You will always use this input method.
 
-Go ahead and run the server using craft serve and head over to `localhost:8000/blog` and create a post. This should hit the `/blog/create` route with the POST request method and we should see "post created".
+Go ahead and run the server using craft serve and head over to `localhost:8000/blog` and create a post. This should hit the `/blog/create` route with the `POST` request method and we should see "post created".
 
 
 
