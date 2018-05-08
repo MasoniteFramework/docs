@@ -15,6 +15,49 @@ There are four types of middleware in total:
 * Middleware ran before certain routes
 * Middleware ran after certain routes
 
+There are what Masonite calls HTTP Middleware which are middleware designed to run on every request and Route Middleware which is middleware designed to only be called on certain requests, such as checking if a user is logged in.
+
+## Default Middleware
+
+There are 3 default middleware that comes with Masonite. These middleware can be changed or removed to fit your application better.
+
+### Authentication Middleware
+
+This middleware is design to redirect users to the login page if they are not logged in. This is loaded as a Route Middleware inside `config/middleware.py` and design to only be ran on specific routes you specify.
+
+You can run this middleware on any route by specifying the key in the middleware method on your route:
+
+{% code-tabs %}
+{% code-tabs-item title="routes/web.py" %}
+```python
+from masonite.helpers.routes import get
+...
+
+ROUTES = [
+    ...
+    get('/dashboard', 'DashboardController@show').middleware('auth')
+]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### CSRF Middleware
+
+This middleware is an HTTP Middleware and runs on every request. This middleware checks for the CSRF token on `POST` requests. For `GET` requests, Masonite generates a new token. The default behavior is good for most applications but you may change this behavior to suit your application better.
+
+### Load User Middleware
+
+This middleware checks if the user is logged in and if so, loads the user into the request object. This enables you to use something like:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self):
+    return request().user() # Returns the user or None
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ## Creating Middleware
 
 Again, middleware should live inside the `app/http/middleware` folder and should look something like:
