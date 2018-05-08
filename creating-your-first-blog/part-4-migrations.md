@@ -1,6 +1,5 @@
 # Part 4 - Migrations
 
-
 ## Getting Started
 
 Now that we have our authentication setup and we are comfortable with migrating our migrations, let's create a new migration where we will store our posts.
@@ -37,7 +36,7 @@ def up(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Lets add a title, an author, and a body to our posts tables. 
+Lets add a title, an author, and a body to our posts tables.
 
 {% code-tabs %}
 {% code-tabs-item title="databases/migrations/2018\_01\_09\_043202\_create\_posts\_table.py" %}
@@ -49,10 +48,10 @@ def up(self):
     with self.schema.create('posts') as table:
         table.increments('id')
         table.string('title')
-        
+
         table.integer('author_id').unsigned()
         table.foreign('author_id').references('id').on('users')
-        
+
         table.string('body')
         table.timestamps()
 ```
@@ -72,3 +71,4 @@ $ craft migrate
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+

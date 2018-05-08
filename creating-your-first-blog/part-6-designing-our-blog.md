@@ -4,7 +4,6 @@ description: >-
   We'll be using a basic Bootstrap 3 template.
 ---
 
-
 # Part 6 - Designing Our Blog
 
 ## Getting Started
@@ -45,10 +44,10 @@ Now because we have a foreign key in our posts table, we need to make sure the u
 
         <label> Title </label>
         <input type="name" name="title"><br>
-        
+
         <label> Body </label>
         <textarea name="body"></textarea>
-        
+
         <input type="submit" value="Post!">
     </form>
 {% else %}
@@ -90,10 +89,10 @@ Now we can add it to our template like so:
 
         <label> Title </label>
         <input type="name" name="title"><br>
-        
+
         <label> Body </label>
         <textarea name="body"></textarea>
-        
+
         <input type="submit" value="Post!">
     </form>
 {% else %}
@@ -117,10 +116,10 @@ Javascript files are the same exact thing:
 
         <label> Title </label>
         <input type="name" name="title"><br>
-        
+
         <label> Body </label>
         <textarea name="body"></textarea>
-        
+
         <input type="submit" value="Post!">
     </form>
 {% else %}
@@ -217,7 +216,4 @@ Notice we used the `request()` function. This is what Masonite calls [Helper Fun
 Also notice we used an `input()` method. Masonite does not discriminate against different request methods so getting input on a `GET` or a `POST` request doesn't matter. You will always use this input method.
 
 Go ahead and run the server using craft serve and head over to `localhost:8000/blog` and create a post. This should hit the `/blog/create` route with the `POST` request method and we should see "post created".
-
-
-
 

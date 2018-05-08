@@ -104,7 +104,7 @@ class AuthenticationMiddleware:
         pass
 ```
 
-Middleware constructors are resolved by the container so simply pass in whatever you like in the parameter list and it will be injected for you. 
+Middleware constructors are resolved by the container so simply pass in whatever you like in the parameter list and it will be injected for you.
 
 {% hint style="success" %}
 Read more about this in the [Service Container](../architectural-concepts/service-container.md) documentation.
@@ -134,7 +134,6 @@ class AuthenticationMiddleware:
 That's it! Now we just have to make sure our route picks this up. If we wanted this to execute after a request, we could use the exact same logic in the `after` method instead.
 
 Since we are not utilizing the `after` method, we may exclude it all together. Masonite will check if the method exists before executing it.
-
 
 ## Configuration
 

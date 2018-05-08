@@ -12,10 +12,9 @@ The framework has three main parts.
 
 This `MasoniteFramework/masonite` repository is the main repository that will install when creating new projects using the `craft new` command. Not much development will be done in this repository and won't be changed unless new releases of Masonite require changes in the default installation project.
 
-The `MasoniteFramework/core` repository where the main `masonite` pip package lives. This is where the `from masonite ...` module lives. 
+The `MasoniteFramework/core` repository where the main `masonite` pip package lives. This is where the `from masonite ...` module lives.
 
 The `MasoniteFramework/craft` repository where the `craft` command lives
-
 
 ### Getting the Masonite repository up and running to be edited
 
@@ -50,7 +49,6 @@ To do this just:
 * Any changes you make to this package just push it to your feature branch on your fork and follow the PR process below.
 
 ### Editing the craft repository \(`craft` commands\)
-
 
 Craft commands make up a large part of the workflow for Masonite. Follow these instructions to get the masonite-cli package on your computer and editable.
 
