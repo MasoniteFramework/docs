@@ -26,13 +26,16 @@ We then make an instance of the WSGI key from the container and set it to an app
 
 ## The Server
 
+
 Now that we have the server running, we have a new entry point for our requests. This entry point is the app function inside bootstrap/start.py. 
 
 Now all wsgi servers set a variable called environ. In order for our Service Providers to handle this, we bind it into the container to the Environ key.
 
+
 Next we run all of our Service Providers where wsgi is true now \(because the WSGI server is running\).
 
 ## WSGI Service Providers
+
 
 The Request Life Cycle is now going to hit all of these providers. Although you can obviously add any Service Providers you at any point in the request, Masonite comes with 5 providers that should remain in the order they are in. These providers have been commented as `# Framework Providers`. Because the request needs to hit each of these in succession, they should be in order although you may put any amount of any kind of Service Providers in between them.
 
@@ -44,6 +47,24 @@ This Service Provider registered objects like the routes, request class, respons
 
 ### Session Provider
 
+If one of the middleware has instructed the request object to redirect, the view that is ready to execute, will not execute.
+
+For example, if the user is planned on going to the dashboard view, but middleware has told the request to redirect to the login page instead then the dashboard view, and therefore the controller, will not execute at all. It will be skipped over. Masonite checks if the request is redirecting before executing a view.
+
+Also, the request object can be injected into middleware by passing the `Request` parameter into the constructor like so:
+
+```python
+class SomeMiddleware:
+
+    def __init__(self, Request):
+        self.request = Request
+
+    ...
+```
+
+This will inject the `Request` class into the constructor when that middleware is executed. Read more about how middleware works in the [Middleware](../advanced/middleware.md) documentation.
+
+
 This provider loads the ability to use sessions, adds a session helper to all views and even attaches a session attribute to the request class.
 
 ### Route Provider
@@ -52,7 +73,9 @@ This provider takes the routes that are loaded in and makes the response object,
 
 ### Redirection Provider
 
+
 This provider checks for any redirections and sets the responses accordingly. For example we may be redirecting to a named route. In that case we need to run back through the routes and get the correct URL.
+
 
 ### Start Response
 

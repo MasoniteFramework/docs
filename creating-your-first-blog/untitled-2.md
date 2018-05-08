@@ -1,5 +1,6 @@
 # Part 5 - Models
 
+
 ## Getting Started
 
 Now that we have our tables and migrations all done and we have a posts table, let's create a model for it.
@@ -95,4 +96,5 @@ Because of how Masonite does models, it is typically better to perform the impor
 {% hint style="success" %}
 We won't go into much more detail here about different types of relationships but to learn more, read the [ORM](https://orator-orm.com/docs/0.9/orm.html) documentation.
 {% endhint %}
+
 

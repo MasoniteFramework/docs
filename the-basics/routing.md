@@ -38,14 +38,16 @@ from app.http.controllers.DashboardController import DashboardController
 
 
 ROUTES = [
-    Get().route('/url/here', DashboardController().show)
+    Get().route('/url/here', DashboardController.show)
 ]
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
 {% hint style="info" %}
-It’s important here to recognize that we initialized the controller but only passed a reference to the method and did not actually call the method. This is so Masonite can pass parameters into the method when it executes the route.
+
+It’s important here to recognize that we didn't initialize the controller or the method, we did not actually call the method. This is so Masonite can pass parameters into the constructor and method when it executes the route, typically through auto resolving dependency injection.
+
 {% endhint %}
 
 ## Route Options

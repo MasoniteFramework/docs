@@ -16,6 +16,7 @@ The `MasoniteFramework/core` repository where the main `masonite` pip package li
 
 The `MasoniteFramework/craft` repository where the `craft` command lives
 
+
 ### Getting the Masonite repository up and running to be edited
 
 [You can read about how the framework flows, works and architectural concepts here](https://masoniteframework.gitbooks.io/docs/content/request-lifecycle.html)
@@ -49,6 +50,7 @@ To do this just:
 * Any changes you make to this package just push it to your feature branch on your fork and follow the PR process below.
 
 ### Editing the craft repository \(`craft` commands\)
+
 
 Craft commands make up a large part of the workflow for Masonite. Follow these instructions to get the masonite-cli package on your computer and editable.
 
