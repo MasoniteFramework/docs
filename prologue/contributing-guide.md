@@ -10,29 +10,31 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 The framework has three main parts.
 
-* This official `MasoniteFramework/masonite` repository is where most work will be done, primarily in the `develop` or release branches. This is the main repository that will install when creating new projects using the `craft new` command.
-* The ```MasoniteFramework/core`` repository where the main `masonite` pip package lives.
-  * This is where the `from masonite ...` module lives. 
-* The `MasoniteFramework/craft` repository where the `craft` command lives
+This `MasoniteFramework/masonite` repository is the main repository that will install when creating new projects using the `craft new` command. Not much development will be done in this repository and won't be changed unless new releases of Masonite require changes in the default installation project.
 
-#### Getting this repository up and running to be edited
+The `MasoniteFramework/core` repository where the main `masonite` pip package lives. This is where the `from masonite ...` module lives. 
+
+The `MasoniteFramework/craft` repository where the `craft` command lives
+
+
+### Getting the Masonite repository up and running to be edited
 
 [You can read about how the framework flows, works and architectural concepts here](https://masoniteframework.gitbooks.io/docs/content/request-lifecycle.html)
 
 This repo is simple and will be able to be installed following the installation instruction in the README.
 
-* Fork the MasoniteFramework/masonite repo.
+* Fork the `MasoniteFramework/masonite` repo.
 * Clone that repo into your computer:
   * `git clone http://github.com/your-username/masonite.git`
 * Checkout the current release branch \(example: `develop`\)
 * You should now be on a `develop` local branch.
-* run `git pull origin develop` to get the current release version.
-* From there simply create your feature branches \(`change-default-orm`\) and make your desired changes.
+* Run `git pull origin develop` to get the current release version.
+* From there simply create your feature branches \(`change-default-orm`\) and Make your desired changes.
 * Push to your origin repository:
   * `git push origin change-default-orm`
 * Open a pull request and follow the PR process below
 
-#### Editing the Masonite core repository
+### Editing the Masonite core repository
 
 The trick to this is that we need it to be pip installed and then quickly editable until we like it, and then pushed back to the repo for a PR. Do this only if you want to make changes to the core Masonite package
 
@@ -47,7 +49,8 @@ To do this just:
 * Run `pip install .` from inside the masonite-core directory. This will install masonite as a pip package.
 * Any changes you make to this package just push it to your feature branch on your fork and follow the PR process below.
 
-#### Editing the craft repository \(`craft` commands\)
+### Editing the craft repository \(`craft` commands\)
+
 
 Craft commands make up a large part of the workflow for Masonite. Follow these instructions to get the masonite-cli package on your computer and editable.
 
@@ -73,7 +76,7 @@ There are 3 main type of comments you should use when developing for Masonite:
 All modules should have a docstring at the top of every module file and should look something like:
 
 ```python
-''' This is a module to add support for Billing users '''
+""" This is a module to add support for Billing users """
 from masonite.request import Request
 ...
 ```
@@ -86,9 +89,10 @@ For example:
 
 ```python
 def some_function(self):
-    ''' This is a function that does x action. 
-        Then give an exmaple of when to use it 
-    '''
+    """
+    This is a function that does x action. 
+    Then give an exmaple of when to use it 
+    """
     ... code ...
 ```
 
@@ -134,13 +138,13 @@ It's important to note that there should have exactly 75 `-` above and below the
 5. Increase the version numbers in any example files and the README.md to the new version that this Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/) for both `core` and `craft` or [RomVer](http://blog.legacyteam.info/2015/12/romver-romantic-versioning/) for the main Masonite repo.
 6. The PR must pass the Travis CI build. The Pull Request can be merged in once you have a successful review from two other collaborators, or the feature maintainer for your specific feature improvement or the repo owner. 
 
-### Code of Conduct
+## Code of Conduct
 
-#### Our Pledge
+### Our Pledge
 
 In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
-#### Our Standards
+### Our Standards
 
 Examples of behavior that contributes to creating a positive environment include:
 
@@ -152,10 +156,7 @@ Examples of behavior that contributes to creating a positive environment include
 
 Examples of unacceptable behavior by participants include:
 
-* The use of sexualized language or imagery and unwelcome sexual attention or
-
-  advances
-
+* The use of sexualized language or imagery and unwelcome sexual attention or advances
 * Trolling, insulting/derogatory comments, and personal or political attacks
 * Public or private harassment
 * Publishing others' private information, such as a physical or electronic
@@ -166,23 +167,23 @@ Examples of unacceptable behavior by participants include:
 
   professional setting
 
-#### Our Responsibilities
+### Our Responsibilities
 
 Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.
 
 Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, or to ban temporarily or permanently any contributor for other behaviors that they deem inappropriate, threatening, offensive, or harmful.
 
-#### Scope
+### Scope
 
 This Code of Conduct applies both within project spaces and in public spaces when an individual is representing the project or its community. Examples of representing a project or community include using an official project e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event. Representation of a project may be further defined and clarified by project maintainers.
 
-#### Enforcement
+### Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at idmann509@gmail.com. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
 
 Project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project's leadership.
 
-#### Attribution
+### Attribution
 
 This Code of Conduct is adapted from the [Contributor Covenant](http://contributor-covenant.org), version 1.4, available at [http://contributor-covenant.org/version/1/4](http://contributor-covenant.org/version/1/4/)
 

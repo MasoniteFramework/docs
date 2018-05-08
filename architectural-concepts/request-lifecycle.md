@@ -6,15 +6,46 @@ It's important to know the life cycle of the request so you can understand what 
 
 ## Lifecycle Overview
 
-### First Things
+Masonite is bootstrapped via [Service Providers](service-providers.md), these providers load features, hooks, drivers and other objects into the [Service Container](service-container.md) which can then be pulled out by you, the developer, and used in your views, middleware and drivers.
 
-All of Masonite is bootstrapped via [Service Providers](service-providers.md) and is centralized via a [Service Container](service-container.md). The `Request` class in binded into the container inside the `AppProvider` Service Provider which is inside the Masonite pip package. The `Request` class is initialized and registered into the container before the WSGI server starts. Because of this, the `Request` class is the same instance throughout the life of the server. In other words, the `Request` class is a singleton for the life of the WSGI server and is not re-instantiated on each request. On each request, the WSGI server will load the `environ` variable \(the WSGI request details\) into the request class which changes the behavior of requests accordingly such as what the URI is or what the request method type is.
+With that being said, not all Service Providers need to be ran on every request and there are good times to load objects into the container. For example, loading routes into the container does not need to be ran on every request. Mainly because they won't change before the server is restarted again.
 
-### Initialization
+Now the entry point when the server is first ran \(with something like `craft serve`\) is the `wsgi.py` file in the root of the directory. In this directory, all Service Providers are registered. This means that objects are loaded into the container first that typically need to be used by any or all Service Providers later. All Service Providers are registered regardless on whether they require the server to be running \(more on this later\).
 
-The request object is initialized in the `AppProvider` Service Provider and simply takes the environ variable as a dependency which is passed with all WSGI servers and hold information about the: request, server, URI, request method etc. The request object will then parse the environ and store them into certain class attributes. The request object has several methods that assist in extracting these attributes into usable and memorable methods. Read more about how to use the request object in the [Requests](../the-basics/requests.md) documentation.
+Now it's important to note that the server is not yet running we are still in the `wsgi.py` file but we have only hit this file, created the container, and registered our Service Providers. Right after we register all of our Service Providers, we run the boot methods of all all Service Providers that have the wsgi=False attribute. This signifies to Masonite that these boot methods need to be ran before the WSGI server starts. These boot methods may contain things like Manager classes creating drivers which require all drivers to be registered first but doesn't require the WSGI server to be running. 
 
-### Requests in Middleware
+Also, more importantly, the WSGI key is binded into the container at this time. The default behavior is to wrap the WSGI application in a Whitenoise container to assist in the straight forwardness of static files. 
+
+{% hint style="info" %}
+This behavior can be changed by swapping that Service Provider with a different one.
+{% endhint %}
+
+Once all the register methods are ran and all the boot methods of Service Providers where wsgi is false, and we have a WSGI key in the container, we can startup the server by using the value of the WSGI key.
+
+We then make an instance of the WSGI key from the container and set it to an application variable in order to better show what is happening. Then this is where the WSGI server is started.
+
+## The Server
+
+
+Now that we have the server running, we have a new entry point for our requests. This entry point is the app function inside bootstrap/start.py. 
+
+Now all wsgi servers set a variable called environ. In order for our Service Providers to handle this, we bind it into the container to the Environ key.
+
+
+Next we run all of our Service Providers where wsgi is true now \(because the WSGI server is running\).
+
+## WSGI Service Providers
+
+
+The Request Life Cycle is now going to hit all of these providers. Although you can obviously add any Service Providers you at any point in the request, Masonite comes with 5 providers that should remain in the order they are in. These providers have been commented as `# Framework Providers`. Because the request needs to hit each of these in succession, they should be in order although you may put any amount of any kind of Service Providers in between them.
+
+We enter into a loop with these 5 Service Providers and they are the:
+
+### App Provider
+
+This Service Provider registered objects like the routes, request class, response, status codes etc into the container and then loads the environment into these classes on every request so that they can change with the environment. Remember that we registered these classes when the server first started booting up so they remain the same class object as essentially act as singletons Although they aren't being reinstantiated with the already existing object, they are instantiated once and die when the server is killed.
+
+### Session Provider
 
 If one of the middleware has instructed the request object to redirect, the view that is ready to execute, will not execute.
 
@@ -33,21 +64,24 @@ class SomeMiddleware:
 
 This will inject the `Request` class into the constructor when that middleware is executed. Read more about how middleware works in the [Middleware](../advanced/middleware.md) documentation.
 
-### Requests in the API
 
-Masonite comes with a built in API system for testing and personal development. It is not yet ready for production and lacks several authentication features.
+This provider loads the ability to use sessions, adds a session helper to all views and even attaches a session attribute to the request class.
 
-The request object that is loaded in the API class will check the base URI and then execute CRUD operations based on the URI. As a developer, you are not responsible for manipulating the request object in your API classes.
+### Route Provider
 
-### Requests and Redirecting
+This provider takes the routes that are loaded in and makes the response object, static codes, runs middleware and other route displaying specific logic. This is the largest Service Provider with the most logic. This provider also searchest hrough the routes, finds which one to hit and exectues the controller and controller method.
 
-Towards the end of the request lifecycle, Masonite will check if Masonite should redirect the user. This happens whenever the redirecting methods are exectuted on the request object. If the user wants to redirect to a named route, Masonite will loop through all the routes inside `routes/web.py` and check all the route names. If a name matches, it will execute that route. If the route requires parameters \(such that a route has a `@variable` in the route URI\) then you will need to pass the `.send()` method when redirecting. More about request redirecting in the [Requests](../the-basics/requests.md) documentation.
+### Redirection Provider
 
-If the user is redirecting to a normal URL, it will not check any routes. The request will then send a 302 response and redirect the user to the route specified.
 
-### Not Redirecting
+This provider checks for any redirections and sets the responses accordingly. For example we may be redirecting to a named route. In that case we need to run back through the routes and get the correct URL.
 
-If the request is not redirecting, then it will return a 200 status code response and simply show the output needed. This output will come from the controller.
 
-Finally, the data returned from the controller is then passed into the return statement so the WSGI server can interpret it.
+### Start Response
+
+This Service Provider collects a few classes that have been manipulated by the above Service Providers and constructs a few headers such as the content type, status code, setting cookies and location if redirecting.
+
+## Leaving the Providers
+
+Once these 5 providers have been hit \(and any you add\), we have enough information to show the output. We leave the Service Provider loop and set the response and output which are specific to WSGI. The output is then sent to the browser with any cookies to set, any new headers, the response, status code, and everything else you need to display html \(or json\) to the browser.
 

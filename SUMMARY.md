@@ -98,8 +98,11 @@
 * [Introduction](creating-your-first-blog/introduction.md)
 * [Part 1 - Creating Our First Route](creating-your-first-blog/untitled.md)
 * [Part 2 - Creating Our First Controller](creating-your-first-blog/2.-controllers.md)
-* [Part 3 - Designing Our Blog](creating-your-first-blog/untitled-1.md)
+* [Part 3 - Authentication](creating-your-first-blog/part-3-authentication.md)
 * [Part 4 - Migrations](creating-your-first-blog/4.-migrations.md)
 * [Part 5 - Models](creating-your-first-blog/untitled-2.md)
-* [Part 3 - Authentication](creating-your-first-blog/part-3-authentication.md)
+* [Part 6 - Designing Our Blog](creating-your-first-blog/untitled-1.md)
+* [Part 7 - Showing Our Posts](creating-your-first-blog/untitled-3.md)
+* [Part 8 - Updating and Deleting Posts](creating-your-first-blog/part-8-updating-and-deleting-posts.md)
+
 

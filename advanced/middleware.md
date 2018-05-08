@@ -15,6 +15,77 @@ There are four types of middleware in total:
 * Middleware ran before certain routes
 * Middleware ran after certain routes
 
+There are what Masonite calls HTTP Middleware which are middleware designed to run on every request and Route Middleware which is middleware designed to only be called on certain requests, such as checking if a user is logged in.
+
+## Configuration
+
+We have one of two configuration constants we need to work with. These constants both reside in our `config/middleware.py` file and are `HTTP_MIDDLEWARE` and `ROUTE_MIDDLEWARE`.
+
+`HTTP_MIDDLEWARE` is a simple list which should contain an aggregation of your middleware classes. This constant is a list because all middleware will simply run in succession one after another, similar to Django middleware
+
+Middleware is a string to the module location of your middleware class. If your class is located in `app/http/middleware/DashboardMiddleware.py` then the value we place in our middleware configuration will be a string: `app.http.middleware.DashboardMiddleware.DashboardMiddleware`. Masonite will locate the class and execute either the `before` method or the `after` method.
+
+In our `config/middleware.py` file this type of middleware may look something like:
+
+```python
+HTTP_MIDDLEWARE = [
+    'app.http.middleware.DashboardMiddleware.DashboardMiddleware'
+]
+```
+
+`ROUTE_MIDDLEWARE` is also simple but instead of a list, it is a dictionary with a custom name as the key and the middleware class as the value. This is so we can specify the middleware based on the key in our routes file.
+
+In our `config/middleware.py` file this might look something like:
+
+```python
+from app.http.middleware.RouteMiddleware import RouteMiddleware
+
+ROUTE_MIDDLEWARE = {
+    'auth': 'app.http.middleware.RouteMiddleware.RouteMiddleware'
+}
+```
+
+## Default Middleware
+
+There are 3 default middleware that comes with Masonite. These middleware can be changed or removed to fit your application better.
+
+### Authentication Middleware
+
+This middleware is design to redirect users to the login page if they are not logged in. This is loaded as a Route Middleware inside `config/middleware.py` and design to only be ran on specific routes you specify.
+
+You can run this middleware on any route by specifying the key in the middleware method on your route:
+
+{% code-tabs %}
+{% code-tabs-item title="routes/web.py" %}
+```python
+from masonite.helpers.routes import get
+...
+
+ROUTES = [
+    ...
+    get('/dashboard', 'DashboardController@show').middleware('auth')
+]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### CSRF Middleware
+
+This middleware is an HTTP Middleware and runs on every request. This middleware checks for the CSRF token on `POST` requests. For `GET` requests, Masonite generates a new token. The default behavior is good for most applications but you may change this behavior to suit your application better.
+
+### Load User Middleware
+
+This middleware checks if the user is logged in and if so, loads the user into the request object. This enables you to use something like:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self):
+    return request().user() # Returns the user or None
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ## Creating Middleware
 
 Again, middleware should live inside the `app/http/middleware` folder and should look something like:
@@ -63,6 +134,7 @@ class AuthenticationMiddleware:
 That's it! Now we just have to make sure our route picks this up. If we wanted this to execute after a request, we could use the exact same logic in the `after` method instead.
 
 Since we are not utilizing the `after` method, we may exclude it all together. Masonite will check if the method exists before executing it.
+
 
 ## Configuration
 
