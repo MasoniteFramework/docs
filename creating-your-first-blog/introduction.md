@@ -1,10 +1,3 @@
----
-description: >-
-  Welcome to Masonite! In this documentation we will walk through how to get
-  started writing your first application! We'll walk through step by step on how
-  to create your first blog with Masonite!
----
-
 # Introduction
 
 {% hint style="danger" %}

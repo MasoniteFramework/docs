@@ -1,9 +1,3 @@
----
-description: >-
-  In this part we will walk though the basics of setting up the routes we will
-  need to create our blog application.
----
-
 # Part 1 - Creating Our First Route
 
 {% hint style="danger" %}
@@ -48,7 +42,7 @@ ROUTES = [
 You'll notice here we have a `BlogController@show` string. This means "use the blog controller's show method to render this route". The only problem here is that we don't yet have a blog controller.
 
 {% hint style="success" %}
-Let's create the `BlogController` in the next step: [Part 2 - Creating Our First Controller](2.-controllers.md)
+Let's create the `BlogController` in the next step: [Part 2 - Creating Our First Controller](part-2-creating-our-first-controller.md)
 {% endhint %}
 
 

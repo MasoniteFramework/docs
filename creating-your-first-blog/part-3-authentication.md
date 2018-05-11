@@ -1,9 +1,3 @@
----
-description: >-
-  In this part we will talk about how to setup up an authentication system for
-  our blog.
----
-
 # Part 3 - Authentication
 
 {% hint style="danger" %}

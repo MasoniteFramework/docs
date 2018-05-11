@@ -1,9 +1,3 @@
----
-description: >-
-  In this part we'll set up our first controller so we can start displaying
-  views to the browser
----
-
 # Part 2 - Creating Our First Controller
 
 {% hint style="danger" %}
