@@ -110,7 +110,9 @@ def show(self):
 
 This will look inside the `dashboard.views` package for a `dashboard.html` file and return that. You can obviously pass in data as usual.
 
-#### Caveats
+## Global View Caveats
+
+### Template Location
 
 It's important to note that if you are building a third party package that integrates with Masonite that you place any `.html` files inside a Python package instead of directly inside a module. For example, you should place .html files inside a file structure that looks like:
 
@@ -150,6 +152,64 @@ package/
 ```
 
 So if you are making a package for Masonite then keep this in mind in where you should put your templates
+
+### Extending Views
+
+When you extend a view, you are isolated to the directory you are in when you want to extend templates and you're view namespace loses it's globalization and all extending should be done relative to the current template. For example, if you have a package with a directory structure like:
+
+```python
+package/
+  controllers/
+    PackageController.py
+  templates/
+    __init__.py
+    index.html # needs to inherit base.html
+    base.html
+setup.py
+MANIFEST.in
+...
+```
+
+And a controller like:
+
+{% code-tabs %}
+{% code-tabs-item title="package/controllers/PackageController.py" %}
+```python
+def show(self):
+    return view('/package/templates/index')
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+You will have to extend your template like so:
+
+{% code-tabs %}
+{% code-tabs-item title="package/templates/index.html" %}
+```markup
+<!-- This is right -->
+{% extends 'base.html' %}
+
+{% block content %}
+    ... index.html code goes here ...
+{% endblock %}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+and not extend your template with another global view:
+
+{% code-tabs %}
+{% code-tabs-item title="package/templates/index.html" %}
+```markup
+<!-- This is wrong -->
+{% extends '/package/templates/base.html' %}
+
+{% block content %}
+    ... index.html code goes here ...
+{% endblock %}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## Passing Data to Views
 
