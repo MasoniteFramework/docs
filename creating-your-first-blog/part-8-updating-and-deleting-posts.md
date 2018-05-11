@@ -13,17 +13,17 @@ Let's just make an update method on the `PostController`:
 ```python
 def update(self):
     post = Post.find(request().param('id'))
-    
+
     return view('update', {'post': post})
-    
+
 def store(self):
     post = Post.find(request().param('id'))
-    
+
     post.title = request().input('title')
     post.body = request().input('body')
-    
+
     post.save()
-    
+
     return 'post updated'
 ```
 {% endcode-tabs-item %}
@@ -70,7 +70,7 @@ Post().route('/post/@id/update', 'PostController@store'),
 
 That should be it! We can now update our posts.
 
-## Delete Method 
+## Delete Method
 
 Let's expand a bit and made a delete method.
 
@@ -79,9 +79,9 @@ Let's expand a bit and made a delete method.
 ```python
 def delete(self):
     post = Post.find(request().param('id'))
-    
+
     post.delete()
-    
+
     return 'post deleted'
 ```
 {% endcode-tabs-item %}
@@ -116,7 +116,7 @@ We can throw a delete link right inside our update template:
     <textarea name="body"></textarea><br>
 
     <input type="submit" value="Update">
-    
+
     <a href="/post/{{ post.id }}/delete"> Delete </a>
 </form>
 ```

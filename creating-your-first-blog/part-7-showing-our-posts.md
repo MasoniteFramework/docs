@@ -46,7 +46,7 @@ from app.Post import Post
 
 def show(self):
     posts = Post.all()
-    
+
     return view('posts', {'posts': posts})
 ```
 {% endcode-tabs-item %}
@@ -129,7 +129,7 @@ from app.Post import Post
 
 def single(self):
     post = Post.find(request().param('id'))
-    
+
     return view('single', {'post': post})
 ```
 {% endcode-tabs-item %}
@@ -157,6 +157,4 @@ We just need to display 1 post so lets just put together a simple view:
 {% endcode-tabs %}
 
 Go ahead and run the server and head over the `localhost:8000/post/1` route and then `localhost:8000/post/2` and see how the posts are different.
-
-
 

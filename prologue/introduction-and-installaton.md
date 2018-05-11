@@ -1,6 +1,5 @@
 # Introduction and Installaton
 
-
 {% hint style="danger" %}
 This is an unreleased version.
 {% endhint %}
@@ -85,9 +84,9 @@ $ ./venv/Scripts/activate
 ```
 
 {% hint style="info" %}
-The `python `command here is utilizing Python 3. Your machine may run Python 2 \(typically 2.7\) by default. You may set an alias on your machine for Python 3 or simply run `python3 `anytime you see the `python `command. 
+The `python`command here is utilizing Python 3. Your machine may run Python 2 \(typically 2.7\) by default. You may set an alias on your machine for Python 3 or simply run `python3`anytime you see the `python`command.
 
-For example, you would run  `python3 -m venv venv` instead of  `python -m venv venv`
+For example, you would run `python3 -m venv venv` instead of `python -m venv venv`
 {% endhint %}
 
 Now lets install our dependencies. We can do this simply by using a `craft` command:
@@ -96,17 +95,15 @@ Now lets install our dependencies. We can do this simply by using a `craft` comm
 $ craft install
 ```
 
-This command is just a wrapper around the `pip `command. This installs all the required dependencies of Masonite, creates a `.env` file for us, generates a new secret key, and puts that secret key in our `.env` file. After it’s done we can just run the server by using another `craft` command:
+This command is just a wrapper around the `pip`command. This installs all the required dependencies of Masonite, creates a `.env` file for us, generates a new secret key, and puts that secret key in our `.env` file. After it’s done we can just run the server by using another `craft` command:
 
 ```text
 $ craft serve
 ```
 
-Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications. 
+Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications.
 
 {% hint style="success" %}
 You can learn more about craft by reading [The Craft Command](https://github.com/MasoniteFramework/docs/tree/ba9d9f8ac3e41d58b9d92d951f92c898fb16a2a4/the-craft-command.md) documentation or continue on to learning about how to create web application by first reading the [Routing ](../the-basics/routing.md)documentation
 {% endhint %}
-
-
 

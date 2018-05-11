@@ -45,9 +45,7 @@ ROUTES = [
 {% endcode-tabs %}
 
 {% hint style="info" %}
-
 It’s important here to recognize that we didn't initialize the controller or the method, we did not actually call the method. This is so Masonite can pass parameters into the constructor and method when it executes the route, typically through auto resolving dependency injection.
-
 {% endhint %}
 
 ## Route Options
@@ -277,6 +275,4 @@ def show(self, Request):
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-
 

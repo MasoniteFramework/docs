@@ -1,6 +1,5 @@
 # Part 5 - Models
 
-
 ## Getting Started
 
 Now that we have our tables and migrations all done and we have a posts table, let's create a model for it.
@@ -82,7 +81,7 @@ from orator.orm import belongs_to
 
 class Post(Model):
     __fillable__ = ['title', 'author_id', 'body']
-    
+
     @belongs_to('author_id', 'id')
     def author(self):
         from app.User import User
@@ -91,10 +90,9 @@ class Post(Model):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Because of how Masonite does models, it is typically better to perform the import inside the relationship like we did above. If you import at the top you may encounter circular imports. 
+Because of how Masonite does models, it is typically better to perform the import inside the relationship like we did above. If you import at the top you may encounter circular imports.
 
 {% hint style="success" %}
 We won't go into much more detail here about different types of relationships but to learn more, read the [ORM](https://orator-orm.com/docs/0.9/orm.html) documentation.
 {% endhint %}
-
 
