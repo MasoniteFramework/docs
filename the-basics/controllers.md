@@ -124,7 +124,7 @@ def show(self, Request):
 {% endcode-tabs %}
 
 {% hint style="warning" %}
-**This might look magical to you so be sure the read about the IOC container in the **[**Service Container**](../architectural-concepts/service-container.md)** documentation.**
+**This might look magical to you so be sure the read about the IOC container in the** [**Service Container**](../architectural-concepts/service-container.md) **documentation.**
 {% endhint %}
 
 It’s important to note that unlike other frameworks, we do not have to specify our route parameters as parameters in our controller method. We can retrieve the parameters using the `Request.param('key')` class method.

@@ -173,7 +173,7 @@ self.validate({
 ```
 
 {% hint style="warning" %}
-**Note that all request input data will be a string. so make sure you use **`Equals('1')`** and not **`Equals(1)`**. Just be sure to maintain the data type in your validation.**
+**Note that all request input data will be a string. so make sure you use** `Equals('1')` **and not** `Equals(1)`**. Just be sure to maintain the data type in your validation.**
 {% endhint %}
 
 ### Range

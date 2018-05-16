@@ -135,7 +135,7 @@ class InstallCommand(Command):
 ```
 
 {% hint style="warning" %}
-**Make sure this command is added to your Service Provider and the developer using your package adds it to the **`PROVIDERS`** list as per the **[**Creating Commands**](../the-craft-command/creating-commands.md)** documentation.**
+**Make sure this command is added to your Service Provider and the developer using your package adds it to the** `PROVIDERS` **list as per the** [**Creating Commands**](../the-craft-command/creating-commands.md) **documentation.**
 {% endhint %}
 
 This will append the configuration file that has the same name as our package configuration file. In this case the configuration file we are creating or appending to is `config/services.py` because our packages configuration file is `services.py`. If we want to append to another configuration file we can simply change the name of our package configuration file.

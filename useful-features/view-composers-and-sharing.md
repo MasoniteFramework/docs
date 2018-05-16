@@ -123,7 +123,7 @@ def boot(self, ViewClass, Request):
     ViewClass.composer(['dashboard', 'dashboard/user'], {'request': Request})
 ```
 
-Lastly, we can compose a dictionary for all templates:
+We can compose a dictionary for all templates:
 
 ```python
 def boot(self, ViewClass, Request):
@@ -131,4 +131,12 @@ def boot(self, ViewClass, Request):
 ```
 
 Note that this has exactly the same behavior as `ViewClass.share()`
+
+Lastly, we can use wildcard composers with template names:
+
+```python
+ViewClass.composer(['dashboard*'], {'request': Request})
+```
+
+This will match templates such as `resources/templates/dashboard.html.`This will also match templates in an entire directory structures such as `resources/templates/dashboard/user.html`  A nice shorthand from a list of templates and much more scalable.
 

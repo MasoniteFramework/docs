@@ -63,7 +63,7 @@ $ craft controller Dashboard -e
 This will create a app/http/controllers/Dashboard.py file with a Dashboard controller. Notice that "Controller" is not appended.
 
 {% hint style="info" %}
-`-e` is short for` --exact`. Either flag will work.
+`-e` is short for `--exact`. Either flag will work.
 {% endhint %}
 
 You may also create resource controllers which include standard resource actions such as show, create, update, etc:
