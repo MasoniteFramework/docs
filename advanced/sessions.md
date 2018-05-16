@@ -177,3 +177,15 @@ def show(self, Session):
 Remember that Masonite will reset flashed data at the end of a successful `200 OK` request anyway so you will most likely not use the `flash_only=True` keyword parameter.
 {% endhint %}
 
+### Deleting Data
+
+You may want to delete session data as well. You can use the `delete()` method for that:
+
+```python
+def show(self, Session):
+    Session.set('key', 'value')
+    Session.has('key') # Returns True
+    Session.delete('key')
+    Session.has('key') # Returns False
+```
+
