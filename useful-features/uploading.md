@@ -93,6 +93,34 @@ Lastly, we may need to prepend the file name with something like a `uuid` or som
 prepend_name_newupload.png
 ```
 
+### Accepting Certain File Types
+
+When uploading, it may be important to only accept certain file types. Out of the box Masonite allows uploading of all file types including .doc and .dmg and .exe. This is a security hazard so you whenever you upload, you should specify which file types you want to accept:
+
+```python
+def show(self, Upload):
+    Upload.accept(
+        'jpeg',
+        'jpg',
+        'png'
+    ).store(request().input('file'))
+```
+
+{% hint style="info" %}
+Notice that we specified `jpeg` and `jpg`. You should specify both if you want to accept either of them as the file extensions are unpredictable.
+{% endhint %}
+
+This doesn't only work for images. You can specify any file types:
+
+```python
+def show(self, Upload):
+    Upload.accept(
+        'doc',
+        'docx',
+        'pdf'
+    ).store(request().input('file'))
+```
+
 ### Uploading to S3
 
 Before you get started with uploading to Amazon S3, you will need the boto3 library:
