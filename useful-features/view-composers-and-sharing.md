@@ -140,3 +140,31 @@ ViewClass.composer(['dashboard*'], {'request': Request})
 
 This will match templates such as `resources/templates/dashboard.html.`This will also match templates in an entire directory structures such as `resources/templates/dashboard/user.html`  A nice shorthand from a list of templates and much more scalable.
 
+## Check For Existing Views
+
+You may need to check if a certain view exists. This could be used to display alternate views or used when developing a package to verify that certain views exist. We can use the exists\(\) method on the ViewClass class:
+
+```python
+ViewClass.exists('errors/404')
+```
+
+This will check is the template at resources/templates/errors/404.html exists. We can also check if global templates exist by prepending a forward slash:
+
+```python
+ViewClass.exists('/masonite/errors/404')
+```
+
+An entire use case as code may look something like:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self, ViewClass):
+    if ViewClass.exists('errors/404'):
+        return view('errors/404')
+    
+    return view('/some/package/404')
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
