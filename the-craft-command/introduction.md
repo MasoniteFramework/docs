@@ -290,6 +290,18 @@ You can run the WSGI server by simply running:
 $ craft serve
 ```
 
+You will likely only use that command in production. For development, you can make the server autoreload after you save a python file, similiar to how Django does.
+
+```text
+$ craft serve --reload
+```
+
+or the shorthand
+
+```text
+$ craft serve -r
+```
+
 ### Encryption
 
 Masonite comes with a way to encrypt data and by default, encrypts all cookies set by the framework. Masonite uses a `key` to encrypt and decrypt data. Read the [Encryption](../security/encryption.md) documentation for more information on encryption.
