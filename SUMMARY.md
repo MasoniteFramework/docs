@@ -51,6 +51,7 @@
 * [Extending Classes](advanced/extending-classes.md)
 * [Creating a Mail Driver](advanced/creating-a-mail-driver.md)
 * [Sessions](advanced/sessions.md)
+* [Autoloading](advanced/autoloading.md)
 
 ## Useful Features
 
