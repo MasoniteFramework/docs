@@ -42,7 +42,7 @@ $ craft tinker
 
 This command will start a Python shell but also imports the container by default. So we can call:
 
-```text
+```bash
 Type `exit()` to exit.
 >>> app
 <masonite.app.App object at 0x10cfb8d30>
