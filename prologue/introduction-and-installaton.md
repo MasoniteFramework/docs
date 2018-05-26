@@ -80,7 +80,7 @@ $ ./venv/Scripts/activate
 ```
 
 {% hint style="info" %}
-The `python `command here is utilizing Python 3. Your machine may run Python 2 \(typically 2.7\) by default. You may set an alias on your machine for Python 3 or simply run `python3 `anytime you see the `python `command. 
+The `python` command here is utilizing Python 3. Your machine may run Python 2 \(typically 2.7\) by default. You may set an alias on your machine for Python 3 or simply run `python3` anytime you see the `python` command. 
 
 For example, you would run  `python3 -m venv venv` instead of  `python -m venv venv`
 {% endhint %}
@@ -91,7 +91,7 @@ Now lets install our dependencies. We can do this simply by using a `craft` comm
 $ craft install
 ```
 
-This command is just a wrapper around the `pip `command. This installs all the required dependencies of Masonite, creates a `.env` file for us, generates a new secret key, and puts that secret key in our `.env` file. After it’s done we can just run the server by using another `craft` command:
+This command is just a wrapper around the `pip` command. This installs all the required dependencies of Masonite, creates a `.env` file for us, generates a new secret key, and puts that secret key in our `.env` file. After it’s done we can just run the server by using another `craft` command:
 
 ```text
 $ craft serve

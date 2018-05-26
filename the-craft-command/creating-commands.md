@@ -152,7 +152,7 @@ class HelloProvider(ServiceProvider):
 {% endcode-tabs %}
 
 {% hint style="warning" %}
-**Make sure you instantiate the command. Also the command name needs to end in "Command". So binding **`HelloCommand`** will work but binding **`Hello`** will not. Craft will only pick up commands that end in **`Command`**. This is also case sensitive so make sure **`Command`** is capitalized.**
+**Make sure you instantiate the command. Also the command name needs to end in "Command". So binding** `HelloCommand` **will work but binding** `Hello` **will not. Craft will only pick up commands that end in** `Command`**. This is also case sensitive so make sure** `Command` **is capitalized.**
 {% endhint %}
 
 ## Adding The Service Provider

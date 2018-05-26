@@ -107,11 +107,11 @@ And we're done! When you next start your server, the `request` variable will be 
 
 ## View Composing
 
-In addition to sharing these variables with all templates, we can also specify only certain templates. All steps will be exactly the same but instead of the `.share()` method, we can use the `.compose()` method:
+In addition to sharing these variables with all templates, we can also specify only certain templates. All steps will be exactly the same but instead of the `.share()` method, we can use the `.composer()` method:
 
 ```python
 def boot(self, ViewClass, Request):
-    ViewClass.compose('dashboard', {'request': Request})
+    ViewClass.composer('dashboard', {'request': Request})
 ```
 
 Now anytime the `dashboard` template is accessed \(the one at `resources/templates/dashboard.html`\) the `request` variable will be available.
@@ -120,14 +120,14 @@ We can also specify several templates which will do the same as above but this t
 
 ```python
 def boot(self, ViewClass, Request):
-    ViewClass.compose(['dashboard', 'dashboard/user'], {'request': Request})
+    ViewClass.composer(['dashboard', 'dashboard/user'], {'request': Request})
 ```
 
 Lastly, we can compose a dictionary for all templates:
 
 ```python
 def boot(self, ViewClass, Request):
-    ViewClass.compose('*', {'request': Request})
+    ViewClass.composer('*', {'request': Request})
 ```
 
 Note that this has exactly the same behavior as `ViewClass.share()`
