@@ -45,7 +45,7 @@ def show(self, Request):
     Request.input('username')
 ```
 
-**NOTE: There is no difference between **`GET`** and **`POST`** when it comes to getting input data. They are both retrieved through this **`.input()`** method so there is no need to make a distinction if the request is **`GET`** or **`POST`
+**NOTE: There is no difference between** `GET` **and** `POST` **when it comes to getting input data. They are both retrieved through this** `.input()` **method so there is no need to make a distinction if the request is** `GET` **or** `POST`
 
 #### Method Options
 

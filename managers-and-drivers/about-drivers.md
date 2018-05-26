@@ -19,7 +19,7 @@ class UploadDiskDriver:
     pass
 ```
 
-**Depending on what type of driver you are making, you may need to inherit from a contract. To ensure this documentation is generalized, we'll leave out contracts for now. Contracts are essentially interfaces that ensure that your driver conforms to all other drivers of the same type. Read more about contracts in the **[**Contracts**](contracts.md)** documentation.**
+**Depending on what type of driver you are making, you may need to inherit from a contract. To ensure this documentation is generalized, we'll leave out contracts for now. Contracts are essentially interfaces that ensure that your driver conforms to all other drivers of the same type. Read more about contracts in the** [**Contracts**](contracts.md) **documentation.**
 
 Simple enough, now we can start coding what our API looks like. In the endgame, we want developers to do something like this from their controllers:
 

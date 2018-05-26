@@ -22,7 +22,7 @@ class User(Model):
     __auth__ = 'name'
 ```
 
-**All models that should be authenticated in addition to specifying a **`__auth__`** attribute also needs to have a **`password`** field as well in order to use the out of the box authentication that comes with Masonite.**
+**All models that should be authenticated in addition to specifying a** `__auth__` **attribute also needs to have a** `password` **field as well in order to use the out of the box authentication that comes with Masonite.**
 
 ### Authenticating a Model
 
