@@ -52,6 +52,7 @@ Type `exit()` to exit.
 {'MailSmtpDriver': <class 'masonite.drivers.MailSmtpDriver.MailSmtpDriver'>,
 'MailMailgunDriver': <class 'masonite.drivers.MailMailgunDriver.MailMailgunDriver'>
 }
+>>> exit()
 ```
 
 And play around the container. This is a useful debugging tool to verify that objects are loaded into the container if there are any issues.
