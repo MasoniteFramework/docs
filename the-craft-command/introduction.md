@@ -57,6 +57,27 @@ Type `exit()` to exit.
 
 And play around the container. This is a useful debugging tool to verify that objects are loaded into the container if there are any issues.
 
+### Show Routes Command
+
+Another useful command is the show:routes command which will display a table of available routes that can be hit:
+
+```text
+$ craft show:routes
+```
+
+This will display a table that looks like:
+
+```text
+========  =======  =======  ========  ============
+Method    Path     Name     Domain    Middleware
+========  =======  =======  ========  ============
+GET       /        welcome
+GET       /home    home
+GET       /user 
+POST      /create  user   
+========  =======  =======  ========  ============
+```
+
 ### Creating an Authentication System
 
 To create an authentication system with a login, register and a dashboard system, just run:
