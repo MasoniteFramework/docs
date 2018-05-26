@@ -32,6 +32,30 @@ Many commands are loaded into the framework itself and fetched when craft is ran
 
 The possible commands for craft include:
 
+### Tinker Command
+
+You can "tinker" around with Masonite by running:
+
+```text
+$ craft tinker
+```
+
+This command will start a Python shell but also imports the container by default. So we can call:
+
+```text
+Type `exit()` to exit.
+>>> app
+<masonite.app.App object at 0x10cfb8d30>
+>>> app.make('Request')
+<masonite.request.Request object at 0x10d03c8d0>
+>>> app.collect("Mail*Driver")
+{'MailSmtpDriver': <class 'masonite.drivers.MailSmtpDriver.MailSmtpDriver'>,
+'MailMailgunDriver': <class 'masonite.drivers.MailMailgunDriver.MailMailgunDriver'>
+}
+```
+
+And play around the container. This is a useful debugging tool to verify that objects are loaded into the container if there are any issues.
+
 ### Creating an Authentication System
 
 To create an authentication system with a login, register and a dashboard system, just run:
@@ -63,7 +87,7 @@ $ craft controller Dashboard -e
 This will create a app/http/controllers/Dashboard.py file with a Dashboard controller. Notice that "Controller" is not appended.
 
 {% hint style="info" %}
-`-e` is short for` --exact`. Either flag will work.
+`-e` is short for `--exact`. Either flag will work.
 {% endhint %}
 
 You may also create resource controllers which include standard resource actions such as show, create, update, etc:
