@@ -22,7 +22,7 @@ Masonite uses the `config/payment.py` configuration file. Conveniently, Clerk co
 
 #### NOTE: Virtual Environment
 
-**If you are in a virtual environment, **`craft publish`** will not have access to your virtual environment dependencies. In order to fix this, we can add our site packages to our **`config/packages.py`** config file**
+**If you are in a virtual environment,** `craft publish` **will not have access to your virtual environment dependencies. In order to fix this, we can add our site packages to our** `config/packages.py` **config file**
 
 If you are in a virtual environment then go to your `config/packages.py` file and add your virtual environments site\_packages folder to the `SITE_PACKAGES` list. Your `SITE_PACKAGES` list may look something like:
 

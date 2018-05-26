@@ -98,7 +98,7 @@ def show(self, request):
         user_email = request.user().email
 ```
 
-**Remember that the **`request.user()`** capability is disabled by default because it currently requires a database connection to work. We can enable this feature by simply uncommented the **`LoadUserMiddleware`** inside the **`config/middleware.py`** file.**
+**Remember that the** `request.user()` **capability is disabled by default because it currently requires a database connection to work. We can enable this feature by simply uncommented the** `LoadUserMiddleware` **inside the** `config/middleware.py` **file.**
 
 ### Protecting Routes
 

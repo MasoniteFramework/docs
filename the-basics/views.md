@@ -72,7 +72,7 @@ def show(self, Request):
     return view('dashboard', {'id': Request.param('id')})
 ```
 
-**Remember that by passing in parameters like **`Request`** to the controller method, we can retrieve objects from the IOC container. Read more about the IOC container in the "Service Container" documentation.**
+**Remember that by passing in parameters like** `Request` **to the controller method, we can retrieve objects from the IOC container. Read more about the IOC container in the "Service Container" documentation.**
 
 This will send a variable named `id` to the view which can then be rendered like:
 
