@@ -95,7 +95,7 @@ User.create(
 )
 ```
 
-**Do not store unhashed passwords in your database. Also, do not use unsafe encryption methods like MD5 or SHA-1. **
+**Do not store unhashed passwords in your database. Also, do not use unsafe encryption methods like MD5 or SHA-1.** 
 
 #### Checking Hashed Passwords
 
