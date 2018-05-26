@@ -103,6 +103,10 @@ $ craft serve
 
 Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications.
 
+{% hint style="info" %}
+You can also add a auto reloading option to the serve command by running `craft serve -r` which will reload the server whenever you save a python file.
+{% endhint %}
+
 {% hint style="success" %}
 You can learn more about craft by reading [The Craft Command](https://github.com/MasoniteFramework/docs/tree/ba9d9f8ac3e41d58b9d92d951f92c898fb16a2a4/the-craft-command.md) documentation or continue on to learning about how to create web application by first reading the [Routing ](../the-basics/routing.md)documentation
 {% endhint %}
