@@ -67,6 +67,8 @@ That's it! This is useful as an IOC container which you can load a single class 
 
 ## Collecting
 
+### Collecting By Key
+
 You may want to collect specific kinds of objects from the container based on the key. For example we may want all objects that start with "Exception" and end with "Hook" or want all keys that end with "ExceptionHook" if we are building an exception handler. We can do this easily:
 
 ```python
@@ -90,6 +92,17 @@ app.collect('Sentry*Hook')
 ```
 
 This will get keys like "SentryExceptionHook" and "SentryHandlerHook"
+
+### Collecting By Object
+
+You may also collect objects from the container depending on a specific class. This is useful if you need to get all objects in the container that you loaded in yourself and uses a proprietary base object or even just to get all drivers from the container.
+
+```python
+from masonite.driver.BaseDriver import BaseDriver
+app.collect(BaseDriver)
+```
+
+This will search the container for all objects that are subclasses of the `BaseDriver` and return them as a dictionary.
 
 ## **Resolve**
 
