@@ -96,7 +96,9 @@ If this seems like a strange syntax to you, be sure to read the [Resolve](../arc
 
 You may also want to autoload classes yourself. This may be useful if building a package and needing to get all classes from a certain location or even all instances from a certain directory. For example this might in useful in the Masonite scheduling feature to grab all the classes that are subclasses of the `Task` class.
 
-This may look something like:
+### Class Instances
+
+Autoloading class instances could look something like:
 
 ```python
 from masonite.autoload import Autoload
