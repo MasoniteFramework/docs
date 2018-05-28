@@ -290,7 +290,7 @@ You can redirect to a named route
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
-    return Request.redirectTo('dashboard')
+    return Request.redirect_to('dashboard')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -312,7 +312,7 @@ This is equivalent to:
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
-    return Request.redirectTo(request.input('back'))
+    return Request.redirect_to(request.input('back'))
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -336,7 +336,7 @@ Sometimes your routes may require parameters passed to it such as redirecting to
 def show(self, Request):
     return Request.back().send({'firstname': 'Joseph', 'lastname': 'Mancuso'})
 
-    return Request.redirectTo('dashboard').send({'firstname': 'Joseph', 'lastname': 'Mancuso'})
+    return Request.redirect_to('dashboard').send({'firstname': 'Joseph', 'lastname': 'Mancuso'})
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
