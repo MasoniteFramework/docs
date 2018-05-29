@@ -191,32 +191,11 @@ Since the scheduler doesn't actually know when the server starts, it doesn't kno
 
 For example, if the task above is to be ran \(every 3 days\) in May then the task will be ran at midnight on May 3rd, May 6th, May 9th, May 12th etc etc. So it's important to note that if the task is created on May 11th and should be ran every 3 days, then it will run the next day and then 3 days later.
 
-
-
 ## Running The Tasks
 
-After we add the directory to the AUTOLOAD list, we can run the schedule:run command which will find the command and execute it.
+After we add the directory to the `AUTOLOAD` list, we can run the `schedule:run` command which will find the command and execute it.
 
-
-
-
-
-
-
-```
-$ give me super-powers
-```
-
-{% hint style="info" %}
- Super-powers are granted randomly so please submit an issue if you're not happy with yours.
-{% endhint %}
-
-Once you're strong enough, save the world:
-
-```
-// Ain't no code for that yet, sorry
-echo 'You got to trust me on this, I saved the world'
-```
+Masonite will fetch all tasks from the container by finding all subclasses of scheduler.tasks.Task, check if they should run and then either execute it or not execute it.
 
 
 
