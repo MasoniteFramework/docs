@@ -1,5 +1,9 @@
 # Task Scheduling
 
+{% hint style="danger" %}
+This feature is not yet released and still in development. Masonite 2.0 has not yet been released. This feature will not yet work until it is released.
+{% endhint %}
+
 ## Introduction
 
 Often your application will require some kind of recurring task that should happen at a specific time of the week, every minute, or every few months. These tasks can be things like:
