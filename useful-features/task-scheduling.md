@@ -195,7 +195,46 @@ For example, if the task above is to be ran \(every 3 days\) in May then the tas
 
 After we add the directory to the `AUTOLOAD` list, we can run the `schedule:run` command which will find the command and execute it.
 
-Masonite will fetch all tasks from the container by finding all subclasses of scheduler.tasks.Task, check if they should run and then either execute it or not execute it.
+```text
+$ craft schedule:run
+```
+
+Masonite will fetch all tasks from the container by finding all subclasses of scheduler.tasks.Task, check if they should run and then either execute it or not execute it.  
+  
+Even though we ran the task, we should not see any output. Let's change the task a bit by printing "Hi" and setting it to run every minute:
+
+```python
+from scheduler.Task import Task
+
+
+class SayHi(Task):
+
+    run_every = '1 minute'
+
+    def __init__(self):
+        pass
+    
+    def handle(self):
+        print('Hi!')
+```
+
+Now let's run the command again:
+
+```text
+$ craft schedule:run
+```
+
+We should now see "Hi!" output to the terminal window.
+
+## Cron Jobs
+
+{% hint style="warning" %}
+Mac Only
+{% endhint %}
+
+Although the command above is useful, it is not very practical in a production setup. In production, we should setup a cron job to run that command every minute so Masonite can decide on what jobs need to be ran.
+
+We'll show you 
 
 
 
