@@ -241,5 +241,21 @@ PATH=/Users/Joseph/Programming/masonitetesting/venv/bin:/Library/Frameworks/Pyth
 * * * * * cd /Users/Joseph/Programming/masonitetesting && source venv/bin/activate && craft schedule:run
 ```
 
+## Getting The Path
 
+When a cron job runs, it will typically run commands with a /bin/sh command instead of the usual /bin/bash. Because of this, craft may not be found on the machine so we need to tell the cron job the PATH that should be loaded in. We can simply find the PATH by going to our project directory and running:
+
+```text
+$ env
+```
+
+Which will show an output of something like:
+
+```text
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.lRGuAmcmoI/Listeners
+__CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0
+PATH=/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
+VSCODE_NODE_CACHED_DATA_DIR_925=/Users/joseph/Library/Application Support/Code/CachedData/d0182c3417d225529c6d5ad24b7572815d0de9ac
+PWD=/Users/joseph/Programming/masonite
+```
 
