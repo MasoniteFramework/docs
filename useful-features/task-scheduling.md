@@ -36,7 +36,9 @@ PROVIDERS = [
 
 This provider will add several new features to Masonite. The first is that it will add two new commands.
 
-The first command that will be added is the craft schedule:run command which will run all the schedules tasks \(which we will create in a bit\) a craft task command which will create a new task under the `app/tasks` directory.
+The first command that will be added is the `craft schedule:run` command which will run all the schedules tasks \(which we will create in a bit\). 
+
+The second command is a `craft task` command which will create a new task under the `app/tasks` directory.
 
 ## Creating a Task
 
@@ -146,7 +148,7 @@ class SayHi(Task):
 
 ### When To Run
 
-The magic of recurring tasks is telling the task when it should run. There are a few options we can go over here:
+The awesomeness of recurring tasks is telling the task when it should run. There are a few options we can go over here:
 
 A complete task could look something like:
 
@@ -179,6 +181,10 @@ All possible options are `False` by default. The options here are:
 | run\_every\_minute | Boolean on whether to run every minute or not: `True`, `False` | run\_every\_minute = True |
 | twice\_daily | A tuple on the hours of the day the task should run. Also in military time. `(1, 13)` will run at 1am and 1pm. | twice\_daily = \(1, 13\) |
 
+{% hint style="info" %}
+If the time on the task is `days` or `months` then you can also specify a `run_at` attribute which will set the time of day it should should. By default, all tasks will run at midnight if `days` is set and midnight on the first of the month when `months` is set. We can specify which time of day using the `run_at` attribute along side the `run_every` attribute. This option will be ignored if `run_every` is `minutes` or `hours`. 
+{% endhint %}
+
 ## Caveats
 
 {% hint style="warning" %}
@@ -189,7 +195,7 @@ This feature is designed to run without having to spin up a seperate server comm
 
 Since the scheduler doesn't actually know when the server starts, it doesn't know from what day to start the count down. In order to get around this, Masonite calculates the current day using a modulus operator to see if the modulus of the tasks time and the current time are 0.
 
-For example, if the task above is to be ran \(every 3 days\) in May then the task will be ran at midnight on May 3rd, May 6th, May 9th, May 12th etc etc. So it's important to note that if the task is created on May 11th and should be ran every 3 days, then it will run the next day and then 3 days later.
+For example, if the task above is to be ran \(every 3 days\) in May then the task will be ran at midnight on May 3rd, May 6th, May 9th, May 12th etc etc. So it's important to note that if the task is created on May 11th and should be ran every 3 days, then it will run the next day on the 12th and then 3 days after that.
 
 ## Running The Tasks
 
