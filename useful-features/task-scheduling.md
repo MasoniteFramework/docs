@@ -281,5 +281,13 @@ Exit out of nano. Now we just need to setup the actual cron job:
 
 ### Setting The Cron Task
 
+Now we just need to setup the cron task itself. This could be as easy as copying it and pasting it into the nano editor again. You may need to change a few things though.
+
+The first `* * * * *` part is a must and bascially means "run this every minute by default". The next part is the location of your application which is dependant on where you installed your Masonite application.
+
+The next part is dependant on your setup. If you have a virtual environment then you need to activate it by appending `&& source venv/bin/activate` to the cron task. If you are not running in a virtual environment then you can leave that part out.
+
+Lastly we need to run the schedule command so we can append `&& craft schedule:run`
+
 
 
