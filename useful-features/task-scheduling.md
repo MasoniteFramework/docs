@@ -295,5 +295,7 @@ The next part is dependant on your setup. If you have a virtual environment then
 
 Lastly we need to run the schedule command so we can append `&& craft schedule:run`
 
+Great! Now we have a cron job that will run the craft command every minute. Masonite will decide which classes need to be executed.
+
 
 
