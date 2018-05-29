@@ -235,7 +235,7 @@ We should now see "Hi!" output to the terminal window.
 ## Cron Jobs
 
 {% hint style="warning" %}
-Mac Only
+Setting up Cron Jobs are for UNIX based machines like Mac and Linux only. Windows has a similiar schedule called Task Scheduler which is similiar but will require different instructions in setting it up.
 {% endhint %}
 
 Although the command above is useful, it is not very practical in a production setup. In production, we should setup a cron job to run that command every minute so Masonite can decide on what jobs need to be ran.
