@@ -234,7 +234,12 @@ Mac Only
 
 Although the command above is useful, it is not very practical in a production setup. In production, we should setup a cron job to run that command every minute so Masonite can decide on what jobs need to be ran.
 
-We'll show you 
+We'll show you an example cron job and then we will walk through how to build it.
+
+```text
+PATH=/Users/Joseph/Programming/masonitetesting/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
+* * * * * cd /Users/Joseph/Programming/masonitetesting && source venv/bin/activate && craft schedule:run
+```
 
 
 
