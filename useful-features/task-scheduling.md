@@ -237,11 +237,11 @@ Although the command above is useful, it is not very practical in a production s
 We'll show you an example cron job and then we will walk through how to build it.
 
 ```text
-PATH=/Users/Joseph/Programming/masonitetesting/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
+PATH=/Users/Masonite/Programming/masonitetesting/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
 * * * * * cd /Users/Joseph/Programming/masonitetesting && source venv/bin/activate && craft schedule:run
 ```
 
-## Getting The Path
+### Getting The Path
 
 When a cron job runs, it will typically run commands with a /bin/sh command instead of the usual /bin/bash. Because of this, craft may not be found on the machine so we need to tell the cron job the PATH that should be loaded in. We can simply find the PATH by going to our project directory and running:
 
@@ -252,10 +252,30 @@ $ env
 Which will show an output of something like:
 
 ```text
-SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.lRGuAmcmoI/Listeners
+...
 __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0
 PATH=/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
-VSCODE_NODE_CACHED_DATA_DIR_925=/Users/joseph/Library/Application Support/Code/CachedData/d0182c3417d225529c6d5ad24b7572815d0de9ac
-PWD=/Users/joseph/Programming/masonite
+PWD=/Users/Masonite/Programming/masonite
+...
 ```
+
+{% hint style="info" %}
+If you are using a virtual environment for development purposes then you need to run the `env` command inside your virtual environment.
+{% endhint %}
+
+We can then copy the PATH and put it in the cron job.
+
+To enter into cron, just run:
+
+```text
+$ env EDITOR=nano crontab -e
+```
+
+and paste the `PATH` we just copied. Once we do that our cron should look like:
+
+```text
+PATH=/Users/Masonite/Programming/masonitetesting/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
+```
+
+
 
