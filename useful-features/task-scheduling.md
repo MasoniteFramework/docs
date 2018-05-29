@@ -237,8 +237,8 @@ Although the command above is useful, it is not very practical in a production s
 We'll show you an example cron job and then we will walk through how to build it.
 
 ```text
-PATH=/Users/Masonite/Programming/masonitetesting/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
-* * * * * cd /Users/Joseph/Programming/masonitetesting && source venv/bin/activate && craft schedule:run
+PATH=/Users/Masonite/Programming/project_name/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
+* * * * * cd /Users/Masonite/Programming/project_name && source venv/bin/activate && craft schedule:run
 ```
 
 ### Getting The Path
@@ -276,6 +276,10 @@ and paste the `PATH` we just copied. Once we do that our cron should look like:
 ```text
 PATH=/Users/Masonite/Programming/masonitetesting/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
 ```
+
+Exit out of nano. Now we just need to setup the actual cron job:
+
+### Setting The Cron Task
 
 
 
