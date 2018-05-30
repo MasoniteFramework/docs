@@ -112,7 +112,9 @@ def show(self):
 
 All controller methods must have the self parameter. The `self` parameter is the normal python `self` object which is just an instance of the current class as usual. Nothing special here.
 
-All controller methods are resolved by the container so you may also retrieve additional objects from the container by specifying them as a parameter:
+## Container Resolving
+
+All controller methods and constructors are resolved by the container so you may also retrieve additional objects from the container by specifying them as a parameter in the method:
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/DashboardController.py" %}
@@ -122,6 +124,24 @@ def show(self, Request):
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+or by specifying them in the constructor:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/DashboardController.py" %}
+```python
+class DashboardController:
+
+    def __init__(self, Request):
+        self.request = Request
+
+    def show(self):
+        print(self.request) # Grabbed the Request object from the container
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+If you need a class in multiple controller methods then it is recommended to put it into the contructor in order to keep the controller DRY.
 
 {% hint style="warning" %}
 **This might look magical to you so be sure the read about the IOC container in the** [**Service Container**](../architectural-concepts/service-container.md) **documentation.**
