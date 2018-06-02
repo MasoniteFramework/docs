@@ -43,7 +43,7 @@ This will find a model with the supplied username, check if the password matches
 Again all authenticating models need to have a `password` column. The column being used to authenticate, such as a username or email field can be specified in the model using the `__auth__` class attribute.
 {% endhint %}
 
-### Changing The Authentication Model
+### Changing The Authentication Field
 
 You may change the column to be authenticated by simply changing the column value of the `__auth__` class attribute. This will look something like:
 
@@ -100,6 +100,34 @@ def show(self, Request):
     if Request.user():
         user_email = Request.user().email
 ```
+
+### Logging In By ID
+
+Sometimes in your application you may want to sign in a user without the need for a username and password. This can be used on the administrative end of your application to login to other user's accounts to verify information.
+
+```python
+def show(self, Auth, Request):
+    Auth(Request).login_by_id(1):
+```
+
+This will login the user with the ID of 1 and skip over the username and password verification completely.
+
+### Logging In Once
+
+All logging in methods will set a cookie in the user's browser which will then be verified on subsequent requests. Sometimes you may just want to login the user "once" which will authenticate the user but not set any cookies. We can use the `once()` method for this. This method can be used with all the previous methods by calling it first
+
+```python
+def show(self, Auth, Request):
+    Auth(Request).once().login_by_id(1)
+    # or 
+    Auth(Request).once().login('user@email.com', 'secret')
+```
+
+This will return an instance of the user model just authenticated or it will return `False` if the authentication failed. This method will not save state.
+
+{% hint style="info" %}
+This method is great for creating a stateless API or when you just need to verify a user with a username and password
+{% endhint %}
 
 ## Protecting Routes
 
