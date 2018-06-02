@@ -57,6 +57,22 @@ def show(self, Cache):
 
 This will store the cache for 5 seconds. If you try to retrieve this value after 5 seconds, the Cache class will return `None` so be sure to check.
 
+### Storing in a Specific Location
+
+If you don't want to store in the default locations you can specify the location parameter.
+
+```python
+def show(self, Cache):
+    Cache.store_for('key', 'value', 5, 'seconds', location='app/cache')
+```
+
+This can also be used in the normal `store` method:
+
+```python
+def show(self, Cache):
+    Cache.store('key', 'value', location='app/cache')
+```
+
 ### Getting
 
 It wouldn't be very good if we could only store values and not retrieve them. So we can also do this simple by doing:
