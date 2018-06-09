@@ -24,7 +24,7 @@ class YourController:
 ```
 
 {% hint style="success" %}
-Read more in the [Controllers](../the-basics/controllers.md#container-resolving) documentation
+Read more in the [Controllers](../the-basics/controllers.md#container-resolving) documentation.
 {% endhint %}
 
 ## Tinker Command
@@ -36,7 +36,7 @@ $ craft tinker
 ```
 
 {% hint style="success" %}
-Read more in [The Craft Command Introduction](../the-craft-command/introduction.md#tinker-command) documentation
+Read more in [The Craft Command Introduction](../the-craft-command/introduction.md#tinker-command) documentation.
 {% endhint %}
 
 ## Show Routes Command
@@ -48,7 +48,7 @@ $ craft show:routes
 ```
 
 {% hint style="success" %}
-Read more in [The Craft Command Introduction](../the-craft-command/introduction.md#show-routes-command) documentation
+Read more in [The Craft Command Introduction](../the-craft-command/introduction.md#show-routes-command) documentation.
 {% endhint %}
 
 ## Server Reloading
@@ -64,7 +64,7 @@ $ craft serve -r
 An incredible new feature is autoloading support. You can now list directories in the new AUTOLOAD constant in your config/application.py file and it will automatically load all classes into the container. This is great for loading command and models into the container when the server starts up.
 
 {% hint style="success" %}
-Read more in [Autoloading](../advanced/autoloading.md) documentation
+Read more in [Autoloading](../advanced/autoloading.md) documentation.
 {% endhint %}
 
 ## Updated Libraries
@@ -88,7 +88,7 @@ from masonite.drivers import UploadDriver
 Because of this change we no longer need the same duplicated class names in the PROVIDERS list either.
 
 {% hint style="success" %}
-Read more about changing duplicated class names under the [Duplicate Class Names](../upgrade-guide/masonite-1.6-to-2.0.md#duplicate-class-names) directory 
+Read more about changing duplicated class names under the [Duplicate Class Names](../upgrade-guide/masonite-1.6-to-2.0.md#duplicate-class-names) directory.
 {% endhint %}
 
 ## Redirection Provider
@@ -104,7 +104,7 @@ Renamed `Request.redirectTo` to `Request.redirect_to`
 Added a new Request.only method to fetch only specific inputs to retrieve.
 
 {% hint style="success" %}
-Read more in [Requests](../the-basics/requests.md#only) documentation
+Read more in [Requests](../the-basics/requests.md#only) documentation.
 {% endhint %}
 
 ## Get Request Method
@@ -112,7 +112,7 @@ Read more in [Requests](../the-basics/requests.md#only) documentation
 Added a new `Request.get_request_method()` method to the `Request` class.
 
 {% hint style="success" %}
-Read more in [Requests](../the-basics/requests.md#get-request-method-type) documentation
+Read more in [Requests](../the-basics/requests.md#get-request-method-type) documentation.
 {% endhint %}
 
 ## New Argument in Request.all
@@ -124,7 +124,7 @@ Request.all(internal_variables=False)
 ```
 
 {% hint style="success" %}
-Read more in [Requests](../the-basics/requests.md#input-data) documentation
+Read more in [Requests](../the-basics/requests.md#input-data) documentation.
 {% endhint %}
 
 ## Made several changes to the CSRF Middleware
@@ -170,7 +170,7 @@ password('secret') # returns bcrypt password
 ```
 
 {% hint style="success" %}
-Read more in the [Encryption](../security/encryption.md#hashing-passwords) documentation
+Read more in the [Encryption](../security/encryption.md#hashing-passwords) documentation.
 {% endhint %}
 
 ## Added Dot Notation To Upload Drivers And Dictionary Support To Driver Locations.
@@ -194,7 +194,7 @@ DRIVERS = {
 ```
 
 {% hint style="success" %}
-Read more in the [Uploading](../useful-features/uploading.md#dot-notation) documentation
+Read more in the [Uploading](../useful-features/uploading.md#dot-notation) documentation.
 {% endhint %}
 
 ## Added Status Code Provider
