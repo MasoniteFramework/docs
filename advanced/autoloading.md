@@ -16,11 +16,11 @@ AUTOLOAD = [
 ]
 ```
 
-Out of the box, Masonite will autoload all classes that are located in the app directory which unsurprisingly contains all of the application models.
+Out of the box, Masonite will autoload all classes that are located in the `app` directory which unsurprisingly contains all of the application models.
 
 ## How It Works
 
-Masonite will go through each directory listed and convert it to a module. For example if given the directory of app/models it will convert that to app.models and fetch that module. It will use inspection to go through the entire module and extract all classes imported or defined. 
+Masonite will go through each directory listed and convert it to a module. For example if given the directory of `app/models` it will convert that to `app.models` and fetch that module. It will use inspection to go through the entire module and extract all classes imported or defined. 
 
 If your code looks something like:
 
@@ -34,15 +34,15 @@ class User(Model):
 
 Then the autoloader will fetch three classes: the `belongs_to` class, the `Model` class and the `User` class. The autoloader will then check if the module of the classes fetched are actually apart of the module being autoloaded.
 
-In other words the modules of the above classes are: `orator.orm`, `config.database` and `app` respectively. Remember that we are just autoloaded the app module so it will only bind the `app.User` class to the container with a binding of the class name: `User` and the actual object itself: `<class app.User.User>`.
+In other words the modules of the above classes are: `orator.orm`, `config.database` and `app` respectively. Remember that we are just autoloaded the `app` module so it will only bind the `app.User` class to the container with a binding of the class name: `User` and the actual object itself: `<class app.User.User>`.
 
-All of this autoloading is done when the server is first started but before the WSGI server is ready to start accepting requests.
+All of this autoloading is done when the server is first started but before the WSGI server is ready to start accepting requests so there are no performance hits for this.
 
 ## Usage
 
-Since the app directory is autoloaded, and our User model is in that directory, the User model will be loaded into the container when the server starts.
+Since the app directory is autoloaded, and our `User` model is in that directory, the `User` model will be loaded into the container when the server starts.
 
-All bindings into the Service Container will be the name of the object as the key and the actual object as the value. So the User model will be accessed like:
+All bindings into the Service Container will be the name of the object as the key and the actual object as the value. So the `User` model will be accessed like:
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
@@ -55,7 +55,7 @@ def show(self, User):
 
 ### Other Directories
 
-You don't have to keep your models in the app directory. Feel free to move them anywhere but they will not be autoloaded outside the app directory by default. In order to autoload other directories we can add them to the `AUTOLOAD` variable.
+You don't have to keep your models in the `app` directory. Feel free to move them anywhere but they will not be autoloaded outside the app directory by default. In order to autoload other directories we can add them to the `AUTOLOAD` variable.
 
 For example if we have an app directory structure like:
 
@@ -116,7 +116,7 @@ Notice the path is now app/ and not app. This will throw an exception when the s
 
 This exception will be thrown when one of your classes are about to overwrite a container binding that is outside of your search path. The search path being the directories you specified in the AUTOLOAD constant. 
 
-For example, when you may have a model called Request like so:
+For example, you may have a model called Request like so:
 
 ```text
 app/
@@ -128,11 +128,13 @@ bootstrap/
 ...
 ```
 
-When Masonite goes to autoload these classes, it will detect that the Request key has already been bound into the container \(by Masonite itself\). Masonite will then detect if that Request object in the container is within the search path. In other words it will check for a Request class inside the current module you are autoloading.
+Without this exception, your application will overwrite the binding of the Masonite `Request` class. 
 
-If the object is outside of the module you are autoloading then it will throw this exception. In this instance, it will throw an exception because the Request key in the container is the &lt;class masonite.request.Request&gt; class which is outside of the app module.
+When Masonite goes to autoload these classes, it will detect that the `Request` key has already been bound into the container \(by Masonite itself\). Masonite will then detect if that `Request` object in the container is within the search path. In other words it will check for a `Request` class inside the current module you are autoloading.
 
-If you find yourself hitting this exception then move the object outside of a directory being autoloaded and into a separate directory which you can manually bind into the container with a different key, or simply rename the class to something else. When using models, you can rename the model to whatever you like and then specify a `__table__` attribute to connect the model to the specific table.
+If the object is outside of the module you are autoloading then it will throw this exception. In this instance, it will throw an exception because the `Request` key in the container is the &lt;class masonite.request.Request&gt; class which is outside of the `app` module \(and inside the `masonite.request` module\).
+
+If you find yourself hitting this exception then move the object outside of a directory being autoloaded and into a separate directory outside of the autoloader and then you can manually bind into the container with a different key, or simply rename the class to something else. When using models, you can rename the model to whatever you like and then specify a `__table__` attribute to connect the model to the specific table.
 
 ## Annotations
 
