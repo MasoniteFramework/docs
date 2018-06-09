@@ -84,8 +84,10 @@ PROVIDERS = [
     ...
     'masonite.providers.RouteProvider',
     'masonite.providers.RedirectionProvider',
+    
     # New provider here above StartResponseProvider
     'masonite.providers.StatusCodeProvider',
+    
     'masonite.providers.StartResponseProvider',
     'masonite.providers.WhitenoiseProvider',
     ...
