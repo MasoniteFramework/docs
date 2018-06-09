@@ -131,3 +131,7 @@ You can also add a auto reloading option to the serve command by running `craft 
 You can learn more about craft by reading [The Craft Command](https://github.com/MasoniteFramework/docs/tree/ba9d9f8ac3e41d58b9d92d951f92c898fb16a2a4/the-craft-command.md) documentation or continue on to learning about how to create web application by first reading the [Routing ](../the-basics/routing.md)documentation
 {% endhint %}
 
+{% hint style="info" %}
+Masonite has romantic versioning instead of semantic versioning. Because of this, all minor releases \(2.0.x\) will contain bug fixes and fully backwards compatible feature releases. Be sure to always keep your application up to date with the latest minor release to get the full benefit of Masonite's romantic versioning.
+{% endhint %}
+
