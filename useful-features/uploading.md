@@ -86,11 +86,39 @@ We may also need to get the filename of the upload. If the request input is a fi
 new_upload.png
 ```
 
-Lastly, we may need to prepend the file name with something like a `uuid` or something or even just a normal string. We can do so by using the `storePrepend()` method:
+Lastly, we may need to prepend the file name with something like a `uuid` or something or even just a normal string. We can do so by using the `store_prepend()` method:
 
 ```python
->>> Upload.driver('disk').store(Request.input('file_upload'), 'prepend_name_')
+>>> Upload.driver('disk').store_prepend(Request.input('file_upload'), 'prepend_name_')
 prepend_name_newupload.png
+```
+
+### Locations
+
+You can also specify the location you want to upload to. This will default to location specified in the config file but we can change it on the fly:
+
+```python
+Upload.driver('disk').store(Request.input('file_upload'), location='storage/profiles')
+```
+
+#### Dot Notation
+
+You can use dot notation to search your driver locations. Take this configuration for example:
+
+```python
+DRIVERS = {
+    'disk': {
+        'location': {
+            'uploads': 'storage/uploads',
+            'profiles': 'storage/users/profiles',
+    }
+}
+```
+
+and you can use dot notation:
+
+```python
+Upload.driver('disk').store(Request.input('file_upload'), location='disk.profiles')
 ```
 
 ### Uploading to S3
