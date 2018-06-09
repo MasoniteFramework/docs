@@ -99,7 +99,7 @@ This command is just a wrapper around the `pip`command with a few added Masonite
 
 ### Python 3.7
 
-Two of the libraries that Masonite uses are currently not up to date with Python 3.7 installation. These libraries have old changes to the .pyc files inside their distributions and need to be installed outside of the normal install workflow. Installing for Python 3.7 will be:
+Two of the libraries that Masonite uses are currently not up to date with Python 3.7 installation. These libraries have old versions  the .pyc files inside their distributions and need to be installed outside of the normal install workflow. Installing for Python 3.7 will be:
 
 ```text
 $ pip install pycparser
