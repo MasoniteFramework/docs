@@ -88,6 +88,19 @@ def show(self, Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+This method will get all of the request input variables to include any internal framework variables completely handled internally such as \_\_token and \_\_method. You can exclude them by passing in False into the method or specifying it explicitly:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+# GET: /dashboard?user=Joe&status=1&__token=837674634
+
+def show(self, Request):
+    return Request.all(internal_variables=False) # {'user': 'Joe', 'status': '1'}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 To get a specific input:
 
 {% code-tabs %}
