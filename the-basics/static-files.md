@@ -26,5 +26,57 @@ Now in our templates we can use:
 
 Which will get the `storage/assets/css/style.css` file.
 
+## Static Template Function
+
+All templates have a static function that can be used to assist in getting locations of static files. You can specify the driver and locations you want using the driver name or dot notation.
+
+Take this for example:
+
+```python
+....
+'s3': {
+  's3_client': 'sIS8shn...'
+  ...
+  'location': 'https://s3.us-east-2.amazonaws.com/bucket'
+  },
+....
+```
+
+```markup
+...
+<img src="{{ static('s3', 'profile.jpg') }}" alt="profile">
+...
+```
+
+this will render:
+
+```python
+<img src="https://s3.us-east-2.amazonaws.com/bucket/profile.jpg" alt="profile">
+```
+
+You can also make the config location a dictionary and use dot notation:
+
+```python
+....
+'s3': {
+  's3_client': 'sIS8shn...'
+  ...
+  'location': {
+    'east': 'https://s3.us-east-2.amazonaws.com/east-bucket',
+    'west': 'https://s3.us-west-16.amazonaws.com/west-bucket'
+  },
+....
+```
+
+and use the dot notation like so:
+
+```markup
+...
+<img src="{{ static('s3.east', 'profile.jpg') }}" alt="profile">
+...
+<img src="{{ static('s3.west', 'profile.jpg') }}" alt="profile">
+...
+```
+
 Thats it! Static files are extremely simple. You are now a master at static files!
 
