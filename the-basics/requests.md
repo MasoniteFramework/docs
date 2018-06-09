@@ -114,6 +114,21 @@ def show(self, Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### Only
+
+You can only get a certain set of parameters if you have a need to do so. This can be used like:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+# GET: /dashboard?firstname=Joe&lastname=Mancuso&active=1
+
+def show(self, Request):
+    return Request.only('firstname', 'active') # {'firstname': 'Joe', 'active': '1'}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ### URL Parameters
 
 To get the request parameter retrieved from the url. This is used to get variables inside: `/dashboard/@firstname` for example.
