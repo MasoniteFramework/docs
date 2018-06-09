@@ -101,3 +101,59 @@ Request.all(internal_variables=False)
 
 ## Made several changes to the CSRF Middleware
 
+Because of the changes to internal framework variables, there are several changes to the CSRF middleware that comes in every application of Masonite. 
+
+{% hint style="success" %}
+Be sure to read the changes in the [Upgrade Guide 1.6 to 2.0](../upgrade-guide/masonite-1.6-to-2.0.md).
+{% endhint %}
+
+## Added Scheduler to Masonite
+
+Added a new default package to Masonite that allows scheduling recurring tasks:
+
+{% hint style="success" %}
+Read about Masonite Scheduler under the [Task Scheduling](../useful-features/task-scheduling.md) documentation.
+{% endhint %}
+
+## Added Database Seeding Support
+
+It's important during development that you have the ability to seed your database with dummy data. This will improve team development with Masonite to get everyones database setup accordingly.
+
+## Added a New Static File Helper
+
+Now all templates have a new static function in them to improve rendering of static assets
+
+## Added a New Password Helper
+
+You can use the password helper to hash passwords more simply than using straight bcrypt:
+
+```python
+from masonite.helpers import password
+
+password('secret') # returns bcrypt password
+```
+
+## Added Dot Notation To Upload Drivers And Dictionary Support To Driver Locations.
+
+You can now specify which location in your drivers you want to upload to using a new dot notation:
+
+```text
+Upload.store(request().input('file'), 'disk.uploads')
+```
+
+This will use the directory stored in:
+
+```python
+DRIVERS = {
+  'disk': {
+    'uploads': 'storage/uploads',
+    'profiles': 'storage/static/users/profiles/images'
+  },
+  ...
+}
+```
+
+## Added Status Code Provider
+
+Masonite 2 removes the bland error codes such as 404 and 500 errors and replaces them with a cleaner view. This also allows you to add custom error pages.
+
