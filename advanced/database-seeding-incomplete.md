@@ -4,6 +4,12 @@
 
 You'll likely want to seed your database during development in order to get some dummy data into your database to start working fast.
 
+{% hint style="success" %}
+Masonite uses Orator to generate seed files. This documentation will explain how to create the files itself.
+
+Read more about creating seed classes with the [Orator documentation](https://orator-orm.com/docs/0.9/seeding.html).
+{% endhint %}
+
 ## Getting Started
 
 We can simply create a new seeder by running:
@@ -31,10 +37,6 @@ craft seed:run User
 ```
 
 Which will run the `user_table_seeder` only.
-
-{% hint style="success" %}
-Read more about creating seeds with the [Orator documentation](https://orator-orm.com/docs/0.9/seeding.html).
-{% endhint %}
 
 
 
