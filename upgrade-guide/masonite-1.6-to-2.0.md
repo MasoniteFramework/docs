@@ -31,6 +31,20 @@ PROVIDERS = [
 
 Change all service providers coming from Masonite to these type of strings without the double provider class.
 
+## Duplicate Class Names
+
+With the addition of the above change, any place you have a duplicated class name like:
+
+```python
+from masonite.drivers.UploadDriver import UploadDriver
+```
+
+You can change it to:
+
+```python
+from masonite.drivers import UploadDriver
+```
+
 ## Autoloading
 
 Masonite 2 comes with a new autoloader. This can load all classes in any directory you specify right into the service container when the server first starts. This is incredibly useful for loading your models right into the container.
