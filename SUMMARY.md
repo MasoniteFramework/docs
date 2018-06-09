@@ -33,7 +33,7 @@
 
 * [Introduction](the-craft-command/introduction.md)
 * [Creating Commands](the-craft-command/creating-commands.md)
-* Authentication System
+* [Authentication System](the-craft-command/authentication-system.md)
 
 ## Architectural Concepts
 
