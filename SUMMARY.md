@@ -15,14 +15,14 @@
 * [Masonite 1.4](whats-new/masonite-1.4.md)
 * [Masonite 1.5](whats-new/masonite-1.5.md)
 * [Masonite 1.6](whats-new/masonite-1.6.md)
-* Masonite 2.0
+* [Masonite 2.0](whats-new/masonite-2.0.md)
 
 ## Upgrade Guide
 
 * [Masonite 1.3 to 1.4](upgrade-guide/masonite-1.3-to-1.4.md)
 * [Masonite 1.4 to 1.5](upgrade-guide/masonite-1.4-to-1.5.md)
 * [Masonite 1.5 to 1.6](upgrade-guide/masonite-1.5-to-1.6.md)
-* Masonite 1.6 to 2.0
+* [Masonite 1.6 to 2.0](upgrade-guide/masonite-1.6-to-2.0.md)
 
 ## The Basics
 
@@ -37,7 +37,7 @@
 
 * [Introduction](the-craft-command/introduction.md)
 * [Creating Commands](the-craft-command/creating-commands.md)
-* Authentication System
+* [Authentication System](the-craft-command/authentication-system.md)
 
 ## Architectural Concepts
 
