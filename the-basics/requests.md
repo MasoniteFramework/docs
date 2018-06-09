@@ -441,6 +441,21 @@ Request.status('429 Too Many Requests')
 
 This will set the correct status code before the output is sent to the browser. You can look up a list of HTTP status codes from an online resource and specify any you need to. There are no limitations to which ones you can use.
 
+## Get Request Method Type
+
+You can get the request method simply:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+# PUT: /dashboard
+
+def show(self, Request):
+    return Request.get_request_method() # 'PUT'
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ## Changing Request Methods in Forms
 
 Typically, forms only have support for `GET` and `POST`. You may want to change what HTTP method is used when submitting a form such as `PATCH`.
