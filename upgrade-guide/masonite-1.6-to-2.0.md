@@ -94,6 +94,16 @@ PROVIDERS = [
 ]
 ```
 
+## .env File
+
+The .env got a small upgrade and in order to make the `APP_DEBUG` variable consistent, it should be set to either `True` or `False`. Previously this was set to something like `true` or `false`.
+
+```text
+APP_DEBUG=True
+# or
+APP_DEBUG=False
+```
+
 ## Finished
 
 That's it! You're all done upgrading Masonite 1.6 to Masonite 2.0. Build something awesome!
