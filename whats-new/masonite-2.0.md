@@ -23,6 +23,10 @@ class YourController:
         print(self.request) # <class masonite.request.Request>
 ```
 
+{% hint style="success" %}
+Read more in the [Controllers](../the-basics/controllers.md#container-resolving) documentation
+{% endhint %}
+
 ## Tinker Command
 
 There is a new command that starts a Python shell and imports the container for you already. Test it out to verify that objects are loaded into your container correctly. It's a great debugging tool.
@@ -31,6 +35,10 @@ There is a new command that starts a Python shell and imports the container for 
 $ craft tinker
 ```
 
+{% hint style="success" %}
+Read more in [The Craft Command Introduction](../the-craft-command/introduction.md#tinker-command) documentation
+{% endhint %}
+
 ## Show Routes Command
 
 Masonite 2 ships with an awesome little helper command that allows you to see all the routes in your application
@@ -38,6 +46,10 @@ Masonite 2 ships with an awesome little helper command that allows you to see al
 ```text
 $ craft show:routes
 ```
+
+{% hint style="success" %}
+Read more in [The Craft Command Introduction](../the-craft-command/introduction.md#show-routes-command) documentation
+{% endhint %}
 
 ## Server Reloading
 
@@ -50,6 +62,10 @@ $ craft serve -r
 ## Autoloading
 
 An incredible new feature is autoloading support. You can now list directories in the new AUTOLOAD constant in your config/application.py file and it will automatically load all classes into the container. This is great for loading command and models into the container when the server starts up.
+
+{% hint style="success" %}
+Read more in [Autoloading](../advanced/autoloading.md) documentation
+{% endhint %}
 
 ## Updated Libraries
 
@@ -87,9 +103,17 @@ Renamed `Request.redirectTo` to `Request.redirect_to`
 
 Added a new Request.only method to fetch only specific inputs to retrieve.
 
+{% hint style="success" %}
+Read more in [Requests](../the-basics/requests.md#only) documentation
+{% endhint %}
+
 ## Get Request Method
 
 Added a new `Request.get_request_method()` method to the `Request` class.
+
+{% hint style="success" %}
+Read more in [Requests](../the-basics/requests.md#get-request-method-type) documentation
+{% endhint %}
 
 ## New Argument in Request.all
 
@@ -98,6 +122,10 @@ You can now completely remove fetching of any inputs that Masonite handles inter
 ```python
 Request.all(internal_variables=False)
 ```
+
+{% hint style="success" %}
+Read more in [Requests](../the-basics/requests.md#input-data) documentation
+{% endhint %}
 
 ## Made several changes to the CSRF Middleware
 
@@ -119,9 +147,17 @@ Read about Masonite Scheduler under the [Task Scheduling](../useful-features/tas
 
 It's important during development that you have the ability to seed your database with dummy data. This will improve team development with Masonite to get everyones database setup accordingly.
 
+{% hint style="success" %}
+Read more in the [Database Seeding](../advanced/database-seeding-incomplete.md) documentation.
+{% endhint %}
+
 ## Added a New Static File Helper
 
 Now all templates have a new static function in them to improve rendering of static assets
+
+{% hint style="success" %}
+Read more in the [Static Files](../the-basics/static-files.md) documentation.
+{% endhint %}
 
 ## Added a New Password Helper
 
@@ -132,6 +168,10 @@ from masonite.helpers import password
 
 password('secret') # returns bcrypt password
 ```
+
+{% hint style="success" %}
+Read more in the [Encryption](../security/encryption.md#hashing-passwords) documentation
+{% endhint %}
 
 ## Added Dot Notation To Upload Drivers And Dictionary Support To Driver Locations.
 
@@ -153,7 +193,15 @@ DRIVERS = {
 }
 ```
 
+{% hint style="success" %}
+Read more in the [Uploading](../useful-features/uploading.md#dot-notation) documentation
+{% endhint %}
+
 ## Added Status Code Provider
 
 Masonite 2 removes the bland error codes such as 404 and 500 errors and replaces them with a cleaner view. This also allows you to add custom error pages.
+
+{% hint style="success" %}
+Read more in the [Status Codes](../advanced/status-codes-incomplete.md) documentation.
+{% endhint %}
 
