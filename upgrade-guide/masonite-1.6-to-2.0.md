@@ -8,12 +8,14 @@ Upgrading from Masonite 1.6 to Masonite 2.0 shouldn't take very long. On an aver
 
 Masonite 2 adds some improvements with imports. Previously we had to import providers and drivers like:
 
-```text
+```python
 from masonite.providers.UploadProvider import UploadProvider
 ```
 
 Because of this, all framework service providers will need to change as well to:
 
+{% code-tabs %}
+{% code-tabs-item title="config/application.py" %}
 ```python
 PROVIDERS = [
     # Framework Providers
@@ -28,6 +30,8 @@ PROVIDERS = [
     ....
 ]
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Change all service providers coming from Masonite to these type of strings without the double provider class.
 
@@ -63,6 +67,8 @@ Masonite 2 comes with a new autoloader. This can load all classes in any directo
 
 Simply add a new AUTOLOAD constant in your config/application.py file. This is the entire section of the autoload constant.
 
+{% code-tabs %}
+{% code-tabs-item title="config/application.py" %}
 ```python
 '''
 |--------------------------------------------------------------------------
@@ -79,9 +85,13 @@ AUTOLOAD = [
     'app',
 ]
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 By default this points to the app directory where models are stored by default but if you moved your models to other directories like app/models or app/admin/models then add those directories to your list:
 
+{% code-tabs %}
+{% code-tabs-item title="config/application.py" %}
 ```python
 ....
 
@@ -91,6 +101,8 @@ AUTOLOAD = [
     'app/admin/models'
 ]
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 {% hint style="danger" %}
 Be caution that this will autoload all models into the [Service Container](../architectural-concepts/service-container.md) with the class name as the key and the class as the binding. If you have a class called Request then this will override the Request class which is an unintended side effect.
@@ -104,6 +116,8 @@ Because of a minor rewrite of the Request class, we now do not need the Redirect
 
 There is a new status code provider which adds support for adding custom status codes and rendering better default status code pages such as 400 and 500 error pages. This should be added right above the StartResponseProvider:
 
+{% code-tabs %}
+{% code-tabs-item title="config/application.py" %}
 ```python
 PROVIDERS = [
     # Framework Providers
@@ -119,16 +133,22 @@ PROVIDERS = [
     ...
 ]
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## .env File
 
 The .env got a small upgrade and in order to make the `APP_DEBUG` variable consistent, it should be set to either `True` or `False`. Previously this was set to something like `true` or `false`.
 
+{% code-tabs %}
+{% code-tabs-item title=".env" %}
 ```text
 APP_DEBUG=True
 # or
 APP_DEBUG=False
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## Finished
 
