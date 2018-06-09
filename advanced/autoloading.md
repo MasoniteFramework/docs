@@ -4,11 +4,11 @@
 
 Masonite has a [Service Container](../architectural-concepts/service-container.md) which allows you to add objects into the container and have them auto resolved in controllers and other classes. This is an excellent feature and what makes Masonite so powerful. The most obvious way to load classes into the container is through creating a [Service Provider](../architectural-concepts/service-providers.md) and interacting with the container from there.
 
-With Masonite 2, we can use the builtin autoloader in order to load classes into the container in another way.
+With Masonite 2, we can use the builtin autoloader in order to load classes into the container in a much simpler way.
 
 ## Configuration
 
-The configuration variable for autoloading is inside the `config/application.py` file which contains directories:
+The configuration variable for autoloading is inside the `config/application.py` file which contains a list of directories:
 
 ```python
 AUTOLOAD = [
@@ -16,7 +16,27 @@ AUTOLOAD = [
 ]
 ```
 
-Out of the box, Masonite will autoload all classes that are located in the app directory which unsuprisingly contains all of the application models.
+Out of the box, Masonite will autoload all classes that are located in the app directory which unsurprisingly contains all of the application models.
+
+## How It Works
+
+Masonite will go through each directory listed and convert it to a module. For example if given the directory of app/models it will convert that to app.models and fetch that module. It will use inspection to go through the entire module and extract all classes imported or defined. 
+
+If your code looks something like:
+
+```python
+from orator.orm import belongs_to
+from config.database import Model
+
+class User(Model):
+    pass
+```
+
+Then the autoloader will fetch three classes: the `belongs_to` class, the `Model` class and the `User` class. The autoloader will then check if the module of the classes fetched are actually apart of the module being autoloaded.
+
+In other words the modules of the above classes are: `orator.orm`, `config.database` and `app` respectively. Remember that we are just autoloaded the app module so it will only bind the `app.User` class to the container with a binding of the class name: `User` and the actual object itself: `<class app.User.User>`.
+
+All of this autoloading is done when the server is first started but before the WSGI server is ready to start accepting requests.
 
 ## Usage
 
@@ -75,7 +95,46 @@ def show(self, User, Blog, Author):
 Being that the container is useful as an IOC container, another use case would be if a third party library needed some models to manipulate and then bind them back into the container. An example of this type of library would be one that needs to change the models methods in order to capture query operations and send them to a dashboard or a report.
 {% endhint %}
 
-### Annotations
+## Exceptions
+
+The autoload class will raise a few exceptions so you should be aware of them in order to avoid confusion when these exceptions are raised.
+
+### InvalidAutoloadPath
+
+This exception will be thrown if any of your autoload paths contain a forward slash like:
+
+```python
+AUTOLOAD = [
+    'app/',
+    'app/models'
+]
+```
+
+Notice the path is now app/ and not app. This will throw an exception when the server first starts.
+
+### AutoloadContainerOverwrite
+
+This exception will be thrown when one of your classes are about to overwrite a container binding that is outside of your search path. The search path being the directories you specified in the AUTOLOAD constant. 
+
+For example, when you may have a model called Request like so:
+
+```text
+app/
+  http/
+  providers/
+  User.py
+  Request.py
+bootstrap/
+...
+```
+
+When Masonite goes to autoload these classes, it will detect that the Request key has already been bound into the container \(by Masonite itself\). Masonite will then detect if that Request object in the container is within the search path. In other words it will check for a Request class inside the current module you are autoloading.
+
+If the object is outside of the module you are autoloading then it will throw this exception. In this instance, it will throw an exception because the Request key in the container is the &lt;class masonite.request.Request&gt; class which is outside of the app module.
+
+If you find yourself hitting this exception then move the object outside of a directory being autoloaded and into a separate directory which you can manually bind into the container with a different key, or simply rename the class to something else. When using models, you can rename the model to whatever you like and then specify a `__table__` attribute to connect the model to the specific table.
+
+## Annotations
 
 Although it is useful to get the model by the actual container key name, it might not be as practical or even the best way to fetch models from the container. 
 
