@@ -54,7 +54,7 @@ We can simply create a class which can become our driver. We do not need to inhe
 Let's create a class anywhere we like and inherit from `BaseMailDriver`:
 
 ```python
-from masonite.driver.BaseMailDriver import BaseMailDriver
+from masonite.driver import BaseMailDriver
 
 class MailMaildrillDriver(BaseMailDriver):
     pass
@@ -66,7 +66,7 @@ We can look at other drivers for inspiration but let's look at the `MailMailgunD
 
 ```python
 import requests
-from masonite.drivers.BaseMailDriver import BaseMailDriver
+from masonite.drivers import BaseMailDriver
 
 class MailMailgunDriver(BaseMailDriver):
 

@@ -15,7 +15,7 @@ Contracts ensure that all drivers of a similar type such as upload, queue and ma
 Contracts are currently used to create drivers and are located in the `masonite.contracts` namespace. Creating a driver and using a contract looks like:
 
 ```python
-from masonite.contracts.UploadContract import UploadContract
+from masonite.contracts import UploadContract
 
 class UploadGoogleDriver(UploadContract):
     pass

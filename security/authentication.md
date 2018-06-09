@@ -31,7 +31,7 @@ If you want to authenticate a model, you can use the `Auth` facade that ships wi
 In order to authenticate a model this will look like:
 
 ```python
-from masonite.facades.Auth import Auth
+from masonite.facades import Auth
 
 def show(self, Request):
     Auth(Request).login('user@email.com', 'password')
@@ -85,7 +85,7 @@ def show(self, Request):
 If you wish not to use middleware to load the user into the request you can get the request by again using the `Auth` class
 
 ```python
-from masonite.facades.Auth import Auth
+from masonite.facades import Auth
 
 def show(self, Request):
     Auth(Request).user()

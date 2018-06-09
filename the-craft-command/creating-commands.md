@@ -136,7 +136,7 @@ Let's import our command and register it into the container. Also because we are
 ```python
 ''' A HelloProvider Service Provider '''
 from masonite.provider import ServiceProvider
-from app.commands.HelloCommand import HelloCommand
+from app.commands import HelloCommand
 
 class HelloProvider(ServiceProvider):
 

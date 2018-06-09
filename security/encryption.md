@@ -39,7 +39,7 @@ Remember to not share this secret key as a loss of this key could lead to someon
 You can use the same cryptographic signing that Masonite uses to encrypt cookies on any data you want. Just import the `masonite.sign.Sign` class. A complete signing will look something like:
 
 ```python
-from masonite.auth.Sign import Sign
+from masonite.auth import Sign
 
 sign = Sign()
 
@@ -51,7 +51,7 @@ sign.decrypt('value') # 'value'
 By default, `Sign()` uses the encryption key in your `config/application.py` file but you could also pass in your own key.
 
 ```python
-from masonite.auth.Sign import Sign
+from masonite.auth import Sign
 
 encryption_key = b'SJS(839dhs...'
 
@@ -65,7 +65,7 @@ sign.decrypt('value') # 'value'
 This feature uses [pyca/cryptography](https://cryptography.io/en/latest/) for this kind of encryption. Because of this, we can generate keys using Fernet.
 
 ```python
-from masonite.auth.Sign import Sign
+from masonite.auth import Sign
 from cryptography.fernet import Fernet
 
 encryption_key = Fernet.generate_key()
@@ -93,8 +93,8 @@ Again, all values passed into bcrypt need to be in bytes so we can pass in a pas
 
 ```python
 password = bcrypt.hashpw(
-                bytes(request.input('password'), 'utf-8'), bcrypt.gensalt()
-            )
+    bytes(request.input('password'), 'utf-8'), bcrypt.gensalt()
+)
 ```
 
 Notice that the value passed in from the request was converted into bytes using the `bytes()` Python function.

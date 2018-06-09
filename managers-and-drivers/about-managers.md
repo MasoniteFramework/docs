@@ -21,7 +21,7 @@ Let's create a new file: `masonite/managers/TaskManager.py`.
 Great! Now all managers should inherit from the `masonite.managers.Manager` class. Our `TaskManager` should look something like:
 
 ```python
-from masonite.managers.Manager import Manager
+from masonite.managers import Manager
 
 class TaskManager(Manager):
     pass
@@ -30,7 +30,7 @@ class TaskManager(Manager):
 Awesome! Inheriting from the Manager class will give our manager almost all the methods it needs. The only thing we need now is to tell this manager how to create drivers. So to do this all we need are two attributes:
 
 ```python
-from masonite.managers.Manager import Manager
+from masonite.managers import Manager
 
 class TaskManager(Manager):
 

@@ -125,7 +125,7 @@ class AuthenticationMiddleware:
 
     def before(self):
         if not self.request.user():
-            self.request.redirectTo('login')
+            self.request.redirect_to('login')
 
     def after(self):
         pass

@@ -33,7 +33,7 @@ class SendWelcomeEmail(Queueable):
 All job constructors are resolved by the container so we can simply pass anything we need as normal:
 
 ```python
-from masonite.queues.Queueable import Queueable
+from masonite.queues import Queueable
 
 class SendWelcomeEmail(Queueable):
 
@@ -50,7 +50,7 @@ Remember that anything that is resolved by the container is able to retrieve any
 Whenever jobs are executed, it simply executes the handle method. Because of this we can send our welcome email:
 
 ```python
-from masonite.queues.Queueable import Queueable
+from masonite.queues import Queueable
 
 class SendWelcomeEmail(Queueable):
 

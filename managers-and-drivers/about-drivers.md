@@ -82,8 +82,8 @@ So now that our driver is created, we can tell our Manager about it. Learn how t
 
 ```python
 from masonite.provider import ServiceProvider
-from masonite.managers.UploadManager import UploadManager
-from masonite.drivers.UploadDiskDriver import UploadDiskDriver
+from masonite.managers import UploadManager
+from masonite.drivers import UploadDiskDriver
 from config import storage
 
 

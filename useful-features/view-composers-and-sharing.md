@@ -91,8 +91,8 @@ Lastly we need to load this into our `PROVIDERS` list inside our `config/applica
 PROVIDERS = [
     # Framework Providers
     ...
-    'masonite.providers.ViewProvider.ViewProvider',
-    'masonite.providers.HelpersProvider.HelpersProvider',
+    'masonite.providers.ViewProvider',
+    'masonite.providers.HelpersProvider',
 
     # Third Party Providers
 
