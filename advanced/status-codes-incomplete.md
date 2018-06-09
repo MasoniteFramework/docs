@@ -1,4 +1,4 @@
-# Status Codes \(incomplete\)
+# Status Codes
 
 ## Introduction
 
