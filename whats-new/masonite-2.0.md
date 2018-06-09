@@ -83,3 +83,21 @@ Removed the need for the redirection provider completely. You need to remove thi
 
 Renamed `Request.redirectTo` to `Request.redirect_to`
 
+## Request Only
+
+Added a new Request.only method to fetch only specific inputs to retrieve.
+
+## Get Request Method
+
+Added a new `Request.get_request_method()` method to the `Request` class.
+
+## New Argument in Request.all
+
+You can now completely remove fetching of any inputs that Masonite handles internally such as \_\_token and \_\_method when fetching any inputs. This is also great for building third party libraries:
+
+```python
+Request.all(internal_variables=False)
+```
+
+## Made several changes to the CSRF Middleware
+

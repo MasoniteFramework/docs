@@ -49,6 +49,14 @@ from masonite.drivers import UploadDriver
 
 Renamed Request.redirectTo to Request.redirect\_to. Be sure to change any of these instances accordingly.
 
+## CSRF Middleware
+
+Some variable internals have changed to prepend a double underscore to them to better symbolize they are being handled internally. Because of this we need to change any instances of csrf\_token to \_\_token in  the CSRF Middleware file.
+
+{% hint style="info" %}
+You can check for what the class should look like from the [MasoniteFramework/masonite](https://github.com/MasoniteFramework/masonite) repository
+{% endhint %}
+
 ## Autoloading
 
 Masonite 2 comes with a new autoloader. This can load all classes in any directory you specify right into the service container when the server first starts. This is incredibly useful for loading your models right into the container.
