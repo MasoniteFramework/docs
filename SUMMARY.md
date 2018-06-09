@@ -53,6 +53,7 @@
 * [Creating a Mail Driver](advanced/creating-a-mail-driver.md)
 * [Sessions](advanced/sessions.md)
 * [Autoloading](advanced/autoloading.md)
+* [Status Codes \(incomplete\)](advanced/status-codes-incomplete.md)
 
 ## Useful Features
 

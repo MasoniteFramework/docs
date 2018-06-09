@@ -89,12 +89,12 @@ It's important to note that any values passed to bcrypt need to be in bytes.
 
 ### Hashing Passwords
 
-Again, all values passed into bcrypt need to be in bytes so we can pass in a password:
+Again, all values passed into bcrypt need to be in bytes so we can pass in a password using the password helper function:
 
 ```python
-password = bcrypt.hashpw(
-    bytes(request.input('password'), 'utf-8'), bcrypt.gensalt()
-)
+from masonite.helpers import password
+
+encrypted_password = password('secret')
 ```
 
 Notice that the value passed in from the request was converted into bytes using the `bytes()` Python function.
