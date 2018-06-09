@@ -1,4 +1,4 @@
-# Database Seeding \(incomplete\)
+# Database Seeding
 
 ## Introduction
 
@@ -12,9 +12,9 @@ We can simply create a new seeder by running:
 craft seed User
 ```
 
-This will create a new seeder inside the databases/seeds directory. This will also create a database\_seeder.py file which will be where the root of all seeds should be. 
+This will create a new seeder inside the `databases/seeds` directory. This will also create a `database_seeder.py` file which will be where the root of all seeds should be. 
 
-The user\_table\_seeder should be where you simply abstract your seeds to.
+The `user_table_seeder` should be where you simply abstract your seeds to.
 
 ## Running Seeds
 

@@ -54,7 +54,7 @@
 * [Sessions](advanced/sessions.md)
 * [Autoloading](advanced/autoloading.md)
 * [Status Codes \(incomplete\)](advanced/status-codes-incomplete.md)
-* [Database Seeding \(incomplete\)](advanced/database-seeding-incomplete.md)
+* [Database Seeding](advanced/database-seeding-incomplete.md)
 
 ## Useful Features
 
