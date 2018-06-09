@@ -45,6 +45,10 @@ You can change it to:
 from masonite.drivers import UploadDriver
 ```
 
+## Redirection
+
+Renamed Request.redirectTo to Request.redirect\_to. Be sure to change any of these instances accordingly.
+
 ## Autoloading
 
 Masonite 2 comes with a new autoloader. This can load all classes in any directory you specify right into the service container when the server first starts. This is incredibly useful for loading your models right into the container.
