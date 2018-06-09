@@ -94,5 +94,9 @@ PROVIDERS = [
 ]
 ```
 
+## Finished
+
+That's it! You're all done upgrading Masonite 1.6 to Masonite 2.0. Build something awesome!
+
 
 
