@@ -47,5 +47,25 @@ A huge update to Masonite is the new `--reload` flag on the serve command. Now t
 $ craft serve -r
 ```
 
+## Autoloading
 
+An incredible new feature is autoloading support. You can now list directories in the new AUTOLOAD constant in your config/application.py file and it will automatically load all classes into the container. This is great for loading command and models into the container when the server starts up.
+
+## Updated Libraries
+
+Updated all libraries to the latest version with the exception of the Pendulum library which latest version is a breaking change. The breaking change would not be worth it to add the complexity of upgrading so you may upgrade on a per project basis.
+
+## Removed Importing Duplicate Class Names
+
+Previously you had to import classes like:
+
+```text
+from masonite.drivers.UploadDriver import UploadDriver
+```
+
+Now you can simply specify:
+
+```text
+from masonite.drivers import UploadDriver
+```
 
