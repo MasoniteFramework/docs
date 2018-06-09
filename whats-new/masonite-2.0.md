@@ -69,3 +69,17 @@ Now you can simply specify:
 from masonite.drivers import UploadDriver
 ```
 
+Because of this change we no longer need the same duplicated class names in the PROVIDERS list either.
+
+{% hint style="success" %}
+Read more about changing duplicated class names under the [Duplicate Class Names](../upgrade-guide/masonite-1.6-to-2.0.md#duplicate-class-names) directory 
+{% endhint %}
+
+## Redirection Provider
+
+Removed the need for the redirection provider completely. You need to remove this from your PROVIDERS list.
+
+## Redirection
+
+Renamed `Request.redirectTo` to `Request.redirect_to`
+
