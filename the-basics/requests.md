@@ -323,48 +323,26 @@ def show(self, Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-You can also go back to a named route specified from the form input `back`. This will get the request input named `back` and redirect to that named route. This is great if you want to redirect the user to a login page and then back to where they came from. Just remember during your form submission that you need to supply a `back` input.
+Sometimes your routes may require parameters passed to it such as redirecting to a route that has a url like: `/url/@firstname:string/@lastname:string`.
+
+Redirecting to a named route with URL parameters:
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
-    return Request.back()
+    return Request.redirect_to('dashboard', {'firstname': 'Joseph', 'lastname': 'Mancuso'})
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-This is equivalent to:
+Redirecting to a url in your application with URL parameters:
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
-    return Request.redirect_to(request.input('back'))
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-You can also specify the input parameter that contains the named route
-
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
-```python
-def show(self, Request):
-    return Request.back('redirect')
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-Sometimes your routes may require parameters passed to it such as redirecting to a route that has a url like: `/url/@firstname:string/@lastname:string`. For this you can use the `send` method. Currently this only works with named routes.
-
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
-```python
-def show(self, Request):
-    return Request.back().send({'firstname': 'Joseph', 'lastname': 'Mancuso'})
-
-    return Request.redirect_to('dashboard').send({'firstname': 'Joseph', 'lastname': 'Mancuso'})
+    return Request.redirect('dashboard/@id', {'id': '1'})
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
