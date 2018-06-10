@@ -114,9 +114,9 @@ Notice the path is now app/ and not app. This will throw an exception when the s
 
 ### AutoloadContainerOverwrite
 
-This exception will be thrown when one of your classes are about to overwrite a container binding that is outside of your search path. The search path being the directories you specified in the AUTOLOAD constant. 
+This exception will be thrown when one of your classes are about to overwrite a container binding that is outside of your search path. The search path being the directories you specified in the `AUTOLOAD` constant. 
 
-For example, you may have a model called Request like so:
+For example, you may have a model called `Request` like so:
 
 ```text
 app/
