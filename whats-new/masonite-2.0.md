@@ -99,6 +99,17 @@ Removed the need for the redirection provider completely. You need to remove thi
 
 Renamed `Request.redirectTo` to `Request.redirect_to`
 
+Also removed the .send\(\) method and moved the dictionary into a parameter:
+
+```python
+def show(self):
+    return request().redirect('/dashboard/@id', {'id': '5'})
+```
+
+{% hint style="success" %}
+Read more in the [Requests](../the-basics/requests.md#redirection) documentation.
+{% endhint %}
+
 ## Request Only
 
 Added a new Request.only method to fetch only specific inputs to retrieve.
