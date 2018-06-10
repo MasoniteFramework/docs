@@ -168,7 +168,7 @@ APP_DEBUG=False
 
 That's it! You're all done upgrading Masonite 1.6 to Masonite 2.0. Build something awesome!
 
-{% hint style="info" %}
+{% hint style="success" %}
 Be sure to read about all the [changes in Masonite 2](../whats-new/masonite-2.0.md) to ensure that your application is completely up to date
 {% endhint %}
 
