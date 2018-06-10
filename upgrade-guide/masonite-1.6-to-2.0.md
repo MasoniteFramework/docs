@@ -53,6 +53,20 @@ from masonite.drivers import UploadDriver
 
 Renamed Request.redirectTo to Request.redirect\_to. Be sure to change any of these instances accordingly.
 
+Removed the .send\(\) method completely on the Request class so all instances of:
+
+```python
+def show(self):
+    return request().redirect('/dashboard/@id').send({'id': league.id})
+```
+
+Need to be changed to:
+
+```python
+def show(self):
+    return request().redirect('/dashboard/@id', {'id': league.id})
+```
+
 ## CSRF Middleware
 
 Some variable internals have changed to prepend a double underscore to them to better symbolize they are being handled internally. Because of this we need to change any instances of csrf\_token to \_\_token in  the CSRF Middleware file.
