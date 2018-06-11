@@ -44,7 +44,7 @@ APP_ENV=local
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Will load the `.env.local` environment file. 
+Will load additionally load the `.env.local` environment file
 
 This may be useful to have more global environment variables that can be shared across your team like Stripe, Mailgun, or application keys and then have more developer specific values like database connections or different storage drivers.
 
