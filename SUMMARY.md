@@ -68,7 +68,7 @@
 * [Compiling Assets](useful-features/compiling-assets.md)
 * [Framework Hooks](useful-features/framework-hooks.md)
 * [Task Scheduling](useful-features/task-scheduling.md)
-* [Environments \(in progress\)](useful-features/environments-in-progress.md)
+* [Environments](useful-features/environments-in-progress.md)
 
 ## Security
 

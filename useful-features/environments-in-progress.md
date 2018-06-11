@@ -1,4 +1,4 @@
-# Environments \(in progress\)
+# Environments
 
 ## Introduction
 
