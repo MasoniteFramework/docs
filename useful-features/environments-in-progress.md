@@ -10,5 +10,87 @@ Never load any of your .env files into source control. `.env` and `.env.*` are i
 
 ## Getting Started
 
+Masonite comes with a `LoadEnvironment` class that is called in the `bootstrap/start.py` file. This file in imported into the `wsgi.py` file which is where the execution of the environment actually happens because of the import. 
+
+You likely won't have to use this class specifically since the class handles most use cases but we will go over how the class itself works.
+
+In `bootstrap/start.py` you will see a code that looks something like:
+
+{% code-tabs %}
+{% code-tabs-item title="bootstrap/start.py" %}
+```python
+from masonite.environment import LoadEnvironment
+...
+LoadEnvironment()
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+This class instantiation does a few things:
+
+The first thing is it loads the .env file located in the base of your application. If you installed Masonite using craft install then Masonite will automatically create this `.env` file for you based on the `.env-example` file.
+
+The next thing it will do is look for an `APP_ENV` variable inside your `.env` file it just loaded and then look for an environment with that value.
+
+For example, this variable:
+
+{% code-tabs %}
+{% code-tabs-item title=".env" %}
+```text
+...
+APP_ENV=local
+...
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Will load the `.env.local` environment file. 
+
+This may be useful to have more global environment variables that can be shared across your team like Stripe, Mailgun, or application keys and then have more developer specific values like database connections or different storage drivers.
+
+## Loading Additional Environment
+
+In addition to loading the .env file and the additional environment file defined in your .env file, you can load a third environment by specifying it in the constructor:
+
+{% code-tabs %}
+{% code-tabs-item title=".env" %}
+```text
+...
+APP_ENV=local
+...
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="bootstrap/start.py" %}
+```python
+from masonite.environment import LoadEnvironment
+...
+LoadEnvironment('development')
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+This will load the `.env` file, the `.env.local` file and the `.env.development` environment file. 
+
+## Loading Only A Single Environment
+
+If you don't want to load an additional environment and instead want to load only 1 single environment then you can pass in the `only` parameter.
+
+{% code-tabs %}
+{% code-tabs-item title="bootstrap/start.py" %}
+```python
+from masonite.environment import LoadEnvironment
+...
+LoadEnvironment(only='development')
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+This will load only the `.env.development` environment file.
+
+
+
 
 

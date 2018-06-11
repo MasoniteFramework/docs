@@ -164,6 +164,8 @@ APP_DEBUG=False
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Masonite 2 also removed the `APP_LOG_LEVEL` environment variable completely.
+
 ## Finished
 
 That's it! You're all done upgrading Masonite 1.6 to Masonite 2.0. Build something awesome!
