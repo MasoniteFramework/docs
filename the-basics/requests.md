@@ -137,6 +137,36 @@ You may also set a cookie in the browser. The below code will set a cookie named
 By default, all cookies are encrypted with your secret key which is generated in your `.env` file when you installed Masonite. This is a security measure to ensure malicious Javascript code cannot fetch cookies if they are somehow retrieved. All cookies are set with the HTTP\_ONLY flag meaning that Javascript cannot read them although you can turn this off using a parameter.
 {% endhint %}
 
+### JSON Payloads
+
+Sometimes you may want to handle incoming JSON requests. This could be form external API's like Github.
+
+Masonite will detect that an incoming request is a JSON request and put the cast the JSON to a dictionary and load it into the payload request input. For example if you have an incoming request of:  
+
+
+{% code-tabs %}
+{% code-tabs-item title="incoming request" %}
+```javascript
+{
+  "name": "Joe",
+  "email": "Joe@email.com"
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Then we can fetch this input in a controller like so:  
+
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self, Request):
+    Request.input('payload')['name'] # Joe
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ### **Creating**
 
 {% code-tabs %}
