@@ -241,7 +241,22 @@ This will match `/dashboard/joseph` and not `/dashboard/128372`. Currently only 
 
 ### Subdomain Routing
 
-You may wish to only render routes if they are on a specific subdomain. For example you may want `example.com/dashboard` to route to a different controller than `joseph.example.com/dashboard`. To do this we can use the `.domain()` method on our routes like so:
+You may wish to only render routes if they are on a specific subdomain. For example you may want `example.com/dashboard` to route to a different controller than `joseph.example.com/dashboard`. 
+
+Out of the box this feature will not work and is turned off by default. We will need to add a call on the Request class in order to activate subdomains. We can do this in the boot method of one of our Service Providers that has wsgi=False:
+
+{% code-tabs %}
+{% code-tabs-item title="app/providers/UserModelProvider.py" %}
+```python
+wsgi = False
+...
+def boot(self, Request):
+    Request.activate_subdomains()
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+To use subdomains we can use the `.domain()` method on our routes like so:
 
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
