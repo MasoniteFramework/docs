@@ -100,7 +100,7 @@ for provider in container.make('Providers').PROVIDERS:
 ```
 
 {% hint style="info" %}
-This change should significantly boost speed performances as providers no longer have to be located via pydoc
+This change should significantly boost speed performances as providers no longer have to be located via pydoc. You should see an immediate decrease in the time it takes for the server to be served and a minor decrease in time for views to be rendered to the browser.
 {% endhint %}
 
 ## Duplicate Class Names
