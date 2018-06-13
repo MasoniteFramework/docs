@@ -24,7 +24,7 @@ These, among many other features, are all shipped out of the box and ready to go
 In order to use Masonite, you’ll need:
 
 * Python 3.4+
-* Pip
+* Pip3
 
 ### Linux
 
