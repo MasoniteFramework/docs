@@ -2,7 +2,7 @@
 
 Masonite 2 brings an incredible new release to the Masonite family. This release brings a lot of new features to Masonite to include new status codes, database seeding, built in cron scheduling, controller constructor resolving, auto-reloading server, a few new internal ways that Masonite handles things, speed improvements to some code elements and so much more. We think developers will be extremely happy with this release.
 
-Upgrading from Masonite 1.6 to Masonite 2.0 shouldn't take very long. On an average sized project, this upgrade should take around 30 minutes. We'll walk you through the changes you have to make to your current project and explain the reasoning behind it
+Upgrading from Masonite 1.6 to Masonite 2.0 shouldn't take very long although it does have the largest amount of changes in a single release. On an average sized project, this upgrade should take around 30 minutes. We'll walk you through the changes you have to make to your current project and explain the reasoning behind it
 
 ## Application and Provider Configuration 
 
@@ -41,6 +41,63 @@ PROVIDERS = [
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+{% hint style="info" %}
+String providers will still work by it is not recommended and will not be supported in future releases of Masonite.
+{% endhint %}
+
+## WSGI changes
+
+There are a few changes in the wsgi.py file and the bootstrap/start.py file.
+
+In the wsgi.py file we should add a new import at the top:
+
+```python
+...
+# from pydoc import locate - Remove This
+...
+from config import application, providers
+...
+
+container.bind('WSGI', app)
+container.bind('Application', application)
+
+# New Addition Here
+container.bind('Providers', providers)
+```
+
+Then change the code logic of bootstrapping service providers from:
+
+```python
+for provider in container.make('Application').PROVIDERS:
+    locate(provider)().load_app(container).register()
+    
+for provider in container.make('Application').PROVIDERS: 
+    located_provider = locate(provider)().load_app(container)
+    if located_provider.wsgi is False:
+        container.resolve(locate(provider)().load_app(container).boot)
+```
+
+to:
+
+```python
+for provider in container.make('Providers').PROVIDERS:
+    provider().load_app(container).register()
+    
+for provider in container.make('Providers').PROVIDERS: 
+    located_provider = provider().load_app(container)
+    if located_provider.wsgi is False:
+        container.resolve(located_provider.boot)
+```
+
+and change the logic in bootstrap/start.py to:
+
+```python
+for provider in container.make('Providers').PROVIDERS: 
+    located_provider = provider().load_app(container)
+    if located_provider.wsgi is True:
+        container.resolve(located_provider.boot)
+```
 
 ## Duplicate Class Names
 
