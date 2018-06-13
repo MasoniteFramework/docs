@@ -216,3 +216,7 @@ Masonite 2 removes the bland error codes such as 404 and 500 errors and replaces
 Read more in the [Status Codes](../advanced/status-codes-incomplete.md) documentation.
 {% endhint %}
 
+## Added Explicitly Imported Providers
+
+Providers are not explicitly imported at the top of the file and added to your PROVIDERS list which is now located in `config/providers.py`.
+
