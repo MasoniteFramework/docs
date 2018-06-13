@@ -51,7 +51,9 @@ You may have to use sudo if you are on a UNIX machine
 {% endhint %}
 
 {% hint style="warning" %}
-All examples of pip in this documentation are based on pip3. If you see a pip command it is implied you are using a Python 3 pip command  and not a Python 2 pip command
+All pip commands are assuming they are connected to a Python 3.4+ installation. If you are having a hard time installation then try running all pip commands in this documentation with pip3 commands. 
+
+Also you may read the [Known Installation Issues](prologue/known-installation-issues.md) documentation for any solutions to common problems
 {% endhint %}
 
 Great! We are now ready to create our first project. We should have the new `craft` command. We can check this by running:
