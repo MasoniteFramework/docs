@@ -4,7 +4,11 @@ Masonite 2 brings an incredible new release to the Masonite family. This release
 
 Upgrading from Masonite 1.6 to Masonite 2.0 shouldn't take very long. On an average sized project, this upgrade should take around 30 minutes. We'll walk you through the changes you have to make to your current project and explain the reasoning behind it.
 
-## Application Configuration 
+## Providers Configuration
+
+
+
+## Application and Provider Configuration 
 
 Masonite 2 adds some improvements with imports. Previously we had to import providers and drivers like:
 
@@ -12,28 +16,35 @@ Masonite 2 adds some improvements with imports. Previously we had to import prov
 from masonite.providers.UploadProvider import UploadProvider
 ```
 
-Because of this, all framework service providers will need to change as well to:
+Because of this, all framework service providers will need to cut out the redundant last part. The above code should be changed to:
+
+```python
+from masonite.providers import UploadProvider
+```
+
+Masonite 2 brings a more explicit way of declaring Service Providers in your application. You'll need to take your current PROVIDERS list inside the config/application.py file and move it into a new config/providers.py file.
+
+Now all Service Providers should be imported at top of the file and added to the list:
 
 {% code-tabs %}
-{% code-tabs-item title="config/application.py" %}
+{% code-tabs-item title="config/providers.py" %}
 ```python
+from masonite.providers import (
+    AppProvider,
+    SessionProvider,
+    RouteProvider
+)
+
 PROVIDERS = [
     # Framework Providers
-    'masonite.providers.AppProvider',
-    'app.providers.SessionProvider',
-    'masonite.providers.RouteProvider',
-    # 'entry.providers.ApiProvider',
-    'masonite.providers.RedirectionProvider',
-    'masonite.providers.StartResponseProvider',
-    'masonite.providers.SassProvider',
-    'masonite.providers.WhitenoiseProvider',
+    AppProvider,
+    SessionProvider,
+    RouteProvider,
     ....
 ]
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-Change all service providers coming from Masonite to these type of strings without the double provider class.
 
 ## Duplicate Class Names
 
