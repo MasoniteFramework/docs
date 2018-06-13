@@ -49,6 +49,16 @@ DRIVERS = {
 
 Some deployment platforms are Ephemeral. This means that either hourly or daily, they will completely clean their file systems which will lead to the deleting of anything you put on the file system after you deployed it. In other words, any user uploads will be wiped. To get around this, you'll need to upload your images to Amazon S3 or other asset hosting services which is why Masonite comes with Amazon S3 capability out of the box.
 
+### Class Based Drivers
+
+You can also explicitly declare the driver as a class:
+
+```python
+from masonite.drivers import UploadS3Driver
+
+DRIVER = UploadS3Driver
+```
+
 ## Uploading
 
 Uploading with masonite is extremely simple. We can use the `Upload` class which is loaded into the container via the `UploadProvider` Service Provider. Whenever a file is uploaded, we can retrieve it using the normal `Request.input()` method. This will look something like:
@@ -158,8 +168,28 @@ Then in our controller:
 
 ```python
 def upload(self, Upload):
-    Upload.driver('s3').store(Request.input('file_upload'))
+    Upload.store(Request.input('file_upload'))
 ```
 
 How the S3 driver currently works is it uploads to your file system using the `disk` driver, and then uploads that file to your Amazon S3 bucket. So do not get rid of the `disk` setting in the `DRIVERS` dictionary.
+
+### Changing Drivers
+
+You can also swap drivers on the fly:
+
+```python
+def upload(self, Upload):
+    Upload.driver('s3').store(Request.input('file_upload'))
+```
+
+or you can explicitly specify the class:
+
+```python
+from masonite.drivers import UploadS3Driver
+
+def upload(self, Upload):
+    Upload.driver(UploadS3Driver).store(Request.input('file_upload'))
+```
+
+
 
