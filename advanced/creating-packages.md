@@ -187,10 +187,11 @@ $ pip install super_awesome_package
 Then add your Service Provider to the `PROVIDERS` list:
 
 ```python
+from testpackage.providers.InstallProvider import InstallProvider
 PROVIDERS = [
     ...
     # New Provider
-    'testpackage.providers.InstallProvider.InstallProvider',
+    InstallProvider(),
 ]
 ```
 
@@ -216,8 +217,8 @@ To achieve an absolute path location, this will look like:
 
 ```python
 location = os.path.join(
-            package_directory, 'snippets/configs/services.py'
-        )
+    package_directory, 'snippets/configs/services.py'
+)
 ```
 
 All helper functions are located in the `masonite.packages` module. To use these functions you’ll need to import the function to be used like:

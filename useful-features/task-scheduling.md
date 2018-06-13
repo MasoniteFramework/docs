@@ -30,11 +30,12 @@ $ pip install masonite-scheduler
 and then add the [Service Provider](../architectural-concepts/service-providers.md) to our `PROVIDERS` list:
 
 ```text
+from scheduler.providers import ScheduleProvider
 PROVIDERS = [
-    'masonite.providers.AppProvider',
+    AppProvider(),
     ...
     ...
-    'scheduler.providers.ScheduleProvider',
+    ScheduleProvider(),
 ]
 ```
 

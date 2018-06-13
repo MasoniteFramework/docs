@@ -115,13 +115,14 @@ Notice that the key we binded our object to ends with "ExceptionHook." What we p
 And finally add the Service Provider to our `PROVIDERS` constant in our `config/application.py` file:
 
 ```python
+from app.providers.SentryServiceProvider import SentryServiceProvider
 ...
 # Application Providers 
-'app.providers.UserModelProvider.UserModelProvider',
-'app.providers.MiddlewareProvider.MiddlewareProvider',
+UserModelProvider(),
+MiddlewareProvider(),
 
 # Sentry Provider
-'app.providers.SentryServiceProvider.SentryServiceProvider',
+SentryServiceProvider(),
 ...
 ```
 
