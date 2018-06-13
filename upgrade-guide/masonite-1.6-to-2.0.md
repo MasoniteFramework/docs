@@ -99,6 +99,10 @@ for provider in container.make('Providers').PROVIDERS:
         container.resolve(located_provider.boot)
 ```
 
+{% hint style="info" %}
+This change should significantly boost speed performances as providers no longer have to be located via pydoc
+{% endhint %}
+
 ## Duplicate Class Names
 
 With the addition of the above change, any place you have a duplicated class name like:
