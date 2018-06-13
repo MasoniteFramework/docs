@@ -88,6 +88,12 @@ $ craft
 
 Shows an error that it can't be found then try closing your terminal and opening it again. This should refresh any commands that were recently installed
 
+If you still have errors and on a UNIX based machine try running:
+
+```text
+$ sudo pip3 install masonite-cli
+```
+
 ## I'm getting a module urlib has no attribute urlopen
 
 You likely ran:
