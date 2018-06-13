@@ -23,7 +23,15 @@ You may get a strange error like:
 pkg_resources.DistributionNotFound: The 'idna<2.7,>=2.5' distribution was not found and is required by requests
 ```
 
-This likely means you installed masonite-cli using the Python 2.7 pip command. Out of the box, all Mac and Linux based machines have Python 2.7. If you run:
+The simple fix may just be to run:
+
+```text
+pip install idna==2.6
+```
+
+If that does not fix the issue then continue reading. 
+
+If the above fix did not work then this likely means you installed masonite-cli using the Python 2.7 pip command. Out of the box, all Mac and Linux based machines have Python 2.7. If you run:
 
 ```text
 $ python --version
@@ -70,7 +78,7 @@ $ pip3 install masonite-cli
 You may have to run sudo to remove it and you may need to close your terminal to get it work
 {% endhint %}
 
-## I installed masonite-cli successfully but it's the craft command is not showing up
+## I installed masonite-cli successfully but the craft command is not showing up
 
 If you installed everything successfully and running:
 
