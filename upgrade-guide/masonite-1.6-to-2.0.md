@@ -178,7 +178,7 @@ Masonite 2 also removed the `APP_LOG_LEVEL` environment variable completely.
 That's it! You're all done upgrading Masonite 1.6 to Masonite 2.0. Build something awesome!
 
 {% hint style="success" %}
-Be sure to read about all the [changes in Masonite 2](../whats-new/masonite-2.0.md) to ensure that your application is completely up to date
+Be sure to read about all the [changes in Masonite 2](../whats-new/masonite-2.0.md) to ensure that your application is completely up to date with many of the latest decisions and be sure to thoroughly test your application. Feel free to open an issue if any problems arise during upgrading.
 {% endhint %}
 
 
