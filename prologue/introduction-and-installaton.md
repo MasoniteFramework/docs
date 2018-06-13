@@ -24,7 +24,7 @@ These, among many other features, are all shipped out of the box and ready to go
 In order to use Masonite, you’ll need:
 
 * Python 3.4+
-* Pip
+* Pip3
 
 ### Linux
 
@@ -47,11 +47,15 @@ Masonite works at being simple to install and get going. We use a simple command
 We can download our `craft` command line tool by just running:
 
 ```text
-$ pip install masonite-cli
+$ pip3 install masonite-cli
 ```
 
 {% hint style="danger" %}
 You may have to use sudo if you are on a UNIX machine
+{% endhint %}
+
+{% hint style="warning" %}
+All examples of pip in this documentation are based on pip3. If you see a pip command it is implied you are using a Python 3 pip command  and not a Python 2 pip command
 {% endhint %}
 
 Great! We are now ready to create our first project. We should have the new `craft` command. We can check this by running:
