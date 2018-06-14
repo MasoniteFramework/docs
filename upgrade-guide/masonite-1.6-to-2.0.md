@@ -62,12 +62,16 @@ from config import application, providers
 container.bind('WSGI', app)
 container.bind('Application', application)
 
-# New Addition Here
+# New Additions Here
+container.bind('ProvidersConfig', providers)
 container.bind('Providers', providers)
+container.bind('WSGIProviders', providers)
 ```
 
 Then change the code logic of bootstrapping service providers from:
 
+{% code-tabs %}
+{% code-tabs-item title="wsgi.py" %}
 ```python
 for provider in container.make('Application').PROVIDERS:
     locate(provider)().load_app(container).register()
@@ -77,27 +81,38 @@ for provider in container.make('Application').PROVIDERS:
     if located_provider.wsgi is False:
         container.resolve(locate(provider)().load_app(container).boot)
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 to:
 
+{% code-tabs %}
+{% code-tabs-item title="wsgi.py" %}
 ```python
-for provider in container.make('Providers').PROVIDERS:
-    provider().load_app(container).register()
-    
-for provider in container.make('Providers').PROVIDERS: 
-    located_provider = provider().load_app(container)
-    if located_provider.wsgi is False:
+ for provider in container.make('ProvidersConfig').PROVIDERS: 
+    located_provider = provider()
+    located_provder.load_app(container).register()
+    if located_provider.wsgi:
+        container.make('WSGIProviders').append(located_provider)
+     else:
         container.resolve(located_provider.boot)
+        container.make('Providers').append(located_provider)
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 and change the logic in bootstrap/start.py to:
 
+{% code-tabs %}
+{% code-tabs-item title="bootstrap/start.py" %}
 ```python
-for provider in container.make('Providers').PROVIDERS: 
-    located_provider = provider().load_app(container)
-    if located_provider.wsgi is True:
-        container.resolve(located_provider.boot)
+for provider in container.make('WSGIProviders'): 
+    container.resolve(located_provider.boot)
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Notice here we split the providers list when the server first boots up into two lists which significantly lowers the overhead each request. 
 
 {% hint style="info" %}
 This change should significantly boost speed performances as providers no longer have to be located via pydoc. You should see an immediate decrease in the time it takes for the server to be served and a minor decrease in time for views to be rendered to the browser.

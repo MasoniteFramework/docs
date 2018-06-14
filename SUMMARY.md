@@ -110,3 +110,8 @@
 * [Part 7 - Showing Our Posts](creating-your-first-blog/part-7-showing-our-posts.md)
 * [Part 8 - Updating and Deleting Posts](creating-your-first-blog/part-8-updating-and-deleting-posts.md)
 
+## Deployment
+
+* [Introduction](deployment/introduction.md)
+* [Optimization](deployment/untitled.md)
+
