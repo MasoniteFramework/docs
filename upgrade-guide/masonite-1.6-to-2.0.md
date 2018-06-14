@@ -115,7 +115,7 @@ for provider in container.make('WSGIProviders'):
 Notice here we split the providers list when the server first boots up into two lists which significantly lowers the overhead each request. 
 
 {% hint style="info" %}
-This change should significantly boost speed performances as providers no longer have to be located via pydoc. You should see an immediate decrease in the time it takes for the server to be served and a minor decrease in time for views to be rendered to the browser.
+This change should significantly boost speed performances as providers no longer have to be located via pydoc. You should see an immediate decrease in the time it takes for the application to serve a request. Rough time estimates say that this change should increase the request times by about 5x as fast.
 {% endhint %}
 
 ## Duplicate Class Names
