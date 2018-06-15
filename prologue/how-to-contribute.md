@@ -66,3 +66,7 @@ Most pull requests will sit inside GitHub for a few days while it gets quality t
 
 Every now and then will be a `requires discussion` label on an issue or pull request. If you see this label then be sure to add your thoughts on an issue. All issues are open for discussion and Masonite strives off of developer input so feel free to enter a discussion.
 
+## Create Packages
+
+Every framework needs great packages and we as the maintainers of Masonite can only do so much with coming out with great packages and maintaining the framework at the same time. We look forward to our community coming out with awesome additions to the Masonite ecosystem. If you have any issues then be sure to open in the gitter chatroom on the Github homepage.
+
