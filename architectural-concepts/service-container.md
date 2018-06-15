@@ -67,7 +67,11 @@ That's it! This is useful as an IOC container which you can load a single class 
 
 ## Collecting
 
-You may want to collect specific kinds of objects from the container based on the key. For example we may want all objects that start with "Exception" and end with "Hook" or want all keys that end with "ExceptionHook" if we are building an exception handler. We can do this easily:
+You may want to collect specific kinds of objects from the container based on the key. For example we may want all objects that start with "Exception" and end with "Hook" or want all keys that end with "ExceptionHook" if we are building an exception handler. 
+
+### Collect By Key
+
+We can easily collect all objects based on a key:
 
 ```python
 app.collect('*ExceptionHook')
@@ -90,6 +94,17 @@ app.collect('Sentry*Hook')
 ```
 
 This will get keys like "SentryExceptionHook" and "SentryHandlerHook"
+
+### Collecting By Object
+
+You can also collect all subclasses of an object. You may use this if you want to collect all instances of a specific class from the container:
+
+```python
+from cleo import Command
+...
+app.collect(Command)
+# Returns {'FirstCommand': <class ...>, 'AnotherCommand': ...}
+```
 
 ## **Resolve**
 
