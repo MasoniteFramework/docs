@@ -168,7 +168,7 @@ from masonite.autoload import Autoload
 from orator.orm import Model
 
 classes = Autoload().instances(['app/models'], Model)
-# returns {'User': <class app.User.User>, ...}
+# returns {'Model': <config.database.Model>, 'User': <class app.models.User.User>, ...}
 ```
 
 This will fetch all the classes in the `app/models` directory that are instances of the `Model` class. The `classes` attribute contains a dictionary of all the classes it found.
@@ -182,6 +182,42 @@ from masonite.autoload import Autoload
 from orator.orm import Model
 
 classes = Autoload().collect(['app/models'])
-# returns {'User': <class app.User.User>, ...}
+# returns {'Model': <config.database.Model>, 'User': <class app.models.User.User>, ...}
 ```
+
+### Getting Only Application Classes
+
+You may have noticed that this autoload class will actually capture all classes found. These classes include the classes that were imported although the default autoload in the config file only loads application specific classes.
+
+We can only get application specific classes by passing a parameter in:
+
+```python
+from masonite.autoload import Autoload
+from orator.orm import Model
+
+classes = Autoload().collect(['app/models'], only_app=True)
+# returns {'User': <class app.models.User.User>, ...}
+```
+
+This will check the namespace on the class found and make sure it is apart of the path that is being searched.
+
+### Instantiating Classes
+
+The classes that the autoloader finds are just classes themselves which are uninstantiated. This is great for fetching models both won't be good for fetching other objects like commands. Commands need to be instantiated when they go into the container by design so they can be found.
+
+We can tell the autoloader to instantiate the class by passing another parameter. This will simply instantiate the object without passing any parameters in.
+
+{% hint style="info" %}
+If your class needs parameters then you should collect the classes and instantiate each one individually.
+{% endhint %}
+
+```python
+from masonite.autoload import Autoload
+from orator.orm import Model
+
+classes = Autoload().collect(['app/models'], only_app=True, instantiate=True)
+# returns {'User': <app.models.User.User at 0x10e36d780>, ...}
+```
+
+You can see that now all the objects found are instantiated.
 
