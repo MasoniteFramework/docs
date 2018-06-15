@@ -1,5 +1,16 @@
 # Known Installation Issues
 
+## Introduction
+
+There are no known Masonite specific issues known and if there are then there should be an issue open for them on GitHub. With that being said, some users may experience some difficulties with installing Masonite simply because their computer environment is not the norm, they have never setup Python and may have configured it incorrectly or they have not used Python in a while and have an old version.
+
+Before you get started reading through this FAQ make sure you have:
+
+* Python 3.4+
+* Pip3
+
+Ensure you are installing masonite-cli with `pip3` and not `pip`.
+
 ## I ran pip install masonite-cli but it didn't gave me a permission error
 
 You are likely running this command on a UNIX based machine like Mac or Linux. In that case you should either run it again with a sudo command or a user command flag:  
