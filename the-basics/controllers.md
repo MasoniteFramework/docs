@@ -144,7 +144,7 @@ class DashboardController:
 If you need a class in multiple controller methods then it is recommended to put it into the contructor in order to keep the controller DRY.
 
 {% hint style="warning" %}
-**This might look magical to you so be sure the read about the IOC container in the** [**Service Container**](../architectural-concepts/service-container.md) **documentation.**
+**This might look magical to you so be sure to read about the IOC container in the** [**Service Container**](../architectural-concepts/service-container.md) **documentation.**
 {% endhint %}
 
 It’s important to note that unlike other frameworks, we do not have to specify our route parameters as parameters in our controller method. We can retrieve the parameters using the `Request.param('key')` class method.
