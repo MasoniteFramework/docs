@@ -86,7 +86,7 @@ $ pip3 install masonite-cli
 ```
 
 {% hint style="info" %}
-You may have to run sudo to remove it and you may need to close your terminal to get it work
+You may have to run sudo to remove and install it and you may need to close your terminal to get it work if you are using a UNIX machine.
 {% endhint %}
 
 ## I installed masonite-cli successfully but the craft command is not showing up
