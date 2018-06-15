@@ -155,9 +155,11 @@ If this seems like a strange syntax to you, be sure to read the [Resolve](../arc
 
 ## Autoload Class
 
-You may also want to autoload classes yourself. This may be useful if building a package and needing to get all classes from a certain location or even all instances from a certain directory. For example this might in useful in the Masonite scheduling feature to grab all the classes that are subclasses of the `Task` class.
+You may also want to autoload classes yourself. This may be useful if building a package and needing to get all classes from a certain location or even all instances from a certain directory. 
 
 ### Class Instances
+
+This might in useful in the Masonite scheduling feature to grab all the classes that are subclasses of the `Task` class.
 
 Autoloading class instances could look something like:
 
@@ -165,9 +167,21 @@ Autoloading class instances could look something like:
 from masonite.autoload import Autoload
 from orator.orm import Model
 
-autoload = Autoload().instances(['app/models'], Model)
-autoload.classes # returns {'User': <class app.User.User>, ...}
+classes = Autoload().instances(['app/models'], Model)
+# returns {'User': <class app.User.User>, ...}
 ```
 
 This will fetch all the classes in the `app/models` directory that are instances of the `Model` class. The `classes` attribute contains a dictionary of all the classes it found.
+
+### Class Collecting
+
+If you don't want to get classes that are instances of another class then we can simply collect classes:
+
+```python
+from masonite.autoload import Autoload
+from orator.orm import Model
+
+classes = Autoload().collect(['app/models'])
+# returns {'User': <class app.User.User>, ...}
+```
 
