@@ -6,7 +6,31 @@ Database migrations in Masonite is very different than other Python frameworks. 
 
 In this documentation, we'll talk about how to make migrations with Masonite.
 
+## MySQL
+
+If you are using MySQL you can install:
+
+```text
+$ pip install mysqlclient
+```
+
+or:
+
+```text
+$ pip install PyMySQL
+```
+
+## Postgres
+
+Postgres databases only have a single option for a package:
+
+```text
+$ pip install psycopg2
+```
+
 ## Getting Started
+
+Before you start using the ORM you will receive an exception saying that you need to install one of the required packages for your database driver.
 
 Because models and migrations are separated, we never have to touch our model in order to make alterations to our database tables. In order to make a migration we can run a craft command:
 
