@@ -12,12 +12,16 @@ With that being said, not all Service Providers need to be ran on every request 
 
 Now the entry point when the server is first ran \(with something like `craft serve`\) is the `wsgi.py` file in the root of the directory. In this directory, all Service Providers are registered. This means that objects are loaded into the container first that typically need to be used by any or all Service Providers later. All Service Providers are registered regardless on whether they require the server to be running \(more on this later\).
 
-Now it's important to note that the server is not yet running we are still in the `wsgi.py` file but we have only hit this file, created the container, and registered our Service Providers. Right after we register all of our Service Providers, we run the boot methods of all all Service Providers that have the wsgi=False attribute. This signifies to Masonite that these boot methods need to be ran before the WSGI server starts. These boot methods may contain things like Manager classes creating drivers which require all drivers to be registered first but doesn't require the WSGI server to be running.
+Now it's important to note that the server is not yet running we are still in the `wsgi.py` file but we have only hit this file, created the container, and registered our Service Providers.
+
+Right after we register all of our Service Providers, we break apart the provider list into two separate lists. The first list is called the `WSGIProviders` list which are providers where `wsgi=True` \(which they are by default\). We will use this list of a smaller amount of providers in order to speed up the application since now we won't need to run through all providers and see which ones need to run.
+
+While we are in the loop we also create a list of providers where `wsgi=False` and boot those providers. These boot methods may contain things like Manager classes creating drivers which require all drivers to be registered first but doesn't require the WSGI server to be running.
 
 Also, more importantly, the WSGI key is binded into the container at this time. The default behavior is to wrap the WSGI application in a Whitenoise container to assist in the straight forwardness of static files.
 
 {% hint style="info" %}
-This behavior can be changed by swapping that Service Provider with a different one.
+This behavior can be changed by swapping that Service Provider with a different one if you do not want to use Whitenoise.
 {% endhint %}
 
 Once all the register methods are ran and all the boot methods of Service Providers where wsgi is false, and we have a WSGI key in the container, we can startup the server by using the value of the WSGI key.
@@ -67,9 +71,11 @@ This provider loads the ability to use sessions, adds a session helper to all vi
 
 This provider takes the routes that are loaded in and makes the response object, static codes, runs middleware and other route displaying specific logic. This is the largest Service Provider with the most logic. This provider also searchest hrough the routes, finds which one to hit and exectues the controller and controller method.
 
-### Redirection Provider
+### Status Code Provider
 
-This provider checks for any redirections and sets the responses accordingly. For example we may be redirecting to a named route. In that case we need to run back through the routes and get the correct URL.
+This provider is responsible for showing the nice HTTP status codes you see during development and production. This Service Provider also allows custom HTTP error pages by putting them into the `resources/templates/errors` directory. 
+
+Nothing too special about this Service Provide. You can remove this if you want it to show the default WSGI server error.
 
 ### Start Response
 
