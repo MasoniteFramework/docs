@@ -65,7 +65,9 @@ Read more in [The Craft Command](../the-craft-command/introduction.md#running-th
 
 ## Autoloading
 
-An incredible new feature is autoloading support. You can now list directories in the new AUTOLOAD constant in your config/application.py file and it will automatically load all classes into the container. This is great for loading command and models into the container when the server starts up.
+An incredible new feature is autoloading support. You can now list directories in the new `AUTOLOAD` constant in your `config/application.py` file and it will automatically load all classes into the container. This is great for loading command and models into the container when the server starts up.
+
+You can also use this class as a standalone class in your own service providers.
 
 {% hint style="success" %}
 Read more in [Autoloading](../advanced/autoloading.md) documentation.
