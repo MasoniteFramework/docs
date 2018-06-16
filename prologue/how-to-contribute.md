@@ -2,7 +2,7 @@
 
 ## Introduction
 
-There are plenty of ways to contribute to open source. Many of which don't even rely on writing code. A great open source project should have excellent documentation and have as little bugs as possible. Below I will explain how to contribute to this project in different ways.
+There are plenty of ways to contribute to open source. Many of which don't even rely on writing code. A great open source project should have excellent documentation, a thriving community and have as little bugs as possible. Below I will explain how to contribute to this project in different ways both including and exluding code contributions.
 
 This is not an exhaustive list and not the only ways to contribute but they are the most common. If you know of other ways to contribute then please let us know.
 

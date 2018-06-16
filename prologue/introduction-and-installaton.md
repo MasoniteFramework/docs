@@ -1,10 +1,8 @@
 # Introduction and Installaton
 
-{% hint style="danger" %}
-This is an unreleased version. This version is scheduled to be release June 15th.
-{% endhint %}
+The modern and developer centric Python web framework that strives for an actual batteries included developer tool with a lot of out of the box functionality with an extremely extendable architecture. Masonite is perfect for beginner developers getting into their first web applications as well as experienced devs that need to utilize the full expotential of Masonite to get their applications done.
 
-Masonite is the rapid application Python development framework that strives for: beautiful and elegant syntax, actual batteries included with a lot of out of the box functionality, and extremely extendable. Masonite works hard to be fast and easy from install to deployment so developers can go from concept to creation in as quick and efficiently as possible. Try it once and you’ll fall in love.
+Masonite works hard to be fast and easy from install to deployment so developers can go from concept to creation in as quick and efficiently as possible. Use it for your next SaaS! Try it once and you’ll fall in love.
 
 ## Some Notable Features Shipped With Masonite
 
@@ -14,7 +12,7 @@ Masonite is the rapid application Python development framework that strives for:
 * Service Providers to easily add functionality to the framework.
 * Extremely simple static files configured and ready to go.
 * Active Record style ORM called Orator.
-* An extremely useful command line tool called craft commands.
+* Extremely useful command line tools called craft commands.
 * Extremely extendable.
 
 These, among many other features, are all shipped out of the box and ready to go. Use what you need when you need it.
@@ -26,23 +24,27 @@ In order to use Masonite, you’ll need:
 * Python 3.4+
 * Pip3
 
+{% hint style="warning" %}
+All commands of python and pip in this documentation is assuming they are pointing to the corresponding Python 3 versions. If you are having issues with any installation steps just be sure the commands are for Python 3.4+ and not 2.7 or below.
+{% endhint %}
+
 ### Linux
 
-If you are running on a Linux flavor, you’ll need the Python dev package. You can download this package by running:
+If you are running on a Linux flavor, you’ll need the Python dev package and the libssl package. You can download these packages by running:
 
 ```text
-$ sudo apt-get install python-dev
+$ sudo apt-get install python-dev libssl-dev
 ```
 
 Or you may need to specify your `python3.x-dev` version:
 
 ```text
-$ sudo apt-get install python3.6-dev
+$ sudo apt-get install python3.6-dev libssl-dev
 ```
 
 ## Installation
 
-Masonite works at being simple to install and get going. We use a simple command line that will become your best friend. You’ll never want to develop again without it. We call it the `craft` command line tool.
+Masonite excels at being simple to install and get going. We use a simple command line tool that will become your best friend. You’ll never want to develop again without it. We call them `craft` commands.
 
 We can download our `craft` command line tool by just running:
 
@@ -53,6 +55,12 @@ $ pip install masonite-cli
 {% hint style="danger" %}
 You may have to use sudo if you are on a UNIX machine
 {% endhint %}
+
+{% hint style="warning" %}
+Be sure this pip command is pointing at your Python 3.4+ installation. If you are having installation issues, be sure to read the [Known Installation Issues](known-installation-issues.md) documentation.
+{% endhint %}
+
+## Creating Our Project
 
 Great! We are now ready to create our first project. We should have the new `craft` command. We can check this by running:
 
@@ -68,6 +76,8 @@ $ cd project_name
 ```
 
 This will get the latest Masonite project template and unzip it for you. We just need to go into our new project directory and install the dependencies in our `requirements.txt` file.
+
+## Activation Our Virtual Environment
 
 You can optionally create a virtual environment if you don't want to install all of masonite's dependencies on your systems Python. If you use virtual environments then create your virtual environment by running:
 
@@ -89,6 +99,8 @@ The `python`command here is utilizing Python 3. Your machine may run Python 2 \(
 For example, you would run `python3 -m venv venv` instead of `python -m venv venv`
 {% endhint %}
 
+## Installation Our Dependencies
+
 Now lets install our dependencies. We can do this simply by using a `craft` command:
 
 ```text
@@ -99,7 +111,7 @@ This command is just a wrapper around the `pip`command. This installs all the re
 
 ### Python 3.7
 
-Two of the libraries that Masonite uses are currently not up to date with Python 3.7 installation. These libraries have old versions of `.pyc` files inside their distributions and need to be installed outside of the normal install workflow. Installing for Python 3.7 will be:
+Two of the libraries that Masonite uses are currently not up to date with Python 3.7 installation. These libraries have old versions of `.pyc` files inside their distributions and need to be installed outside of the normal install workflow. Installing for Python 3.7 will currently be:
 
 ```text
 $ pip install pycparser

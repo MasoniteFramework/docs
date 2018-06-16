@@ -12,7 +12,7 @@ Masonite 2 adds some improvements with imports. Previously we had to import prov
 from masonite.providers.UploadProvider import UploadProvider
 ```
 
-Because of this, all framework service providers will need to cut out the redundant last part. The above code should be changed to:
+Because of this, all framework [Service Providers](../architectural-concepts/service-providers.md) will need to cut out the redundant last part. The above code should be changed to:
 
 ```python
 from masonite.providers import UploadProvider
@@ -31,6 +31,8 @@ from masonite.providers import (
     RouteProvider
 )
 
+...
+
 PROVIDERS = [
     # Framework Providers
     AppProvider,
@@ -43,14 +45,14 @@ PROVIDERS = [
 {% endcode-tabs %}
 
 {% hint style="info" %}
-String providers will still work by it is not recommended and will not be supported in future releases of Masonite.
+String providers will still work but it is not recommended and will not be supported in current and future releases of Masonite.
 {% endhint %}
 
 ## WSGI changes
 
-There are a few changes in the wsgi.py file and the bootstrap/start.py file.
+There are a few changes in the `wsgi.py` file and the `bootstrap/start.py` file.
 
-In the wsgi.py file we should add a new import at the top:
+In the `wsgi.py` file we should add a new import at the top:
 
 ```python
 ...
@@ -101,7 +103,7 @@ to:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-and change the logic in bootstrap/start.py to:
+and change the logic in `bootstrap/start.py` to:
 
 {% code-tabs %}
 {% code-tabs-item title="bootstrap/start.py" %}
@@ -112,7 +114,7 @@ for provider in container.make('WSGIProviders'):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Notice here we split the providers list when the server first boots up into two lists which significantly lowers the overhead each request. 
+Notice here we split the providers list when the server first boots up into two lists which significantly lowers the overhead of each request. 
 
 {% hint style="info" %}
 This change should significantly boost speed performances as providers no longer have to be located via pydoc. You should see an immediate decrease in the time it takes for the application to serve a request. Rough time estimates say that this change should increase the request times by about 5x as fast.
@@ -120,7 +122,7 @@ This change should significantly boost speed performances as providers no longer
 
 ## Duplicate Class Names
 
-With the addition of the above change, any place you have a duplicated class name like:
+Again, with the addition of the above change, any place you have a duplicated class name like:
 
 ```python
 from masonite.drivers.UploadDriver import UploadDriver
@@ -136,7 +138,21 @@ from masonite.drivers import UploadDriver
 
 Renamed Request.redirectTo to Request.redirect\_to. Be sure to change any of these instances accordingly.
 
-Removed the .send\(\) method completely on the Request class so all instances of:
+All instances of:
+
+```python
+return request().redirectTo('home')
+```
+
+should be changed to:
+
+```python
+return request().redirect_to('home')
+```
+
+## Redirect Send Method
+
+Also removed the `.send()` method completely on the `Request` class so all instances of:
 
 ```python
 def show(self):
@@ -160,9 +176,9 @@ You can check for what the class should look like from the [MasoniteFramework/ma
 
 ## Autoloading
 
-Masonite 2 comes with a new autoloader. This can load all classes in any directory you specify right into the service container when the server first starts. This is incredibly useful for loading your models right into the container.
+Masonite 2 comes with a new autoloader. This can load all classes in any directory you specify right into the [Service Container](../architectural-concepts/service-container.md) when the server first starts. This is incredibly useful for loading your models, commands or tasks right into the container.
 
-Simply add a new AUTOLOAD constant in your config/application.py file. This is the entire section of the autoload constant.
+Simply add a new `AUTOLOAD` constant in your `config/application.py` file. This is the entire section of the autoload configuration.
 
 {% code-tabs %}
 {% code-tabs-item title="config/application.py" %}
@@ -201,13 +217,13 @@ AUTOLOAD = [
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-{% hint style="danger" %}
-Be caution that this will autoload all models into the [Service Container](../architectural-concepts/service-container.md) with the class name as the key and the class as the binding. If you have a class called Request then this will override the Request class which is an unintended side effect.
+{% hint style="warning" %}
+Be caution that this will autoload all models into the [Service Container](../architectural-concepts/service-container.md) with the class name as the key and the class as the binding.
 {% endhint %}
 
 ## RedirectionProvider
 
-Because of a minor rewrite of the Request class, we now do not need the RedirectionProvider. You can remove the RedirectionProvider completely in your PROVIDERS list.
+Because of a minor rewrite of the Request class, we now do not need the RedirectionProvider. You can remove the RedirectionProvider completely in your `PROVIDERS` list.
 
 ## StatusCodeProvider
 

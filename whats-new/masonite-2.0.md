@@ -59,6 +59,10 @@ A huge update to Masonite is the new `--reload` flag on the serve command. Now t
 $ craft serve -r
 ```
 
+{% hint style="success" %}
+Read more in [The Craft Command](../the-craft-command/introduction.md#running-the-wsgi-server) Introduction documentation.
+{% endhint %}
+
 ## Autoloading
 
 An incredible new feature is autoloading support. You can now list directories in the new AUTOLOAD constant in your config/application.py file and it will automatically load all classes into the container. This is great for loading command and models into the container when the server starts up.
@@ -69,7 +73,7 @@ Read more in [Autoloading](../advanced/autoloading.md) documentation.
 
 ## Updated Libraries
 
-Updated all libraries to the latest version with the exception of the Pendulum library which latest version is a breaking change. The breaking change would not be worth it to add the complexity of upgrading so you may upgrade on a per project basis.
+Updated all libraries to the latest version with the exception of the Pendulum library which latest version is a breaking change and therefore was left out. The breaking change would not be worth it to add the complexity of upgrading so you may upgrade on a per project basis.
 
 ## Removed Importing Duplicate Class Names
 
@@ -88,12 +92,12 @@ from masonite.drivers import UploadDriver
 Because of this change we no longer need the same duplicated class names in the PROVIDERS list either.
 
 {% hint style="success" %}
-Read more about changing duplicated class names under the [Duplicate Class Names](../upgrade-guide/masonite-1.6-to-2.0.md#duplicate-class-names) directory.
+Read more about changing duplicated class names under the [Duplicate Class Names](../upgrade-guide/masonite-1.6-to-2.0.md#duplicate-class-names) documentation.
 {% endhint %}
 
 ## Redirection Provider
 
-Removed the need for the redirection provider completely. You need to remove this from your PROVIDERS list.
+Removed the need for the redirection provider completely. You need to remove this from your `PROVIDERS` list.
 
 ## Redirection
 
@@ -112,7 +116,7 @@ Read more in the [Requests](../the-basics/requests.md#redirection) documentation
 
 ## Request Only
 
-Added a new Request.only method to fetch only specific inputs to retrieve.
+Added a new Request.only method to fetch only specific inputs needed.
 
 {% hint style="success" %}
 Read more in [Requests](../the-basics/requests.md#only) documentation.
@@ -218,5 +222,5 @@ Read more in the [Status Codes](../advanced/status-codes-incomplete.md) document
 
 ## Added Explicitly Imported Providers
 
-Providers are not explicitly imported at the top of the file and added to your PROVIDERS list which is now located in `config/providers.py`.
+Providers are now explicitly imported at the top of the file and added to your PROVIDERS list which is now located in `config/providers.py`. This completely removes the need for string providers and boosts the performance of the application sustantially
 

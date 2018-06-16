@@ -28,7 +28,7 @@ This repo is simple and will be able to be installed following the installation 
 * Checkout the current release branch \(example: `develop`\)
 * You should now be on a `develop` local branch.
 * Run `git pull origin develop` to get the current release version.
-* From there simply create your feature branches \(`change-default-orm`\) and Make your desired changes.
+* From there simply create your feature branches \(`change-default-orm`\) and make your desired changes.
 * Push to your origin repository:
   * `git push origin change-default-orm`
 * Open a pull request and follow the PR process below
@@ -47,6 +47,10 @@ To do this just:
 * While inside the virtual environment, cd into the directory you installed core.
 * Run `pip install .` from inside the masonite-core directory. This will install masonite as a pip package.
 * Any changes you make to this package just push it to your feature branch on your fork and follow the PR process below.
+
+{% hint style="warning" %}
+This repository has a barebones skeleton of a sample project in order to aid in testing all the features of Masonite against a real project. If you install this as editable by passing the `--editable` flag then this may break your project because it will override the modules in this package with your application modules.
+{% endhint %}
 
 ### Editing the craft repository \(`craft` commands\)
 
@@ -129,7 +133,7 @@ It's important to note that there should have exactly 75 `-` above and below the
 
 ### Pull Request Process
 
-1. You should open an issue before making any pull requests. Not all features will be added to the framework and some may be better off as a third party package. It wouldn't be good if you worked on a feature for several days and the pull request gets rejected for reasons that could have been discussed in an issue.
+1. You should open an issue before making any pull requests. Not all features will be added to the framework and some may be better off as a third party package. It wouldn't be good if you worked on a feature for several days and the pull request gets rejected for reasons that could have been discussed in an issue for several minutes.
 2. Ensure any changes are well commented and any configuration files that are added have a flagpole comment on the variables it's setting.
 3. Update the README.md and `MasoniteFramework/docs` repo with details of changes to the interface, this includes new environment variables, new file locations, container parameters etc.
 4. You must add unit testing for any changes made. Of the three repositories listed above, only the `craft` and `core` repos require unit testing.
