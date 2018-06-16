@@ -1,4 +1,4 @@
-# Introduction and Installaton
+# Introduction and Installation
 
 The modern and developer centric Python web framework that strives for an actual batteries included developer tool with a lot of out of the box functionality with an extremely extendable architecture. Masonite is perfect for beginner developers getting into their first web applications as well as experienced devs that need to utilize the full expotential of Masonite to get their applications done.
 
