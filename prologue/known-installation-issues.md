@@ -11,7 +11,7 @@ Before you get started reading through this FAQ make sure you have:
 
 Ensure you are installing masonite-cli with `pip3` and not `pip`.
 
-## I ran pip install masonite-cli but it didn't gave me a permission error
+## I ran pip install masonite-cli but it gave me a permission error?
 
 You are likely running this command on a UNIX based machine like Mac or Linux. In that case you should either run it again with a sudo command or a user command flag:  
 
@@ -26,6 +26,40 @@ or
 $ pip install --user masonite-cli
 ```
 
+## I pip installed masonite-cli but running craft doesn't work?
+
+If you ran:
+
+```text
+$ pip install masonite-cli
+```
+
+and then run:
+
+```text
+$ craft
+```
+
+and get something like:
+
+```text
+-bash: craft: command not found
+```
+
+then try closing your terminal and reopening it. If that doesn't work then you may be running a pip version connecting to Python 2.7. Try uninstalling it and reinstalling it using pip3:
+
+```text
+$ pip uninstall masonite-cli
+$ pip3 install masonite-cli
+```
+
+If that does not work then you may have to run sudo:
+
+```text
+$ pip3 uninstall masonite-cli
+$ sudo pip3 install masonite-cli
+```
+
 ## I'm getting this weird ModuleNotFound idna issue when running the craft new command
 
 You may get a strange error like:
@@ -35,6 +69,12 @@ pkg_resources.DistributionNotFound: The 'idna<2.7,>=2.5' distribution was not fo
 ```
 
 The simple fix may just be to run:
+
+```text
+pip install --upgrade requests
+```
+
+If that doesn't work we can just go back to the lower idna version:
 
 ```text
 pip install idna==2.6
