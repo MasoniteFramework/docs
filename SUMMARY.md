@@ -54,8 +54,8 @@
 * [Creating a Mail Driver](advanced/creating-a-mail-driver.md)
 * [Sessions](advanced/sessions.md)
 * [Autoloading](advanced/autoloading.md)
-* [Status Codes](advanced/status-codes-incomplete.md)
-* [Database Seeding](advanced/database-seeding-incomplete.md)
+* [Status Codes](advanced/status-codes.md)
+* [Database Seeding](advanced/database-seeding.md)
 
 ## Useful Features
 
@@ -69,7 +69,7 @@
 * [Compiling Assets](useful-features/compiling-assets.md)
 * [Framework Hooks](useful-features/framework-hooks.md)
 * [Task Scheduling](useful-features/task-scheduling.md)
-* [Environments](useful-features/environments-in-progress.md)
+* [Environments](useful-features/environments.md)
 
 ## Security
 
@@ -112,6 +112,6 @@
 
 ## Deployment
 
-* [Optimization](deployment/untitled.md)
+* [Optimization](deployment/optimization.md)
 * [Drivers](deployment/drivers.md)
 

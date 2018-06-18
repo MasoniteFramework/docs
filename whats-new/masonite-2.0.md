@@ -165,7 +165,7 @@ Read about Masonite Scheduler under the [Task Scheduling](../useful-features/tas
 It's important during development that you have the ability to seed your database with dummy data. This will improve team development with Masonite to get everyones database setup accordingly.
 
 {% hint style="success" %}
-Read more in the [Database Seeding](../advanced/database-seeding-incomplete.md) documentation.
+Read more in the [Database Seeding](../advanced/database-seeding.md) documentation.
 {% endhint %}
 
 ## Added a New Static File Helper
@@ -219,7 +219,7 @@ Read more in the [Uploading](../useful-features/uploading.md#dot-notation) docum
 Masonite 2 removes the bland error codes such as 404 and 500 errors and replaces them with a cleaner view. This also allows you to add custom error pages.
 
 {% hint style="success" %}
-Read more in the [Status Codes](../advanced/status-codes-incomplete.md) documentation.
+Read more in the [Status Codes](../advanced/status-codes.md) documentation.
 {% endhint %}
 
 ## Added Explicitly Imported Providers
