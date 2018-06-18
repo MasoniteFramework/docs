@@ -108,7 +108,7 @@ Notice how we passed a dictionary into our `.check()` method here and didn't pas
 
 ## Validator Options
 
-There are a plethora of options that you can use to validate your forms. In addition to validating your request input, we also get a dictionary of errors. In order to get the errors if a validation fails, we can get use the method:
+There are a plethora of options that you can use to validate your forms. In addition to validating your request input, we also get a dictionary of errors. In order to get the errors if a validation fails, we can use the method:
 
 ```python
 validate.errors() # {'username': 'must be present'}
