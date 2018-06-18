@@ -112,7 +112,6 @@
 
 ## Deployment
 
-* [Introduction](deployment/introduction.md)
 * [Optimization](deployment/untitled.md)
 * [Drivers](deployment/drivers.md)
 
