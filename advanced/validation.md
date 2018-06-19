@@ -218,21 +218,18 @@ self.validate({
 
 ```python
 {"age": ["must match regex pattern \d+"]}
+```
 
 ### In
-****
 
 This validator checks that the dictionary value is a member of a collection passed to it.
 
-
-#### Usage
+**Usage**
 
 ```python
-from validate import In
+from validate import In 
 
-self.validate({
-    'username': [In(['Joseph', 'Michael', 'John'])]
-})
+self.validate({ 'username': [In(['Joseph', 'Michael', 'John'])]})
 ```
 
 Since Orator returns a collection, we can specify an Orator Collection as well:
