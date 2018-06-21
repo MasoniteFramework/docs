@@ -59,13 +59,15 @@ We can download our `craft` command line tool by just running:
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ pip install masonite-cli
+$ sudo pip3 install masonite-cli
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
 {% hint style="danger" %}
-You may have to use sudo if you are on a UNIX machine
+Windows
+
+You do not have to use sudo if you are on a Windows machine
 {% endhint %}
 
 {% hint style="warning" %}

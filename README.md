@@ -1,6 +1,8 @@
 # Introduction
 
-Masonite is the rapid application Python development framework that strives for: beautiful and elegant syntax, actual batteries included with a lot of out of the box functionality, and extremely extendable. Masonite works hard to be fast and easy from install to deployment so developers can go from concept to creation in as quick and efficiently as possible. Try it once and you’ll fall in love.
+The modern and developer centric Python web framework that strives for an actual batteries included developer tool with a lot of out of the box functionality with an extremely extendable architecture. Masonite is perfect for beginner developers getting into their first web applications as well as experienced devs that need to utilize the full expotential of Masonite to get their applications done.
+
+Masonite works hard to be fast and easy from install to deployment so developers can go from concept to creation in as quick and efficiently as possible. Use it for your next SaaS! Try it once and you’ll fall in love.
 
 ## Some Notable Features Shipped With Masonite
 
@@ -57,13 +59,15 @@ We can download our `craft` command line tool by just running:
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ pip install masonite-cli
+$ sudo pip3 install masonite-cli
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
 {% hint style="danger" %}
-You may have to use sudo if you are on a UNIX machine
+Windows
+
+You do not have to use sudo if you are on a Windows machine
 {% endhint %}
 
 {% hint style="warning" %}
