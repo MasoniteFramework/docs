@@ -4,7 +4,7 @@
 
 ## Prologue
 
-* [Introduction and Installation](prologue/introduction-and-installaton.md)
+* [Introduction and Installation](prologue/introduction-and-installation.md)
 * [Contributing Guide](prologue/contributing-guide.md)
 * [How To Contribute](prologue/how-to-contribute.md)
 * [Release Cycle](prologue/release-cycle.md)
