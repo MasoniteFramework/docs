@@ -52,6 +52,10 @@ $ sudo apt-get install python3.6-dev libssl-dev
 
 ## Installation
 
+{% hint style="success" %}
+Be sure to join the [Slack Channel](http://slack.masoniteproject.com) for help or guidance.
+{% endhint %}
+
 Masonite excels at being simple to install and get going. We use a simple command line tool that will become your best friend. You’ll never want to develop again without it. We call them `craft` commands.
 
 We can download our `craft` command line tool by just running:
@@ -59,19 +63,13 @@ We can download our `craft` command line tool by just running:
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ sudo pip3 install masonite-cli
+$ pip install masonite-cli
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-{% hint style="danger" %}
-Windows
-
-You do not have to use sudo if you are on a Windows machine
-{% endhint %}
-
 {% hint style="warning" %}
-Be sure this pip command is pointing at your Python 3.4+ installation. If you are having installation issues, be sure to read the [Known Installation Issues](prologue/known-installation-issues.md) documentation.
+If you are having installation issues, be sure to read the [Known Installation Issues](prologue/known-installation-issues.md) documentation.
 {% endhint %}
 
 ## Creating Our Project
