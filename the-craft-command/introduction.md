@@ -163,7 +163,7 @@ The `craft install` command will also run `craft key --store` as well which gene
 All frameworks have a way to create migrations in order to manipulate database tables. Masonite uses a little bit of a different approach to migrations than other Python frameworks and makes the developer edit the migration file. This is the command to make a migration for an existing table:
 
 ```text
-$ craft migration name_of_migration —-table users
+$ craft migration name_of_migration --table users
 ```
 
 If you are creating a migration for a table that does not exist yet which the migration will create it, you can pass the `--create` flag like so:
