@@ -78,6 +78,31 @@ POST      /create  user
 ========  =======  =======  ========  ============
 ```
 
+### Application Information
+
+If you are trying to debug your application or need help in the Slack channel, it might be beneficial to see some useful information information about your system and environment. In this case we have a simple command:
+
+```text
+$ craft info
+```
+
+This will give some small details about the current system which could be useful to someone trying to help you. Running the commnad will give you something like this:
+
+```text
+Environment Information
+-------------------------  ------------------
+System Information         MacOS x86_64 64bit
+System Memory              8 GB
+Python Version             CPython 3.6.5
+Virtual Environment        ✓
+Masonite Version           2.0.6
+Craft Version              2.0.7
+APP_ENV                    local
+APP_DEBUG                  True
+```
+
+Feel free to contribute any additional information you think is necessary to the command in the core repository.
+
 ### Creating an Authentication System
 
 To create an authentication system with a login, register and a dashboard system, just run:
