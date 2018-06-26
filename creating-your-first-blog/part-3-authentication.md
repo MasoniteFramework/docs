@@ -45,6 +45,8 @@ DB_PASSWORD=root
 
 Go ahead and change those setting to your connection settings. The `DB_DRIVER` constant takes 3 values: `mysql`, `postgres` and `sqlite`.
 
+Since it has a simpler configuration, if you are using `sqlite`, you will need to edit `config/database.py` to remove the `host`, `user`, and `password` keys.
+
 ## Migrating
 
 Once you have set the correct credentials, we can go ahead and migrate the database. Out of the box, Masonite has a migration for a users table which will be the foundation of our user. You can edit this user migration before migrating but the default configuration will suit most needs just fine and you can always add column at a later date.
