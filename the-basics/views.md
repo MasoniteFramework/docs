@@ -182,3 +182,35 @@ This will send a variable named `id` to the view which can then be rendered like
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## Adding Environments
+
+{% hint style="success" %}
+This section requires knowledge of [Service Providers](../architectural-concepts/service-providers.md) and how the [Service Container](../architectural-concepts/service-container.md) works. Be sure to read those documentation articles.
+{% endhint %}
+
+You can also add Jinja2 environments to the container which will be available for use in your views. This is typically done for third party packages such as Masonite Dashboard. You can extend views in a Service Provider in the boot method. Make sure the Service Provider has the `wsgi` attribute set to `False`. This way the specific Service Provider will not keep adding the environment on every request.
+
+```python
+wsgi = False
+
+...
+
+def boot(self, ViewClass):
+    ViewClass.add_environment('dashboard/templates')
+```
+
+By default the environment will be added using the PackageLoader Jinja2 loader but you can explicitly set which loader you want to use:
+
+```python
+from jinja2 import FileSystemLoader
+...
+wsgi = False
+
+...
+
+def boot(self, ViewClass):
+    ViewClass.add_environment('dashboard/templates', loader=FileSystemLoader)
+```
+
+The default loader of PackageLoader will work for most cases but if it doesn't work for your use case, you may need to change the loader.
+
