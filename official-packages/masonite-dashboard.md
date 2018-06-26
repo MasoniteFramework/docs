@@ -1,9 +1,5 @@
 # Masonite Dashboard
 
-{% hint style="danger" %}
-This package is not yet released
-{% endhint %}
-
 ## Introduction
 
 Masonite Dashboard is a barebones dashboard designed for third party packages to add links and views to your dashboard. 
