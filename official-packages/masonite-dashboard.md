@@ -56,7 +56,7 @@ from dashboard.routes import routes as DashboardRoutes
 
 ROUTES = [
     ...
-    DashboardRoutes()
+    DashboardRoutes(),
     ...
 ]
 ```
