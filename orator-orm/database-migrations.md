@@ -6,6 +6,10 @@ Database migrations in Masonite is very different than other Python frameworks. 
 
 In this documentation, we'll talk about how to make migrations with Masonite.
 
+## Configuration
+
+Make sure you put all your database your credentials and driver into the `.env` file. This file is in the `.gitignore` file for you so make sure that this file never gets submitted to source control.
+
 ## MySQL
 
 If you are using MySQL you can install:
@@ -27,6 +31,25 @@ Postgres databases only have a single option for a package:
 ```text
 $ pip install psycopg2
 ```
+
+## SQLite
+
+If you are using SQLite then the configuration will be slightly different. Currently, the configuration is setup to work with MySQL or Postgres but SQLite will need to be adjust slightly to work. 
+
+In your config/database.py file we'll just need to remove host, username and password from the configuration settings completely:
+
+{% code-tabs %}
+{% code-tabs-item title="config/database.py" %}
+```python
+DATABASES = {
+    'default': {
+        'driver': os.environ.get('DB_DRIVER'),
+        'database': os.environ.get('DB_DATABASE'),
+    }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## Getting Started
 
