@@ -70,6 +70,7 @@
 * [Framework Hooks](useful-features/framework-hooks.md)
 * [Task Scheduling](useful-features/task-scheduling.md)
 * [Environments](useful-features/environments.md)
+* [Events](useful-features/events.md)
 
 ## Security
 
