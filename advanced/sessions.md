@@ -121,7 +121,7 @@ You could use this to create a simple Jinja include template that can show succe
         {{ session().get('warning') }}
     </div>
 
-{% if session().has('danger') %}
+{% elif session().has('danger') %}
 
     <div class="alert alert-danger">
         {{ session().get('danger') }}
