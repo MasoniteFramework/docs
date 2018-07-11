@@ -104,35 +104,152 @@ Most developers choose to use these instead of the classes.
 
 ### Route Groups
 
-Sometimes routes can be very similiar such as having many dashboard or profile routes:
+Some routes may be very similar. We may have a group of routes under the same domain, uses the same middleware or even start with the same prefixes. In these instances we should group our routes together so they are more DRY and maintainable.
+
+We can add route groups like so:
 
 ```python
+from masonite.routes import RouteGroup
+from masonite.helpers.routes import get
+
 ROUTES = [
-    Get().route('/home', ...),
-    Get().route('/dashboard', ...),
-    Get().route('/dashboard/user', ...),
-    Get().route('/dashboard/user/@id', ...),
-    Get().route('/dashboard/friends', ...),
-    ...
+
+    RouteGroup([
+        get('/url1', ...),
+        get('/url2', ...),
+        get('/url3', ...),
+    ]),
+
 ]
 ```
 
-These routes can be grouped using the `group` helper:
+This alone is great to group routes together that are similar but in addition to this we can add specific attributes to the entire group like adding middleware:
 
 ```python
-from masonite.helpers.routes import group
-
 ROUTES = [
-    Get().route('/home', 'DashboardController@show'),
-    group('/dashboard', [
-        Get().route('/user', ...)
-        Get().route('/user/@id', ...)
-        Get().route('/user/friends', ...)
-    ])
+
+    RouteGroup([
+        get('/url1', ...),
+        get('/url2', ...),
+        get('/url3', ...),
+    ], middleware=('auth', 'jwt')),
+
 ]
 ```
 
-Notice that this is the same as above and can help organize and group routes. This feature will also be expanded on in future releases of Masonite.
+In this instance we are adding these 2 middleware to all of the routes inside the group. We have access to a couple of different methods. Feel free to use some or all of these options:
+
+```python
+ROUTES = [
+
+    RouteGroup([
+        get('/url1', ...).name('create'),
+        get('/url2', ...).name('update'),
+        get('/url3', ...).name('delete'),
+    ], 
+    middleware=('auth', 'jwt'),
+    domain='subdomain',
+    prefix='/dashboard',
+    name='post.'
+    ),
+
+]
+```
+
+The `prefix` parameter will prefix that URL to all routes in the group as well as the `name` parameter. The code above will create routes like `/dashboard/url1` with the name of `post.create`. As well as adding the domain and middleware to the routes.
+
+### Multiple Route Groups
+
+Even more awesome is the ability to nest route groups:
+
+```python
+ROUTES = [
+
+    RouteGroup([
+        get('/url1', ...).name('create'),
+        get('/url2', ...).name('update'),
+        get('/url3', ...).name('delete'),
+        RouteGroup([
+            get('/url4', ...).name('read'),
+            get('/url5', ...).name('put'),
+        ], prefix='/users', name='user.'),
+    ], prefix='/dashboard', name='post.', middleware=('auth', 'jwt')),
+
+]
+```
+
+This will go to each layer and generate a route list essentially from the inside out. For a real world example we refactor routes from this:
+
+```python
+ROUTES = [
+    Get().domain('www').route('/', 'WelcomeController@show').name('welcome'),
+    Post().domain('www').route('/invite', 'InvitationController@send').name('invite'),
+    Get().domain('www').route('/dashboard/apps', 'AppController@show').name('app.show').middleware('auth'),
+    Get().domain('www').route('/dashboard/apps/create', 'AppController@create').name('app.create').middleware('auth'),
+    Post().domain('www').route('/dashboard/apps/create', 'AppController@store').name('app.store'),
+    Post().domain('www').route('/dashboard/apps/delete', 'AppController@delete').name('app.delete'),
+    Get().domain('www').route('/dashboard/plans', 'PlanController@show').name('plans').middleware('auth'),
+    Post().domain('www').route('/dashboard/plans/subscribe', 'PlanController@subscribe').name('subscribe'),
+    Post().domain('www').route('/dashboard/plans/cancel', 'PlanController@cancel').name('cancel'),
+    Post().domain('www').route('/dashboard/plans/resume', 'PlanController@resume').name('resume'),
+
+    Post().domain('*').route('/invite', 'InvitationController@subdomain').name('invite.subdomain'),
+    Get().domain('*').route('/', 'WelcomeController@subdomain').name('welcome'),
+]
+
+ROUTES = ROUTES + [
+    Get().domain('www').route('/login', 'LoginController@show').name('login'),
+    Get().domain('www').route('/logout', 'LoginController@logout'),
+    Post().domain('www').route('/login', 'LoginController@store'),
+    Get().domain('www').route('/register', 'RegisterController@show'),
+    Post().domain('www').route('/register', 'RegisterController@store'),
+    Get().domain('www').route('/home', 'HomeController@show').name('home'),
+]
+```
+
+into this:
+
+```python
+ROUTES = [
+
+    RouteGroup([
+        # Dashboard Routes
+        RouteGroup([
+            # App Routes
+            RouteGroup([
+                Get().route('', 'AppController@show').name('show'),
+                Get().route('/create', 'AppController@create').name('create'),
+                Post().route('/create', 'AppController@store').name('store'),
+                Post().route('/delete', 'AppController@delete').name('delete'),
+            ], prefix='/apps', name='app.'),
+            
+            Get().route('/plans', 'PlanController@show').name('plans'),
+            Post().route('/plans/subscribe', 'PlanController@subscribe').name('subscribe'),
+            Post().route('/plans/cancel', 'PlanController@cancel').name('cancel'),
+            Post().route('/plans/resume', 'PlanController@resume').name('resume'),
+        ], prefix="/dashboard", middleware=('auth',)),
+
+        # Login and Register Routes
+        Get().route('/login', 'LoginController@show').name('login'),
+        Get().route('/logout', 'LoginController@logout'),
+        Post().route('/login', 'LoginController@store'),
+        Get().route('/register', 'RegisterController@show'),
+        Post().route('/register', 'RegisterController@store'),
+        Get().route('/home', 'HomeController@show').name('home'),
+
+        # Base Routes
+        Get().route('/', 'WelcomeController@show').name('welcome'),
+        Post().route('/invite', 'InvitationController@send').name('invite'),
+    ], domain='www'),
+
+
+    # Subdomain invitation routes
+    Post().domain('*').route('/invite', 'InvitationController@subdomain').name('invite.subdomain'),
+    Get().domain('*').route('/', 'WelcomeController@subdomain').name('welcome'),
+]
+```
+
+This will likely be the most common way to build routes for your application.
 
 ### Named Routes
 

@@ -347,7 +347,74 @@ def show(self, Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Encryption Key
+## Redirecting Back
+
+There will be plenty of times you will need to redirect back to where the user came just came from. In order for this work we will need to specify where we need to go back to. We can use the back method for this.
+
+There are 3 states which we should be aware of when using this method.
+
+### Form Back Redirection
+
+Masonite will check for a `__back` input and redirect to that route. We can specify one using the `back()` view helper function:
+
+```markup
+<form action="{{ route('dashboard.create')" method="POST">
+    {{ csrf_field|safe }}
+    {{ back(request().path)|safe }}
+</form>
+```
+
+This will route back to the form when you run this back method
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self, Request):
+    return Request.back() # uses value from the back() method helper
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### No Input
+
+The next state is using the back method without any parameters or form helpers:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self, Request):
+    return Request.back() # defaults to current route
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+This will redirect back to the current route. This might be useful we have have routes like:
+
+```python
+ROUTES = [
+    get('/dashboard/create', 'Controller@show'),
+    post('/dashboard/create', 'Controller@store')
+]
+```
+
+Where we are going to the `POST` version but want to redirect back to the `GET` version of the route.
+
+### Default Back URL
+
+We can also specify a default route just in case a form submitted does not specify one using a form helper:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self, Request):
+    return Request.back(default='/hit/route')
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+This will check for the `__back` input and if it doesn't exist it will use this default route.
+
+##  Encryption Key
 
 You can load a specific secret key into the request by using:
 

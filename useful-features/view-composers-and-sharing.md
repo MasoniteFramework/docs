@@ -132,3 +132,61 @@ def boot(self, ViewClass, Request):
 
 Note that this has exactly the same behavior as `ViewClass.share()`
 
+## View Filters
+
+Jinja2 allows adding filters to your views. Before we explain how to add filters to all of your templates, let's explain exactly what a view filter is.
+
+### What is a Filter?
+
+Filters can be attached to view variables in order to change and modify them. For example you may have a variable that you want to turn into a slug and have something like:
+
+```python
+{{ variable|slug }}
+```
+
+In Python, this slug filter is simply a function that takes the variable as an argument and would look like a simple function like this:
+
+```python
+def slug(variable):
+    return variable.replace(' ', '-')
+```
+
+That's it! It's important to note that the variable it is filtering is always passed as the first argument and all other parameters are passed in after so we could do something like:
+
+```python
+{{ variable|slug('-') }}
+```
+
+and then our function would look like:
+
+```python
+def slug(variable, replace_with):
+    return variable.replace(' ', replace_with)
+```
+
+### Adding Filters
+
+We can add filters simply using the `filter` method on the `ViewClass` class. This will look something like:
+
+```python
+class UserModelProvider(ServiceProvider):
+    ''' Binds the User model into the Service Container '''
+
+    wsgi = False
+    
+    ...
+
+    def boot(self, Request, ViewClass):
+        ViewClass.filter('slug', self.slug)
+
+    @staticmethod
+    def slug(item):
+        return item.replace(' ', '-')
+```
+
+{% hint style="info" %}
+Make sure that you add filters in a [Service Provider](../architectural-concepts/service-providers.md) that has `wsgi=False` set. This prevents filters from being added on every single request which is not needed. 
+{% endhint %}
+
+That's it! Adding filters is that easy!
+
