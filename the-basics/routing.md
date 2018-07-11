@@ -158,6 +158,16 @@ ROUTES = [
 
 The `prefix` parameter will prefix that URL to all routes in the group as well as the `name` parameter. The code above will create routes like `/dashboard/url1` with the name of `post.create`. As well as adding the domain and middleware to the routes.
 
+All of the options in a route group are named parameters so if you think adding a groups attribute at the end is weird you can specify them in the beginning and add the `routes` parameter:
+
+```python
+RouteGroup(middleware=('auth', 'jwt'), name='post.', routes = [
+    get('/url1', ...).name('create'),
+    get('/url2', ...).name('update'),
+    get('/url3', ...).name('delete'),
+]),
+```
+
 ### Multiple Route Groups
 
 Even more awesome is the ability to nest route groups:
