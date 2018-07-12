@@ -40,11 +40,11 @@ from validate import Required, Pattern, Truthy
 class RegistrationValidator(Validator):
 
     def register_form(self):
-        self.validate(
+        self.validate({
             'username': [Required, Pattern('[a-zA-Z0-9]')]
             'is_staff': [Required, Truth()],
             'password': [Required]
-        )
+        })
 ```
 
 ## Custom Error Messages
