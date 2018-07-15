@@ -28,6 +28,10 @@ In order to use Masonite, you’ll need:
 All commands of python and pip in this documentation is assuming they are pointing to the corresponding Python 3 versions. If you are having issues with any installation steps just be sure the commands are for Python 3.4+ and not 2.7 or below.
 {% endhint %}
 
+{% hint style="danger" %}
+NOTE: Masonite does not support the Anaconda virtual environment system. In order for the craft command to work, something you will be using often, Masonite needs to be able to locate the Masonite package even in a virtual environment. If you follow the installation steps here and use Python 3's builtin virtualenv package \(`python3 -m venv venv`\) then this will work best. If you would like to add Anaconda support to Masonite then feel free to open an issue in GitHub :\)
+{% endhint %}
+
 ### Linux
 
 If you are running on a Linux flavor, you’ll need the Python dev package and the libssl package. You can download these packages by running:
