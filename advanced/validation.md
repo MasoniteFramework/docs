@@ -35,7 +35,7 @@ An example of a simple validation will look something like:
 
 ```python
 from masonite.validator import Validator
-from validate import Required, Pattern, Truthy
+from validator import Required, Pattern, Truthy
 
 class RegistrationValidator(Validator):
 
@@ -55,7 +55,7 @@ Although this is very convenient, you may wish to specify your own error message
 
 ```python
 from masonite.validator import Validator
-from validate import Required, Pattern, Truthy
+from validator import Required, Pattern, Truthy
 
 class RegistrationValidator(Validator):
 
@@ -125,7 +125,7 @@ Unlike other validator classes, this class does not need to be instantiated \(co
 #### **Usage**
 
 ```python
-from validate import Required
+from validator import Required
 
 self.validate({
     'username': [Required]
@@ -145,7 +145,7 @@ The `Truthy()` validator class will check whatever is truthy to Python. This inc
 #### **Usage**
 
 ```python
-from validate import Truthy
+from validator import Truthy
 
 self.validate({
     'username': [Truthy()]
@@ -165,7 +165,7 @@ This validator will check that a value is equal to the value given.
 #### **Usage**
 
 ```python
-from validate import Equals
+from validator import Equals
 
 self.validate({
     'username': [Equals('Joseph')]
@@ -187,7 +187,7 @@ self.validate({
 This validator checks that the dictionary value falls inclusively between the start and end values passed to it.
 
 ```python
-from validate import Range
+from validator import Range
 
 self.validate({
     'age': [Range(1, 100)]
@@ -207,7 +207,7 @@ The Pattern validator checks that the dictionary value matches the regex pattern
 #### **Usage**
 
 ```python
-from validate import Pattern
+from validator import Pattern
 
 self.validate({
     'age': [Pattern('\d+')]
@@ -227,7 +227,7 @@ This validator checks that the dictionary value is a member of a collection pass
 **Usage**
 
 ```python
-from validate import In 
+from validator import In 
 
 self.validate({ 'username': [In(['Joseph', 'Michael', 'John'])]})
 ```
@@ -235,7 +235,7 @@ self.validate({ 'username': [In(['Joseph', 'Michael', 'John'])]})
 Since Orator returns a collection, we can specify an Orator Collection as well:
 
 ```python
-from validate import In
+from validator import In
 from config import database
 users = db.table('users').select('name').get()
 
@@ -257,7 +257,7 @@ This validator negates a validator that is passed to it and checks the dictionar
 #### **Usage**
 
 ```python
-from validate import Not
+from validator import Not
 from config import database
 users = db.table('users').select('name').get()
 
@@ -279,7 +279,7 @@ This validator checks that the dictionary value is an instance of the base class
 #### **Usage**
 
 ```python
-from validate import InstanceOf
+from validator import InstanceOf
 
 self.validate({
     'age': [InstanceOf(basestring)]
@@ -299,7 +299,7 @@ This validator checks that the dictionary value inherits from the base class pas
 #### **Usage**
 
 ```python
-from validate import SubclassOf
+from validator import SubclassOf
 
 self.validate({
     'age': [SubclassOf(str)]
@@ -319,7 +319,7 @@ This validator checks that value the must have at least minimum elements and opt
 #### **Usage**
 
 ```python
-from validate import Length
+from validator import Length
 
 self.validate({
     'age': [Length(0, maximum=5)]
