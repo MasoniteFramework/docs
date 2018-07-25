@@ -157,6 +157,36 @@ def show(self, Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+
+
+## JSON Payloads
+
+Sometimes you may want to handle incoming JSON requests. This could be form external API's like Github.
+
+Masonite will detect that an incoming request is a JSON request and put the cast the JSON to a dictionary and load it into the payload request input. For example if you have an incoming request of:
+
+{% code-tabs %}
+{% code-tabs-item title="incoming request" %}
+```javascript
+{
+    "name": "Joe",
+    "email": "Joe@email.com"
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Then we can fetch this input in a controller like so:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self, Request):
+    Request.input('payload')['name'] # Joe
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ## Cookies
 
 You may also set a cookie in the browser. The below code will set a cookie named `key` to the value of `value`. 
