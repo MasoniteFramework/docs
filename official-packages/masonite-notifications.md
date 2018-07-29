@@ -183,6 +183,8 @@ class WelcomeNotification(Notifiable):
 
 ```
 
+### Options
+
 | Method | Description | Example |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | .token\(\) | This is your Slack token that has the correct permission scopes.  | .token\('xoxp-359926262626-35...'\) |
