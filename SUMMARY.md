@@ -99,6 +99,7 @@
 * [Masonite Entry](https://masoniteframework.gitbooks.io/masonite-entry/content/)
 * [Masonite Billing](http://billing.masoniteproject.com)
 * [Masonite Dashboard](official-packages/masonite-dashboard.md)
+* [Masonite Notifications](official-packages/masonite-notifications.md)
 
 ## Creating Your First Blog
 
