@@ -94,10 +94,23 @@ def __init__(self, request: Request):
 The subscribe attribute can be used as a shorthand later which we will see but it should be a list of events we want to subscribe to:
 
 ```python
+""" A SubscribeUser Event """
+from events import Event
 from package.action import SomeAction
-...
-subscribe = ['user.subscribed', SomeAction]
-...
+
+​
+class SubscribeUser(Event):
+    """ SubscribeUser Event Class """
+​
+    subscribe = ['user.subscribed', SomeAction]
+​
+    def __init__(self):
+        """ Event Class Constructor """
+        pass
+​
+    def handle(self):
+        """ Event Handle Method """
+        pass
 ```
 
 ## Subscribing to events
