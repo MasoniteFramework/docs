@@ -342,11 +342,7 @@ class WelcomeNotification(Notifiable):
 
     def mail(self):
         return self.line('{0} We greatly value your service!'.format(self._to)) \
-            .line('Attached is an invoice for your recent purchase') \
-            .action('Sign Back In', href="http://gbaleague.com") \
-            .line('See you soon! Game on!') \
-            .view('/notifications/snippets/mail/heading',
-                  {'message': 'Welcome To The GBA!'})
+            .action('Sign Back In', href="http://gbaleague.com")
 ```
 
 Notice here we now have a `_to` member on our class we can use because we passed it through from our `Notify` class.
