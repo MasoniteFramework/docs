@@ -175,7 +175,7 @@ This task will fire that API call every 3 days at 5pm.
 All possible options are `False` by default. The options here are:
 
 | **Attribute** | **Options** | **Example** |
-| --- | --- | --- | --- | --- | --- |
+| :--- | :--- | :--- |
 | run\_every | Either a singular or plural version of the accepted time units: `minutes`, `hours`, `days`, `months` | run\_every = '1 day' |
 | run\_at | The time in military time \("17:00" for 5pm\) | run\_at = '17:00' |
 | run\_every\_hour | Boolean on whether to run every hour or not: `True`, `False` | run\_every\_hour = True |

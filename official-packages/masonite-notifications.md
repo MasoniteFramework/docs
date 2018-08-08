@@ -91,7 +91,7 @@ Not bad. We can use this logic to easily build up emails into a nice format simp
  Let's walk through the different options to build an email notification and what they do.
 
 | Method | Description | Example |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| :--- | :--- | :--- |
 | .line\(\) | Creates a single line of text like text you would see in a paragraph tag | line\('this is a line of text'\) |
 | .action\(\) | This creates a clickable looking button. The kwargs include `href` and `style`. The styles are bootstraps button styles to include `default`, `success`, `danger`, `info` etc. | action\('Click Me', href="http://google.com", style="danger"\) |
 | .view\(\) | This is the normal view object here so you can pass in any templates and dictionary you need. | .view\('mail/header', {'key': 'value'}\) |
@@ -186,7 +186,7 @@ class WelcomeNotification(Notifiable):
 ### Options
 
 | Method | Description | Example |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| :--- | :--- | :--- |
 | .token\(\) | This is your Slack token that has the correct permission scopes.  | .token\('xoxp-359926262626-35...'\) |
 | .text\(\) | The text you want to show in the message | .text\('Welcome to Masonite!'\) |
 | .channel\(\) | The channel you want to broadcast to. If the value you supply starts with a \# sign then Notifications will make a POST request with your token to the Slack channel list API and get the channel ID. You can specify the channel ID directly if you don't want this behavior | .channel\('\#general'\) .channel\('CHSUU862'\) |
@@ -312,7 +312,7 @@ class MailComponent:
         pass
 ```
 
-### Protected Members
+### Passing Data With Protected Members
 
 Sometimes you will want to pass in data into the `fire_mail` method. In order to keep this simple and modular, any keyword arguments you pass into the Notify class will be set on the notification class as a protected member. For example if we have this:
 
@@ -330,6 +330,26 @@ def fire_mail(self):
 ```
 
 We can use this behavior to pass in information into the `fire_mail` method while keeping everything clean.
+
+A practical example is sending the message to a certain user:
+
+```text
+Notify.mail(WelcomeNotification, to='admin@site.com')
+```
+
+```python
+class WelcomeNotification(Notifiable):
+
+    def mail(self):
+        return self.line('{0} We greatly value your service!'.format(self._to)) \
+            .line('Attached is an invoice for your recent purchase') \
+            .action('Sign Back In', href="http://gbaleague.com") \
+            .line('See you soon! Game on!') \
+            .view('/notifications/snippets/mail/heading',
+                  {'message': 'Welcome To The GBA!'})
+```
+
+Notice here we now have a `_to` member on our class we can use because we passed it through from our `Notify` class.
 
 ### Sending The Mail
 
