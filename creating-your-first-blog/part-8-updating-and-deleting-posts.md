@@ -40,14 +40,14 @@ $ craft view update
 {% code-tabs %}
 {% code-tabs-item title="resources/templates/update.html" %}
 ```markup
-<form action="/post/{{ post.id }}/update" action="POST">
+<form action="/post/{{ post.id }}/update" method="POST">
     {{ csrf_field|safe }}
 
     <label for="">Title</label>
-    <input type="text" name="title"><br>
+    <input type="text" name="title" value="{{ post.title }}"><br>
 
     <label>Body</label>
-    <textarea name="body"></textarea><br>
+    <textarea name="body">{{ post.body }}</textarea><br>
 
     <input type="submit" value="Update">
 </form>
@@ -110,10 +110,10 @@ We can throw a delete link right inside our update template:
     {{ csrf_field|safe }}
 
     <label for="">Title</label>
-    <input type="text" name="title"><br>
+    <input type="text" name="title" value="{{ post.title }}"><br>
 
     <label>Body</label>
-    <textarea name="body"></textarea><br>
+    <textarea name="body">{{ post.body }}</textarea><br>
 
     <input type="submit" value="Update">
 
