@@ -106,6 +106,84 @@ def show(self):
 
 Notice how we passed a dictionary into our `.check()` method here and didn't pass the request object in the constructor.
 
+## Casting Values
+
+Sometimes you might want to cast a certain value for the purposes of validation. For example you may want to accept a string like `California,Florida,Ohio` but wan't to treat it as a list for the purposes of validation. We might want to make it a list to see if there are between 1 and 3 of them.
+
+To do this simply requires validation casting. When validating, Masonite Validations will look for a cast\_x method. x is the name of the input you are validating. So for example we may have an input like this:
+
+```python
+Request.input('countries') # 'California,Florida,Ohio'
+```
+
+```python
+from masonite.validator import Validator
+from validator import Required, Length, Truthy
+
+class CountryValidation(Validator):
+
+    def validate_countries(self):
+        return self.validate({
+            'countries': [Required, Length(1, 3)]
+        })
+    
+    def cast_countries(self, countries):
+        return countries.split(',')
+```
+
+When validating, the validator will call this cast\_countries method and use the return value as the value to validate. This validation will work because it will split the countries into a list and turn: 
+
+```python
+'California,Florida,Ohio'
+```
+
+into this:
+
+```python
+['California', 'Florida', 'Ohio']
+```
+
+### Getting Casted Values
+
+You can also use this validator class to get the value that the validator is using. In other words, if there is a cast method, it will get the casted value. If there is no cast method then it will get the raw value supplied to it.
+
+```python
+from app.validators import CountryValidation
+
+def show(self, Request):
+    Request.input('countries') # 'California,Florida,Ohio'
+    validation = CountryValidation(Request).validate_countries()
+    
+    Request.input('countries') # 'California,Florida,Ohio'
+    validation.get('countries') # ['California', 'Florida', 'Ohio']
+```
+
+## Validation Helper
+
+If a full validation class is a bit too much for you then you can use a smaller helper function. You may choose this option if you are building a simple RESTful API endpoint and just want some quick validation.
+
+This helper function signature looks like:
+
+```python
+from masonite.helpers import validate
+
+validation = validate({rules}, {input}, {messages})
+```
+
+Messages are optional. If left out it will use the default error messages.
+
+A full implementation looks like:
+
+```python
+from masonite.helpers import validate
+
+validation = validate(
+              {'id': [Required]}, # rules
+              {'name': '1,2'}, # input
+              {'id': 'ID is required!'} # custom error messages
+            )
+```
+
 ## Validator Options
 
 There are a plethora of options that you can use to validate your forms. In addition to validating your request input, we also get a dictionary of errors. In order to get the errors if a validation fails, we can use the method:
