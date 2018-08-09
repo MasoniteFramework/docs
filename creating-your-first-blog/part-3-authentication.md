@@ -45,7 +45,9 @@ DB_PASSWORD=root
 
 Go ahead and change those setting to your connection settings. The `DB_DRIVER` constant takes 3 values: `mysql`, `postgres` and `sqlite`.
 
+{% hint style="warning" %}
 Since it has a simpler configuration, if you are using `sqlite`, you will need to edit `config/database.py` to remove the `host`, `user`, and `password` keys.
+{% endhint %}
 
 ## Migrating
 
