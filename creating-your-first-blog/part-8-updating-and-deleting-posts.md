@@ -106,7 +106,7 @@ We can throw a delete link right inside our update template:
 {% code-tabs %}
 {% code-tabs-item title="resources/templates/update.html" %}
 ```markup
-<form action="/post/{{ post.id }}/update" action="POST">
+<form action="/post/{{ post.id }}/update" method="POST">
     {{ csrf_field|safe }}
 
     <label for="">Title</label>
