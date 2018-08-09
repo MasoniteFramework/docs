@@ -10,6 +10,12 @@ Drivers are designed to easily switch the functionality of a specific feature su
 
 Contracts ensure that all drivers of a similar type such as upload, queue and mail drivers all contain the same methods. While drivers that inherit from a contract can have more methods than required, they should not.
 
+{% hint style="warning" %}
+If your driver needs additional methods that can be used that are now inside a contract then your documentation should have that caveat listed in a somewhat obvious manner. This means that by the developer using that new method, they will not be able to switch to other drivers freely without hitting exceptions or having to manually use the methods used by the driver.
+
+Therefore it is advisable to not code additional methods on your drivers and just keep to the methods provided by the base class and contract.
+{% endhint %}
+
 ## Getting Started
 
 Contracts are currently used to create drivers and are located in the `masonite.contracts` namespace. Creating a driver and using a contract looks like:
