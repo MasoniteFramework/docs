@@ -45,7 +45,7 @@ This Service Provider will add a new `event:listener` command we can use to crea
 
 ## Creating an Event Listener
 
-Masonite Events allows you subscribe to arbitrary event actions with various event listeners. In this article we will walk through the steps on setting up listeners for a new user subscribing to our application.
+Masonite Events allows you to subscribe to arbitrary event actions with various event listeners. In this article we will walk through the steps on setting up listeners for a new user subscribing to our application.
 
 We can create our event listener by executing the following command:
 
