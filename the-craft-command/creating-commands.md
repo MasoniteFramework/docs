@@ -105,9 +105,10 @@ class HelloMorningCommand(Command):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-> Be sure that the docstring is well formatted. 
-> Unknown behaviours could happend if there are
-> any weird characters inside.
+> Docstring is required and must be well formatted.
+> Your command would not be detected or unknown
+> behaviours could happend if there are any format error
+> or there are invalid characters inside.
 
 Inside the `handle` method we can get the argument passed by specifying `self.argument('name')`. Simply put:
 
