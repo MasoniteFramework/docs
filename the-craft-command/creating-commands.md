@@ -70,6 +70,45 @@ class HelloCommand(Command):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+We could also group different commands inside a namespace using
+the format `namespace:command` like so:
+
+{% code-tabs %}
+{% code-tabs-item title="app/commands/HelloCommand.py" %}
+```python
+""" A HelloCommand Command """
+from cleo import Command
+
+
+class HelloCommand(Command):
+    """
+    Say hello to you
+
+    hello
+        {name : Your name}
+    """
+
+    def handle(self):
+        pass
+
+class HelloMorningCommand(Command):
+    """
+    Say good morning to you
+
+    hello:morning
+        {name : Your name}
+    """
+
+    def handle(self):
+        pass
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+> Be sure that the docstring is well formatted. 
+> Unknown behaviours could happend if there are
+> any weird characters inside.
+
 Inside the `handle` method we can get the argument passed by specifying `self.argument('name')`. Simply put:
 
 {% code-tabs %}
