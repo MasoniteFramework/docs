@@ -180,3 +180,81 @@ Remember not to call it and only reference the function. The Service Container n
 
 This will fetch all of the parameters of `randomFunction` and retrieve them from the service container. There probably won't be many times you'll have to resolve your own code but the option is there.
 
+## Container Hooks
+
+Sometimes we might want to run some code when things happen inside our container. For example we might want to run some arbitrary function about we resolve the Request object from the container or we might want to bind some values to a View class anytime we bind a Response to the container. This is excellent for testing purposes if we want to bind a user object to the request whenever it is resolved.
+
+We have three options: `on_bind`, `on_make`, `on_resolve`. All we need for the first option is the key or object we want to bind the hook to, and the second option will be a function that takes two arguments. The first argument is the object in question and the second argument is the whole container.
+
+The code might look something like this:
+
+```python
+from masonite.request import Request
+
+def attribute_on_make(request_obj, container):
+    request_obj.attribute = 'some value'
+
+...
+
+container = App()
+
+# sets the hook
+container.on_make('Request', attribute_on_make)
+container.bind('Request', Request)
+
+# runs the attribute_on_make function
+request = container.make('Request')
+request.attribute # 'some value'
+```
+
+Notice that we create a function that accepts two values, the object we are dealing with and the container. Then whenever we run `on_make`, the function is ran.
+
+We can also bind to specific objects instead of keys:
+
+```python
+from masonite.request import Request
+
+...
+
+# sets the hook
+container.on_make(Request, attribute_on_make)
+container.bind('Request', Request)
+
+# runs the attribute_on_make function
+request = container.make('Request')
+request.attribute # 'some value'
+```
+
+This then calls the same attribute but anytime the `Request` object itself is made from the container. Notice everything is the same except line 6 where we are using an object instead of a string.
+
+We can do the same thing with the other options:
+
+```python
+container.on_bind(Request, attribute_on_make)
+container.on_make(Request, attribute_on_make)
+container.on_resolve(Request, attribute_on_make)
+```
+
+## Strict and Overriding
+
+By default, Masonite will not care if you override objects from the container. In other words you can do this:
+
+```text
+app.bind('number', 1)
+app.bind('number', 2)
+```
+
+Without issue. Notice we are binding twice to the same key. You can change this behavior by specifying 2 values in the constructor of the `App` class:
+
+```python
+container = App(strict=True, override=False)
+```
+
+### Override
+
+If override is `False`, it will not override values in the container. It will simply ignore them if you are trying to bind twice to the same key. If override is `True`, which it is by default, you will be allowed to override keys in the container with new values by binding them.
+
+### Strict
+
+Strict will throw an exception if you try binding a key to the container. So with override being `False` it simply ignored binding a key to the container that already exists, setting strict to `True` will actually throw an exception.
+

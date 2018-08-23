@@ -71,7 +71,6 @@ class SubscribeUser(Event):
     def handle(self):
         """ Event Handle Method """
         pass
-
 ```
 
 ### About the Listener class
@@ -138,7 +137,6 @@ class ListenerProvider(ServiceProvider):
 
     def boot(self):
         pass
-
 ```
 
 Now we can import our listener and add it to our boot method:
@@ -158,7 +156,6 @@ class ListenerProvider(ServiceProvider):
 
     def boot(self, event: Event):
         event.subscribe(SubsribeUser)
-
 ```
 
 {% hint style="info" %}
@@ -186,7 +183,6 @@ class ListenerProvider(ServiceProvider):
 
     def boot(self, event: Event):
         event.listen('user.subscribed', [SubsribeUser])
-
 ```
 
 {% hint style="warning" %}
@@ -215,7 +211,7 @@ def show(self):
     event('user.subscribed')
 ```
 
-Both of these methods will fire all our listeners that are listening to the `user.subscribed` event action. 
+Both of these methods will fire all our listeners that are listening to the `user.subscribed` event action.
 
 ### Class Events
 

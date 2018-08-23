@@ -33,6 +33,8 @@ HTTP_MIDDLEWARE = [
 ]
 ```
 
+## Route Middleware
+
 `ROUTE_MIDDLEWARE` is also simple but instead of a list, it is a dictionary with a custom name as the key and the middleware class as the value. This is so we can specify the middleware based on the key in our routes file.
 
 In our `config/middleware.py` file this might look something like:
@@ -44,6 +46,25 @@ ROUTE_MIDDLEWARE = {
     'auth': 'app.http.middleware.RouteMiddleware.RouteMiddleware'
 }
 ```
+
+### Middleware Stacks
+
+Route middleware have the unique option of also being stacks of middleware \(or lists, really\). So we can specify a middleware to have a list of middleware instead of one string based middleware:
+
+```python
+from app.http.middleware.RouteMiddleware import RouteMiddleware
+
+ROUTE_MIDDLEWARE = {
+    'admin': 'app.http.middleware.AdmineMiddleware.AdminMiddleware'
+    'auth': [
+        'app.http.middleware.AuthMiddleware.AuthMiddleware'
+        'app.http.middleware.VerifyMiddleware.VerifyMiddleware'
+        
+    ]
+}
+```
+
+Notice that we can use both lists and strings for middleware. As a list, all the middleware in the list will run when we call the `auth` middleware stack.
 
 ## Default Middleware
 

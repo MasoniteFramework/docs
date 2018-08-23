@@ -115,6 +115,18 @@ This command will create several new templates, controllers and routes so you do
 
 These new controllers are not apart of the framework itself but now apart of your project. Do not look at editing these controllers as editing the framework source code.
 
+### Creating Validators
+
+Validators are classes based on validating form or request input. We can create validators by running:
+
+```text
+$ craft validator LoginValidator
+```
+
+{% hint style="success" %}
+Be sure to read the [Validation](../advanced/validation.md) documentation to learn more about validators.
+{% endhint %}
+
 ### Creating Controllers
 
 If you wish to scaffold a controller, just run:

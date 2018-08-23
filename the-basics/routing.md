@@ -340,7 +340,7 @@ def show(self, Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### Route Parameter Options
+## Route Compilers
 
 Sometimes you will want to make sure that the route parameter is of a certain type. For example you may want to match a URI like `/dashboard/1` but not `/dashboard/joseph`. In order to do this we simply need to pass a type to our parameter. If we do not specify a type then our parameter will default to matching all alphanumeric and underscore characters.
 
@@ -365,6 +365,32 @@ Get().route('/dashboard/@id:string', 'Controller@show')
 {% endcode-tabs %}
 
 This will match `/dashboard/joseph` and not `/dashboard/128372`. Currently only the integer and string types are supported.
+
+{% hint style="info" %}
+These are called "Route Compilers" because they compile the route differently depending on what is specified. If you specify `:int` or `:integer` it will compile to a different regex than if you specified `:string`.
+{% endhint %}
+
+### Adding Route Compilers
+
+We can add route compilers to our project by specifying them in a Service Provider.
+
+Make sure you add them in a Service Provider where `wsgi` is `False`. We can add them on the Route class from the container using the `compile` method. A completed example might look something like this:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/providers/RouteCompileProvider.py" %}
+```python
+class RouteCompilerProvider(ServiceProvider):
+    
+    wsgi = False
+    ...
+    
+    def boot(self, Route):
+        Route.compile('year', r'[0-9]{4}')
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+We just need to call the `compile()` method on the `Route` class and make sure we specify a regex string by preeding an `r` to the beginning of the string.
 
 ### Subdomain Routing
 
