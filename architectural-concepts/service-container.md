@@ -150,10 +150,10 @@ Another powerful feature of the container is it can actually return instances of
 Take this example:
 
 ```python
-from masonite.contracts.UploadContract import UploadContract
+from masonite.contracts import UploadContract
 
 def show(self, upload: UploadContract)
-    upload.driver('s3').store(...)
+    upload # <class masonite.drivers.UploadDiskDriver>
 ```
 
 Notice that we passed in a contract instead of the upload class. Masonite went into the container and fetched a class with the instance of the contract.
