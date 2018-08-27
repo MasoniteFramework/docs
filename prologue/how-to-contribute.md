@@ -48,7 +48,7 @@ If you have a large following on any social media or no following at all, you ca
 
 ### Build Community Software Around Masonite
 
-Another idea is to use Masonite to build applications such as a screencast website like [LaraCasts.com](https://laracasts.com) or an official Masonite website or even a social network around Masonite. Every great framework needs it's "ecosystem" so you may be apart of that buy building these applications with the Masonite branding and logos. Although copying the branding requires an OK from Joseph Mancuso, as long as the website was built with Masonite and looks clean it shouldn't be a problem at all.
+Another idea is to use Masonite to build applications such as a screencast website like [LaraCasts.com](https://laracasts.com) or an official Masonite website or even a social network around Masonite. Every great framework needs it's "ecosystem" so you may be apart of that by building these applications with the Masonite branding and logos. Although copying the branding requires an OK from Joseph Mancuso, as long as the website was built with Masonite and looks clean it shouldn't be a problem at all.
 
 ### Answer Questions from the Community
 
