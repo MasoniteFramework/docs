@@ -255,3 +255,30 @@ def show(self):
 
 This will fire events such as `user.manager.created`, `user.employee.created` and `user.friend.created`.
 
+### Passing Arguments
+
+Sometimes you will want to pass an argument from your controller \(or wherever you are calling your code\) to your event's `handle` method. In this case you can simply pass keyword arguments to your `fire` method like so:
+
+```python
+def show(self, event: Event):
+    event.fire('user.subscribed', to='user@email.com', active='True')
+```
+
+and you can fetch these values in your `handle` method using the `argument` method:
+
+```python
+class SubscribeUser(Event):
+    """ SubscribeUser Event Class """
+​
+    subscribe = ['user.subscribed', SomeAction]
+​
+    def __init__(self):
+        """ Event Class Constructor """
+        pass
+​
+    def handle(self):
+        """ Event Handle Method """
+        self.argument('to') # user@email.com
+        self.argument('active') # True
+```
+
