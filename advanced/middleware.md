@@ -55,7 +55,7 @@ Route middleware have the unique option of also being stacks of middleware \(or 
 from app.http.middleware.RouteMiddleware import RouteMiddleware
 
 ROUTE_MIDDLEWARE = {
-    'admin': 'app.http.middleware.AdmineMiddleware.AdminMiddleware'
+    'admin': 'app.http.middleware.AdminMiddleware.AdminMiddleware'
     'auth': [
         'app.http.middleware.AuthMiddleware.AuthMiddleware'
         'app.http.middleware.VerifyMiddleware.VerifyMiddleware'
