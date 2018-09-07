@@ -9,6 +9,7 @@
 * [How To Contribute](prologue/how-to-contribute.md)
 * [Release Cycle](prologue/release-cycle.md)
 * [Known Installation Issues](prologue/known-installation-issues.md)
+* [Sponsors](prologue/sponsors.md)
 
 ## What's New
 

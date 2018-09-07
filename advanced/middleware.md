@@ -59,7 +59,7 @@ ROUTE_MIDDLEWARE = {
     'auth': [
         'app.http.middleware.AuthMiddleware.AuthMiddleware'
         'app.http.middleware.VerifyMiddleware.VerifyMiddleware'
-        
+
     ]
 }
 ```
