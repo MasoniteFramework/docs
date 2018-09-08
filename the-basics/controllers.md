@@ -99,7 +99,7 @@ class DashboardController:
 
 ## Defining a Controller Method
 
-Controller methods are very similar to function based views in a Django application except this is just a normal class method. Our controller methods at a minimum should look like:
+Controller methods are very similar to function based views in a Django application. Our controller methods at a minimum should look like:
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/DashboardController.py" %}
@@ -110,7 +110,7 @@ def show(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-All controller methods must have the self parameter. The `self` parameter is the normal python `self` object which is just an instance of the current class as usual. Nothing special here.
+All controller methods must start with the self parameter. The `self` parameter is the normal python `self` object which is just an instance of the current object as usual. Nothing special here.
 
 ## Container Resolving
 
