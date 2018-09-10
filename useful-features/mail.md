@@ -38,6 +38,21 @@ MAIL_PASSWORD=password
 
 Because this is SMTP, we can utilize all SMTP services such as mailtrap and gmail.
 
+#### SSL \(optional\)
+
+You may need to use an ssl version of SMTP depending on the service you are using. You can specify to use SSL by setting that option in your smtp driver configuration in `config/mail.py`:
+
+```python
+DRIVERS = {
+    'smtp': {
+        'host': os.getenv('MAIL_HOST', 'smtp.mailtrap.io'),
+        'port': os.getenv('MAIL_PORT', '465'),
+        'username': os.getenv('MAIL_USERNAME', 'username'),
+        'password': os.getenv('MAIL_PASSWORD', 'password'),
+        'ssl': True
+    },
+```
+
 Thats it! As long as the authentication works, we can send emails. 
 
 {% hint style="danger" %}

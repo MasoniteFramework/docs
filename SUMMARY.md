@@ -63,7 +63,7 @@
 * [Template Caching](useful-features/template-caching.md)
 * [Mail](useful-features/mail.md)
 * [Uploading](useful-features/uploading.md)
-* [View Composers, Sharing and Filters](useful-features/view-composers-and-sharing.md)
+* [View Composers, Sharing, Filters and Tests](useful-features/view-composers-and-sharing.md)
 * [Caching](useful-features/caching.md)
 * [Broadcasting](useful-features/broadcasting.md)
 * [Queues and Jobs](useful-features/queues-and-jobs.md)
