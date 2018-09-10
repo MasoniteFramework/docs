@@ -69,7 +69,7 @@ This provider loads the ability to use sessions, adds a session helper to all vi
 
 ### Route Provider
 
-This provider takes the routes that are loaded in and makes the response object, static codes, runs middleware and other route displaying specific logic. This is the largest Service Provider with the most logic. This provider also searches through the routes, finds which one to hit and exectues the controller and controller method.
+This provider takes the routes that are loaded in and makes the response object, static codes, runs middleware and other route displaying specific logic. This is the largest Service Provider with the most logic. This provider also searches through the routes, finds which one to hit and executes the controller and controller method.
 
 ### Status Code Provider
 
