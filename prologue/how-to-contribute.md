@@ -30,7 +30,7 @@ The [Masonite pip packages](https://pypi.org/search/?q=masonite) require testing
 
 ## Contribute to Tutorials
 
-Once familiar with the project \(by either contributing or by an building application using the framework\) it would be excellent if you could write or record tutorials and put them on [Medium](http://medium.com) or [YouTube](http://youtube.com). In order for the framework to be successful, it needs to have a plethora of documentation even outside of this documentation. It needs to have notoriety and if people are seeing the framework pop up in their favorite locations they will be more inclined to use the framework and contribute to it as well.
+Once familiar with the project \(by either contributing or by building an application using the framework\) it would be excellent if you could write or record tutorials and put them on [Medium](http://medium.com) or [YouTube](http://youtube.com). In order for the framework to be successful, it needs to have a plethora of documentation even outside of this documentation. It needs to have notoriety and if people are seeing the framework pop up in their favorite locations they will be more inclined to use the framework and contribute to it as well.
 
 Plus there will be fantastic tutorials out there for beginners to find and watch and you could also build a following off the back of Masonite.
 
