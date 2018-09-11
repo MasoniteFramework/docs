@@ -69,13 +69,13 @@ This provider loads the ability to use sessions, adds a session helper to all vi
 
 ### Route Provider
 
-This provider takes the routes that are loaded in and makes the response object, static codes, runs middleware and other route displaying specific logic. This is the largest Service Provider with the most logic. This provider also searchest hrough the routes, finds which one to hit and exectues the controller and controller method.
+This provider takes the routes that are loaded in and makes the response object, static codes, runs middleware and other route displaying specific logic. This is the largest Service Provider with the most logic. This provider also searches through the routes, finds which one to hit and executes the controller and controller method.
 
 ### Status Code Provider
 
 This provider is responsible for showing the nice HTTP status codes you see during development and production. This Service Provider also allows custom HTTP error pages by putting them into the `resources/templates/errors` directory. 
 
-Nothing too special about this Service Provide. You can remove this if you want it to show the default WSGI server error.
+Nothing too special about this Service Provider. You can remove this if you want it to show the default WSGI server error.
 
 ### Start Response
 
