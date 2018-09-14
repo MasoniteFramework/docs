@@ -73,7 +73,7 @@ This provider takes the routes that are loaded in and makes the response object,
 
 ### Status Code Provider
 
-This provider is responsible for showing the nice HTTP status codes you see during development and production. This Service Provider also allows custom HTTP error pages by putting them into the `resources/templates/errors` directory. 
+This provider is responsible for showing the nice HTTP status codes you see during development and production. This Service Provider also allows custom HTTP error pages by putting them into the `resources/templates/errors` directory.
 
 Nothing too special about this Service Provider. You can remove this if you want it to show the default WSGI server error.
 
