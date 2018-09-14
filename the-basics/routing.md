@@ -385,12 +385,16 @@ class RouteCompilerProvider(ServiceProvider):
     ...
     
     def boot(self, Route):
-        Route.compile('year', r'[0-9]{4}')
+        Route.compile('year', r'([0-9]{4})')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-We just need to call the `compile()` method on the `Route` class and make sure we specify a regex string by preeding an `r` to the beginning of the string.
+We just need to call the `compile()` method on the `Route` class and make sure we specify a regex string by preceding an `r` to the beginning of the string.
+
+{% hint style="info" %}
+Your regex should be encapsulated in a group. If you are not familiar with regex, this basically just means that your regex pattern should be inside parenthesis like the example above.
+{% endhint %}
 
 ### Subdomain Routing
 
