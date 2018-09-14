@@ -116,7 +116,7 @@ def show(self):
 ```
 
 {% hint style="info" %}
-Note that the username you supply needs to be in whatever format the `__auth__` attribute is on your model. If the email address is the username, then the user will need to supply the username.
+Note that the username you supply needs to be in whatever format the `__auth__` attribute is on your model. If the email address is the "username", then the user will need to supply their email address.
 {% endhint %}
 
 ### Login By ID
