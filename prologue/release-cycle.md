@@ -14,6 +14,8 @@ Because `MiraFramework/masonite` does not require major updates, we can follow R
 
 ## Releases and Release Cycles
 
+**TL;DR: Minor release every 2 weeks. Major release every 6 months. Beta releases every 1 month starting 4 months out from major release \(i.e: September, October, November is beta 1, 2 and 3 and then feature freeze for beta 3\). Then the major release on the 4th month \(December\). Similar concept for June releases.**
+
 Masonite is currently on a 6 month major release cycle. This means that once six months will be a new 2.x release. 
 
 Releases are planned to be upgradable from the previous release in 30 minutes or less. If they break that requirement then they should be considered for the next Paradigm release \(the `x.0.0` release\)
