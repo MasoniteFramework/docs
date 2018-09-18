@@ -202,6 +202,6 @@ This will render the view into a message body and send the email as html. Notice
 You are also able to pass data into our mail templates. This data is passed in as a dictionary that contains a key which is the variable with the corresponding value. We can pass data to the function like so:
 
 ```python
-Mail.to('idmann509@gmail.com').template('mail/welcome', { 'name': 'Masonite User' }).send()
+Mail.to('idmann509@gmail.com').template('mail/welcome', {'name': 'Masonite User'}).send()
 ```
 
