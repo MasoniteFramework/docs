@@ -43,9 +43,9 @@ from masonite.auth import Sign
 
 sign = Sign()
 
-sign.encrypt('value') # PSJDUudbs87SB....
+sign.sign('value') # PSJDUudbs87SB....
 
-sign.decrypt('value') # 'value'
+sign.unsign('value') # 'value'
 ```
 
 By default, `Sign()` uses the encryption key in your `config/application.py` file but you could also pass in your own key.
@@ -57,9 +57,9 @@ encryption_key = b'SJS(839dhs...'
 
 sign = Sign(encryption_key)
 
-sign.encrypt('value') # PSJDUudbs87SB....
+sign.sign('value') # PSJDUudbs87SB....
 
-sign.decrypt('value') # 'value'
+sign.unsign('value') # 'value'
 ```
 
 This feature uses [pyca/cryptography](https://cryptography.io/en/latest/) for this kind of encryption. Because of this, we can generate keys using Fernet.
@@ -72,9 +72,9 @@ encryption_key = Fernet.generate_key()
 
 sign = Sign(encryption_key)
 
-sign.encrypt('value') # PSJDUudbs87SB....
+sign.sign('value') # PSJDUudbs87SB....
 
-sign.decrypt('value') # 'value'
+sign.unsign('value') # 'value'
 ```
 
 Just remember to store the key you generated or you will not be able to decrypt any values that you encrypted.
