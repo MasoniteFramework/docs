@@ -12,5 +12,5 @@ Put a thank you section here
 
 ![](../.gitbook/assets/mitch.jpeg)
 
-#### Twitter: @handle \| GitHub: @handle
+#### Twitter: [@mitchdennett1](https://twitter.com/mitchdennett1) \| GitHub: [@mitchdennett](https://github.com/mitchdennett)
 
