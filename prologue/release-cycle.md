@@ -8,9 +8,9 @@ This means that a framework version of 1.3.20 may have breaking changes with ver
 
 ## Reasoning for RomVer over SemVer
 
-The Masonite main repository \(the `MiraFramework/masonite` repository\) contains only the basic file structure of the application. All of the core framework functionality is inside the `MasoniteFramework/core` repository which can be updated as much as every day or once per month.
+The Masonite main repository \(the `MasoniteFramework/masonite` repository\) contains only the basic file structure of the application. All of the core framework functionality is inside the `MasoniteFramework/core` repository which can be updated as much as every day or once per month.
 
-Because `MiraFramework/masonite` does not require major updates, we can follow RomVer nicely and keep the versioning number artificially lower. Any major updates to this repository will likely just be file structure changes which should rarely happen unless there are major architectural changes.
+Because `MasoniteFramework/masonite` does not require major updates, we can follow RomVer nicely and keep the versioning number artificially lower. Any major updates to this repository will likely just be file structure changes which should rarely happen unless there are major architectural changes.
 
 ## Releases and Release Cycles
 
