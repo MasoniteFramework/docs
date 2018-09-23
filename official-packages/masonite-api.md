@@ -278,5 +278,78 @@ http://localhost:8000/token?scopes=user:read,user:create
 
 This will generate a new token with the correct permission scopes.
 
+## Creating Authentication Classes
+
+Authentication classes are extremely simple classes. They just need to inherit the BaseAuthentication class and contain 2 methods: `authenticate` and `get_token`.
+
+```python
+from api.authentication import BaseAuthentication
+
+class JWTAuthentication(BaseAuthentication):
+
+    def authenticate(self, request: Request):
+        """Authenticate using a JWT token
+        """
+
+        pass
+
+    def get_token(self):
+        """Returns the decrypted string as a dictionary. This method needs to be overwritten on each authentication class.
+        
+        Returns:
+            dict -- Should always return a dictionary
+        """
+        
+        pass
+```
+
+### Authenticate
+
+This method is resolved via the container. it is important to note that if the authenticate is successful, it should not return anything. Masonite will only look for exceptions thrown in this method and then correlate an error response to it. 
+
+For example if we want to return an error because the token was not found, we can raise that exception:
+
+```python
+...
+from api.exceptions import NoApiTokenFound
+...
+
+    def authenticate(self, request: Request):
+        """Authenticate using a JWT token
+        """
+        
+        if not request.input('token'):
+            raise NoApiTokenFound     
+```
+
+Which will result in an error response:
+
+```javascript
+{
+    "error": "no API token found"
+}
+```
+
+### Get Token
+
+This method is used to return a dictionary which is the decrypted version of the token. So however your authentication class should decrypt the token, it needs to do so in this method. This all depends on how the token was encrypted in the first place. This may look something like:
+
+```text
+from api.exceptions import InvalidToken
+...
+        def get_token(self):
+        """Returns the decrypted string as a dictionary. This method needs to be overwritten on each authentication class.
+        
+        Returns:
+            dict -- Should always return a dictionary
+        """
+        try:
+            return jwt.decode(self.fetch_token(), KEY, algorithms=['HS256'])
+        except jwt.DecodeError:
+            raise InvalidToken
+```
+
+
+
 
 
