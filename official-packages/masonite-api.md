@@ -91,6 +91,99 @@ GET       /api/user/@id
 ========  =============  =======  ========  ============
 ```
 
+## Overriding Methods
+
+You may want to override some methods that are used internally by the API endpoint to return the necessary data.
+
+The methods are: create, index, show, update, delete.
+
+You can check the repo on how these methods are used and how you should modify them but it's pretty straight forward. The show method is used to show all the results are is what is returned when the endpoint is something like `/api/user`.
+
+Overriding a method will look something like:
+
+```python
+from api.resources import Resource
+from app.User import User
+from api.serializers import JSONSerializer
+
+class UserResource(Resource, JSONSerializer):
+    model = User
+    methods = ['create', 'index', 'show']
+
+    def show(self):
+        return self.model.where('active', 1).get()
+```
+
+This will not only return all the results where active is `1`. Keep in mind as well that these methods are resolved via the container so we can use dependency injection:
+
+```python
+from api.resources import Resource
+from app.User import User
+from api.serializers import JSONSerializer
+from masonite.request import Request
+
+class UserResource(Resource, JSONSerializer):
+    model = User
+    methods = ['create', 'index', 'show']
+
+    def show(self):
+        return self.model.where('active', 1).get()
+    
+    def index(self, request: Request):
+        return self.model.where('active', self.request.input('active')).get()
+```
+
+The index method is ran when getting a specific resource like: `/api/user/5`.
+
+## Removing model attributes
+
+Currently our response may look something like:
+
+```javascript
+{
+    "id": 1,
+    "name": "username",
+    "email": "email@email.com",
+    "password": "12345",
+    "remember_token": null,
+    "created_at": "2018-09-23T07:33:30.118068",
+    "updated_at": "2018-09-23T11:47:48.962105",
+    "customer_id": null,
+    "plan_id": null,
+    "is_active": null
+}
+```
+
+You might not want to display all the model attributes like `id`, `email` or `password`. We can choose to remove these with the `without` class attribute:
+
+```python
+from api.resources import Resource
+from app.User import User
+from api.serializers import JSONSerializer
+from masonite.request import Request
+
+class UserResource(Resource, JSONSerializer):
+    model = User
+    methods = ['create', 'index', 'show']
+    without = ['id', 'email', 'password']
+```
+
+Now our response will look like:
+
+```javascript
+{
+    "name": "username",
+    "remember_token": null,
+    "created_at": "2018-09-23T07:33:30.118068",
+    "updated_at": "2018-09-23T11:47:48.962105",
+    "customer_id": null,
+    "plan_id": null,
+    "is_active": null
+}
+```
+
+Yes, it's that easy.
+
 ## Authentication
 
 For any API package to be awesome, it really needs to have powerful and simple authentication. 
