@@ -246,6 +246,44 @@ Now we can make a POST request to `http://localhost:8000/token` which will give 
 
 we can now use this token to make our calls by using that new token. This token is good for 5 minutes and it will be required to refresh the token once expired.
 
+### Refreshing Tokens
+
+Once our JWT token expires, we need to refresh it by sending our old expired token to the \`/token/refresh\` URI as a POST request:
+
+{% api-method method="post" host="http://localhost:8000" path="/token/refresh" %}
+{% api-method-summary %}
+Refresh JWT Tokens
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Used to refresh any JWT tokens once your token has expired. It might be a good idea to create a middleware to check if the token is expired and refresh the token automatically.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="token" type="string" required=true %}
+The expired JWT token
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3N1ZWQiOiIyMDE4LTA5LTIzVDE1OjA1OjM4LjE1MTQyMC0wNDowMCIsImV4cGlyZXMiOiIyMDE4LTA5LTIzVDE1OjEwOjM4LjE1MTY4Mi0wNDowMCIsInNjb3BlcyI6ZmFsc2V9.7BnD7Ro1oK2WdJOU4hsBY3KK0tojBszZAaazQ6MMK-4"
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
 ## Permission Scopes
 
 You can also specify any permission scopes you need. Most of the time some API endpoints will need to have more restrictive scopes than others. We can specify whatever scopes we need to with the `scopes` attribute as well as inheriting another class.
