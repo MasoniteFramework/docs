@@ -464,5 +464,29 @@ notice we take the response and then convert that response into a dictionary dep
 
 Once we convert to a dictionary here, the `JSONResponseMiddleware` will pick that dictionary up and return a JSON response.
 
+## Builtin Methods
 
+We have access to a few builtin methods from anywhere in our resource.
+
+### Getting the token
+
+The token can be in several different forms coming into the request. It can be either a JWT token or a regular token or some other form of token. Either way it needs to be "unencrypted" in order for it to be used and since the authentication class is responsible for un-encrypting it, it is the responsibility of the authentication class to get the token.
+
+```text
+def index(self):
+    token = self.get_token()
+```
+
+{% hint style="warning" %}
+This method is only available when inheriting from an authentication class like `JWTAuthentication` which requires this method and should return the un-encrypted version of the token
+{% endhint %}
+
+### Fetching the token
+
+There are a few locations the token can be. The two main locations are in the query string itself \(`/endpoint?token=123..`\) or inside a header \(the `HTTP_AUTHORIZATION` header\). We can get the token regardless of where it is with the `fetch_token()` method:
+
+```text
+def index(self):
+    token = self.fetch_token()
+```
 
