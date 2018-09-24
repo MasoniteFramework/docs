@@ -421,7 +421,48 @@ from api.exceptions import InvalidToken
             raise InvalidToken
 ```
 
+## Creating Serializers
 
+Serializers are simple classes with a single `serialize` method on them. The `serialize` method takes a single parameter which is the response returned from one of the create, index, show, update, delete methods.
+
+For example if we return something like a model instance:
+
+```python
+def index(self):
+    return self.model.find(1)
+```
+
+We will receive this output into our serialize method:
+
+```python
+def serialize(self, response):
+    response # == self.model.find(1)
+```
+
+which we can then serialize how we need to and return it. Here is an example of a JSON serializer:
+
+```python
+import json
+from orator.support.collection import Collection
+from orator import Model
+
+class JSONSerializer:
+    
+    def serialize(self, response):
+        """Serialize the model into JSON
+        """
+        
+        if isinstance(response, Collection):
+            return response.serialize()
+        elif isinstance(response, Model):
+            return response.to_dict()
+        
+        return response
+```
+
+notice we take the response and then convert that response into a dictionary depending on the response type.
+
+Once we convert to a dictionary here, the `JSONResponseMiddleware` will pick that dictionary up and return a JSON response.
 
 
 
