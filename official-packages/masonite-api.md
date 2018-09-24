@@ -62,7 +62,7 @@ Method    Path           Name     Domain    Middleware
 POST      /api/user
 GET       /api/user
 GET       /api/user/@id
-PUT       /api/user/@id
+PATCH/PUT /api/user/@id
 DELETE    /api/user/@id
 ========  =============  =======  ========  ============
 ```
