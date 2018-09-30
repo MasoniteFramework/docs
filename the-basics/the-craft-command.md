@@ -45,20 +45,10 @@ These new controllers are not apart of the framework itself but now apart of you
 If you wish to scaffold a controller, just run:
 
 ```text
-$ craft controller
+$ craft controller NameHere
 ```
 
 This command will create a new controller under `app/http/controller`. By convention, all controllers should have an appended “Controller”. For example in order to make a dashboard controller, you should run `craft controller DashboardController` and not `craft controller Dashboard` although you can name your controllers however you like.
-
-#### Deployment
-
-If you’d like to deploy your application to Heroku, Masonite comes with a command for that out of the box. You do not have to use this command and you do not have to deploy to Heroku. You may choose any deployment site but for quick development purposes, it might be convenient for you to quickly upload to Heroku to test a typical deployment.
-
-```text
-$ craft deploy
-```
-
-Read the “Deployment” documentation for more information on deploying Masonite.
 
 #### Creating a New Project
 
@@ -112,10 +102,16 @@ After your migrations have been created, edited, and are ready for migrating, we
 $ craft migrate
 ```
 
-You can also refresh and rollback all of your migrations and remigrate them. **This will basically rebuild your entire database.**
+You can also refresh and rollback all of your migrations and remigrate them. **This will basically rebuild your entire database.
 
 ```text
 $ craft migrate:refresh
+```
+
+You can also see the status of your migrations:
+
+```text
+$ craft migrate:status
 ```
 
 You can also rollback all migrations without remigrating
