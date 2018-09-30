@@ -84,7 +84,7 @@ That's it! This is useful as an IOC container which you can load a single class 
 
 ## Collecting
 
-You may want to collect specific kinds of objects from the container based on the key. For example we may want all objects that start with "Exception" and end with "Hook" or want all keys that end with "ExceptionHook" if we are building an exception handler. 
+You may want to collect specific kinds of objects from the container based on the key. For example we may want all objects that start with "Exception" and end with "Hook" or want all keys that end with "ExceptionHook" if we are building an exception handler.
 
 ### Collect By Key
 

@@ -27,5 +27,5 @@ You'll also see hint blocks that are blue. These should not be ignored and typic
 
 ## Installation
 
-This tutorial will assume you have already installed Masonite. If you haven't, be sure to read the [Installation](../prologue/introduction-and-installation.md) guide to get a fresh install of Masonite up and running. Once you have one up and running or if you already have it running, go ahead and start at [Part 1 of the tutorial](part-1-creating-our-first-route.md).
+This tutorial will assume you have already installed Masonite. If you haven't, be sure to read the [Installation]() guide to get a fresh install of Masonite up and running. Once you have one up and running or if you already have it running, go ahead and start at [Part 1 of the tutorial](part-1-creating-our-first-route.md).
 

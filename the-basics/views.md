@@ -230,5 +230,3 @@ def show(self, view: View):
     view.render('/dashboard.user.show')
 ```
 
-
-

@@ -277,7 +277,6 @@ ROUTES = [
 You can use this view method with any route class.
 {% endhint %}
 
-
 ### Match Routes
 
 You may have noticed above that we have a `Match` route class. This can match several incoming request methods. This is useful for matching a route with both `PUT` and `PATCH`.

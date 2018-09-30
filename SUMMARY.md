@@ -1,10 +1,9 @@
 # Table of contents
 
-* [Introduction](README.md)
+* [Introduction and Installation](README.md)
 
 ## Prologue
 
-* [Introduction and Installation](prologue/introduction-and-installation.md)
 * [Contributing Guide](prologue/contributing-guide.md)
 * [How To Contribute](prologue/how-to-contribute.md)
 * [Release Cycle](prologue/release-cycle.md)
