@@ -85,7 +85,7 @@ We'll have to sometimes check if a cache even exists so we can do that by runnin
 
 ```python
 def show(self, Cache):
-    Cache.cache_exists('key')
+    Cache.exists('key')
 ```
 
 Which will return a boolean if the cache exists or not.
