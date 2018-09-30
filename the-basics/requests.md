@@ -133,6 +133,19 @@ def show(self, request: Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### Without
+
+We can specify a set of parameters to exclude from the inputs returned. For example:
+
+```python
+# GET: /dashboard?firstname=Joe&lastname=Mancuso&active=1
+
+def show(self, request: Request):
+    return request.without('lastname') # {'firstname': 'Joe', 'active': '1'}
+```
+
+Notice it returned everything besides `lastname`.
+
 ### URL Parameters
 
 To get the request parameter retrieved from the url. This is used to get variables inside: `/dashboard/@firstname` for example.
