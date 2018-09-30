@@ -232,7 +232,7 @@ ROUTES = [
                 Post().route('/create', 'AppController@store').name('store'),
                 Post().route('/delete', 'AppController@delete').name('delete'),
             ], prefix='/apps', name='app.'),
-            
+
             Get().route('/plans', 'PlanController@show').name('plans'),
             Post().route('/plans/subscribe', 'PlanController@subscribe').name('subscribe'),
             Post().route('/plans/cancel', 'PlanController@cancel').name('cancel'),
@@ -380,16 +380,15 @@ Make sure you add them in a Service Provider where `wsgi` is `False`. We can add
 {% code-tabs-item title="app/http/providers/RouteCompileProvider.py" %}
 ```python
 class RouteCompilerProvider(ServiceProvider):
-    
+
     wsgi = False
     ...
-    
+
     def boot(self, Route):
         Route.compile('year', r'([0-9]{4})')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
 
 We just need to call the `compile()` method on the `Route` class and make sure we specify a regex string by preceding an `r` to the beginning of the string.
 
@@ -397,10 +396,9 @@ We just need to call the `compile()` method on the `Route` class and make sure w
 Your regex should be encapsulated in a group. If you are not familiar with regex, this basically just means that your regex pattern should be inside parenthesis like the example above.
 {% endhint %}
 
-
 ### Subdomain Routing
 
-You may wish to only render routes if they are on a specific subdomain. For example you may want `example.com/dashboard` to route to a different controller than `joseph.example.com/dashboard`. 
+You may wish to only render routes if they are on a specific subdomain. For example you may want `example.com/dashboard` to route to a different controller than `joseph.example.com/dashboard`.
 
 Out of the box this feature will not work and is turned off by default. We will need to add a call on the Request class in order to activate subdomains. We can do this in the boot method of one of our Service Providers that has wsgi=False:
 

@@ -6,7 +6,7 @@
 
 ## Individual Sponsors
 
-Put a thank you section here
+ We sincerely thank all individuals who have chosen to become sponsors! You are truly making Masonite a fantastic community!
 
 ### Mitch Dennett
 

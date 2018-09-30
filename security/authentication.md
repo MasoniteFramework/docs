@@ -121,7 +121,7 @@ Note that the username you supply needs to be in whatever format the `__auth__` 
 
 ### Login By ID
 
- If you need more direct control internally, you can login by the models ID:
+If you need more direct control internally, you can login by the models ID:
 
 ```python
 from masonite.facades import Auth
@@ -181,13 +181,11 @@ This will delete the cookie that was set when logging in. This will not redirect
 def logout(self, Request):
     Auth(Request).logout()
     return Request.redirect('/login')
-
 ```
 
 ## Verifying A User's Email
 
 If you wish to require a user to verify their email address and automatically send them an email, you can extend the `User` model.
-
 
 ```python
 from masonite.auth import MustVerifyEmail

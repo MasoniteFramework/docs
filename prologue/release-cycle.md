@@ -20,8 +20,7 @@ Masonite is currently on a 6 month major release cycle. This means that once six
 
 ## Releases and Release Cycles
 
-Masonite is currently on a 6 month major release cycle. This means that once six months will be a new 2.x release. 
-
+Masonite is currently on a 6 month major release cycle. This means that once six months will be a new 2.x release.
 
 Releases are planned to be upgradable from the previous release in 30 minutes or less. If they break that requirement then they should be considered for the next Paradigm release \(the `x.0.0` release\)
 
@@ -39,7 +38,6 @@ Releases are planned to be upgradable from the previous release in 30 minutes or
 Masonite is currently on a 6 month release cycle and is made up of three different repositories:
 
 * The main repository where development is done on the repo that installs on developer's systems.
-
 * The "core" repository which is where the main Masonite pip package is located.
 * The craft repository where the craft command tool is located.
 

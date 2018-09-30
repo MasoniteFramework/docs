@@ -25,7 +25,7 @@ class UserResource(Resource):
     model = User
 ```
 
-Lastly for simplicity sake, we can specify a serializer. This will take any Orator models or Collection we return and serialize them into a dictionary which will be picked up via the `JsonResponseMiddleware`. 
+Lastly for simplicity sake, we can specify a serializer. This will take any Orator models or Collection we return and serialize them into a dictionary which will be picked up via the `JsonResponseMiddleware`.
 
 ```python
 from api.resources import Resource
@@ -40,7 +40,7 @@ Awesome! Now we are ready to go!
 
 ## Specifying our routes
 
-Our resource has several routes that it will build based on the information we provided so let's import it into our web.py file so it will build the routes for us. We can also specify the base route which will be used for all routes. 
+Our resource has several routes that it will build based on the information we provided so let's import it into our web.py file so it will build the routes for us. We can also specify the base route which will be used for all routes.
 
 ```text
 ...
@@ -128,7 +128,7 @@ class UserResource(Resource, JSONSerializer):
 
     def show(self):
         return self.model.where('active', 1).get()
-    
+
     def index(self, request: Request):
         return self.model.where('active', self.request.input('active')).get()
 ```
@@ -186,7 +186,7 @@ Yes, it's that easy.
 
 ## Authentication
 
-For any API package to be awesome, it really needs to have powerful and simple authentication. 
+For any API package to be awesome, it really needs to have powerful and simple authentication.
 
 ### JWT Authentication
 
@@ -211,7 +211,7 @@ Now our endpoint is being JWT Authentication. If we hit our endpoint now in the 
 }
 ```
 
-Great! If we specify a token by hitting http://localhost:8000/api/user?token=1234 then we will see a different error:
+Great! If we specify a token by hitting [http://localhost:8000/api/user?token=1234](http://localhost:8000/api/user?token=1234) then we will see a different error:
 
 ```javascript
 {
@@ -244,7 +244,7 @@ Retrieve a JWT Token
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Use this endpoint to retrieve new tokens using a username and password. The username and password will default to your regular authentication model located in `config/auth.py`.  
+Use this endpoint to retrieve new tokens using a username and password. The username and password will default to your regular authentication model located in `config/auth.py`.
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -278,11 +278,9 @@ The password to authenticate using your authentication model
 
 we can now use this token to make our calls by using that new token. This token is good for 5 minutes and it will be required to refresh the token once expired.
 
-
-
 ### Refreshing Tokens
 
-Once our JWT token expires, we need to refresh it by sending our old expired token to 
+Once our JWT token expires, we need to refresh it by sending our old expired token to
 
 {% api-method method="post" host="http://localhost:8000" path="/token/refresh" %}
 {% api-method-summary %}
@@ -367,17 +365,17 @@ class JWTAuthentication(BaseAuthentication):
 
     def get_token(self):
         """Returns the decrypted string as a dictionary. This method needs to be overwritten on each authentication class.
-        
+
         Returns:
             dict -- Should always return a dictionary
         """
-        
+
         pass
 ```
 
 ### Authenticate
 
-This method is resolved via the container. it is important to note that if the authenticate is successful, it should not return anything. Masonite will only look for exceptions thrown in this method and then correlate an error response to it. 
+This method is resolved via the container. it is important to note that if the authenticate is successful, it should not return anything. Masonite will only look for exceptions thrown in this method and then correlate an error response to it.
 
 For example if we want to return an error because the token was not found, we can raise that exception:
 
@@ -389,9 +387,9 @@ from api.exceptions import NoApiTokenFound
     def authenticate(self, request: Request):
         """Authenticate using a JWT token
         """
-        
+
         if not request.input('token'):
-            raise NoApiTokenFound     
+            raise NoApiTokenFound
 ```
 
 Which will result in an error response:
@@ -411,7 +409,7 @@ from api.exceptions import InvalidToken
 ...
         def get_token(self):
         """Returns the decrypted string as a dictionary. This method needs to be overwritten on each authentication class.
-        
+
         Returns:
             dict -- Should always return a dictionary
         """
@@ -447,16 +445,16 @@ from orator.support.collection import Collection
 from orator import Model
 
 class JSONSerializer:
-    
+
     def serialize(self, response):
         """Serialize the model into JSON
         """
-        
+
         if isinstance(response, Collection):
             return response.serialize()
         elif isinstance(response, Model):
             return response.to_dict()
-        
+
         return response
 ```
 

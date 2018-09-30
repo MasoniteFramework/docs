@@ -93,7 +93,6 @@ ROUTES = [
 
 This middleware checks to see if the logged in user has verified their email. If they haven't it will redirect the user to a page reminding them to verify their email.
 
-
 You can run this middleware on any route by specifying the key in the middleware method on your route:
 
 {% code-tabs %}

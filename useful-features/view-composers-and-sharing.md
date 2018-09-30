@@ -1,4 +1,3 @@
-
 # View Composers, Sharing, Filters and Tests
 
 ## Introduction
@@ -174,7 +173,7 @@ class UserModelProvider(ServiceProvider):
     ''' Binds the User model into the Service Container '''
 
     wsgi = False
-    
+
     ...
 
     def boot(self, Request, ViewClass):
@@ -186,11 +185,10 @@ class UserModelProvider(ServiceProvider):
 ```
 
 {% hint style="info" %}
-Make sure that you add filters in a [Service Provider](../architectural-concepts/service-providers.md) that has `wsgi=False` set. This prevents filters from being added on every single request which is not needed. 
+Make sure that you add filters in a [Service Provider](../architectural-concepts/service-providers.md) that has `wsgi=False` set. This prevents filters from being added on every single request which is not needed.
 {% endhint %}
 
 That's it! Adding filters is that easy!
-
 
 ## View Tests
 
@@ -220,7 +218,7 @@ def a_company_owner(user):
 
 class SomeProvider:
     wsgi = False
-    
+
     ...
 
     def boot(self, view: View):
