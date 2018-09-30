@@ -20,11 +20,11 @@ The `CsrfProvider` simply loads the CSRF features into the container and the `Cs
 
 ### Templates
 
-By default, all `POST` requests require a CSRF token. We can simply add a CSRF token in our forms by adding the `{{ csrf_field|safe }}` tag to our form like so:
+By default, all `POST` requests require a CSRF token. We can simply add a CSRF token in our forms by adding the `{{ csrf_field }}` tag to our form like so:
 
 ```markup
 <form action="/dashboard" method="POST">
-    {{ csrf_field|safe }}
+    {{ csrf_field }}
 
     <input type="text" name="first_name">
 </form>
@@ -38,7 +38,7 @@ This will add a hidden field that looks like:
 
 If this token is changed or manipulated, Masonite will throw an `InvalidCsrfToken` exception from inside the middleware.
 
-If you attempt a `POST` request without the `{{ csrf_field|safe }}` then you will receive a `KeyError: 'csrf_token'` exception. This just means you are either missing the Jinja2 tag or you are missing that route from the `exempt` class attribute in your middleware.
+If you attempt a `POST` request without the `{{ csrf_field }}` then you will receive a `KeyError: 'csrf_token'` exception. This just means you are either missing the Jinja2 tag or you are missing that route from the `exempt` class attribute in your middleware.
 
 ### Exempting Routes
 

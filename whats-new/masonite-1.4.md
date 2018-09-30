@@ -36,7 +36,7 @@ Masonite 1.4 brings the idea of contracts which are very similar to interfaces i
 
 ## Added CSRF Protection
 
-Cross-Site Request Forgery is a crucial security milestone to hit and Masonite 1.4 brings that ability. With a new Service Provider and middleware, we can now add a simple `{{ csrf_field|safe }}` to our forms and ensure we are protected from CSRF attacks.
+Cross-Site Request Forgery is a crucial security milestone to hit and Masonite 1.4 brings that ability. With a new Service Provider and middleware, we can now add a simple `{{ csrf_field }}` to our forms and ensure we are protected from CSRF attacks.
 
 ## Changed Managers
 

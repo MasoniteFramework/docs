@@ -22,7 +22,7 @@ The template for creating will be located at `/blog/create` and will be a simple
 {% code-tabs-item title="resources/templates/blog.html" %}
 ```markup
 <form action="/blog/create" method="POST">
-    {{ csrf_field|safe }}
+    {{ csrf_field }}
 
     <input type="name" name="title">
     <textarea name="body"></textarea>
@@ -31,7 +31,7 @@ The template for creating will be located at `/blog/create` and will be a simple
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Notice here we have this strange `{{ csrf_field|safe }}` looking text. Masonite comes with CSRF protection so we need a token to render with the CSRF field.
+Notice here we have this strange `{{ csrf_field }}` looking text. Masonite comes with CSRF protection so we need a token to render with the CSRF field.
 
 Now because we have a foreign key in our posts table, we need to make sure the user is logged in before creating this so let's change up our template a bit:
 
@@ -40,7 +40,7 @@ Now because we have a foreign key in our posts table, we need to make sure the u
 ```markup
 {% if auth() %}
     <form action="/blog/create" method="POST">
-        {{ csrf_field|safe }}
+        {{ csrf_field }}
 
         <label> Title </label>
         <input type="name" name="title"><br>
@@ -85,7 +85,7 @@ Now we can add it to our template like so:
 <link href="/static/blog.css" rel="stylesheet">
 {% if auth() %}
     <form action="/blog/create" method="POST">
-        {{ csrf_field|safe }}
+        {{ csrf_field }}
 
         <label> Title </label>
         <input type="name" name="title"><br>
@@ -112,7 +112,7 @@ Javascript files are the same exact thing:
 <link href="/static/blog.css" rel="stylesheet">
 {% if auth() %}
     <form action="/blog/create" method="POST">
-        {{ csrf_field|safe }}
+        {{ csrf_field }}
 
         <label> Title </label>
         <input type="name" name="title"><br>

@@ -378,8 +378,8 @@ Masonite will check for a `__back` input and redirect to that route. We can spec
 
 ```markup
 <form action="{{ route('dashboard.create')" method="POST">
-    {{ csrf_field|safe }}
-    {{ back(request().path)|safe }}
+    {{ csrf_field }}
+    {{ back(request().path) }}
 </form>
 ```
 
@@ -555,7 +555,7 @@ or you can optionally use a helper method:
 {% code-tabs-item title="resources/templates/index.html" %}
 ```markup
 <form action="/dashboard" method="POST">
-    {{ request_method('PATCH')|safe }}
+    {{ request_method('PATCH') }}
 </form>
 ```
 {% endcode-tabs-item %}

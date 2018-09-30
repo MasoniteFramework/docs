@@ -44,11 +44,11 @@ Note however that if you add the `CsrfProvider` then you will also need the CSRF
 
 ## CSRF and CSRF Middleware
 
-Masonite 1.4 adds CSRF protection. So anywhere there is any POST form request, you will need to add the `{{ csrf_field|safe }}` to it. For example:
+Masonite 1.4 adds CSRF protection. So anywhere there is any POST form request, you will need to add the `{{ csrf_field }}` to it. For example:
 
 ```markup
 <form action="/dashboard" method="POST">
-    {{ csrf_field|safe }}
+    {{ csrf_field }}
     <input type="text" name="first_name">
 </form>
 ```
