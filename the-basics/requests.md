@@ -516,6 +516,14 @@ If you are not specifying status codes in a package and simple specifying them i
 request.status('429 Too Many Requests')
 ```
 
+You can also use an integer which will find the correct status code for you:
+
+```python
+request.status(429)
+```
+
+This snippet is exactly the same as the string based snippet above.
+
 This will set the correct status code before the output is sent to the browser. You can look up a list of HTTP status codes from an online resource and specify any you need to. There are no limitations to which ones you can use.
 
 ## Get Request Method Type
