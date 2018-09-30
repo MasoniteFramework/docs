@@ -123,40 +123,20 @@ app.collect(Command)
 # Returns {'FirstCommand': <class ...>, 'AnotherCommand': ...}
 ```
 
-## **Resolve**
+## Resolve
 
-This is the most useful part of the container. It is possible to retrieve objects from the container by simply passing them into the parameters. Certain aspects of Masonite are resolved such as controller methods, middleware and drivers.
+This is the most useful part of the container. It is possible to retrieve objects from the container by simply passing them into the parameter list of any object. Certain aspects of Masonite are resolved such as controller methods, middleware and drivers.
 
-For example, we can hint that we want to get the `Request` class and put it into our controller. All controller methods are resolved by the container.
+For example, we can hint that we want to get the `Request` class and put it into our controller. All controller methods are resolved by the container. Masonite 2.1 only supports annotationr resolving by default:
 
 ```python
 def show(self, request: Request):
-    Request.user()
+    request.user()
 ```
 
-In this example, before the show method is called, Masonite will look at the parameters and look inside the container for a key with the same name. In this example we are looking for `Request` so Masonite will look for a key inside the provider dictionary called `Request` and inject that value from the container into our method for us. `Request` is already loaded into the container for you out of the box.
+In this example, before the show method is called, Masonite will look at the parameters and look inside the container for the Request object.
 
-Another way to resolve classes is by using Python 3 annotations:
-
-```python
-from masonite.request import Request
-
-def show(self, request_class: Request):
-    request_class.user()
-```
-
-Masonite will know that you are trying to get the `Request` class and will actually retrieve that class from the container. Masonite will search the container for a `Request` class regardless of what the key is in the container, retrieve it, and inject it into the controller method. Effectively creating an IOC container with dependency injection. Think of this as a **get by value** instead of a **get by key** like the earlier example.
-
-You can pass in keys and annotations in any order:
-
-```python
-from masonite.request import Request
-
-def show(self, Upload, request_class: Request, Broadcast):
-    Upload.store(...)
-    request_class.user()
-    Broadcast.channel(...)
-```
+Masonite will know that you are trying to get the `Request` class and will actually retrieve that class from the container. Masonite will search the container for a `Request` class regardless of what the key is in the container, retrieve it, and inject it into the controller method. Effectively creating an IOC container with dependency injection. capabilities Think of this as a **get by value** instead of a **get by key** like the earlier example.
 
 Pretty powerful stuff, eh?
 
@@ -175,7 +155,24 @@ def show(self, upload: UploadContract)
 
 Notice that we passed in a contract instead of the upload class. Masonite went into the container and fetched a class with the instance of the contract.
 
-### **Resolving your own code**
+### Resolving Parameters
+
+You can technically still resolve parameters with your container like you could in previous versions of Masonite. Resolving a parameter looked like this:
+
+```python
+def show(self, Request):
+    Request.user()
+```
+
+Although this was removed in 2.1+, you may still enable it on a per project basis. To enable it, go to your `wsgi.py` file and add this to the constructor of your App class towards the top of the file:
+
+```python
+container = App(resolve_parameters=True)
+```
+
+You're project will now resolve parameters as well. Resolving parameters looks for the key in the container instead of the class.
+
+### Resolving your own code
 
 The service container can also be used outside of the flow of Masonite. Masonite takes in a function or class method, and resolves it's dependencies by finding them in the service container and injecting them for you.
 
