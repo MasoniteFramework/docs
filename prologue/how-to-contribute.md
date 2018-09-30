@@ -2,8 +2,7 @@
 
 ## Introduction
 
-There are plenty of ways to contribute to open source. Many of which don't even rely on writing code. A great open source project should have excellent documentation, a thriving community and have as little bugs as possible. Below I will explain how to contribute to this project in different ways both including and excluding code contributions.
-
+There are plenty of ways to contribute to open source. Many of which don't even rely on writing code. A great open source project should have excellent documentation, a thriving community and have as little bugs as possible. Below I will explain how to contribute to this project in different ways both including and exluding code contributions.
 
 This is not an exhaustive list and not the only ways to contribute but they are the most common. If you know of other ways to contribute then please let us know.
 
@@ -17,7 +16,7 @@ It would also be good to read about the [Release Cycle](release-cycle.md) to get
 
 Feature Maintainers are people who are in charge of specific features \(such as [Caching](../useful-features/caching.md) or [Creating Packages](../advanced/creating-packages.md)\). These developers will be in charge of reviewing PR's and merging them into the development branch and also have direct contact with the repository owner to discuss.
 
-Feature maintainers must already have significant contributions to the development of the repository they are trying to be a Feature Maintainer for. Although they do not have to be contributors to the actual feature they plan to maintain.
+Feature maintainers must already have significant contributions to development of the repository they are trying to be a Feature Maintainer for. Although they do not have to be contributors to the actual feature they plan to maintain.
 
 ## Comment the Code
 

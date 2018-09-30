@@ -55,10 +55,11 @@ Route middleware have the unique option of also being stacks of middleware \(or 
 from app.http.middleware.RouteMiddleware import RouteMiddleware
 
 ROUTE_MIDDLEWARE = {
-    'admin': 'app.http.middleware.AdminMiddleware.AdminMiddleware',
+    'admin': 'app.http.middleware.AdmineMiddleware.AdminMiddleware'
     'auth': [
-        'app.http.middleware.AuthMiddleware.AuthMiddleware',
-        'app.http.middleware.VerifyMiddleware.VerifyMiddleware',
+        'app.http.middleware.AuthMiddleware.AuthMiddleware'
+        'app.http.middleware.VerifyMiddleware.VerifyMiddleware'
+
     ]
 }
 ```
@@ -92,7 +93,6 @@ ROUTES = [
 ### Verify Email Middleware
 
 This middleware checks to see if the logged in user has verified their email. If they haven't it will redirect the user to a page reminding them to verify their email.
-
 
 You can run this middleware on any route by specifying the key in the middleware method on your route:
 

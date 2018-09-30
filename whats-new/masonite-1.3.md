@@ -6,7 +6,7 @@ Masonite 1.3 comes with a plethora of improvements over previous versioning. Thi
 
 ## Fixed infinite redirection
 
-Previously when you tried to redirect using the `Request.redirect()` method, Masonite would sometimes send the browser to an infinite redirection. This was because masonite was not resetting the redirection attributes of the `Request` class.
+Previously when a you tried to redirect using the `Request.redirect()` method, Masonite would sometimes send the browser to an infinite redirection. This was because masonite was not resetting the redirection attributes of the `Request` class.
 
 ## Fixed browser content length
 
@@ -50,9 +50,7 @@ Notice how we never imported anything from the module or Service Container. See 
 
 ## Added a way to have global template variables
 
-
-Very often you will want to have a single variable accessible in all of your views, such as the `Request` object or other class. We can use the new `View` class for this and put it in its own service provider:
-
+Very often you will want to have a single variable accessible in all of your views, such as the `Request` object or other class. We can use the new `View` class for this and put it in it's own service provider:
 
 ```python
 def boot(self, View, Request):
@@ -85,6 +83,5 @@ This will look for the controller in the `thirdparty.routes` module.
 
 ## Added Queues and Jobs
 
-Masonite now ships with a `QueueManager` class which can be used to build queue drivers. Masonite ships with an `async` driver which sends jobs to a background thread. These queues can process Jobs which can be created with the new `craft job` command. See the [Queues and Jobs](../useful-features/queues-and-jobs.md) documentation for more information.
-
+Masonite now ships with a `QueueManager` class which can be used to build queue drivers. Masonite ships with an `async` driver which sends jobs to a background thread. These queues can process Jobs which ca be created with the new `craft job` command. See the [Queues and Jobs](../useful-features/queues-and-jobs.md) documentation for more information.
 

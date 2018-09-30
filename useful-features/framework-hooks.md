@@ -112,17 +112,17 @@ class SentryServiceProvider(ServiceProvider):
 Notice that the key we binded our object to ends with "ExceptionHook." What we put before this part of the string is whatever you want to put. Also note that we also instantiated our `SentryHook()` and didn't put `SentryHook`
 {% endhint %}
 
-And finally add the Service Provider to our `PROVIDERS` constant in our `config/providers.py` file:
+And finally add the Service Provider to our `PROVIDERS` constant in our `config/application.py` file:
 
 ```python
 from app.providers.SentryServiceProvider import SentryServiceProvider
 ...
 # Application Providers 
-UserModelProvider,
-MiddlewareProvider,
+UserModelProvider(),
+MiddlewareProvider(),
 
 # Sentry Provider
-SentryServiceProvider,
+SentryServiceProvider(),
 ...
 ```
 
