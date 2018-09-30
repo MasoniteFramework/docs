@@ -68,5 +68,57 @@ class UserModelProvider(ServiceProvider):
 
 This will be exactly the same as above. Notice that the `boot` method is resolved by the container.
 
+# Provider Methods
+
+Service providers have several methods we can use to help us bind objects into the container.
+
+## Commands
+
+We can simply bind commands into the container:
+
+```python
+def register(self):
+    self.commands(Command1(), Command2())
+```
+
+## Middleware
+
+We can also bind http and route middleware into the container:
+
+```python
+def register(self):
+    self.http_middleware([Middleware, Here])
+    self.route_middleware({'middleware': Here})
+```
+
+## Migrations
+
+We can add directories that have migrations easily as well:
+
+```python
+def register(self):
+    self.migrations('directory/1', 'directory/2')
+```
+
+## Routes
+
+We can also add routes:
+
+```python
+def register(self):
+    self.routes([
+        get(),
+    ])
+```
+
+## Assets
+
+We can also add any directories that have asset files:
+
+```python
+def register(self):
+    self.assets({'/directory': 'alias/})
+```
+
 Great! It's really that simple. Just this knowledge will take you a long way. Take a look at the other service providers to get some inspiration on how you should create yours. Again, if you do create a Service Provider, consider making it available on PyPi so others can install it into their framework.
 
