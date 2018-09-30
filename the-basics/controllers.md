@@ -99,7 +99,56 @@ class DashboardController:
 
 ## Defining a Controller Method
 
-Controller methods are very similar to function based views in a Django application except this is just a normal class method. Our controller methods at a minimum should look like:
+Resource controllers are controllers that have basic CRUD / resource style methods to them such as create, update, show, store etc. We can create a resource controller by running:
+
+```text
+$ craft controller Dashboard -r
+```
+
+or
+
+```text
+$ craft controller Dashboard --resource
+```
+
+this will create a controller that looks like:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/DashboardController.py" %}
+```python
+''' A Module Description '''
+
+class DashboardController: 
+ ''' Class Docstring Description '''
+ 
+    def show(self): 
+        pass
+        
+    def index(self): 
+        pass
+        
+    def create(self): 
+        pass
+        
+    def store(self): 
+        pass
+        
+    def edit(self): 
+        pass
+        
+    def update(self): 
+        pass
+    
+    def destroy(self): 
+        pass
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## Defining a Controller Method
+
+Controller methods are very similar to function based views in a Django application. Our controller methods at a minimum should look like:
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/DashboardController.py" %}
@@ -110,7 +159,7 @@ def show(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-All controller methods must have the self parameter. The `self` parameter is the normal python `self` object which is just an instance of the current class as usual. Nothing special here.
+All controller methods must start with the self parameter. The `self` parameter is the normal python `self` object which is just an instance of the current object as usual. Nothing special here.
 
 ## Container Resolving
 

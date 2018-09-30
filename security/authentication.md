@@ -101,6 +101,60 @@ def show(self, Request):
         user_email = Request.user().email
 ```
 
+## Logging In
+
+You can easily log users into your application using the Auth class which takes the request object as a dependency:
+
+```python
+from masonite.facades import Auth
+
+def show(self):
+    Auth(Request).login(
+        Request.input('username'),
+        Request.input('password')
+    )
+```
+
+{% hint style="info" %}
+Note that the username you supply needs to be in whatever format the `__auth__` attribute is on your model. If the email address is the "username", then the user will need to supply their email address.
+{% endhint %}
+
+### Login By ID
+
+ If you need more direct control internally, you can login by the models ID:
+
+```python
+from masonite.facades import Auth
+
+def show(self):
+    Auth(Request).login_by_id(1)
+```
+
+You are now logged in as the user with the ID of 1.
+
+### Login Once
+
+If you only want to login "once", maybe for just authenticating an action or verifying the user can supply the correct credentials, you can login without saving any cookies to the browser:
+
+```python
+from masonite.facades import Auth
+
+def show(self):
+    Auth(Request).once().login_by_id(1)
+```
+
+You can do the same for the normal login method as well:
+
+```python
+from masonite.facades import Auth
+
+def show(self):
+    Auth(Request).once().login(
+        Request.input('username'),
+        Request.input('password')
+    )
+```
+
 ## Protecting Routes
 
 Masonite ships with an authentication middleware. You can use this middleware as a route middleware to protect certain routes from non authenticated users. This is great for redirecting users to a login page if they attempt to go to their dashboard.
@@ -127,6 +181,7 @@ This will delete the cookie that was set when logging in. This will not redirect
 def logout(self, Request):
     Auth(Request).logout()
     return Request.redirect('/login')
+
 ```
 
 ## Verifying A User's Email

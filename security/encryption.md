@@ -2,7 +2,9 @@
 
 ## Introduction
 
-Masonite comes with bcrypt out of the box but leaves it up to the developer to actually encrypt things like passwords. You can opt to use any other hashing library but bcrypt is the standard of a lot of libraries and comes with some one way hashing algorithms with no known vulnerabilities. Many of hashing algorithms like SHA-1 and MD5 are not secure and you should not use them in your application. 
+
+Masonite comes with bcrypt out of the box but leaves it up to the developer to actually encrypt things like passwords. You can opt to use any other hashing library but bcrypt is the standard of a lot of libraries and comes with some one way hashing algorithms with no known vulnerabilities. Many of hashing algorithms like SHA-1 and MD5 are not secure and you should not use them in your application.
+
 
 {% hint style="success" %}
 You can read the [bcrypt documentation here](https://github.com/pyca/bcrypt).
@@ -43,9 +45,9 @@ from masonite.auth import Sign
 
 sign = Sign()
 
-sign.encrypt('value') # PSJDUudbs87SB....
+sign.sign('value') # PSJDUudbs87SB....
 
-sign.decrypt('value') # 'value'
+sign.unsign('value') # 'value'
 ```
 
 By default, `Sign()` uses the encryption key in your `config/application.py` file but you could also pass in your own key.
@@ -57,9 +59,9 @@ encryption_key = b'SJS(839dhs...'
 
 sign = Sign(encryption_key)
 
-sign.encrypt('value') # PSJDUudbs87SB....
+sign.sign('value') # PSJDUudbs87SB....
 
-sign.decrypt('value') # 'value'
+sign.unsign('value') # 'value'
 ```
 
 This feature uses [pyca/cryptography](https://cryptography.io/en/latest/) for this kind of encryption. Because of this, we can generate keys using Fernet.
@@ -72,16 +74,16 @@ encryption_key = Fernet.generate_key()
 
 sign = Sign(encryption_key)
 
-sign.encrypt('value') # PSJDUudbs87SB....
+sign.sign('value') # PSJDUudbs87SB....
 
-sign.decrypt('value') # 'value'
+sign.unsign('value') # 'value'
 ```
 
 Just remember to store the key you generated or you will not be able to decrypt any values that you encrypted.
 
 ## Using bcrypt
 
-Bcrypt is very easy to use an basically consists of a 1 way hash, and then a check to verify if that 1 way hash matches an input given to it. 
+Bcrypt is very easy to use an basically consists of a 1 way hash, and then a check to verify if that 1 way hash matches an input given to it.
 
 {% hint style="warning" %}
 It's important to note that any values passed to bcrypt need to be in bytes.

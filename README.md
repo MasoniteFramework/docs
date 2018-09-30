@@ -1,5 +1,6 @@
 # Introduction
 
+
 {% hint style="danger" %}
 This version is not yet released
 {% endhint %}
@@ -79,6 +80,7 @@ $ pip install masonite-cli
 {% hint style="warning" %}
 If you are having installation issues, be sure to read the [Known Installation Issues](prologue/known-installation-issues.md) documentation.
 {% endhint %}
+
 
 ## Creating Our Project
 

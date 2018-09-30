@@ -157,19 +157,24 @@ class HelloProvider(ServiceProvider):
 
 ## Adding The Service Provider
 
-Like normal, we need to add our Service Provider to the `PROVIDERS` list inside our `config/application.py` file:
+
+Like normal, we need to add our Service Provider to the `PROVIDERS` list inside our `config/providers.py` file:
 
 {% code-tabs %}
 {% code-tabs-item title="config/application.py" %}
 ```python
+from app.providers.HelloProvider import HelloProvider
+...
+
 PROVIDERS = [
 ...
     # Application Providers
-    'app.providers.UserModelProvider.UserModelProvider',
-    'app.providers.MiddlewareProvider.MiddlewareProvider',
+    UserModelProvider,
+    MiddlewareProvider,
 
     # New Hello Provider
-    'app.providers.HelloProvider.HelloProvider',
+    HelloProvider,
+
 ]
 ```
 {% endcode-tabs-item %}
