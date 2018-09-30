@@ -28,8 +28,10 @@ Middleware is a string to the module location of your middleware class. If your 
 In our `config/middleware.py` file this type of middleware may look something like:
 
 ```python
+from app.http.middleware.DashboardMiddleware import DashboardMiddleware
+
 HTTP_MIDDLEWARE = [
-    'app.http.middleware.DashboardMiddleware.DashboardMiddleware'
+    DashboardMiddleware,
 ]
 ```
 
@@ -43,7 +45,7 @@ In our `config/middleware.py` file this might look something like:
 from app.http.middleware.RouteMiddleware import RouteMiddleware
 
 ROUTE_MIDDLEWARE = {
-    'auth': 'app.http.middleware.RouteMiddleware.RouteMiddleware'
+    'auth': RouteMiddleware,
 }
 ```
 
@@ -52,14 +54,15 @@ ROUTE_MIDDLEWARE = {
 Route middleware have the unique option of also being stacks of middleware \(or lists, really\). So we can specify a middleware to have a list of middleware instead of one string based middleware:
 
 ```python
-from app.http.middleware.RouteMiddleware import RouteMiddleware
+from app.http.middleware.AdminMiddleware import AdminMiddleware
+from app.http.middleware.AuthMiddleware import AuthMiddleware
+from app.http.middleware.VerifyMiddleware import VerifyMiddleware
 
 ROUTE_MIDDLEWARE = {
-    'admin': 'app.http.middleware.AdmineMiddleware.AdminMiddleware'
+    'admin': AdminMiddleware,
     'auth': [
-        'app.http.middleware.AuthMiddleware.AuthMiddleware'
-        'app.http.middleware.VerifyMiddleware.VerifyMiddleware'
-
+        AuthMiddleware,
+        VerifyMiddleware,
     ]
 }
 ```
@@ -68,7 +71,7 @@ Notice that we can use both lists and strings for middleware. As a list, all the
 
 ## Default Middleware
 
-There are 4 default middleware that comes with Masonite. These middleware can be changed or removed to fit your application better.
+There are several default middleware that come with Masonite. These middleware can be changed or removed to fit your application better.
 
 ### Authentication Middleware
 
@@ -133,10 +136,11 @@ Again, middleware should live inside the `app/http/middleware` folder and should
 
 ```python
 class AuthenticationMiddleware:
-    ''' Middleware class '''
+    """Middleware class
+    """
 
-    def __init__(self, Request):
-        self.request = Request
+    def __init__(self, request: Request):
+        self.request = request
 
     def before(self):
         pass
@@ -159,10 +163,11 @@ This is a boilerplate for middleware. It's simply a class with a before and/or a
 
 ```python
 class AuthenticationMiddleware:
-    ''' Middleware class which loads the current user into the request '''
+    """Middleware class which loads the current user into the request
+    """
 
-    def __init__(self, Request):
-        self.request = Request
+    def __init__(self, request: Request):
+        self.request = request
 
     def before(self):
         if not self.request.user():
@@ -187,8 +192,9 @@ Middleware is a string to the module location of your middleware class. If your 
 In our `config/middleware.py` file this type of middleware may look something like:
 
 ```python
+from app.http.middleware.DashboardMiddleware import DashboardMiddleware
 HTTP_MIDDLEWARE = [
-    'app.http.middleware.DashboardMiddleware.DashboardMiddleware'
+    DashboardMiddleware,
 ]
 ```
 
@@ -200,7 +206,7 @@ In our `config/middleware.py` file this might look something like:
 from app.http.middleware.RouteMiddleware import RouteMiddleware
 
 ROUTE_MIDDLEWARE = {
-    'auth': 'app.http.middleware.RouteMiddleware.RouteMiddleware'
+    'auth': RouteMiddleware,
 }
 ```
 

@@ -4,7 +4,7 @@
 
 The Request class is initialized when the server first starts and is modified on every request. This means that the Request class acts as a singleton and is not reinitialized on every request. This presents both pros and cons during developing Masonite. It's great to not have to worry about a new object being instantiated every time but the con is that some attributes need to be reset at the end of the request.
 
-The Request class is loaded into the IOC container first so any Service Provider will have access to it. The IOC container allows all parts of the framework to be resolved by the IOC container and auto inject any dependencies they need. 
+The Request class is loaded into the IOC container first so any Service Provider will have access to it. The IOC container allows all parts of the framework to be resolved by the IOC container and auto inject any dependencies they need.
 
 {% hint style="success" %}
 Read more about the IOC container in the [Service Container](../architectural-concepts/service-container.md) documentation.
@@ -35,7 +35,7 @@ def show(self, request: Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Notice we didn't import anything at the top of our file and also didn't retrieve any objects from the IOC container. Masonite helper functions act just like any other built in Python function. 
+Notice we didn't import anything at the top of our file and also didn't retrieve any objects from the IOC container. Masonite helper functions act just like any other built in Python function.
 
 {% hint style="success" %}
 Read more about helper functions in the [Helper Functions](helper-functions.md) documentation.
@@ -178,7 +178,7 @@ def show(self, request: Request):
 
 ## Cookies
 
-You may also set a cookie in the browser. The below code will set a cookie named `key` to the value of `value`. 
+You may also set a cookie in the browser. The below code will set a cookie named `key` to the value of `value`.
 
 {% hint style="warning" %}
 By default, all cookies are encrypted with your secret key which is generated in your `.env` file when you installed Masonite. This is a security measure to ensure malicious Javascript code cannot fetch cookies if they are somehow retrieved. All cookies are set with the HTTP\_ONLY flag meaning that Javascript cannot read them although you can turn this off using a parameter.
@@ -433,7 +433,7 @@ def show(self, request: Request):
 
 This will check for the `__back` input and if it doesn't exist it will use this default route.
 
-##  Encryption Key
+## Encryption Key
 
 You can load a specific secret key into the request by using:
 
@@ -441,7 +441,7 @@ You can load a specific secret key into the request by using:
 request.key(key)
 ```
 
-This will load a secret key into the request which will be used for encryptions purposes throughout your Masonite project. 
+This will load a secret key into the request which will be used for encryptions purposes throughout your Masonite project.
 
 {% hint style="warning" %}
 Note that by default, the secret key is pulled from your configuration file so you do NOT need to supply a secret key, but the option is there if you need to change it for testing and development purposes.
@@ -449,7 +449,7 @@ Note that by default, the secret key is pulled from your configuration file so y
 
 ## Headers
 
-You can also get and set any headers that the request has. 
+You can also get and set any headers that the request has.
 
 You can get all WSGI information by printing:
 
@@ -561,7 +561,7 @@ or you can optionally use a helper method:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-When the form is submitted, it will process as a PUT request instead of a POST request. 
+When the form is submitted, it will process as a PUT request instead of a POST request.
 
 This will allow this form to hit a route like this:
 
