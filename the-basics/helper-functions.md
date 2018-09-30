@@ -68,6 +68,15 @@ def show(self, View):
     return View('template_name')
 ```
 
+## Mail
+
+Instead of resolving the mail class you can use the mail helper:
+
+```python
+def show(self):
+    mail_helper().to(..)
+```
+
 ## Auth
 
 The `auth()` function is a shortcut around getting the current user. We can retrieve the user like so:
