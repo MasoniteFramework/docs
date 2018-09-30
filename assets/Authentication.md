@@ -25,8 +25,10 @@ In order to authenticate a model this will look like:
 
 ```python
 from masonite.auth import Auth
+from masonite.request import Request
 
-Auth.login('user@email.com', 'password')
+def show(self, request: Request)
+    Auth(request).login('user@email.com', 'password')
 ```
 
 This will find a model with the supplied username, check if the password matches using `bcrypt` and return the model. If it is not found or the password does not match, it will return `False`.
