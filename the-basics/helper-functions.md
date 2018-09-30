@@ -21,13 +21,13 @@ class HelpersProvider(ServiceProvider):
     def boot(self, View, ViewClass, Request):
         ''' Add helper functions to Masonite '''
         builtins.view = View
-        builtins.request = Request.helper
-        builtins.auth = Request.user
+        builtins.request = request.helper
+        builtins.auth = request.user
         builtins.container = self.app.helper
         builtins.env = os.getenv
         builtins.resolve = self.app.resolve
 
-        ViewClass.share({'request': Request.helper, 'auth': Request.user})
+        ViewClass.share({'request': request.helper, 'auth': request.user})
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -47,7 +47,7 @@ is exactly the same as:
 
 ```python
 def show(self, request: Request):
-    Request.input('id')
+    request.input('id')
 ```
 
 Notice we didn't import anything at the top of the file, nor did we inject anything from the Service Container.
@@ -90,7 +90,7 @@ is exactly the same as:
 
 ```python
 def show(self, request: Request):
-    Request.user().id
+    request.user().id
 ```
 
 This will return `None` if there is no user so in a real world application this may look something like:
@@ -116,7 +116,7 @@ is exactly the same as:
 
 ```python
 def show(self, request: Request):
-    Request.app().make('User')
+    request.app().make('User')
 ```
 
 ## Env
@@ -156,7 +156,7 @@ def some_function(Request):
     print(Request)
 
 def show(self, request: Request):
-    Request.app().resolve(some_function)
+    request.app().resolve(some_function)
 ```
 
 That's it! These are simply just functions that are added to Python's builtin functions.

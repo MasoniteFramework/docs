@@ -48,7 +48,7 @@ The service container is available in the `Request` object and can be retrieved 
 
 ```python
 def show(self, request: Request):
-    Request.app() # will return the service container
+    request.app() # will return the service container
 ```
 
 ## Simple Binding
@@ -161,7 +161,7 @@ You can technically still resolve parameters with your container like you could 
 
 ```python
 def show(self, Request):
-    Request.user()
+    request.user()
 ```
 
 Although this was removed in 2.1+, you may still enable it on a per project basis. To enable it, go to your `wsgi.py` file and add this to the constructor of your App class towards the top of the file:
@@ -185,7 +185,7 @@ def randomFunction(User):
     print(User)
 
 def show(self, request: Request):
-    Request.app().resolve(randomFunction) # Will print the User object
+    request.app().resolve(randomFunction) # Will print the User object
 ```
 
 {% hint style="warning" %}

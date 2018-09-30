@@ -67,7 +67,7 @@ A lot of the time we’ll need to pass in data to our views. This data is passed
 
 ```python
 def show(self, request: Request):
-    return view('dashboard', {'id': Request.param('id')})
+    return view('dashboard', {'id': request.param('id')})
 ```
 
 **Remember that by passing in parameters like **`Request`** to the controller method, we can retrieve objects from the IOC container. Read more about the IOC container in the "Service Container" documentation.**

@@ -79,7 +79,7 @@ Using this `LoadUser` middleware you can retrieve the current user using:
 
 ```python
 def show(self, request: Request):
-    Request.user()
+    request.user()
 ```
 
 If you wish not to use middleware to load the user into the request you can get the request by again using the `Auth` class
@@ -93,12 +93,12 @@ def show(self, request: Request):
 
 ### Checking if the User is Authenticated
 
-If you would like to simply check if the user is authenticated, `Request.user()` or `Auth(Request).user()` will return `False` if the user is not authenticated. This will look like:
+If you would like to simply check if the user is authenticated, `request.user()` or `Auth(Request).user()` will return `False` if the user is not authenticated. This will look like:
 
 ```python
 def show(self, request: Request):
-    if Request.user():
-        user_email = Request.user().email
+    if request.user():
+        user_email = request.user().email
 ```
 
 ## Protecting Routes
@@ -126,7 +126,7 @@ This will delete the cookie that was set when logging in. This will not redirect
 ```python
 def logout(self, Request):
     Auth(Request).logout()
-    return Request.redirect('/login')
+    return request.redirect('/login')
 ```
 
 ## Verifying A User's Email

@@ -113,7 +113,7 @@ Sometimes you might want to cast a certain value for the purposes of validation.
 To do this simply requires validation casting. When validating, Masonite Validations will look for a cast\_x method. x is the name of the input you are validating. So for example we may have an input like this:
 
 ```python
-Request.input('countries') # 'California,Florida,Ohio'
+request.input('countries') # 'California,Florida,Ohio'
 ```
 
 ```python
@@ -151,10 +151,10 @@ You can also use this validator class to get the value that the validator is usi
 from app.validators import CountryValidation
 
 def show(self, request: Request):
-    Request.input('countries') # 'California,Florida,Ohio'
+    request.input('countries') # 'California,Florida,Ohio'
     validation = CountryValidation(Request).validate_countries()
     
-    Request.input('countries') # 'California,Florida,Ohio'
+    request.input('countries') # 'California,Florida,Ohio'
     validation.get('countries') # ['California', 'Florida', 'Ohio']
 ```
 

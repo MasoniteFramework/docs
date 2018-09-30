@@ -175,9 +175,9 @@ from app.Post import Post
 
 def store(self, Request):
     Post.create(
-        title=Request.input('title'),
-        body=Request.input('body'),
-        author_id=Request.user().id
+        title=request.input('title'),
+        body=request.input('body'),
+        author_id=request.user().id
     )
 
     return 'post created'

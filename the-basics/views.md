@@ -159,7 +159,7 @@ A lot of the time we’ll need to pass in data to our views. This data is passed
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, request: Request):
-    return view('dashboard', {'id': Request.param('id')})
+    return view('dashboard', {'id': request.param('id')})
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

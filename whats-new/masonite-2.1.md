@@ -24,7 +24,7 @@ We have completely removed parameter resolving. We can no longer resolve like th
 
 ```python
 def show(self, request: Request):
-    return Request.redirect('/')
+    return request.redirect('/')
 ```
 
 in favor of the more explicit:

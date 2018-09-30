@@ -16,9 +16,9 @@ def is_authenticated(self):
 
 def show(self, request: Request):
 
-    Request.extend(is_authenticated)
+    request.extend(is_authenticated)
 
-    print(Request.is_authenticated()) # returns the Request class
+    print(request.is_authenticated()) # returns the Request class
 ```
 
 Usage is very simple and has several options for extending a class. Notice that we don't call the function but we pass the reference to it.
@@ -33,9 +33,9 @@ def is_authenticated(self):
 
 def show(self, request: Request):
 
-    Request.extend(is_authenticated)
+    request.extend(is_authenticated)
 
-    print(Request.is_authenticated()) # returns the Request class
+    print(request.is_authenticated()) # returns the Request class
 ```
 
 ### Extending a class method
@@ -50,9 +50,9 @@ class Authentication:
 
 def show(self, request: Request):
 
-    Request.extend(Authentication.is_authenticated)
+    request.extend(Authentication.is_authenticated)
 
-    print(Request.is_authenticated()) # returns the Request class
+    print(request.is_authenticated()) # returns the Request class
 ```
 
 ### Extending a class
@@ -70,9 +70,9 @@ class Authentication:
 
 def show(self, request: Request):
 
-    Request.extend(Authentication)
+    request.extend(Authentication)
 
-    print(Request.is_authenticated()) # returns the Request class
-    print(Request.login()) # returns the Request class
+    print(request.is_authenticated()) # returns the Request class
+    print(request.login()) # returns the Request class
 ```
 

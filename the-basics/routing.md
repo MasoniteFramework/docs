@@ -433,7 +433,7 @@ Out of the box this feature will not work and is turned off by default. We will 
 wsgi = False
 ...
 def boot(self, Request):
-    Request.activate_subdomains()
+    request.activate_subdomains()
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -468,7 +468,7 @@ If a match is found, it will also add a `subdomain` parameter to the Request cla
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, request: Request):
-    print(Request.param('subdomain'))
+    print(request.param('subdomain'))
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
