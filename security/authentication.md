@@ -129,5 +129,32 @@ def logout(self, Request):
     return Request.redirect('/login')
 ```
 
+## Verifying A User's Email
+
+If you wish to require a user to verify their email address and automatically send them an email, you can extend the `User` model.
+
+
+```python
+from masonite.auth import MustVerifyEmail
+
+class User(Model, MustVerifyEmail):
+
+    __fillable__ = ['name', 'email', 'password']
+
+    __auth__ = 'name'
+```
+
+When a user registers this will automatically send them an email asking them to confirm their email address.
+
+### Redirecting Unverified User's
+
+You can use the `VerifyEmailMiddleware` class to redirect an unverified user.
+
+You can use this middleware in your routes file like so:
+
+```python
+Get().route('/dashboard', 'DashboardController@show').middleware('verified')
+```
+
 Great! You’ve mastered how Masonite uses authentication. Remember that this is just out of the box functionality and you can create a completely different authentication system but this will suffice for most applications.
 
