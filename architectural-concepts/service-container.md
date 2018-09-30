@@ -27,7 +27,6 @@ In order to bind classes into the container, we will just need to use a simple `
 ```python
 from masonite.provider import ServiceProvider
 from app.User import User
-from masonite.request import Request
 
 class UserModelProvider(ServiceProvider):
 
@@ -52,7 +51,25 @@ def show(self, request: Request):
     Request.app() # will return the service container
 ```
 
-## **Make**
+## Simple Binding
+
+Sometimes you really don't care what the key is for the object you are binding. For example you may be binding a `Markdown` class into the container but really don't care what the key binding is called. This is a great reason to use simple binding which will set the key as the object class:
+
+```python
+from masonite.provider import ServiceProvider
+from app.User import User
+
+
+class UserModelProvider(ServiceProvider):
+
+    def register(self):
+        self.app.simple(User)
+
+    def boot(self):
+        pass
+```
+
+## Make
 
 In order to retrieve a class from the service container, we can simply use the `make` method.
 
