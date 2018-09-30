@@ -50,6 +50,16 @@ $ craft controller NameHere
 
 This command will create a new controller under `app/http/controller`. By convention, all controllers should have an appended “Controller”. For example in order to make a dashboard controller, you should run `craft controller DashboardController` and not `craft controller Dashboard` although you can name your controllers however you like.
 
+#### Creating Middleware
+
+If you wish to scaffold a middleware, just run:
+
+```text
+$ craft middleware NameHere
+```
+
+This command will create a new middleware under `app/http/middleware`.
+
 #### Creating a New Project
 
 If you’d like to start a new project, you can run:
