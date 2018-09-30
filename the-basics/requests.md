@@ -508,12 +508,21 @@ Masonite will automatically prepend a `HTTP_` to the header being set for standa
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
-request.header('AUTHORIZATION', 'Bearer some-secret-key', http_prefix=None)
+request.header('AUTHORIZATION', 'Bearer some-secret-key')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
 This will set the `AUTHORIZATION` header **instead** of the `HTTP_AUTHORIZATION` header.
+
+You can also set headers with a dictionary:
+
+```python
+request.header({
+    'AUTHORIZATION': 'Bearer some-secret-key',
+    'Content-Type': 'application/json'
+})
+```
 
 ## Status Codes
 
