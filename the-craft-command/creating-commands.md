@@ -157,6 +157,7 @@ class HelloProvider(ServiceProvider):
 
 ## Adding The Service Provider
 
+
 Like normal, we need to add our Service Provider to the `PROVIDERS` list inside our `config/providers.py` file:
 
 {% code-tabs %}
@@ -173,6 +174,7 @@ PROVIDERS = [
 
     # New Hello Provider
     HelloProvider,
+
 ]
 ```
 {% endcode-tabs-item %}

@@ -99,6 +99,55 @@ class DashboardController:
 
 ## Defining a Controller Method
 
+Resource controllers are controllers that have basic CRUD / resource style methods to them such as create, update, show, store etc. We can create a resource controller by running:
+
+```text
+$ craft controller Dashboard -r
+```
+
+or
+
+```text
+$ craft controller Dashboard --resource
+```
+
+this will create a controller that looks like:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/DashboardController.py" %}
+```python
+''' A Module Description '''
+
+class DashboardController: 
+ ''' Class Docstring Description '''
+ 
+    def show(self): 
+        pass
+        
+    def index(self): 
+        pass
+        
+    def create(self): 
+        pass
+        
+    def store(self): 
+        pass
+        
+    def edit(self): 
+        pass
+        
+    def update(self): 
+        pass
+    
+    def destroy(self): 
+        pass
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## Defining a Controller Method
+
 Controller methods are very similar to function based views in a Django application. Our controller methods at a minimum should look like:
 
 {% code-tabs %}

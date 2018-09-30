@@ -1,3 +1,4 @@
+
 # View Composers, Sharing, Filters and Tests
 
 ## Introduction
@@ -190,6 +191,7 @@ Make sure that you add filters in a [Service Provider](../architectural-concepts
 
 That's it! Adding filters is that easy!
 
+
 ## View Tests
 
 View tests are simply custom boolean expressions that can be used in your templates. We may want to run boolean tests on specific objects to assert that they pass a test. For example we may want to test if a user is an owner of a company like this:
@@ -231,6 +233,4 @@ That's it! Now we can use the `a_company_owner` in our templates just like the f
 {% hint style="info" %}
 Notice that we only supplied the function and we did not instantiate anything. The function or object we supply needs to have 1 parameter which is the object or string we are testing.
 {% endhint %}
-
-
 

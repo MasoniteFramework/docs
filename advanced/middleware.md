@@ -55,11 +55,10 @@ Route middleware have the unique option of also being stacks of middleware \(or 
 from app.http.middleware.RouteMiddleware import RouteMiddleware
 
 ROUTE_MIDDLEWARE = {
-    'admin': 'app.http.middleware.AdminMiddleware.AdminMiddleware'
+    'admin': 'app.http.middleware.AdminMiddleware.AdminMiddleware',
     'auth': [
-        'app.http.middleware.AuthMiddleware.AuthMiddleware'
-        'app.http.middleware.VerifyMiddleware.VerifyMiddleware'
-
+        'app.http.middleware.AuthMiddleware.AuthMiddleware',
+        'app.http.middleware.VerifyMiddleware.VerifyMiddleware',
     ]
 }
 ```
@@ -68,7 +67,7 @@ Notice that we can use both lists and strings for middleware. As a list, all the
 
 ## Default Middleware
 
-There are 3 default middleware that comes with Masonite. These middleware can be changed or removed to fit your application better.
+There are 4 default middleware that comes with Masonite. These middleware can be changed or removed to fit your application better.
 
 ### Authentication Middleware
 
@@ -85,6 +84,27 @@ from masonite.helpers.routes import get
 ROUTES = [
     ...
     get('/dashboard', 'DashboardController@show').middleware('auth')
+]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### Verify Email Middleware
+
+This middleware checks to see if the logged in user has verified their email. If they haven't it will redirect the user to a page reminding them to verify their email.
+
+
+You can run this middleware on any route by specifying the key in the middleware method on your route:
+
+{% code-tabs %}
+{% code-tabs-item title="routes/web.py" %}
+```python
+from masonite.helpers.routes import get
+...
+
+ROUTES = [
+    ...
+    get('/dashboard', 'DashboardController@show').middleware('verified')
 ]
 ```
 {% endcode-tabs-item %}

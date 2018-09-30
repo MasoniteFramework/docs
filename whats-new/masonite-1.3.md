@@ -50,7 +50,9 @@ Notice how we never imported anything from the module or Service Container. See 
 
 ## Added a way to have global template variables
 
+
 Very often you will want to have a single variable accessible in all of your views, such as the `Request` object or other class. We can use the new `View` class for this and put it in its own service provider:
+
 
 ```python
 def boot(self, View, Request):
@@ -84,4 +86,5 @@ This will look for the controller in the `thirdparty.routes` module.
 ## Added Queues and Jobs
 
 Masonite now ships with a `QueueManager` class which can be used to build queue drivers. Masonite ships with an `async` driver which sends jobs to a background thread. These queues can process Jobs which can be created with the new `craft job` command. See the [Queues and Jobs](../useful-features/queues-and-jobs.md) documentation for more information.
+
 

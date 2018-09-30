@@ -69,6 +69,7 @@ def show(self, Request):
 There is no difference between any HTTP methods \(GET, POST, PUT, etc\) when it comes to getting input data. They are all retrieved through this `.input()` method so there is no need to make a distinction if the request is `GET` or `POST`
 {% endhint %}
 
+
 ## Method Options
 
 ### Input Data
@@ -76,6 +77,32 @@ There is no difference between any HTTP methods \(GET, POST, PUT, etc\) when it 
 We can get all the request input variables such as input data from a form request or GET data from a query string. Note that it does not matter what HTTP method you are using, the input method will know what input data to get dependent on the current HTTP method \(`GET`, `POST`, `PUT`, etc\)
 
 This will return all the available request input variables for that request as a dictionary.
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+# GET: /dashboard?user=Joe&status=1
+
+def show(self, Request):
+    return Request.all() # {'user': 'Joe', 'status': '1'}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+This method will get all of the request input variables to include any internal framework variables completely handled internally such as \_\_token and \_\_method. You can exclude them by passing in False into the method or specifying it explicitly:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+# GET: /dashboard?user=Joe&status=1&__token=837674634
+
+def show(self, Request):
+    return Request.all(internal_variables=False) # {'user': 'Joe', 'status': '1'}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+To get a specific input:
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
@@ -118,12 +145,14 @@ To check if some request input data exists:
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
+
 ```python
 # GET: /dashboard?firstname=Joe
 
 def show(self, Request):
     return Request.has('firstname') # True
 ```
+
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
@@ -141,6 +170,23 @@ def show(self, Request):
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+
+### Only
+
+You can only get a certain set of parameters if you have a need to do so. This can be used like:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+# GET: /dashboard?firstname=Joe&lastname=Mancuso&active=1
+
+def show(self, Request):
+    return Request.only('firstname', 'active') # {'firstname': 'Joe', 'active': '1'}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 
 ### URL Parameters
 
@@ -180,7 +226,10 @@ Then we can fetch this input in a controller like so:
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
+
 ```python
+# GET: /dashboard/Joe
+
 def show(self, Request):
     Request.input('payload')['name'] # Joe
 ```
@@ -318,6 +367,7 @@ def show(self, Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+
 ## Routes
 
 You can also get a route URL via the route name. Let's say we have a route like this:
@@ -413,6 +463,7 @@ There are 3 states which we should be aware of when using this method.
 
 ### Form Back Redirection
 
+
 Masonite will check for a `__back` input and redirect to that route. We can specify one using the `back()` view helper function:
 
 ```markup
@@ -454,6 +505,25 @@ ROUTES = [
     post('/dashboard/create', 'Controller@store')
 ]
 ```
+
+Where we are going to the `POST` version but want to redirect back to the `GET` version of the route.
+
+### Default Back URL
+
+We can also specify a default route just in case a form submitted does not specify one using a form helper:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self, Request):
+    return Request.back(default='/hit/route')
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+This will check for the `__back` input and if it doesn't exist it will use this default route.
+
+##  Encryption Key
 
 Where we are going to the `POST` version but want to redirect back to the `GET` version of the route.
 

@@ -29,6 +29,7 @@ class UploadGoogleDriver(UploadContract):
 
 Now this class will constantly throw exceptions until it overrides all the required methods in the class.
 
+
 ## Resolving Contracts
 
 It is useful if you want to "code to an interface and not an implementation." This type of programming paradigm allows your code to be very maintainable because you can simply swap out classes in the container that have the same contract.
@@ -68,4 +69,3 @@ There are several contracts that are required when creating a driver. If you fee
 #### UploadContract
 
 #### UploadManagerContract
-

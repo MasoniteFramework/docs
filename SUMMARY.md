@@ -18,6 +18,7 @@
 * [Masonite 1.5](whats-new/masonite-1.5.md)
 * [Masonite 1.6](whats-new/masonite-1.6.md)
 * [Masonite 2.0](whats-new/masonite-2.0.md)
+* [Masonite 2.1](whats-new/masonite-2.1.md)
 
 ## Upgrade Guide
 
@@ -25,6 +26,7 @@
 * [Masonite 1.4 to 1.5](upgrade-guide/masonite-1.4-to-1.5.md)
 * [Masonite 1.5 to 1.6](upgrade-guide/masonite-1.5-to-1.6.md)
 * [Masonite 1.6 to 2.0](upgrade-guide/masonite-1.6-to-2.0.md)
+* [Masonite 2.0 to 2.1](upgrade-guide/masonite-2.0-to-2.1.md)
 
 ## The Basics
 
@@ -101,6 +103,7 @@
 * [Masonite Billing](http://billing.masoniteproject.com)
 * [Masonite Dashboard](official-packages/masonite-dashboard.md)
 * [Masonite Notifications](official-packages/masonite-notifications.md)
+* [Masonite API](official-packages/masonite-api.md)
 
 ## Creating Your First Blog
 
