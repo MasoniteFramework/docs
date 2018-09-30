@@ -48,7 +48,7 @@ This will load the key value pair in the `providers` dictionary in the container
 The service container is available in the `Request` object and can be retrieved by:
 
 ```python
-def show(self, Request):
+def show(self, request: Request):
     Request.app() # will return the service container
 ```
 
@@ -113,7 +113,7 @@ This is the most useful part of the container. It is possible to retrieve object
 For example, we can hint that we want to get the `Request` class and put it into our controller. All controller methods are resolved by the container.
 
 ```python
-def show(self, Request):
+def show(self, request: Request):
     Request.user()
 ```
 
@@ -170,7 +170,7 @@ from masonite.request import Request
 def randomFunction(User):
     print(User)
 
-def show(self, Request):
+def show(self, request: Request):
     Request.app().resolve(randomFunction) # Will print the User object
 ```
 

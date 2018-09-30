@@ -30,7 +30,7 @@ All controller methods must have the self parameter. The `self` parameter is the
 All controller methods are resolved by the container so you may also retrieve additional objects from the container by specifying them as a parameter:
 
 ```python
-def show(self, Request):
+def show(self, request: Request):
     print(Request) # Grabbed the Request object from the container
 ```
 

@@ -14,7 +14,7 @@ You have a few options for adding methods to any of the core classes. You can ex
 def is_authenticated(self):
     return self
 
-def show(self, Request):
+def show(self, request: Request):
 
     Request.extend(is_authenticated)
 
@@ -31,7 +31,7 @@ This will simply add the function as a bound method to the `Request` class
 def is_authenticated(self):
     return self
 
-def show(self, Request):
+def show(self, request: Request):
 
     Request.extend(is_authenticated)
 
@@ -48,7 +48,7 @@ class Authentication:
     def is_authenticated(self):
         return self
 
-def show(self, Request):
+def show(self, request: Request):
 
     Request.extend(Authentication.is_authenticated)
 
@@ -68,7 +68,7 @@ class Authentication:
     def login(self):
         return self
 
-def show(self, Request):
+def show(self, request: Request):
 
     Request.extend(Authentication)
 

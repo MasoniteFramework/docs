@@ -46,7 +46,7 @@ def show(self):
 is exactly the same as:
 
 ```python
-def show(self, Request):
+def show(self, request: Request):
     Request.input('id')
 ```
 
@@ -80,7 +80,7 @@ def show(self):
 is exactly the same as:
 
 ```python
-def show(self, Request):
+def show(self, request: Request):
     Request.user().id
 ```
 
@@ -106,7 +106,7 @@ def show(self):
 is exactly the same as:
 
 ```python
-def show(self, Request):
+def show(self, request: Request):
     Request.app().make('User')
 ```
 
@@ -146,7 +146,7 @@ is exactly the same as:
 def some_function(Request):
     print(Request)
 
-def show(self, Request):
+def show(self, request: Request):
     Request.app().resolve(some_function)
 ```
 

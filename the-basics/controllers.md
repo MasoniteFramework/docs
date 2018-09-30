@@ -119,7 +119,7 @@ All controller methods and constructors are resolved by the container so you may
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/DashboardController.py" %}
 ```python
-def show(self, Request):
+def show(self, request: Request):
     print(Request) # Grabbed the Request object from the container
 ```
 {% endcode-tabs-item %}

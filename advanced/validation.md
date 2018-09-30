@@ -81,7 +81,7 @@ In order to check the input data we receive from a request, such as a form submi
 ```python
 from app.validators.RegistrationValidator import RegistrationValidator
 
-def show(self, Request):
+def show(self, request: Request):
     validate = RegistrationValidator(Request)
     validate.register_form()
     validate.check() # returns True or False
@@ -150,7 +150,7 @@ You can also use this validator class to get the value that the validator is usi
 ```python
 from app.validators import CountryValidation
 
-def show(self, Request):
+def show(self, request: Request):
     Request.input('countries') # 'California,Florida,Ohio'
     validation = CountryValidation(Request).validate_countries()
     

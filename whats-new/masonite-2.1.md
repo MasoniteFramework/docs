@@ -23,7 +23,7 @@ It is much easier to contribute to Masonite now since nearly classes have awesom
 We have completely removed parameter resolving. We can no longer resolve like this:
 
 ```python
-def show(self, Request):
+def show(self, request: Request):
     return Request.redirect('/')
 ```
 

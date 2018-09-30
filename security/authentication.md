@@ -33,7 +33,7 @@ In order to authenticate a model this will look like:
 ```python
 from masonite.facades import Auth
 
-def show(self, Request):
+def show(self, request: Request):
     Auth(Request).login('user@email.com', 'password')
 ```
 
@@ -78,7 +78,7 @@ Masonite ships with a `LoadUser` middleware that will load the user into the req
 Using this `LoadUser` middleware you can retrieve the current user using:
 
 ```python
-def show(self, Request):
+def show(self, request: Request):
     Request.user()
 ```
 
@@ -87,7 +87,7 @@ If you wish not to use middleware to load the user into the request you can get 
 ```python
 from masonite.facades import Auth
 
-def show(self, Request):
+def show(self, request: Request):
     Auth(Request).user()
 ```
 
@@ -96,7 +96,7 @@ def show(self, Request):
 If you would like to simply check if the user is authenticated, `Request.user()` or `Auth(Request).user()` will return `False` if the user is not authenticated. This will look like:
 
 ```python
-def show(self, Request):
+def show(self, request: Request):
     if Request.user():
         user_email = Request.user().email
 ```

@@ -334,7 +334,7 @@ In order to retrieve our parameters from the request we can use the `param` meth
 {% code-tabs %}
 {% code-tabs-item title="app/http/controller/YourController.py" %}
 ```python
-def show(self, Request):
+def show(self, request: Request):
     Request.param('id')
 ```
 {% endcode-tabs-item %}
@@ -438,7 +438,7 @@ If a match is found, it will also add a `subdomain` parameter to the Request cla
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
-def show(self, Request):
+def show(self, request: Request):
     print(Request.param('subdomain'))
 ```
 {% endcode-tabs-item %}
