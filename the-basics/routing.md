@@ -263,11 +263,26 @@ ROUTES = [
 
 This will likely be the most common way to build routes for your application.
 
+## View Routes
+
+You can also use View routes which is just a method on the normal route class:
+
+```python
+ROUTES = [
+    Get().view('/template', 'some/template', {'key': 'value'})
+]
+```
+
+{% hint style="info" %}
+You can use this view method with any route class.
+{% endhint %}
+
+
 ### Match Routes
 
 You may have noticed above that we have a `Match` route class. This can match several incoming request methods. This is useful for matching a route with both `PUT` and `PATCH`.
 
-```text
+```python
 Match(['PUT', 'PATCH']).route(...)
 ```
 
