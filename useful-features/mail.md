@@ -38,7 +38,22 @@ MAIL_PASSWORD=password
 
 Because this is SMTP, we can utilize all SMTP services such as mailtrap and gmail.
 
-Thats it! As long as the authentication works, we can send emails. 
+#### SSL \(optional\)
+
+You may need to use an ssl version of SMTP depending on the service you are using. You can specify to use SSL by setting that option in your smtp driver configuration in `config/mail.py`:
+
+```python
+DRIVERS = {
+    'smtp': {
+        'host': os.getenv('MAIL_HOST', 'smtp.mailtrap.io'),
+        'port': os.getenv('MAIL_PORT', '465'),
+        'username': os.getenv('MAIL_USERNAME', 'username'),
+        'password': os.getenv('MAIL_PASSWORD', 'password'),
+        'ssl': True
+    },
+```
+
+Thats it! As long as the authentication works, we can send emails.
 
 {% hint style="danger" %}
 Remember that it is save to put sensitive data in your `.env` file because it is not committed to source control and it is inside the `.gitignore` file by default.
@@ -181,4 +196,12 @@ Mail.to('idmann509@gmail.com').template('mail/welcome').send()
 ```
 
 This will render the view into a message body and send the email as html. Notice that we didn't pass anything into the `send` message
+
+### Passing Data to Templates
+
+You are also able to pass data into our mail templates. This data is passed in as a dictionary that contains a key which is the variable with the corresponding value. We can pass data to the function like so:
+
+```python
+Mail.to('idmann509@gmail.com').template('mail/welcome', {'name': 'Masonite User'}).send()
+```
 

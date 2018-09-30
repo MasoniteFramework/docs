@@ -45,7 +45,7 @@ class HelloCommand(Command):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Let's create a simple hello name application which prints "hello your-name" to the console. 
+Let's create a simple hello name application which prints "hello your-name" to the console.
 
 Where it says `command:name` inside the docstring we can put `hello` and inside the argument we can put `name` like so:
 
@@ -157,7 +157,7 @@ class HelloProvider(ServiceProvider):
 
 ## Adding The Service Provider
 
-Like normal, we need to add our Service Provider to the `PROVIDERS` list inside our `config/application.py` file:
+Like normal, we need to add our Service Provider to the `PROVIDERS` list inside our `config/providers.py` file:
 
 {% code-tabs %}
 {% code-tabs-item title="config/application.py" %}

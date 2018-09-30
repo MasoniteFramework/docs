@@ -96,9 +96,63 @@ def show(self, request: Request):
 If you would like to simply check if the user is authenticated, `request.user()` or `Auth(Request).user()` will return `False` if the user is not authenticated. This will look like:
 
 ```python
-def show(self, request: Request):
-    if request.user():
-        user_email = request.user().email
+def show(self, Request):
+    if Request.user():
+        user_email = Request.user().email
+```
+
+## Logging In
+
+You can easily log users into your application using the Auth class which takes the request object as a dependency:
+
+```python
+from masonite.facades import Auth
+
+def show(self):
+    Auth(Request).login(
+        Request.input('username'),
+        Request.input('password')
+    )
+```
+
+{% hint style="info" %}
+Note that the username you supply needs to be in whatever format the `__auth__` attribute is on your model. If the email address is the "username", then the user will need to supply their email address.
+{% endhint %}
+
+### Login By ID
+
+If you need more direct control internally, you can login by the models ID:
+
+```python
+from masonite.facades import Auth
+
+def show(self):
+    Auth(Request).login_by_id(1)
+```
+
+You are now logged in as the user with the ID of 1.
+
+### Login Once
+
+If you only want to login "once", maybe for just authenticating an action or verifying the user can supply the correct credentials, you can login without saving any cookies to the browser:
+
+```python
+from masonite.facades import Auth
+
+def show(self):
+    Auth(Request).once().login_by_id(1)
+```
+
+You can do the same for the normal login method as well:
+
+```python
+from masonite.facades import Auth
+
+def show(self):
+    Auth(Request).once().login(
+        Request.input('username'),
+        Request.input('password')
+    )
 ```
 
 ## Protecting Routes
@@ -124,8 +178,8 @@ Auth(request).logout()
 This will delete the cookie that was set when logging in. This will not redirect the user to where they need to go. A complete logout view might look like:
 
 ```python
-def logout(self, Request):
-    Auth(Request).logout()
+def logout(self, request: Request):
+    Auth(request).logout()
     return request.redirect('/login')
 ```
 

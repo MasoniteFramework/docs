@@ -35,6 +35,15 @@ def show(self, request: Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self):
+    request().input('username')
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 Notice we didn't import anything at the top of our file and also didn't retrieve any objects from the IOC container. Masonite helper functions act just like any other built in Python function.
 
 {% hint style="success" %}

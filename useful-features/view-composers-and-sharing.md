@@ -1,4 +1,4 @@
-# View Composers, Sharing and Filters
+# View Composers, Sharing, Filters and Tests
 
 ## Introduction
 
@@ -173,7 +173,7 @@ class UserModelProvider(ServiceProvider):
     ''' Binds the User model into the Service Container '''
 
     wsgi = False
-    
+
     ...
 
     def boot(self, Request, ViewClass):
@@ -185,8 +185,50 @@ class UserModelProvider(ServiceProvider):
 ```
 
 {% hint style="info" %}
-Make sure that you add filters in a [Service Provider](../architectural-concepts/service-providers.md) that has `wsgi=False` set. This prevents filters from being added on every single request which is not needed. 
+Make sure that you add filters in a [Service Provider](../architectural-concepts/service-providers.md) that has `wsgi=False` set. This prevents filters from being added on every single request which is not needed.
 {% endhint %}
 
 That's it! Adding filters is that easy!
+
+## View Tests
+
+View tests are simply custom boolean expressions that can be used in your templates. We may want to run boolean tests on specific objects to assert that they pass a test. For example we may want to test if a user is an owner of a company like this:
+
+```python
+<div>
+    {% if user is a_company_owner %}
+        hey boss
+    {% else %}
+        you are an employee
+    {% endif %}
+</div>
+```
+
+In order to that this we need to add a test on the `View` class. We can do this in a Service Provider. The Service Provider you choose should preferably have a `wsgi=False` attribute so the test isn't added on every single request which could potentially slow down the application.
+
+The code is simple and looks something like this:
+
+```python
+from masonite.view import View
+...
+
+def a_company_owner(user):
+    # Returns True or False
+    return user.owner == 1
+
+class SomeProvider:
+    wsgi = False
+
+    ...
+
+    def boot(self, view: View):
+                  # template alias
+        view.test('a_company_owner', a_company_owner)
+```
+
+That's it! Now we can use the `a_company_owner` in our templates just like the first code snippet above!
+
+{% hint style="info" %}
+Notice that we only supplied the function and we did not instantiate anything. The function or object we supply needs to have 1 parameter which is the object or string we are testing.
+{% endhint %}
 
