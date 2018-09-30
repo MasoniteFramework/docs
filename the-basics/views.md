@@ -214,3 +214,21 @@ def boot(self, ViewClass):
 
 The default loader of PackageLoader will work for most cases but if it doesn't work for your use case, you may need to change the loader.
 
+## Using Dot Notation
+
+If using a / doesn't seem as clean to you, you can also optionally use dots:
+
+```python
+def show(self, view: View):
+    view.render('dashboard.user.show')
+```
+
+if you want to use a global view you still need to use the first `/`:
+
+```python
+def show(self, view: View):
+    view.render('/dashboard.user.show')
+```
+
+
+

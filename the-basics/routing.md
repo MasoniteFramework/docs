@@ -66,6 +66,7 @@ Post().route(...)
 Put().route(...)
 Patch().route(...)
 Delete().route(...)
+Match().route(...)
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -77,7 +78,7 @@ If the syntax is a bit cumbersome, you just want to make it shorter or you like 
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-from masonite.helpers.routes import get, post, put, patch, delete
+from masonite.helpers.routes import get, post, put, patch, delete, match
 
 ROUTES = [
     get('/url/here', 'Controller@method'),
@@ -85,6 +86,7 @@ ROUTES = [
     put('/url/here', 'Controller@method'),
     patch('/url/here', 'Controller@method'),
     delete('/url/here', 'Controller@method'),
+    match(['GET', 'POST'], '/url/here', 'Controller@method')
 ]
 ```
 {% endcode-tabs-item %}
@@ -261,6 +263,18 @@ ROUTES = [
 
 This will likely be the most common way to build routes for your application.
 
+### Match Routes
+
+You may have noticed above that we have a `Match` route class. This can match several incoming request methods. This is useful for matching a route with both `PUT` and `PATCH`.
+
+```text
+Match(['PUT', 'PATCH']).route(...)
+```
+
+{% hint style="info" %}
+The request methods are not case sensitive. They will be converted to uppercase on the backend. So `['Put', 'Patch']` will work just fine
+{% endhint %}
+
 ### Named Routes
 
 We can name our routes so we can utilize these names later when or if we choose to redirect to them. We can specify a route name like so:
@@ -334,8 +348,8 @@ In order to retrieve our parameters from the request we can use the `param` meth
 {% code-tabs %}
 {% code-tabs-item title="app/http/controller/YourController.py" %}
 ```python
-def show(self, Request):
-    Request.param('id')
+def show(self, request: Request):
+    request.param('id')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
