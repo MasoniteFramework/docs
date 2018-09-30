@@ -234,7 +234,7 @@ ROUTES = [
                 Post().route('/create', 'AppController@store').name('store'),
                 Post().route('/delete', 'AppController@delete').name('delete'),
             ], prefix='/apps', name='app.'),
-            
+
             Get().route('/plans', 'PlanController@show').name('plans'),
             Post().route('/plans/subscribe', 'PlanController@subscribe').name('subscribe'),
             Post().route('/plans/cancel', 'PlanController@cancel').name('cancel'),
@@ -276,7 +276,6 @@ ROUTES = [
 {% hint style="info" %}
 You can use this view method with any route class.
 {% endhint %}
-
 
 ### Match Routes
 
@@ -409,10 +408,10 @@ Make sure you add them in a Service Provider where `wsgi` is `False`. We can add
 {% code-tabs-item title="app/http/providers/RouteCompileProvider.py" %}
 ```python
 class RouteCompilerProvider(ServiceProvider):
-    
+
     wsgi = False
     ...
-    
+
     def boot(self, Route):
         Route.compile('year', r'[0-9]{4}')
 ```
@@ -423,7 +422,7 @@ We just need to call the `compile()` method on the `Route` class and make sure w
 
 ### Subdomain Routing
 
-You may wish to only render routes if they are on a specific subdomain. For example you may want `example.com/dashboard` to route to a different controller than `joseph.example.com/dashboard`. 
+You may wish to only render routes if they are on a specific subdomain. For example you may want `example.com/dashboard` to route to a different controller than `joseph.example.com/dashboard`.
 
 Out of the box this feature will not work and is turned off by default. We will need to add a call on the Request class in order to activate subdomains. We can do this in the boot method of one of our Service Providers that has wsgi=False:
 

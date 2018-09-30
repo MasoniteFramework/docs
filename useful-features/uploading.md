@@ -191,5 +191,3 @@ def upload(self, Upload):
     Upload.driver(UploadS3Driver).store(request.input('file_upload'))
 ```
 
-
-
