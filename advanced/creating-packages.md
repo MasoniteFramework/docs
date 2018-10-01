@@ -59,7 +59,7 @@ MANIFEST.in
 setup.py
 ```
 
-Great! inside the `services.py` lets put a configuration setting. This configuration file will be directly added into a Masonite project so you can put doctrings or flagpole comments directly in here:
+Great! Inside the `services.py` lets put a configuration setting. This configuration file will be directly added into a Masonite project so you can put doctrings or flagpole comments directly in here:
 
 ```text
 TESTPACKAGE_PAYMENTS = {
@@ -78,7 +78,7 @@ include testpackage/snippets/configs/*
 
 ### **Creating an Install Command**
 
-It's great \(and convenient\) to add craft commands to a project so developers can use your package more efficiently. You can head over the [Creating Commands](../the-craft-command/creating-commands.md) to learn how to create a command. It only involves a normal command class and a Service Provider.
+It's great \(and convenient\) to add craft commands to a project so developers can use your package more efficiently. You can head over to [Creating Commands](../the-craft-command/creating-commands.md) to learn how to create a command. It only involves a normal command class and a Service Provider.
 
 Head over to that documentation page and create an `InstallCommand` and an `InstallProvider`. This step should take less than a few minutes. Once those are created we can continue to the adding package helpers below.
 
