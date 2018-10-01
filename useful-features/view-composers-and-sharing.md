@@ -204,7 +204,7 @@ View tests are simply custom boolean expressions that can be used in your templa
 </div>
 ```
 
-In order to that this we need to add a test on the `View` class. We can do this in a Service Provider. The Service Provider you choose should preferably have a `wsgi=False` attribute so the test isn't added on every single request which could potentially slow down the application.
+In order to do this we need to add a test on the `View` class. We can do this in a Service Provider. The Service Provider you choose should preferably have a `wsgi=False` attribute so the test isn't added on every single request which could potentially slow down the application.
 
 The code is simple and looks something like this:
 
