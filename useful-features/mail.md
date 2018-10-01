@@ -6,7 +6,7 @@ Masonite comes with email support out of the box. Most projects you make will ne
 
 ## Getting Started
 
-All mail configuration is inside `config/mail.py` and contains several well documented options. There are several built in drivers you can use but you can make your own if you'd like. 
+All mail configuration is inside `config/mail.py` and contains several well documented options. There are several built in drivers you can use but you can make your own if you'd like.
 
 {% hint style="success" %}
 You can follow the documentation here at [Creating a Mail Driver](../advanced/creating-a-mail-driver.md). If you do make your own, consider making it available on PyPi so others can install it. We may even put it in Masonite by default.
