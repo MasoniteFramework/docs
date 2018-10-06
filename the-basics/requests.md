@@ -329,6 +329,43 @@ def show(self, request: Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## Routes
+
+You can also get a route URL via the route name. Let's say we have a route like this:
+
+```python
+get('/dashboard').name('dashboard')
+```
+
+We can get the URL from the route name like so:
+
+```python
+def show(self):
+    request().route('dashboard') # /dashboard
+```
+
+if we have route parameters like this:
+
+```python
+get('/dashboard/@user').name('dashboard.user')
+```
+
+then we can pass in a dictionary:
+
+```python
+def show(self):
+    request().route('dashboard.user', {'user': 1}) # /dashboard/1
+```
+
+## Current URL
+
+We can get the current url with:
+
+```python
+def show(self):
+    request().path
+```
+
 ## Redirection
 
 You can specify a url to redirect to

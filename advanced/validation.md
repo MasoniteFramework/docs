@@ -108,7 +108,7 @@ Notice how we passed a dictionary into our `.check()` method here and didn't pas
 
 ## Casting Values
 
-Sometimes you might want to cast a certain value for the purposes of validation. For example you may want to accept a string like `California,Florida,Ohio` but wan't to treat it as a list for the purposes of validation. We might want to make it a list to see if there are between 1 and 3 of them.
+Sometimes you might want to cast a certain value for the purposes of validation. For example you may want to accept a string like `California,Florida,Ohio` but want to treat it as a list for the purposes of validation. We might want to make it a list to see if there are between 1 and 3 of them.
 
 To do this simply requires validation casting. When validating, Masonite Validations will look for a cast\_x method. x is the name of the input you are validating. So for example we may have an input like this:
 
@@ -392,7 +392,7 @@ self.validate({
 
 ### Length
 
-This validator checks that value the must have at least minimum elements and optionally at most maximum elements.
+This validator checks that the value must have at least minimum elements and optionally at most maximum elements.
 
 #### **Usage**
 
