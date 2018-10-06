@@ -487,3 +487,4 @@ There are a few locations the token can be. The two main locations are in the qu
 def index(self):
     token = self.fetch_token()
 ```
+
