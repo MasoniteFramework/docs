@@ -1,7 +1,7 @@
 # Masonite 2.1
 
 {% hint style="danger" %}
-This is currently unreleased and is in a Beta 1 release. There will be 2 more beta releases in October and November until the final release of 2.1 in December.
+This is currently unreleased and is in a Beta 2 release. There will be 1 more beta releases in October and November until the final release of 2.1 in December.
 
 Learn more about releases in the [Release Cycle](../prologue/release-cycle.md) documentation.
 {% endhint %}
@@ -226,13 +226,13 @@ def show(self):
 
 We no longer need to do:
 
-```html
+```markup
 {{ csrf_field|safe }}
 ```
 
 We can now simply do:
 
-```html
+```markup
 {{ csrf_field }}
 ```
 
@@ -271,7 +271,7 @@ We now have View Routes on all instances of the normal HTTP classes:
 Get().view('/url', 'some/template', {'key': 'value'})
 ```
 
-## Renamed cache_exists to cache
+## Renamed cache\_exists to cache
 
 We previously used this method on the Cache class like so:
 
@@ -352,16 +352,17 @@ Now you can use `craft middleware MiddlewareName` in order to scaffold middlewar
 
 All views can optionally use dot notation instead of foward slashes:
 
-```
+```text
 return view.render('some/template/here')
 ```
 
 is the same as:
 
-```
+```text
 return view.render('some.template.here')
 ```
 
 ## Added Swap to container
 
 We can now do container swapping which is swapping out a class when it is resolved. In other words we may want to change what objects are returned when certain objects are resolved. These objects do not have to be in the container in the first place.
+
