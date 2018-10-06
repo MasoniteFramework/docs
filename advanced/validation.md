@@ -126,12 +126,12 @@ class CountryValidation(Validator):
         return self.validate({
             'countries': [Required, Length(1, 3)]
         })
-    
+
     def cast_countries(self, countries):
         return countries.split(',')
 ```
 
-When validating, the validator will call this cast\_countries method and use the return value as the value to validate. This validation will work because it will split the countries into a list and turn: 
+When validating, the validator will call this cast\_countries method and use the return value as the value to validate. This validation will work because it will split the countries into a list and turn:
 
 ```python
 'California,Florida,Ohio'
@@ -153,7 +153,7 @@ from app.validators import CountryValidation
 def show(self, Request):
     Request.input('countries') # 'California,Florida,Ohio'
     validation = CountryValidation(Request).validate_countries()
-    
+
     Request.input('countries') # 'California,Florida,Ohio'
     validation.get('countries') # ['California', 'Florida', 'Ohio']
 ```

@@ -387,6 +387,15 @@ def show(self):
     request().route('dashboard.user', {'user': 1}) # /dashboard/1
 ```
 
+## Current URL
+
+We can get the current url with:
+
+```python
+def show(self):
+    request().path
+```
+
 ## Redirection
 
 You can specify a url to redirect to
