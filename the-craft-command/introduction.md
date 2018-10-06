@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The craft command tool is a powerful developer tool that lets you quickly scaffold your project with models, controllers, views, commands, providers, etc. which will condense nearly everything down to it’s simplest form via the craft namespace. No more redundancy in your development time creating boilerplate code. Masonite condenses all common development tasks into a single namespace.
+The craft command tool is a powerful developer tool that lets you quickly scaffold your project with models, controllers, views, commands, providers, etc. which will condense nearly everything down to its simplest form via the craft namespace. No more redundancy in your development time creating boilerplate code. Masonite condenses all common development tasks into a single namespace.
 
 For example, In Django you may need to do something like:
 
@@ -86,7 +86,7 @@ If you are trying to debug your application or need help in the Slack channel, i
 $ craft info
 ```
 
-This will give some small details about the current system which could be useful to someone trying to help you. Running the commnad will give you something like this:
+This will give some small details about the current system which could be useful to someone trying to help you. Running the command will give you something like this:
 
 ```text
 Environment Information
@@ -187,7 +187,7 @@ Or you can specify the branch you would like to create a new project with:
 $ craft new project_name --branch develop
 ```
 
-After you have created a new project, you will have a `requirements.txt` file with all of the projects dependencies. In addition to this file, you will also have a `.env-example` file which contains a boiler plate of a `.env` file. In order to install the dependencies, as well as copy the example environment file to a `.env` file, just run:
+After you have created a new project, you will have a `requirements.txt` file with all of the projects dependencies. In addition to this file, you will also have a `.env-example` file which contains a boilerplate of a `.env` file. In order to install the dependencies, as well as copy the example environment file to a `.env` file, just run:
 
 ```text
 $ craft install
