@@ -238,14 +238,14 @@ We can now simply do:
 
 ## Improved setting status codes
 
-Previously we had to specify the status code as a strong:
+Previously we had to specify the status code as a string:
 
 ```python
 def show(self, request: Request):
     request.status('500 Internal Server Error')
 ```
 
-in order for these to be used properly. Now we can just specify the status number:
+in order for these to be used properly. Now we can just specify the status code:
 
 ```python
 def show(self, request: Request):
@@ -280,7 +280,7 @@ def show(self, Cache):
     Cache.cache_exists('key')
 ```
 
-Now we nixed the `cache_` prefix and it is just:
+Now we removed the `cache_` prefix and it is just:
 
 ```python
 from masonite import Cache
@@ -365,4 +365,3 @@ return view.render('some.template.here')
 ## Added Swap to container
 
 We can now do container swapping which is swapping out a class when it is resolved. In other words we may want to change what objects are returned when certain objects are resolved. These objects do not have to be in the container in the first place.
-
