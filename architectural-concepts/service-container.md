@@ -196,7 +196,7 @@ This will fetch all of the parameters of `randomFunction` and retrieve them from
 
 ## Container Swapping
 
-Sometimes when you resolve an object or class, you want a different value to be returned. 
+Sometimes when you resolve an object or class, you want a different value to be returned.
 
 ### Using a value:
 
