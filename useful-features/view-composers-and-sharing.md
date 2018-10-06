@@ -1,4 +1,4 @@
-# View Composers, Sharing, Filters and Tests
+# View Composers, Sharing and Filters
 
 ## Introduction
 

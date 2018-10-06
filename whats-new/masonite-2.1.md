@@ -95,7 +95,7 @@ Again this is only a change for incoming JSON responses. Normal form inputs rema
 Previously we had a facades module but it was being unused and we didn't see a future for this module so we moved the only class in this module to it's own class. All instances of:
 
 ```text
-from masonite.auth import Auth
+from masonite.facades.Auth import Auth
 ```
 
 now become:
