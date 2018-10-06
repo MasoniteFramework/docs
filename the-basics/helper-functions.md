@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Masonite works on getting rid of all those mundane tasks that developers either dread writing or dread writing over and over again. Because of this, Masonite has several helper functions that allows you to quickly write the code you want to write without worrying about imports or retrieving things from the Service Container. Many things inside the Service Container are simply retrieved using several functions that Masonite sets as builtin functions.
+Masonite works on getting rid of all those mundane tasks that developers either dread writing or dread writing over and over again. Because of this, Masonite has several helper functions that allows you to quickly write the code you want to write without worrying about imports or retrieving things from the Service Container. Many things inside the Service Container are simply retrieved using several functions that Masonite sets as builtin functions which we call "Built in Helper Functions" which you may see them referred to as.
 
 These functions do not require any imports and are simply just available which is similiar to the `print()` function. These functions are all set inside the `HelpersProvider` Service Provider.
 
@@ -18,16 +18,16 @@ class HelpersProvider(ServiceProvider):
     def register(self):
         pass
 
-    def boot(self, View, ViewClass, Request):
+    def boot(self, view: View, request: Request):
         ''' Add helper functions to Masonite '''
-        builtins.view = View
+        builtins.view = view.render
         builtins.request = request.helper
         builtins.auth = request.user
         builtins.container = self.app.helper
         builtins.env = os.getenv
         builtins.resolve = self.app.resolve
 
-        ViewClass.share({'request': request.helper, 'auth': request.user})
+        view.share({'request': request.helper, 'auth': request.user})
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -64,8 +64,8 @@ def show(self):
 is exactly the same as:
 
 ```python
-def show(self, View):
-    return View('template_name')
+def show(self, view: View):
+    return view.render('template_name')
 ```
 
 ## Mail
@@ -125,7 +125,7 @@ We may need to get some environment variables inside our controller or other par
 
 ```python
 def show(self):
-    env('S3_SECRET')
+    env('S3_SECRET', 'default')
 ```
 
 is exactly the same as:
@@ -134,7 +134,7 @@ is exactly the same as:
 import os
 
 def show(self):
-    os.environ.get('S3_SECRET')
+    os.environ.get('S3_SECRET', 'default')
 ```
 
 ## Resolve
@@ -142,8 +142,8 @@ def show(self):
 We can resolve anything from the container by using this `resolve()` function.
 
 ```python
-def some_function(Request):
-    print(Request)
+def some_function(request: Request):
+    print(request)
 
 def show(self):
     resolve(some_function)
@@ -152,8 +152,8 @@ def show(self):
 is exactly the same as:
 
 ```python
-def some_function(Request):
-    print(Request)
+def some_function(request: Request):
+    print(request)
 
 def show(self, request: Request):
     request.app().resolve(some_function)

@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Controllers are a vital part of Masonite and is mainly what differs it from other Python frameworks that implement the MVC structure differently. Controllers are simply classes with methods. These methods take a `self` parameter which is the normal self that Python class methods require. Controller methods can be looked at as function based views if you are coming from Django as they are simply methods inside a class and work in similar ways.
+Controllers are a vital part of Masonite and is mainly what differs it from other Python frameworks which all implement the MVC structure differently. Controllers are simply classes with methods. These methods take a `self` parameter which is the normal self that Python methods require. Controller methods can be looked at as "function based views" if you are coming from Django as they are simply methods inside a class and work in similar ways.
 
-Controllers have an added benefit over straight function based views as the developer has access to to a full class they can manipulate however they want. In other words, controller methods may utilize class attributes or private methods to break up logic. They provide a lot of flexibility.
+Controllers have an added benefit over straight function based views as the developer has access to a full class they can manipulate however they want. In other words, controller methods may utilize class attributes, private methods and class constructors to break up and abstract logic. They provide a lot of flexibility.
 
 ## Creating a Controller
 
@@ -18,7 +18,7 @@ $ craft controller Dashboard
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-When we run this command we now have a new class in `app/http/controllers/DashboardController.py` called `DashboardController`. By convention, Masonite expects that all controllers have their own file since it’s an extremely easy way to keep track of all your classes since the class name is the same name as the file but you can obviously name this class wherever you like.
+When we run this command we now have a new class in `app/http/controllers/DashboardController.py` called `DashboardController`. By convention, Masonite expects that all controllers have their own file since it’s an extremely easy way to keep track of all your classes since the class name is the same name as the file. This is very opionated but you can obviously put this class wherever you like.
 
 {% hint style="info" %}
 Notice that we passed in `Dashboard` but created a `DashboardController`. Masonite will always assume you want to append `Controller` to the end.
@@ -67,10 +67,11 @@ this will create a controller that looks like:
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/DashboardController.py" %}
 ```python
-''' A Module Description '''
+""" A Module Description """
 
 class DashboardController: 
- ''' Class Docstring Description '''
+ """Class Docstring Description
+ """
 
     def show(self): 
         pass
@@ -109,7 +110,7 @@ def show(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-All controller methods must have the self parameter. The `self` parameter is the normal python `self` object which is just an instance of the current class as usual. Nothing special here.
+If you are new to Python, all controller methods must have the self parameter. The `self` parameter is the normal python `self` object which is just an instance of the current class as usual. Nothing special here.
 
 ## Container Resolving
 
@@ -118,8 +119,11 @@ All controller methods and constructors are resolved by the container so you may
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/DashboardController.py" %}
 ```python
+from masonite.request import Request
+...
+
 def show(self, request: Request):
-    print(Request) # Grabbed the Request object from the container
+    print(request) # Grabbed the Request object from the container
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -129,10 +133,12 @@ or by specifying them in the constructor:
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/DashboardController.py" %}
 ```python
+from masonite.request import Request
+
 class DashboardController:
 
-    def __init__(self, Request):
-        self.request = Request
+    def __init__(self, request: Request):
+        self.request = request
 
     def show(self):
         print(self.request) # Grabbed the Request object from the container
