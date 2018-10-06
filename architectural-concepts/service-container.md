@@ -194,6 +194,62 @@ Remember not to call it and only reference the function. The Service Container n
 
 This will fetch all of the parameters of `randomFunction` and retrieve them from the service container. There probably won't be many times you'll have to resolve your own code but the option is there.
 
+## Container Swapping
+
+Sometimes when you resolve an object or class, you want a different value to be returned. 
+
+### Using a value:
+
+We can pass a simple value as the second parameter to the `swap` method which will be returned instead of the object being resolved. For example this is used currently when resolving the `Mail` class like this:
+
+```python
+from masonite import Mail
+
+def show(self, mail: Mail):
+    mail #== <masonite.drivers.MailSmtpDriver>
+```
+
+but the class definition for the `Mail` class here looks like this:
+
+```python
+class Mail:
+    pass
+```
+
+How does it know to resolve the smtp driver instead? It's because we added a container swap. Container swaps are simple, they take the object as the first parameter and either a value or a callable as the second.
+
+For example we may want to mock the functionality above by doing something like this in the boot method of a Service Provider:
+
+```python
+from masonite import Mail
+
+def boot(self, mail: MailManager):
+    self.app.swap(Mail, manager.driver(self.app.make('MailConfig').DRIVER))
+```
+
+Notice that we specified which class should be returned whenever we resolve the `Mail` class. In this case we want to resolve the default driver specified in the projects configurations.
+
+### Using a callable
+
+Instead of directly passing in a value as the second parameter we can pass in a callable instead. The callable MUST take 2 parameters. The first parameter will be the annotation we are trying to resolve and the second will be the container itself. Here is an example of how the above would work with a callable:
+
+```python
+from masonite import Mail
+from somewhere import NewObject
+...
+
+def mail_callback(obj, container):
+    return NewObject
+...
+
+def boot(self):
+    self.app.swap(Mail, mail_callback)
+```
+
+Notice that the second parameter is a callable object. This means that it will be called whenever we try to resolve the `Mail` class.
+
+Remember: If the second parameter is a callable, it will be called. If it is a value, it will simply be returned instead of the resolving object.
+
 ## Container Hooks
 
 Sometimes we might want to run some code when things happen inside our container. For example we might want to run some arbitrary function about we resolve the Request object from the container or we might want to bind some values to a View class anytime we bind a Response to the container. This is excellent for testing purposes if we want to bind a user object to the request whenever it is resolved.
