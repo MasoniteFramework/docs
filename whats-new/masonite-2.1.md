@@ -201,3 +201,167 @@ GET Route: /dashboard
 
 When you hit a route in development mode. Well you would also hit it in production mode too since that was never turned off. Although this is likely fine, it would slow down the framework significantly under load since it takes a bit of resources to print something that didn't need to be printed. This enables a bit of a performance boost.
 
+## Added migrate:status Command
+
+This command gets the statuses of all migrations in all directories. To include third party migration directories that are added to your project.
+
+## Added `simple` container bindings
+
+Sometimes you do not need to bind an object to any key, you just want the object in the container. For this you can now do `simple` bindings like this:
+
+```python
+app.simple(Obj())
+```
+
+## Added a new global mail helper
+
+This new mail helper can be used globally which points to the default mail driver:
+
+```python
+def show(self):
+    mail_helper().to(..)
+```
+
+## Removed the need for `|safe` filters on built in template helpers.
+
+We no longer need to do:
+
+```html
+{{ csrf_field|safe }}
+```
+
+We can now simply do:
+
+```html
+{{ csrf_field }}
+```
+
+## Improved setting status codes
+
+Previously we had to specify the status code as a strong:
+
+```python
+def show(self, request: Request):
+    request.status('500 Internal Server Error')
+```
+
+in order for these to be used properly. Now we can just specify the status number:
+
+```python
+def show(self, request: Request):
+    request.status(500)
+```
+
+## Added several new methods to service providers
+
+There is quite a bit of things to remember when binding various things into the container. For example when binding commands, the key needs to be postfixed with `Command` like `ModelCommand`. Now we can do things like:
+
+```python
+def register(self):
+    self.commands(Command1(), Command2())
+```
+
+Along with this there are several other methods to help you bind things into the container without having to remember all the special rules involved, if any.
+
+## Added View Routes
+
+We now have View Routes on all instances of the normal HTTP classes:
+
+```python
+Get().view('/url', 'some/template', {'key': 'value'})
+```
+
+## Renamed cache_exists to cache
+
+We previously used this method on the Cache class like so:
+
+```python
+def show(self, Cache):
+    Cache.cache_exists('key')
+```
+
+Now we nixed the `cache_` prefix and it is just:
+
+```python
+from masonite import Cache
+
+def show(self, cache: Cache):
+    cache.exists('key')
+```
+
+## Added without method to request class
+
+We can now use the `.without()` method on the request class which returns all inputs except the ones specified:
+
+```python
+def show(self, request: Request):
+    request.without('key1', 'key2')
+```
+
+## Added port to database
+
+Previously the port was missing from the database configuration settings. This was fine when using the default connection but did not work unless added to the config.
+
+## Added ability to use a dictionary for setting headers.
+
+Instead of doing something like:
+
+```python
+def show(self, request: Request):
+    request.header('key1', 'value1')
+    request.header('key2', 'value2')
+```
+
+We can now use a dictionary:
+
+```python
+def show(self, request: Request):
+    request.header({
+        'key1': 'value1',
+        'key2': 'value2'
+    })
+```
+
+## Added a new Match route
+
+We can now specify a route with multiple HTTP methods. This can be done like so:
+
+```python
+from masonite.routes import Match
+
+Match(['GET', 'POST']).route('/url', 'SomeController@show')
+```
+
+## Added Masonite Events into core
+
+Core can now emit events that can be listened to through the container.
+
+## Added ability to set email verification
+
+Now you can setup a way to send email verifications into your user signup workflow simply but inherting a class to your User model.
+
+## Request redirection set status codes
+
+Now all redirections set the status code implicitly instead of explicitly needing to set them.
+
+## Added craft middleware command
+
+Now you can use `craft middleware MiddlewareName` in order to scaffold middleware like other classes.
+
+## View can use dot notation
+
+All views can optionally use dot notation instead of foward slashes:
+
+```
+return view.render('some/template/here')
+```
+
+is the same as:
+
+```
+return view.render('some.template.here')
+```
+
+## Added Swap to container
+
+We can now do container swapping which is swapping out a class when it is resolved. In other words we may want to change what objects are returned when certain objects are resolved. These objects do not have to be in the container in the first place.
