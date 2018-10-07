@@ -120,8 +120,7 @@ DRIVERS = {
 
 ### Terminal Driver
 
-The Terminal driver simply prints out your email message in the terminal. Makes testing and development super easy.
-To use the terminal driver you'll need to enter a few configuration settings.
+The Terminal driver simply prints out your email message in the terminal. Makes testing and development super easy. To use the terminal driver you'll need to enter a few configuration settings.
 
 {% code-tabs %}
 {% code-tabs-item title=".env" %}
@@ -139,8 +138,7 @@ MAIL_PASSWORD=
 
 ### Log Driver
 
-The Log driver simply prints out your email message into a log file.
-To use the log driver you'll need to enter a few configuration settings.
+The Log driver simply prints out your email message into a log file. To use the log driver you'll need to enter a few configuration settings.
 
 {% code-tabs %}
 {% code-tabs-item title=".env" %}
@@ -165,6 +163,7 @@ DRIVERS = {
     ...
     'log': {
         'file': os.getenv('LOG_FILE', 'mail.log'),
+        'location': 'bootstrap/logs'
     }
 }
 ```

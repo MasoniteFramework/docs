@@ -84,7 +84,7 @@ Sometimes you may need to serve files that are normally in the root of your appl
 
 For example a basic setup would have this as your directory:
 
-```
+```text
 resources/
 routes/
 storage/
