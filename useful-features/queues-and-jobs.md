@@ -120,3 +120,70 @@ def show(self, Queue):
     Queue.push(SendWelcomeEmail, TutorialEmail('val1', 'val2'))
 ```
 
+# AMQP Driver
+
+The `amqp` driver can be used to communicate with RabbitMQ services.
+
+## Installing
+
+In order to get started with this driver you will need to install RabbitMQ on your development machine (or production machine depending on where you are running Masonite)
+
+You can find the [installation guide for RabbitMQ here](https://www.rabbitmq.com/download.html).
+
+## Running RabbitMQ
+
+Once you have RabbitMQ installed you can go ahead and run it. This looking something like this in the terminal if ran successfully:
+
+```bash
+$ rabbitmq-server
+
+  ##  ##
+  ##  ##      RabbitMQ 3.7.8. Copyright (C) 2007-2018 Pivotal Software, Inc.
+  ##########  Licensed under the MPL.  See http://www.rabbitmq.com/
+  ######  ##
+  ##########  Logs: /usr/local/var/log/rabbitmq/rabbit@localhost.log
+                    /usr/local/var/log/rabbitmq/rabbit@localhost_upgrade.log
+
+              Starting broker...
+ completed with 6 plugins.
+```
+
+Great! Now that RabbitMQ is up and running we can look at the Masonite part.
+
+Now we will need to make sure our driver and driver configurations are specified correctly. Below are the default values which should connect to your current RabbitMQ configuration. This will be in your `app/queue.py` file
+
+```python
+DRIVER = 'amqp'
+...
+DRIVERS = {
+    'amqp': {
+        'username': 'guest',
+        'password': 'guest',
+        'host': 'localhost',
+        'port': '5672',
+        'channel': 'default',
+    }
+}
+```
+
+## Starting The Worker
+
+We can now start the worker using the `queue:work` command. It might be a good idea to run this command in a new terminal window since it will stay running until we close it.
+
+```bash
+$ craft queue:work
+```
+
+This will startup the worker and start listening jobs to come in via your RabbitMQ instance.
+
+## Sending Jobs
+
+That's it! send jobs like you normally would and it will process via RabbitMQ:
+
+```python
+from app.jobs import SomeJob, AnotherJob
+...
+def show(self, Queue):
+    # do your normal logic
+    Queue.push(SomeJob, AnotherJob(1,2))
+```
