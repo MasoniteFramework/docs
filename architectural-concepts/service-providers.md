@@ -10,7 +10,7 @@ You may create your own service provider and add it to your providers list to ex
 
 ### Creating a Provider
 
-We can create a Service Provider but simply using a craft command:
+We can create a Service Provider by simply using a craft command:
 
 ```text
 $ craft provider DashboardProvider
@@ -42,7 +42,7 @@ We can see that we have a simple provider that registers the `User` model into t
 
 ### WSGI
 
-First, the `wsgi = False` just tells Masonite that this specific provider does not need the WSGI server to be running. When the WSGI server first starts, it will execute all service providers that have `wsgi` set to `False`. Whenever a provider only binds things into the container and we don't need things like requests or routes, then consider setting `wsgi` to `False`. the `ServiceProvider` class we inherited from sets `wsgi` to `True` by default. Whenever `wsgi` is `True` then the service provider will fire on every request.
+First, the `wsgi = False` just tells Masonite that this specific provider does not need the WSGI server to be running. When the WSGI server first starts, it will execute all service providers that have `wsgi` set to `False`. Whenever a provider only binds things into the container and we don't need things like requests or routes, then consider setting `wsgi` to `False`. the `ServiceProvider` class we inherited from sets `wsgi` to `True` by default. Whenever `wsgi` is `True` then the service provider will fire the boot method on every request.
 
 ### Register
 
@@ -64,8 +64,8 @@ class UserModelProvider(ServiceProvider):
     def register(self):
         self.app.bind('User', User)
 
-    def boot(self, User):
-        print(User)
+    def boot(self, user: User):
+        print(user)
 ```
 
 This will be exactly the same as above. Notice that the `boot` method is resolved by the container.
@@ -93,6 +93,8 @@ def register(self):
     self.route_middleware({'middleware': Here})
 ```
 
+Notice that the route middleware accepts a dictionary and the http middleware accepts a list
+
 ### Migrations
 
 We can add directories that have migrations easily as well:
@@ -109,7 +111,7 @@ We can also add routes:
 ```python
 def register(self):
     self.routes([
-        get(),
+        get(...),
     ])
 ```
 

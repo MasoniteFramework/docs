@@ -55,10 +55,12 @@ For example, if the user is planned on going to the dashboard view, but middlewa
 Also, the request object can be injected into middleware by passing the `Request` parameter into the constructor like so:
 
 ```python
+from masonite.request import Request
+
 class SomeMiddleware:
 
-    def __init__(self, Request):
-        self.request = Request
+    def __init__(self, request: Request):
+        self.request = request
 
     ...
 ```

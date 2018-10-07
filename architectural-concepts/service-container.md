@@ -160,7 +160,7 @@ Notice that we passed in a contract instead of the upload class. Masonite went i
 You can technically still resolve parameters with your container like you could in previous versions of Masonite. Resolving a parameter looked like this:
 
 ```python
-def show(self, Request):
+def show(self, request: Request):
     request.user()
 ```
 
