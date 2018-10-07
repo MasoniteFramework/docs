@@ -37,13 +37,14 @@ class SendWelcomeEmail(Queueable):
 
 ### Running Jobs
 
-We can run jobs by using the `Queue` alias from the container. Let's run this job from a controller method:
+We can run jobs by using the `Queue` class. Let's run this job from a controller method:
 
 ```python
 from app.jobs.SendWelcomeEmail import SendWelcomeEmail
+from masonite import Queue
 
-def show(self, Queue):
-    Queue.push(SendWelcomeEmail)
+def show(self, queue: Queue):
+    queue.push(SendWelcomeEmail)
 ```
 
 ## Resolving
@@ -52,12 +53,14 @@ Notice in the show method above that we passed in just the class object. We did 
 
 ```python
 from masonite.queues import Queueable
+from masonite.request import Request
+from masonite import Mail
 
 class SendWelcomeEmail(Queueable):
 
-    def __init__(self, Request, Mail):
-        self.request = Request
-        self.mail = Mail
+    def __init__(self, request: Request, mail: Mail):
+        self.request = request
+        self.mail = mail
 
     def handle(self):
         pass
@@ -71,12 +74,13 @@ We can also instantiate as the job as well if we need to pass in data from a con
 
 ```python
 from app.jobs.SendWelcomeEmail import SendWelcomeEmail
+from masonite import Queue
 
-def show(self, Queue):
+def show(self, queue: Queue):
     var1 = 'value1'
     var2 = 'value2'
     
-    Queue.push(SendWelcomeEmail(var1, var2))
+    queue.push(SendWelcomeEmail(var1, var2))
 ```
 
 The constructor of our job class now will look like:
@@ -95,12 +99,14 @@ Whenever jobs are executed, it simply executes the handle method. Because of thi
 
 ```python
 from masonite.queues import Queueable
+from masonite.request import Request
+from masonite import Mail
 
 class SendWelcomeEmail(Queueable):
 
-    def __init__(self, Request, Mail):
-        self.request = Request
-        self.mail = Mail
+    def __init__(self, request: Request, mail: Mail):
+        self.request = request
+        self.mail = mail
 
     def handle(self):
         self.mail.driver('mailgun').to(self.request.user().email).template('mail/welcome').send()
@@ -115,9 +121,10 @@ We can also send multiple jobs to the queue by passing more of them into the `.p
 ```python
 from app.jobs.SendWelcomeEmail import SendWelcomeEmail
 from app.jobs.TutorialEmail import TutorialEmail
+from masonite import Queue
 
-def show(self, Queue):
-    Queue.push(SendWelcomeEmail, TutorialEmail('val1', 'val2'))
+def show(self, queue: Queue):
+    queue.push(SendWelcomeEmail, TutorialEmail('val1', 'val2'))
 ```
 
 # AMQP Driver
@@ -182,8 +189,9 @@ That's it! send jobs like you normally would and it will process via RabbitMQ:
 
 ```python
 from app.jobs import SomeJob, AnotherJob
+from masonite import Queue
 ...
-def show(self, Queue):
+def show(self, queue: Queue):
     # do your normal logic
-    Queue.push(SomeJob, AnotherJob(1,2))
+    queue.push(SomeJob, AnotherJob(1,2))
 ```
