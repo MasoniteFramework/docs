@@ -78,5 +78,34 @@ and use the dot notation like so:
 ...
 ```
 
+## Serving "Root" Files
+
+Sometimes you may need to serve files that are normally in the root of your application such as a `robots.txt` or `manifest.json`. These files can be aliased in your `STATICFILES` directory in `config/storage.py`. They do not have to be in the root of your project but instead could be in a `storage/root` or `storage/public` directory and aliased with a simple `/`.
+
+For example a basic setup would have this as your directory:
+
+```
+resources/
+routes/
+storage/
+  static/
+  root/
+    robots.txt
+    manifest.json
+```
+
+and you can alias this in your `STATICFILES` constant:
+
+```python
+STATICFILES = {
+    # folder          # template alias
+    'storage/static': 'static/',
+    ...
+    'storage/root': '/'
+}
+```
+
+You will now be able to access `localhost:8000/robots.txt` and you will have your robots.txt served correctly and it can be indexed by search engines properly.
+
 Thats it! Static files are extremely simple. You are now a master at static files!
 

@@ -22,7 +22,7 @@ $ craft command HelloCommand
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-This will create a `app/commands/HelloCommand.py` file with boiler plate code that looks like this:
+This will create a `app/commands/HelloCommand.py` file with boilerplate code that looks like this:
 
 {% code-tabs %}
 {% code-tabs-item title="app/commands/HelloCommand.py" %}
