@@ -176,7 +176,7 @@ We can now start the worker using the `queue:work` command. It might be a good i
 $ craft queue:work
 ```
 
-This will startup the worker and start listening jobs to come in via your RabbitMQ instance.
+This will startup the worker and start listening for jobs to come in via your Masonite project.
 
 ### Sending Jobs
 
