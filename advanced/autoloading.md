@@ -47,11 +47,15 @@ All bindings into the Service Container will be the name of the object as the ke
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
-def show(self, User):
-    User.find(1)
+from app.User import User
+
+def show(self, user: User):
+    user.find(1)
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+There is no reason to add models into the container unless your specific use case requires it but this is just an example.
 
 ### Other Directories
 
@@ -83,10 +87,14 @@ And then be able to do:
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
-def show(self, User, Blog, Author):
-    User.find(1)
-    Blog.find(1)
-    Author.find(1)
+from app.User import User
+from app.Blog import Blog
+from app.Author import Author
+
+def show(self, user: User, blog: Blog, author: Author):
+    user.find(1)
+    blog.find(1)
+    author.find(1)
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -101,7 +109,7 @@ The autoload class will raise a few exceptions so you should be aware of them in
 
 ### InvalidAutoloadPath
 
-This exception will be thrown if any of your autoload paths contain a forward slash like:
+This exception will be thrown if any of your autoload paths end with a forward slash like the first element in this list:
 
 ```python
 AUTOLOAD = [
