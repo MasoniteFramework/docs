@@ -10,9 +10,9 @@ You can read the [bcrypt documentation here](https://github.com/pyca/bcrypt).
 
 ## Background
 
-Also, we make sure that Javascript cannot read your cookies. It's important to know that although your website may be secure, you are susceptible to attacks if you import third party Javascript packages \(since those libraries could be hackable\) which can read all cookies on your website and send them to the hacker.
+Also, we make sure that Javascript cannot read your cookies. It's important to know that although your website may be secure, you are susceptible to attacks if you import third party Javascript packages \(since those libraries could be compromised\) which can read all cookies on your website and send them to the hacker.
 
-Other frameworks use cryptographic signing which attached a special key to your cookies that prevents manipulation. This does't make sense as a major part of XSS protection is preventing third parties from reading cookies. It doesn't make sense to attach a digital signature to a plaintext cookie if you don't want third parties to see the cookie \(such as a session id\). Masonite takes one step further and encrypts the entire string and can only be decrypted using your secret key \(so make sure you keep it secret\).
+Other frameworks use cryptographic signing which attaches a special key to your cookies that prevents manipulation. This does't make sense as a major part of XSS protection is preventing third parties from reading cookies. It doesn't make sense to attach a digital signature to a plaintext cookie if you don't want third parties to see the cookie \(such as a session id\). Masonite takes this one step further and encrypts the entire string and can only be decrypted using your secret key \(so make sure you keep it secret!\).
 
 ## Secret Key
 
@@ -43,9 +43,9 @@ from masonite.auth import Sign
 
 sign = Sign()
 
-sign.encrypt('value') # PSJDUudbs87SB....
+signed = sign.encrypt('value') # PSJDUudbs87SB....
 
-sign.decrypt('value') # 'value'
+sign.decrypt(signed) # 'value'
 ```
 
 By default, `Sign()` uses the encryption key in your `config/application.py` file but you could also pass in your own key.
@@ -57,9 +57,9 @@ encryption_key = b'SJS(839dhs...'
 
 sign = Sign(encryption_key)
 
-sign.encrypt('value') # PSJDUudbs87SB....
+signed = sign.encrypt('value') # PSJDUudbs87SB....
 
-sign.decrypt('value') # 'value'
+sign.decrypt(signed) # 'value'
 ```
 
 This feature uses [pyca/cryptography](https://cryptography.io/en/latest/) for this kind of encryption. Because of this, we can generate keys using Fernet.
@@ -72,16 +72,16 @@ encryption_key = Fernet.generate_key()
 
 sign = Sign(encryption_key)
 
-sign.encrypt('value') # PSJDUudbs87SB....
+signed = sign.encrypt('value') # PSJDUudbs87SB....
 
-sign.decrypt('value') # 'value'
+sign.decrypt(signed) # 'value'
 ```
 
-Just remember to store the key you generated or you will not be able to decrypt any values that you encrypted.
+Just remember to store the key you generated or you will not be able to decrypt any values that you encrypted in the first place.
 
 ## Using bcrypt
 
-Bcrypt is very easy to use an basically consists of a 1 way hash, and then a check to verify if that 1 way hash matches an input given to it.
+Bcrypt is very easy to use and basically consists of a 1 way hash, and then a check to verify if that 1 way hash matches an input given to it.
 
 {% hint style="warning" %}
 It's important to note that any values passed to bcrypt need to be in bytes.

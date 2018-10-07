@@ -2,15 +2,9 @@
 
 ## Introduction
 
-Masonite 1.4+ now has out of the box CSRF protection. CSRF, or Cross-Site Request Forgery is when malicious actors attempt to send requests \(primarily POST requests\) on your behalf. CSRF protection typically entails setting a unique token to the user for that page request that matches the same token on the server. This prevents any person from submitting a form without the correct token. There are many online resources that teach what CSRF does and how it works but Masonite makes it really simple to use.
-
-If you are using Masonite 1.4 already then you already have the correct middleware and Service Providers needed. You can check which version of Masonite you are using by simply running `pip show masonite` and looking at the version number.
+CSRF protection typically entails setting a unique token to the user for that page request that matches the same token on the server. This prevents any person from submitting a form without the correct token. There are many online resources that teach what CSRF does and how it works but Masonite makes it really simple to use.
 
 ## Getting Started
-
-{% hint style="info" %}
-If you are running a version of Masonite before 1.4 then check the upgrade guide for [Masonite 1.3 to 1.4](../upgrade-guide/masonite-1.3-to-1.4.md) for learning how to upgrade.
-{% endhint %}
 
 ## Usage
 
@@ -33,20 +27,21 @@ By default, all `POST` requests require a CSRF token. We can simply add a CSRF t
 This will add a hidden field that looks like:
 
 ```markup
-<input type="hidden" name="csrf_token" value="8389hdnajs8...">
+<input type="hidden" name="__token" value="8389hdnajs8...">
 ```
 
 If this token is changed or manipulated, Masonite will throw an `InvalidCsrfToken` exception from inside the middleware.
 
-If you attempt a `POST` request without the `{{ csrf_field }}` then you will receive a `KeyError: 'csrf_token'` exception. This just means you are either missing the Jinja2 tag or you are missing that route from the `exempt` class attribute in your middleware.
+If you attempt a `POST` request without the `{{ csrf_field }}` then you will receive a `InvalidCsrfException` exception. This just means you are either missing the Jinja2 tag or you are missing that route from the `exempt` class attribute in your middleware.
 
 ### Exempting Routes
 
-Not all routes may require CSRF protection such as OAuth authentication. In order to exempt routes from protection we can add it to the `exempt` class attribute in the middleware located at `app/http/middleware/CsrfMiddleware.py`:
+Not all routes may require CSRF protection such as OAuth authentication or various webhooks. In order to exempt routes from protection we can add it to the `exempt` class attribute in the middleware located at `app/http/middleware/CsrfMiddleware.py`:
 
 ```python
 class CsrfMiddleware:
-    ''' Verify CSRF Token Middleware '''
+    """Verify CSRF Token Middleware
+    """
 
     exempt = [
         '/oauth/github'
@@ -55,5 +50,5 @@ class CsrfMiddleware:
     ...
 ```
 
-Now any POST routes that are to `your-domain.com/oauth/github` are not protected by CSRF. Use this sparingly as CSRF protection is crucial to application security but you may find that not all routes need it.
+Now any POST routes that are to `your-domain.com/oauth/github` are not protected by CSRF and no checks will be made against this route. Use this sparingly as CSRF protection is crucial to application security but you may find that not all routes need it.
 

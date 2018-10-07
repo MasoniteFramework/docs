@@ -6,7 +6,7 @@ Masonite comes with some authentication out of the box but leaves it up to the d
 
 ## Configuration
 
-There is only a single `config/auth.py` configuration file which you can use to set the authentication behavior of your Masonite project. If you wish to change the authentication model, to a `app/Company` model for example, feel free to do in this configuration file.
+There is only a single `config/auth.py` configuration file which you can use to set the authentication behavior of your Masonite project. If you wish to change the authentication model, to a `Company` model for example, feel free to do in this configuration file.
 
 ## Authentication Model
 
@@ -26,15 +26,15 @@ class User(Model):
 
 ## Authenticating a Model
 
-If you want to authenticate a model, you can use the `Auth` facade that ships with Masonite. This is simply a class that is used to authenticate models with a `.login()` method.
+If you want to authenticate a model, you can use the `Auth` class that ships with Masonite. This is simply a class that is used to authenticate models with a `.login()` method.
 
 In order to authenticate a model this will look like:
 
 ```python
-from masonite.facades import Auth
+from masonite.auth import Auth
 
 def show(self, request: Request):
-    Auth(Request).login('user@email.com', 'password')
+    Auth(request).login('user@email.com', 'password')
 ```
 
 This will find a model with the supplied username, check if the password matches using `bcrypt` and return the model. If it is not found or the password does not match, it will return `False`.
@@ -85,20 +85,20 @@ def show(self, request: Request):
 If you wish not to use middleware to load the user into the request you can get the request by again using the `Auth` class
 
 ```python
-from masonite.facades import Auth
+from masonite.auth import Auth
 
 def show(self, request: Request):
-    Auth(Request).user()
+    Auth(request).user()
 ```
 
 ### Checking if the User is Authenticated
 
-If you would like to simply check if the user is authenticated, `request.user()` or `Auth(Request).user()` will return `False` if the user is not authenticated. This will look like:
+If you would like to simply check if the user is authenticated, `request.user()` or `Auth(request).user()` will return `False` if the user is not authenticated. This will look like:
 
 ```python
-def show(self, Request):
-    if Request.user():
-        user_email = Request.user().email
+def show(self, request: Request):
+    if request.user():
+        user_email = request.user().email
 ```
 
 ## Logging In
@@ -106,12 +106,12 @@ def show(self, Request):
 You can easily log users into your application using the Auth class which takes the request object as a dependency:
 
 ```python
-from masonite.facades import Auth
+from masonite.auth import Auth
 
-def show(self):
-    Auth(Request).login(
-        Request.input('username'),
-        Request.input('password')
+def show(self, request: Request):
+    Auth(request).login(
+        request.input('username'),
+        request.input('password')
     )
 ```
 
@@ -124,10 +124,10 @@ Note that the username you supply needs to be in whatever format the `__auth__` 
 If you need more direct control internally, you can login by the models ID:
 
 ```python
-from masonite.facades import Auth
+from masonite.auth import Auth
 
 def show(self):
-    Auth(Request).login_by_id(1)
+    Auth(request).login_by_id(1)
 ```
 
 You are now logged in as the user with the ID of 1.
@@ -137,21 +137,21 @@ You are now logged in as the user with the ID of 1.
 If you only want to login "once", maybe for just authenticating an action or verifying the user can supply the correct credentials, you can login without saving any cookies to the browser:
 
 ```python
-from masonite.facades import Auth
+from masonite.auth import Auth
 
 def show(self):
-    Auth(Request).once().login_by_id(1)
+    Auth(request).once().login_by_id(1)
 ```
 
 You can do the same for the normal login method as well:
 
 ```python
-from masonite.facades import Auth
+from masonite.auth import Auth
 
-def show(self):
-    Auth(Request).once().login(
-        Request.input('username'),
-        Request.input('password')
+def show(self, request: Request):
+    Auth(request).once().login(
+        request.input('username'),
+        request.input('password')
     )
 ```
 
