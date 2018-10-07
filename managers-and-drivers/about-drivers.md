@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Drivers are simply extensions to features that are managed by the Manager Pattern. If we have a `UploadManager` then we might also create a `UploadDiskDriver` and a `UploadS3Driver` which will be able to upload to both the file system \(disk\) and Amazon S3. In the future if we have to upload to Microsoft Azure or Google Cloud Storage then we simply create new drivers like `UploadAzureDriver` and `UploadGoogleStorage` which are very simple to create. Drivers can be as small as a single method or have dozens of methods. The Manager Pattern makes it dead simple to expand the functionality of a Manager and add capabilities to Masonite's features.
+Drivers are simply extensions to features that are managed by the Manager Pattern. If we have a `UploadManager` then we might also create a `UploadDiskDriver` and a `UploadS3Driver` which will be able to upload to both the file system \(disk\) and Amazon S3. In the future if we have to upload to Microsoft Azure or Google Cloud Storage then we simply create new drivers like `UploadAzureDriver` and `UploadGoogleDriver` which are very simple to create. Drivers can be as small as a single method or have dozens of methods. The Manager Pattern makes it dead simple to expand the functionality of a Manager and add capabilities to Masonite's features.
 
 ## Creating a Driver
 
@@ -13,25 +13,42 @@ If you are creating a driver it can live wherever you like but if you are creati
 We should make a class that looks something like:
 
 ```python
-class UploadDiskDriver:
+from masonite.contracts import UploadContract
+
+class UploadDiskDriver(UploadContract):
     pass
 ```
 
-{% hint style="warning" %}
-**Depending on what type of driver you are making, you may need to inherit from a contract. To ensure this documentation is generalized, we'll leave out contracts for now. Contracts are essentially interfaces that ensure that your driver conforms to all other drivers of the same type. Read more about contracts in the** [**Contracts**](contracts.md) **documentation.**
-{% endhint %}
+## Contracts
+
+In order to ensure that all drivers follow the same structure, we can use Contracts. Contracts are essentially interfaces if you are coming from other programming languages. They make sure that the classes they inherit into have the minimum methods necessary in order to be accepted as a driver. If it does not meet the minumum methods necessary then you will keep hitting exceptions every time you tried to run your code.
+
+For our specific driver we should inherit from the `UploadContract`:
+
+```python
+from masonite.contracts import UploadContract
+
+class UploadDiskDriver(UploadContract):
+    pass
+```
+
+## Coding Our Driver
 
 Simple enough, now we can start coding what our API looks like. In the endgame, we want developers to do something like this from their controllers:
 
 ```python
-def show(self, Upload):
-    Upload.store(request().input('file'))
+from masonite import Upload
+
+def show(self, upload: Upload):
+    upload.store(request().input('file'))
 ```
 
 So we can go ahead and make a `store` method.
 
 ```python
-class UploadDiskDriver:
+from masonite.contracts import UploadContract
+
+class UploadDiskDriver(UploadContract):
 
     def store(self, fileitem, location=None):
         pass
@@ -40,11 +57,15 @@ class UploadDiskDriver:
 Ok great. Now here is the important part. Our Manager for this driver \(which is the `UploadManager`\) will resolve the constructor of this driver. This basically means that anything we put in our constructor will be automatically injected into this driver. So for our purposes of this driver, we will need the storage and the application configuration.
 
 ```python
-class UploadDiskDriver:
+from masonite.contracts import UploadContract
+from config import storage, application
 
-    def __init__(self, StorageConfig, Application):
-        self.config = StorageConfig
-        self.appconfig = Application
+class UploadDiskDriver(UploadContract):
+
+    def __init__(self, cls: SomeClass):
+        self.cls = cls
+        self.config = storage
+        self.appconfig = application
 
     def store(self, fileitem, location=None):
         pass
@@ -52,10 +73,12 @@ class UploadDiskDriver:
 
 Great. If you're confused about how the dependency injection Service Container works then read the [Service Container](../architectural-concepts/service-container.md) documentation.
 
-Now that we have our configuration we need injected into our class, we can go ahead and build out the `store()` method.:
+Now that we have our configuration we need injected into our class, we can go ahead and build out the `store()` method:
 
 ```python
-class UploadDiskDriver:
+from masonite.contracts import UploadContract
+
+class UploadDiskDriver(UploadContract):
 
     def __init__(self, StorageConfig, Application):
         self.config = StorageConfig

@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Masonite uses an extremely powerful pattern commonly known as the Manager Pattern; also known as the Builder Pattern. Because Masonite uses classes with the `XManager` namespace, we will call it the Manager Pattern throughout this documentation.
+Masonite uses an extremely powerful pattern commonly known as the Manager Pattern (also known as the Builder Pattern). Because Masonite uses classes with the `XManager` namespace, we will call it the Manager Pattern throughout this documentation.
 
-Think of the Manager Pattern as attaching a Manager to a specific feature. This Manager is responsible for instantiating `FeatureXDriver` classes. For example, we attach a `UploadManager` to the upload feature. Now the `UploadFeature` will instantiate `UploadXDriver` classes.
+Think of the Manager Pattern as attaching a Manager to a specific feature and responsible for managing a specific set of drivers. These managers are responsible for instantiating `FeatureXDriver` classes. For example, we attach a `UploadManager` to the upload feature. Now the `UploadFeature` will instantiate `UploadXDriver` classes.
 
 For an actual example inside Masonite, there are currently two classes for the Upload feature: `UploadDiskDriver` and `UploadS3Driver`. Whenever we set the `DRIVER` in our `config/storage.py` file to `s3`, the `UploadManager` will use the `UploadS3Driver` to store our files.
 
@@ -38,7 +38,7 @@ class TaskManager(Manager):
     driver_prefix = 'Task'
 ```
 
-Perfect. Managers are both extremely powerful and easy to create. That's it. That's our entire provider. The config attribute is the configuration file you want which is key in the container and the `driver_prefix` is the drivers you want to manager. In this case it is the `TaskDriver`. This manager will manage all drivers in the container that conform to the namespaces of `Task{0}Driver` like `TaskTodoDriver` and `TaskNoteDriver`.
+Perfect. Managers are both extremely powerful and easy to create. That's it. That's our entire manager. The config attribute is the configuration file you want which via the key in the container and the `driver_prefix` is the drivers you want to manage. In this case it is the `Task{X}Driver`. This manager will manage all drivers in the container that conform to the namespaces of `Task{0}Driver` like `TaskTodoDriver` and `TaskNoteDriver`.
 
 Notice that the config is `TaskConfig` and not `task`. This attribute is the binding name and not the config name. We can bind the `task` config into the container like so:
 
@@ -56,8 +56,8 @@ We can use our manager simply by loading it into the container. We can do this b
 
 ```python
 from masonite.provider import ServiceProvider
-from masonite.drivers.TaskTodoDriver import TaskTodoDriver
-from masonite.managers.TaskManager import TaskManager
+from masonite.drivers import TaskTodoDriver
+from masonite.managers import TaskManager
 from config import task
 
 class TaskProvider(ServiceProvider):
@@ -69,18 +69,41 @@ class TaskProvider(ServiceProvider):
         self.app.bind('TaskTodoDriver', TaskTodoDriver)
         self.app.bind('TaskManager', TaskManager(self.app))
 
-    def boot(self, TaskManager, TaskConfig):
-        self.app.bind('Task', TaskManager.driver(TaskConfig.DRIVER))
+    def boot(self, manager: TaskManager):
+        self.app.bind('Task', manager.driver(task.DRIVER))
 ```
 
-Great! We can put this Service Provider in our `app/application.py` file inside the `PROVIDERS` list. Once that is inside our providers list we can now use this new `Task` alias in our controllers like so:
+Great! We can put this Service Provider in our `app/application.py` file inside the `PROVIDERS` list. Once that is inside our providers list we can now use our new manager:
 
 ```python
-def show(self, Task):
-    Task.method_here()
+from masonite.managers import TaskManager
+
+def show(self, manager: TaskManager):
+    manager.driver('todo').method_here()
 ```
 
-Notice that we binded the `TaskManager` into the container under the `Task` key. Because of this we can now pass the `Task` in any parameter set that is resolved by the container like a controller method. Since we passed the `Task` into the parameter set, Masonite will automatically inject whatever the `Task` key from the container contains.
+## Container Swapping
+
+Although the above code works fine it might be more useful to add a container swap in our Service Provider so we can resolve an arbitrary shorthand class which will return our correct driver. We can do this in our boot method:
+
+```python
+class Task:
+    pass
+
+..
+    def boot(self, manager: TaskManager):
+        self.app.bind('Task', manager.driver(task.DRIVER))
+        self.app.swap(Task, manager.driver(task.DRIVER))
+```
+
+Now we can resolve this `Task` class which will return the correct driver since we specified a driver swap:
+
+```python
+from somewhere import Task
+
+def show(self, task: Task):
+    task.method_here()
+```
 
 {% hint style="success" %}
 Read about how to create drivers for your Manager class under the [About Drivers](about-drivers.md) documentation.
