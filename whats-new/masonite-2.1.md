@@ -1,14 +1,14 @@
 # Masonite 2.1
 
 {% hint style="danger" %}
-This is currently unreleased and is in a Beta 1 release. There will be 2 more beta releases in October and November until the final release of 2.1 in December.
+This is currently unreleased and is in a Beta 2 release. There will be 1 more beta releases in October and November until the final release of 2.1 in December.
 
 Learn more about releases in the [Release Cycle](../prologue/release-cycle.md) documentation.
 {% endhint %}
 
 ## Introduction
 
-Masonite 2.1 introduces a few new changes that are designed to correct course for the 2.x family and ensure we can go far into the 2.x family without having to make huge breaking changes. Below you will find all changes that went into making 2.1 awesome. Nearly all of these changes are breaking changes.
+Masonite 2.1 introduces a few new changes that are designed to correct course for the 2.x family and ensure we can go far into the 2.x family without having to make huge breaking changes. It was questionable whether we should break from the 2.x family and start a new 3.x line. The biggest question was removing \(actually disabling\) the ability to resolve parameters and go with the more favorable annotation resolving. That could have made Masonite a 3.x line but we have ultimately decided to go with the 2.1 as a course correction. Below you will find all changes that went into making 2.1 awesome. Nearly all of these changes are breaking changes.
 
 {% hint style="info" %}
 These are only changes in the first beta release so far so more changes may come
@@ -226,13 +226,13 @@ def show(self):
 
 We no longer need to do:
 
-```html
+```markup
 {{ csrf_field|safe }}
 ```
 
 We can now simply do:
 
-```html
+```markup
 {{ csrf_field }}
 ```
 
@@ -271,7 +271,7 @@ We now have View Routes on all instances of the normal HTTP classes:
 Get().view('/url', 'some/template', {'key': 'value'})
 ```
 
-## Renamed cache_exists to cache
+## Renamed cache\_exists to cache
 
 We previously used this method on the Cache class like so:
 
@@ -352,16 +352,17 @@ Now you can use `craft middleware MiddlewareName` in order to scaffold middlewar
 
 All views can optionally use dot notation instead of foward slashes:
 
-```
+```text
 return view.render('some/template/here')
 ```
 
 is the same as:
 
-```
+```text
 return view.render('some.template.here')
 ```
 
 ## Added Swap to container
 
 We can now do container swapping which is swapping out a class when it is resolved. In other words we may want to change what objects are returned when certain objects are resolved. These objects do not have to be in the container in the first place.
+
