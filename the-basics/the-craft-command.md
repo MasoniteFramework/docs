@@ -194,22 +194,6 @@ $ craft view auth/home
 
 This will create a view under `resources/templates/auth/home.html` but keep in mind that it will not create the directory for you. If the `auth` directory does not exist, this command will fail.
 
-#### Packages
-
-You may create a PyPi package with an added `integrations.py` file which is specific to Masonite. You can learn more about packages by reading the "Creating Packages" documentation. To create a package boilerplate, just run:
-
-```text
-$ craft package name_of_package
-```
-
-#### Publishing
-
-Packages that are built specifically for Masonite in mind will typically support publishing commands. Publishing commands are a way that packages can scaffold and integrate into Masonite. Publishing commands can allow third parties to: create or append to configuration files, create controllers, create routes and other integrations. Read more about publishing by reading our "Publishing Packages" documentation. To publish a package just run:
-
-```text
-$ craft publish name_of_package
-```
-
 #### Running the WSGI Server
 
 You can run the WSGI server by simply running:
@@ -224,11 +208,17 @@ Masonite comes with a way to encrypt data and by default, encrypts all cookies s
 
 To generate a secret `key`, we can run:
 
-```text
+```bash
 $ craft key
 ```
 
 This will generate a 32 bit string which you can paste into your `.env` file under the `KEY` setting.
+
+You can also add the `--store` flag at the end which will add the key to your .env file:
+
+```bash
+$ craft key --store
+```
 
 Great! You are now a master at the craft command line tool.
 

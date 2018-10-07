@@ -4,7 +4,7 @@
 
 Masonite Routing is an extremely simple but powerful routing system that at a minimum takes a url and a controller. Masonite will take this route and match it against the requested route and execute the controller on a match.
 
-All routes are created inside `routes/web.py` and are contained in a `ROUTES` constant. All routes consist of either a `Get()` route or a `Post()` route. At the bare minimum, a route will look like:
+All routes are created inside `routes/web.py` and are contained in a `ROUTES` constant. All routes consist of some form of HTTP route classes (like `Get()` or `Post()`). At the bare minimum, a route will look like:
 
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
@@ -59,7 +59,7 @@ There are several HTTP verbs you can use for routes:
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-from masonite.routes import Get, Post, Put, Patch, Delete
+from masonite.routes import Get, Post, Put, Patch, Delete, Match
 
 Get().route(...)
 Post().route(...)
@@ -407,13 +407,15 @@ Make sure you add them in a Service Provider where `wsgi` is `False`. We can add
 {% code-tabs %}
 {% code-tabs-item title="app/http/providers/RouteCompileProvider.py" %}
 ```python
+from masonite.routes import Route
+
 class RouteCompilerProvider(ServiceProvider):
 
     wsgi = False
     ...
 
-    def boot(self, Route):
-        Route.compile('year', r'[0-9]{4}')
+    def boot(self, route: Route):
+        route.compile('year', r'[0-9]{4}')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -435,7 +437,7 @@ Out of the box this feature will not work and is turned off by default. We will 
 ```python
 wsgi = False
 ...
-def boot(self, Request):
+def boot(self, request: Request):
     request.activate_subdomains()
 ```
 {% endcode-tabs-item %}
@@ -453,7 +455,7 @@ Get().domain('joseph').route('/dashboard', 'Controller@show')
 
 This route will match to `joseph.example.com/dashboard` but not to `example.com/dashboard` or `test.example.com/dashboard`.
 
-It may be much more common to match to any subdomain. For this we can pass in an asterisk instead.
+It may be much more common to match any subdomain. For this we can pass in an asterisk instead.
 
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}

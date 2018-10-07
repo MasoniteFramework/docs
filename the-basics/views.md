@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Views contain all the HTML that you’re application will use to render to the user. Unlike Django, views in Masonite are your HTML templates. All views are located inside `resources/templates`directory.
+Views contain all the HTML that you’re application will use to render to the user. Unlike Django, views in Masonite are your HTML templates. All views are located inside the `resources/templates` directory.
 
 All views are rendered with Jinja2 so we can use all the Jinja2 code you are used to. An example view looks like:
 
@@ -71,8 +71,10 @@ The `View` class is loaded into the container so we can retrieve it in our contr
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
-def show(self, View):
-    return View('dashboard')
+from masonite.view import View
+
+def show(self, view: View):
+    return view.render('dashboard')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -125,7 +127,7 @@ MANIFEST.in
 ...
 ```
 
-and not inside the package directory. This is a Jinja limitation that says that all templates should be located in packages.
+ensuring there is a `__init__.py` file. This is a Jinja limitation that says that all templates should be located in packages.
 
 Accessing a global view such as:
 
@@ -138,7 +140,7 @@ def show(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-will perform a relative import for your Masonite project. For example it will catch:
+will perform an absolute import for your Masonite project. For example it will locate:
 
 ```text
 app/
@@ -149,11 +151,11 @@ package/
   dashboard.html
 ```
 
-So if you are making a package for Masonite then keep this in mind in where you should put your templates
+So if you are making a package for Masonite then keep this in mind of where you should put your templates.
 
 ## Passing Data to Views
 
-A lot of the time we’ll need to pass in data to our views. This data is passed in with a dictionary that contains a key which is the variable with the corresponding value. We can pass data to the function like so:
+Most of the time we’ll need to pass in data to our views. This data is passed in with a dictionary that contains a key which is the variable with the corresponding value. We can pass data to the function like so:
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
@@ -191,28 +193,31 @@ This section requires knowledge of [Service Providers](../architectural-concepts
 You can also add Jinja2 environments to the container which will be available for use in your views. This is typically done for third party packages such as Masonite Dashboard. You can extend views in a Service Provider in the boot method. Make sure the Service Provider has the `wsgi` attribute set to `False`. This way the specific Service Provider will not keep adding the environment on every request.
 
 ```python
+from masonite.view import View
+
 wsgi = False
 
 ...
 
-def boot(self, ViewClass):
-    ViewClass.add_environment('dashboard/templates')
+def boot(self, view: View):
+    view.add_environment('dashboard/templates')
 ```
 
 By default the environment will be added using the PackageLoader Jinja2 loader but you can explicitly set which loader you want to use:
 
 ```python
 from jinja2 import FileSystemLoader
+from masonite.view import View
 ...
 wsgi = False
 
 ...
 
-def boot(self, ViewClass):
-    ViewClass.add_environment('dashboard/templates', loader=FileSystemLoader)
+def boot(self, view: View):
+    view.add_environment('dashboard/templates', loader=FileSystemLoader)
 ```
 
-The default loader of PackageLoader will work for most cases but if it doesn't work for your use case, you may need to change the loader.
+The default loader of `PackageLoader` will work for most cases but if it doesn't work for your use case, you may need to change the Jinja2 loader type.
 
 ## Using Dot Notation
 

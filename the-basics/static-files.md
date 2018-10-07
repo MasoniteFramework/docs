@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Masonite tries to make static files extremely easy and comes with whitenoise out of the box. White noise wraps the WSGI application and listens for certain URI requests that can be resistered in your configuration files.
+Masonite tries to make static files extremely easy and comes with whitenoise out of the box. Whitenoise wraps the WSGI application and listens for certain URI requests that can be resistered in your configuration files.
 
 ## Configuration
 
