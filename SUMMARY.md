@@ -112,6 +112,9 @@
 
 * [How To Deploy Masonite to PythonAnywhere](https://dev.to/masonite/deploying-masonite-to-pythonanywhere-26lj)
 * [How To Use The Repository Pattern with Masonite](https://dev.to/masonite/repository-pattern-with-masonite-4a0n)
+* [Deploying a Masonite Application to Heroku](https://dev.to/masonite/deploying-a-masonite-application-to-heroku-45jp)
+* [Build Email Verification from Scratch With Masonite Framework and JSON Web Tokens](https://dev.to/nioperas06/build-email-verification-from-scratch-with-masonite-framework-and-json-web-tokens-mf7)
+* [Making Masonite and Laravel Mix work together](https://dev.to/nioperas06/lets-make-masonite-framework-and-laravel-mix-work-together--3lbj)
 
 ## Deployment
 
