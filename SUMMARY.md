@@ -108,6 +108,11 @@
 * [Introduction](tutorials/introduction.md)
 * [Creating a Blog](tutorials/creating-a-blog.md)
 
+## How-to Guides
+
+* [How To Deploy Masonite to PythonAnywhere](https://dev.to/masonite/deploying-masonite-to-pythonanywhere-26lj)
+* [How To Use The Repository Pattern with Masonite](https://dev.to/masonite/repository-pattern-with-masonite-4a0n)
+
 ## Deployment
 
 * [Optimization](deployment/optimization.md)
