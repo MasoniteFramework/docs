@@ -101,7 +101,7 @@ $ cd project_name
 
 This will get the latest Masonite project template and unzip it for you. We just need to go into our new project directory and install the dependencies in our `requirements.txt` file.
 
-## Activation Our Virtual Environment \(optional\)
+## Activating Our Virtual Environment \(optional\)
 
 You can optionally create a virtual environment if you don't want to install all of masonite's dependencies on your systems Python. If you use virtual environments then create your virtual environment by running:
 
