@@ -108,8 +108,6 @@ class SendWelcomeEmail(Queueable):
         self.mail.driver('mailgun').to(self.request.user().email).template('mail/welcome').send()
 ```
 
-That's it! We just created a job that can send to to the queue!
-
 That's it! This job will be loaded into the queue. By default, Masonite uses the `async` driver which just sends tasks into the background.
 
 We can also send multiple jobs to the queue by passing more of them into the `.push()` method:
@@ -120,6 +118,28 @@ from app.jobs.TutorialEmail import TutorialEmail
 
 def show(self, Queue):
     Queue.push(SendWelcomeEmail, TutorialEmail('val1', 'val2'))
+```
+
+### Passing Variables Into Jobs
+
+Most of the time you will want to resolve the constructor but pass in variables into the `handle()` method. This can be done by passing in an iterator into the `args=` keyword argument:
+
+```python
+def show(self, Queue):
+    Queue.push(SendWelcomeEmail, args=['user@email.com'])
+```
+
+This will pass to your handle method:
+
+```python
+class SendWelcomeEmail(Queueable):
+
+    def __init__(self, Request, Mail):
+        self.request = Request
+        self.mail = Mail
+
+    def handle(self, email):
+        email # =='user@email.com'
 ```
 
 ## AMQP Driver
