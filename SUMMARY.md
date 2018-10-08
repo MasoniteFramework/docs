@@ -105,17 +105,18 @@
 * [Masonite Notifications](official-packages/masonite-notifications.md)
 * [Masonite API](official-packages/masonite-api.md)
 
-## Creating Your First Blog
+## Tutorials
 
-* [Introduction](creating-your-first-blog/introduction.md)
-* [Part 1 - Creating Our First Route](creating-your-first-blog/part-1-creating-our-first-route.md)
-* [Part 2 - Creating Our First Controller](creating-your-first-blog/part-2-creating-our-first-controller.md)
-* [Part 3 - Authentication](creating-your-first-blog/part-3-authentication.md)
-* [Part 4 - Migrations](creating-your-first-blog/part-4-migrations.md)
-* [Part 5 - Models](creating-your-first-blog/part-5-models.md)
-* [Part 6 - Designing Our Blog](creating-your-first-blog/part-6-designing-our-blog.md)
-* [Part 7 - Showing Our Posts](creating-your-first-blog/part-7-showing-our-posts.md)
-* [Part 8 - Updating and Deleting Posts](creating-your-first-blog/part-8-updating-and-deleting-posts.md)
+* [Introduction](tutorials/introduction.md)
+* [Creating a Blog](tutorials/creating-a-blog.md)
+* [Part 1 - Creating Our First Route](tutorials/part-1-creating-our-first-route.md)
+* [Part 2 - Creating Our First Controller](tutorials/part-2-creating-our-first-controller.md)
+* [Part 3 - Authentication](tutorials/part-3-authentication.md)
+* [Part 4 - Migrations](tutorials/part-4-migrations.md)
+* [Part 5 - Models](tutorials/part-5-models.md)
+* [Part 6 - Designing Our Blog](tutorials/part-6-designing-our-blog.md)
+* [Part 7 - Showing Our Posts](tutorials/part-7-showing-our-posts.md)
+* [Part 8 - Updating and Deleting Posts](tutorials/part-8-updating-and-deleting-posts.md)
 
 ## Deployment
 
