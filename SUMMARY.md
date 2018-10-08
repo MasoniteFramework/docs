@@ -103,20 +103,11 @@
 * [Masonite Billing](http://billing.masoniteproject.com)
 * [Masonite Dashboard](official-packages/masonite-dashboard.md)
 * [Masonite Notifications](official-packages/masonite-notifications.md)
-* [Masonite API](official-packages/masonite-api.md)
 
 ## Tutorials
 
 * [Introduction](tutorials/introduction.md)
 * [Creating a Blog](tutorials/creating-a-blog.md)
-* [Part 1 - Creating Our First Route](tutorials/part-1-creating-our-first-route.md)
-* [Part 2 - Creating Our First Controller](tutorials/part-2-creating-our-first-controller.md)
-* [Part 3 - Authentication](tutorials/part-3-authentication.md)
-* [Part 4 - Migrations](tutorials/part-4-migrations.md)
-* [Part 5 - Models](tutorials/part-5-models.md)
-* [Part 6 - Designing Our Blog](tutorials/part-6-designing-our-blog.md)
-* [Part 7 - Showing Our Posts](tutorials/part-7-showing-our-posts.md)
-* [Part 8 - Updating and Deleting Posts](tutorials/part-8-updating-and-deleting-posts.md)
 
 ## Deployment
 
