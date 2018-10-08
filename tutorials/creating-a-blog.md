@@ -1,8 +1,10 @@
 # Creating a Blog
 
-# Introduction
-In this tutorial we will walk through how to create a blog. We will touch on all the major systems of Masonite and it should give you the confidence to try the more advanced tutorials are build an application yourself.
+## Creating a Blog
 
+## Introduction
+
+In this tutorial we will walk through how to create a blog. We will touch on all the major systems of Masonite and it should give you the confidence to try the more advanced tutorials are build an application yourself.
 
 ## Routing
 
@@ -24,7 +26,7 @@ We'll talk more about the controller in a little bit.
 You can read more about routes in the [Routing](../the-basics/routing.md) documentation
 {% endhint %}
 
-## Creating our Route:
+### Creating our Route:
 
 We will start off by creating a view and controller to create a blog post.
 
@@ -55,15 +57,13 @@ You'll notice here we have a `BlogController@show` string. This means "use the b
 Let's create the `BlogController` in the next step: [Part 2 - Creating Our First Controller](part-2-creating-our-first-controller.md)
 {% endhint %}
 
-
-
 ## Creating a Controller
 
 All controllers are located in the `app/http/controllers` directory and Masonite promotes 1 controller per file. This has proven efficient for larger application development because most developers use text editors with advanced search features such as Sublime, VSCode or Atom. Switching between classes in this instance is simple and promotes faster development. It's easy to remember where the controller exactly is because the name of the file is the controller.
 
 You can of course move controllers around wherever you like them but the craft command line tool will default to putting them in separate files. If this seems weird to you it might be worth a try to see if you like this opinionated layout.
 
-## Creating Our First Controller
+### Creating Our First Controller
 
 Like most parts of Masonite, you can scaffold a controller with a craft command:
 
@@ -93,9 +93,9 @@ Simple enough, right? You'll notice we have a `show` method. These are called "c
 
 Notice we now have our show method that we specified in our route earlier.
 
-## Returning a View
+### Returning a View
 
-We can return a view from our controller. A view in Masonite are html files or "templates". They are not Python objects themselves like other Python frameworks. Views are what the users will see. 
+We can return a view from our controller. A view in Masonite are html files or "templates". They are not Python objects themselves like other Python frameworks. Views are what the users will see.
 
 This is important as this is our first introduction to Python's IOC container. We specify in our parameter list that we need a view class and Masonite will inject it for us:
 
@@ -111,10 +111,10 @@ def show(self, View):
 Notice here we didn't import anything. This is what Masonite call's "Auto resolving dependency injection". If you don't like the semantics of this there are other ways to "resolve" from the container that you will discover in the reference documentation but for now let's stay with this method of resolving.
 
 {% hint style="success" %}
-Be sure to learn more about the [Service Container]('architectural-concepts/service-container.md').
+Be sure to learn more about the \[Service Container\]\('architectural-concepts/service-container.md'\).
 {% endhint %}
 
-## Creating Our View
+### Creating Our View
 
 You'll notice now that we are returning the `blog` view but it does not exist yet.
 
@@ -170,7 +170,7 @@ We should get a success message saying that some new assets were created. You ca
 
 We will observe what was created for us in a bit.
 
-## Database Setup
+### Database Setup
 
 In order to register these users, we will need a database. Hopefully you already have some kind of local database setup like MySQL or Postgres. You can open up your MySQL client and create a database. You currently cannot create databases directly through Masonite.
 
@@ -197,7 +197,7 @@ Go ahead and change those setting to your connection settings. The `DB_DRIVER` c
 Since `sqlite` has a simpler configuration, you will need to edit `config/database.py` to remove the `host`, `user`, and `password` keys.
 {% endhint %}
 
-## Migrating
+### Migrating
 
 Once you have set the correct credentials, we can go ahead and migrate the database. Out of the box, Masonite has a migration for a users table which will be the foundation of our user. You can edit this user migration before migrating but the default configuration will suit most needs just fine and you can always add or remove columns at a later date.
 
@@ -211,7 +211,7 @@ $ craft migrate
 
 This will create our users table for us along with a migrations table to keep track of any migrations we add later.
 
-## Creating Users
+### Creating Users
 
 Now that we have the authentication and the migrations all migrated in, let's create our first user. Remember that we ran `craft auth` so we have a few new templates and controllers.
 
@@ -239,7 +239,7 @@ Now that we have our authentication setup and we are comfortable with migrating 
 
 Our posts table should have a few obvious columns that we will simplify for this tutorial part. Let's walk through how we create migrations with Masonite.
 
-## Craft Command
+### Craft Command
 
 Not surprisingly, we have a craft command to create migrations. You can read more about [Database Migrations here](../orator-orm/database-migrations.md) but we'll simplify it down to the command and explain a little bit of what's going on:
 
@@ -305,15 +305,13 @@ $ craft migrate
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-
-
 ## Models
 
 Now that we have our tables and migrations all done and we have a posts table, let's create a model for it.
 
 Models in Masonite are a bit different than other Python frameworks. Masonite uses Orator which is an Active Record implementation of an ORM. This bascially means we will not be building our model and then translating that into a migration. Models and migrations are separate in Masonite. Our models will take shape of our tables regardless of what the table looks like.
 
-## Creating our Model
+### Creating our Model
 
 Again, we can use a craft command to create our model:
 
@@ -343,7 +341,7 @@ class Post(Model):
 
 Simple enough, right? Like previously stated, we don't have to manipulate the model. The model will take shape of the table as we create or change migrations.
 
-## Table Name
+### Table Name
 
 Again, the table name that the model is attached to is the plural version of the model \(by appending an "s"\) but if you called your table something different such as "blog" instead of "blogs" we can specify the table name explicitly:
 
@@ -359,7 +357,7 @@ class Post(Model):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Mass Assignment
+### Mass Assignment
 
 Orator by default protects against mass assignment as a security measure so we will explicitly need to set what columns we would like to be fillable:
 
@@ -375,7 +373,7 @@ class Post(Model):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Relationships
+### Relationships
 
 The relationship is pretty straight forward here. Remember that we created a foreign key in our migration. We can create that relationship in our model like so:
 
@@ -411,7 +409,7 @@ Now that we have all the models and migrations setup, we have everything in the 
 
 We will also check if the user is logged in before creating a template.
 
-## The Template For Creating
+### The Template For Creating
 
 The template for creating will be located at `/blog/create` and will be a simple form for creating a blog post
 
@@ -460,7 +458,7 @@ Now because we have a foreign key in our posts table, we need to make sure the u
 Masonite uses Jinja2 templating so if you don't understand this templating, be sure to [read their documentation](http://jinja.pocoo.org/docs/2.10/).
 {% endhint %}
 
-## Static Files
+### Static Files
 
 For simplicity sake, we won't be styling our blog with something like Bootstrap but it is important to learn how static files such as CSS files work with Masonite so let's walk through how to add a CSS file and add it to our blog.
 
@@ -534,7 +532,7 @@ Javascript files are the same exact thing:
 For more information on static files, checkout the [Static Files](../the-basics/static-files.md) documentaton.
 {% endhint %}
 
-## The Controller For Creating And The Container
+### The Controller For Creating And The Container
 
 Notice that our action is going to `/blog/create` so we need to direct a route to our controller method. In this case we will direct it to a `store` method.
 
@@ -620,7 +618,7 @@ Go ahead and run the server using craft serve and head over to `localhost:8000/b
 
 Lets go ahead and show how we can show the posts we just created. In this part we will create 2 new templates to show all posts and a specific post.
 
-## Creating The Templates
+### Creating The Templates
 
 Let's create 2 new templates.
 
@@ -635,7 +633,7 @@ $ craft view single
 
 Let's start with showing all posts
 
-## Creating The Controller
+### Creating The Controller
 
 Let's create a controller for the posts to separate it out from the `BlogController`.
 
@@ -649,7 +647,7 @@ $ craft controller Post
 
 Great! So now in our `show` method we will show all posts and then we will create a `single` method to show a specific post.
 
-## Show Method
+### Show Method
 
 Let's get the `show` method to return the posts view with all the posts:
 
@@ -668,7 +666,7 @@ def show(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Posts Route
+### Posts Route
 
 We need to add a route for this method:
 
@@ -680,7 +678,7 @@ Get().route('/posts', 'PostController@show')
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Posts View
+### Posts View
 
 Our posts view can be very simple:
 
@@ -699,7 +697,7 @@ Our posts view can be very simple:
 
 Go ahead and run the server and head over to `localhost:8000/posts` route. You should see a basic representation of your posts. If you only see 1, go to `localhost:8000/blog` to create more so we can show an individual post.
 
-### Showing The Author
+#### Showing The Author
 
 Remember we made our author relationship before. Orator will take that relationship and make an attribute from it so we can display the author's name as well:
 
@@ -718,7 +716,7 @@ Remember we made our author relationship before. Orator will take that relations
 
 Let's repeat the process but change our workflow a bit.
 
-## Single Post Route
+### Single Post Route
 
 Next we want to just show a single post. We need to add a route for this method:
 
@@ -732,7 +730,7 @@ Get().route('/post/@id', 'PostController@single')
 
 Notice here we have a `@id` string. We can use this to grab that section of the URL in our controller in the next section below.
 
-## Single Method
+### Single Method
 
 Let's create a `single` method so we show a single post.
 
@@ -757,7 +755,7 @@ We use the `param()` method to fetch the id from the URL. Remember this key was 
 For a real application we might do something like `@slug` and then fetch it with `request().param('slug')`.
 {% endhint %}
 
-## Single Post View
+### Single Post View
 
 We just need to display 1 post so lets just put together a simple view:
 
@@ -778,7 +776,7 @@ Go ahead and run the server and head over the `localhost:8000/post/1` route and 
 
 By now, all of the logic we have gone over so far will take you a long way so let's just finish up quickly with updating and deleting a posts. We'll assume you are comfortable with what we have learned so far so we will run through this faster since this is just more of what were in the previous parts.
 
-## Update Controller Method
+### Update Controller Method
 
 Let's just make an update method on the `PostController`:
 
@@ -805,7 +803,7 @@ def store(self):
 
 Since we are more comfortable with controllers we can go ahead and make two at once. We made one that shows a view that shows a form to update a post and then one that actually updates the post with the database.
 
-## Create The View
+### Create The View
 
 ```text
 $ craft view update
@@ -829,7 +827,7 @@ $ craft view update
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Create The Routes:
+### Create The Routes:
 
 Remember we made 2 controller methods so let's attach them to a route here:
 
@@ -844,7 +842,7 @@ Post().route('/post/@id/update', 'PostController@store'),
 
 That should be it! We can now update our posts.
 
-## Delete Method
+### Delete Method
 
 Let's expand a bit and made a delete method.
 
@@ -861,7 +859,7 @@ def delete(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Make the route:
+### Make the route:
 
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
@@ -873,7 +871,7 @@ Get().route('/post/@id/delete', 'PostController@delete'),
 
 Notice we used a `GET` route here, It would be much better to use a `POST` method but for simplicity sake will assume you can create one by now. We will just add a link to our update method which will delete the post.
 
-## Update the Template
+### Update the Template
 
 We can throw a delete link right inside our update template:
 
