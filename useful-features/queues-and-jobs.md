@@ -1,10 +1,12 @@
 # Queues and Jobs
 
-## Introduction
+## Queues and Jobs
 
-Almost all applications can make use of queues. Queues are a great way to make time intensive tasks seem immediate by sending the task into the background or into a message queue. It's great to send anything and everything into the queue that doesn't require an immediate return value (such as sending an email or firing an API call). The queue system is loaded into masonite via the `QueueProvider` Service Provider.
+### Introduction
 
-## Getting Started
+Almost all applications can make use of queues. Queues are a great way to make time intensive tasks seem immediate by sending the task into the background or into a message queue. It's great to send anything and everything into the queue that doesn't require an immediate return value \(such as sending an email or firing an API call\). The queue system is loaded into masonite via the `QueueProvider` Service Provider.
+
+### Getting Started
 
 All configuration settings by default are in the `config/queue.py` file. Out of the box, Masonite supports 2 drivers:
 
@@ -13,7 +15,7 @@ All configuration settings by default are in the `config/queue.py` file. Out of 
 
 The `async` driver simply sends jobs into the background using multithreading. The `amqp` driver is used for any AMQP compatible message queues like RabbitMQ. If you do create a driver, consider making it available on PyPi so others can also install it.
 
-### Jobs
+#### Jobs
 
 Jobs are simply Python classes that inherit the `Queueable` class that is provided by Masonite. We can simply create jobs using the `craft job` command.
 
@@ -35,7 +37,7 @@ class SendWelcomeEmail(Queueable):
         pass
 ```
 
-### Running Jobs
+#### Running Jobs
 
 We can run jobs by using the `Queue` class. Let's run this job from a controller method:
 
@@ -47,7 +49,7 @@ def show(self, queue: Queue):
     queue.push(SendWelcomeEmail)
 ```
 
-## Resolving
+### Resolving
 
 Notice in the show method above that we passed in just the class object. We did not instantiate the class. In this instance, Masonite will resolve the controller constructor. All job constructors are able to be resolved by the container so we can simply pass anything we need as normal:
 
@@ -68,7 +70,7 @@ class SendWelcomeEmail(Queueable):
 
 Remember that anything that is resolved by the container is able to retrieve anything from the container by simply passing in parameters of objects that are located in the container. Read more about the container in the [Service Container](../architectural-concepts/service-container.md) documentation.
 
-## Instantiating
+### Instantiating
 
 We can also instantiate as the job as well if we need to pass in data from a controller method. This will not resolve the job's constructor at all:
 
@@ -79,7 +81,7 @@ from masonite import Queue
 def show(self, queue: Queue):
     var1 = 'value1'
     var2 = 'value2'
-    
+
     queue.push(SendWelcomeEmail(var1, var2))
 ```
 
@@ -93,7 +95,7 @@ class SendWelcomeEmail(Queueable):
         self.var2 = var2
 ```
 
-## Executing Jobs
+### Executing Jobs
 
 Whenever jobs are executed, it simply executes the handle method. Because of this we can send our welcome email:
 
@@ -127,17 +129,17 @@ def show(self, queue: Queue):
     queue.push(SendWelcomeEmail, TutorialEmail('val1', 'val2'))
 ```
 
-# AMQP Driver
+## AMQP Driver
 
 The `amqp` driver can be used to communicate with RabbitMQ services.
 
-## Installing
+### Installing
 
-In order to get started with this driver you will need to install RabbitMQ on your development machine (or production machine depending on where you are running Masonite)
+In order to get started with this driver you will need to install RabbitMQ on your development machine \(or production machine depending on where you are running Masonite\)
 
 You can find the [installation guide for RabbitMQ here](https://www.rabbitmq.com/download.html).
 
-## Running RabbitMQ
+### Running RabbitMQ
 
 Once you have RabbitMQ installed you can go ahead and run it. This looking something like this in the terminal if ran successfully:
 
@@ -173,7 +175,7 @@ DRIVERS = {
 }
 ```
 
-## Starting The Worker
+### Starting The Worker
 
 We can now start the worker using the `queue:work` command. It might be a good idea to run this command in a new terminal window since it will stay running until we close it.
 
@@ -183,7 +185,7 @@ $ craft queue:work
 
 This will startup the worker and start listening jobs to come in via your RabbitMQ instance.
 
-## Sending Jobs
+### Sending Jobs
 
 That's it! send jobs like you normally would and it will process via RabbitMQ:
 
@@ -195,3 +197,4 @@ def show(self, queue: Queue):
     # do your normal logic
     queue.push(SomeJob, AnotherJob(1,2))
 ```
+

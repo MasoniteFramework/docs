@@ -4,7 +4,7 @@
 
 Masonite Routing is an extremely simple but powerful routing system that at a minimum takes a url and a controller. Masonite will take this route and match it against the requested route and execute the controller on a match.
 
-All routes are created inside `routes/web.py` and are contained in a `ROUTES` constant. All routes consist of some form of HTTP route classes (like `Get()` or `Post()`). At the bare minimum, a route will look like:
+All routes are created inside `routes/web.py` and are contained in a `ROUTES` constant. All routes consist of some form of HTTP route classes \(like `Get()` or `Post()`\). At the bare minimum, a route will look like:
 
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}

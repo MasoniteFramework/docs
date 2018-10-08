@@ -135,7 +135,7 @@ If you wish to scaffold a controller, just run:
 $ craft controller Dashboard
 ```
 
-This command will create a new controller under `app/http/controllers/DashboardController.py`. By convention, all controllers should have an appended “Controller” and therefore Masonite will append "Controller" to the controller created. 
+This command will create a new controller under `app/http/controllers/DashboardController.py`. By convention, all controllers should have an appended “Controller” and therefore Masonite will append "Controller" to the controller created.
 
 You can create a controller without appending "Controller" to the end by running:
 

@@ -365,3 +365,4 @@ return view.render('some.template.here')
 ## Added Swap to container
 
 We can now do container swapping which is swapping out a class when it is resolved. In other words we may want to change what objects are returned when certain objects are resolved. These objects do not have to be in the container in the first place.
+

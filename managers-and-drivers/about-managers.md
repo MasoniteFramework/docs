@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Masonite uses an extremely powerful pattern commonly known as the Manager Pattern (also known as the Builder Pattern). Because Masonite uses classes with the `XManager` namespace, we will call it the Manager Pattern throughout this documentation.
+Masonite uses an extremely powerful pattern commonly known as the Manager Pattern \(also known as the Builder Pattern\). Because Masonite uses classes with the `XManager` namespace, we will call it the Manager Pattern throughout this documentation.
 
 Think of the Manager Pattern as attaching a Manager to a specific feature and responsible for managing a specific set of drivers. These managers are responsible for instantiating `FeatureXDriver` classes. For example, we attach a `UploadManager` to the upload feature. Now the `UploadFeature` will instantiate `UploadXDriver` classes.
 

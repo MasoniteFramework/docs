@@ -20,7 +20,7 @@ Out of the box, Masonite will autoload all classes that are located in the `app`
 
 ## How It Works
 
-Masonite will go through each directory listed and convert it to a module. For example if given the directory of `app/models` it will convert that to `app.models` and fetch that module. It will use inspection to go through the entire module and extract all classes imported or defined. 
+Masonite will go through each directory listed and convert it to a module. For example if given the directory of `app/models` it will convert that to `app.models` and fetch that module. It will use inspection to go through the entire module and extract all classes imported or defined.
 
 If your code looks something like:
 
@@ -122,7 +122,7 @@ Notice the path is now app/ and not app. This will throw an exception when the s
 
 ### AutoloadContainerOverwrite
 
-This exception will be thrown when one of your classes are about to overwrite a container binding that is outside of your search path. The search path being the directories you specified in the `AUTOLOAD` constant. 
+This exception will be thrown when one of your classes are about to overwrite a container binding that is outside of your search path. The search path being the directories you specified in the `AUTOLOAD` constant.
 
 For example, you may have a model called `Request` like so:
 
@@ -136,7 +136,7 @@ bootstrap/
 ...
 ```
 
-Without this exception, your application will overwrite the binding of the Masonite `Request` class. 
+Without this exception, your application will overwrite the binding of the Masonite `Request` class.
 
 When Masonite goes to autoload these classes, it will detect that the `Request` key has already been bound into the container \(by Masonite itself\). Masonite will then detect if that `Request` object in the container is within the search path. In other words it will check for a `Request` class inside the current module you are autoloading.
 
@@ -146,7 +146,7 @@ If you find yourself hitting this exception then move the object outside of a di
 
 ## Annotations
 
-Although it is useful to get the model by the actual container key name, it might not be as practical or even the best way to fetch models from the container. 
+Although it is useful to get the model by the actual container key name, it might not be as practical or even the best way to fetch models from the container.
 
 The recommended approach is to simply fetch the class itself by using annotations so you can adjust the variable name and ensure consistency throughout your application.
 
@@ -163,7 +163,7 @@ If this seems like a strange syntax to you, be sure to read the [Resolve](../arc
 
 ## Autoload Class
 
-You may also want to autoload classes yourself. This may be useful if building a package and needing to get all classes from a certain location or even all instances from a certain directory. 
+You may also want to autoload classes yourself. This may be useful if building a package and needing to get all classes from a certain location or even all instances from a certain directory.
 
 ### Class Instances
 
@@ -198,7 +198,7 @@ classes = Autoload().collect(['app/models'])
 You may have noticed that this autoload class will actually capture all classes found. These classes include the classes that were imported as well.
 
 {% hint style="info" %}
- The default autoload in the config file only loads application specific classes.
+The default autoload in the config file only loads application specific classes.
 {% endhint %}
 
 We can only get application specific classes by passing a parameter in:
