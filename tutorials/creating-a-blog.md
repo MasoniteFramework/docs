@@ -52,7 +52,7 @@ ROUTES = [
 You'll notice here we have a `BlogController@show` string. This means "use the blog controller's show method to render this route". The only problem here is that we don't yet have a blog controller.
 
 {% hint style="success" %}
-Let's create the `BlogController` in the next step: [Part 2 - Creating Our First Controller]()
+Let's create the `BlogController` in the next step: [Part 2 - Creating Our First Controller](creating-a-blog.md)
 {% endhint %}
 
 ## Creating a Controller
