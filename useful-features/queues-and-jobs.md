@@ -188,6 +188,23 @@ DRIVERS = {
 }
 ```
 
+If your rabbit MQ instance requires a `vhost` but doesn't have a port, we can add a `vhost` and set the port to none. `vhost` and `port` both have the option of being `None`. If you are developing locally then `vhost` should likely be left out all together. The setting below will most likely be used for your production settings:
+
+```python
+DRIVER = 'amqp'
+...
+DRIVERS = {
+    'amqp': {
+        'username': 'guest',
+        'vhost': '/',
+        'password': 'guest',
+        'host': 'localhost',
+        'port': None,
+        'channel': 'default',
+    }
+}
+```
+
 ### Starting The Worker
 
 We can now start the worker using the `queue:work` command. It might be a good idea to run this command in a new terminal window since it will stay running until we close it.
