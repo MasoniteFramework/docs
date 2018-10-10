@@ -2,7 +2,7 @@
 
 ## Creating a Blog
 
-In this tutorial we will walk through how to create a blog. We will touch on all the major systems of Masonite and it should give you the confidence to try the more advanced tutorials are build an application yourself.
+In this tutorial we will walk through how to create a blog. We will touch on all the major systems of Masonite and it should give you the confidence to try the more advanced tutorials or build an application yourself.
 
 ## Routing
 
