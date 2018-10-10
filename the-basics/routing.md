@@ -407,7 +407,9 @@ Make sure you add them in a Service Provider where `wsgi` is `False`. We can add
 {% code-tabs %}
 {% code-tabs-item title="app/http/providers/RouteCompileProvider.py" %}
 ```python
+from masonite.provider import ServiceProvider
 from masonite.routes import Route
+
 
 class RouteCompilerProvider(ServiceProvider):
 
