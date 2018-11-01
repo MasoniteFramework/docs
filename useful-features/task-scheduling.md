@@ -65,7 +65,7 @@ class SayHi(Task):
 
 ```
 
-This will be the simple boiler plate for our tasks.
+This will be the simple boilerplate for our tasks.
 
 All tasks should inherit the `scheduler.task.Task` class. This adds some needed methods to the task itself but also allows a way to fetch all the tasks from the [container by collecting them](../architectural-concepts/service-container.md#collecting).
 
@@ -206,7 +206,7 @@ After we add the directory to the `AUTOLOAD` list, we can run the `schedule:run`
 $ craft schedule:run
 ```
 
-Masonite will fetch all tasks from the container by finding all subclasses of scheduler.tasks.Task, check if they should run and then either execute it or not execute it.  
+Masonite will fetch all tasks from the container by finding all subclasses of `scheduler.tasks.Task`, check if they should run and then either execute it or not execute it.  
   
 Even though we ran the task, we should not see any output. Let's change the task a bit by printing "Hi" and setting it to run every minute:
 
@@ -236,7 +236,7 @@ We should now see "Hi!" output to the terminal window.
 ## Cron Jobs
 
 {% hint style="warning" %}
-Setting up Cron Jobs are for UNIX based machines like Mac and Linux only. Windows has a similiar schedule called Task Scheduler which is similiar but will require different instructions in setting it up.
+Setting up Cron Jobs are for UNIX based machines like Mac and Linux only. Windows has a similar schedule called Task Scheduler which is similar but will require different instructions in setting it up.
 {% endhint %}
 
 Although the command above is useful, it is not very practical in a production setup. In production, we should setup a cron job to run that command every minute so Masonite can decide on what jobs need to be ran.
