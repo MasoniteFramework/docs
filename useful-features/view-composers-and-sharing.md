@@ -232,3 +232,23 @@ That's it! Now we can use the `a_company_owner` in our templates just like the f
 Notice that we only supplied the function and we did not instantiate anything. The function or object we supply needs to have 1 parameter which is the object or string we are testing.
 {% endhint %}
 
+## Adding Extensions
+
+Jinja2 has the concept of extensions and you can easily add them to your project in a similar way as previous implementations above which is in a [Service Provider](../architectural-concepts/service-providers.md):
+
+```python
+class SomeProvider:
+    wsgi = False
+
+    ...
+
+    def boot(self, view: View):
+        view.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
+```
+
+This will add the extension to the view class. 
+
+{% hint style="info" %}
+Remember to place this in a service provider where `wsgi=False` as this will prevent the extension being added on every request.
+{% endhint %}
+

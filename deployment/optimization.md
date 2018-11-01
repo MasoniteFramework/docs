@@ -10,7 +10,7 @@ Out of the box, Masonite is designed to run as a great development environment. 
 
 As your application is entering the deployment phase you should look away from running the server with Waitress and look to more production ready options such as uWSGI and Gunicorn. Gunicorn has been tested to run faster than uWSGI both using their default options but uWSGI may be able to be tweaked in a way that is faster dependent on your application.
 
-Because Masonite is simply a WSGI application, any deployment tutorials you research should simply be how to setup a WSGI application on the platform you are trying to deploy to. 
+Because Masonite is simply a WSGI application, any deployment tutorials you research should simply be how to setup a WSGI application on the platform you are trying to deploy to.
 
 So remember, Waitress is great for development but a better WSGI server like Gunicorn should be used when deploying to production.
 
