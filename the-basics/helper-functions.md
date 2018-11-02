@@ -180,5 +180,3 @@ If we then go to the browser and visit this URL as normal then we can now see th
 
 ![](../.gitbook/assets/screen-shot-2018-10-31-at-4.56.30-pm.png)
 
-
-

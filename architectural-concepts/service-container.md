@@ -157,6 +157,10 @@ Notice that we passed in a contract instead of the upload class. Masonite went i
 
 ### Resolving Parameters
 
+{% hint style="danger" %}
+This feature should not be used and you should instead use the more explicit form of resolving in the section above.
+{% endhint %}
+
 You can technically still resolve parameters with your container like you could in previous versions of Masonite. Resolving a parameter looked like this:
 
 ```python
@@ -170,7 +174,7 @@ Although this was removed in 2.1+, you may still enable it on a per project basi
 container = App(resolve_parameters=True)
 ```
 
-You're project will now resolve parameters as well. Resolving parameters looks for the key in the container instead of the class.
+Your project will now resolve parameters as well. Resolving parameters looks for the key in the container instead of the class.
 
 ### Resolving your own code
 
@@ -193,6 +197,26 @@ Remember not to call it and only reference the function. The Service Container n
 {% endhint %}
 
 This will fetch all of the parameters of `randomFunction` and retrieve them from the service container. There probably won't be many times you'll have to resolve your own code but the option is there.
+
+### Resolving With Additional Parameters
+
+Sometimes you may wish to resolve your code in addition to passing in variables within the same parameter list. For example you may want to have 3 parameters like this:
+
+```python
+from masonite.request import Request
+from masonite import Mail
+
+def send_email(request: Request, mail: Mail, email):
+    pass
+```
+
+You can resolve and pass parameter at the same time by adding them to the `resolve()` method:
+
+```python
+app.resolve(send_email, 'user@email.com')
+```
+
+Masonite will go through each parameter list and resolve them, if it does not find the parameter it will pull it from the other parameters specified. These parameters can be in any order.
 
 ## Container Swapping
 

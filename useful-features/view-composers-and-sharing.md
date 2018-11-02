@@ -246,7 +246,7 @@ class SomeProvider:
         view.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
 ```
 
-This will add the extension to the view class. 
+This will add the extension to the view class.
 
 {% hint style="info" %}
 Remember to place this in a service provider where `wsgi=False` as this will prevent the extension being added on every request.

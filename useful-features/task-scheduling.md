@@ -9,7 +9,7 @@ Often your application will require some kind of recurring task that should happ
 * Cleaning your database of unneeded data every minute or so
 * Send an API call to a service in order to fire certain events
 
-Or anything in between. There are lots of use cases for simple tasks to be ran during certain parts of the day or even "offline" hours when your employees are gone. 
+Or anything in between. There are lots of use cases for simple tasks to be ran during certain parts of the day or even "offline" hours when your employees are gone.
 
 {% hint style="warning" %}
 This is feature is not a full queue scheduler that can be used with services like Redis or RabbitMQ. This feature is for running simple tasks like the tasks listed above. For queue support, read the [Queues and Jobs](queues-and-jobs.md) documentation.
@@ -17,7 +17,7 @@ This is feature is not a full queue scheduler that can be used with services lik
 
 ## Getting Started
 
-First we will need to install the  scheduler feature. We can simply pip install it:
+First we will need to install the scheduler feature. We can simply pip install it:
 
 ```text
 $ pip install masonite-scheduler
@@ -37,7 +37,7 @@ PROVIDERS = [
 
 This provider will add several new features to Masonite. The first is that it will add two new commands.
 
-The first command that will be added is the `craft schedule:run` command which will run all the schedules tasks \(which we will create in a bit\). 
+The first command that will be added is the `craft schedule:run` command which will run all the schedules tasks \(which we will create in a bit\).
 
 The second command is a `craft task` command which will create a new task under the `app/tasks` directory.
 
@@ -59,10 +59,9 @@ class SayHi(Task):
 
     def __init__(self):
         pass
-    
+
     def handle(self):
         pass
-
 ```
 
 This will be the simple boilerplate for our tasks.
@@ -92,7 +91,7 @@ This will find all the tasks in the app/tasks directory and load them into the c
 
 ## Making The Task
 
-Now that our task is able to be added to the container automatically, let's start building the class. 
+Now that our task is able to be added to the container automatically, let's start building the class.
 
 ### Constructors
 
@@ -107,7 +106,7 @@ class SayHi(Task):
 
     def __init__(self, request: Request):
         self.request = request
-    
+
     def handle(self):
         pass
 ```
@@ -122,7 +121,7 @@ class SayHi(Task):
 
     def __init__(self, Request):
         self.request = Request
-    
+
     def handle(self):
         pass
 ```
@@ -142,7 +141,7 @@ class SayHi(Task):
 
     def __init__(self):
         pass
-    
+
     def handle(self):
         requests.post('http://url.com/api/store')
 ```
@@ -165,7 +164,7 @@ class SayHi(Task):
 
     def __init__(self):
         pass
-    
+
     def handle(self):
         requests.post('http://url.com/api/store')
 ```
@@ -183,7 +182,7 @@ All possible options are `False` by default. The options here are:
 | twice\_daily | A tuple on the hours of the day the task should run. Also in military time. `(1, 13)` will run at 1am and 1pm. | twice\_daily = \(1, 13\) |
 
 {% hint style="info" %}
-If the time on the task is `days` or `months` then you can also specify a `run_at` attribute which will set the time of day it should should. By default, all tasks will run at midnight if `days` is set and midnight on the first of the month when `months` is set. We can specify which time of day using the `run_at` attribute along side the `run_every` attribute. This option will be ignored if `run_every` is `minutes` or `hours`. 
+If the time on the task is `days` or `months` then you can also specify a `run_at` attribute which will set the time of day it should should. By default, all tasks will run at midnight if `days` is set and midnight on the first of the month when `months` is set. We can specify which time of day using the `run_at` attribute along side the `run_every` attribute. This option will be ignored if `run_every` is `minutes` or `hours`.
 {% endhint %}
 
 ## Caveats
@@ -206,8 +205,8 @@ After we add the directory to the `AUTOLOAD` list, we can run the `schedule:run`
 $ craft schedule:run
 ```
 
-Masonite will fetch all tasks from the container by finding all subclasses of `scheduler.tasks.Task`, check if they should run and then either execute it or not execute it.  
-  
+Masonite will fetch all tasks from the container by finding all subclasses of `scheduler.tasks.Task`, check if they should run and then either execute it or not execute it.
+
 Even though we ran the task, we should not see any output. Let's change the task a bit by printing "Hi" and setting it to run every minute:
 
 ```python
@@ -220,7 +219,7 @@ class SayHi(Task):
 
     def __init__(self):
         pass
-    
+
     def handle(self):
         print('Hi!')
 ```
@@ -297,6 +296,4 @@ The next part is dependant on your setup. If you have a virtual environment then
 Lastly we need to run the schedule command so we can append `&& craft schedule:run`
 
 Great! Now we have a cron job that will run the craft command every minute. Masonite will decide which classes need to be executed.
-
-
 
