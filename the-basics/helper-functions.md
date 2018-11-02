@@ -156,6 +156,8 @@ That's it! These are simply just functions that are added to Python's builtin fu
 
 Die and dump is a common way to debug objects in PHP and other programming languages. Laravel has the concept of dd\(\) which dies and dumps the object you need to inspect.
 
+`dd()` is essentially adding a break point in your code which dumps the properties of an object to your browser.
+
 For example we can die and dump the user we find:
 
 ```python
