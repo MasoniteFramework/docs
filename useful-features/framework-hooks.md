@@ -128,7 +128,43 @@ SentryServiceProvider(),
 
 That's it! Now everytime an exception is thrown, this will run our SentryHook class that we binded into the container and the exception should pop up in our [Sentry.io](http://sentry.io) dashboard.
 
+## Exception Handlers
 
+You can build handlers to handle specific exceptions that are thrown by your application. For example if a TemplateNotFound exception is thrown then you can build a special exception handler to catch that and return a special view or a special debug screen.
 
+### Building an Exception Handler
 
+Exception handlers are simple classes that have a handle method which accepts the exception thrown:
+
+```python
+from masonite.request import Request
+
+class TemplateNotFoundHandler:
+    
+    def __init__(self, request: Request):
+        self.request = request
+    
+    def handle(self, exception):
+        pass
+```
+
+The constructor of all exception handlers are resolved by the container so you can hint any dependencies you need. Once the constructor is resolved then the handle method will be called.
+
+Once the handle method is called then Masonite will continue with the rest of the WSGI logic which is just setting the status code, headers and returning a response.
+
+### Registering the Exception Handler
+
+Now that we have our exception handler we will need to register it in the container using a special naming convention. The naming convention is: `ExceptionNameOfErrorHandler`. The name of the exception that we want to be catching is called TemplateNotFound so we will need to bind this into the container like so:
+
+```python
+from masonite.provider import ServiceProvider
+from somewhere import TemplateNotFoundHandler
+
+class UserModelProvider(ServiceProvider):
+
+    def register(self): 
+        self.app.bind('ExceptionTemplateNotFoundHandler', TemplateNotFoundHandler)
+
+    ...
+```
 

@@ -161,3 +161,24 @@ def show(self, request: Request):
 
 That's it! These are simply just functions that are added to Python's builtin functions.
 
+## Die and Dump
+
+Die and dump is a common way to debug objects in PHP and other programming languages. Laravel has the concept of dd\(\) which dies and dumps the object you need to inspect.
+
+`dd()` is essentially adding a break point in your code which dumps the properties of an object to your browser.
+
+For example we can die and dump the user we find:
+
+```python
+from app.User import User
+
+def show(self):
+    dd(User.find(7))
+```
+
+If we then go to the browser and visit this URL as normal then we can now see the object fully inspected which will kill the script wherever it is in place and throw an exception but instead of showing the normal debugger it will use a custom exception handler and show the inspection of the object instead:
+
+![](../.gitbook/assets/screen-shot-2018-10-31-at-4.56.30-pm.png)
+
+
+

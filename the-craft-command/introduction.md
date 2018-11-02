@@ -127,6 +127,61 @@ $ craft validator LoginValidator
 Be sure to read the [Validation](../advanced/validation.md) documentation to learn more about validators.
 {% endhint %}
 
+### Creating Model Definition Docstrings
+
+Masonite uses Orator which is an active record style ORM. If you are coming from other Python frameworks you may be more familiar with Data Mapper ORM's like Django ORM or SQLAlchemy. These style ORM's are useful since the names of the column in your table are typically the names of class attributes. If you forget what you named your column you can typically just look at the model but if your model looks something like:
+
+```python
+class User(Model):
+    pass
+```
+
+Then it is not apparent what the tables are. We can run a simple command though to generate a docstring that we can throw onto our model:
+
+```bash
+$ craft model:docstring table_name
+```
+
+Which will generate something like this in the terminal:
+
+```python
+"""Model Definition (generated with love by Masonite)
+
+id: integer default: None
+name: string(255) default: None
+email: string(255) default: None
+password: string(255) default: None
+remember_token: string(255) default: None
+created_at: datetime(6) default: CURRENT_TIMESTAMP(6)
+updated_at: datetime(6) default: CURRENT_TIMESTAMP(6)
+customer_id: string(255) default: None
+plan_id: string(255) default: None
+is_active: integer default: None
+verified_at: datetime default: None
+"""
+```
+
+We can now copy and paste that onto your model and change whatever we need to:
+
+```python
+class User(Model):
+    """Model Definition (generated with love by Masonite)
+
+    id: integer default: None
+    name: string(255) default: None
+    email: string(255) default: None
+    password: string(255) default: None
+    remember_token: string(255) default: None
+    created_at: datetime(6) default: CURRENT_TIMESTAMP(6)
+    updated_at: datetime(6) default: CURRENT_TIMESTAMP(6)
+    customer_id: string(255) default: None
+    plan_id: string(255) default: None
+    is_active: integer default: None
+    verified_at: datetime default: None
+    """
+    pass
+```
+
 ### Creating Controllers
 
 If you wish to scaffold a controller, just run:

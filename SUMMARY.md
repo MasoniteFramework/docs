@@ -101,19 +101,20 @@
 * [Masonite Billing](http://billing.masoniteproject.com)
 * [Masonite Dashboard](official-packages/masonite-dashboard.md)
 * [Masonite Notifications](official-packages/masonite-notifications.md)
-* [Masonite API](official-packages/masonite-api.md)
 
-## Creating Your First Blog
+## Tutorials
 
-* [Introduction](creating-your-first-blog/introduction.md)
-* [Part 1 - Creating Our First Route](creating-your-first-blog/part-1-creating-our-first-route.md)
-* [Part 2 - Creating Our First Controller](creating-your-first-blog/part-2-creating-our-first-controller.md)
-* [Part 3 - Authentication](creating-your-first-blog/part-3-authentication.md)
-* [Part 4 - Migrations](creating-your-first-blog/part-4-migrations.md)
-* [Part 5 - Models](creating-your-first-blog/part-5-models.md)
-* [Part 6 - Designing Our Blog](creating-your-first-blog/part-6-designing-our-blog.md)
-* [Part 7 - Showing Our Posts](creating-your-first-blog/part-7-showing-our-posts.md)
-* [Part 8 - Updating and Deleting Posts](creating-your-first-blog/part-8-updating-and-deleting-posts.md)
+* [Introduction](tutorials/introduction.md)
+* [Creating a Blog](tutorials/creating-a-blog.md)
+
+## How-to Guides
+
+* [How To Deploy Masonite to PythonAnywhere](https://dev.to/masonite/deploying-masonite-to-pythonanywhere-26lj)
+* [How To Use The Repository Pattern with Masonite](https://dev.to/masonite/repository-pattern-with-masonite-4a0n)
+* [Deploying a Masonite Application to Heroku](https://dev.to/masonite/deploying-a-masonite-application-to-heroku-45jp)
+* [Build Email Verification from Scratch With Masonite Framework and JSON Web Tokens](https://dev.to/nioperas06/build-email-verification-from-scratch-with-masonite-framework-and-json-web-tokens-mf7)
+* [Making Masonite and Laravel Mix work together](https://dev.to/nioperas06/lets-make-masonite-framework-and-laravel-mix-work-together--3lbj)
+* [How-To: Use RabbitMQ with Masonite 2.0 queues](https://dev.to/masonite/how-to-use-rabbitmq-with-masonite-20-queues-4105)
 
 ## Deployment
 

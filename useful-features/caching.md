@@ -20,6 +20,31 @@ DRIVERS = {
 }
 ```
 
+### Redis
+
+Masonite also supports a Redis driver. Make sure the Redis server is running and:
+
+```text
+$ pip install redis
+```
+
+```python
+DRIVER = 'redis'
+
+DRIVERS = {
+    'disk': {
+        'location': 'storage/cache/templates'
+    },
+    'redis': {
+        'host': os.getenv('REDIS_HOST', 'localhost'),
+        'port': os.getenv('REDIS_PORT', '6379'),
+        'password': os.getenv('REDIS_PASSWORD', '')
+    }
+}
+```
+
+Add the required environment keys to your `.env` file and you are good to go!
+
 ## Using the Cache
 
 To start using the cache, we can use the `Cache` alias that is loaded into the container from the `CacheProvider` Service Provider. We can retrieve this from the container inside any method that is resolved by the container such as drivers, middleware and controllers. For example we can retrieve it from our controller method like so:

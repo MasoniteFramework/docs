@@ -114,8 +114,6 @@ class SendWelcomeEmail(Queueable):
         self.mail.driver('mailgun').to(self.request.user().email).template('mail/welcome').send()
 ```
 
-That's it! We just created a job that can send to to the queue!
-
 That's it! This job will be loaded into the queue. By default, Masonite uses the `async` driver which just sends tasks into the background.
 
 We can also send multiple jobs to the queue by passing more of them into the `.push()` method:
@@ -127,6 +125,28 @@ from masonite import Queue
 
 def show(self, queue: Queue):
     queue.push(SendWelcomeEmail, TutorialEmail('val1', 'val2'))
+```
+
+### Passing Variables Into Jobs
+
+Most of the time you will want to resolve the constructor but pass in variables into the `handle()` method. This can be done by passing in an iterator into the `args=` keyword argument:
+
+```python
+def show(self, Queue):
+    Queue.push(SendWelcomeEmail, args=['user@email.com'])
+```
+
+This will pass to your handle method:
+
+```python
+class SendWelcomeEmail(Queueable):
+
+    def __init__(self, Request, Mail):
+        self.request = Request
+        self.mail = Mail
+
+    def handle(self, email):
+        email # =='user@email.com'
 ```
 
 ## AMQP Driver
@@ -175,6 +195,23 @@ DRIVERS = {
 }
 ```
 
+If your rabbit MQ instance requires a `vhost` but doesn't have a port, we can add a `vhost` and set the port to none. `vhost` and `port` both have the option of being `None`. If you are developing locally then `vhost` should likely be left out all together. The setting below will most likely be used for your production settings:
+
+```python
+DRIVER = 'amqp'
+...
+DRIVERS = {
+    'amqp': {
+        'username': 'guest',
+        'vhost': '/',
+        'password': 'guest',
+        'host': 'localhost',
+        'port': None,
+        'channel': 'default',
+    }
+}
+```
+
 ### Starting The Worker
 
 We can now start the worker using the `queue:work` command. It might be a good idea to run this command in a new terminal window since it will stay running until we close it.
@@ -183,7 +220,7 @@ We can now start the worker using the `queue:work` command. It might be a good i
 $ craft queue:work
 ```
 
-This will startup the worker and start listening jobs to come in via your RabbitMQ instance.
+This will startup the worker and start listening for jobs to come in via your Masonite project.
 
 ### Sending Jobs
 

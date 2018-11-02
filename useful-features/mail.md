@@ -118,6 +118,58 @@ DRIVERS = {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### Terminal Driver
+
+The Terminal driver simply prints out your email message in the terminal. Makes testing and development super easy. To use the terminal driver you'll need to enter a few configuration settings.
+
+{% code-tabs %}
+{% code-tabs-item title=".env" %}
+```text
+MAIL_DRIVER=terminal
+MAIL_FROM_ADDRESS=admin@email.com
+MAIL_FROM_NAME=Masonite
+MAIL_HOST=
+MAIL_PORT=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### Log Driver
+
+The Log driver simply prints out your email message into a log file. To use the log driver you'll need to enter a few configuration settings.
+
+{% code-tabs %}
+{% code-tabs-item title=".env" %}
+```text
+MAIL_DRIVER=log
+MAIL_FROM_ADDRESS=admin@email.com
+MAIL_FROM_NAME=Masonite
+MAIL_HOST=
+MAIL_PORT=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Masonite will retrieve the configuration settings for the log driver from the `DRIVERS` configuration setting which Masonite has by default, you do not have to change this.
+
+{% code-tabs %}
+{% code-tabs-item title="config/mail.py" %}
+```python
+DRIVERS = {
+    ...
+    'log': {
+        'file': os.getenv('LOG_FILE', 'mail.log'),
+        'location': 'bootstrap/logs'
+    }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ## Sending an Email
 
 The `Mail` class is loaded into the container via the the `MailProvider` Service Provider. We can fetch this `Mail` class via our controller methods:
