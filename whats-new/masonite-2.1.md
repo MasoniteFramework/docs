@@ -366,3 +366,20 @@ return view.render('some.template.here')
 
 We can now do container swapping which is swapping out a class when it is resolved. In other words we may want to change what objects are returned when certain objects are resolved. These objects do not have to be in the container in the first place.
 
+## Added a new env function
+
+You can now use a `env` function to automatically type cast your environment variables turning a numeric into an int:
+
+```python
+from masonite import env
+
+env('DB_PORT', '5432') #== 5432 (int)
+```
+
+## Added ability to resolve with paramaters at the same time
+
+You can now resolve from a container with a parameter list in addition to custom parameters. 
+
+## Added password reset to auth command
+
+In addition to all the awesome things that `craft auth` generates, we now generate password reset views and controllers as well for you
