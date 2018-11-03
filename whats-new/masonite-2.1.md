@@ -417,3 +417,7 @@ You can now resolve from a container with a parameter list in addition to custom
 ## Added password reset to auth command
 
 In addition to all the awesome things that `craft auth` generates, we now generate password reset views and controllers as well for you
+
+## Route Compiler
+
+Fixed an issue where custom route compilers was not working well with request parameters
