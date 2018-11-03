@@ -130,6 +130,14 @@ def show(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### JsonResponseMiddleware
+
+This middleware will convert dictionary responses into JSON responses
+
+### ResponseMiddleware
+
+This middleware will take the response provided and add the necessary headers to the response
+
 ## Creating Middleware
 
 Again, middleware should live inside the `app/http/middleware` folder and should look something like:

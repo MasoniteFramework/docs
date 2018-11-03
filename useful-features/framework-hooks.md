@@ -36,7 +36,7 @@ Let's create a class called `SentryHook` and put it into `app/hooks/sentry.py`.
 class SentryHook:
     def __init__(self):
         pass
-    
+
     def load(self, app):
         self._app = app
 ```
@@ -49,7 +49,7 @@ But for this example we actually don't need the container so we can ignore it.
 
 #### Adding Sentry
 
-Ok great so now let's add sentry to our application. You can sign up with [Sentry.io](http://sentry.io) which will show you the basic 3 lines you need to add Sentry to any Python project. 
+Ok great so now let's add sentry to our application. You can sign up with [Sentry.io](http://sentry.io) which will show you the basic 3 lines you need to add Sentry to any Python project.
 
 This should be the finished hook:
 
@@ -60,7 +60,7 @@ client = Client( 'https://874..:j8d@sentry.io/1234567')
 class SentryHook:
     def __init__(self):
         pass
-    
+
     def load(self, app):
         client.captureException()
 ```
@@ -140,10 +140,10 @@ Exception handlers are simple classes that have a handle method which accepts th
 from masonite.request import Request
 
 class TemplateNotFoundHandler:
-    
+
     def __init__(self, request: Request):
         self.request = request
-    
+
     def handle(self, exception):
         pass
 ```

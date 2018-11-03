@@ -90,7 +90,48 @@ LoadEnvironment(only='development')
 
 This will load only the `.env.development` environment file.
 
+## Getting Environment Variables
 
+Environment variables should be set on a project per project basis inside your .env file. When the server starts, it will load all of those environment variables into the current global environment. You can fetch these environment variables 1 of 2 ways:
 
+### os.getenv
 
+You can obviously get them in the normal Python way by doing something like:
+
+```python
+import os
+
+os.getenv('DB_PORT') #== '5432' (string)
+```
+
+Notice that the above example is a string. We typically need the data type to be casted to the respective type. For example we need `5432` to be an integer and need `True` to be a boolean.
+
+### masonite.env
+
+We can use the `env()` function in order to accomplish this which takes the place of `os.getenv()`. This looks like:
+
+```python
+from masonite import env
+
+env('DB_PORT', 'default') #== 5432 (int)
+```
+
+If the value is a numeric then it will cast it to an integer. Below are the examples of what this function will cast:
+
+| Value | Casts to \(type\) |
+| :--- | :--- |
+| 5432 | 5432 \(int\) |
+| true | True \(bool\) |
+| True | True \(bool\) |
+| false | False \(bool\) |
+| False | False \(bool\) |
+| smtp | smtp \(string\) |
+
+If you do not wish to cast the value then pass in false as the third parameter:
+
+```python
+from masonite import env
+​
+env('DB_PORT', 'default', cast=False) #== '5432' (string)
+```
 
