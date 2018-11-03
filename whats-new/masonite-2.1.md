@@ -106,11 +106,45 @@ from masonite.auth import Auth
 
 ## RouteProvider Refactoring
 
+## Route Provider
 ### JsonResponseMiddleware
 
 We refactored a lot of the ResponseProvider which is the provider with the most complex logic to make the framework work and is responsible for all the logic involved in finding and parsing route and controller logic.
 
 In this refactoring we moved a few things out and abstracted them away. For one we moved the parsing of JSON responses to it's own JsonResponseMiddleware.
+
+### Moved parameter parsing into if statement
+
+We also noticed that for some reason we were parsing parameters before we found routes but we only ever needed those parameters inside our routes so we were parsing them whether we found a route or not. We moved the parsing of parameters into the if statement that executes when a route is found.
+
+When we say "parsing route parameters" we mean the logic required to parse this:
+
+```text
+/dashboard/@user/@id
+```
+
+into a usable form to use on the request class this:
+
+```python
+from masonite.request import Request
+
+def show(self, request: Request):
+    request.param('user')
+    request.param('id')
+```
+
+## StartResponse Provider
+
+This provider has been completely removed for the more recommended ResponseMiddleware which will need to be added to your HTTP middleware list:
+
+```python
+from masonite.middleware import ResponseMiddleware
+..
+HTTP_MIDDLEWARE=[
+    ...
+    ResponseMiddleware,
+]
+```
 
 ### Moved parameter parsing into if statement
 
