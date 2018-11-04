@@ -16,8 +16,7 @@ The Request class is bound into the IOC container once when the server is first 
 
 ```python
 def show(self, request: Request):
-    # request is the instance of the Request class
-    pass
+    request #== <masonite.request.Request>
 ```
 
 Masonite is smart enough to know that we need the `Request` class and it will inject it into our method for us.
@@ -162,6 +161,7 @@ To get the request parameter retrieved from the url. This is used to get variabl
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
+# Route: /dashboard/@firstname
 # GET: /dashboard/Joe
 
 def show(self, request: Request):
@@ -362,8 +362,8 @@ def show(self):
 We can get the current url with:
 
 ```python
-def show(self):
-    request().path
+def show(self, request: Request):
+    return request.path #== /dashboard/user
 ```
 
 ## Redirection

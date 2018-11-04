@@ -36,7 +36,11 @@ This will create a template under `resources/templates/hello.html`.
 
 ### Helper Function
 
-There are several ways we can call views in our controllers. The first recommended way is using the `view()` function. Masonite ships with a `HelpersProvider` Service Provider. This provider will add several new built in functions to your project. These helper functions can be used as shorthand for several commonly used classes such as the `View` and `Request` class. See the [Helper Functions](helper-functions.md) documentation for more information.
+There are several ways we can call views in our controllers. The first way is using the `view()` function. Masonite ships with a `HelpersProvider` Service Provider. This provider will add several new built in functions to your project. These helper functions can be used as shorthand for several commonly used classes such as the `View` and `Request` class. 
+
+{% hint style="success" %}
+See the [Helper Functions](helper-functions.md) documentation for more information.
+{% endhint %}
 
 One of the helper functions is the `view()` function which is accessible like any other built in Python function.
 
@@ -127,7 +131,7 @@ MANIFEST.in
 ...
 ```
 
-ensuring there is a `__init__.py` file. This is a Jinja limitation that says that all templates should be located in packages.
+ensuring there is a `__init__.py` file. This is a Jinja2 limitation that says that all templates should be located in packages.
 
 Accessing a global view such as:
 
@@ -151,7 +155,7 @@ package/
   dashboard.html
 ```
 
-So if you are making a package for Masonite then keep this in mind of where you should put your templates.
+Or find the package in a completely separate third part module. So if you are making a package for Masonite then keep this in mind of where you should put your templates.
 
 ## Passing Data to Views
 
@@ -221,7 +225,7 @@ The default loader of `PackageLoader` will work for most cases but if it doesn't
 
 ## Using Dot Notation
 
-If using a / doesn't seem as clean to you, you can also optionally use dots:
+If using a `/` doesn't seem as clean to you, you can also optionally use dots:
 
 ```python
 def show(self, view: View):

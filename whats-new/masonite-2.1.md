@@ -107,6 +107,7 @@ from masonite.auth import Auth
 ## RouteProvider Refactoring
 
 ## Route Provider
+
 ### JsonResponseMiddleware
 
 We refactored a lot of the ResponseProvider which is the provider with the most complex logic to make the framework work and is responsible for all the logic involved in finding and parsing route and controller logic.
@@ -412,7 +413,7 @@ env('DB_PORT', '5432') #== 5432 (int)
 
 ## Added ability to resolve with paramaters at the same time
 
-You can now resolve from a container with a parameter list in addition to custom parameters. 
+You can now resolve from a container with a parameter list in addition to custom parameters.
 
 ## Added password reset to auth command
 
@@ -421,3 +422,4 @@ In addition to all the awesome things that `craft auth` generates, we now genera
 ## Route Compiler
 
 Fixed an issue where custom route compilers was not working well with request parameters
+

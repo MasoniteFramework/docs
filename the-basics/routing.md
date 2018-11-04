@@ -343,6 +343,14 @@ Get().route('/dashboard', '/thirdparty.package.users.DashboardController@show')
 
 This can enable us to use controllers in third party packages.
 
+You can also import the class directly and reference the method you want to use:
+
+```python
+from app.controllers.SomeController import SomeController
+
+Get().route('/dashboard', SomeController.show)
+```
+
 ## Route Parameters
 
 Very often you’ll need to specify parameters in your route in order to retrieve information from your URI. These parameters could be an `id` for the use in retrieving a certain model. Specifying route parameters in Masonite is very easy and simply looks like:
@@ -417,7 +425,7 @@ class RouteCompilerProvider(ServiceProvider):
     ...
 
     def boot(self, route: Route):
-        route.compile('year', r'[0-9]{4}')
+        route.compile('year', r'([0-9]{4})')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
