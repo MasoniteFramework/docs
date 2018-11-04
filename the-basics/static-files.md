@@ -14,14 +14,14 @@ For this setup, our `STATICFILES` constant should look like:
 
 ```python
 STATICFILES = {
-    'storage/assets/css': 'css/',
+    'storage/assets/css': 'assets/',
 }
 ```
 
 Now in our templates we can use:
 
 ```markup
-<img src="/css/style.css">
+<img src="/assets/style.css">
 ```
 
 Which will get the `storage/assets/css/style.css` file.
@@ -42,7 +42,7 @@ Take this for example:
 ....
 ```
 
-```markup
+```html
 ...
 <img src="{{ static('s3', 'profile.jpg') }}" alt="profile">
 ...
@@ -70,7 +70,7 @@ You can also make the config location a dictionary and use dot notation:
 
 and use the dot notation like so:
 
-```markup
+```html
 ...
 <img src="{{ static('s3.east', 'profile.jpg') }}" alt="profile">
 ...
@@ -108,4 +108,3 @@ STATICFILES = {
 You will now be able to access `localhost:8000/robots.txt` and you will have your robots.txt served correctly and it can be indexed by search engines properly.
 
 Thats it! Static files are extremely simple. You are now a master at static files!
-
