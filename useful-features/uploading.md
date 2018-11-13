@@ -76,8 +76,10 @@ Uploading with masonite is extremely simple. We can use the `Upload` class which
 And inside our controller we can do:
 
 ```python
-def upload(self, Upload):
-    Upload.driver('disk').store(request.input('file_upload'))
+from masonite import Upload
+
+def upload(self, upload: Upload):
+    upload.driver('disk').store(request.input('file_upload'))
 ```
 
 That's it! We specified the driver we want to use and just uploaded an image to our file system.
@@ -85,7 +87,7 @@ That's it! We specified the driver we want to use and just uploaded an image to 
 This action will return the file system location. We could use that to input into our database if we want:
 
 ```python
->>> Upload.driver('disk').store(request.input('file_upload'))
+>>> upload.driver('disk').store(request.input('file_upload'))
 storage/uploads/new_upload.png
 ```
 
@@ -99,7 +101,7 @@ new_upload.png
 Lastly, we may need to prepend the file name with something like a `uuid` or something or even just a normal string. We can do so by using the `store_prepend()` method:
 
 ```python
->>> Upload.driver('disk').store_prepend(request.input('file_upload'), 'prepend_name_')
+>>> upload.driver('disk').store_prepend(request.input('file_upload'), 'prepend_name_')
 prepend_name_newupload.png
 ```
 
@@ -108,8 +110,10 @@ prepend_name_newupload.png
 You can upload files directly by passing in a `open()` file:
 
 ```python
-def upload(self, Upload):
-    Upload.driver('disk').store(open('some/file.txt'))
+from masonite import Upload
+
+def upload(self, upload: Upload):
+    upload.driver('disk').store(open('some/file.txt'))
 ```
 
 This will upload a file directly from the file system to wherever it needs to upload to.
@@ -119,7 +123,7 @@ This will upload a file directly from the file system to wherever it needs to up
 You can also specify the location you want to upload to. This will default to location specified in the config file but we can change it on the fly:
 
 ```python
-Upload.driver('disk').store(request.input('file_upload'), location='storage/profiles')
+upload.driver('disk').store(request.input('file_upload'), location='storage/profiles')
 ```
 
 #### Dot Notation
@@ -139,7 +143,7 @@ DRIVERS = {
 and you can use dot notation:
 
 ```python
-Upload.driver('disk').store(request.input('file_upload'), location='disk.profiles')
+upload.driver('disk').store(request.input('file_upload'), location='disk.profiles')
 ```
 
 ### Uploading to S3
@@ -178,8 +182,10 @@ Make sure that your user has the permission for uploading to your S3 bucket.
 Then in our controller:
 
 ```python
-def upload(self, Upload):
-    Upload.store(request.input('file_upload'))
+from masonite import Upload
+
+def upload(self, upload: Upload):
+    upload.store(request.input('file_upload'))
 ```
 
 How the S3 driver currently works is it uploads to your file system using the `disk` driver, and then uploads that file to your Amazon S3 bucket. So do not get rid of the `disk` setting in the `DRIVERS` dictionary.
@@ -189,16 +195,19 @@ How the S3 driver currently works is it uploads to your file system using the `d
 You can also swap drivers on the fly:
 
 ```python
-def upload(self, Upload):
-    Upload.driver('s3').store(request.input('file_upload'))
+from masonite import Upload
+
+def upload(self, upload: Upload):
+    upload.driver('s3').store(request.input('file_upload'))
 ```
 
 or you can explicitly specify the class:
 
 ```python
 from masonite.drivers import UploadS3Driver
+from masonite import Upload
 
-def upload(self, Upload):
-    Upload.driver(UploadS3Driver).store(request.input('file_upload'))
+def upload(self, upload: Upload):
+    upload.driver(UploadS3Driver).store(request.input('file_upload'))
 ```
 
