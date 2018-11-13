@@ -108,9 +108,9 @@ class AppProvider(ServiceProvider):
         # Register new mail driver
         self.app.bind('MailMandrillDriver', MailMandrillDriver)
 
-    def boot(self, Environ):
-        self.app.bind('Request', Request(Environ))
-        self.app.bind('Route', Route(Environ))
+    def boot(self):
+        self.app.bind('Request', Request(self.app.make('Environ')))
+        self.app.bind('Route', Route(self.app.make('Environ')))
 ```
 
 Great! Our new driver is registered into the container. It is now able to be created with Masonite's `MailManager` class. We can retrieve your new driver by doing:
