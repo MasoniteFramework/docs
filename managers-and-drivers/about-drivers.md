@@ -77,12 +77,13 @@ Now that we have our configuration we need injected into our class, we can go ah
 
 ```python
 from masonite.contracts import UploadContract
+from config import storage, application
 
 class UploadDiskDriver(UploadContract):
 
-    def __init__(self, StorageConfig, Application):
-        self.config = StorageConfig
-        self.appconfig = Application
+    def __init__(self):
+        self.config = storage
+        self.appconfig = application
 
     def store(self, fileitem, location=None):
         filename = os.path.basename(fileitem.filename)
@@ -119,8 +120,8 @@ class UploadProvider(ServiceProvider):
         self.app.bind('UploadDiskDriver', UploadDiskDriver)
         self.app.bind('UploadManager', UploadManager(self.app))
 
-    def boot(self, UploadManager, StorageConfig):
-        self.app.bind('Upload', UploadManager.driver(StorageConfig.DRIVER))
+    def boot(self, manager: UploadManager):
+        self.app.bind('Upload', manager.driver(storage.DRIVER))
 ```
 
 Notice how we set our storage configuration in the container, binded our drivers and then binded our Manager. Again, our manager will be able to find all our `UploadXDrivers` that are loaded into the container. So if we set the `DRIVER` inside our configuration file to `google`, our manager will look for a `UploadGoogleDriver` inside our container. Read more about Managers in the [About Managers](about-managers.md) documentation.
