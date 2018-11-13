@@ -152,7 +152,8 @@ ROUTES = [
     middleware=('auth', 'jwt'),
     domain='subdomain',
     prefix='/dashboard',
-    name='post.'
+    name='post.',
+    add_methods=['OPTIONS']
     ),
 
 ]

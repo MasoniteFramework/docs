@@ -305,7 +305,7 @@ We now have View Routes on all instances of the normal HTTP classes:
 Get().view('/url', 'some/template', {'key': 'value'})
 ```
 
-## Renamed cache\_exists to cache
+## Renamed cache\_exists to exists
 
 We previously used this method on the Cache class like so:
 
