@@ -14,27 +14,16 @@ def another_method(self):
 
 This can quickly become annoying and it can be much easier if you can just have a variable available in all your templates. For this, we can "share" a variable with all our templates with the `View` class.
 
-The `View` class is loaded into our container under the `ViewClass` alias. It's important to note that the `ViewClass` alias from the container points to the class itself and the `View` from the container points to the `View.render` method. By looking at the `ViewProvider` this will make more sense:
-
-```python
-class ViewProvider(ServiceProvider):
-
-    wsgi = False
-
-    def register(self):
-        view = View()
-        self.app.bind('ViewClass', view)
-        self.app.bind('View', view.render)
-```
-
-As you can see, we bind the view class itself to `ViewClass` and the render method to the `View` alias.
-
 ## View Sharing
 
 We can share variables with all templates by simply specifying them in the `.share()` method like so:
 
 ```python
-ViewClass.share({'request': request()})
+from masonite.view import View
+...
+
+def boot(self, view: View)
+    view.share({'request': request()})
 ```
 
 The best place to put this is in a new Service Provider. Let's create one now called `ViewComposer`.
@@ -74,6 +63,9 @@ Great!
 Since we need the request, we can throw it in the `boot` method which has access to everything registered into the service container, including the `Request` class.
 
 ```python
+from masonite.request import Request
+from masonite.view import View
+
 class ViewComposer(ServiceProvider):
 
     wsgi = False
@@ -81,8 +73,8 @@ class ViewComposer(ServiceProvider):
     def register(self):
         pass
 
-    def boot(self, ViewClass, Request):
-        ViewClass.share({'request': Request})
+    def boot(self, view: View, request: Request):
+        view.share({'request': request})
 ```
 
 Lastly we need to load this into our `PROVIDERS` list inside our `config/application.py` file.
@@ -110,8 +102,8 @@ And we're done! When you next start your server, the `request` variable will be 
 In addition to sharing these variables with all templates, we can also specify only certain templates. All steps will be exactly the same but instead of the `.share()` method, we can use the `.compose()` method:
 
 ```python
-def boot(self, ViewClass, Request):
-    ViewClass.compose('dashboard', {'request': Request})
+def boot(self, view: View, request: Request):
+    view.compose('dashboard', {'request': request})
 ```
 
 Now anytime the `dashboard` template is accessed \(the one at `resources/templates/dashboard.html`\) the `request` variable will be available.
@@ -119,15 +111,15 @@ Now anytime the `dashboard` template is accessed \(the one at `resources/templat
 We can also specify several templates which will do the same as above but this time with the `resources/templates/dashboard.html` template AND the `resources/templates/dashboard/user.html` template:
 
 ```python
-def boot(self, ViewClass, Request):
-    ViewClass.compose(['dashboard', 'dashboard/user'], {'request': Request})
+def boot(self, view: View, request: Request):
+    view.compose(['dashboard', 'dashboard/user'], {'request': request})
 ```
 
 Lastly, we can compose a dictionary for all templates:
 
 ```python
-def boot(self, ViewClass, Request):
-    ViewClass.compose('*', {'request': Request})
+def boot(self, view: View, request: Request):
+    view.compose('*', {'request': request})
 ```
 
 Note that this has exactly the same behavior as `ViewClass.share()`
@@ -176,8 +168,8 @@ class UserModelProvider(ServiceProvider):
 
     ...
 
-    def boot(self, Request, ViewClass):
-        ViewClass.filter('slug', self.slug)
+    def boot(self, view: View, request: Request):
+        view.filter('slug', self.slug)
 
     @staticmethod
     def slug(item):
@@ -237,6 +229,8 @@ Notice that we only supplied the function and we did not instantiate anything. T
 Jinja2 has the concept of extensions and you can easily add them to your project in a similar way as previous implementations above which is in a [Service Provider](../architectural-concepts/service-providers.md):
 
 ```python
+from masonite.view import View
+
 class SomeProvider:
     wsgi = False
 
