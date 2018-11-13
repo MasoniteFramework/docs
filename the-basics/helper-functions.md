@@ -6,6 +6,8 @@ Masonite works on getting rid of all those mundane tasks that developers either 
 
 These functions do not require any imports and are simply just available which is similiar to the `print()` function. These functions are all set inside the `HelpersProvider` Service Provider.
 
+You can continue to use these helper functions as much as you like but most developers use these to quickly mock things up and then come back to refactor later.
+
 It may make more sense if we take a peak at this Service Provider:
 
 {% code-tabs %}
@@ -75,6 +77,15 @@ Instead of resolving the mail class you can use the mail helper:
 ```python
 def show(self):
     mail_helper().to(..)
+```
+
+is exactly the same as:
+
+```python
+from masonite import Mail
+
+def show(self, mail: Mail):
+    mail.to(..)
 ```
 
 ## Auth
