@@ -103,6 +103,17 @@ Lastly, we may need to prepend the file name with something like a `uuid` or som
 prepend_name_newupload.png
 ```
 
+## Uploading Files
+
+You can upload files directly by passing in a `open()` file:
+
+```python
+def upload(self, Upload):
+    Upload.driver('disk').store(open('some/file.txt'))
+```
+
+This will upload a file directly from the file system to wherever it needs to upload to.
+
 ### Locations
 
 You can also specify the location you want to upload to. This will default to location specified in the config file but we can change it on the fly:
