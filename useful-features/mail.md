@@ -175,24 +175,29 @@ DRIVERS = {
 The `Mail` class is loaded into the container via the the `MailProvider` Service Provider. We can fetch this `Mail` class via our controller methods:
 
 ```python
-def show(self, Mail):
-    print(Mail) # returns the default mail driver
+from masonite import Mail
+
+def show(self, mail: Mail):
+    print(mail) # returns the default mail driver
 ```
 
 We can send an email like so:
 
 ```python
-def show(self, Mail):
-    Mail.to('hello@email.com').send('Welcome!')
+from masonite import Mail
+
+def show(self, mail: Mail):
+    mail.to('hello@email.com').send('Welcome!')
 ```
 
 You can also obviously specify a specific user:
 
 ```python
 from app.User import User
+from masonite import Mail
 ...
-def show(self, Mail):
-    Mail.to(User.find(1).email).send('Welcome!')
+def show(self, mail: Mail):
+    mail.to(User.find(1).email).send('Welcome!')
 ```
 
 ## Switching Drivers
@@ -204,8 +209,10 @@ We can specify which driver we want to use. Although Masonite will use the `DRIV
 You can see in our `MailProvider` Service Provider that we can use the `MailManager` class to set the driver. We can use this same class to change the driver:
 
 ```python
-def show(self, MailManager):
-    MailManager.driver('mailgun') # now uses the Mailgun driver
+from masonite.manager import MailManager
+
+def show(self, manager: MailManager):
+    manager.driver('mailgun') # now uses the Mailgun driver
 ```
 
 ## Queues
@@ -214,9 +221,10 @@ Sending an email may take several seconds so it might be a good idea to create a
 
 ```python
 from app.jobs.SendWelcomeEmail import SendWelcomeEmail
+from masonite import Queue
 
-def show(self, Queue):
-    Queue.push(SendWelcomeEmail)
+def show(self, queue: Queue):
+    queue.push(SendWelcomeEmail)
 ```
 
 Instead of taking seconds to send an email, this will seem immediate and be sent using whatever queue driver is set. The `async` driver is set by default which requires no additional configuration and simply sends jobs into a new thread to be ran in the background.
@@ -230,13 +238,13 @@ Read more about creating Jobs and sending emails asynchronously in the [Queues a
 We can also specify the subject:
 
 ```python
-Mail.subject('Welcome!').to('hello@email.com').send('Welcome!')
+mail.subject('Welcome!').to('hello@email.com').send('Welcome!')
 ```
 
 You can specify which address you want the email to appear from:
 
 ```python
-Mail.send_from('Admin@email.com').to('hello@email.com').send('Welcome!')
+mail.send_from('Admin@email.com').to('hello@email.com').send('Welcome!')
 ```
 
 ## Templates
@@ -244,7 +252,7 @@ Mail.send_from('Admin@email.com').to('hello@email.com').send('Welcome!')
 If you don't want to pass a string as the message, you can pass a view template.
 
 ```python
-Mail.to('idmann509@gmail.com').template('mail/welcome').send()
+mail.to('idmann509@gmail.com').template('mail/welcome').send()
 ```
 
 This will render the view into a message body and send the email as html. Notice that we didn't pass anything into the `send` message
@@ -254,6 +262,6 @@ This will render the view into a message body and send the email as html. Notice
 You are also able to pass data into our mail templates. This data is passed in as a dictionary that contains a key which is the variable with the corresponding value. We can pass data to the function like so:
 
 ```python
-Mail.to('idmann509@gmail.com').template('mail/welcome', {'name': 'Masonite User'}).send()
+mail.to('idmann509@gmail.com').template('mail/welcome', {'name': 'Masonite User'}).send()
 ```
 
