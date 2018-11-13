@@ -356,6 +356,16 @@ $ craft job SendWelcomeEmail
 
 Jobs will be put inside the `app/jobs` directory. See the [Queues and Jobs](../useful-features/queues-and-jobs.md) documentation for more information.
 
+### Running Queues
+
+Masonite has a queue feature that allows you to load the jobs you create in the section above and run them either asyncronously or send them off to a message broker like RabbitMQ. You may start the worker by running:
+
+```bash
+$ craft queue:work
+```
+
+You'll need to read the documentation in the [Queues and Jobs](../useful-features/queues-and-jobs.md) documentation for futher info on how to setup this feature.
+
 ### Packages
 
 You may create a PyPi package with an added `integrations.py` file which is specific to Masonite. You can learn more about packages by reading the [Creating Packages](../advanced/creating-packages.md) documentation. To create a package boilerplate, just run:
