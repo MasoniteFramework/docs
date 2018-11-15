@@ -42,7 +42,7 @@ Take this for example:
 ....
 ```
 
-```html
+```markup
 ...
 <img src="{{ static('s3', 'profile.jpg') }}" alt="profile">
 ...
@@ -70,7 +70,7 @@ You can also make the config location a dictionary and use dot notation:
 
 and use the dot notation like so:
 
-```html
+```markup
 ...
 <img src="{{ static('s3.east', 'profile.jpg') }}" alt="profile">
 ...
@@ -108,3 +108,4 @@ STATICFILES = {
 You will now be able to access `localhost:8000/robots.txt` and you will have your robots.txt served correctly and it can be indexed by search engines properly.
 
 Thats it! Static files are extremely simple. You are now a master at static files!
+
