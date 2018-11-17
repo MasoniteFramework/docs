@@ -57,6 +57,7 @@
 * [Autoloading](advanced/autoloading.md)
 * [Status Codes](advanced/status-codes.md)
 * [Database Seeding](advanced/database-seeding.md)
+* [Responses](advanced/responses.md)
 
 ## Useful Features
 
