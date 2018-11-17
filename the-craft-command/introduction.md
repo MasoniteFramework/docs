@@ -422,7 +422,7 @@ You can change the interval to something less then 1 using the `-i` option:
 $ craft serve -r -i .1
 ```
 
-You will notice a considerably faster reloading time on your machine. If your machine can handle this interval speed (meaning your machine is properly starting and killing the processes) then you can safely proceed using a lower interval during development.
+You will notice a considerably faster reloading time on your machine. If your machine can handle this interval speed \(meaning your machine is properly starting and killing the processes\) then you can safely proceed using a lower interval during development.
 
 ### Encryption
 

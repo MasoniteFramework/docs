@@ -1,24 +1,22 @@
 # Masonite 2.0 to 2.1
 
-# Introduction
+## Masonite 2.0 to 2.1
 
-{% hint style="danger" %}
-Masonite is in beta 3. This guide won't be available shortly.
-{% endhint %}
+## Introduction
 
 Masonite 2.1 is a fantastic release. It works out a lot of the kinks that were in 2.0 as well as brings several new syntactically good looking code generation
 
-## Masonite CLI
+### Masonite CLI
 
 For 2.1 you will need `masonite-cli>=2.1.0`.
 
 Make sure you run:
 
-```
+```text
 $ pip install masonite-cli --upgrade
 ```
 
-## Middleware
+### Middleware
 
 Middleware has been changed to classes so instead of doing this in your `config/middleware.py` file:
 
@@ -38,7 +36,7 @@ HTTP_MIDDLEWARE = [
 ]
 ```
 
-## Auto resolving parameters has been removed
+### Auto resolving parameters has been removed
 
 This is likely the biggest change in 2.0. Before 2.1 you were able to fetch by key when resolving by doing something like:
 
@@ -64,7 +62,7 @@ container = App(resolve_parameters=True)
 
 Just know this is not recommended and Masonite may or may not remove this feature entirely at some point in the future.
 
-## Resolving Mail, Queues and Broadcasts 
+### Resolving Mail, Queues and Broadcasts
 
 Previously we were able to do something like this:
 
@@ -73,7 +71,7 @@ def show(self, Mail):
     Mail.to(..)
 ```
 
-Since we never actually created a class from this and you were not able to explicitly resolve this, we utilized the new container swapping in order to swap a class out for this container binding. 
+Since we never actually created a class from this and you were not able to explicitly resolve this, we utilized the new container swapping in order to swap a class out for this container binding.
 
 All instances above should be changed to:
 
@@ -103,7 +101,7 @@ class AuthenticationMiddleware(object):
     ...
 ```
 
-## Resolving your own code
+### Resolving your own code
 
 You may have classes you binded personally to the container like this:
 
@@ -143,9 +141,9 @@ def slack_send(self, manager: IntegrationManager):
     return manager.driver('slack').scopes('incoming-webhook').state(self.request.param('id')).redirect()
 ```
 
-## Removed Masonite Facades
+### Removed Masonite Facades
 
-Completely removed the `masonite.facades` module and put the only class (the `Auth` class) in the `masonite.auth` module.
+Completely removed the `masonite.facades` module and put the only class \(the `Auth` class\) in the `masonite.auth` module.
 
 So all instances of:
 
@@ -159,7 +157,7 @@ need to be changed to:
 from masonite.auth import Auth
 ```
 
-## Removed the StartResponseProvider
+### Removed the StartResponseProvider
 
 The `StartResponseProvider` was not doing anything crazy and it could be achieved with a simple middleware. This speeds up Masonite slightly by offsetting where the response preparing takes place.
 
@@ -194,7 +192,7 @@ HTTP_MIDDLEWARE = [
 ]
 ```
 
-## JSON Payloads
+### JSON Payloads
 
 JSON payloads have been moved into the normal input handling. In 2.1 you had to fetch incoming JSON payloads like this:
 
@@ -208,7 +206,7 @@ So now all instances of the above can be used normally:
 request.input('id')
 ```
 
-## Moved CSRF Middleware into core
+### Moved CSRF Middleware into core
 
 CSRF middleware now lives in core and allows you to override some methods or interact with the middleware with class attributes:
 
@@ -243,9 +241,9 @@ class CsrfMiddleware(Middleware):
 
 This also allows any security issues found with CSRF to be handled on all projects quickly instead of everyone having to patch their applications individually.
 
-## Added cwd imports to migrations and seeds
+### Added cwd imports to migrations and seeds
 
-In migrations (and seeds) you will need to put this import inside a `__init__.py` file in order to allow models to be imported into them
+In migrations \(and seeds\) you will need to put this import inside a `__init__.py` file in order to allow models to be imported into them
 
 ```python
 import os
@@ -253,7 +251,7 @@ import sys
 sys.path.append(os.getcwd())
 ```
 
-## Bootstrap File
+### Bootstrap File
 
 There was a slight change in the `bootstrap/start.py file` around `line 60`.
 
@@ -272,7 +270,7 @@ start_response(
 )
 ```
 
-## Response Binding
+### Response Binding
 
 You no longer should bind directly to the `Response` key in the container. You should use the new Response object.
 
@@ -290,13 +288,13 @@ response.view('some value')
 
 and any instance of:
 
-```
+```text
 self.app.make('Response')
 ```
 
 should be changed to:
 
-```
+```text
 response.data()
 ```
 
@@ -319,7 +317,7 @@ self.response.view(
 )
 ```
 
-## Cache Exists name change
+### Cache Exists name change
 
 The `Cache.cache_exists()` has been changed to just `Cache.exists()`. You will need to make changes accordingly:
 
@@ -335,4 +333,5 @@ def show(self, cache: Cache):
     cache.exists('key')
 ```
 
-That is all the main changes in 2.1. Go ahead and run your server and you should be good to go. For a more up to date list on small improvements that you can make in your application be sure to checkout the Whats New in 2.1 documentation article.
+That is all the main changes in 2.1. Go ahead and run your server and you should be good to go. For a more up to date list on small improvements that you can make in your application be sure to checkout the [Whats New in 2.1](../whats-new/masonite-2.1.md) documentation article.
+
