@@ -54,7 +54,7 @@ All middleware are now classes:
 HTTP_MIDDLEWARE = [
     LoadUserMiddleware,
     CsrfMiddleware,
-    JsonResponseMiddleware
+    ResponseMiddleware,
 ]
 ```
 
@@ -107,11 +107,6 @@ from masonite.auth import Auth
 # Provider Refactoring
 
 ## Route Provider
-### JsonResponseMiddleware
-
-We refactored a lot of the ResponseProvider which is the provider with the most complex logic to make the framework work and is responsible for all the logic involved in finding and parsing route and controller logic.
-
-In this refactoring we moved a few things out and abstracted them away. For one we moved the parsing of JSON responses to it's own JsonResponseMiddleware.
 
 ### Moved parameter parsing into if statement
 
@@ -135,7 +130,7 @@ def show(self, request: Request):
 
 ## StartResponse Provider
 
-This provider has been completely removed for the more recommended ResponseMiddleware which will need to be added to your HTTP middleware list:
+This provider has been completely removed for the more recommended `ResponseMiddleware` which will need to be added to your HTTP middleware list:
 
 ```python
 from masonite.middleware import ResponseMiddleware
@@ -145,6 +140,8 @@ HTTP_MIDDLEWARE=[
     ResponseMiddleware,
 ]
 ```
+
+We also introduced a new `Response` class which primarily handles a lot of this logic much better that is used internally for core.
 
 ## Added ability use dot notation for views
 
