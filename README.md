@@ -72,6 +72,16 @@ $ pip install masonite-cli
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+If you already have craft installed, Masonite 2.1 requires `masonite-cli>=2.1.0` so you may have to run with the upgrade flag to.
+
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
+```text
+$ pip install masonite-cli --upgrade
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 {% hint style="warning" %}
 If you are having installation issues, be sure to read the [Known Installation Issues](prologue/known-installation-issues.md) documentation.
 {% endhint %}
