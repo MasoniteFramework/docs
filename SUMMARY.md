@@ -105,7 +105,6 @@
 
 ## Tutorials
 
-* [Introduction](tutorials/introduction.md)
 * [Creating a Blog](tutorials/creating-a-blog.md)
 
 ## How-to Guides
