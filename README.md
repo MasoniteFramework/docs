@@ -183,6 +183,16 @@ $ craft serve -r
 
 Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications.
 
+The Masonite CLI \(also known as craft\) will try to find all the commands in your project but may not be able to. In this case you will need to call craft directly using something like:
+
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
+```text
+$ python craft serve -r
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 {% hint style="info" %}
 You can also add a auto reloading option to the serve command by running `craft serve -r` which will reload the server whenever you save a python file.
 {% endhint %}
