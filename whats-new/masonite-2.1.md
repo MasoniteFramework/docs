@@ -246,7 +246,7 @@ When previously you needed to do:
 request.status('404 Not Found')
 ```
 
-### Added Database Seeders
+## Added Database Seeders
 
 All new 2.1 projects have a seeder setup so you can quickly make some mock users to start off your application. All users have a randomly generated email and the password of "secret".
 
