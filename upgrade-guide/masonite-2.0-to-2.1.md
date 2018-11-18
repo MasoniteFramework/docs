@@ -335,3 +335,36 @@ def show(self, cache: Cache):
 
 That is all the main changes in 2.1. Go ahead and run your server and you should be good to go. For a more up to date list on small improvements that you can make in your application be sure to checkout the [Whats New in 2.1](../whats-new/masonite-2.1.md) documentation article.
 
+## Environment Variables
+
+Although not a critical upgrade, it would be a good idea to replace all instances of retrieval of environment variables with the new `masonite.env` function.
+
+Change all instances of this:
+
+```python
+import os
+..
+
+DRIVER = os.getenv('key', 'default')
+..
+KEY = os.envrion.get('key', 'default')
+```
+
+with the new `env` function:
+
+```python
+from masonite import env
+..
+
+DRIVER = env('key', 'default')
+..
+KEY = env('key', 'default')
+```
+
+What this will do is actually type cast accordingly. If you pass a numeric value it will cast it to an int and if you want a boolean if will cast `True`, `true`, `False`, `false` to booleans like this:
+
+if you don't want to cast the value you can set the `cast` parameter to `False`
+
+```python
+KEY = env('key', 'default', cast=False)
+```
