@@ -274,7 +274,7 @@ def show(self, request: Request):
     request.header('Content-Type', 'application/xml')
 ```
 
-## Added Up and Down Commands
+## Added Maintenance Mode
 
 There is now an up and down command so you can put that in your application in a maintenance state via craft commands:
 
@@ -284,5 +284,17 @@ $ craft down
 
 ```text
 $ craft up
+```
+
+There is also a new `MaintenanceModeMiddleware`:
+
+```python
+from masonite.middleware import MaintenanceModeMiddleware
+
+HTTP_MIDDLEWARE = [
+    ...
+    MaintenanceModeMiddleware,
+    ...
+]
 ```
 
