@@ -12,7 +12,7 @@ In order to get started using Masonite Notifications, we first have to pip insta
 $ pip install masonite-notifications
 ```
 
-And then add the provider to our PROVIDERS list:
+And then add the provider to our `PROVIDERS` list:
 
 ```python
 from notifications.providers import NotificationProvider
