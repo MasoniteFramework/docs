@@ -256,3 +256,21 @@ You can run seeders by running:
 $ craft seed:run
 ```
 
+## Made HTTP Prefix to None by Default
+
+When setting headers we had to set the http\_prefix to None more times then not. So it is set by default.
+
+This:
+
+```python
+def show(self, request: Request):
+    request.header('Content-Type', 'application/xml', http_prefix=None)
+```
+
+can change to:
+
+```python
+def show(self, request: Request):
+    request.header('Content-Type', 'application/xml')
+```
+

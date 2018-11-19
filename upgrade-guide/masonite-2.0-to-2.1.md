@@ -6,6 +6,8 @@
 
 Masonite 2.1 is a fantastic release. It works out a lot of the kinks that were in 2.0 as well as brings several new syntactically good looking code generation
 
+This guide just shows the major changes between version to get your application working on 2.1. You should see the [What's New in 2.1](../whats-new/masonite-2.1.md) documentation to upgrade smaller parts of your code that are likely to be smaller quality of life improvements.
+
 ### Masonite CLI
 
 For 2.1 you will need `masonite-cli>=2.1.0`.
