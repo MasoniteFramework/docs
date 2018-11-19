@@ -274,3 +274,15 @@ def show(self, request: Request):
     request.header('Content-Type', 'application/xml')
 ```
 
+## Added Up and Down Commands
+
+There is now an up and down command so you can put that in your application in a maintenance state via craft commands:
+
+```text
+$ craft down
+```
+
+```text
+$ craft up
+```
+
