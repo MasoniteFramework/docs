@@ -13,7 +13,7 @@ Learn more about releases in the [Release Cycle](../prologue/release-cycle.md) d
 Masonite 2.1 introduces a few new changes that are designed to correct course for the 2.x family and ensure we can go far into the 2.x family without having to make huge breaking changes. Below you will find all changes that went into making 2.1 awesome. Nearly all of these changes are breaking changes.
 
 {% hint style="info" %}
-These are only changes in the first beta release so far so more changes may come
+These changes are subject to change before the final release.
 {% endhint %}
 
 ## All classes in core now have docstrings
