@@ -370,4 +370,3 @@ if you don't want to cast the value you can set the `cast` parameter to `False`
 ```python
 KEY = env('key', 'default', cast=False)
 ```
-
