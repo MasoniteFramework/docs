@@ -3,7 +3,7 @@
 ## Masonite 2.1
 
 {% hint style="danger" %}
-This is currently unreleased and is in a Beta 1 release. There will be 2 more beta releases in October and November until the final release of 2.1 in December.
+This is currently unreleased and is in a Beta 3 release. There will be the final release of 2.1 in December.
 
 Learn more about releases in the [Release Cycle](../prologue/release-cycle.md) documentation.
 {% endhint %}
