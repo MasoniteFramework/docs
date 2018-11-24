@@ -102,6 +102,7 @@
 * [Masonite Billing](http://billing.masoniteproject.com)
 * [Masonite Dashboard](official-packages/masonite-dashboard.md)
 * [Masonite Notifications](official-packages/masonite-notifications.md)
+* [Masonite API](official-packages/masonite-api.md)
 
 ## Tutorials
 
