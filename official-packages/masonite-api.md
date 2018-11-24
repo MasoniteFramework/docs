@@ -4,6 +4,14 @@
 
 Masonite API is a package designed to make it dead simple to add externally facing API's with various types of authentication and permission scopes. There is a new concept called "API Resources" which you will use to build your specific endpoint. In this documentation we will walk through how to make a User Resource so we can walk through the various moving parts.
 
+## Installation
+
+Just run:
+
+```bash
+$ pip install masonite-api
+```
+
 ## Creating a Resource
 
 We can create API Resources by building them wherever you want to. In this documentation we will put them in `app/resources`. We just need to create a simple resource class which inherits from `api.resources.Resource`.
@@ -103,6 +111,7 @@ Overriding a method will look something like:
 
 ```python
 from api.resources import Resource
+from masonite.request import Request
 from app.User import User
 from api.serializers import JSONSerializer
 
@@ -110,8 +119,8 @@ class UserResource(Resource, JSONSerializer):
     model = User
     methods = ['create', 'index', 'show']
 
-    def show(self):
-        return self.model.where('active', 1).get()
+    def show(self, request: Request):
+        return self.model.find(request.id('id'))
 ```
 
 This will not only return all the results where active is `1`. Keep in mind as well that these methods are resolved via the container so we can use dependency injection:
@@ -126,14 +135,14 @@ class UserResource(Resource, JSONSerializer):
     model = User
     methods = ['create', 'index', 'show']
 
-    def show(self):
-        return self.model.where('active', 1).get()
-
-    def index(self, request: Request):
+    def show(self, request: Request):
         return self.model.where('active', self.request.input('active')).get()
+
+    def index(self):
+        return self.model.all()
 ```
 
-The index method is ran when getting a specific resource like: `/api/user/5`.
+The index method is ran when getting all records with: `POST /api/user`.
 
 ## Removing model attributes
 
@@ -347,6 +356,27 @@ http://localhost:8000/token?scopes=user:read,user:create
 ```
 
 This will generate a new token with the correct permission scopes.
+
+## Filter Scopes
+
+Filter scopes is an extension of the scopes above. It will filter the data based on the scope level. This is useful if you want a specific scope to have more permission than other scopes.
+
+To do this we can extend our resource with the `FilterScopes` class:
+
+```python
+from api.filters import FilterScopes
+
+class UserResource(..., ..., FilterScopes):
+    model = User
+    methods = ['create', 'index', 'show']
+    scopes = ['user:read']
+    filter_scopes = {
+        'user:read': ['name', 'email'],
+        'user:manager': ['id', 'name', 'email', 'active', 'password']
+    }
+```
+
+Now when you make this request it will return the columns in accordance with the user scopes.
 
 ## Creating Authentication Classes
 
