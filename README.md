@@ -36,6 +36,8 @@ NOTE: Masonite does not support the Anaconda virtual environment system. In orde
 
 If you are running on a Linux flavor, you’ll need the Python dev package and the libssl package. You can download these packages by running:
 
+#### Debian and Ubuntu based Linux distributions
+
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
@@ -50,6 +52,16 @@ Or you may need to specify your `python3.x-dev` version:
 {% code-tabs-item title="terminal" %}
 ```text
 $ sudo apt-get install python3.6-dev libssl-dev
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+#### Enterprise Linux based distributions (Fedora, CentOS, RHEL, ...)
+
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
+```text
+# dnf install python-devel openssl-devel
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

@@ -99,7 +99,7 @@ class DashboardController:
 
 ## Defining a Controller Method
 
-Controller methods are very similar to function based views in a Django application except this is just a normal class method. Our controller methods at a minimum should look like:
+Controller methods are very similar to function based views in a Django application. Our controller methods at a minimum should look like:
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/DashboardController.py" %}

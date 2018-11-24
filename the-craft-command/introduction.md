@@ -404,6 +404,26 @@ or the shorthand
 $ craft serve -r
 ```
 
+### Host and Port
+
+You can bind to a host using `-b` and/or a port using `-p`
+
+```text
+$ craft serve -b 127.0.0.1 -p 8080
+```
+
+### Reloading Interval
+
+Masonite comes with a pretty quick auto reloading development server. By default there will be a 1 second delay between file change detection and the server reloading. This is a fairly slow reloading interval and most systems can handle a much faster interval while still properly managing the starting and killing of process PID's.
+
+You can change the interval to something less then 1 using the `-i` option:
+
+```text
+$ craft serve -r -i .1
+```
+
+You will notice a considerably faster reloading time on your machine. If your machine can handle this interval speed \(meaning your machine is properly starting and killing the processes\) then you can safely proceed using a lower interval during development.
+
 ### Encryption
 
 Masonite comes with a way to encrypt data and by default, encrypts all cookies set by the framework. Masonite uses a `key` to encrypt and decrypt data. Read the [Encryption](../security/encryption.md) documentation for more information on encryption.

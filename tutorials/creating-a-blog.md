@@ -1,5 +1,27 @@
 # Creating a Blog
 
+## Preface
+
+This section of the documentation will contain various tutorials. These are guides that are designed to take you from beginning to end on building various types of projects with Masonite. We may not explain things in much detail for each section as this part of the documentation is designed to just get you familiar with the inner workings of Masonite.
+
+Since this section of the documentation is designed to just get you up and coding with Masonite, any further explanations that should be presented are inside various "hint blocks." Once you are done with the tutorial or simply want to learn more about a topic it is advised that you go through each hint block and follow the links to dive deeper into the reference documentation which does significantly more explaining.
+
+## Hint Blocks
+
+You will see various hint blocks throughout the tutorials. Below are examples of what the various colors represent.
+
+{% hint style="success" %}
+You'll see hint blocks that are green which you should follow if you want to learn more information about the topic currently being discussed.
+{% endhint %}
+
+{% hint style="info" %}
+You'll also see hint blocks that are blue. These should not be ignored and typically contain background information you need to further understand something.
+{% endhint %}
+
+## Installation
+
+This tutorial will assume you have already installed Masonite. If you haven't, be sure to read the [Installation](../) guide to get a fresh install of Masonite up and running. Once you have one up and running or if you already have it running, go ahead and continue on.
+
 ## Creating a Blog
 
 In this tutorial we will walk through how to create a blog. We will touch on all the major systems of Masonite and it should give you the confidence to try the more advanced tutorials or build an application yourself.
@@ -109,7 +131,7 @@ def show(self, View):
 Notice here we didn't import anything. This is what Masonite call's "Auto resolving dependency injection". If you don't like the semantics of this there are other ways to "resolve" from the container that you will discover in the reference documentation but for now let's stay with this method of resolving.
 
 {% hint style="success" %}
-Be sure to learn more about the \[Service Container\]\('architectural-concepts/service-container.md'\).
+Be sure to learn more about the [Service Container](architectural-concepts/service-container.md).
 {% endhint %}
 
 ### Creating Our View

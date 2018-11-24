@@ -3,7 +3,7 @@
 ## Masonite 2.1
 
 {% hint style="danger" %}
-This is currently unreleased and is in a Beta 3 release. The final release of 2.1 will be in December.
+This is currently unreleased and is in a Beta 3 release. There will be the final release of 2.1 in December.
 
 Learn more about releases in the [Release Cycle](../prologue/release-cycle.md) documentation.
 {% endhint %}
@@ -13,7 +13,7 @@ Learn more about releases in the [Release Cycle](../prologue/release-cycle.md) d
 Masonite 2.1 introduces a few new changes that are designed to correct course for the 2.x family and ensure we can go far into the 2.x family without having to make huge breaking changes. It was questionable whether we should break from the 2.x family and start a new 3.x line. The biggest question was removing \(actually disabling\) the ability to resolve parameters and go with the more favorable annotation resolving. That could have made Masonite a 3.x line but we have ultimately decided to go with the 2.1 as a course correction. Below you will find all changes that went into making 2.1 awesome. Nearly all of these changes are breaking changes.
 
 {% hint style="info" %}
-These are only changes in the first beta release so far so more changes may come
+These changes are subject to change before the final release.
 {% endhint %}
 
 ### All classes in core now have docstrings
@@ -56,7 +56,7 @@ All middleware are now classes:
 HTTP_MIDDLEWARE = [
     LoadUserMiddleware,
     CsrfMiddleware,
-    JsonResponseMiddleware
+    ResponseMiddleware,
 ]
 ```
 
@@ -109,12 +109,6 @@ from masonite.auth import Auth
 ## Provider Refactoring
 
 ### Route Provider
-
-#### JsonResponseMiddleware
-
-We refactored a lot of the ResponseProvider which is the provider with the most complex logic to make the framework work and is responsible for all the logic involved in finding and parsing route and controller logic.
-
-In this refactoring we moved a few things out and abstracted them away. For one we moved the parsing of JSON responses to it's own JsonResponseMiddleware.
 
 #### Moved parameter parsing into if statement
 
@@ -169,9 +163,9 @@ def show(self, request: Request):
     request.param('id')
 ```
 
-### Added ability to set your template splices
+### StartResponse Provider
 
-This provider has been completely removed for the more recommended ResponseMiddleware which will need to be added to your HTTP middleware list:
+This provider has been completely removed for the more recommended `ResponseMiddleware` which will need to be added to your HTTP middleware list:
 
 ```python
 from masonite.middleware import ResponseMiddleware
@@ -182,7 +176,9 @@ HTTP_MIDDLEWARE=[
 ]
 ```
 
-### Added ability use dot notation for views
+We also introduced a new `Response` class which primarily handles a lot of this logic much better that is used internally for core.
+
+## Added ability use dot notation for views
 
 You can now optionally use `.` instead of `/` in your views:
 
@@ -423,4 +419,55 @@ In addition to all the awesome things that `craft auth` generates, we now genera
 ### Route Compiler
 
 Fixed an issue where custom route compilers was not working well with request parameters
+## Added Database Seeders
+
+All new 2.1 projects have a seeder setup so you can quickly make some mock users to start off your application. All users have a randomly generated email and the password of "secret".
+
+You can run seeders by running:
+
+```text
+$ craft seed:run
+```
+
+## Made HTTP Prefix to None by Default
+
+When setting headers we had to set the http\_prefix to None more times then not. So it is set by default.
+
+This:
+
+```python
+def show(self, request: Request):
+    request.header('Content-Type', 'application/xml', http_prefix=None)
+```
+
+can change to:
+
+```python
+def show(self, request: Request):
+    request.header('Content-Type', 'application/xml')
+```
+
+## Added Maintenance Mode
+
+There is now an up and down command so you can put that in your application in a maintenance state via craft commands:
+
+```text
+$ craft down
+```
+
+```text
+$ craft up
+```
+
+There is also a new `MaintenanceModeMiddleware`:
+
+```python
+from masonite.middleware import MaintenanceModeMiddleware
+
+HTTP_MIDDLEWARE = [
+    ...
+    MaintenanceModeMiddleware,
+    ...
+]
+```
 
