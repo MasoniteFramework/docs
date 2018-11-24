@@ -34,6 +34,8 @@ def show(self, Session):
 
 This will update a dictionary that is linked to the current user.
 
+### Using Dictionaries
+
 You can also set a dictionary as a session value and it will automatically JSON encode and decode as you set and get the key:
 
 ```python
@@ -42,6 +44,13 @@ def show(self, Session):
 ```
 
 When you get the key from the session it will turn it back into a dictionary.
+
+You can use it on flash as well:
+
+```python
+def show(self, Session):
+    Session.flash('key', {'key', 'value'})
+```
 
 ### Getting Data
 
