@@ -19,7 +19,7 @@ Session data is automatically encrypted and decrypted using your secret key when
 Sessions are loaded into the container with the `Session` key. So you may access the `Session` class in any part of code that is resolved by the container. These include controllers, drivers, middleware etc:
 
 ```python
-def show(self, Session):
+def show(self, request: Request):
     print(Session) # Session class
 ```
 
@@ -28,8 +28,8 @@ def show(self, Session):
 Data can easily be persisted to the current user by using the `set` method. If you are using the `memory` driver, it will connect the current user's IP address to the data. If you are using the `cookie` then it will simply set a cookie with a `s_` prefix to notify that it is a session and allows better handling of session cookies compared to other cookies.
 
 ```python
-def show(self, Session):
-    Session.set('key', 'value')
+def show(self, request: Request):
+    request.session.set('key', 'value')
 ```
 
 This will update a dictionary that is linked to the current user.
@@ -39,8 +39,8 @@ This will update a dictionary that is linked to the current user.
 You can also set a dictionary as a session value and it will automatically JSON encode and decode as you set and get the key:
 
 ```python
-def show(self, Session):
-    Session.set('key', {'key', 'value'})
+def show(self, request: Request):
+    request.session.set('key', {'key', 'value'})
 ```
 
 When you get the key from the session it will turn it back into a dictionary.
@@ -48,8 +48,8 @@ When you get the key from the session it will turn it back into a dictionary.
 You can use it on flash as well:
 
 ```python
-def show(self, Session):
-    Session.flash('key', {'key', 'value'})
+def show(self, request: Request):
+    request.session.flash('key', {'key', 'value'})
 ```
 
 ### Getting Data
@@ -57,8 +57,8 @@ def show(self, Session):
 Data can be pulled from the session:
 
 ```python
-def show(self, Session):
-    Session.get('key') # Returns 'value'
+def show(self, request: Request):
+    request.session.get('key') # Returns 'value'
 ```
 
 ### Checking Data
@@ -66,8 +66,8 @@ def show(self, Session):
 Very often, you will want to see if a value exists in the session:
 
 ```python
-def show(self, Session):
-    Session.has('key') # Returns True
+def show(self, request: Request):
+    request.session.has('key') # Returns True
 ```
 
 ### Getting all Data
@@ -75,8 +75,8 @@ def show(self, Session):
 You can get all data for the current user:
 
 ```python
-def show(self, Session):
-    Session.all() # Returns {'key': 'value'}
+def show(self, request: Request):
+    request.session.all() # Returns {'key': 'value'}
 ```
 
 ### Flashing Data
@@ -84,8 +84,8 @@ def show(self, Session):
 Data can be inserted only for the next request. This is useful when using redirection and displaying a success message.
 
 ```python
-def show(self, Session):
-    Session.flash('success', 'Your action is successful')
+def show(self, request: Request):
+    request.session.flash('success', 'Your action is successful')
 ```
 
 When using the `cookie` driver, the cookie will automatically be deleted after 2 seconds of being set.
@@ -95,20 +95,12 @@ When using the `cookie` driver, the cookie will automatically be deleted after 2
 You can of course change the drivers on the fly by using the `SessionManager` key from the container:
 
 ```python
-def show(self, SessionManager):
-    SessionManager.driver('cookie').set('key', 'value')
+from masonite.managers import SessionManager
+def show(self, session: SessionManager):
+    session.driver('cookie').set('key', 'value')
 ```
 
 It's important to note that changing the drivers will not change the `session()` function inside your templates \(more about templates below\).
-
-### Request Class
-
-The `SessionProvider` attaches a `session` attribute to the `Request` class. This attribute is the `Session` class itself.
-
-```python
-def show(self):
-    request().session.flash('success', 'Your action is successful')
-```
 
 ### Templates
 
@@ -165,8 +157,8 @@ def show(self):
 or as separate statements
 
 ```python
-def show(self, Session):
-    Session.flash('success', 'Action Successful!')
+def show(self, request: Request):
+    request.session.flash('success', 'Action Successful!')
 
     return request().redirect('/dashboard')
 ```
@@ -180,15 +172,15 @@ You can reset both the flash data and the session data through the `reset` metho
 To reset just the session data:
 
 ```python
-def show(self, Session):
-    Session.reset()
+def show(self, request: Request):
+    request.session.reset()
 ```
 
 Or to reset only the flash data:
 
 ```python
-def show(self, Session):
-    Session.reset(flash_only=True)
+def show(self, request: Request):
+    request.session.reset(flash_only=True)
 ```
 
 {% hint style="warning" %}
