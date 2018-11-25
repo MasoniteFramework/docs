@@ -27,7 +27,7 @@ In order to authenticate a model this will look like:
 from masonite.auth import Auth
 from masonite.request import Request
 
-def show(self, request: Request)
+def show(self, request: Request):
     Auth(request).login('user@email.com', 'password')
 ```
 
@@ -52,7 +52,7 @@ Masonite ships with a `LoadUser` middleware that will load the user into the req
 Using this `LoadUser` middleware you can retrieve the current user using:
 
 ```python
-def show(self, request):
+def show(self, request: Request):
     request.user()
 ```
 
@@ -61,7 +61,7 @@ If you wish not to use middleware to load the user into the request you can get 
 ```python
 from masonite.auth import Auth
 
-def show(self, request):
+def show(self, request: Request):
     Auth(request).user()
 ```
 
@@ -70,7 +70,7 @@ def show(self, request):
 If you would like to simply check if the user is authenticated, `request.user()` or `Auth(request).user()` will return `False` if the user is not authenticated. This will look like:
 
 ```python
-def show(self, request):
+def show(self, request: Request):
     if request.user():
         user_email = request.user().email
 ```
@@ -96,7 +96,7 @@ Auth(request).logout()
 This will delete the cookie that was set when logging in. This will not redirect the user to where they need to go. A complete logout view might look like:
 
 ```python
-def logout(self, request):
+def logout(self, request: Request):
         Auth(request).logout()
         return request.redirect('/login')
 ```

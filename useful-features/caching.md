@@ -50,8 +50,10 @@ Add the required environment keys to your `.env` file and you are good to go!
 To start using the cache, we can use the `Cache` alias that is loaded into the container from the `CacheProvider` Service Provider. We can retrieve this from the container inside any method that is resolved by the container such as drivers, middleware and controllers. For example we can retrieve it from our controller method like so:
 
 ```python
-def show(self, Cache):
-    Cache # returns the cache class
+from masonite import Cache
+
+def show(self, cache: Cache):
+    cache # returns the cache class
 ```
 
 Remember that Masonite uses a Service Container and automatic dependency injection. You can read more about it under the [Service Container](../architectural-concepts/service-container.md) documentation.
@@ -61,8 +63,10 @@ Remember that Masonite uses a Service Container and automatic dependency injecti
 We can easily store items into the cache by doing:
 
 ```python
-def show(self, Cache):
-    Cache.store('key', 'value')
+from masonite import Cache
+
+def show(self, cache: Cache):
+    cache.store('key', 'value')
 ```
 
 This will create a `bootstrap/cache/key.txt` file which contains a simple `value`.
@@ -76,8 +80,10 @@ Also note that the directory will be automatically created if it does not exist.
 We may only want to cache something for a few seconds or a few days so we can do something like:
 
 ```python
-def show(self, Cache):
-    Cache.store_for('key', 'value', 5, 'seconds')
+from masonite import Cache
+
+def show(self, cache: Cache):
+    cache.store_for('key', 'value', 5, 'seconds')
 ```
 
 This will store the cache for 5 seconds. If you try to retrieve this value after 5 seconds, the Cache class will return `None` so be sure to check.
@@ -87,8 +93,10 @@ This will store the cache for 5 seconds. If you try to retrieve this value after
 It wouldn't be very good if we could only store values and not retrieve them. So we can also do this simple by doing:
 
 ```python
-def show(self, Cache):
-    Cache.get('key')
+from masonite import Cache
+
+def show(self, cache: Cache):
+    cache.get('key')
 ```
 
 Again this will return `None` if a cache is expired. If there is no time limit on the cache, this will simply always return the cache value.
@@ -98,8 +106,10 @@ Again this will return `None` if a cache is expired. If there is no time limit o
 You can also explicitly check if a cache is still valid by doing:
 
 ```python
-def show(self, Cache):
-    Cache.is_valid('key')
+from masonite import Cache
+
+def show(self, cache: Cache):
+    cache.is_valid('key')
 ```
 
 This will return a boolean if a key is valid. This means it is not expired.
@@ -109,8 +119,10 @@ This will return a boolean if a key is valid. This means it is not expired.
 We'll have to sometimes check if a cache even exists so we can do that by running:
 
 ```python
-def show(self, Cache):
-    Cache.exists('key')
+from masonite import Cache
+
+def show(self, cache: Cache):
+    cache.exists('key')
 ```
 
 Which will return a boolean if the cache exists or not.
@@ -120,8 +132,10 @@ Which will return a boolean if the cache exists or not.
 We may also want to update a cache. For a real world example, this is used for API's for example when updating the cache for rate limiting. This will not reset the expiration, only update the value.
 
 ```python
-def show(self, Cache):
-    Cache.update('key', 'value')
+from masonite import Cache
+
+def show(self, cache: Cache):
+    cache.update('key', 'value')
 ```
 
 ### Deleting
@@ -129,7 +143,9 @@ def show(self, Cache):
 You can delete a cache by key using:
 
 ```python
-def show(self, Cache):
-    Cache.delete('key')
+from masonite import Cache
+
+def show(self, cache: Cache):
+    cache.delete('key')
 ```
 

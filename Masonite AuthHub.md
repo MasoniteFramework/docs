@@ -105,24 +105,18 @@ A complete setup might look something like:
 ```python
 from authhub.authhub import AuthHub
 
-class LoginController(object):
+class LoginController:
     ''' Class Docstring Description '''
 
     def __init__(self):
         pass
 
-    def toProvider(self, request):
+    def toProvider(self, request: Request):
         return AuthHub(request).driver('github').redirect()
 
-    def fromProvider(self, request):
+    def fromProvider(self, request: Request):
         user = AuthHub(request).driver('github').user()
         return user['login'] # returns github username
 ```
 
 Thats it! Check your platform’s typically response in order to see what is in the  user object. It’s a good idea to store the access token in your `app/User` table and use that token to perform API requests on behest of the user. Many providers like GitHub, Facebook and Twitter all have great Python libraries you can use the token with.
-
-
-
-
-
-

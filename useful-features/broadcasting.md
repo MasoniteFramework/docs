@@ -60,15 +60,19 @@ $ pip install ably
 Since we have a `ServiceProvider` Service Provider which takes care of the container bindings for us, we can now it simply by passing `Broadcast` into our parameter list in our controller methods like so:
 
 ```python
-def show(self, Broadcast):
-    print(Broadcast) # prints the driver class
+from masonite import Broadcast
+
+def show(self, broadcast: Broadcast):
+    print(broadcast) # prints the driver class
 ```
 
 We can change the driver on the fly as well:
 
 ```python
-def show(self, Broadcast):
-    print(Broadcast.driver('ably')) # prints the ably driver class
+from masonite import Broadcast
+
+def show(self, broadcast: Broadcast):
+    print(broadcast.driver('ably')) # prints the ably driver class
 ```
 
 All drivers have the same methods so don't worry about different drivers having different methods.
@@ -78,8 +82,10 @@ All drivers have the same methods so don't worry about different drivers having 
 We can send data through our WebSocket by running:
 
 ```python
-def show(self, Broadcast):
-    Broadcast.channel('channel_name', 'message')
+from masonite import Broadcast
+
+def show(self, broadcast: Broadcast):
+    broadcast.channel('channel_name', 'message')
 ```
 
 That's it! we have just sent a message to anyone subscribed to the `channel_name` channel.
@@ -87,15 +93,19 @@ That's it! we have just sent a message to anyone subscribed to the `channel_name
 We can also send a dictionary:
 
 ```python
-def show(self, Broadcast):
-    Broadcast.channel('channel_name', {'message': 'hello world'})
+from masonite import Broadcast
+
+def show(self, broadcast: Broadcast):
+    broadcast.channel('channel_name', {'message': 'hello world'})
 ```
 
 We can also send a message to multiple channels by passing a list:
 
 ```python
-def show(self, Broadcast):
-    Broadcast.channel(['channel1', 'channel2'], {'message': 'hello world'})
+from masonite import Broadcast
+
+def show(self, broadcast: Broadcast):
+    broadcast.channel(['channel1', 'channel2'], {'message': 'hello world'})
 ```
 
 This will broadcast the message out to both channels. We can pass as many channels into the list as we like.
@@ -103,8 +113,10 @@ This will broadcast the message out to both channels. We can pass as many channe
 Masonite also has an optional third parameter which is the event name:
 
 ```python
-def show(self, Broadcast):
-    Broadcast.channel('channel_name', 'message', 'subscribed')
+from masonite import Broadcast
+
+def show(self, broadcast: Broadcast):
+    broadcast.channel('channel_name', 'message', 'subscribed')
 ```
 
 Which will pass the event on to whoever is receiving the WebSocket.
@@ -114,8 +126,10 @@ Which will pass the event on to whoever is receiving the WebSocket.
 You can also swap drivers on the fly:
 
 ```python
-def show(self, Broadcast):
-    Broadcast.driver('ably').channel('channel_name', 'message', 'subscribed')
+from masonite import Broadcast
+
+def show(self, broadcast: Broadcast):
+    broadcast.driver('ably').channel('channel_name', 'message', 'subscribed')
 ```
 
 or you can explicitly specify the class:
@@ -123,7 +137,9 @@ or you can explicitly specify the class:
 ```python
 from masonite.drivers import BroadcastAblyDriver
 
-def show(self, Broadcast):
-    Broadcast.driver(BroadcastAblyDriver).channel('channel_name', 'message', 'subscribed')
+from masonite import Broadcast
+
+def show(self, broadcast: Broadcast):
+    broadcast.driver(BroadcastAblyDriver).channel('channel_name', 'message', 'subscribed')
 ```
 

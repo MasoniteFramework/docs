@@ -68,8 +68,10 @@ Uploading with masonite is extremely simple. We can use the `Upload` class which
 And inside our controller we can do:
 
 ```python
-def upload(self, Upload):
-    Upload.driver('disk').store(request.input('file_upload'))
+from masonite import Upload
+
+def upload(self, upload: Upload):
+    upload.driver('disk').store(request.input('file_upload'))
 ```
 
 That's it! We specified the driver we want to use and just uploaded an image to our file system.
@@ -119,8 +121,10 @@ DRIVERS = {
 Then in our controller:
 
 ```python
-def upload(self, Upload):
-    Upload.driver('s3').store(request.input('file_upload'))
+from masonite import Upload
+
+def upload(self, upload: Upload):
+    upload.driver('s3').store(request.input('file_upload'))
 ```
 
 How the S3 driver currently works is it uploads to your file system using the `disk` driver, and then uploads that file to your Amazon S3 bucket. So do not get rid of the `disk` setting in the `DRIVERS` dictionary.

@@ -1,5 +1,6 @@
 # Controllers
-#controllers
+
+# Controllers
 
 # Introduction
 Controllers are a vital part of Masonite and is mainly what differs it from other Python frameworks that implement the MVC structure differently. Controllers are simply classes with methods. These methods take a `self` and a `request` parameters which are injected when the route is executed.  Controller methods can be looked at as function based views as they are simply methods inside a class and function the exact same way.
@@ -19,24 +20,10 @@ When we run this command we now have a new class under `app/http/controllers.Das
 Controller methods are very similar to function based views in a Django application. Our controller methods should look like:
 
 ```python
-def show(self, request):
-    passs
+def show(self):
+    pass
 ```
 
 All controller methods must have two parameters. The `self` parameter is the normal python `self` object which is just an instance of the current class and `request` is an instance of the `Request` class which is created on every call and will contain information specific to the request as well as some helper methods you’ll use when developing your applications. For more information about the `Request` class, read the `Request` class documentation.
 
 It’s important to note that unlike other frameworks, we do not have to specify our route parameters as parameters in our controller method. We can retrieve the parameters using the `Request` class.
-
-
-
-
-
-
-
-
-
-
-
-
-
-

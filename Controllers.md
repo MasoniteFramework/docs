@@ -31,7 +31,7 @@ All controller methods are resolved by the container so you may also retrieve ad
 
 ```python
 def show(self, request: Request):
-    print(Request) # Grabbed the Request object from the container
+    print(request) # Grabbed the Request object from the container
 ```
 
 **This might look magical to you so be sure the read about the IOC container in the "Service Container" documentation.**

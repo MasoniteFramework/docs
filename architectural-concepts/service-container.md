@@ -164,8 +164,10 @@ This feature should not be used and you should instead use the more explicit for
 You can technically still resolve parameters with your container like you could in previous versions of Masonite. Resolving a parameter looked like this:
 
 ```python
-def show(self, Request):
-    Request.user()
+from masonite.request import Request
+
+def show(self, request: Request):
+    request.user()
 ```
 
 Although this was removed in 2.1+, you may still enable it on a per project basis. To enable it, go to your `wsgi.py` file and add this to the constructor of your App class towards the top of the file:

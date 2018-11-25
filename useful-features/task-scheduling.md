@@ -115,12 +115,13 @@ You can either use the annotations here or the usual resolving by the key name:
 
 ```python
 from scheduler.Task import Task
+from masonite.request import Request
 
 
 class SayHi(Task):
 
-    def __init__(self, Request):
-        self.request = Request
+    def __init__(self, request: Request):
+        self.request = request
 
     def handle(self):
         pass

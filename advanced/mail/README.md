@@ -17,15 +17,19 @@ By default, Masonite uses the `smtp` driver. Inside your `.env` file, just put y
 The `Mail` class is loaded into the container via the the `MailProvider` Service Provider. We can fetch this `Mail` class via our controller methods like:
 
 ```python
-def show(self, Mail):
-    print(Mail) # returns Mail class
+from masonite import Mail
+
+def show(self, mail: Mail):
+    print(mail) # returns Mail class
 ```
 
 We can send an email like so:
 
 ```python
-def show(self, Mail):
-    Mail.to('hello@email.com').send('Welcome!')
+from masonite import Mail
+
+def show(self, mail: Mail):
+    mail.to('hello@email.com').send('Welcome!')
 ```
 
 That's it! There are a few methods we can attach to extend how we send email.

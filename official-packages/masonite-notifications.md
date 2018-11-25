@@ -107,12 +107,11 @@ Now that we have built our notification above, we can send it in our controller 
 
 ```python
 from app.notifications.WelcomeNotification import WelcomeNotification
+from notifications import Notify
 ...
 
-def show(self, Notify):
-
-    Notify.mail(WelcomeNotification, to='user@gmail.com')
-
+def show(self, notify: otify):
+    notify.mail(WelcomeNotification, to='user@gmail.com')
 ```
 
 Notice here we simply specified the Notify class in the parameter list and we are able to pass in our awesome new WelcomeNotification into the mail method.
@@ -121,7 +120,7 @@ Notice here we simply specified the Notify class in the parameter list and we ar
 NOTE: The method you should use on the notify class should correspond to the method on the notification class. So for example if we want to execute the slack method on the WelcomeNotification then we would call :
 
 ```python
-Notify.slack(WelcomeNotification)
+notify.slack(WelcomeNotification)
 ```
 
 The method you call should be the same as the method you want to call on the notification class. The `Notify` class actually doesn't contain any methods but will call the same method on the notification class as you called on the `Notify` class.
@@ -206,12 +205,11 @@ Now that we have built our notification above, we can send it in our controller 
 
 ```python
 from app.notifications.WelcomeNotification import WelcomeNotification
+from notifications import Notify
 ...
 
-def show(self, Notify):
-
-    Notify.slack(WelcomeNotification)
-
+def show(self, notify: Notify):
+    notify.slack(WelcomeNotification)
 ```
 
 Notice here we simply specified the `Notify` class in the parameter list and we are able to pass in our awesome new WelcomeNotification into the slack method.
@@ -282,7 +280,7 @@ The actual MailComponent class is a bit more complex than this but we'll keep th
 Whenever we insert the notification into the Notify class:
 
 ```python
-Notify.mail(WelcomeNotification)
+notify.mail(WelcomeNotification)
 ```
 
 This will call the mail method on the notification class \(or whatever other method we called on the Notify class\). 
@@ -290,7 +288,7 @@ This will call the mail method on the notification class \(or whatever other met
 Once that is returned then it will call the fire\_mail method which you will specify in your component.
 
 {% hint style="info" %}
-If you are created a discord notification then you should have a `fire_discord` method on your component and you will call it using `Notify.discord(WelcomeNotification)`.
+If you are created a discord notification then you should have a `fire_discord` method on your component and you will call it using `notify.discord(WelcomeNotification)`.
 {% endhint %}
 
 Since we want to call the mail method on it, we will create a `fire_mail` method:
@@ -317,7 +315,7 @@ class MailComponent:
 Sometimes you will want to pass in data into the `fire_mail` method. In order to keep this simple and modular, any keyword arguments you pass into the Notify class will be set on the notification class as a protected member. For example if we have this:
 
 ```text
-Notify.mail(WelcomeNotification, to='admin@site.com')
+notify.mail(WelcomeNotification, to='admin@site.com')
 ```
 
 It will set a `_to` attribute on the notification class BEFORE we get to the fire method.
@@ -334,7 +332,7 @@ We can use this behavior to pass in information into the `fire_mail` method whil
 A practical example is sending the message to a certain user:
 
 ```text
-Notify.mail(WelcomeNotification, to='admin@site.com')
+notify.mail(WelcomeNotification, to='admin@site.com')
 ```
 
 ```python
@@ -367,12 +365,14 @@ class WelcomeNotification(Notifiable, MailComponent):
 Our Notify class will look like:
 
 ```text
-Notify.mail(WelcomeNotification, to='admin@site.com')
+notify.mail(WelcomeNotification, to='admin@site.com')
 ```
 
 and our fire method will look like:
 
 ```python
+from masonite import Mail
+
 class MailComponent:
 
     template = ''
@@ -385,11 +385,11 @@ class MailComponent:
         self._subject = subject
         return self
     
-    def fire_mail(self, Mail):
-        Mail.to(self._to) \
+    def fire_mail(self, mail: Mail):
+        mail.to(self._to) \
             .subject(self._subject) \
             .send(self.template)
 ```
 
-Remember the `_to` class attribute that came from the keyword argument in the Notify class.
+Remember the `_to` class attribute that came from the keyword argument in the `Notify` class.
 

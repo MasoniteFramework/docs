@@ -119,10 +119,10 @@ class LoginController(object):
     def __init__(self):
         pass
 
-    def toProvider(self, request):
+    def toProvider(self, request: Request):
         return AuthHub(request).driver('github').redirect()
 
-    def fromProvider(self, request):
+    def fromProvider(self, request: Request):
         user = AuthHub(request).driver('github').user()
         return user['login'] # returns github username
 ```
