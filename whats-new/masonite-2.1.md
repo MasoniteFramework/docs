@@ -419,6 +419,7 @@ In addition to all the awesome things that `craft auth` generates, we now genera
 ### Route Compiler
 
 Fixed an issue where custom route compilers was not working well with request parameters
+
 ## Added Database Seeders
 
 All new 2.1 projects have a seeder setup so you can quickly make some mock users to start off your application. All users have a randomly generated email and the password of "secret".
