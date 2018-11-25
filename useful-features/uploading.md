@@ -84,20 +84,19 @@ def upload(self, upload: Upload):
 
 That's it! We specified the driver we want to use and just uploaded an image to our file system.
 
-This action will return the file name. We could use that to input into our database if we want:
+This action will return the file name. We could use that to input into our database if we want. All file uploads will convert the filename into a random 25 character string.
 
 ```python
->>> upload.driver('disk').store(request.input('file_upload'))
-'new_upload.png'
+upload.driver('disk').store(request.input('file_upload'))
+#== '838nd92920sjsn928snaj92gj.png'
 ```
 
 Lastly, we may can specify a filename directly using the `filename` keyword argument:
 
 ```python
 upload.driver('disk').store(request.input('file_upload'), filename="username.profile")
+#== username.profile.png
 ```
-
-which would save the file as something like `username.profile.png`
 
 ## Uploading Files
 
