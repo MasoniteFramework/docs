@@ -157,20 +157,6 @@ $ craft install
 
 This command is just a wrapper around the `pip`command. This installs all the required dependencies of Masonite, creates a `.env` file for us, generates a new secret key, and puts that secret key in our `.env` file. After it’s done we can just run the server by using another `craft` command:
 
-### Python 3.7
-
-Two of the libraries that Masonite uses are currently not up to date with Python 3.7 installation. These libraries have old versions of `.pyc` files inside their distributions and need to be installed outside of the normal install workflow. Installing for Python 3.7 will currently be:
-
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
-```text
-$ pip install pycparser
-$ pip install git+https://github.com/yaml/pyyaml.git
-$ craft install
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
 ## Running The Server
 
 After it’s done we can just run the server by using another `craft` command:
