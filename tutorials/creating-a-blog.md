@@ -597,13 +597,14 @@ Now notice above in the form we are going to be receiving 2 form inputs: title a
 {% code-tabs-item title="app/http/controllers/BlogController.py" %}
 ```python
 from app.Post import Post
+from masonite.request import Request
 ...
 
-def store(self, Request):
+def store(self, request: Request):
     Post.create(
-        title=Request.input('title'),
-        body=Request.input('body'),
-        author_id=Request.user().id
+        title=request.input('title'),
+        body=request.input('body'),
+        author_id=request.user().id
     )
 
     return 'post created'
