@@ -370,3 +370,19 @@ if you don't want to cast the value you can set the `cast` parameter to `False`
 ```python
 KEY = env('key', 'default', cast=False)
 ```
+
+## Removed Store Prepend method
+
+We removed the `store_prepend()` method on the upload drivers for the `filename` keyword arg on the store method.
+
+So this:
+
+```
+upload.store_prepend('random-string', request.input('file'))
+```
+
+now becomes:
+
+```
+upload.store(request.input('file'), filename='random-string')
+```
