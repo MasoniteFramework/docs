@@ -122,13 +122,15 @@ This is important as this is our first introduction to Python's IOC container. W
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/BlogController.py" %}
 ```python
-def show(self, View):
-    return View('blog')
+from masonite.view import View 
+
+def show(self, view: View):
+    return view.render('blog')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Notice here we didn't import anything. This is what Masonite call's "Auto resolving dependency injection". If you don't like the semantics of this there are other ways to "resolve" from the container that you will discover in the reference documentation but for now let's stay with this method of resolving.
+Notice here we annotated the `View` class. This is what Masonite call's "Auto resolving dependency injection". If you don't like the semantics of this there are other ways to "resolve" from the container that you will discover in the reference documentation but for now let's stay with this method of resolving.
 
 {% hint style="success" %}
 Be sure to learn more about the [Service Container](architectural-concepts/service-container.md).
@@ -192,16 +194,14 @@ We will observe what was created for us in a bit.
 
 ### Database Setup
 
-In order to register these users, we will need a database. Hopefully you already have some kind of local database setup like MySQL or Postgres. You can open up your MySQL client and create a database. You currently cannot create databases directly through Masonite.
+In order to register these users, we will need a database. Hopefully you already have some kind of local database setup like MySQL or Postgres but we will assume that you do not. In this case we can just use SQLite.
 
-Create a database and name it whatever you like. For the purposes of this tutorial, we can name it "blog"
-
-Once that is done we just need to change a few environment variables so Masonite can connect to the database. These environment variable can be found in the `.env` file in the root of the project. Open that file up and you should see a few lines that look like:
+Now we just need to change a few environment variables so Masonite can create the SQLite database. These environment variable can be found in the `.env` file in the root of the project. Open that file up and you should see a few lines that look like:
 
 {% code-tabs %}
 {% code-tabs-item title=".env" %}
 ```text
-DB_DRIVER=mysql
+DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=masonite
@@ -211,11 +211,20 @@ DB_PASSWORD=root
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Go ahead and change those setting to your connection settings. The `DB_DRIVER` constant takes 3 values: `mysql`, `postgres` and `sqlite`.
+Go ahead and change those setting to your connection settings by adding `sqlite` to the `DB_CONNECTION` variable and whatever you want for your database which will be created for you when you migrate. We will call it `blog.db`:
 
-{% hint style="warning" %}
-Since `sqlite` has a simpler configuration, you will need to edit `config/database.py` to remove the `host`, `user`, and `password` keys.
-{% endhint %}
+{% code-tabs %}
+{% code-tabs-item title=".env" %}
+```text
+DB_CONNECTION=sqlite
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=blog.db
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ### Migrating
 
