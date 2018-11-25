@@ -84,26 +84,20 @@ def upload(self, upload: Upload):
 
 That's it! We specified the driver we want to use and just uploaded an image to our file system.
 
-This action will return the file system location. We could use that to input into our database if we want:
+This action will return the file name. We could use that to input into our database if we want:
 
 ```python
 >>> upload.driver('disk').store(request.input('file_upload'))
-storage/uploads/new_upload.png
+'new_upload.png'
 ```
 
-We may also need to get the filename of the upload. If the request input is a file upload, we have some additional attributes we can use:
+Lastly, we may can specify a filename directly using the `filename` keyword argument:
 
 ```python
->>> request.input('file_upload')
-new_upload.png
+upload.driver('disk').store(request.input('file_upload'), filename="username.profile")
 ```
 
-Lastly, we may need to prepend the file name with something like a `uuid` or something or even just a normal string. We can do so by using the `store_prepend()` method:
-
-```python
->>> upload.driver('disk').store_prepend(request.input('file_upload'), 'prepend_name_')
-prepend_name_newupload.png
-```
+which would save the file as something like `username.profile.png`
 
 ## Uploading Files
 
