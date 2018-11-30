@@ -433,6 +433,17 @@ def show(self, request: Request):
     request.header('Content-Type', 'application/xml')
 ```
 
+## Getting a header returns blank string rather than None
+
+Originally the code:
+
+```python
+def show(self, request: Request):
+    request.header('Content-Type') #== ''
+```
+
+would return `None` if there was no header. Now this returns a blank string.
+
 ## Added Maintenance Mode
 
 There is now an up and down command so you can put that in your application in a maintenance state via craft commands:
