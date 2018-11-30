@@ -131,7 +131,7 @@ Once that is added we will now have a plethora of methods we can use to subscrib
 
 Read more about how to handle subscription and payment information in the Usage documentation.
 
-​# Getting Started
+# Getting Started
 
 Below you will notice we are using a tok_amex token, you may use this token for testing purposes but this token in production should be the token returned when processing your stripe form.
 
@@ -309,6 +309,32 @@ You can also add a description and metadata (as a dictionary) for the charge:
 ```python
 user.charge(999, description='Charges for Flowers', metadata={'flower_type': 'tulips, roses'})
 ```
+
+## Coupons
+
+You will first need to setup coupons in Stripe.
+
+Once you setup a coupon you can use coupons on both charges and subscriptions:
+
+```python
+user.coupon('black-friday').subscribe('masonite-plan')
+```
+
+You can also pass in an integer to deduct an amount:
+
+```python
+user.coupon(500).charge(1000)
+```
+
+This will deduct 5 dollars frin the 10 dollars you are charging the user.
+
+You can also make a coupon for a certain percentage reduction:
+
+```python
+user.coupon(.25).charge(1000)
+```
+
+This will deduct 25 percent off.
 
 # Webhooks
 
