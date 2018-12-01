@@ -1,7 +1,5 @@
 # Masonite 2.1
 
-# Masonite 2.1
-
 ### Introduction
 
 Masonite 2.1 introduces a few new changes that are designed to correct course for the 2.x family and ensure we can go far into the 2.x family without having to make huge breaking changes. It was questionable whether we should break from the 2.x family and start a new 3.x line. The biggest question was removing \(actually disabling\) the ability to resolve parameters and go with the more favorable annotation resolving. That could have made Masonite a 3.x line but we have ultimately decided to go with the 2.1 as a course correction. Below you will find all changes that went into making 2.1 awesome. Nearly all of these changes are breaking changes.
