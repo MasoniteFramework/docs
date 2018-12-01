@@ -1,6 +1,6 @@
 # Masonite 2.1
 
-## Masonite 2.1
+# Masonite 2.1
 
 {% hint style="danger" %}
 This is currently unreleased and is in a Beta 3 release. There will be the final release of 2.1 in December.
@@ -108,7 +108,7 @@ from masonite.auth import Auth
 
 ## Provider Refactoring
 
-### Route Provider
+## Route Provider
 
 #### Moved parameter parsing into if statement
 
@@ -163,9 +163,9 @@ def show(self, request: Request):
     request.param('id')
 ```
 
-### StartResponse Provider
+## StartResponse Provider
 
-This provider has been completely removed for the more recommended `ResponseMiddleware` which will need to be added to your HTTP middleware list:
+This provider has been completely removed for the more recommended ResponseMiddleware which will need to be added to your HTTP middleware list:
 
 ```python
 from masonite.middleware import ResponseMiddleware
@@ -176,7 +176,25 @@ HTTP_MIDDLEWARE=[
 ]
 ```
 
-We also introduced a new `Response` class which primarily handles a lot of this logic much better that is used internally for core.
+### Moved parameter parsing into if statement
+
+We also noticed that for some reason we were parsing parameters before we found routes but we only ever needed those parameters inside our routes so we were parsing them whether we found a route or not. We moved the parsing of parameters into the if statement that executes when a route is found.
+
+When we say "parsing route parameters" we mean the logic required to parse this:
+
+```text
+/dashboard/@user/@id
+```
+
+into a usable form to use on the request class this:
+
+```python
+from masonite.request import Request
+
+def show(self, request: Request):
+    request.param('user')
+    request.param('id')
+```
 
 ## Added ability use dot notation for views
 
@@ -233,11 +251,11 @@ GET Route: /dashboard
 
 When you hit a route in development mode. Well you would also hit it in production mode too since that was never turned off. Although this is likely fine, it would slow down the framework significantly under load since it takes a bit of resources to print something that didn't need to be printed. This enables a bit of a performance boost.
 
-### Added migrate:status Command
+## Added migrate:status Command
 
 This command gets the statuses of all migrations in all directories. To include third party migration directories that are added to your project.
 
-### Added `simple` container bindings
+## Added `simple` container bindings
 
 Sometimes you do not need to bind an object to any key, you just want the object in the container. For this you can now do `simple` bindings like this:
 
@@ -245,7 +263,7 @@ Sometimes you do not need to bind an object to any key, you just want the object
 app.simple(Obj())
 ```
 
-### Added a new global mail helper
+## Added a new global mail helper
 
 This new mail helper can be used globally which points to the default mail driver:
 
@@ -254,7 +272,7 @@ def show(self):
     mail_helper().to(..)
 ```
 
-### Removed the need for `|safe` filters on built in template helpers.
+## Removed the need for `|safe` filters on built in template helpers.
 
 We no longer need to do:
 
@@ -268,7 +286,7 @@ We can now simply do:
 {{ csrf_field }}
 ```
 
-### Improved setting status codes
+## Improved setting status codes
 
 Previously we had to specify the status code as a string:
 
@@ -284,7 +302,7 @@ def show(self, request: Request):
     request.status(500)
 ```
 
-### Added several new methods to service providers
+## Added several new methods to service providers
 
 There is quite a bit of things to remember when binding various things into the container. For example when binding commands, the key needs to be postfixed with `Command` like `ModelCommand`. Now we can do things like:
 
@@ -295,7 +313,7 @@ def register(self):
 
 Along with this there are several other methods to help you bind things into the container without having to remember all the special rules involved, if any.
 
-### Added View Routes
+## Added View Routes
 
 We now have View Routes on all instances of the normal HTTP classes:
 
@@ -303,7 +321,7 @@ We now have View Routes on all instances of the normal HTTP classes:
 Get().view('/url', 'some/template', {'key': 'value'})
 ```
 
-### Renamed cache\_exists to exists
+## Renamed cache\_exists to exists
 
 We previously used this method on the Cache class like so:
 
@@ -321,7 +339,7 @@ def show(self, cache: Cache):
     cache.exists('key')
 ```
 
-### Added without method to request class
+## Added without method to request class
 
 We can now use the `.without()` method on the request class which returns all inputs except the ones specified:
 
@@ -330,11 +348,11 @@ def show(self, request: Request):
     request.without('key1', 'key2')
 ```
 
-### Added port to database
+## Added port to database
 
 Previously the port was missing from the database configuration settings. This was fine when using the default connection but did not work unless added to the config.
 
-### Added ability to use a dictionary for setting headers.
+## Added ability to use a dictionary for setting headers.
 
 Instead of doing something like:
 
@@ -354,7 +372,7 @@ def show(self, request: Request):
     })
 ```
 
-### Added a new Match route
+## Added a new Match route
 
 We can now specify a route with multiple HTTP methods. This can be done like so:
 
@@ -364,23 +382,23 @@ from masonite.routes import Match
 Match(['GET', 'POST']).route('/url', 'SomeController@show')
 ```
 
-### Added Masonite Events into core
+## Added Masonite Events into core
 
 Core can now emit events that can be listened to through the container.
 
-### Added ability to set email verification
+## Added ability to set email verification
 
 Now you can setup a way to send email verifications into your user signup workflow simply but inherting a class to your User model.
 
-### Request redirection set status codes
+## Request redirection set status codes
 
 Now all redirections set the status code implicitly instead of explicitly needing to set them.
 
-### Added craft middleware command
+## Added craft middleware command
 
 Now you can use `craft middleware MiddlewareName` in order to scaffold middleware like other classes.
 
-### View can use dot notation
+## View can use dot notation
 
 All views can optionally use dot notation instead of foward slashes:
 
@@ -394,11 +412,11 @@ is the same as:
 return view.render('some.template.here')
 ```
 
-### Added Swap to container
+## Added Swap to container
 
 We can now do container swapping which is swapping out a class when it is resolved. In other words we may want to change what objects are returned when certain objects are resolved. These objects do not have to be in the container in the first place.
 
-### Added a new env function
+## Added a new env function
 
 You can now use a `env` function to automatically type cast your environment variables turning a numeric into an int:
 
@@ -408,15 +426,15 @@ from masonite import env
 env('DB_PORT', '5432') #== 5432 (int)
 ```
 
-### Added ability to resolve with paramaters at the same time
+## Added ability to resolve with paramaters at the same time
 
 You can now resolve from a container with a parameter list in addition to custom parameters.
 
-### Added password reset to auth command
+## Added password reset to auth command
 
 In addition to all the awesome things that `craft auth` generates, we now generate password reset views and controllers as well for you
 
-### Route Compiler
+## Route Compiler
 
 Fixed an issue where custom route compilers was not working well with request parameters
 
@@ -447,6 +465,17 @@ can change to:
 def show(self, request: Request):
     request.header('Content-Type', 'application/xml')
 ```
+
+## Getting a header returns blank string rather than None
+
+Originally the code:
+
+```python
+def show(self, request: Request):
+    request.header('Content-Type') #== ''
+```
+
+would return `None` if there was no header. Now this returns a blank string.
 
 ## Added Maintenance Mode
 
