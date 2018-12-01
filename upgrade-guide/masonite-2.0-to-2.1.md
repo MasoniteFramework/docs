@@ -196,7 +196,7 @@ HTTP_MIDDLEWARE = [
 
 ### JSON Payloads
 
-JSON payloads have been moved into the normal input handling. In 2.1 you had to fetch incoming JSON payloads like this:
+In 2.0 you had to fetch incoming JSON payloads like this:
 
 ```python
 request.input('payload')['id']
