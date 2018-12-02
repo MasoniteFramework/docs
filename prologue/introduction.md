@@ -1,5 +1,10 @@
 # Introduction
 
+
+{% hint style="info" %}
+A new version of masonite is released. You can view the [2.1 Documentation Here](https://docs.masoniteproject.com/v/v2.1/)
+{% endhint %}
+
 Masonite is the rapid application Python development framework that strives for beautiful and elegant syntax, actual batteries included with a lot of out of the box functionality, and extremely extendable. Masonite works hard to be fast and easy from install to deployment so developers can go from concept to creation in as quick and efficiently as possible. Try it once and you’ll fall in love.
 
 ## Some Notable Features Shipped With Masonite
