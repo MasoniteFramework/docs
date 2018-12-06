@@ -51,14 +51,13 @@ class WelcomeNotification(Notifiable):
 
     def mail(self):
         pass
-
 ```
 
 ## Building Our Mail Notification
 
 Let's now walk through how to build a notification so we can send the email to our user.
 
-Since our notification inherits from `Notifiable`,  we have access to a few methods we will use to build the notification. We'll show a final product of what it looks like since it's pretty straight forward but we'll walk through it after:
+Since our notification inherits from `Notifiable`, we have access to a few methods we will use to build the notification. We'll show a final product of what it looks like since it's pretty straight forward but we'll walk through it after:
 
 ```python
 from notifications import Notifiable
@@ -88,12 +87,12 @@ Not bad. We can use this logic to easily build up emails into a nice format simp
 
 ### Options
 
- Let's walk through the different options to build an email notification and what they do.
+Let's walk through the different options to build an email notification and what they do.
 
 | Method | Description | Example |
 | :--- | :--- | :--- |
 | .line\(\) | Creates a single line of text like text you would see in a paragraph tag | line\('this is a line of text'\) |
-| .action\(\) | This creates a clickable looking button. The kwargs include `href` and `style`. The styles are bootstraps button styles to include `default`, `success`, `danger`, `info` etc. | action\('Click Me', href="http://google.com", style="danger"\) |
+| .action\(\) | This creates a clickable looking button. The kwargs include `href` and `style`. The styles are bootstraps button styles to include `default`, `success`, `danger`, `info` etc. | action\('Click Me', href="[http://google.com](http://google.com)", style="danger"\) |
 | .view\(\) | This is the normal view object here so you can pass in any templates and dictionary you need. | .view\('mail/header', {'key': 'value'}\) |
 | .panel\(\) | This creates a grey background header panel. | .panel\('Some Header'\) |
 | .heading\(\) | Creates a header | .heading\('Welcome!'\) |
@@ -150,7 +149,7 @@ class WelcomeNotification(Notifiable):
             .line('See you soon! Game on!') \
             .view('/notifications/snippets/mail/heading',
                   {'message': 'Welcome To The GBA!'})
-      
+
       def slack(self):
           pass
 ```
@@ -171,7 +170,7 @@ class WelcomeNotification(Notifiable):
             .line('See you soon! Game on!') \
             .view('/notifications/snippets/mail/heading',
                   {'message': 'Welcome To The GBA!'})
-      
+
     def slack(self):
         return self.token(os.getenv('BOT')) \
             .text('Masonite Notification: Read The Docs!, https://docs.masoniteproject.com/') \
@@ -179,14 +178,13 @@ class WelcomeNotification(Notifiable):
             .as_user('Masonite Bot') \
             .icon(':fire:') \
             .button('Sure!', "https://docs.masoniteproject.com/")
-
 ```
 
 ### Options
 
 | Method | Description | Example |
 | :--- | :--- | :--- |
-| .token\(\) | This is your Slack token that has the correct permission scopes.  | .token\('xoxp-359926262626-35...'\) |
+| .token\(\) | This is your Slack token that has the correct permission scopes. | .token\('xoxp-359926262626-35...'\) |
 | .text\(\) | The text you want to show in the message | .text\('Welcome to Masonite!'\) |
 | .channel\(\) | The channel you want to broadcast to. If the value you supply starts with a \# sign then Notifications will make a POST request with your token to the Slack channel list API and get the channel ID. You can specify the channel ID directly if you don't want this behavior | .channel\('\#general'\) .channel\('CHSUU862'\) |
 | .as\_user\(\) | The username you want to show as the message | .as\_user\('Masonite Bot'\) |
@@ -194,9 +192,9 @@ class WelcomeNotification(Notifiable):
 | .as\_current\_user\(\) | This sets a boolean value to True on whether the message should show as the currently authenticated user. | .as\_current\_user\(\) |
 | .without\_markdown\(\) | This will not parse any markdown in the message. This is a boolean value and requires no parameters. | .without\_markdown\(\) |
 | .dont\_unfurl\(\) | This sets a boolean to False on whether the message should show any attachments. Usually slack will show an icon of the website when posting a link. This disables that feature for the current message. | .dont\_unfurl\(\) |
-| .as\_snippet\(\) | Used to post the current message as a snippet instead of as a normal message. This option has 3 keyword arguments. The `file_type`, `name`, and `title`.  This uses a different API endpoint so some previous methods may not be used.  | .as\_snippet\(file\_type='python', name='snippet', title='Awesome Snippet'\) |
+| .as\_snippet\(\) | Used to post the current message as a snippet instead of as a normal message. This option has 3 keyword arguments. The `file_type`, `name`, and `title`.  This uses a different API endpoint so some previous methods may not be used. | .as\_snippet\(file\_type='python', name='snippet', title='Awesome Snippet'\) |
 | .comment\(\) | Only used when using the .as\_snippet\(\) method. This will set a comment on the snippet. | .comment\('Great Snippet'\) |
-| .button\(\) | Used to create action buttons under a message. This requires `text` and a `url` but can also contain `style`, and `confirm` | .button\('Sure!', 'http://google.com', style='primary', confirm='Are you sure?'\) |
+| .button\(\) | Used to create action buttons under a message. This requires `text` and a `url` but can also contain `style`, and `confirm` | .button\('Sure!', '[http://google.com](http://google.com)', style='primary', confirm='Are you sure?'\) |
 | .dry\(\) | Sets all the necessary fields but does not actually send the email. This is great for testing purposes. This takes no parameters | .dry\(\) |
 
 ## Sending a Slack Notification
@@ -245,10 +243,10 @@ Now let's add a line and a subject method to it:
 
 ```python
 class MailComponent:
-    
+
     def line(self, message):
         pass
-    
+
     def subject(self, subject)
         pass
 ```
@@ -259,11 +257,11 @@ and let's use these two methods to build a template attribute
 class MailComponent:
 
     template = ''
-    
+
     def line(self, message):
         self.template += template
         return self
-    
+
     def subject(self, subject)
         self._subject = subject
         return self
@@ -283,7 +281,7 @@ Whenever we insert the notification into the Notify class:
 notify.mail(WelcomeNotification)
 ```
 
-This will call the mail method on the notification class \(or whatever other method we called on the Notify class\). 
+This will call the mail method on the notification class \(or whatever other method we called on the Notify class\).
 
 Once that is returned then it will call the fire\_mail method which you will specify in your component.
 
@@ -297,15 +295,15 @@ Since we want to call the mail method on it, we will create a `fire_mail` method
 class MailComponent:
 
     template = ''
-    
+
     def line(self, message):
         self.template += template
         return self
-    
+
     def subject(self, subject)
         self._subject = subject
         return self
-    
+
     def fire_mail(self):
         pass
 ```
@@ -359,7 +357,6 @@ class WelcomeNotification(Notifiable, MailComponent):
     def mail(self):
         return self.subject('New account signup!') \
             .line('We greatly value your service!')
-      
 ```
 
 Our Notify class will look like:
@@ -376,15 +373,15 @@ from masonite import Mail
 class MailComponent:
 
     template = ''
-    
+
     def line(self, message):
         self.template += template
         return self
-    
+
     def subject(self, subject)
         self._subject = subject
         return self
-    
+
     def fire_mail(self, mail: Mail):
         mail.to(self._to) \
             .subject(self._subject) \
