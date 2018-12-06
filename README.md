@@ -60,7 +60,7 @@ $ sudo apt-get install python3.6-dev libssl-dev
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-#### Enterprise Linux based distributions (Fedora, CentOS, RHEL, ...)
+#### Enterprise Linux based distributions \(Fedora, CentOS, RHEL, ...\)
 
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}

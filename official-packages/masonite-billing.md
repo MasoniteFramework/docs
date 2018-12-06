@@ -1,19 +1,20 @@
+# Masonite Billing
 
-# Requires
+## Requires
 
 * Masonite 2.0.0+
 
-# Installation
+## Installation
 
 Installing Masonite Billing is simple. We just need a new configuration file, 2 new migrations and extend our User model.
 
 Pip Install
 
-```
+```text
 $ pip install masonite-billing
 ```
 
-# Add the Service Provider
+## Add the Service Provider
 
 Simply add the Masonite Billing Service Provider to your providers list:
 
@@ -25,7 +26,7 @@ PROVIDERS = [
 ​
     # Third Party Providers
     BillingProvider,
-    
+
     # Application Providers
     ...
 ]
@@ -33,13 +34,13 @@ PROVIDERS = [
 
 This will add a new install:billing command to craft. Just run:
 
-```
+```text
 $ craft install:billing
 ```
 
 This will create a new configuration file in config/billing.py
 
-# Configuration File
+## Configuration File
 
 All billing information will be located in the config/billing.py file and has 2 important constants:
 
@@ -63,13 +64,13 @@ The DRIVER is the processor that Masonite billing will use and the DRIVERS const
 
 Although there is the DRIVER constant, Masonite Billing currently only supports Stripe. Other drivers like Braintree will be supported in later releases which should be backwards compatible.
 
-# Migrations
+## Migrations
 
 We'll need to create 2 new migrations: one to add columns to the users table and one migration to create a new subscriptions table. Just create these migration files with craft and copy and paste the migration into those files and migrate them.
 
 Let's first add 2 new columns to our users table.
 
-```
+```text
 $ craft migration add_subscription_info_to_users --table users
 ```
 
@@ -83,7 +84,7 @@ with self.schema.table('users') as table:
 
 Now let's add a new subscriptions table.
 
-```
+```text
 $ craft migration create_subscriptions_table --create subscriptions
 ```
 
@@ -101,20 +102,20 @@ with self.schema.create('subscriptions') as table:
 
 Now just migrate the new migrations:
 
-```
+```text
 $ craft migrate
 ```
 
-# Stripe Authentication Keys
+## Stripe Authentication Keys
 
 Just add your Stripe public and secret keys to your .env file:
 
-```
+```text
 STRIPE_CLIENT=pk_Njsd993hdc...
 STRIPE_SECRET=sk_sjs8yd78H8...
 ```
 
-# Billable Model
+## Billable Model
 
 Masonite Billing consists of a model that should be inherited by whatever model you want to add subscription billing information to. In this example here, we will focus on adding the billing integration to our User model.
 
@@ -131,13 +132,13 @@ Once that is added we will now have a plethora of methods we can use to subscrib
 
 Read more about how to handle subscription and payment information in the Usage documentation.
 
-# Getting Started
+## Getting Started
 
-Below you will notice we are using a tok_amex token, you may use this token for testing purposes but this token in production should be the token returned when processing your stripe form.
+Below you will notice we are using a tok\_amex token, you may use this token for testing purposes but this token in production should be the token returned when processing your stripe form.
 
 It's also important to note that the subscription records in your database are never deleted but are updated instead. So canceling a subscription does not delete that subscription from your database but only sets when the subscription ended. This is good if you want to dump the data into an email campaign tool to try and get back any lost customers.
 
-## Subscribing to Plans
+### Subscribing to Plans
 
 To subscribe a user to plans, we can use the subscribe method like so:
 
@@ -145,11 +146,11 @@ To subscribe a user to plans, we can use the subscribe method like so:
 user.subscribe('masonite-test', 'tok_amex')
 ```
 
-This method retuns a string of the subscription token such as sub_j8sy7dbdns8d7sd..
+This method retuns a string of the subscription token such as sub\_j8sy7dbdns8d7sd..
 
 If you try to subscribe a user to a plan and the plan does not exist in Stripe then Masonite will throw a `billing.exceptions.PlanNotFound` exception.
 
-## Checking Subscriptions
+### Checking Subscriptions
 
 If you want to check if the user is subscribed you have a few options:
 
@@ -177,9 +178,9 @@ or you can obviously check if the user was subscribed to a specific plan:
 user.was_subscribed('masonite-test')
 ```
 
-## Getting The Plan Name
+### Getting The Plan Name
 
-If you need to get the name of the plan the user is on you can do so using the plan() method:
+If you need to get the name of the plan the user is on you can do so using the plan\(\) method:
 
 ```python
 user.plan() # returns Masonite Test
@@ -187,9 +188,9 @@ user.plan() # returns Masonite Test
 
 This will return the name of the plan in Stripe, not the plan ID. For example, our plan ID might be masonite-test but the plan name could be "Awesome Plan."
 
-## Trialing
+### Trialing
 
-If the plan you are subscribing a user to has a trial set inside Stripe then the user will be automatically enrolled in a trial for that time. We can check if the user is on a trial using the on_trial() method. In our examples here, the masonite-test plan has a 30 day free trial set inside Stripe.
+If the plan you are subscribing a user to has a trial set inside Stripe then the user will be automatically enrolled in a trial for that time. We can check if the user is on a trial using the on\_trial\(\) method. In our examples here, the masonite-test plan has a 30 day free trial set inside Stripe.
 
 For example:
 
@@ -212,9 +213,9 @@ user.trial(days=4).subscribe('masonite-test') # plan now has a 4 day trial
 user.on_trial() # returns True
 ```
 
-## Swapping Plans
+### Swapping Plans
 
-We can swap subscription plans at anytime using the swap() method:
+We can swap subscription plans at anytime using the swap\(\) method:
 
 ```python
 user.subscribe('masonite-test') # plan has a 30 day trial
@@ -227,9 +228,9 @@ user.is_subscribed('masonite-test') # returns False
 user.is_subscribed('new-plan') # returns True
 ```
 
-## Canceling
+### Canceling
 
-If you want to cancel a user's subscription we can use the cancel() method. 
+If you want to cancel a user's subscription we can use the cancel\(\) method.
 
 This will cancel the users plan but continue the subscription until the period ends.
 
@@ -240,7 +241,7 @@ user.cancel() # returns True
 user.is_subscribed() # returns True
 ```
 
-Notice here that the last is_subscribed() method still returned True even after we canceled. The user will continue the subscription until the period ends. For example if it is a 1 month subscription and the user canceled 1 week in, Masonite Billing will continue the subscription for the remaining 3 weeks.
+Notice here that the last is\_subscribed\(\) method still returned True even after we canceled. The user will continue the subscription until the period ends. For example if it is a 1 month subscription and the user canceled 1 week in, Masonite Billing will continue the subscription for the remaining 3 weeks.
 
 If you wish to cancel the user immediately we can specify the now=Trueparameter:
 
@@ -251,7 +252,7 @@ user.cancel(now=True) # returns True
 user.is_subscribed() # now returns False
 ```
 
-The period between canceling a subscriptions and the period running out can be caught using the user.is_canceled() method:
+The period between canceling a subscriptions and the period running out can be caught using the user.is\_canceled\(\) method:
 
 ```python
 user.subscribe('masonite-test')
@@ -267,8 +268,9 @@ user.cancel(now=True) # returns True
 user.is_canceled() # returns False
 ```
 
-## Resuming Plans
-If you don't cancel a plan immediately, there will be a period between when the user canceled and when the plan can be resumed. We can use the resume() method here:
+### Resuming Plans
+
+If you don't cancel a plan immediately, there will be a period between when the user canceled and when the plan can be resumed. We can use the resume\(\) method here:
 
 ```python
 user.subscribe('masonite-test')
@@ -280,17 +282,17 @@ user.resume() # returns True
 user.is_canceled() # returns False
 ```
 
-## Updating Card Information
+### Updating Card Information
 
-Sometimes a user will want to switch or update their card information. We can use the card() method and pass a token to it:
+Sometimes a user will want to switch or update their card information. We can use the card\(\) method and pass a token to it:
 
 ```python
 user.card('tok_amex') # updates the users card
 ```
 
-## Charging users
+### Charging users
 
-If you want to make one off transactions for customers you can do so easily using the charge() method:
+If you want to make one off transactions for customers you can do so easily using the charge\(\) method:
 
 You can charge a card by passing a token:
 
@@ -304,13 +306,13 @@ You can also charge a customer directly by leaving out the token which will char
 user.charge(999) # charges the customer
 ```
 
-You can also add a description and metadata (as a dictionary) for the charge:
+You can also add a description and metadata \(as a dictionary\) for the charge:
 
 ```python
 user.charge(999, description='Charges for Flowers', metadata={'flower_type': 'tulips, roses'})
 ```
 
-## Coupons
+### Coupons
 
 You will first need to setup coupons in Stripe.
 
@@ -336,11 +338,11 @@ user.coupon(.25).charge(1000)
 
 This will deduct 25 percent off.
 
-# Webhooks
+## Webhooks
 
 Webhooks allow your application to interact directly with stripe when certain actions happen such as when a user's subscription has expired. You can use these webhooks to catch any events emitted.
 
-## Getting Started
+### Getting Started
 
 Masonite Billing also allows you to tie into Stripe webhooks. If the subscription is cancelled in Stripe, Stripe will send your server a webhook and Masonite Billing will update the database accordingly.
 
@@ -348,7 +350,7 @@ Be sure to setup the correct url in the the Stripe dashboard inside your Webhook
 
 If you go the Ngrok route be sure to read the Testing With Ngrok section
 
-## Webhook Controller
+### Webhook Controller
 
 We can simply put the webhook controller in our routes/web.py file just like any other controller but it can point to the packages controller:
 
@@ -360,11 +362,11 @@ Post().route('/stripe/webhook', '/billing.controllers.WebhookController@handle')
 
 This will send all Stripe traffic to the server and handle any hooks accordingly.
 
-## Testing With Ngrok
+### Testing With Ngrok
 
 Most developers use Ngrok for testing incoming webhooks. Ngrok is a freemium HTTP tunneling service that allows extrernal requests to tunnel into your localhost and port environment. It's exellent for testing things like this as well as other things like OAuth.
 
-If you use Ngrok you will get a subdomain like: `http://684b1285.ngrok.io` . Because this is a subdomain, Masonite needs to know which subdomain to support so you're route will have to be: 
+If you use Ngrok you will get a subdomain like: `http://684b1285.ngrok.io` . Because this is a subdomain, Masonite needs to know which subdomain to support so you're route will have to be:
 
 ```python
 ...
@@ -376,21 +378,20 @@ in order to catch the Ngrok subdomain. This setup will allow you to send test we
 
 You can read more about subdomains in the Subdomain Routing section of the Routing documentation.
 
-## Csrf Protection
+### Csrf Protection
 
 External incoming API calls typically will not be able to be CSRF protected because they will not know the specific token connected to a request. We will need to put an exception to the /stripe/webhook route:
 
 ```python
 class CsrfMiddleware: 
   ...
- 
+
   exempt = [
     '/stripe/webhook'
   ]
-     
 ```
 
-## Creating Custom Hooks
+### Creating Custom Hooks
 
 Currently the webhook controller only handles when a subscription is canceled but can handle any hook you like. If you need to create a custom hook you can inherit from the WebhookController and add the needed controller methods:
 
@@ -403,7 +404,7 @@ class CustomWebhookController(WebhookController):
         return 'Webhook Handled'
 ```
 
-## Routes
+### Routes
 
 You'll also have to specify a new location of your controller which should now be located in your normal controllers directory:
 
@@ -413,20 +414,21 @@ Post().route('/stripe/webhook', 'CustomWebhookController@handle'),
 ...
 ```
 
-## Events
+### Events
 
 Events are specific types of webhooks that Stripe will send out when certain actions occur.
 
 You can see a list of stripe events here: `https://stripe.com/docs/api#event_types​`
 
-You'll notice that we have a handle_resource_event method. The WebhookController will take all incoming webhook events into the handle method and dispatch them to other methods.
+You'll notice that we have a handle\_resource\_event method. The WebhookController will take all incoming webhook events into the handle method and dispatch them to other methods.
 
-How it does this is simply takes the event lets say the charge.dispute.created Stripe event (see the link above for a list of more events) and parses it into a string that looks like:
+How it does this is simply takes the event lets say the charge.dispute.created Stripe event \(see the link above for a list of more events\) and parses it into a string that looks like:
 
-```
+```text
 handle_charge_dispute_created
 ```
-You'll notice we just replaced the . with _ and prefixed a handle to it. This looks like a method call. If we simply create a method now:
+
+You'll notice we just replaced the . with \_ and prefixed a handle to it. This looks like a method call. If we simply create a method now:
 
 ```python
 from billing.controllers import WebhookController
@@ -438,3 +440,4 @@ class CustomWebhookController(WebhookController):
 ```
 
 This method will be called whenever we receive a webhook for that event. If no method is found for the incoming webhook then the server will return a Webhook Not Supported string which you may see while development testing your Stripe webhooks.
+

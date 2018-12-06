@@ -131,7 +131,7 @@ def show(self, View):
 Notice here we didn't import anything. This is what Masonite call's "Auto resolving dependency injection". If you don't like the semantics of this there are other ways to "resolve" from the container that you will discover in the reference documentation but for now let's stay with this method of resolving.
 
 {% hint style="success" %}
-Be sure to learn more about the [Service Container](architectural-concepts/service-container.md).
+Be sure to learn more about the [Service Container](https://github.com/MasoniteFramework/docs/tree/69cb12085d55c2d16c51dfea85976478da4c2564/tutorials/architectural-concepts/service-container.md).
 {% endhint %}
 
 ### Creating Our View
