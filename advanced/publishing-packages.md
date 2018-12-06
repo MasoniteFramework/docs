@@ -6,7 +6,7 @@
 
 Publishing packages are a great way for third party packages to integrate into Masonite. They are extremely easy to setup even on existing pip packages. Publishing packages allows any package to create configuration files, routes, controllers, and other integrations that make developing with your packages amazing. You can read about this in the [Creating Packages](creating-packages.md) documentation to learn more about how you can integrate your existing packages or future packages with Masonite.
 
-### NOTE: Virtual Environment {#note-virtual-environment}
+### NOTE: Virtual Environment <a id="note-virtual-environment"></a>
 
 **If you are in a virtual environment,**`craft publish`**will not have access to your virtual environment dependencies. In order to fix this, we can add our site packages to our**`config/packages.py`**config file**
 
