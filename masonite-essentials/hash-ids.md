@@ -21,6 +21,10 @@ This is very useful for hiding primary ID's and this package makes it very simpl
 
 ## Installation
 
+This package requires:
+
+* Masonite 2.0+
+
 You can install the required dependencies for the Hash ID feature by running:
 
 ```bash
