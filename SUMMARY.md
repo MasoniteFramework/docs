@@ -104,6 +104,10 @@
 * [Masonite Notifications](official-packages/masonite-notifications.md)
 * [Masonite API](official-packages/masonite-api.md)
 
+## Masonite Essentials
+
+* [Hash ID's](masonite-essentials/hash-ids.md)
+
 ## Tutorials
 
 * [Creating a Blog](tutorials/creating-a-blog.md)
