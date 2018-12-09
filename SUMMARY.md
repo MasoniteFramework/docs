@@ -73,6 +73,7 @@
 * [Task Scheduling](useful-features/task-scheduling.md)
 * [Environments](useful-features/environments.md)
 * [Events](useful-features/events.md)
+* [Testing](useful-features/testing.md)
 
 ## Security
 
