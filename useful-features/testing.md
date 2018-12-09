@@ -4,6 +4,12 @@
 
 Masonite testing is very simple. You can test very complex parts of your code with ease by just extending your class with a Masonite unit test class.
 
+You can run tests by running:
+
+```bash
+$ python -m pytest 
+```
+
 ## Configuration
 
 First, create a new test class in a testing directory. We will use the directory `tests/unit` for the purposes of this documentation. In that file we will create a `test_unit.py` file and put a simple class in it like so:
