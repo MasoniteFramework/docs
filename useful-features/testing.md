@@ -196,5 +196,32 @@ def test_json_response(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### Users
 
+We can load users into the route and check if they can view the route. This is good to see if your middleware is acting good against various users. 
+
+For example we can check if a user that isn't logged in has access to the dashboard homepage:
+
+{% code-tabs %}
+{% code-tabs-item title="tests/unit/test\_unit.py" %}
+```python
+def test_guest_user_can_view(self):
+    assert not self.route('/some/protect/route').user(None).can_view()
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Or we can set a value on a mock user and see if that passes:
+
+{% code-tabs %}
+{% code-tabs-item title="tests/unit/test\_unit.py" %}
+```python
+class MockUser:
+    is_admin = 1
+
+def test_guest_user_can_view(self):
+    assert self.route('/some/protect/route').user(MockUser).can_view()
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
