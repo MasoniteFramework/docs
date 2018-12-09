@@ -219,7 +219,7 @@ Or we can set a value on a mock user and see if that passes:
 class MockUser:
     is_admin = 1
 
-def test_guest_user_can_view(self):
+def test_owner_user_can_view(self):
     assert self.route('/some/protect/route').user(MockUser).can_view()
 ```
 {% endcode-tabs-item %}
