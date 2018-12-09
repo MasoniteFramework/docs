@@ -158,7 +158,7 @@ This can be used to see if the template returned a specific value
 {% code-tabs-item title="tests/unit/test\_unit.py" %}
 ```python
 def test_view_contains(self):
-    assert self.route('/testing').contains('test')
+    assert self.route('/testing').contains('Login')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
