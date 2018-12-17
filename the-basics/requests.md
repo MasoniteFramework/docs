@@ -412,7 +412,7 @@ def show(self, request: Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-You can also redirect to a specific controller:
+You can also redirect to a specific controller. This will find the URL that is attached to the controller method
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
