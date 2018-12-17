@@ -125,6 +125,31 @@ notify.slack(WelcomeNotification)
 The method you call should be the same as the method you want to call on the notification class. The `Notify` class actually doesn't contain any methods but will call the same method on the notification class as you called on the `Notify` class.
 {% endhint %}
 
+### Queuing the Notification
+
+If you would like to queue the notification then you just need to inherit the `ShouldQueue` class and it will automatically send your notifications into the queue to be processed later. This is a great way to speed up your application:
+
+```python
+from notifications import Notifiable
+from masonite.queues import ShouldQueue
+import os
+
+
+class WelcomeNotification(Notifiable, ShouldQueue):
+
+    def mail(self):
+        return self.subject('New account signup!') \
+            .driver('smtp') \
+            .panel('GBALeague.com') \
+            .heading('You have created a new account!') \
+            .line('We greatly value your service!') \
+            .line('Attached is an invoice for your recent purchase') \
+            .action('Sign Back In', href="http://gbaleague.com") \
+            .line('See you soon! Game on!') \
+            .view('/notifications/snippets/mail/heading',
+                  {'message': 'Welcome To The GBA!'})
+```
+
 ## Building Our Slack Notification
 
 Out of the box, Masonite notifications comes with Slack support as well in case we want to send a message to a specific slack group.

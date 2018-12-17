@@ -401,6 +401,28 @@ def show(self, request: Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+You can also use the name parameter on the redirect method:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self, request: Request):
+    return request.redirect(name="dashboard")
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+You can also redirect to a specific controller:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+def show(self, request: Request):
+    return request.redirect(controller="WelcomeController@show")
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 Sometimes your routes may require parameters passed to it such as redirecting to a route that has a url like: `/url/@firstname:string/@lastname:string`.
 
 Redirecting to a named route with URL parameters:

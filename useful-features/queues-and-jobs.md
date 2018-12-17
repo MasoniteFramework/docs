@@ -149,6 +149,26 @@ class SendWelcomeEmail(Queueable):
         email # =='user@email.com'
 ```
 
+### Passing Functions or Methods
+
+You can also call any arbitrary function or method using the queue driver. All you need to do is pass the reference for it in the push method and pass any arguments you need in the args parameter like so:
+
+```python
+def run_async(obj1, obj2):
+    pass
+    
+def show(self, queue: Queue):
+    obj1 = SomeObject()
+    obj2 = AnotherObject()
+    queue.push(run_async, args=(obj1, obj2))
+```
+
+This will then queue this function to be called later.
+
+{% hint style="warning" %}
+Note that you will not be able to get a response value back. Once it gets sent to the queue it will run at an arbitrary time later.
+{% endhint %}
+
 ## AMQP Driver
 
 The `amqp` driver can be used to communicate with RabbitMQ services.
