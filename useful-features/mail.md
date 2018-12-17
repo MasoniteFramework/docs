@@ -200,6 +200,18 @@ def show(self, mail: Mail):
     mail.to(User.find(1).email).send('Welcome!')
 ```
 
+## Queuing Emails
+
+you can easily queue the sending of emails by using the queue method before the send method like so:
+
+```python
+from app.User import User
+from masonite import Mail
+...
+def show(self, mail: Mail):
+    mail.to(User.find(1).email).queue().send('Welcome!')
+```
+
 ## Switching Drivers
 
 All mail drivers are managed by the `MailManager` class and bootstrapped with the `MailProvider` Service Provider.
