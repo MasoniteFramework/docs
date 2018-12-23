@@ -80,6 +80,7 @@
 * [Authentication](security/authentication.md)
 * [Encryption](security/encryption.md)
 * [CSRF Protection](security/csrf-protection.md)
+* [Headers](security/headers.md)
 
 ## Orator ORM
 
