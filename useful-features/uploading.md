@@ -98,6 +98,14 @@ upload.driver('disk').store(request.input('file_upload'), filename="username.pro
 #== username.profile.png
 ```
 
+## Accepting Specific Files
+
+By default, Masonite only allows uploads to accept images for security reasons but you can specify any file type you want to accept by specifying the filetype in the `accept` method before calling the `store` method.
+
+```python
+upload.accept('yml', 'zip').store('some.yml')
+```
+
 ## Uploading Files
 
 You can upload files directly by passing in a `open()` file:
