@@ -56,7 +56,7 @@ DRIVERS = {
 Thats it! As long as the authentication works, we can send emails.
 
 {% hint style="danger" %}
-Remember that it is save to put sensitive data in your `.env` file because it is not committed to source control and it is inside the `.gitignore` file by default.
+Remember that it is safe to put sensitive data in your `.env` file because it is not committed to source control and it is inside the `.gitignore` file by default.
 {% endhint %}
 
 ### Mailgun Driver
