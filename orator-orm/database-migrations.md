@@ -34,7 +34,7 @@ $ pip install psycopg2
 
 ## SQLite
 
-If you are using SQLite just configure your `.env` file with the following options
+If you are using SQLite configure your `.env` file with the following options
 
 {% code-tabs %}
 {% code-tabs-item title=".env" %}
