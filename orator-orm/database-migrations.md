@@ -34,22 +34,19 @@ $ pip install psycopg2
 
 ## SQLite
 
-If you are using SQLite then the configuration will be slightly different. Currently, the configuration is setup to work with MySQL or Postgres but SQLite will need to be adjust slightly to work. 
-
-In your config/database.py file we'll just need to remove host, username and password from the configuration settings completely:
+If you are using SQLite just configure your `.env` file with the following options
 
 {% code-tabs %}
-{% code-tabs-item title="config/database.py" %}
-```python
-DATABASES = {
-    'default': {
-        'driver': os.environ.get('DB_DRIVER'),
-        'database': os.environ.get('DB_DATABASE'),
-    }
-}
+{% code-tabs-item title=".env" %}
+```
+DB_CONNECTION=sqlite
+DB_DATABASE=masonite
+DB_LOG=True
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+Your sqlite database will be created on project root directory.
 
 ## Getting Started
 
