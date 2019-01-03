@@ -117,12 +117,20 @@ And finally add the Service Provider to our `PROVIDERS` constant in our `config/
 ```python
 from app.providers.SentryServiceProvider import SentryServiceProvider
 ...
-# Application Providers 
-UserModelProvider(),
-MiddlewareProvider(),
+PROVIDERS = [
+    # Framework Providers
+    AppProvider,
+...
+    ViewProvider,
 
-# Sentry Provider
-SentryServiceProvider(),
+    # Optional Framework Providers
+    SassProvider,
+    MailProvider,
+...
+    # Application Providers
+    SentryServiceProvider
+...
+]
 ...
 ```
 
