@@ -78,10 +78,10 @@ Remeber that all we need to do is call is add it to the container and append the
 We can create a new Service Provider to store our hooks so let's make one.
 
 ```text
-$ craft provider HookProvider
+$ craft provider SentryServiceProvider
 ```
 
-This will create a new Service Provider inside `app/providers/HookProvider.py` that looks like:
+This will create a new Service Provider inside `app/providers/SentryServiceProvider.py` that looks like:
 
 ```python
 from masonite.provider import ServiceProvider
@@ -112,17 +112,25 @@ class SentryServiceProvider(ServiceProvider):
 Notice that the key we binded our object to ends with "ExceptionHook." What we put before this part of the string is whatever you want to put. Also note that we also instantiated our `SentryHook()` and didn't put `SentryHook`
 {% endhint %}
 
-And finally add the Service Provider to our `PROVIDERS` constant in our `config/application.py` file:
+And finally add the Service Provider to our `PROVIDERS` constant in our `config/providers.py` file:
 
 ```python
 from app.providers.SentryServiceProvider import SentryServiceProvider
 ...
-# Application Providers 
-UserModelProvider(),
-MiddlewareProvider(),
+PROVIDERS = [
+    # Framework Providers
+    AppProvider,
+...
+    ViewProvider,
 
-# Sentry Provider
-SentryServiceProvider(),
+    # Optional Framework Providers
+    SassProvider,
+    MailProvider,
+...
+    # Application Providers
+    SentryServiceProvider
+...
+]
 ...
 ```
 
