@@ -25,13 +25,14 @@ $ pip install masonite-scheduler
 
 and then add the [Service Provider](../architectural-concepts/service-providers.md) to our `PROVIDERS` list:
 
-```text
+```python
 from scheduler.providers import ScheduleProvider
+
 PROVIDERS = [
-    AppProvider(),
+    AppProvider,
     ...
     ...
-    ScheduleProvider(),
+    ScheduleProvider,
 ]
 ```
 
@@ -96,22 +97,6 @@ Now that our task is able to be added to the container automatically, let's star
 ### Constructors
 
 Firstly, the constructor of all tasks are resolved by the container. You can fetch anything from the container that doesn't need the WSGI server to be running \(which is pretty much everything\). So we can fetch things like the Upload, Mail, Broadcast and Request objects. This will look something like:
-
-```python
-from scheduler.Task import Task
-from masonite.request import Request
-
-
-class SayHi(Task):
-
-    def __init__(self, request: Request):
-        self.request = request
-
-    def handle(self):
-        pass
-```
-
-You can either use the annotations here or the usual resolving by the key name:
 
 ```python
 from scheduler.Task import Task

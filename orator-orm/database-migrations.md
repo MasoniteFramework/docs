@@ -38,7 +38,7 @@ If you are using SQLite configure your `.env` file with the following options
 
 {% code-tabs %}
 {% code-tabs-item title=".env" %}
-```
+```text
 ...
 DB_CONNECTION=sqlite
 DB_DATABASE=masonite
