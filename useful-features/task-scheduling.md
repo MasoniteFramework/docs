@@ -171,6 +171,28 @@ All possible options are `False` by default. The options here are:
 If the time on the task is `days` or `months` then you can also specify a `run_at` attribute which will set the time of day it should should. By default, all tasks will run at midnight if `days` is set and midnight on the first of the month when `months` is set. We can specify which time of day using the `run_at` attribute along side the `run_every` attribute. This option will be ignored if `run_every` is `minutes` or `hours`.
 {% endhint %}
 
+### Timezones
+
+You can also set timezones on individual tasks by setting a `timezone` attribute on the task:
+
+```python
+from scheduler.Task import Task
+import requests
+
+
+class SayHi(Task):
+
+    run_every = '3 days'
+    run_at = '17:00'
+    timezone = 'America/New_York'
+
+    def __init__(self):
+        pass
+
+    def handle(self):
+        requests.post('http://url.com/api/store')
+```
+
 ## Caveats
 
 {% hint style="warning" %}
