@@ -109,7 +109,7 @@ from app.notifications.WelcomeNotification import WelcomeNotification
 from notifications import Notify
 ...
 
-def show(self, notify: otify):
+def show(self, notify: Notify):
     notify.mail(WelcomeNotification, to='user@gmail.com')
 ```
 
@@ -125,7 +125,22 @@ notify.slack(WelcomeNotification)
 The method you call should be the same as the method you want to call on the notification class. The `Notify` class actually doesn't contain any methods but will call the same method on the notification class as you called on the `Notify` class.
 {% endhint %}
 
-### Queuing the Notification
+### Sending Via
+
+You can also send multiple notifications and notification types with the `via` and `send` method like so:
+
+```python
+from app.notifications.WelcomeNotification import WelcomeNotification
+from notifications import Notify
+...
+
+def show(self, notify: Notify):
+    notify.via('mail', 'slack').send(WelcomeNotification, to='user@gmail.com')
+```
+
+This is useful for sending mail more dynamically or just sending multiple types of notifications in 1 line.
+
+## Queuing the Notification
 
 If you would like to queue the notification then you just need to inherit the `ShouldQueue` class and it will automatically send your notifications into the queue to be processed later. This is a great way to speed up your application:
 
