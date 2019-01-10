@@ -120,7 +120,7 @@ class UserResource(Resource, JSONSerializer):
     methods = ['create', 'index', 'show']
 
     def show(self, request: Request):
-        return self.model.find(request.id('id'))
+        return self.model.find(request.param('id'))
 ```
 
 This will not only return all the results where active is `1`. Keep in mind as well that these methods are resolved via the container so we can use dependency injection:
