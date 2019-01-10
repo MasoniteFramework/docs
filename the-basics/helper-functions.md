@@ -36,7 +36,11 @@ class HelpersProvider(ServiceProvider):
 
 Notice how we simply just add builtin functions via this provider.
 
-## Request
+## Built In Helpers
+
+The below list of helpers are "builtin" helpers meaning they are global in the same way that the `print` method is global. These helpers can be used without any imports.
+
+### Request
 
 The Request class has a simple `request()` helper function.
 
@@ -54,7 +58,7 @@ def show(self, request: Request):
 
 Notice we didn't import anything at the top of the file, nor did we inject anything from the Service Container.
 
-## View
+### View
 
 The `view()` function is just a shortcut to the `View` class.
 
@@ -70,7 +74,7 @@ def show(self, view: View):
     return view.render('template_name')
 ```
 
-## Mail
+### Mail
 
 Instead of resolving the mail class you can use the mail helper:
 
@@ -88,7 +92,7 @@ def show(self, mail: Mail):
     mail.to(..)
 ```
 
-## Auth
+### Auth
 
 The `auth()` function is a shortcut around getting the current user. We can retrieve the user like so:
 
@@ -114,7 +118,7 @@ def show(self):
 
 This is because you can't call the `.id` attribute on `None`
 
-## Container
+### Container
 
 We can get the container by using the `container()` function
 
@@ -130,7 +134,7 @@ def show(self, request: Request):
     request.app().make('User')
 ```
 
-## Env
+### Env
 
 We may need to get some environment variables inside our controller or other parts of our application. For this we can use the `env()` function.
 
@@ -148,7 +152,7 @@ def show(self):
     os.environ.get('S3_SECRET', 'default')
 ```
 
-## Resolve
+### Resolve
 
 We can resolve anything from the container by using this `resolve()` function.
 
@@ -172,7 +176,7 @@ def show(self, request: Request):
 
 That's it! These are simply just functions that are added to Python's builtin functions.
 
-## Die and Dump
+### Die and Dump
 
 Die and dump is a common way to debug objects in PHP and other programming languages. Laravel has the concept of dd\(\) which dies and dumps the object you need to inspect.
 
@@ -190,4 +194,55 @@ def show(self):
 If we then go to the browser and visit this URL as normal then we can now see the object fully inspected which will kill the script wherever it is in place and throw an exception but instead of showing the normal debugger it will use a custom exception handler and show the inspection of the object instead:
 
 ![](../.gitbook/assets/screen-shot-2018-10-31-at-4.56.30-pm.png)
+
+## Non Built In Helpers
+
+There are several helper methods that require you to import them in order to use them. These helpers are not global like the previous helpers. 
+
+### Config
+
+The config helper is used to get values in the config directory. For example in order to get the location in the `config/storage.py` file for example.
+
+This function can be used to retrieve values from any configuration file but we will use the `config/storage.py` file as an example.
+
+With a `config/storage.py` file like this:
+
+{% code-tabs %}
+{% code-tabs-item title="config/storage.py" %}
+```python
+DRIVERS = {
+    's3': {
+        'client': 'Hgd8s...'
+        'secret': 'J8shk...'
+        'location': {
+            'west': 'http://west.amazon.com/..'
+            'east': 'http://east.amazon.com/..'            
+        }
+    }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+We can get the value of the west key in the location inner dictionary like so:
+
+```python
+from masonite.helpers import config
+
+def show(self):
+    west = config('storage.drivers.s3.location.west')
+```
+
+Instead of importing the dictionary itself:
+
+```python
+from config import storage
+
+def show(self):
+    west = storage.DRIVERS['s3']['location']['west']
+```
+
+{% hint style="info" %}
+Note the use of the lowercase `storage.drivers.s3` instead of  `storage.DRIVERS.s3`. Either or would work because the config function is uppercase and lowercase insensitive.
+{% endhint %}
 

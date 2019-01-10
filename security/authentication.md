@@ -57,6 +57,33 @@ class User(Model):
 
 This will look inside the `email` column now and check that column and password. The authentication column is `email` by default.
 
+### Multiple Authentication Columns
+
+Sometimes you will want to authenticate using either the username or the email. You can set the columns to authenticate against as a list:
+
+```python
+class User(Model):
+
+    __fillable__ = ['name', 'email', 'password']
+
+    __auth__ = ['email', 'name']
+```
+
+This will now authenticate using the password supplied and EITHER the `username` OR the `email` if either one matches.
+
+### Changing The Authentication Password
+
+When given a password, Masonite will use the password column to authenticate. This can be changed by specifying a \_\_password\_\_ attribute:
+
+```python
+class User(Model):
+
+    __fillable__ = ['name', 'email', 'user_passwords']
+
+    __auth__ = 'email'
+    __password__ = 'user_passwords'
+```
+
 ## Creating an Authentication System
 
 You may of course feel free to roll your own authentication system if you so choose but Masonite comes with one out of the box but left out by default. In order to scaffold this authentication system you can of course use a `craft` command:
