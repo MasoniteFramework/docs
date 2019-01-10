@@ -86,13 +86,13 @@ That's it! This is useful as an IOC container which you can load a single class 
 
 You can also check if a key exists in the container by using the `has` method:
 
-```text
+```python
 app.has('Request')
 ```
 
 You can also check if a key exists in the container by using the `in` keyword.
 
-```text
+```python
 'Request' in app
 ```
 
