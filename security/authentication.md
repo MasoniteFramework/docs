@@ -73,7 +73,7 @@ This will now authenticate using the password supplied and EITHER the `username`
 
 ### Changing The Authentication Password
 
-When given a password, Masonite will use the password column to authenticate. This can be changed by specifying a \_\_password\_\_ attribute:
+When given a password, Masonite will use the `password` column to authenticate. This can be changed by specifying a `__password__` attribute:
 
 ```python
 class User(Model):
