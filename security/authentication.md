@@ -71,19 +71,6 @@ class User(Model):
 
 This will now authenticate using the password supplied and EITHER the `username` OR the `email` if either one matches.
 
-### Changing The Authentication Password
-
-When given a password, Masonite will use the `password` column to authenticate. This can be changed by specifying a `__password__` attribute:
-
-```python
-class User(Model):
-
-    __fillable__ = ['name', 'email', 'user_passwords']
-
-    __auth__ = 'email'
-    __password__ = 'user_passwords'
-```
-
 ## Creating an Authentication System
 
 You may of course feel free to roll your own authentication system if you so choose but Masonite comes with one out of the box but left out by default. In order to scaffold this authentication system you can of course use a `craft` command:
