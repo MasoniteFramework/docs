@@ -11,10 +11,6 @@ Often your application will require some kind of recurring task that should happ
 
 Or anything in between. There are lots of use cases for simple tasks to be ran during certain parts of the day or even "offline" hours when your employees are gone.
 
-{% hint style="warning" %}
-This is feature is not a full queue scheduler that can be used with services like Redis or RabbitMQ. This feature is for running simple tasks like the tasks listed above. For queue support, read the [Queues and Jobs](queues-and-jobs.md) documentation.
-{% endhint %}
-
 ## Getting Started
 
 First we will need to install the scheduler feature. We can simply pip install it:
