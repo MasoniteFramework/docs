@@ -101,7 +101,6 @@
 
 ## Official Packages
 
-* [Masonite Entry](https://masoniteframework.gitbooks.io/masonite-entry/content/)
 * [Masonite Billing](official-packages/masonite-billing.md)
 * [Masonite Dashboard](official-packages/masonite-dashboard.md)
 * [Masonite Notifications](official-packages/masonite-notifications.md)
