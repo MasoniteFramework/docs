@@ -430,7 +430,7 @@ self.validate({
 {"language": ["failed validation"]}
 ```
 
-### Nested Validations
+## Nested Validations
 
 You can nest validation dictionaries within each other in order to accommodate more complex data structures. 
 
