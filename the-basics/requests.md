@@ -458,7 +458,7 @@ There are 3 states which we should be aware of when using this method.
 Masonite will check for a `__back` input and redirect to that route. We can specify one using the `back()` view helper function:
 
 ```markup
-<form action="{{ route('dashboard.create')" method="POST">
+<form action="{{ route('dashboard.create') }}" method="POST">
     {{ csrf_field }}
     {{ back(request().path) }}
 </form>
