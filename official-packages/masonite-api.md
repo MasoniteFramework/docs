@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Masonite API is a package designed to make it dead simple to add externally facing API's with various types of authentication and permission scopes. There is a new concept called "API Resources" which you will use to build your specific endpoint. In this documentation we will walk through how to make a User Resource so we can walk through the various moving parts.
+[Masonite API](https://github.com/MasoniteFramework/api) is a package designed to make it dead simple to add externally facing API's with various types of authentication and permission scopes. There is a new concept called "API Resources" which you will use to build your specific endpoint. In this documentation we will walk through how to make a User Resource so we can walk through the various moving parts.
 
 ## Installation
 
