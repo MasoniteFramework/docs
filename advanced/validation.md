@@ -412,7 +412,7 @@ self.validate({
 
 ### Each
 
-This validator checks that if each value of given list are valid through the validations.
+This validator checks that each value in an iterator matches the value specified
 
 #### **Usage**
 
@@ -432,8 +432,7 @@ self.validate({
 
 ## Nested Validations
 
-You can nest validation dictionaries within each other in order to accommodate more complex data structures. 
-
+You can nest validation dictionaries within each other in order to accommodate more complex data structures.
 
 #### **Usage**
 
@@ -452,11 +451,15 @@ self.validate({
 })
 ```
 
-In the event of failure, you get an appropriately nested error message like those produced by the conditional validator. Here’s an example of what such an error might look like:
+In the event of failure, you'll get an appropriately nested error message like those produced by the conditional validator. Here’s an example of what the error may look like:
 
 #### **Error**
 
 ```python
 {"age": ["must be present"], "address": ["must be present", {"zip_code": ["must be present"], "state": ["must be present", {"name": ["must be present"]}]}]}
 ```
-This is very powerful, but you’ll need to take care that you don’t create conflicting validations or cyclic validations as they won’t be catched.
+
+{% hint style="info" %}
+This is very powerful but you’ll need to ensure that you don’t create conflicting or cyclic validations as they won’t be caught.
+{% endhint %}
+
