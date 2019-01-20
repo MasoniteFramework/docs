@@ -410,3 +410,53 @@ self.validate({
 {"age": ["must be at most 5 elements in length"]}
 ```
 
+### Each
+
+This validator checks that if each value of given list are valid through the validations.
+
+#### **Usage**
+
+```python
+from validator import Each, In
+
+self.validate({
+    'language': [Each([In("pt", "en", "de")])]
+})
+```
+
+#### **Error**
+
+```python
+{"language": ["failed validation"]}
+```
+
+### Nested Validations
+
+You can nest validation dictionaries within each other in order to accommodate more complex data structures. 
+
+
+#### **Usage**
+
+```python
+from validator import Required
+
+self.validate({
+    "age": [Required],
+    "address": [Required, {
+            "zip_code": [Required],
+            "state": [Required, {
+                "name": [Required]
+            }]
+        }
+    ]
+})
+```
+
+In the event of failure, you get an appropriately nested error message like those produced by the conditional validator. Here’s an example of what such an error might look like:
+
+#### **Error**
+
+```python
+{"age": ["must be present"], "address": ["must be present", {"zip_code": ["must be present"], "state": ["must be present", {"name": ["must be present"]}]}]}
+```
+This is very powerful, but you’ll need to take care that you don’t create conflicting validations or cyclic validations as they won’t be catched.
