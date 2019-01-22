@@ -87,7 +87,7 @@ In your views you can use the Hash ID template helper which was added when you a
 
 ### Controllers
 
-The usage of this is feature in a controller is designed to be transparent. When the middleware method runs it will check all the request inputs and try to decode them. It will insert the decoded values back into the request input and ignore anything it could not correctly decode.
+This feature is designed to be transparent. When the middleware method runs it will check all the request inputs and try to decode them. It will insert the decoded values back into the request input and ignore anything it could not correctly decode.
 
 You can get the inputs like normal:
 
