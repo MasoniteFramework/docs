@@ -264,7 +264,7 @@ ROUTES = [
 
 This will likely be the most common way to build routes for your application.
 
-## View Routes
+### View Routes
 
 You can also use View routes which is just a method on the normal route class:
 
@@ -276,6 +276,22 @@ ROUTES = [
 
 {% hint style="info" %}
 You can use this view method with any route class.
+{% endhint %}
+
+### Redirect Route
+
+You can also redirect right from the routes list using a `Redirect` route class:
+
+```python
+from masonite.routes import Redirect
+
+ROUTES = [
+    Redirect('/old/route', '/new/route', status=302, methods=['GET', 'POST'])
+]
+```
+
+{% hint style="info" %}
+You do not have to specify the last 2 parameters. The default is a `302` response on `GET` methods.
 {% endhint %}
 
 ### Match Routes
