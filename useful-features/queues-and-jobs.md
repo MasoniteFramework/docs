@@ -274,6 +274,8 @@ queue.push(SomeJob, AnotherJob(1,2), channel="high")
 
 Sometimes your jobs will fail. This could be for many reasons such as an exception but Masonite will try to run the job 3 times in a row, waiting 1 second between jobs before finally calling the job failed.
 
+If the object being passed into the queue is not a job (or a class that implements `Queueable`) then the job will not requeue. It will only ever attempt to run once.
+
 ### Handling Failed Jobs
 
 Each job can have a `failed` method which will be called when the job fails. You can do things like fix a parameter and requeue something, call other queues, send an email to your development team etc.
@@ -295,7 +297,9 @@ class SendWelcomeEmail(Queueable):
         self.mail.to('developer@company.com').send('The welcome email failed')
 ```
 
-It's important to note that only classes that extend from the `Queueable` class will handle being failed. All other queued objects will simply die.
+It's important to note that only classes that extend from the `Queueable` class will handle being failed. All other queued objects will simply die with no failed callback.
+
+
 
 Notice that the failed method MUST take 2 parameters. 
 
