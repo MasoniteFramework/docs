@@ -82,7 +82,7 @@ In order to check the input data we receive from a request, such as a form submi
 from app.validators.RegistrationValidator import RegistrationValidator
 
 def show(self, request: Request):
-    validate = RegistrationValidator(Request)
+    validate = RegistrationValidator(request)
     validate.register_form()
     validate.check() # returns True or False
     validate.errors() # returns a dictionary of errors if any
@@ -152,7 +152,7 @@ from app.validators import CountryValidation
 
 def show(self, request: Request):
     request.input('countries') # 'California,Florida,Ohio'
-    validation = CountryValidation(Request).validate_countries()
+    validation = CountryValidation(request).validate_countries()
 
     request.input('countries') # 'California,Florida,Ohio'
     validation.get('countries') # ['California', 'Florida', 'Ohio']
@@ -462,4 +462,3 @@ In the event of failure, you'll get an appropriately nested error message like t
 {% hint style="info" %}
 This is very powerful but you’ll need to ensure that you don’t create conflicting or cyclic validations as they won’t be caught.
 {% endhint %}
-
