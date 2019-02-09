@@ -12,6 +12,7 @@ We can make a class called `RegistrationValidator()`, inherit from `masonite.val
 
 {% code-tabs %}
 {% code-tabs-item title="app/validators/RegistrationValidator.py" %}
+
 ```python
 from masonite.validator import Validator
 
@@ -20,6 +21,7 @@ class RegistrationValidator(Validator):
     def register_form(self):
         pass
 ```
+
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
@@ -194,47 +196,29 @@ validate.errors() # {'username': 'must be present'}
 
 This method will return a dictionary of errors that will be different depending on the validation class used but this method will return `None` if there are no errors. Below each option will be what the value of `.errors()` will be as well as how you would use them inside Masonite.
 
-### Required
 
-By default, all keys registered for validation are optional. Any key that doesn't exist in the validation will skip any of the missing input data. For example, if a validation is not set for `password` then it will simply not check any validation on that specific request input. In this case, we can leave our `password` validation out entirely.
 
-Unlike other validator classes, this class does not need to be instantiated \(contain parenthesis at the end\). So `Required` is the correct usage and not `Required()`.
+### Each
+
+This validator checks that each value in an iterator matches the value specified
 
 #### **Usage**
 
 ```python
-from validator import Required
+from validator import Each, In
 
 self.validate({
-    'username': [Required]
+    'language': [Each([In("pt", "en", "de")])]
 })
 ```
 
 #### **Error**
 
 ```python
-{"username": ["must be present"]}
+{"language": ["failed validation"]}
 ```
 
-### Truthy
 
-The `Truthy()` validator class will check whatever is truthy to Python. This includes True, non-0 integers, non-empty lists, and strings
-
-#### **Usage**
-
-```python
-from validator import Truthy
-
-self.validate({
-    'username': [Truthy()]
-})
-```
-
-#### **Error**
-
-```python
-{"username": ["must be True-equivalent value"]}
-```
 
 ### Equals
 
@@ -260,49 +244,13 @@ self.validate({
 **Note that all request input data will be a string. so make sure you use** `Equals('1')` **and not** `Equals(1)`**. Just be sure to maintain the data type in your validation.**
 {% endhint %}
 
-### Range
-
-This validator checks that the dictionary value falls inclusively between the start and end values passed to it.
-
-```python
-from validator import Range
-
-self.validate({
-    'age': [Range(1, 100)]
-})
-```
-
-#### **Error**
-
-```python
-{"age": ["must fall between 1 and 100"]}
-```
-
-### Pattern
-
-The Pattern validator checks that the dictionary value matches the regex pattern that was passed to it.
-
-#### **Usage**
-
-```python
-from validator import Pattern
-
-self.validate({
-    'age': [Pattern('\d+')]
-})
-```
-
-#### **Error**
-
-```python
-{"age": ["must match regex pattern \d+"]}
-```
+### 
 
 ### In
 
 This validator checks that the dictionary value is a member of a collection passed to it.
 
-**Usage**
+#### **Usage**
 
 ```python
 from validator import In
@@ -328,6 +276,52 @@ self.validate({
 {"age": ["must be one of <collection here>"]}
 ```
 
+
+
+### InstanceOf
+
+This validator checks that the dictionary value is an instance of the base class passed to it, or an instance of one of its subclasses.
+
+#### **Usage**
+
+```python
+from validator import InstanceOf
+
+self.validate({
+    'age': [InstanceOf(basestring)]
+})
+```
+
+#### **Error**
+
+```python
+{"age": ["must be an instance of basestring or its subclasses"]}
+```
+
+
+
+### Length
+
+This validator checks that the value must have at least minimum elements and optionally at most maximum elements.
+
+#### **Usage**
+
+```python
+from validator import Length
+
+self.validate({
+    'age': [Length(0, maximum=5)]
+})
+```
+
+#### **Error**
+
+```python
+{"age": ["must be at most 5 elements in length"]}
+```
+
+
+
 ### Not
 
 This validator negates a validator that is passed to it and checks the dictionary value against that negated validator.
@@ -350,25 +344,75 @@ self.validate({
 {"age": ["must be one of <collection here>"]}
 ```
 
-### InstanceOf
+### 
 
-This validator checks that the dictionary value is an instance of the base class passed to it, or an instance of one of its subclasses.
+### Pattern
+
+The Pattern validator checks that the dictionary value matches the regex pattern that was passed to it.
 
 #### **Usage**
 
 ```python
-from validator import InstanceOf
+from validator import Pattern
 
 self.validate({
-    'age': [InstanceOf(basestring)]
+    'age': [Pattern('\d+')]
 })
 ```
 
 #### **Error**
 
 ```python
-{"age": ["must be an instance of basestring or its subclasses"]}
+{"age": ["must match regex pattern \d+"]}
 ```
+
+### 
+
+### Range
+
+This validator checks that the dictionary value falls inclusively between the start and end values passed to it.
+
+#### Usage
+
+```python
+from validator import Range
+
+self.validate({
+    'age': [Range(1, 100)]
+})
+```
+
+#### **Error**
+
+```python
+{"age": ["must fall between 1 and 100"]}
+```
+
+
+
+### Required
+
+By default, all keys registered for validation are optional. Any key that doesn't exist in the validation will skip any of the missing input data. For example, if a validation is not set for `password` then it will simply not check any validation on that specific request input. In this case, we can leave our `password` validation out entirely.
+
+Unlike other validator classes, this class does not need to be instantiated \(contain parenthesis at the end\). So `Required` is the correct usage and not `Required()`.
+
+#### **Usage**
+
+```python
+from validator import Required
+
+self.validate({
+    'username': [Required]
+})
+```
+
+#### **Error**
+
+```python
+{"username": ["must be present"]}
+```
+
+
 
 ### SubclassOf
 
@@ -390,45 +434,29 @@ self.validate({
 {"age": ["must be a subclass of str"]}
 ```
 
-### Length
 
-This validator checks that the value must have at least minimum elements and optionally at most maximum elements.
+
+### Truthy
+
+The `Truthy()` validator class will check whatever is truthy to Python. This includes True, non-0 integers, non-empty lists, and strings
 
 #### **Usage**
 
 ```python
-from validator import Length
+from validator import Truthy
 
 self.validate({
-    'age': [Length(0, maximum=5)]
+    'username': [Truthy()]
 })
 ```
 
 #### **Error**
 
 ```python
-{"age": ["must be at most 5 elements in length"]}
+{"username": ["must be True-equivalent value"]}
 ```
 
-### Each
 
-This validator checks that each value in an iterator matches the value specified
-
-#### **Usage**
-
-```python
-from validator import Each, In
-
-self.validate({
-    'language': [Each([In("pt", "en", "de")])]
-})
-```
-
-#### **Error**
-
-```python
-{"language": ["failed validation"]}
-```
 
 ## Nested Validations
 
