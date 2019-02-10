@@ -405,7 +405,7 @@ $ craft serve -r
 ```
 
 {% hint style="info" %}
-If you are connected to a server and have unmigrated migrations, Masonite will give you a message and recommend running `craft migrate`.
+If you have unmigrated migrations, Masonite will recommend running `craft migrate` when running the server.
 {% endhint %}
 
 ### Host and Port
