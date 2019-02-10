@@ -344,6 +344,8 @@ def show(self):
     request().route('dashboard') # /dashboard
 ```
 
+### Route Parsing
+
 if we have route parameters like this:
 
 ```python
@@ -355,6 +357,27 @@ then we can pass in a dictionary:
 ```python
 def show(self):
     request().route('dashboard.user', {'user': 1}) # /dashboard/1
+```
+
+You may also pass a list if that makes more sense to you:
+
+```python
+def show(self):
+    request().route('dashboard.user', [1]) # /dashboard/1
+```
+
+This will inject that value for each parameter in order. For example if we have this route:
+
+```python
+get('/dashboard/@user/@id/@slug').name('dashboard.user')
+```
+
+then we can use:
+
+```python
+def show(self):
+    request().route('dashboard.user', [1, 2, 'some-slug']) 
+    # /dashboard/1/2/some-slug
 ```
 
 ## Current URL

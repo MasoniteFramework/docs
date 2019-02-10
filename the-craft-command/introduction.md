@@ -404,6 +404,10 @@ or the shorthand
 $ craft serve -r
 ```
 
+{% hint style="info" %}
+If you are connected to a server and have unmigrated migrations, Masonite will give you a message and recommend running `craft migrate`.
+{% endhint %}
+
 ### Host and Port
 
 You can bind to a host using `-b` and/or a port using `-p`

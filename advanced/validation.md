@@ -12,7 +12,6 @@ We can make a class called `RegistrationValidator()`, inherit from `masonite.val
 
 {% code-tabs %}
 {% code-tabs-item title="app/validators/RegistrationValidator.py" %}
-
 ```python
 from masonite.validator import Validator
 
@@ -21,7 +20,6 @@ class RegistrationValidator(Validator):
     def register_form(self):
         pass
 ```
-
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
@@ -196,8 +194,6 @@ validate.errors() # {'username': 'must be present'}
 
 This method will return a dictionary of errors that will be different depending on the validation class used but this method will return `None` if there are no errors. Below each option will be what the value of `.errors()` will be as well as how you would use them inside Masonite.
 
-
-
 ### Each
 
 This validator checks that each value in an iterator matches the value specified
@@ -217,8 +213,6 @@ self.validate({
 ```python
 {"language": ["failed validation"]}
 ```
-
-
 
 ### Equals
 
@@ -243,8 +237,6 @@ self.validate({
 {% hint style="warning" %}
 **Note that all request input data will be a string. so make sure you use** `Equals('1')` **and not** `Equals(1)`**. Just be sure to maintain the data type in your validation.**
 {% endhint %}
-
-### 
 
 ### In
 
@@ -276,8 +268,6 @@ self.validate({
 {"age": ["must be one of <collection here>"]}
 ```
 
-
-
 ### InstanceOf
 
 This validator checks that the dictionary value is an instance of the base class passed to it, or an instance of one of its subclasses.
@@ -298,8 +288,6 @@ self.validate({
 {"age": ["must be an instance of basestring or its subclasses"]}
 ```
 
-
-
 ### Length
 
 This validator checks that the value must have at least minimum elements and optionally at most maximum elements.
@@ -319,8 +307,6 @@ self.validate({
 ```python
 {"age": ["must be at most 5 elements in length"]}
 ```
-
-
 
 ### Not
 
@@ -344,8 +330,6 @@ self.validate({
 {"age": ["must be one of <collection here>"]}
 ```
 
-### 
-
 ### Pattern
 
 The Pattern validator checks that the dictionary value matches the regex pattern that was passed to it.
@@ -366,8 +350,6 @@ self.validate({
 {"age": ["must match regex pattern \d+"]}
 ```
 
-### 
-
 ### Range
 
 This validator checks that the dictionary value falls inclusively between the start and end values passed to it.
@@ -387,8 +369,6 @@ self.validate({
 ```python
 {"age": ["must fall between 1 and 100"]}
 ```
-
-
 
 ### Required
 
@@ -412,8 +392,6 @@ self.validate({
 {"username": ["must be present"]}
 ```
 
-
-
 ### SubclassOf
 
 This validator checks that the dictionary value inherits from the base class passed to it. To be clear, this means that the dictionary value is expected to be a class, not an instance of a class.
@@ -434,8 +412,6 @@ self.validate({
 {"age": ["must be a subclass of str"]}
 ```
 
-
-
 ### Truthy
 
 The `Truthy()` validator class will check whatever is truthy to Python. This includes True, non-0 integers, non-empty lists, and strings
@@ -455,8 +431,6 @@ self.validate({
 ```python
 {"username": ["must be True-equivalent value"]}
 ```
-
-
 
 ## Nested Validations
 
@@ -490,3 +464,4 @@ In the event of failure, you'll get an appropriately nested error message like t
 {% hint style="info" %}
 This is very powerful but you’ll need to ensure that you don’t create conflicting or cyclic validations as they won’t be caught.
 {% endhint %}
+
