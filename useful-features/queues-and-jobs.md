@@ -49,6 +49,8 @@ def show(self, queue: Queue):
     queue.push(SendWelcomeEmail)
 ```
 
+That's it. This job will now send to the queue and run the `handle` method.
+
 ### Resolving
 
 Notice in the show method above that we passed in just the class object. We did not instantiate the class. In this instance, Masonite will resolve the controller constructor. All job constructors are able to be resolved by the container so we can simply pass anything we need as normal:
@@ -72,7 +74,7 @@ Remember that anything that is resolved by the container is able to retrieve any
 
 ### Instantiating
 
-We can also instantiate as the job as well if we need to pass in data from a controller method. This will not resolve the job's constructor at all:
+We can also instantiate the job as well if we need to pass in data from a controller method. This will not resolve the job's constructor at all:
 
 ```python
 from app.jobs.SendWelcomeEmail import SendWelcomeEmail
@@ -242,6 +244,12 @@ $ craft queue:work
 
 This will startup the worker and start listening for jobs to come in via your Masonite project.
 
+You can also specify the driver you want to create the worker for by using the `-d` or `--driver` option
+
+```bash
+$ craft queue:work -d amqp
+```
+
 ### Sending Jobs
 
 That's it! send jobs like you normally would and it will process via RabbitMQ:
@@ -254,4 +262,90 @@ def show(self, queue: Queue):
     # do your normal logic
     queue.push(SomeJob, AnotherJob(1,2))
 ```
+
+you can also specify the channel to push to by running:
+
+```python
+queue.push(SomeJob, AnotherJob(1,2), channel="high")
+```
+
+
+## Failed Jobs
+
+Sometimes your jobs will fail. This could be for many reasons such as an exception but Masonite will try to run the job 3 times in a row, waiting 1 second between jobs before finally calling the job failed.
+
+If the object being passed into the queue is not a job (or a class that implements `Queueable`) then the job will not requeue. It will only ever attempt to run once.
+
+### Handling Failed Jobs
+
+Each job can have a `failed` method which will be called when the job fails. You can do things like fix a parameter and requeue something, call other queues, send an email to your development team etc.
+
+This will look something like:
+
+```python
+from masonite.queues import Queueable
+from masonite.request import Request
+from masonite import Mail
+
+class SendWelcomeEmail(Queueable):
+
+    def __init__(self, request: Request, mail: Mail):
+        self.request = request
+        self.mail = mail
+
+    def failed(self, payload, error):
+        self.mail.to('developer@company.com').send('The welcome email failed')
+```
+
+It's important to note that only classes that extend from the `Queueable` class will handle being failed. All other queued objects will simply die with no failed callback.
+
+
+
+Notice that the failed method MUST take 2 parameters. 
+
+The first parameter is the payload which tried running which is a dictionary of information that looks like this:
+
+```python
+payload == {
+    'obj': <class app.jobs.SomeJob>,
+    'args': ('some_variables',), 
+    'callback': 'handle', 
+    'created': '2019-02-08T18:49:59.588474-05:00', 
+    'ran': 3
+}
+```
+
+and the error may be something like `division by zero`.
+
+### Storing Failed Jobs
+
+By default, when a job is failed it disappears and cannot be ran again since Masonite does not store this information.
+
+If you wish to store failed jobs in order to run them again at a later date then you will need to create a queue table. Masonite makes this very easy.
+
+First you will need to run:
+
+```
+$ craft queue:table
+```
+
+Which will create a new migration inside `databases/migrations`. Then you can will migrate it:
+
+```
+$ craft migrate
+```
+
+Now whenever a failed job occurs it will store the information inside this new table.
+
+### Running Failed Jobs
+
+You can run all the failed jobs by running
+
+```
+$ craft queue:work --failed
+```
+
+This will get all the jobs from the database and send them back into the queue. If they fail again then they will be added back into this database table.
+
+
 
