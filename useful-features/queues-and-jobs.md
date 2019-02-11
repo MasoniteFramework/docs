@@ -6,6 +6,12 @@
 
 Almost all applications can make use of queues. Queues are a great way to make time intensive tasks seem immediate by sending the task into the background or into a message queue. It's great to send anything and everything into the queue that doesn't require an immediate return value \(such as sending an email or firing an API call\). The queue system is loaded into masonite via the `QueueProvider` Service Provider.
 
+{% hint style="info" %}
+Masonite uses pickle to serialize and deserialize Python objects when appropriate. Ensure that the objects you are serializing is free of any end user supplied code that could potentially serialize into a Python object during the deserialization portion. 
+
+It would be wise to read about [pickle exploitations](https://blog.nelhage.com/2011/03/exploiting-pickle/) and ensure your specific application is protected against any avenues of attack.
+{% endhint %}
+
 ### Getting Started
 
 All configuration settings by default are in the `config/queue.py` file. Out of the box, Masonite supports 2 drivers:
