@@ -236,6 +236,38 @@ $ craft schedule:run
 
 We should now see "Hi!" output to the terminal window.
 
+### Running a Specific Task
+
+You may also run a specific task by running the schedule:run command with a --task flag. The flag value is the container binding \(usually the task class name\):
+
+```text
+ craft schedule:run --task SayHi
+```
+
+Or you can give your task a name explicitly:
+
+```python
+from scheduler.Task import Task
+
+
+class SayHi(Task):
+
+    run_every = '1 minute'
+    name = 'hey'
+
+    def __init__(self):
+        pass
+
+    def handle(self):
+        print('Hi!')
+```
+
+and then run the command by name
+
+```text
+ craft schedule:run --task hey
+```
+
 ## Cron Jobs
 
 {% hint style="warning" %}
