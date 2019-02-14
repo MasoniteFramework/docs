@@ -33,6 +33,7 @@ PROVIDERS = [
     ScheduleProvider,
 ]
 ```
+{% endcode-tabs-item %} {% endcode-tabs %}
 
 This provider will add several new features to Masonite. The first is that it will add two new commands.
 
