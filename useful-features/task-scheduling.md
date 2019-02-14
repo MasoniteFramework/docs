@@ -21,6 +21,8 @@ $ pip install masonite-scheduler
 
 and then add the [Service Provider](../architectural-concepts/service-providers.md) to our `PROVIDERS` list:
 
+
+{% code-tabs %} {% code-tabs-item title="config/providers.py" %}
 ```python
 from scheduler.providers import ScheduleProvider
 
