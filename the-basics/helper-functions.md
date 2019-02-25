@@ -1,7 +1,8 @@
 # Helper Functions
 
-## Notice
-Helper Fanctions was removed by default in 2.1.
+{% hint style="warning" %}
+Built in global helper functions were removed by default in v2.1 though they are not deprecated and you can use them as you wish.
+{% endhint %}
 
 ## Introduction
 
