@@ -1,5 +1,8 @@
 # Helper Functions
 
+## Notice
+Helper Fanctions was removed by default in 2.1.
+
 ## Introduction
 
 Masonite works on getting rid of all those mundane tasks that developers either dread writing or dread writing over and over again. Because of this, Masonite has several helper functions that allows you to quickly write the code you want to write without worrying about imports or retrieving things from the Service Container. Many things inside the Service Container are simply retrieved using several functions that Masonite sets as builtin functions which we call "Built in Helper Functions" which you may see them referred to as.
