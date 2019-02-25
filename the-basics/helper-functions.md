@@ -250,3 +250,25 @@ def show(self):
 Note the use of the lowercase `storage.drivers.s3` instead of  `storage.DRIVERS.s3`. Either or would work because the config function is uppercase and lowercase insensitive.
 {% endhint %}
 
+## Optional
+
+This helper that allows you to wrap any object in this helper and call attributes or methods on it even if they don't exist. If they exist then it will return the method, if it doesn't exist it will return `None`.
+
+Take this example where we would normally write:
+
+```python
+def show(self):
+    user = User.find(1)
+    if user and user.id == 5:
+        # do code
+        ...
+```
+
+We can now use this code snippet instead:
+
+```python
+def show(self):
+    if optional(User.find(1)).id == 5:
+        # do code
+        ...
+```
