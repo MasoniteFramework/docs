@@ -113,6 +113,18 @@ def show(self, request: Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+#### Input Cleaning
+
+Input data will be cleaned of HTML tags and other security measures. This may cause unwanted return values if you are expecting something like a JSON string. If you want to opt to not clean the input you can specify that as a keyword argument:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+request.input('firstname', clean=False) # Joe
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 To check if some request input data exists:
 
 {% code-tabs %}
@@ -122,6 +134,28 @@ To check if some request input data exists:
 
 def show(self, request: Request):
     return request.has('firstname') # True
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+#### Getting Dictionary Input
+
+If your input is a dictionary you have two choices how you want to access the dictionary. You can either access it normally:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+request.input('payload')['user']['address'] # 123 Smith Rd
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Or you can use dot notation to fetch the value for simplicity:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+request.input('payload.user.address') # 123 Smith Rd
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

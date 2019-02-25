@@ -21,8 +21,6 @@ $ pip install masonite-scheduler
 
 and then add the [Service Provider](../architectural-concepts/service-providers.md) to our `PROVIDERS` list:
 
-
-{% code-tabs %} {% code-tabs-item title="config/providers.py" %}
 ```python
 from scheduler.providers import ScheduleProvider
 
@@ -33,7 +31,6 @@ PROVIDERS = [
     ScheduleProvider,
 ]
 ```
-{% endcode-tabs-item %} {% endcode-tabs %}
 
 This provider will add several new features to Masonite. The first is that it will add two new commands.
 

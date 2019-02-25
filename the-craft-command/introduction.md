@@ -316,6 +316,22 @@ $ craft model Models/ModelName
 
 This will create a model in `app/Models/ModelName.py.`
 
+### Model Shortcuts
+
+You can also use the -s and -m flags to create a seed or model at the same time.
+
+```text
+$ craft model ModelName -s -m
+```
+
+This is a shortcut for these 3 commands:
+
+```text
+$ craft model ModelName
+$ craft seed ModelName
+$ craft migration create_tablename_table --create tablename
+```
+
 ### Creating a Service Provider
 
 Service Providers are a really powerful feature of Masonite. If you'd like to create your own service provider, just run:
