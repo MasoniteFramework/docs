@@ -90,7 +90,7 @@ Now we are working with the routes in our specific project.
 
 ### Routes
 
-We have a few options for testing our routes. We will use a single route here so we can e "missing some more words?"
+We have a few options for testing our routes.
 
 #### Testing If a Route Exists:
 
