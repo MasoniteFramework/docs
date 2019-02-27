@@ -167,8 +167,8 @@ from app.providers.HelloProvider import HelloProvider
 PROVIDERS = [
 ...
     # Application Providers
-    'app.providers.UserModelProvider.UserModelProvider',
-    'app.providers.MiddlewareProvider.MiddlewareProvider',
+    UserModelProvider,
+    MiddlewareProvider,
 
     # New Hello Provider
     HelloProvider,
