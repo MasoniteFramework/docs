@@ -28,12 +28,15 @@ This should be done in a separate folder outside of your project.
 
 Let's create our package:
 
+{% code-tabs %} {% code-tabs-item title="terminal" %}
 ```text
 $ craft package testpackage
 ```
+{% endcode-tabs-item %} {% endcode-tabs %}
 
 This will create a file structure like:
 
+{% code-tabs %} {% code-tabs-item title="terminal" %}
 ```text
 testpackage/
     __init__.py
@@ -41,6 +44,7 @@ testpackage/
 MANIFEST.in
 setup.py
 ```
+{% endcode-tabs-item %} {% endcode-tabs %}
 
 ### **Creating a Config Package**
 
@@ -48,6 +52,7 @@ Lets create a simple package that will add or append a config file from our pack
 
 First lets create a config file inside `testpackage/snippets/configs/services.py`. We should now have a project structure like:
 
+{% code-tabs %} {% code-tabs-item title="terminal" %}
 ```text
 testpackage/
     __init__.py
@@ -58,9 +63,11 @@ testpackage/
 MANIFEST.in
 setup.py
 ```
+{% endcode-tabs-item %} {% endcode-tabs %}
 
 Great! Inside the `services.py` lets put a configuration setting. This configuration file will be directly added into a Masonite project so you can put doctrings or flagpole comments directly in here:
 
+{% code-tabs %} {% code-tabs-item title="testpackage/snippets/snippets/services.py" %}
 ```text
 TESTPACKAGE_PAYMENTS = {
     'stripe': {
@@ -69,12 +76,16 @@ TESTPACKAGE_PAYMENTS = {
     }
 }
 ```
+{% endcode-tabs-item %} {% endcode-tabs %}
 
 Perfect! Now we'll just need to tell PyPi to include this file when we upload it to PyPi. We can do this in our `MANIFEST.in` file.
 
+
+{% code-tabs %} {% code-tabs-item title="MANIFEST.in" %}
 ```text
 include testpackage/snippets/configs/*
 ```
+{% endcode-tabs-item %} {% endcode-tabs %}
 
 ### **Creating an Install Command**
 
@@ -87,6 +98,7 @@ Head over to that documentation page and create an `InstallCommand` and an `Inst
 Masonite packages allow you to add new migrations to a project. For example, this could be used to add a new `package_subscriptions` table if you are building a package that works for subscribing users to Stripe.
 
 Inside the Service Provider you plan to use for your package we can register our directory:
+
 
 ```python
 from masonite.provider import ServiceProvider
@@ -102,6 +114,7 @@ class ApiProvider(ServiceProvider):
         )
 ```
 
+
 Masonite will find any keys in the container that end with `MigrationDirectory` and will add it to the list of migrations being ran whenever `craft migrate` and `craft migrate:*` commands are ran.
 
 The `package_directory` variable contains the absolute path to the current file so the migration directory being added should also be an absolute path to the migration directory as demonstrated here. Notice the `../migrations` syntax. This is going back one directory and into a migration directory there.
@@ -110,6 +123,7 @@ The `package_directory` variable contains the absolute path to the current file 
 
 Almost done. Now we just need to put our `masonite.package` helper functions in our install command. The location we put in our `create_or_append_config()` function should be an absolute path location to our package. To help with this, Masonite has put a variable called `package_directory` inside the `integration.py` file. Our handle method inside our install command should look something like:
 
+{% code-tabs %} {% code-tabs-item title="testpackage/integration.py" %}
 ```python
 import os
 from cleo import Command
@@ -133,6 +147,7 @@ class InstallCommand(Command):
             )
         )
 ```
+{% endcode-tabs-item %} {% endcode-tabs %}
 
 {% hint style="warning" %}
 **Make sure this command is added to your Service Provider and the developer using your package adds it to the** `PROVIDERS` **list as per the** [**Creating Commands**](../the-craft-command/creating-commands.md) **documentation.**
