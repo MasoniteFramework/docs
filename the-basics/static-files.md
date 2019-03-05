@@ -22,7 +22,6 @@ STATICFILES = {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-
 Now in our templates we can use:
 
 ```markup
@@ -50,7 +49,6 @@ Take this for example:
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
 
 ```markup
 ...
@@ -81,7 +79,6 @@ You can also make the config location a dictionary and use dot notation:
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
 
 and use the dot notation like so:
 

@@ -203,7 +203,7 @@ def show(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-or 
+or
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/DashboardController.py" %}
@@ -215,3 +215,4 @@ def show(self):
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+

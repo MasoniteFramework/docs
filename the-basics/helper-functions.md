@@ -201,7 +201,7 @@ If we then go to the browser and visit this URL as normal then we can now see th
 
 ## Non Built In Helpers
 
-There are several helper methods that require you to import them in order to use them. These helpers are not global like the previous helpers. 
+There are several helper methods that require you to import them in order to use them. These helpers are not global like the previous helpers.
 
 ### Config
 
@@ -247,7 +247,7 @@ def show(self):
 ```
 
 {% hint style="info" %}
-Note the use of the lowercase `storage.drivers.s3` instead of  `storage.DRIVERS.s3`. Either or would work because the config function is uppercase and lowercase insensitive.
+Note the use of the lowercase `storage.drivers.s3` instead of `storage.DRIVERS.s3`. Either or would work because the config function is uppercase and lowercase insensitive.
 {% endhint %}
 
 ## Optional
@@ -272,3 +272,4 @@ def show(self):
         # do code
         ...
 ```
+
