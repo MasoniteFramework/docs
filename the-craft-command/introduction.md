@@ -182,6 +182,12 @@ class User(Model):
     pass
 ```
 
+You can also specify the connection to use using the `--connection` option.
+
+```bash
+$ craft model:docstring table_name --connection amazon_db
+```
+
 ### Creating Controllers
 
 If you wish to scaffold a controller, just run:
