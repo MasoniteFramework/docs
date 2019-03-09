@@ -10,6 +10,17 @@ You can run tests by running:
 $ python -m pytest
 ```
 
+## Folder Structure 
+
+tests
+├── feature  <-- Add tests to your single fetures, function
+│   └── test_feature_works.py
+├── framework
+│   ├── test_file_locations.py
+│   └── test_imports.py
+└── unit  <-- Add tests to your unit test.
+    └── test_works.py
+
 ## Configuration
 
 First, create a new test class in a testing directory. We will use the directory `tests/unit` for the purposes of this documentation. In that file we will create a `test_unit.py` file and put a simple class in it like so:
