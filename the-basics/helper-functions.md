@@ -250,7 +250,7 @@ def show(self):
 Note the use of the lowercase `storage.drivers.s3` instead of `storage.DRIVERS.s3`. Either or would work because the config function is uppercase and lowercase insensitive.
 {% endhint %}
 
-## Optional
+### Optional
 
 This helper that allows you to wrap any object in this helper and call attributes or methods on it even if they don't exist. If they exist then it will return the method, if it doesn't exist it will return `None`.
 
@@ -272,4 +272,60 @@ def show(self):
         # do code
         ...
 ```
+
+### Compact
+
+Compact is a really nice helper that allows you to stop making those really repetitive dictionary statements in your controller methods
+
+take this for example:
+
+```python
+def show(self, view: View):
+    posts = Post.all()
+    users = User.all()
+    articles = Articles.all()
+    return view.render('some.template', {'posts': posts, 'users': users, 'articles': articles})
+```
+
+Notice how our Python variables are exactly the same as what we want our variables to be in  our template. 
+
+With the compact function, now you can do:
+
+```python
+from masonite.helpers import compact
+
+def show(self, view: View):
+    posts = Post.all()
+    users = User.all()
+    articles = Articles.all()
+    return view.render('some.template', compact(posts, users, articles))
+```
+
+You can also pass in a dictionary which will update accordingly:
+
+```python
+from masonite.helpers import compact
+
+def show(self, view: View):
+    posts = Post.all()
+    users = User.all()
+    user_blogs = Blog.where('user_id', 1).get()
+    return view.render('some.template', compact(posts, users, {'blogs': user_blogs}))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 

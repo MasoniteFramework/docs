@@ -10,13 +10,11 @@ With Masonite 2, we can use the builtin autoloader in order to load classes into
 
 The configuration variable for autoloading is inside the `config/application.py` file which contains a list of directories:
 
-{% code-tabs %} {% code-tabs-item title="config/application.py" %}
 ```python
 AUTOLOAD = [
     'app',
 ]
 ```
-{% endcode-tabs-item %} {% endcode-tabs %}
 
 Out of the box, Masonite will autoload all classes that are located in the `app` directory which unsurprisingly contains all of the application models.
 
@@ -26,22 +24,13 @@ Masonite will go through each directory listed and convert it to a module. For e
 
 If your code looks something like:
 
-{% code-tabs %} {% code-tabs-item title="app/models/User.py" %}
 ```python
-"""User Model."""
-
+from orator.orm import belongs_to
 from config.database import Model
 
-
 class User(Model):
-    """User Model."""
-
-    __fillable__ = ['name', 'email', 'password']
-
-    __auth__ = 'email
-    
+    pass
 ```
-{% endcode-tabs-item %} {% endcode-tabs %}
 
 Then the autoloader will fetch three classes: the `belongs_to` class, the `Model` class and the `User` class. The autoloader will then check if the module of the classes fetched are actually apart of the module being autoloaded.
 
@@ -60,11 +49,8 @@ All bindings into the Service Container will be the name of the object as the ke
 ```python
 from app.User import User
 
-
-class YourController:
-    def show(self, user: User):
-        user.find(1)
-        ...
+def show(self, user: User):
+    user.find(1)
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -105,14 +91,10 @@ from app.User import User
 from app.Blog import Blog
 from app.Author import Author
 
-
-class YourController:
-
-    def show(self, user: User, blog: Blog, author: Author):
-        user.find(1)
-        blog.find(1)
-        author.find(1)
-        ...
+def show(self, user: User, blog: Blog, author: Author):
+    user.find(1)
+    blog.find(1)
+    author.find(1)
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -129,16 +111,12 @@ The autoload class will raise a few exceptions so you should be aware of them in
 
 This exception will be thrown if any of your autoload paths end with a forward slash like the first element in this list:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
-```text
+```python
 AUTOLOAD = [
     'app/',
     'app/models'
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
 Notice the path is now app/ and not app. This will throw an exception when the server first starts.
 
@@ -148,8 +126,6 @@ This exception will be thrown when one of your classes are about to overwrite a 
 
 For example, you may have a model called `Request` like so:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
 ```text
 app/
   http/
@@ -159,9 +135,6 @@ app/
 bootstrap/
 ...
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
 
 Without this exception, your application will overwrite the binding of the Masonite `Request` class.
 
@@ -177,20 +150,12 @@ Although it is useful to get the model by the actual container key name, it migh
 
 The recommended approach is to simply fetch the class itself by using annotations so you can adjust the variable name and ensure consistency throughout your application.
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
 from app.User import User
 
-
-class YourController:
-
-    def show(self, author: User):
-        author.find(1)
-        ...
+def show(self, author: User):
+    author.find(1)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
 {% hint style="info" %}
 If this seems like a strange syntax to you, be sure to read the [Resolve](../architectural-concepts/service-container.md#resolve) section of the [Service Container](../architectural-concepts/service-container.md) documentation.
@@ -206,8 +171,6 @@ This might in useful in the Masonite scheduling feature to grab all the classes 
 
 Autoloading class instances could look something like:
 
-{% code-tabs %}
-{% code-tabs-item title="python" %}
 ```python
 from masonite.autoload import Autoload
 from orator.orm import Model
@@ -215,8 +178,6 @@ from orator.orm import Model
 classes = Autoload().instances(['app/models'], Model)
 # returns {'Model': <config.database.Model>, 'User': <class app.models.User.User>, ...}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
 This will fetch all the classes in the `app/models` directory that are instances of the `Model` class. The `classes` attribute contains a dictionary of all the classes it found.
 
@@ -224,8 +185,6 @@ This will fetch all the classes in the `app/models` directory that are instances
 
 If you don't want to get classes that are instances of another class then we can simply collect classes:
 
-{% code-tabs %}
-{% code-tabs-item title="python" %}
 ```python
 from masonite.autoload import Autoload
 from orator.orm import Model
@@ -233,8 +192,6 @@ from orator.orm import Model
 classes = Autoload().collect(['app/models'])
 # returns {'Model': <config.database.Model>, 'User': <class app.models.User.User>, ...}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
 ### Getting Only Application Classes
 
@@ -246,8 +203,6 @@ The default autoload in the config file only loads application specific classes.
 
 We can only get application specific classes by passing a parameter in:
 
-{% code-tabs %}
-{% code-tabs-item title="python" %}
 ```python
 from masonite.autoload import Autoload
 from orator.orm import Model
@@ -255,8 +210,6 @@ from orator.orm import Model
 classes = Autoload().collect(['app/models'], only_app=True)
 # returns {'User': <class app.models.User.User>, ...}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
 This will check the namespace on the class found and make sure it is apart of the path that is being searched.
 
@@ -270,8 +223,6 @@ We can tell the autoloader to instantiate the class by passing another parameter
 If your class needs parameters then you should collect the classes and instantiate each one individually.
 {% endhint %}
 
-{% code-tabs %}
-{% code-tabs-item title="python" %}
 ```python
 from masonite.autoload import Autoload
 from orator.orm import Model
@@ -279,8 +230,6 @@ from orator.orm import Model
 classes = Autoload().collect(['app/models'], only_app=True, instantiate=True)
 # returns {'User': <app.models.User.User at 0x10e36d780>, ...}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
 You can see that now all the objects found are instantiated.
 
