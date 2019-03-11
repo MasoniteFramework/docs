@@ -120,6 +120,18 @@ This should show a list of command options. If it doesn't then try closing your 
 {% code-tabs-item title="terminal" %}
 ```text
 $ craft new project_name
+
+#Crafting Application ...
+
+#Application Created Successfully!
+
+#Now just cd into your project and run
+
+#    $ craft install
+
+#to install the project dependencies.
+
+#Create Something Amazing!
 $ cd project_name
 ```
 {% endcode-tabs-item %}
@@ -168,6 +180,83 @@ $ craft install
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+After install you are ready to create Something Amazing!
+Masonite folder structure is like this.
+
+
+.
+├── LICENSE
+├── README.md
+├── app
+│  ├── User.py
+│  ├── http
+│  │   ├── controllers  [controllers](https://docs.masoniteproject.com/the-basics/controllers)
+│  │   │   └── WelcomeController.py
+│  │   └── middleware  [middleware](https://docs.masoniteproject.com/advanced/middleware)
+│  │       ├── AuthenticationMiddleware.py
+│  │       ├── CsrfMiddleware.py
+│  │       ├── LoadUserMiddleware.py
+│  │       └── VerifyEmailMiddleware.py
+│  └── providers  [service-providers](https://docs.masoniteproject.com/architectural-concepts/service-providers)
+├── bootstrap
+│  ├── cache  [caching](https://docs.masoniteproject.com/useful-features/caching)
+│  └── start.py
+├── config
+│  ├── __init__.py
+│  ├── application.py
+│  ├── auth.py
+│  ├── broadcast.py
+│  ├── cache.py
+│  ├── database.py
+│  ├── mail.py
+│  ├── middleware.py
+│  ├── packages.py
+│  ├── providers.py
+│  ├── queue.py
+│  ├── session.py
+│  └── storage.py
+├── craft
+├── databases
+│  ├── migrations  [database-migrations](https://docs.masoniteproject.com/orator-orm/database-migrations)
+│  │   ├── 2018_01_09_043202_create_users_table.py
+│  │   └── __init__.py
+│  └── seeds
+│      ├── __init__.py
+│      ├── database_seeder.py
+│      └── user_table_seeder.py
+├── requirements.txt
+├── resources
+│  ├── __init__.py
+│  └── templates
+│      ├── __init__.py
+│      └── welcome.html
+├── routes  [routing](https://docs.masoniteproject.com/the-basics/routing)
+│  └── web.py
+├── storage  [static-files](https://docs.masoniteproject.com/the-basics/static-files)
+│  ├── compiled
+│  │   └── style.css
+│  ├── public
+│  │   ├── favicon.ico
+│  │   └── robots.txt
+│  ├── static
+│  │   ├── __init__.py
+│  │   └── sass
+│  │       └── style.scss
+│  └── uploads
+│      └── __init__.py
+├── tests  [testing](https://docs.masoniteproject.com/useful-features/testing)
+│  ├── feature <-- Add tests to your single fetures or functions.
+│  │   └── test_feature_works.py
+│  ├── framework
+│  │   ├── test_file_locations.py
+│  │   └── test_imports.py
+│  └── unit  <-- Add tests to your unit test.
+│      └── test_works.py
+└── wsgi.py
+
+
+
 
 This command is just a wrapper around the `pip`command. This installs all the required dependencies of Masonite, creates a `.env` file for us, generates a new secret key, and puts that secret key in our `.env` file. After it’s done we can just run the server by using another `craft` command:
 
