@@ -350,3 +350,44 @@ $ craft queue:work --failed
 
 This will get all the jobs from the database and send them back into the queue. If they fail again then they will be added back into this database table.
 
+## Specifying Failed Jobs
+
+You can modify the settings above by specifying it directly on the job. For example you may want to specify that the job reruns 5 times instead of 3 times when it fails or that it should not rerun at all.
+
+Specifying this on a job  may look something like:
+
+```python
+from masonite.request import Request
+from masonite import Mail
+
+class SendWelcomeEmail(Queueable):
+
+    run_again_on_fail = False
+
+    def __init__(self, request: Request, mail: Mail):
+        self.request = Request
+        self.mail = Mail
+
+    def handle(self, email):
+        ...
+```
+
+This will not try to rerun when the job fails. 
+
+You can specify how many times the job will rerun when it fails by specifying the `run_times` attribute:
+
+```python
+from masonite.request import Request
+from masonite import Mail
+
+class SendWelcomeEmail(Queueable):
+
+    run_times = 5
+
+    def __init__(self, request: Request, mail: Mail):
+        self.request = Request
+        self.mail = Mail
+
+    def handle(self, email):
+        ...
+```
