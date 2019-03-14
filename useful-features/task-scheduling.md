@@ -15,7 +15,7 @@ Or anything in between. There are lots of use cases for simple tasks to be ran d
 
 First we will need to install the scheduler feature. We can simply pip install it:
 
-{% code-tabs %} 
+{% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
 $ pip install masonite-scheduler
@@ -25,7 +25,7 @@ $ pip install masonite-scheduler
 
 and then add the [Service Provider](../architectural-concepts/service-providers.md) to our `PROVIDERS` list in config/providers.py:
 
-{% code-tabs %} 
+{% code-tabs %}
 {% code-tabs-item title="config/providers.py" %}
 ```python
 ...
@@ -249,7 +249,7 @@ After we add the directory to the `AUTOLOAD` list, we can run the `schedule:run`
 ```text
 $ craft schedule:run
 ```
-{% endcode-tabs-item %} 
+{% endcode-tabs-item %}
 {% endcode-tabs %}
 
 Masonite will fetch all tasks from the container by finding all subclasses of `scheduler.tasks.Task`, check if they should run and then either execute it or not execute it.
