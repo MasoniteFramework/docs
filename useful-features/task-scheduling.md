@@ -20,8 +20,7 @@ First we will need to install the scheduler feature. We can simply pip install i
 ```text
 $ pip install masonite-scheduler
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 and then add the [Service Provider](../architectural-concepts/service-providers.md) to our `PROVIDERS` list in config/providers.py:
 
@@ -54,8 +53,7 @@ Now that we added the Service Provider, we can start creating tasks. Let's creat
 ```text
 $ craft task SayHi
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 This will create a file under app/tasks/SayHi.py
 
@@ -71,8 +69,7 @@ class SayHi(Task):
     def handle(self):
         pass
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 This will be the simple boilerplate for our tasks.
 
@@ -98,8 +95,7 @@ AUTOLOAD = [
 ]
 ...
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 This will find all the tasks in the app/tasks directory and load them into the container for you with the key binding being the name of the class.
 
@@ -124,8 +120,7 @@ class SayHi(Task):
     def handle(self):
         pass
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 ### Handle Method
 
@@ -146,8 +141,7 @@ class SayHi(Task):
     def handle(self):
         requests.post('http://url.com/api/store')
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 ### When To Run
 
@@ -171,8 +165,7 @@ class SayHi(Task):
     def handle(self):
         requests.post('http://url.com/api/store')
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 This task will fire that API call every 3 days at 5pm.
 
@@ -211,8 +204,7 @@ class SayHi(Task):
     def handle(self):
         requests.post('http://url.com/api/store')
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 ## Caveats
 
@@ -254,16 +246,14 @@ class SayHi(Task):
     def handle(self):
         print('Hi!')
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 Now let's run the command again:
 
 ```text
 $ craft schedule:run
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 We should now see "Hi!" output to the terminal window.
 
@@ -274,8 +264,7 @@ You may also run a specific task by running the schedule:run command with a --ta
 ```text
  craft schedule:run --task SayHi
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 Or you can give your task a name explicitly:
 
@@ -294,16 +283,14 @@ class SayHi(Task):
     def handle(self):
         print('Hi!')
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 and then run the command by name
 
 ```text
  craft schedule:run --task hey
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 ## Cron Jobs
 
@@ -319,8 +306,7 @@ We'll show you an example cron job and then we will walk through how to build it
 PATH=/Users/Masonite/Programming/project_name/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
 * * * * * cd /Users/Masonite/Programming/project_name && source venv/bin/activate && craft schedule:run
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 ### Getting The Path
 
@@ -329,8 +315,7 @@ When a cron job runs, it will typically run commands with a /bin/sh command inst
 ```text
 $ env
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 Which will show an output of something like:
 
@@ -341,8 +326,7 @@ PATH=/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/b
 PWD=/Users/Masonite/Programming/masonite
 ...
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 {% hint style="info" %}
 If you are using a virtual environment for development purposes then you need to run the `env` command inside your virtual environment.
@@ -355,16 +339,14 @@ To enter into cron, just run:
 ```text
 $ env EDITOR=nano crontab -e
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 and paste the `PATH` we just copied. Once we do that our cron should look like:
 
 ```text
 PATH=/Users/Masonite/Programming/masonitetesting/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
 ```
-{% endcode-tabs-item %} 
-{% endcode-tabs %}
+
 
 Exit out of nano. Now we just need to setup the actual cron job:
 
