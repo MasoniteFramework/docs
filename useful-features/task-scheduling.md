@@ -51,8 +51,6 @@ The second command is a `craft task` command which will create a new task under 
 
 Now that we added the Service Provider, we can start creating tasks. Let's create a super basic task that prints "Hi". First let's create the task itself:
 
-{% code-tabs %} 
-{% code-tabs-item title="terminal" %}
 ```text
 $ craft task SayHi
 ```
@@ -61,8 +59,6 @@ $ craft task SayHi
 
 This will create a file under app/tasks/SayHi.py
 
-{% code-tabs %} 
-{% code-tabs-item title="app/tasks/SayHi.py" %}
 ```python
 from scheduler.Task import Task
 
@@ -94,8 +90,6 @@ There are two ways to get classes into the container. The first is to [bind them
 
 The other way is to [Autoload](../advanced/autoloading.md) them. Starting with Masonite 2.0, You can autoload entire directories which will find classes in that directory and load them into the container. This can be done by adding the directory your tasks are located in to the AUTOLOAD config variable inside config/application.py:
 
-{% code-tabs %} 
-{% code-tabs-item title="config/application.py" %}
 ```python
 ...
 AUTOLOAD = [
@@ -117,8 +111,6 @@ Now that our task is able to be added to the container automatically, let's star
 
 Firstly, the constructor of all tasks are resolved by the container. You can fetch anything from the container that doesn't need the WSGI server to be running \(which is pretty much everything\). So we can fetch things like the Upload, Mail, Broadcast and Request objects. This will look something like:
 
-{% code-tabs %} 
-{% code-tabs-item title="app/tasks/SayHi.py" %}
 ```python
 from scheduler.Task import Task
 from masonite.request import Request
@@ -141,8 +133,6 @@ The handle method is where the logic of the task should live. This is where you 
 
 We can do something like fire an API call here:
 
-{% code-tabs %} 
-{% code-tabs-item title="app/tasks/SayHi.py" %}
 ```python
 from scheduler.Task import Task
 import requests
@@ -165,8 +155,6 @@ The awesomeness of recurring tasks is telling the task when it should run. There
 
 A complete task could look something like:
 
-{% code-tabs %} 
-{% code-tabs-item title="app/tasks/SayHi.py" %}
 ```python
 from scheduler.Task import Task
 import requests
@@ -206,8 +194,6 @@ If the time on the task is `days` or `months` then you can also specify a `run_a
 
 You can also set timezones on individual tasks by setting a `timezone` attribute on the task:
 
-{% code-tabs %} 
-{% code-tabs-item title="app/tasks/SayHi.py" %}
 ```python
 from scheduler.Task import Task
 import requests
@@ -244,8 +230,6 @@ For example, if the task above is to be ran \(every 3 days\) in May then the tas
 
 After we add the directory to the `AUTOLOAD` list, we can run the `schedule:run` command which will find the command and execute it.
 
-{% code-tabs %} 
-{% code-tabs-item title="terminal" %}
 ```text
 $ craft schedule:run
 ```
@@ -256,8 +240,6 @@ Masonite will fetch all tasks from the container by finding all subclasses of `s
 
 Even though we ran the task, we should not see any output. Let's change the task a bit by printing "Hi" and setting it to run every minute:
 
-{% code-tabs %} 
-{% code-tabs-item title="app/tasks/SayHi.py" %}
 ```python
 from scheduler.Task import Task
 
@@ -277,8 +259,6 @@ class SayHi(Task):
 
 Now let's run the command again:
 
-{% code-tabs %} 
-{% code-tabs-item title="terminal" %}
 ```text
 $ craft schedule:run
 ```
@@ -291,8 +271,6 @@ We should now see "Hi!" output to the terminal window.
 
 You may also run a specific task by running the schedule:run command with a --task flag. The flag value is the container binding \(usually the task class name\):
 
-{% code-tabs %} 
-{% code-tabs-item title="terminal" %}
 ```text
  craft schedule:run --task SayHi
 ```
@@ -301,8 +279,6 @@ You may also run a specific task by running the schedule:run command with a --ta
 
 Or you can give your task a name explicitly:
 
-{% code-tabs %} 
-{% code-tabs-item title="app/tasks/SayHi.py" %}
 ```python
 from scheduler.Task import Task
 
@@ -323,8 +299,6 @@ class SayHi(Task):
 
 and then run the command by name
 
-{% code-tabs %} 
-{% code-tabs-item title="terminal" %}
 ```text
  craft schedule:run --task hey
 ```
@@ -341,8 +315,6 @@ Although the command above is useful, it is not very practical in a production s
 
 We'll show you an example cron job and then we will walk through how to build it.
 
-{% code-tabs %} 
-{% code-tabs-item title="terminal" %}
 ```text
 PATH=/Users/Masonite/Programming/project_name/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
 * * * * * cd /Users/Masonite/Programming/project_name && source venv/bin/activate && craft schedule:run
@@ -354,8 +326,6 @@ PATH=/Users/Masonite/Programming/project_name/venv/bin:/Library/Frameworks/Pytho
 
 When a cron job runs, it will typically run commands with a /bin/sh command instead of the usual /bin/bash. Because of this, craft may not be found on the machine so we need to tell the cron job the PATH that should be loaded in. We can simply find the PATH by going to our project directory and running:
 
-{% code-tabs %} 
-{% code-tabs-item title="terminal" %}
 ```text
 $ env
 ```
@@ -364,8 +334,6 @@ $ env
 
 Which will show an output of something like:
 
-{% code-tabs %} 
-{% code-tabs-item title="terminal" %}
 ```text
 ...
 __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0
@@ -384,8 +352,6 @@ We can then copy the PATH and put it in the cron job.
 
 To enter into cron, just run:
 
-{% code-tabs %} 
-{% code-tabs-item title="terminal" %}
 ```text
 $ env EDITOR=nano crontab -e
 ```
@@ -394,8 +360,6 @@ $ env EDITOR=nano crontab -e
 
 and paste the `PATH` we just copied. Once we do that our cron should look like:
 
-{% code-tabs %} 
-{% code-tabs-item title="terminal" %}
 ```text
 PATH=/Users/Masonite/Programming/masonitetesting/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
 ```
