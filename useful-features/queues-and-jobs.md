@@ -7,7 +7,7 @@
 Almost all applications can make use of queues. Queues are a great way to make time intensive tasks seem immediate by sending the task into the background or into a message queue. It's great to send anything and everything into the queue that doesn't require an immediate return value \(such as sending an email or firing an API call\). The queue system is loaded into masonite via the `QueueProvider` Service Provider.
 
 {% hint style="info" %}
-Masonite uses pickle to serialize and deserialize Python objects when appropriate. Ensure that the objects you are serializing is free of any end user supplied code that could potentially serialize into a Python object during the deserialization portion. 
+Masonite uses pickle to serialize and deserialize Python objects when appropriate. Ensure that the objects you are serializing is free of any end user supplied code that could potentially serialize into a Python object during the deserialization portion.
 
 It would be wise to read about [pickle exploitations](https://blog.nelhage.com/2011/03/exploiting-pickle/) and ensure your specific application is protected against any avenues of attack.
 {% endhint %}
@@ -354,7 +354,7 @@ This will get all the jobs from the database and send them back into the queue. 
 
 You can modify the settings above by specifying it directly on the job. For example you may want to specify that the job reruns 5 times instead of 3 times when it fails or that it should not rerun at all.
 
-Specifying this on a job  may look something like:
+Specifying this on a job may look something like:
 
 ```python
 from masonite.request import Request
@@ -372,7 +372,7 @@ class SendWelcomeEmail(Queueable):
         ...
 ```
 
-This will not try to rerun when the job fails. 
+This will not try to rerun when the job fails.
 
 You can specify how many times the job will rerun when it fails by specifying the `run_times` attribute:
 
@@ -391,3 +391,4 @@ class SendWelcomeEmail(Queueable):
     def handle(self, email):
         ...
 ```
+
