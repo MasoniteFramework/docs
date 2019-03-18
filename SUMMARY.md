@@ -8,6 +8,7 @@
 * [How To Contribute](prologue/how-to-contribute.md)
 * [Release Cycle](prologue/release-cycle.md)
 * [Known Installation Issues](prologue/known-installation-issues.md)
+* [Deprecation](prologue/deprecation.md)
 
 ## What's New
 

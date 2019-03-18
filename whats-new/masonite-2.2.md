@@ -1,12 +1,14 @@
 # Masonite 2.2
 
+## Masonite 2.2
+
 {% hint style="danger" %}
 This release is still in beta and is not yet released. All information in this documentation section is subject to change.
 {% endhint %}
 
-#  Route Prefixes
+## Route Prefixes
 
-Previously you had to append all routes with a `/` character.  This would look something like:
+Previously you had to append all routes with a `/` character. This would look something like:
 
 ```python
 Get('/some/url')
@@ -18,7 +20,7 @@ You can know optionally prefix this without a `/` character:
 Get('some/url')
 ```
 
-# URL parameters can now optionally be retrieved from the controller definition
+## URL parameters can now optionally be retrieved from the controller definition
 
 Previously we had to do something like:
 
@@ -36,15 +38,15 @@ def show(self, user_id, view: View):
     return view.render('some.template', {'user': user})
 ```
 
-# Added a storage manager and disk storage drivers
+## Added a storage manager and disk storage drivers
 
 This is used as a wrapper around I/O operations. It will also be a wrapper around the upload drivers and moving files around and other file management type operations
 
-# Async driver now can be specified whether to use threading or processing
+## Async driver now can be specified whether to use threading or processing
 
-We can now specify directly in the configuration file whether or not the threading or multiprocessing for the async type operations. 
+We can now specify directly in the configuration file whether or not the threading or multiprocessing for the async type operations.
 
-# Added new HTTP Verbs
+## Added new HTTP Verbs
 
 We added 4 new HTTP verbs: HEAD, CONNECT, OPTIONS, TRACE. You import these and use them like normal:
 
@@ -56,11 +58,11 @@ ROUTES = [
 ]
 ```
 
-# JSON error responses
+## JSON error responses
 
 If the incoming request is a JSON request, Masonite will now return all errors as JSON
 
-```json
+```javascript
 {
   "error": {
     "exception": "Invalid response type of <class 'set'>",
@@ -75,12 +77,7 @@ If the incoming request is a JSON request, Masonite will now return all errors a
 }
 ```
 
-# Rearranged Drivers into their own folders
+## Rearranged Drivers into their own folders
 
 This is more of an internal change for Core itself.
-
-
-
-
-
 
