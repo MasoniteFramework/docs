@@ -235,6 +235,23 @@ app.resolve(send_email, 'user@email.com')
 
 Masonite will go through each parameter list and resolve them, if it does not find the parameter it will pull it from the other parameters specified. These parameters can be in any order.
 
+## Using the container outside of Masonite flow
+
+If you need to utilize a container outside the normal flow of Masonite like inside a command then you can import the container directly.
+
+This would look something like:
+
+```python
+from wsgi import container
+from masonite import Queue
+
+class SomeCommand:
+
+    def handle(self):
+        queue = container.make(Queue)
+        queue.push(..)
+```
+
 ## Container Swapping
 
 Sometimes when you resolve an object or class, you want a different value to be returned.
