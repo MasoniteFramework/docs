@@ -401,7 +401,7 @@ $ craft package name_of_package
 You can scaffold out basic command boilerplate:
 
 ```text
-$ craft command HelloCommand
+$ craft command Hello
 ```
 
 This will create a `app/commands/HelloCommand.py` file with the `HelloCommand` class.
