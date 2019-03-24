@@ -188,6 +188,46 @@ This will send a variable named `id` to the view which can then be rendered like
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## View Syntax
+
+Views use [Jinja2](http://jinja.pocoo.org/docs/2.10/) for it's template rendering. You can read about Jinja2 at the [official documentation here](http://jinja.pocoo.org/docs/2.10/).
+
+Masonite also enables Jinja2 Line Statements by default which allows you to write syntax the normal way:
+
+```html
+{% extends 'nav/base.html' %}
+
+{% block content %}
+    {% for element in variables %}
+        {{ element }}
+    {% endfor %}
+
+    {% if some_variable %}
+        {{ some_variable }}
+    {% endif %}
+
+{% endblock %}
+```
+
+Or using line statements with the `@` character:
+
+```html
+@extends 'nav/base.html'
+
+@block content
+    @for element in variables
+        {{ element }}
+    @endfor
+
+    @if some_variable
+        {{ some_variable }}
+    @endif
+
+@endblock
+```
+
+The choice is yours on what you would like to use but keep in mind that line statements need to use only that line. Nothing can be after after or before the line.
+
 ## Adding Environments
 
 {% hint style="success" %}

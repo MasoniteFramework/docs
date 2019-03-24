@@ -17,7 +17,7 @@ You can create commands by using craft itself:
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft command HelloCommand
+$ craft command Hello
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

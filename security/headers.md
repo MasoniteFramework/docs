@@ -57,3 +57,40 @@ This will then change your headers to:
 
 Notice the change in the new header we changed.
 
+# CORS
+
+You may also choose to use CORS for your application for advanced security measures. Using CORS is very similar to the secure headers above.
+
+To get started just import the `CorsMiddleware` class into your `config/middleware.py` file and add it to your `HTTP_MIDDLEWARE` list:
+
+```python
+from masonite.middleware import CorsMiddleware
+...
+HTTP_MIDDLEWARE = [
+    ...,
+    CorsMiddleware,
+]
+```
+
+Then below this list you can put your CORS headers as a dictionary. Here is a list of sensible defaults:
+
+```python
+from masonite.middleware import CorsMiddleware
+...
+HTTP_MIDDLEWARE = [
+    ...,
+    CorsMiddleware,
+]
+
+...
+
+CORS = {
+    'Access-Control-Allow-Origin': "*",
+    "Access-Control-Allow-Methods": "DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT",
+    "Access-Control-Allow-Headers": "Content-Type, Accept, X-Requested-With",
+    "Access-Control-Max-Age": "3600",
+    "Access-Control-Allow-Credentials": "true"
+}
+```
+
+Now if you go to a browser you will see these headers being sent as a response from your server.
