@@ -36,7 +36,7 @@ This will create a template under `resources/templates/hello.html`.
 
 ### Helper Function
 
-There are several ways we can call views in our controllers. The first way is using the `view()` function. Masonite ships with a `HelpersProvider` Service Provider. This provider will add several new built in functions to your project. These helper functions can be used as shorthand for several commonly used classes such as the `View` and `Request` class. 
+There are several ways we can call views in our controllers. The first way is using the `view()` function. Masonite ships with a `HelpersProvider` Service Provider. This provider will add several new built in functions to your project. These helper functions can be used as shorthand for several commonly used classes such as the `View` and `Request` class.
 
 {% hint style="success" %}
 See the [Helper Functions](helper-functions.md) documentation for more information.
@@ -194,7 +194,7 @@ Views use [Jinja2](http://jinja.pocoo.org/docs/2.10/) for it's template renderin
 
 Masonite also enables Jinja2 Line Statements by default which allows you to write syntax the normal way:
 
-```html
+```ruby
 {% extends 'nav/base.html' %}
 
 {% block content %}
@@ -211,7 +211,7 @@ Masonite also enables Jinja2 Line Statements by default which allows you to writ
 
 Or using line statements with the `@` character:
 
-```html
+```ruby
 @extends 'nav/base.html'
 
 @block content
@@ -418,18 +418,4 @@ You can access the session here:
 {% hint style="success" %}
 Learn more about session in the [Session](../advanced/sessions.md) documentation.
 {% endhint %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

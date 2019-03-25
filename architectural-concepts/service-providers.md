@@ -121,7 +121,7 @@ We can also add any directories that have asset files:
 
 ```python
 def register(self):
-    self.assets({'/directory': 'alias/})
+    self.assets({'/directory': 'alias/'})
 ```
 
 Great! It's really that simple. Just this knowledge will take you a long way. Take a look at the other service providers to get some inspiration on how you should create yours. Again, if you do create a Service Provider, consider making it available on PyPi so others can install it into their framework.
