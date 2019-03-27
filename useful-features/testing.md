@@ -68,7 +68,7 @@ class TestSomeUnit(UnitTest):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Notice here we are adding a mock route here that we can do some testing on. you might instead want to test your routes specifically:
+Notice here we are adding a mock route here that we can do some testing on. You might instead want to test your routes specifically:
 
 {% code-tabs %}
 {% code-tabs-item title="tests/unit/test\_unit.py" %}
