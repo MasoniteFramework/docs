@@ -36,7 +36,7 @@ This will create a template under `resources/templates/hello.html`.
 
 ### Helper Function
 
-There are several ways we can call views in our controllers. The first way is using the `view()` function. Masonite ships with a `HelpersProvider` Service Provider. This provider will add several new built in functions to your project. These helper functions can be used as shorthand for several commonly used classes such as the `View` and `Request` class. 
+There are several ways we can call views in our controllers. The first way is using the `view()` function. Masonite ships with a `HelpersProvider` Service Provider. This provider will add several new built in functions to your project. These helper functions can be used as shorthand for several commonly used classes such as the `View` and `Request` class.
 
 {% hint style="success" %}
 See the [Helper Functions](helper-functions.md) documentation for more information.
@@ -188,6 +188,46 @@ This will send a variable named `id` to the view which can then be rendered like
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## View Syntax
+
+Views use [Jinja2](http://jinja.pocoo.org/docs/2.10/) for it's template rendering. You can read about Jinja2 at the [official documentation here](http://jinja.pocoo.org/docs/2.10/).
+
+Masonite also enables Jinja2 Line Statements by default which allows you to write syntax the normal way:
+
+```ruby
+{% extends 'nav/base.html' %}
+
+{% block content %}
+    {% for element in variables %}
+        {{ element }}
+    {% endfor %}
+
+    {% if some_variable %}
+        {{ some_variable }}
+    {% endif %}
+
+{% endblock %}
+```
+
+Or using line statements with the `@` character:
+
+```ruby
+@extends 'nav/base.html'
+
+@block content
+    @for element in variables
+        {{ element }}
+    @endfor
+
+    @if some_variable
+        {{ some_variable }}
+    @endif
+
+@endblock
+```
+
+The choice is yours on what you would like to use but keep in mind that line statements need to use only that line. Nothing can be after after or before the line.
+
 ## Adding Environments
 
 {% hint style="success" %}
@@ -238,4 +278,144 @@ if you want to use a global view you still need to use the first `/`:
 def show(self, view: View):
     view.render('/dashboard.user.show')
 ```
+
+## Helpers
+
+There are quite a few built in helpers in your views. Here is an extensive list of all view helpers:
+
+### Request
+
+You can get the request class:
+
+```markup
+<p> Path: {{ request().path }} </p>
+```
+
+### Static
+
+You can get the location of static assets:
+
+If you have a configuration file like this:
+
+{% code-tabs %}
+{% code-tabs-item title="config/storage.py" %}
+```python
+....
+'s3': {
+  's3_client': 'sIS8shn...'
+  ...
+  'location': 'https://s3.us-east-2.amazonaws.com/bucket'
+  },
+....
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+```markup
+...
+<img src="{{ static('s3', 'profile.jpg') }}" alt="profile">
+...
+```
+
+this will render:
+
+```markup
+<img src="https://s3.us-east-2.amazonaws.com/bucket/profile.jpg" alt="profile">
+```
+
+### CSRF Field
+
+You can create a CSRF token hidden field to be used with forms:
+
+```markup
+<form action="/some/url" method="POST">
+    {{ csrf_field }}
+    <input ..>
+</form>
+```
+
+### CSRF Token
+
+You can get only the token that generates. This is useful for JS frontends where you need to pass a CSRF token to the backend for an AJAX call
+
+```markup
+<p> Token: {{ csrf_token }} </p>
+```
+
+### Current User
+
+You can also get the current authenticated user. This is the same as doing `request.user()`.
+
+```markup
+<p> User: {{ auth().email }} </p>
+```
+
+### Request Method
+
+On forms you can typically only have either a GET or a POST because of the nature of html. With Masonite you can use a helper to submit forms with PUT or DELETE
+
+```markup
+<form action="/some/url" method="POST">
+    {{ request_method('PUT') }}
+    <input ..>
+</form>
+```
+
+This will now submit this form as a PUT request.
+
+### Route
+
+You can get a route by it's name by using this method:
+
+```markup
+<form action="{{ route('route.name') }}" method="POST">
+    ..
+</form>
+```
+
+If your route contains variables you need to pass then you can supply a dictionary as the second argument.
+
+```markup
+<form action="{{ route('route.name', {'id': 1}) }}" method="POST">
+    ..
+</form>
+```
+
+or a list:
+
+```markup
+<form action="{{ route('route.name', [1]) }}" method="POST">
+    ..
+</form>
+```
+
+### Back
+
+This is useful for redirecting back to the previous page. If you supply this helper then the request.back\(\) method will go to this endpoint. It's typically good to use this to go back to a page after a form is submitted with errors:
+
+```markup
+<form action="/some/url" method="POST">
+    {{ back(request().path) }}
+</form>
+```
+
+Now when a form is submitted and you want to send the user back then in your controller you just have to do:
+
+```python
+def show(self, request: Request):
+    # Some failed validation
+    return request.back()
+```
+
+### Session
+
+You can access the session here:
+
+```markup
+<p> Error: {{ session().get('error') }} </p>
+```
+
+{% hint style="success" %}
+Learn more about session in the [Session](../advanced/sessions.md) documentation.
+{% endhint %}
 

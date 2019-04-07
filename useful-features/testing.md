@@ -68,7 +68,7 @@ class TestSomeUnit(UnitTest):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Notice here we are adding a mock route here that we can do some testing on. you might instead want to test your routes specifically:
+Notice here we are adding a mock route here that we can do some testing on. You might instead want to test your routes specifically:
 
 {% code-tabs %}
 {% code-tabs-item title="tests/unit/test\_unit.py" %}
@@ -90,7 +90,7 @@ Now we are working with the routes in our specific project.
 
 ### Routes
 
-We have a few options for testing our routes. We will use a single route here so we can e
+We have a few options for testing our routes.
 
 #### Testing If a Route Exists:
 
@@ -142,7 +142,7 @@ def test_route_has_route_middleware(self):
 {% code-tabs %}
 {% code-tabs-item title="tests/unit/test\_unit.py" %}
 ```python
-from app.http.controllers.SomeController
+from app.http.controllers.SomeController import SomeController
 
 def test_unit_test_has_controller(self):
     assert self.route('/testing').has_controller(SomeController)
@@ -230,4 +230,4 @@ def test_owner_user_can_view(self):
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
+xw

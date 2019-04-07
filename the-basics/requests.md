@@ -113,6 +113,18 @@ def show(self, request: Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+#### Input Cleaning
+
+Input data will be cleaned of HTML tags and other security measures. This may cause unwanted return values if you are expecting something like a JSON string. If you want to opt to not clean the input you can specify that as a keyword argument:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+request.input('firstname', clean=False) # Joe
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 To check if some request input data exists:
 
 {% code-tabs %}
@@ -122,6 +134,28 @@ To check if some request input data exists:
 
 def show(self, request: Request):
     return request.has('firstname') # True
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+#### Getting Dictionary Input
+
+If your input is a dictionary you have two choices how you want to access the dictionary. You can either access it normally:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+request.input('payload')['user']['address'] # 123 Smith Rd
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Or you can use dot notation to fetch the value for simplicity:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/YourController.py" %}
+```python
+request.input('payload.user.address') # 123 Smith Rd
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -151,6 +185,10 @@ We can specify a set of parameters to exclude from the inputs returned. For exam
 def show(self, request: Request):
     return request.without('lastname') # {'firstname': 'Joe', 'active': '1'}
 ```
+
+Notice it returned everything besides `lastname`.
+
+### URL Parameters
 
 Notice it returned everything besides `lastname`.
 
@@ -344,6 +382,8 @@ def show(self):
     request().route('dashboard') # /dashboard
 ```
 
+### Route Parsing
+
 if we have route parameters like this:
 
 ```python
@@ -357,6 +397,27 @@ def show(self):
     request().route('dashboard.user', {'user': 1}) # /dashboard/1
 ```
 
+You may also pass a list if that makes more sense to you:
+
+```python
+def show(self):
+    request().route('dashboard.user', [1]) # /dashboard/1
+```
+
+This will inject that value for each parameter in order. For example if we have this route:
+
+```python
+get('/dashboard/@user/@id/@slug').name('dashboard.user')
+```
+
+then we can use:
+
+```python
+def show(self):
+    request().route('dashboard.user', [1, 2, 'some-slug']) 
+    # /dashboard/1/2/some-slug
+```
+
 ## Current URL
 
 We can get the current url with:
@@ -365,6 +426,8 @@ We can get the current url with:
 def show(self, request: Request):
     return request.path #== /dashboard/user
 ```
+
+## Redirection
 
 ## Redirection
 
@@ -463,6 +526,12 @@ Masonite will check for a `__back` input and redirect to that route. We can spec
     {{ back(request().path) }}
 </form>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+This will check for the `__back` input and if it doesn't exist it will use this default route.
+
+## Encryption Key
 
 This will route back to the form when you run this back method
 
@@ -521,6 +590,8 @@ You can load a specific secret key into the request by using:
 ```python
 request.key(key)
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 This will load a secret key into the request which will be used for encryptions purposes throughout your Masonite project.
 

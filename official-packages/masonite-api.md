@@ -50,7 +50,7 @@ Awesome! Now we are ready to go!
 
 Our resource has several routes that it will build based on the information we provided so let's import it into our web.py file so it will build the routes for us. We can also specify the base route which will be used for all routes.
 
-```text
+```python
 ...
 from app.resources.UserResource import UserResource
 
@@ -97,6 +97,37 @@ POST      /api/user
 GET       /api/user
 GET       /api/user/@id
 ========  =============  =======  ========  ============
+```
+
+## Adding Middleware
+
+You can easily add middleware to routes by specifying them using  the `middleware` method:
+
+```python
+...
+from app.resources.UserResource import UserResource
+
+ROUTES = [
+    ...
+    UserResource('/api/users').middleware('auth', 'managers').routes(),
+    ...
+]
+```
+
+Or of course you can add the middleware to a group:
+
+```python
+...
+from app.resources.UserResource import UserResource
+from masonite.routes import RouteGroup
+
+ROUTES = [
+    ...
+    RouteGroup([
+         UserResource('/api/users').routes(),
+    ], middleware=('auth', 'managers'))
+    ...
+]
 ```
 
 ## Overriding Methods

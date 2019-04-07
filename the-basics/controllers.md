@@ -52,15 +52,23 @@ This will create a `Dashboard` controller located in `app/http/controllers/Dashb
 
 Resource controllers are controllers that have basic CRUD / resource style methods to them such as create, update, show, store etc. We can create a resource controller by running:
 
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
 ```text
 $ craft controller Dashboard -r
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 or
 
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
 ```text
 $ craft controller Dashboard --resource
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 this will create a controller that looks like:
 
@@ -146,7 +154,7 @@ class DashboardController:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-If you need a class in multiple controller methods then it is recommended to put it into the contructor in order to keep the controller DRY.
+If you need a class in multiple controller methods then it is recommended to put it into the constructor in order to keep the controller DRY.
 
 {% hint style="warning" %}
 **This might look magical to you so be sure to read about the IOC container in the** [**Service Container**](../architectural-concepts/service-container.md) **documentation.**
@@ -157,4 +165,54 @@ It’s important to note that unlike other frameworks, we do not have to specify
 {% hint style="success" %}
 Read about how to create and use views by reading the [Views ](views.md)documentation
 {% endhint %}
+
+## Returning JSON
+
+You can return JSON in a few different ways. The first way is returning a dictionary which will then be parsed to JSON:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/DashboardController.py" %}
+```python
+def show(self):
+    return {'key': 'value'}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+you may return a list:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/DashboardController.py" %}
+```python
+def show(self):
+    return ['key', 'value']
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Or you may even return a model instance or collection. Take these 2 code snippets as an example:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/DashboardController.py" %}
+```python
+from app.User import User
+
+def show(self):
+    return User.find(1)
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+or
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/DashboardController.py" %}
+```python
+from app.User import User
+
+def show(self):
+    return User.where('active', 1).get()
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 

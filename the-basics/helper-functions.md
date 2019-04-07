@@ -1,5 +1,9 @@
 # Helper Functions
 
+{% hint style="warning" %}
+Built in global helper functions were removed by default in v2.1 though they are not deprecated and you can use them as you wish.
+{% endhint %}
+
 ## Introduction
 
 Masonite works on getting rid of all those mundane tasks that developers either dread writing or dread writing over and over again. Because of this, Masonite has several helper functions that allows you to quickly write the code you want to write without worrying about imports or retrieving things from the Service Container. Many things inside the Service Container are simply retrieved using several functions that Masonite sets as builtin functions which we call "Built in Helper Functions" which you may see them referred to as.
@@ -197,7 +201,7 @@ If we then go to the browser and visit this URL as normal then we can now see th
 
 ## Non Built In Helpers
 
-There are several helper methods that require you to import them in order to use them. These helpers are not global like the previous helpers. 
+There are several helper methods that require you to import them in order to use them. These helpers are not global like the previous helpers.
 
 ### Config
 
@@ -243,6 +247,85 @@ def show(self):
 ```
 
 {% hint style="info" %}
-Note the use of the lowercase `storage.drivers.s3` instead of  `storage.DRIVERS.s3`. Either or would work because the config function is uppercase and lowercase insensitive.
+Note the use of the lowercase `storage.drivers.s3` instead of `storage.DRIVERS.s3`. Either or would work because the config function is uppercase and lowercase insensitive.
 {% endhint %}
+
+### Optional
+
+This helper that allows you to wrap any object in this helper and call attributes or methods on it even if they don't exist. If they exist then it will return the method, if it doesn't exist it will return `None`.
+
+Take this example where we would normally write:
+
+```python
+def show(self):
+    user = User.find(1)
+    if user and user.id == 5:
+        # do code
+        ...
+```
+
+We can now use this code snippet instead:
+
+```python
+def show(self):
+    if optional(User.find(1)).id == 5:
+        # do code
+        ...
+```
+
+### Compact
+
+Compact is a really nice helper that allows you to stop making those really repetitive dictionary statements in your controller methods
+
+take this for example:
+
+```python
+def show(self, view: View):
+    posts = Post.all()
+    users = User.all()
+    articles = Articles.all()
+    return view.render('some.template', {'posts': posts, 'users': users, 'articles': articles})
+```
+
+Notice how our Python variables are exactly the same as what we want our variables to be in  our template. 
+
+With the compact function, now you can do:
+
+```python
+from masonite.helpers import compact
+
+def show(self, view: View):
+    posts = Post.all()
+    users = User.all()
+    articles = Articles.all()
+    return view.render('some.template', compact(posts, users, articles))
+```
+
+You can also pass in a dictionary which will update accordingly:
+
+```python
+from masonite.helpers import compact
+
+def show(self, view: View):
+    posts = Post.all()
+    users = User.all()
+    user_blogs = Blog.where('user_id', 1).get()
+    return view.render('some.template', compact(posts, users, {'blogs': user_blogs}))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 

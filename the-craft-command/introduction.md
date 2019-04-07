@@ -182,6 +182,12 @@ class User(Model):
     pass
 ```
 
+You can also specify the connection to use using the `--connection` option.
+
+```bash
+$ craft model:docstring table_name --connection amazon_db
+```
+
 ### Creating Controllers
 
 If you wish to scaffold a controller, just run:
@@ -316,6 +322,22 @@ $ craft model Models/ModelName
 
 This will create a model in `app/Models/ModelName.py.`
 
+### Model Shortcuts
+
+You can also use the -s and -m flags to create a seed or model at the same time.
+
+```text
+$ craft model ModelName -s -m
+```
+
+This is a shortcut for these 3 commands:
+
+```text
+$ craft model ModelName
+$ craft seed ModelName
+$ craft migration create_tablename_table --create tablename
+```
+
 ### Creating a Service Provider
 
 Service Providers are a really powerful feature of Masonite. If you'd like to create your own service provider, just run:
@@ -379,7 +401,7 @@ $ craft package name_of_package
 You can scaffold out basic command boilerplate:
 
 ```text
-$ craft command HelloCommand
+$ craft command Hello
 ```
 
 This will create a `app/commands/HelloCommand.py` file with the `HelloCommand` class.
@@ -403,6 +425,10 @@ or the shorthand
 ```text
 $ craft serve -r
 ```
+
+{% hint style="info" %}
+If you have unmigrated migrations, Masonite will recommend running `craft migrate` when running the server.
+{% endhint %}
 
 ### Host and Port
 

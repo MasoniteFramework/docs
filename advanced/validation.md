@@ -82,7 +82,7 @@ In order to check the input data we receive from a request, such as a form submi
 from app.validators.RegistrationValidator import RegistrationValidator
 
 def show(self, request: Request):
-    validate = RegistrationValidator(Request)
+    validate = RegistrationValidator(request)
     validate.register_form()
     validate.check() # returns True or False
     validate.errors() # returns a dictionary of errors if any
@@ -189,51 +189,105 @@ validation = validate(
 There are a plethora of options that you can use to validate your forms. In addition to validating your request input, we also get a dictionary of errors. In order to get the errors if a validation fails, we can use the method:
 
 ```python
+request.input('countries') # 'California,Florida,Ohio'
+```
+
+```python
+from masonite.validator import Validator
+from validator import Required, Length
+
+class CountryValidation(Validator):
+
+    def validate_countries(self):
+        return self.validate({
+            'countries': [Required, Length(1, 3)]
+        })
+
+    def cast_countries(self, countries):
+        return countries.split(',')
+```
+
+When validating, the validator will call this cast\_countries method and use the return value as the value to validate. This validation will work because it will split the countries into a list and turn:
+
+```python
+'California,Florida,Ohio'
+```
+
+into this:
+
+```python
+['California', 'Florida', 'Ohio']
+```
+
+### Getting Casted Values
+
+You can also use this validator class to get the value that the validator is using. In other words, if there is a cast method, it will get the casted value. If there is no cast method then it will get the raw value supplied to it.
+
+```python
+from app.validators import CountryValidation
+
+def show(self, request: Request):
+    request.input('countries') # 'California,Florida,Ohio'
+    validation = CountryValidation(request).validate_countries()
+
+    request.input('countries') # 'California,Florida,Ohio'
+    validation.get('countries') # ['California', 'Florida', 'Ohio']
+```
+
+## Validation Helper
+
+If a full validation class is a bit too much for you then you can use a smaller helper function. You may choose this option if you are building a simple RESTful API endpoint and just want some quick validation.
+
+This helper function signature looks like:
+
+```python
+from masonite.helpers import validate
+
+validation = validate({rules}, {input}, {messages})
+```
+
+Messages are optional. If left out it will use the default error messages.
+
+A full implementation looks like:
+
+```python
+from masonite.helpers import validate
+
+validation = validate(
+              {'id': [Required]}, # rules
+              {'name': '1,2'}, # input
+              {'id': 'ID is required!'} # custom error messages
+            )
+```
+
+## Validator Options
+
+There are a plethora of options that you can use to validate your forms. In addition to validating your request input, we also get a dictionary of errors. In order to get the errors if a validation fails, we can use the method:
+
+```python
 validate.errors() # {'username': 'must be present'}
 ```
 
 This method will return a dictionary of errors that will be different depending on the validation class used but this method will return `None` if there are no errors. Below each option will be what the value of `.errors()` will be as well as how you would use them inside Masonite.
 
-### Required
+### Each
 
-By default, all keys registered for validation are optional. Any key that doesn't exist in the validation will skip any of the missing input data. For example, if a validation is not set for `password` then it will simply not check any validation on that specific request input. In this case, we can leave our `password` validation out entirely.
-
-Unlike other validator classes, this class does not need to be instantiated \(contain parenthesis at the end\). So `Required` is the correct usage and not `Required()`.
+This validator checks that each value in an iterator matches the value specified
 
 #### **Usage**
 
 ```python
-from validator import Required
+from validator import Each, In
 
 self.validate({
-    'username': [Required]
+    'language': [Each([In("pt", "en", "de")])]
 })
 ```
 
 #### **Error**
 
 ```python
-{"username": ["must be present"]}
-```
-
-### Truthy
-
-The `Truthy()` validator class will check whatever is truthy to Python. This includes True, non-0 integers, non-empty lists, and strings
-
-#### **Usage**
-
-```python
-from validator import Truthy
-
-self.validate({
-    'username': [Truthy()]
-})
-```
-
-#### **Error**
-
-```python
-{"username": ["must be True-equivalent value"]}
+{"language": ["failed validation"]}
 ```
 
 ### Equals
@@ -260,49 +314,11 @@ self.validate({
 **Note that all request input data will be a string. so make sure you use** `Equals('1')` **and not** `Equals(1)`**. Just be sure to maintain the data type in your validation.**
 {% endhint %}
 
-### Range
-
-This validator checks that the dictionary value falls inclusively between the start and end values passed to it.
-
-```python
-from validator import Range
-
-self.validate({
-    'age': [Range(1, 100)]
-})
-```
-
-#### **Error**
-
-```python
-{"age": ["must fall between 1 and 100"]}
-```
-
-### Pattern
-
-The Pattern validator checks that the dictionary value matches the regex pattern that was passed to it.
-
-#### **Usage**
-
-```python
-from validator import Pattern
-
-self.validate({
-    'age': [Pattern('\d+')]
-})
-```
-
-#### **Error**
-
-```python
-{"age": ["must match regex pattern \d+"]}
-```
-
 ### In
 
 This validator checks that the dictionary value is a member of a collection passed to it.
 
-**Usage**
+#### **Usage**
 
 ```python
 from validator import In
@@ -319,28 +335,6 @@ users = db.table('users').select('name').get()
 
 self.validate({
     'username': [In([users])]
-})
-```
-
-#### **Error**
-
-```python
-{"age": ["must be one of <collection here>"]}
-```
-
-### Not
-
-This validator negates a validator that is passed to it and checks the dictionary value against that negated validator.
-
-#### **Usage**
-
-```python
-from validator import Not
-from config import database
-users = db.table('users').select('name').get()
-
-self.validate({
-    'age': [Not(In(users))]
 })
 ```
 
@@ -370,6 +364,110 @@ self.validate({
 {"age": ["must be an instance of basestring or its subclasses"]}
 ```
 
+### Length
+
+This validator checks that the value must have at least minimum elements and optionally at most maximum elements.
+
+#### **Usage**
+
+```python
+from validator import Length
+
+self.validate({
+    'age': [Length(0, maximum=5)]
+})
+```
+
+#### **Error**
+
+```python
+{"age": ["must be at most 5 elements in length"]}
+```
+
+### Not
+
+This validator negates a validator that is passed to it and checks the dictionary value against that negated validator.
+
+#### **Usage**
+
+```python
+from validator import Not
+from config import database
+users = db.table('users').select('name').get()
+
+self.validate({
+    'age': [Not(In(users))]
+})
+```
+
+#### **Error**
+
+```python
+{"age": ["must be one of <collection here>"]}
+```
+
+### Pattern
+
+The Pattern validator checks that the dictionary value matches the regex pattern that was passed to it.
+
+#### **Usage**
+
+```python
+from validator import Pattern
+
+self.validate({
+    'age': [Pattern('\d+')]
+})
+```
+
+#### **Error**
+
+```python
+{"age": ["must match regex pattern \d+"]}
+```
+
+### Range
+
+This validator checks that the dictionary value falls inclusively between the start and end values passed to it.
+
+#### Usage
+
+```python
+from validator import Range
+
+self.validate({
+    'age': [Range(1, 100)]
+})
+```
+
+#### **Error**
+
+```python
+{"age": ["must fall between 1 and 100"]}
+```
+
+### Required
+
+By default, all keys registered for validation are optional. Any key that doesn't exist in the validation will skip any of the missing input data. For example, if a validation is not set for `password` then it will simply not check any validation on that specific request input. In this case, we can leave our `password` validation out entirely.
+
+Unlike other validator classes, this class does not need to be instantiated \(contain parenthesis at the end\). So `Required` is the correct usage and not `Required()`.
+
+#### **Usage**
+
+```python
+from validator import Required
+
+self.validate({
+    'username': [Required]
+})
+```
+
+#### **Error**
+
+```python
+{"username": ["must be present"]}
+```
+
 ### SubclassOf
 
 This validator checks that the dictionary value inherits from the base class passed to it. To be clear, this means that the dictionary value is expected to be a class, not an instance of a class.
@@ -390,24 +488,24 @@ self.validate({
 {"age": ["must be a subclass of str"]}
 ```
 
-### Length
+### Truthy
 
-This validator checks that the value must have at least minimum elements and optionally at most maximum elements.
+The `Truthy()` validator class will check whatever is truthy to Python. This includes True, non-0 integers, non-empty lists, and strings
 
 #### **Usage**
 
 ```python
-from validator import Length
+from validator import Truthy
 
 self.validate({
-    'age': [Length(0, maximum=5)]
+    'username': [Truthy()]
 })
 ```
 
 #### **Error**
 
 ```python
-{"age": ["must be at most 5 elements in length"]}
+{"username": ["must be True-equivalent value"]}
 ```
 
 ### Each

@@ -45,20 +45,20 @@ These new controllers are not apart of the framework itself but now apart of you
 If you wish to scaffold a controller, just run:
 
 ```text
-$ craft controller
+$ craft controller NameHere
 ```
 
 This command will create a new controller under `app/http/controller`. By convention, all controllers should have an appended “Controller”. For example in order to make a dashboard controller, you should run `craft controller DashboardController` and not `craft controller Dashboard` although you can name your controllers however you like.
 
-#### Deployment
+#### Creating Middleware
 
-If you’d like to deploy your application to Heroku, Masonite comes with a command for that out of the box. You do not have to use this command and you do not have to deploy to Heroku. You may choose any deployment site but for quick development purposes, it might be convenient for you to quickly upload to Heroku to test a typical deployment.
+If you wish to scaffold a middleware, just run:
 
 ```text
-$ craft deploy
+$ craft middleware NameHere
 ```
 
-Read the “Deployment” documentation for more information on deploying Masonite.
+This command will create a new middleware under `app/http/middleware`.
 
 #### Creating a New Project
 
@@ -112,10 +112,16 @@ After your migrations have been created, edited, and are ready for migrating, we
 $ craft migrate
 ```
 
-You can also refresh and rollback all of your migrations and remigrate them. **This will basically rebuild your entire database.**
+You can also refresh and rollback all of your migrations and remigrate them. **This will basically rebuild your entire database.
 
 ```text
 $ craft migrate:refresh
+```
+
+You can also see the status of your migrations:
+
+```text
+$ craft migrate:status
 ```
 
 You can also rollback all migrations without remigrating
@@ -188,22 +194,6 @@ $ craft view auth/home
 
 This will create a view under `resources/templates/auth/home.html` but keep in mind that it will not create the directory for you. If the `auth` directory does not exist, this command will fail.
 
-#### Packages
-
-You may create a PyPi package with an added `integrations.py` file which is specific to Masonite. You can learn more about packages by reading the "Creating Packages" documentation. To create a package boilerplate, just run:
-
-```text
-$ craft package name_of_package
-```
-
-#### Publishing
-
-Packages that are built specifically for Masonite in mind will typically support publishing commands. Publishing commands are a way that packages can scaffold and integrate into Masonite. Publishing commands can allow third parties to: create or append to configuration files, create controllers, create routes and other integrations. Read more about publishing by reading our "Publishing Packages" documentation. To publish a package just run:
-
-```text
-$ craft publish name_of_package
-```
-
 #### Running the WSGI Server
 
 You can run the WSGI server by simply running:
@@ -218,11 +208,17 @@ Masonite comes with a way to encrypt data and by default, encrypts all cookies s
 
 To generate a secret `key`, we can run:
 
-```text
+```bash
 $ craft key
 ```
 
 This will generate a 32 bit string which you can paste into your `.env` file under the `KEY` setting.
+
+You can also add the `--store` flag at the end which will add the key to your .env file:
+
+```bash
+$ craft key --store
+```
 
 Great! You are now a master at the craft command line tool.
 

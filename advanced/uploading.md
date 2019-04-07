@@ -53,7 +53,7 @@ Some deployment platforms are Ephemeral. This means that either hourly or daily,
 
 ### Uploading
 
-Uploading with masonite is extremely simple. We can use the `Upload` class which is loaded into the container via the `UploadProvider` Service Provider. Whenever a file is uploaded, we can retrieve it using the normal `Request.input()` method. This will look something like:
+Uploading with masonite is extremely simple. We can use the `Upload` class which is loaded into the container via the `UploadProvider` Service Provider. Whenever a file is uploaded, we can retrieve it using the normal `request.input()` method. This will look something like:
 
 ```markup
 <html>
@@ -68,8 +68,10 @@ Uploading with masonite is extremely simple. We can use the `Upload` class which
 And inside our controller we can do:
 
 ```python
-def upload(self, Upload):
-    Upload.driver('disk').store(Request.input('file_upload'))
+from masonite import Upload
+
+def upload(self, upload: Upload):
+    upload.driver('disk').store(request.input('file_upload'))
 ```
 
 That's it! We specified the driver we want to use and just uploaded an image to our file system.
@@ -77,21 +79,21 @@ That's it! We specified the driver we want to use and just uploaded an image to 
 This action will return the file system location. We could use that to input into our database if we want:
 
 ```python
->>> Upload.driver('disk').store(Request.input('file_upload'))
+>>> Upload.driver('disk').store(request.input('file_upload'))
 storage/uploads/new_upload.png
 ```
 
 We may also need to get the filename of the upload. If the request input is a file upload, we have some additional attributes we can use:
 
 ```python
->>> Request.input('file_upload')
+>>> request.input('file_upload')
 new_upload.png
 ```
 
 Lastly, we may need to prepend the file name with something like a `uuid` or something or even just a normal string. We can do so by using the `storePrepend()` method:
 
 ```python
->>> Upload.driver('disk').store(Request.input('file_upload'), 'prepend_name_')
+>>> Upload.driver('disk').store(request.input('file_upload'), 'prepend_name_')
 prepend_name_newupload.png
 ```
 
@@ -119,8 +121,10 @@ DRIVERS = {
 Then in our controller:
 
 ```python
-def upload(self, Upload):
-    Upload.driver('s3').store(Request.input('file_upload'))
+from masonite import Upload
+
+def upload(self, upload: Upload):
+    upload.driver('s3').store(request.input('file_upload'))
 ```
 
 How the S3 driver currently works is it uploads to your file system using the `disk` driver, and then uploads that file to your Amazon S3 bucket. So do not get rid of the `disk` setting in the `DRIVERS` dictionary.
