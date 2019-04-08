@@ -1,7 +1,5 @@
 # Introduction and Installation
 
-<<<<<<< HEAD
-=======
 {% hint style="success" %}
 Any developers that are using or have used Masonite   
   
@@ -10,7 +8,6 @@ If you can take 5 minutes to complete this survey it would be very much apprecia
 [Click here to start the survey](https://joemancuso.typeform.com/to/mOh1ox)
 {% endhint %}
 
->>>>>>> b19bfb7acae948baaa87ece2f7aac0e821bdf5a4
 The modern and developer centric Python web framework that strives for an actual batteries included developer tool with a lot of out of the box functionality with an extremely extendable architecture. Masonite is perfect for beginner developers getting into their first web applications as well as experienced devs that need to utilize the full potential of Masonite to get their applications done.
 
 Masonite works hard to be fast and easy from install to deployment so developers can go from concept to creation in as quick and efficiently as possible. Use it for your next SaaS! Try it once and you’ll fall in love.
@@ -52,8 +49,6 @@ NOTE: Masonite does not support the Anaconda virtual environment system. In orde
 If you are running on a Linux flavor, you’ll need the Python dev package and the libssl package. You can download these packages by running:
 
 #### Debian and Ubuntu based Linux distributions
-<<<<<<< HEAD
-=======
 
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
@@ -64,30 +59,10 @@ $ sudo apt-get install python-dev libssl-dev
 {% endcode-tabs %}
 
 Or you may need to specify your `python3.x-dev` version:
->>>>>>> b19bfb7acae948baaa87ece2f7aac0e821bdf5a4
 
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-<<<<<<< HEAD
-$ sudo apt-get install python-dev libssl-dev
-=======
-$ sudo apt-get install python3.6-dev libssl-dev
->>>>>>> b19bfb7acae948baaa87ece2f7aac0e821bdf5a4
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-<<<<<<< HEAD
-Or you may need to specify your `python3.x-dev` version:
-=======
-#### Enterprise Linux based distributions \(Fedora, CentOS, RHEL, ...\)
->>>>>>> b19bfb7acae948baaa87ece2f7aac0e821bdf5a4
-
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
-```text
-<<<<<<< HEAD
 $ sudo apt-get install python3.6-dev libssl-dev
 ```
 {% endcode-tabs-item %}
@@ -102,12 +77,6 @@ $ sudo apt-get install python3.6-dev libssl-dev
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-=======
-# dnf install python-devel openssl-devel
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
->>>>>>> b19bfb7acae948baaa87ece2f7aac0e821bdf5a4
 
 ## Installation
 
@@ -126,7 +95,6 @@ $ pip install masonite-cli
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-<<<<<<< HEAD
 
 If you already have craft installed, Masonite 2.1 requires `masonite-cli>=2.1.0` so you may have to run with the upgrade flag to.
 
@@ -142,23 +110,6 @@ $ pip install masonite-cli --upgrade
 If you are having installation issues, be sure to read the [Known Installation Issues](prologue/known-installation-issues.md) documentation.
 {% endhint %}
 
-=======
-
-If you already have craft installed, Masonite 2.1 requires `masonite-cli>=2.1.0` so you may have to run with the upgrade flag to.
-
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
-```text
-$ pip install masonite-cli --upgrade
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-{% hint style="warning" %}
-If you are having installation issues, be sure to read the [Known Installation Issues](prologue/known-installation-issues.md) documentation.
-{% endhint %}
-
->>>>>>> b19bfb7acae948baaa87ece2f7aac0e821bdf5a4
 ## Creating Our Project
 
 Great! We are now ready to create our first project. We should have the new `craft` command. We can check this by running:
@@ -225,7 +176,6 @@ $ craft install
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-<<<<<<< HEAD
 
 This command is just a wrapper around the `pip`command. This installs all the required dependencies of Masonite, creates a `.env` file for us, generates a new secret key, and puts that secret key in our `.env` file. After it’s done we can just run the server by using another `craft` command:
 
@@ -233,15 +183,6 @@ This command is just a wrapper around the `pip`command. This installs all the re
 
 After it’s done we can just run the server by using another `craft` command:
 
-=======
-
-This command is just a wrapper around the `pip`command. This installs all the required dependencies of Masonite, creates a `.env` file for us, generates a new secret key, and puts that secret key in our `.env` file. After it’s done we can just run the server by using another `craft` command:
-
-## Running The Server
-
-After it’s done we can just run the server by using another `craft` command:
-
->>>>>>> b19bfb7acae948baaa87ece2f7aac0e821bdf5a4
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
