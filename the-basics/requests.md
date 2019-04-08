@@ -429,8 +429,6 @@ def show(self, request: Request):
 
 ## Redirection
 
-## Redirection
-
 You can specify a url to redirect to
 
 {% code-tabs %}
