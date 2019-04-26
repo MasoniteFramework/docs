@@ -16,7 +16,7 @@ First, create a new test class in a testing directory. We will use the directory
 
 {% code-tabs %}
 {% code-tabs-item title="tests/unit/test\_unit.py" %}
-```python 
+```python
 class TestSomeUnit:
     pass
 ```

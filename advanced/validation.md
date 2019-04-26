@@ -40,7 +40,7 @@ from validator import Required, Pattern, Truthy
 class RegistrationValidator(Validator):
 
     def register_form(self):
-        self.validate({
+        return self.validate({
             'username': [Required, Pattern('[a-zA-Z0-9]')],
             'is_staff': [Required, Truthy()],
             'password': [Required]
@@ -60,7 +60,7 @@ from validator import Required, Pattern, Truthy
 class RegistrationValidator(Validator):
 
     def register_form(self):
-        self.validate({
+        return self.validate({
             'username': [Required, Pattern('[a-zA-Z0-9]')],
             'is_staff': [Required, Truthy()],
             'password': [Required]
