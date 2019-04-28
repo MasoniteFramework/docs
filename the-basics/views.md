@@ -389,6 +389,29 @@ or a list:
 </form>
 ```
 
+Another cool feature is that if the current route already contains the correct dictionary then you do not have to pass a second parameter. For example if you have a 2 routes like:
+
+```python
+Get('/dashboard/@id', 'Controller@show').name('dashboard.show'),
+Get('/dashhboard/@id/users', 'Controller@users').name('dashhboard.users')
+```
+
+If you are accessing these 2 routes then the @id parameter will be stored on the user object. So instead of doing this:
+
+```markup
+<form action="{{ route('dashboard.users', {'id': 1}) }}" method="POST">
+    ..
+</form>
+```
+
+You can just leave it out completely since the `id` key is already stored on the request object:
+
+```markup
+<form action="{{ route('dashboard.users') }}" method="POST">
+    ..
+</form>
+```
+
 ### Back
 
 This is useful for redirecting back to the previous page. If you supply this helper then the request.back\(\) method will go to this endpoint. It's typically good to use this to go back to a page after a form is submitted with errors:
