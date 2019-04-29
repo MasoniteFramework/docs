@@ -1,6 +1,7 @@
 # Table of contents
 
 * [Introduction and Installation](README.md)
+* [Creating a Blog](tutorials/creating-a-blog.md)
 
 ## Prologue
 
