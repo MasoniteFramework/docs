@@ -40,12 +40,12 @@ This validating will read like "user and email are required and the terms must b
 
 |  |  |  |
 | :--- | :--- | :--- |
-| accepted | is\_in | none |
-| contains | isnt | numeric |
-| equals | json | required |
-| greater\_than | length | string |
-| in\_range | less\_than | truthy |
-|  |  | when |
+| [accepted](validation.md#accepted) | [is\_in](validation.md#is_in) | [none](validation.md#none) |
+| [contains](validation.md#contains) | [isnt](validation.md#isnt) | [numeric](validation.md#numeric) |
+| [equals](validation.md#equals) | [json](validation.md#json) | [required](validation.md#required) |
+| [greater\_than](validation.md#greater_than) | [length](validation.md#length) | [string](validation.md#string) |
+| [in\_range](validation.md#in_range) | [less\_than](validation.md#less_than) | [truthy](validation.md#truthy) |
+|  |  | [when](validation.md#when) |
 
 ### Accepted
 
