@@ -2,12 +2,14 @@
 
 ## Introduction
 
-Masonite testing is very simple. You can test very complex parts of your code with ease by just extending your class with a Masonite unit test class.
+Masonite testing is very simple. You can test very complex parts of your code with ease by just extending your class with a Masonite unit test class. 
+
+The Masonite test suite is based on `unittest`.
 
 You can run tests by running:
 
 ```bash
-$ python -m pytest 
+$ python -m unittest
 ```
 
 ## Configuration
@@ -57,10 +59,10 @@ from masonite.testing import UnitTest
 from masonite.routes import Get
 
 class TestSomeUnit(UnitTest):
-    
+
     def setup_method(self):
         super().setup_method()
-        
+
         self.routes([
             Get().route('/testing', 'TestController@show').name('testing.route').middleware('auth', 'owner')
         ])
@@ -77,10 +79,10 @@ from masonite.testing import UnitTest
 from routes.web import ROUTES
 
 class TestSomeUnit(UnitTest):
-    
+
     def setup_method(self):
         super().setup_method()
-        
+
         self.routes(ROUTES)
 ```
 {% endcode-tabs-item %}
@@ -101,14 +103,14 @@ from masonite.testing import UnitTest
 from routes.web import ROUTES
 
 class TestSomeUnit(UnitTest):
-    
+
     def setup_method(self):
         super().setup_method()
-        
+
         self.routes([
             Get().route('/testing', 'SomeController@show').name('testing.route').middleware('auth', 'owner')
         ])
-    
+
     def test_route_exists(self):
         assert self.route('/testing')
 ```
@@ -204,7 +206,7 @@ def test_json_response(self):
 
 ### Users
 
-We can load users into the route and check if they can view the route. This is good to see if your middleware is acting good against various users. 
+We can load users into the route and check if they can view the route. This is good to see if your middleware is acting good against various users.
 
 For example we can check if a user that isn't logged in has access to the dashboard homepage:
 
@@ -230,4 +232,7 @@ def test_owner_user_can_view(self):
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-xw
+
+## Getting Output
+
+You can get the output by using the capture output
