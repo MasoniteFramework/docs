@@ -34,3 +34,4 @@ def show(self, request: Request, validate: Validator):
 
 This validating will read like "user and email are required and the terms must be accepted" (more on available rules and what they mean in a bit)
 
+ 
