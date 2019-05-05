@@ -273,7 +273,7 @@ Just put the dictionary as the first argument and then each rule being its own a
 
 ## Nested Validations
 
-Sometimes you will need to check values that aren't on the top level of a dictionary like the  examples shown here. In this case we can use dot notation to valid deeper dictionaries:
+Sometimes you will need to check values that aren't on the top level of a dictionary like the  examples shown here. In this case we can use dot notation to validate deeper dictionaries:
 
 ```python
 """
@@ -293,12 +293,12 @@ Sometimes you will need to check values that aren't on the top level of a dictio
 errors = request.validate(
 
     validate.required(['user.email']),
-    validate.truthy(['user.status.active']])
+    validate.truthy(['user.status.active'])
 
 )
 ```
 
-notice the dot notation here. Each . being a deeper level to the dictionary
+notice the dot notation here. Each `.` being a deeper level to the dictionary.
 
 ## Available Rules
 
