@@ -275,12 +275,15 @@ Just put the dictionary as the first argument and then each rule being its own a
 
 |  |  |  |
 | :--- | :--- | :--- |
-| [accepted](validation.md#accepted) | [is\_in](validation.md#is_in) | [none](validation.md#none) |
-| [contains](validation.md#contains) | [isnt](validation.md#isnt) | [numeric](validation.md#numeric) |
-| [equals](validation.md#equals) | [json](validation.md#json) | [required](validation.md#required) |
-| [greater\_than](validation.md#greater_than) | [length](validation.md#length) | [string](validation.md#string) |
-| [in\_range](validation.md#in_range) | [less\_than](validation.md#less_than) | [truthy](validation.md#truthy) |
-|  |  | [when](validation.md#when) |
+| [accepted](validation.md#accepted) | [is\_in](validation.md#is_in) | [truthy](validation.md#truthy) |
+| [active\_domain](validation.md#active_domain) | [isnt](validation.md#isnt) | [when](validation.md#when) |
+| [contains](validation.md#contains) | [json](validation.md#json) |  |
+| [equals](validation.md#equals) | [length](validation.md#length) |  |
+| [email](validation.md#email) | [less\_than](validation.md#less_than) |  |
+| [exists](validation.md#exists) | [none](validation.md#none) |  |
+| [greater\_than](validation.md#greater_than) | [numeric](validation.md#numeric) |  |
+| [in\_range](validation.md#in_range) | [required](validation.md#required) |  |
+|  | [string](validation.md#string) |  |
 
 ### Accepted
 
@@ -293,6 +296,20 @@ The accepted rule is most useful when seeing if a checkbox has been checked. Whe
 }
 """
 validate.accepted(['terms'])
+```
+
+### Active\_domain
+
+This is used to verify that the domain being passed in is a DNS resolvable domain name. You can also do this for email addresses as well. The preferred search is domain.com but Masonite will strip out `http://`, `https://` and `www` automatically for you.
+
+```python
+"""
+{
+  'domain': 'http://google.com',
+  'email': 'user@example.com'
+}
+"""
+validate.active_domain(['domain', 'email'])
 ```
 
 ### Contains
@@ -319,6 +336,52 @@ Used to make sure a dictionary value is equal to a specific value
 }
 """
 validate.equals(['age'], 25)
+```
+
+### Email
+
+This is useful for verifying that a value is a valid email address
+
+```python
+"""
+{
+  'domain': 'http://google.com',
+  'email': 'user@example.com'
+}
+"""
+validate.email(['email'])
+```
+
+### Exists
+
+Checks to see if a key  exists in the dictionary. 
+
+```python
+"""
+{
+  'email': 'user@example.com',
+  'terms': 'on'
+  'age': 18
+}
+"""
+validate.exists(['terms'])
+```
+
+This is good when used with the when rule:
+
+```python
+"""
+{
+  'email': 'user@example.com',
+  'terms': 'on'
+  'age': 18
+}
+"""
+validate.when(
+    validate.exists(['terms'])
+).then(
+    validate.greater_than(['age'], 18)
+)
 ```
 
 ### Greater\_than
