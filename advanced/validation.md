@@ -325,6 +325,69 @@ Now instead of returning the generic errors, the error message returned will be 
 Leaving out a message will result in the generic one still being returned for that value.
 {% endhint %}
 
+## Exceptions
+
+By default, Masonite will not throw exceptions when it encounters failed validations. You can force Masonite to raise a `ValueError` when it hits a failed validation:
+
+```python
+"""
+{
+  'domain': 'http://google.com',
+  'email': 'user@example.com'
+  'user': {
+     'id': 1,
+     'email': 'user@example.com',
+     'status': {
+         'active': 1,
+         'banned': 0
+     }
+  }
+}
+"""
+errors = request.validate(
+
+    validate.required(['user.email'], raises=True),
+    validate.truthy(['user.status.active'])
+
+)
+```
+
+Now if the  required rule fails it will throw a `ValueError`. You can catch the message like so:
+
+```python
+try:
+    errors = request.validate(
+    
+        validate.required(['user.email'], raises=True),
+        validate.truthy(['user.status.active'])
+    
+    )
+except ValueError as e:
+    str(e) #== 'user.email is required'
+```
+
+### Custom Exceptions
+
+You can also specify which exceptions should be thrown with which key being checked by using a dictionary:
+
+```python
+try:
+    errors = request.validate(
+    
+        validate.required(['user.email', 'user.id'], raises={
+            'user.id': AttributeError,
+            'user.email': CustomException
+        }),
+    
+    )
+except AttributeError as e:
+    str(e) #== 'user.id is required'
+except CustomException as e:
+    str(e) #== 'user.email is required'
+```
+
+All other rules within an explicit exception error will throw the `ValueError`.
+
 ## Available Rules
 
 |  |  |  |
