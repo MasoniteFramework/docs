@@ -36,6 +36,236 @@ def show(self, request: Request, validate: Validator):
 
 This validating will read like "user and email are required and the terms must be accepted" \(more on available rules and what they mean in a bit\)
 
+## Creating a Rule
+
+Sometimes you may cross a time where you need to create a new rule that isn't available in Masonite or there is such a niche use case that you need to build a rule for.
+
+In this case you can create a new rule.
+
+### Rule Command
+
+You  can easily create a new rule boiler plate by running:
+
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
+```bash
+$ craft rule equals_masonite
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+This will create a boiler plate rule inside app/rules/equals\_masonite.py that looks like:
+
+```python
+class equals_masonite(BaseValidation):
+    """A rule_name validation class
+    """
+
+    def passes(self, attribute, key, dictionary):
+        """The passing criteria for this rule. 
+        
+        ...
+        """
+        return attribute
+
+    def message(self, key):
+        """A message to show when this rule fails
+        
+        ...
+        """
+        return '{} is required'.format(key)
+
+    def negated_message(self, key):
+        """A message to show when this rule is negated using a negation rule like 'isnt()'
+
+        ...
+        """
+        return '{} is not required'.format(key)
+```
+
+### Constructing our Rule
+
+Our rule class needs 3 methods that you see when you run the rule command, a `passes`, `message` and `negated_message` methods.
+
+#### Passes Method
+
+The passes method needs to return some kind of boolean value for the use case in which this rule passes.
+
+For example if you need to make a rule that a value always equals Masonite then you can make the method look like this:
+
+```python
+def passes(self, attribute, key, dictionary):
+    """The passing criteria for this rule. 
+        
+    ...
+    """
+    return attribute == 'Masonite'
+```
+
+When validating a dictionary like this:
+
+```python
+{
+  'name': 'Masonite'
+}
+```
+
+then 
+
+* the attribute will be the value \(`Masonite`\)
+* the key will be the dictionary key \(`name`\)
+* the dictionary will be the full dictionary in case you need to do any additional checks.
+
+#### Message method
+
+The message method needs to return a string used as the error message. If you are making the rule above then our rule may so far look something like:
+
+```python
+def passes(self, attribute, key, dictionary):
+    """The passing criteria for this rule. 
+        
+    ...
+    """
+    return attribute == 'Masonite'
+
+def message(self, key):
+    return '{} must be equal to Masonite'.format(key)
+```
+
+#### Negated Message
+
+The negated message method needs to return a message when this rule is negated. This will basically be a negated statement of the `message` method:
+
+```python
+def passes(self, attribute, key, dictionary):
+    """The passing criteria for this rule. 
+        
+    ...
+    """
+    return attribute == 'Masonite'
+
+def message(self, key):
+    return '{} must be equal to Masonite'.format(key)
+    
+def negated_message(self, key):
+    return '{} must not be equal to Masonite'.format(key)
+```
+
+### Registering our Rule
+
+Now the rule is created we can use it in 1 of 2 ways.
+
+#### Importing our rule
+
+We can either import directly into our controller method:
+
+```python
+from masonite.validation import Validator
+from app.rules.equals_masonite import equals_masonite
+
+def show(self, request: Request, validate: Validator):
+    """
+    Incoming Input: {
+        'user': 'username123',
+        'company': 'Masonite'
+    }
+    """
+    valid = request.validate(
+
+        validate.required(['user', 'company']),
+        equals_masonite(['company'])
+
+    )
+```
+
+or we can register our rule and use it with the Validator class as normal.
+
+#### Register the rule
+
+In any service provider's boot method \(preferably a provider where `wsgi=False` to prevent it from running on every request\) we can register our rule with the validator class. 
+
+If you don't have a provider yet we can make one specifically for adding custom rules:
+
+{% code-tabs %}
+{% code-tabs-item title="terminal" %}
+```bash
+$ craft provider RuleProvider
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Then inside this rule provider's boot method we can resolve and register our rule. This will look like:
+
+```python
+from app.rules.equals_masonite import equals_masonite
+from masonite.validation import Validator
+
+class RuleProvider(ServiceProvider):
+    """Provides Services To The Service Container
+    """
+
+    wsgi = False
+    
+    ...
+
+    def boot(self, validator: Validator):
+        """Boots services required by the container
+        """
+
+        validator.register(equals_masonite)
+```
+
+Now instead of importing the rule we can just use it as normal:
+
+```python
+from masonite.validation import Validator
+
+def show(self, request: Request, validate: Validator):
+    """
+    Incoming Input: {
+        'user': 'username123',
+        'company': 'Masonite'
+    }
+    """
+    valid = request.validate(
+
+        validate.required(['user', 'company']),
+        validate.equals_masonite(['company'])
+
+    )
+```
+
+notice we called the method as if it was apart of the validator class this whole time.
+
+{% hint style="info" %}
+Registering rules is especially useful when creating packages for Masonite that contain new rules.
+{% endhint %}
+
+## Using The Validator Class
+
+In addition to validating the request class we can also use the validator class directly. This is useful if you need to validate your own dictionary:
+
+```python
+from masonite.validation import Validator
+
+def show(self, validator: Validator):
+    """
+    Incoming Input: {
+        'user': 'username123',
+        'company': 'Masonite'
+    }
+    """
+    valid = validator.validate({
+        'user': 'username123',
+        'company': 'Masonite'
+    },
+        validate.required(['user', 'company']),
+        validate.equals_masonite(['company'])
+    )
+```
+
+Just put the dictionary as the first argument and then each rule being its own argument.
+
 ## Available Rules
 
 |  |  |  |
