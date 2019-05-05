@@ -164,7 +164,7 @@ You can also call any arbitrary function or method using the queue driver. All y
 ```python
 def run_async(obj1, obj2):
     pass
-    
+
 def show(self, queue: Queue):
     obj1 = SomeObject()
     obj2 = AnotherObject()

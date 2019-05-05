@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Masonite testing is very simple. You can test very complex parts of your code with ease by just extending your class with a Masonite unit test class. 
+Masonite testing is very simple. You can test very complex parts of your code with ease by just extending your class with a Masonite unit test class.
 
 The Masonite test suite is based on `unittest`.
 
@@ -236,3 +236,4 @@ def test_owner_user_can_view(self):
 ## Getting Output
 
 You can get the output by using the capture output
+

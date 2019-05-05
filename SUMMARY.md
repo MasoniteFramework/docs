@@ -44,8 +44,8 @@
 
 ## The Craft Command
 
-* [Introduction](the-craft-command/introduction.md)
-* [Creating Commands](the-craft-command/creating-commands.md)
+* [Introduction](the-craft-command-1/introduction.md)
+* [Creating Commands](the-craft-command-1/creating-commands.md)
 
 ## Architectural Concepts
 
@@ -87,7 +87,7 @@
 * [Authentication](security/authentication.md)
 * [CSRF Protection](security/csrf-protection.md)
 * [Encryption](security/encryption.md)
-* [CSRF Protection](security/csrf-protection.md)
+* [CSRF Protection](security/csrf-protection-1.md)
 * [Headers](security/headers.md)
 * [Releases](security/releases.md)
 

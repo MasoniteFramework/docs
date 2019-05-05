@@ -101,7 +101,7 @@ GET       /api/user/@id
 
 ## Adding Middleware
 
-You can easily add middleware to routes by specifying them using  the `middleware` method:
+You can easily add middleware to routes by specifying them using the `middleware` method:
 
 ```python
 ...

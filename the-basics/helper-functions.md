@@ -287,7 +287,7 @@ def show(self, view: View):
     return view.render('some.template', {'posts': posts, 'users': users, 'articles': articles})
 ```
 
-Notice how our Python variables are exactly the same as what we want our variables to be in  our template. 
+Notice how our Python variables are exactly the same as what we want our variables to be in our template.
 
 With the compact function, now you can do:
 
@@ -312,20 +312,4 @@ def show(self, view: View):
     user_blogs = Blog.where('user_id', 1).get()
     return view.render('some.template', compact(posts, users, {'blogs': user_blogs}))
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
 
