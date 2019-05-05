@@ -6,6 +6,10 @@
 
 There are a lot of times when you need to validate incoming input either from a form or from an incoming json request. It is wise to have some form of backend validation as it will allow you. Masonite provides an extremely flexible and fluent way to validate this data.
 
+{% hint style="info" %}
+You  can  see a [list of available rules here](validation.md#available-rules).
+{% endhint %}
+
 ## Validating The Request
 
 Incoming form or JSON data can be validated very simply. All you need to do is import the `Validator` class, resolve it, and use the necessary rule methods.
@@ -113,9 +117,9 @@ When validating a dictionary like this:
 
 then 
 
-* the attribute will be the value \(`Masonite`\)
-* the key will be the dictionary key \(`name`\)
-* the dictionary will be the full dictionary in case you need to do any additional checks.
+* the `attribute` will be the value \(`Masonite`\)
+* the `key` will be the dictionary key \(`name`\)
+* the `dictionary` will be the full dictionary in case you need to do any additional checks.
 
 #### Message method
 
