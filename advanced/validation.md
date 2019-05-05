@@ -4,7 +4,7 @@
 
 ### Introduction
 
-There are a lot of times when you need to validate incoming input either from a form or from an incoming json request. It is wise to have some form of backend validation as it will allow you. Masonite provides an extremely flexible and fluent way to validate this data.
+There are a lot of times when you need to validate incoming input either from a form or from an incoming json request. It is wise to have some form of backend validation as it will allow you to build more secure applications. Masonite provides an extremely flexible and fluent way to validate this data.
 
 {% hint style="info" %}
 You  can  see a [list of available rules here](validation.md#available-rules).
@@ -299,6 +299,31 @@ errors = request.validate(
 ```
 
 notice the dot notation here. Each `.` being a deeper level to the dictionary.
+
+## Custom Messages
+
+All errors returned will be very generic. Most times you will need to specify some custom error that is more tailored to your user base.
+
+Each rule has a messages keyword arg that can be used to specify your custom errors.
+
+```python
+"""
+{
+  'terms': 'off',
+  'active': 'on',
+}
+"""
+validate.accepted(['terms', 'active'], messages = {
+    'terms': 'You must check the terms box on the bottom',
+    'active': 'Make sure you are active'
+})
+```
+
+Now instead of returning the generic errors, the error message returned will be  the one you supplied.
+
+{% hint style="info" %}
+Leaving out a message will result in the generic one still being returned for that value.
+{% endhint %}
 
 ## Available Rules
 
