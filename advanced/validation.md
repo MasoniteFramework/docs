@@ -23,15 +23,16 @@ def show(self, request: Request, validate: Validator):
         'terms': 'on'
     }
     """
-    valid = request.validate(
+    errors = request.validate(
 
         validate.required(['user', 'email']),
         validate.accepted(['terms']])
 
     )
 
-    if valid.errors:
-        return request.back().with_errors()
+    if errors:
+        request.session.flash({'errors': errors})
+        return request.back()
 ```
 
 This validating will read like "user and email are required and the terms must be accepted" \(more on available rules and what they mean in a bit\)
