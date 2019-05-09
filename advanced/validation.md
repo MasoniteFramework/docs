@@ -59,6 +59,10 @@ $ craft rule equals_masonite
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+{% hint style="info" %}
+There is no particular reason that rules are lowercase class names. The main reason it is improves readability when you end up using it as a method if you choose to register the rule with the validation class like you will see below.
+{% endhint %}
+
 This will create a boiler plate rule inside app/rules/equals\_masonite.py that looks like:
 
 ```python
