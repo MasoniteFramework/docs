@@ -398,6 +398,8 @@ All other rules within an explicit exception error will throw the `ValueError`.
 | :--- | :--- | :--- |
 | [accepted](validation.md#accepted) | [is\_in](validation.md#is_in) | [truthy](validation.md#truthy) |
 | [active\_domain](validation.md#active_domain) | [isnt](validation.md#isnt) | [when](validation.md#when) |
+| [after\_today](validation.md#after_today) | [is\_past](validation.md#is_past) |  |
+| [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) |  |
 | [contains](validation.md#contains) | [json](validation.md#json) |  |
 | [equals](validation.md#equals) | [length](validation.md#length) |  |
 | [email](validation.md#email) | [less\_than](validation.md#less_than) |  |
@@ -432,6 +434,34 @@ This is used to verify that the domain being passed in is a DNS resolvable domai
 """
 validate.active_domain(['domain', 'email'])
 ```
+
+### After\_today
+
+Used to make sure the date is a date after today. In this example, this will work for any day that is 2019-10-21 or later.
+
+```python
+"""
+{
+  'date': '2019-10-20', # Or date in the future
+}
+"""
+validate.after_today(['date'])
+```
+
+### Before\_today
+
+Used to make sure the date is a date before today. In this example, this will work for any day that is 2019-10-19 or earlier.
+
+```python
+"""
+{
+  'date': '2019-10-20', # Or date in the future
+}
+"""
+validate.before_today(['date'])
+```
+
+
 
 ### Contains
 
@@ -565,7 +595,33 @@ validate.isnt(
 
 This will produce an error because age it is looking to make sure age **is not in** the list now.
 
-###  Json
+### Is\_future
+
+Checks to see the date and time passed is in the future. This will pass even if the datetime is 5 minutes in the future.
+
+```python
+"""
+{
+  'date': '2019-10-20', # Or date in the future
+}
+"""
+validate.is_future(['date'])
+```
+
+### Is\_past
+
+Checks to see the date and time passed is in the past. This will pass even if the datetime is 5 minutes in the past.
+
+```python
+"""
+{
+  'date': '2019-10-20', # Or date in the future
+}
+"""
+validate.is_past(['date'])
+```
+
+### Json
 
 Used to make sure a given value is actually a JSON object
 
