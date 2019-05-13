@@ -412,7 +412,7 @@ All other rules within an explicit exception error will throw the `ValueError`.
 | [exists](validation.md#exists) | [none](validation.md#none) |  |
 | [greater\_than](validation.md#greater_than) | [numeric](validation.md#numeric) |  |
 | [in\_range](validation.md#in_range) | [required](validation.md#required) |  |
-|  | [string](validation.md#string) |  |
+| [ip](validation.md#ip) | [string](validation.md#string) |  |
 
 ### Accepted
 
@@ -585,6 +585,19 @@ Used when you need to check if an integer is within a given range of numbers
 }
 """
 validate.in_range('attendees', min=24, max=64)
+```
+
+### Ip
+
+You can also check if the input is a valid IPv4 address:
+
+```python
+"""
+{
+  'address': '78.281.291.8'
+}
+"""
+validate.ip('address')
 ```
 
 ### Is\_in
