@@ -748,7 +748,7 @@ Used to make sure a value is a numeric value
   'active': None
 }
 """
-validate.numeric('age'])
+validate.numeric('age')
 ```
 
 ### Required
