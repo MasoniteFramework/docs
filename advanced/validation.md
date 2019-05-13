@@ -404,7 +404,7 @@ All other rules within an explicit exception error will throw the `ValueError`.
 | :--- | :--- | :--- |
 | [accepted](validation.md#accepted) | [is\_in](validation.md#is_in) | [truthy](validation.md#truthy) |
 | [active\_domain](validation.md#active_domain) | [isnt](validation.md#isnt) | [when](validation.md#when) |
-| [after\_today](validation.md#after_today) | [is\_past](validation.md#is_past) |  |
+| [after\_today](validation.md#after_today) | [is\_past](validation.md#is_past) | [timezone](validation.md#timezone) |
 | [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) |  |
 | [contains](validation.md#contains) | [json](validation.md#json) |  |
 | [equals](validation.md#equals) | [length](validation.md#length) |  |
@@ -777,6 +777,19 @@ Used to make sure the value is a string
 }
 """
 validate.string('email')
+```
+
+### Timezone
+
+You can also validate that a value passed in a valid timezone
+
+```python
+"""
+{
+  'timezone': 'America/New_York'
+}
+"""
+validate.timezone('timezone')
 ```
 
 ### Truthy
