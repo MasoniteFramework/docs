@@ -6,6 +6,8 @@
 
 There are a lot of times when you need to validate incoming input either from a form or from an incoming json request. It is wise to have some form of backend validation as it will allow you to build more secure applications. Masonite provides an extremely flexible and fluent way to validate this data.
 
+Validations are based on rules where you can pass in a key or a list of keys to the rule. The validation will then use all the rules and apply them to the dictionary to validate.
+
 {% hint style="info" %}
 You can see a [list of available rules here](validation.md#available-rules).
 {% endhint %}
@@ -30,7 +32,7 @@ def show(self, request: Request, validate: Validator):
     errors = request.validate(
 
         validate.required(['user', 'email']),
-        validate.accepted(['terms']])
+        validate.accepted('terms')
 
     )
 
@@ -40,6 +42,10 @@ def show(self, request: Request, validate: Validator):
 ```
 
 This validating will read like "user and email are required and the terms must be accepted" \(more on available rules and what they mean in a bit\)
+
+{% hint style="info" %}
+Note you can either pass in a single value or a list of values
+{% endhint %}
 
 ## Creating a Rule
 
@@ -182,7 +188,7 @@ def show(self, request: Request, validate: Validator):
     valid = request.validate(
 
         validate.required(['user', 'company']),
-        equals_masonite(['company'])
+        equals_masonite('company')
 
     )
 ```
@@ -239,7 +245,7 @@ def show(self, request: Request, validate: Validator):
     valid = request.validate(
 
         validate.required(['user', 'company']),
-        validate.equals_masonite(['company'])
+        validate.equals_masonite('company')
 
     )
 ```
@@ -269,7 +275,7 @@ def show(self, validator: Validator):
         'company': 'Masonite'
     },
         validate.required(['user', 'company']),
-        validate.equals_masonite(['company'])
+        validate.equals_masonite('company')
     )
 ```
 
@@ -296,8 +302,8 @@ Sometimes you will need to check values that aren't on the top level of a dictio
 """
 errors = request.validate(
 
-    validate.required(['user.email']),
-    validate.truthy(['user.status.active'])
+    validate.required('user.email'),
+    validate.truthy('user.status.active')
 
 )
 ```
@@ -350,8 +356,8 @@ By default, Masonite will not throw exceptions when it encounters failed validat
 """
 errors = request.validate(
 
-    validate.required(['user.email'], raises=True),
-    validate.truthy(['user.status.active'])
+    validate.required('user.email', raises=True),
+    validate.truthy('user.status.active')
 
 )
 ```
@@ -362,8 +368,8 @@ Now if the  required rule fails it will throw a `ValueError`. You can catch the 
 try:
     errors = request.validate(
     
-        validate.required(['user.email'], raises=True),
-        validate.truthy(['user.status.active'])
+        validate.required('user.email', raises=True),
+        validate.truthy('user.status.active')
     
     )
 except ValueError as e:
@@ -418,7 +424,7 @@ The accepted rule is most useful when seeing if a checkbox has been checked. Whe
   'terms': 'on'
 }
 """
-validate.accepted(['terms'])
+validate.accepted('terms')
 ```
 
 ### Active\_domain
@@ -445,7 +451,18 @@ Used to make sure the date is a date after today. In this example, this will wor
   'date': '2019-10-20', # Or date in the future
 }
 """
-validate.after_today(['date'])
+validate.after_today('date')
+```
+
+You may also pass in a timezone for this rule:
+
+```python
+"""
+{
+  'date': '2019-10-20', # Or date in the future
+}
+"""
+validate.after_today('date', tz='America/New_York')
 ```
 
 ### Before\_today
@@ -455,13 +472,22 @@ Used to make sure the date is a date before today. In this example, this will wo
 ```python
 """
 {
-  'date': '2019-10-20', # Or date in the future
+  'date': '2019-10-20', # Or date in the past
 }
 """
-validate.before_today(['date'])
+validate.before_today('date')
 ```
 
+You may also pass in a timezone for this rule:
 
+```python
+"""
+{
+  'date': '2019-10-20', # Or date in the past
+}
+"""
+validate.before_today('date', tz='America/New_York')
+```
 
 ### Contains
 
@@ -473,7 +499,7 @@ This is used to make sure a value exists inside an iterable \(like a list or str
   'description': 'Masonite is an amazing framework'
 }
 """
-validate.contains(['description'], 'Masonite')
+validate.contains('description', 'Masonite')
 ```
 
 ### Equals
@@ -486,7 +512,7 @@ Used to make sure a dictionary value is equal to a specific value
   'age': 25
 }
 """
-validate.equals(['age'], 25)
+validate.equals('age', 25)
 ```
 
 ### Email
@@ -500,7 +526,7 @@ This is useful for verifying that a value is a valid email address
   'email': 'user@example.com'
 }
 """
-validate.email(['email'])
+validate.email('email')
 ```
 
 ### Exists
@@ -515,7 +541,7 @@ Checks to see if a key  exists in the dictionary.
   'age': 18
 }
 """
-validate.exists(['terms'])
+validate.exists('terms')
 ```
 
 This is good when used with the when rule:
@@ -529,9 +555,9 @@ This is good when used with the when rule:
 }
 """
 validate.when(
-    validate.exists(['terms'])
+    validate.exists('terms')
 ).then(
-    validate.greater_than(['age'], 18)
+    validate.greater_than('age', 18)
 )
 ```
 
@@ -545,7 +571,7 @@ This is used to make sure a value is greater than a specific value
   'age': 25
 }
 """
-validate.greater_than(['age'], 18)
+validate.greater_than('age', 18)
 ```
 
 ### In\_range
@@ -558,7 +584,7 @@ Used when you need to check if an integer is within a given range of numbers
   'attendees': 54
 }
 """
-validate.in_range(['attendees'], min=24, max=64)
+validate.in_range('attendees', min=24, max=64)
 ```
 
 ### Is\_in
@@ -571,7 +597,7 @@ Used to make sure if a value is in a specific value
   'age': 5
 }
 """
-validate.is_in(['age'], [2,4,5])
+validate.is_in('age', [2,4,5])
 ```
 
 notice how 5 is in the list
@@ -589,7 +615,7 @@ For example to get the opposite if `is_in` you will do:
 }
 """
 validate.isnt(
-  validate.is_in(['age'], [2,4,5])
+  validate.is_in('age', [2,4,5])
 )
 ```
 
@@ -605,7 +631,18 @@ Checks to see the date and time passed is in the future. This will pass even if 
   'date': '2019-10-20', # Or date in the future
 }
 """
-validate.is_future(['date'])
+validate.is_future('date')
+```
+
+You may also pass in a timezone for this rule:
+
+```python
+"""
+{
+  'date': '2019-10-20', # Or date in the future
+}
+"""
+validate.is_future('date', tz='America/New_York')
 ```
 
 ### Is\_past
@@ -618,7 +655,18 @@ Checks to see the date and time passed is in the past. This will pass even if th
   'date': '2019-10-20', # Or date in the future
 }
 """
-validate.is_past(['date'])
+validate.is_past('date')
+```
+
+You may also pass in a timezone for this rule:
+
+```python
+"""
+{
+  'date': '2019-10-20', # Or date in the future
+}
+"""
+validate.is_past('date', tz='America/New_York')
 ```
 
 ### Json
@@ -632,7 +680,7 @@ Used to make sure a given value is actually a JSON object
   'payload': '[{"email": "user@email.com"}]'
 }
 """
-validate.json(['payload'])
+validate.json('payload')
 ```
 
 ### Length
@@ -646,7 +694,7 @@ Used to make sure a string is of a certain length
   'description': 'this is a long description'
 }
 """
-validate.length(['description'], min=5, max=35)
+validate.length('description', min=5, max=35)
 ```
 
 ### Less\_than
@@ -659,7 +707,7 @@ This is used to make sure a value is less than a specific value
   'age': 25
 }
 """
-validate.less_than(['age'], 18)
+validate.less_than('age', 18)
 ```
 
 ### None
@@ -673,7 +721,7 @@ Used to make sure the value is None
   'active': None
 }
 """
-validate.none(['active'])
+validate.none('active')
 ```
 
 ### Numeric
@@ -687,7 +735,7 @@ Used to make sure a value is a numeric value
   'active': None
 }
 """
-validate.numeric(['age'])
+validate.numeric('age'])
 ```
 
 ### Required
@@ -715,7 +763,7 @@ Used to make sure the value is a string
   'email': 'user@email.com'
 }
 """
-validate.string(['email'])
+validate.string('email')
 ```
 
 ### Truthy
@@ -729,7 +777,7 @@ Used to make sure a value is a truthy value. This is anything that would pass in
   'email': 'user@email.com'
 }
 """
-validate.truthy(['active'])
+validate.truthy('active')
 ```
 
 ### When
@@ -747,10 +795,10 @@ For example if you want to make terms be accepted ONLY if the user is under 18
 }
 """
 validate.when(
-    validate.less_than(['age'], 18)
+    validate.less_than('age', 18)
 ).then(
-    validate.required(['terms']),
-    validate.accepted(['terms'])
+    validate.required('terms'),
+    validate.accepted('terms')
 )
 ```
 
