@@ -281,6 +281,95 @@ def show(self, validator: Validator):
 
 Just put the dictionary as the first argument and then each rule being its own argument.
 
+## Rule Enclosures
+
+Rule enclosures are self contained classes with rules. You can use these to help reuse your validation logic. For example if you see you are using the same rules often you can use an enclosure to always keep them together and reuse them throughout your code base.
+
+### Rule Enclosure Command
+
+You can create a rule enclosure by running:
+
+```text
+$ craft rule:enclosure AcceptedTerms
+```
+
+You will then see a file generated like this inside app/rules:
+
+```python
+from masonite.validation import RuleEnclosure
+
+...
+
+class AcceptedTerms(RuleEnclosure):
+
+    def rules(self):
+        """ ... """
+        return [
+            # Rules go here
+        ]
+```
+
+### Creating the Rule Enclosure
+
+You can then fill the list with rules:
+
+```python
+from masonite.validations import required, accepted
+
+class LoginForm(RuleEnclosure):
+
+    def rules(self):
+        """ ... """
+        return [
+            required(['email', 'terms']),
+            accepted('terms')
+        ]
+```
+
+You can then use the rule enclosure like this:
+
+```python
+from app.rules.LoginForm import AcceptedTerms
+
+def show(self, request: Request):
+    """
+    Incoming Input: {
+        'user': 'username123',
+        'email': 'user@example.com',
+        'terms': 'on'
+    }
+    """
+    errors = request.validate(AcceptedTerms)
+
+    if errors:
+        request.session.flash({'errors': errors})
+        return request.back()
+```
+
+You can also use this in addition to other rules:
+
+```python
+from app.rules.LoginForm import AcceptedTerms
+from masonite.validations import email
+
+def show(self, request: Request):
+    """
+    Incoming Input: {
+        'user': 'username123',
+        'email': 'user@example.com',
+        'terms': 'on'
+    }
+    """
+    errors = request.validate(
+        AcceptedTerms,
+        email('email')
+    )
+
+    if errors:
+        request.session.flash({'errors': errors})
+        return request.back()
+```
+
 ## Nested Validations
 
 Sometimes you will need to check values that aren't on the top level of a dictionary like the  examples shown here. In this case we can use dot notation to validate deeper dictionaries:
