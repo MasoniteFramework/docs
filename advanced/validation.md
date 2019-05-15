@@ -494,7 +494,7 @@ All other rules within an explicit exception error will throw the `ValueError`.
 | [accepted](validation.md#accepted) | [is\_in](validation.md#is_in) | [truthy](validation.md#truthy) |
 | [active\_domain](validation.md#active_domain) | [isnt](validation.md#isnt) | [when](validation.md#when) |
 | [after\_today](validation.md#after_today) | [is\_past](validation.md#is_past) | [timezone](validation.md#timezone) |
-| [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) |  |
+| [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) | [phone](validation.md#phone) |
 | [contains](validation.md#contains) | [json](validation.md#json) |  |
 | [equals](validation.md#equals) | [length](validation.md#length) |  |
 | [email](validation.md#email) | [less\_than](validation.md#less_than) |  |
@@ -839,6 +839,24 @@ Used to make sure a value is a numeric value
 """
 validate.numeric('age')
 ```
+
+### Phone
+
+You can also use the phone validator to validate the most common phone number formats:
+
+```python
+"""
+{
+  'phone': '876-827-9271'
+}
+"""
+validate.phone('phone', pattern='123-456-7890')
+```
+
+The available patterns are:
+
+* `123-456-7890`
+* `(123)456-7890`
 
 ### Required
 
