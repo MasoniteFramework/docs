@@ -81,3 +81,119 @@ If the incoming request is a JSON request, Masonite will now return all errors a
 
 This is more of an internal change for Core itself.
 
+## Craft serve command defaults to auto-reloading
+
+Before we had to specify that we wanted the server to auto-reload by specifying a -r flag:
+
+```bash
+$ craft serve -r
+```
+
+Now we can just specify the serve command it will default to auto-reloading:
+
+```bash
+$ craft serve
+```
+
+You can now specify it to NOT auto-reload by passing in 1 of these 2 commands:
+
+```text
+$ craft serve -d
+$ craft serve --dont-reload
+```
+
+## Added Accept\(\*\) to drivers
+
+By default you can only upload image files because of security reasons but now you can disable that by doing an accept\(\*\) option:
+
+```python
+def show(self, upload: Upload):
+    upload.accept(*).store(request.input('file'))
+```
+
+## Added much more view helpers
+
+A list of view helpers can be [found here](../the-basics/views.md#helpers)
+
+## All Tests are now unittests
+
+We moved from pytest to unittests for test structures.
+
+## Added a better way to run database tests
+
+Added a new `DatabaseTestcase` so we can properly setup and teardown our database. This works for sqlite databases by default to prevent your actual database from being destroyed.
+
+## The back view helper now defaults to the current path
+
+Before in templates we had to specify a path to go back to but most of the time we wanted to go back to the current path. 
+
+Instead of:
+
+```markup
+<form ..>
+    {{ back(request().path) }}
+</form>
+```
+
+We can now do:
+
+```markup
+<form ..>
+    {{ back() }}
+</form>
+```
+
+In order to learn how to use this you can visit the [documentation here](../the-basics/requests.md#form-back-redirection).
+
+## Added a completely new validation library
+
+We built a new validation library from scratch and completely ripped out the old validation code. Any current validation code will need to be updated to the new way.
+
+The new way is MUCH better. You can read about it in the new [validation section here](https://docs.masoniteproject.com/v/v2.2/advanced/validation).
+
+## Auth class does not need the request class.
+
+Previously we needed to pass in the request object to the Auth class like this:
+
+```python
+from masonite.auth import Auth
+from masonite.request import Request
+
+def show(self, request: Request):
+    Auth(request).login(..)    
+```
+
+Now we have it a bit cleaner and you can just resolve it and the request class will be injected for you
+
+```python
+from masonite.auth import Auth
+from masonite.request import Request
+
+def show(self, request: Request, auth: Auth):
+    auth.login(..)  
+```
+
+## Completely changed how classes are resolved on the backend
+
+You may not notice anything but now if you bind a class into the container like this:
+
+```python
+from masonite.auth import Auth
+
+def register(self):
+    self.app.bind('Auth', Auth)
+```
+
+It will be resolved when you resolve it:
+
+```python
+from masonite.auth import Auth
+
+def show(self, auth: Auth):
+    auth.login(..)
+```
+
+This is why the Auth class no longer needs to accept the request class. Masonite will inject the request class for you when you resolve the class. 
+
+This works with all classes and even your custom classes to help manage your application dependencies
+

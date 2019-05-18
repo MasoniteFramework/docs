@@ -34,42 +34,6 @@ This will create a template under `resources/templates/hello.html`.
 
 ## Calling Views
 
-### Helper Function
-
-There are several ways we can call views in our controllers. The first way is using the `view()` function. Masonite ships with a `HelpersProvider` Service Provider. This provider will add several new built in functions to your project. These helper functions can be used as shorthand for several commonly used classes such as the `View` and `Request` class.
-
-{% hint style="success" %}
-See the [Helper Functions](helper-functions.md) documentation for more information.
-{% endhint %}
-
-One of the helper functions is the `view()` function which is accessible like any other built in Python function.
-
-We can call views in our controllers like so:
-
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
-```python
-def show(self):
-    return view('dashboard')
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-This will return the view located at `resources/templates/dashboard.html`. We can also specify a deeper folder structure like so:
-
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
-```python
-def show(self):
-    return view('profiles/dashboard')
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-This will look for the view at `resources/templates/profiles/dashboard.html`
-
-### From The Container
-
 The `View` class is loaded into the container so we can retrieve it in our controller methods like so:
 
 {% code-tabs %}
@@ -108,8 +72,8 @@ and then be directed or required to return one of their views:
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
-def show(self):
-    return view('/package/views/dashboard')
+def show(self, view: View):
+    return view.render('/package/views/dashboard')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -138,8 +102,8 @@ Accessing a global view such as:
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
-def show(self):
-    return view('/package/dashboard')
+def show(self, view: View):
+    return view.render('/package/dashboard')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -164,8 +128,8 @@ Most of the time we’ll need to pass in data to our views. This data is passed 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
-def show(self, request: Request):
-    return view('dashboard', {'id': request.param('id')})
+def show(self, view: View, request: Request):
+    return view.render('dashboard', {'id': request.param('id')})
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
