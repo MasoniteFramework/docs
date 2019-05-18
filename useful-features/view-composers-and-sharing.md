@@ -5,11 +5,13 @@
 Very often you will find yourself adding the same variables to a view again and again. This might look something like
 
 ```python
-def show(self):
-    return view('dashboard', {'request': request()})
+from masonite.request import Request
+
+def show(self, request: Request):
+    return view('dashboard', {'request': request})
 
 def another_method(self):
-    return view('dashboard/user', {'request': request()})
+    return view('dashboard/user', {'request': request})
 ```
 
 This can quickly become annoying and it can be much easier if you can just have a variable available in all your templates. For this, we can "share" a variable with all our templates with the `View` class.
@@ -80,18 +82,20 @@ class ViewComposer(ServiceProvider):
 Lastly we need to load this into our `PROVIDERS` list inside our `config/application.py` file.
 
 ```python
+from app.providers.ViewComposer import ViewComposer
+
 PROVIDERS = [
     # Framework Providers
     ...
-    'masonite.providers.ViewProvider',
-    'masonite.providers.HelpersProvider',
+    ViewProvider,
+    HelpersProvider,
+    ...
 
     # Third Party Providers
+    ...
 
     # Application Providers
-    'app.providers.UserModelProvider.UserModelProvider',
-    'app.providers.MiddlewareProvider.MiddlewareProvider',
-    'app.providers.ViewComposer.ViewComposer', # <- New Service Provider
+    ViewComposer, # <- New Service Provider
 ]
 ```
 
@@ -99,11 +103,11 @@ And we're done! When you next start your server, the `request` variable will be 
 
 ## View Composing
 
-In addition to sharing these variables with all templates, we can also specify only certain templates. All steps will be exactly the same but instead of the `.share()` method, we can use the `.compose()` method:
+In addition to sharing these variables with all templates, we can also specify only certain templates. All steps will be exactly the same but instead of the `.share()` method, we can use the `.composer()` method:
 
 ```python
 def boot(self, view: View, request: Request):
-    view.compose('dashboard', {'request': request})
+    view.composer('dashboard', {'request': request})
 ```
 
 Now anytime the `dashboard` template is accessed \(the one at `resources/templates/dashboard.html`\) the `request` variable will be available.
@@ -112,17 +116,19 @@ We can also specify several templates which will do the same as above but this t
 
 ```python
 def boot(self, view: View, request: Request):
-    view.compose(['dashboard', 'dashboard/user'], {'request': request})
+    view.composer(['dashboard', 'dashboard/user'], {'request': request})
 ```
 
 Lastly, we can compose a dictionary for all templates:
 
 ```python
 def boot(self, view: View, request: Request):
-    view.compose('*', {'request': request})
+    view.composer('*', {'request': request})
 ```
 
+{% hint style="info" %}
 Note that this has exactly the same behavior as `ViewClass.share()`
+{% endhint %}
 
 ## View Filters
 
@@ -161,14 +167,16 @@ def slug(variable, replace_with):
 We can add filters simply using the `filter` method on the `ViewClass` class. This will look something like:
 
 ```python
+from masonite.view import View
+
 class UserModelProvider(ServiceProvider):
-    ''' Binds the User model into the Service Container '''
+    """Binds the User model into the Service Container."""
 
     wsgi = False
 
     ...
 
-    def boot(self, view: View, request: Request):
+    def boot(self, view: View):
         view.filter('slug', self.slug)
 
     @staticmethod

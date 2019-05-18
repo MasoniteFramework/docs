@@ -261,6 +261,8 @@ mail.send_from('Admin@email.com').to('hello@email.com').send('Welcome!')
 
 ## Templates
 
+The most common place to put your email templates is inside `resources/templates/mail`.
+
 If you don't want to pass a string as the message, you can pass a view template.
 
 ```python

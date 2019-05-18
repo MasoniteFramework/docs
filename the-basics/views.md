@@ -34,42 +34,6 @@ This will create a template under `resources/templates/hello.html`.
 
 ## Calling Views
 
-### Helper Function
-
-There are several ways we can call views in our controllers. The first way is using the `view()` function. Masonite ships with a `HelpersProvider` Service Provider. This provider will add several new built in functions to your project. These helper functions can be used as shorthand for several commonly used classes such as the `View` and `Request` class.
-
-{% hint style="success" %}
-See the [Helper Functions](helper-functions.md) documentation for more information.
-{% endhint %}
-
-One of the helper functions is the `view()` function which is accessible like any other built in Python function.
-
-We can call views in our controllers like so:
-
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
-```python
-def show(self):
-    return view('dashboard')
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-This will return the view located at `resources/templates/dashboard.html`. We can also specify a deeper folder structure like so:
-
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
-```python
-def show(self):
-    return view('profiles/dashboard')
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-This will look for the view at `resources/templates/profiles/dashboard.html`
-
-### From The Container
-
 The `View` class is loaded into the container so we can retrieve it in our controller methods like so:
 
 {% code-tabs %}
@@ -108,8 +72,8 @@ and then be directed or required to return one of their views:
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
-def show(self):
-    return view('/package/views/dashboard')
+def show(self, view: View):
+    return view.render('/package/views/dashboard')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -138,8 +102,8 @@ Accessing a global view such as:
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
-def show(self):
-    return view('/package/dashboard')
+def show(self, view: View):
+    return view.render('/package/dashboard')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -164,8 +128,8 @@ Most of the time we’ll need to pass in data to our views. This data is passed 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/YourController.py" %}
 ```python
-def show(self, request: Request):
-    return view('dashboard', {'id': request.param('id')})
+def show(self, view: View, request: Request):
+    return view.render('dashboard', {'id': request.param('id')})
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -385,6 +349,29 @@ or a list:
 
 ```markup
 <form action="{{ route('route.name', [1]) }}" method="POST">
+    ..
+</form>
+```
+
+Another cool feature is that if the current route already contains the correct dictionary then you do not have to pass a second parameter. For example if you have a 2 routes like:
+
+```python
+Get('/dashboard/@id', 'Controller@show').name('dashboard.show'),
+Get('/dashhboard/@id/users', 'Controller@users').name('dashhboard.users')
+```
+
+If you are accessing these 2 routes then the @id parameter will be stored on the user object. So instead of doing this:
+
+```markup
+<form action="{{ route('dashboard.users', {'id': 1}) }}" method="POST">
+    ..
+</form>
+```
+
+You can just leave it out completely since the `id` key is already stored on the request object:
+
+```markup
+<form action="{{ route('dashboard.users') }}" method="POST">
     ..
 </form>
 ```

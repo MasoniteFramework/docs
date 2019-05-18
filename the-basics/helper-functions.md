@@ -313,3 +313,31 @@ def show(self, view: View):
     return view.render('some.template', compact(posts, users, {'blogs': user_blogs}))
 ```
 
+### Collect
+
+You can use the same Collection class that orator uses when returning model collections. This can be used like so:
+
+```python
+from masonite.helpers import collect
+
+def show(self):
+    collection = collect([1,2,3])
+    
+    if collection.first() == 1:
+        # do action
+```
+
+You have access to all the methods on a normal collection object.
+
+
+
+
+
+
+
+
+
+
+
+ 
+
