@@ -36,7 +36,7 @@ ROUTES = [
 You can now simply import the route class name and use alias at the top. Doing so will allow you to not have to change any code in your route list:
 
 ```python
-from masonite.helpers.routes import Get as get, Post as post
+from masonite.routes import Get as get, Post as post
 
 ROUTES = [
     get(..),
