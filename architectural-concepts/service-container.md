@@ -180,8 +180,8 @@ You can technically still resolve parameters with your container like you could 
 ```python
 from masonite.request import Request
 
-def show(self, request: Request):
-    request.user()
+def show(self, Request):
+    Request.user()
 ```
 
 Although this was removed in 2.1+, you may still enable it on a per project basis. To enable it, go to your `wsgi.py` file and add this to the constructor of your App class towards the top of the file:
