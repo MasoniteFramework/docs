@@ -13,6 +13,8 @@ Or anything in between. There are lots of use cases for simple tasks to be ran d
 
 ## Getting Started
 
+### Installation
+
 First we will need to install the scheduler feature. We can simply pip install it:
 
 {% code-tabs %}
@@ -25,7 +27,38 @@ $ pip install masonite-scheduler
 
 Masonite will fetch all tasks from the container by finding all subclasses of `scheduler.tasks.Task`, check if they should run and then either execute it or not execute it.
 
-Even though we ran the task, we should not see any output. Let's change the task a bit by printing "Hi" and setting it to run every minute:
+### Adding the Service Provider
+
+Next we will need to add the service provider. We can do that by importing it into our `config/providers.py` file like this:
+
+```python
+from scheduler.providers import ScheduleProvider
+...
+PROVIDERS = [
+    AppProvider
+    ...
+    # Third Part Providers
+    ScheduleProvider,
+    # Application Providers
+    
+]
+```
+
+Now if you run craft you will see 2 new commands you can use.
+
+### Commands
+
+You will now see a `craft task` command and a `craft schedule:run` which we will use below to demonstrate how to create and run tasks.
+
+### Creating a Task
+
+We can create a task by running 
+
+```text
+$ craft task SayHi
+```
+
+This should create a task like the example below. So let's change the task a bit by printing "Hi" and setting it to run every minute:
 
 ```python
 from scheduler.Task import Task
@@ -42,7 +75,67 @@ class SayHi(Task):
         print('Hi!')
 ```
 
-Now let's run the command again:
+### Binding to the container automatically
+
+In order for Masonite to find the tasks, they need to be inside the container. 
+
+Masonite also has a great feature called autoloading. Although the above way of binding directly to the container manually works it may be more easy to automatically load your tasks.
+
+You can do this by adding this to your `AUTOLOAD` variable in `config/application.py`:
+
+```python
+AUTOLOAD = [
+    'app',
+    'app/tasks',
+]
+```
+
+### Binding to the container manually
+
+Of course you can also bind each task manually as well.
+
+If you already have a provider in your application then go ahead and bind to that one but we'll walk through how to create a new provider for all of our tasks:
+
+```text
+$ craft provider TasksProvider
+```
+
+We can now bind our task into the provider like so:
+
+```python
+...
+from app.tasks.SayHi import SayHi
+
+class TasksProvider(ServiceProvider):
+
+    wsgi = False
+    
+    def register(self):
+        """Register objects into the Service Container
+        """
+        
+        self.app.bind('SayHiTask', SayHi)
+```
+
+And then just make sure you add this container to the PROVIDERS list too:
+
+```python
+from scheduler.providers import ScheduleProvider
+from app.providers.TasksProvider import TasksProvider
+...
+PROVIDERS = [
+    AppProvider
+    ...
+    # Third Part Providers
+    ScheduleProvider,
+    # Application Providers
+    TasksProvider,
+]
+```
+
+### Running the scheduler
+
+Now let's run the `schedule:run` command:
 
 ```text
 $ craft schedule:run
