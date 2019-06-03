@@ -90,6 +90,16 @@ and use the dot notation like so:
 ...
 ```
 
+## Static Helper
+
+You have the ability to use the static helper outside of templates by doing:
+
+```python
+from masonite.helpers import static
+```
+
+The implementation is the same as above.
+
 ## Serving "Root" Files
 
 Sometimes you may need to serve files that are normally in the root of your application such as a `robots.txt` or `manifest.json`. These files can be aliased in your `STATICFILES` directory in `config/storage.py`. They do not have to be in the root of your project but instead could be in a `storage/root` or `storage/public` directory and aliased with a simple `/`.
