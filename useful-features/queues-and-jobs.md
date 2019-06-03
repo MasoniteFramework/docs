@@ -177,6 +177,24 @@ This will then queue this function to be called later.
 Note that you will not be able to get a response value back. Once it gets sent to the queue it will run at an arbitrary time later.
 {% endhint %}
 
+## Async Driver
+
+The `async` queue driver will allow you to send jobs into the background to run asynchronously. This does not need any third party services like the `amqp` driver below.
+
+### Change Modes
+
+The async driver has 2 different modes: `threading` and `multiprocess`.  The differences between the two is that `threading` uses several threads and `multiprocess` uses several processes. Which mode you should use depends on the type of jobs you are processing. You should research what is best depending on your use cases.
+
+You can change the mode inside the `config/queue.py` file:
+
+```python
+DRIVERS = {
+    'async': {
+        'mode': 'threading' # or 'multiprocess'
+    },
+}
+```
+
 ## AMQP Driver
 
 The `amqp` driver can be used to communicate with RabbitMQ services.

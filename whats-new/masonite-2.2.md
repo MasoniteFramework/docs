@@ -125,7 +125,7 @@ Added a new `DatabaseTestcase` so we can properly setup and teardown our databas
 
 ## The back view helper now defaults to the current path
 
-Before in templates we had to specify a path to go back to but most of the time we wanted to go back to the current path. 
+Before in templates we had to specify a path to go back to but most of the time we wanted to go back to the current path.
 
 Instead of:
 
@@ -160,7 +160,7 @@ from masonite.auth import Auth
 from masonite.request import Request
 
 def show(self, request: Request):
-    Auth(request).login(..)    
+    Auth(request).login(..)
 ```
 
 Now we have it a bit cleaner and you can just resolve it and the request class will be injected for you
@@ -170,7 +170,7 @@ from masonite.auth import Auth
 from masonite.request import Request
 
 def show(self, request: Request, auth: Auth):
-    auth.login(..)  
+    auth.login(..)
 ```
 
 ## Completely changed how classes are resolved on the backend
@@ -193,7 +193,7 @@ def show(self, auth: Auth):
     auth.login(..)
 ```
 
-This is why the Auth class no longer needs to accept the request class. Masonite will inject the request class for you when you resolve the class. 
+This is why the Auth class no longer needs to accept the request class. Masonite will inject the request class for you when you resolve the class.
 
 This works with all classes and even your custom classes to help manage your application dependencies
 

@@ -322,22 +322,10 @@ from masonite.helpers import collect
 
 def show(self):
     collection = collect([1,2,3])
-    
+
     if collection.first() == 1:
         # do action
 ```
 
 You have access to all the methods on a normal collection object.
-
-
-
-
-
-
-
-
-
-
-
- 
 

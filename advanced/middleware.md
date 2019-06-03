@@ -138,6 +138,30 @@ This middleware will convert dictionary responses into JSON responses
 
 This middleware will take the response provided and add the necessary headers to the response
 
+## Middleware Parameters
+
+You can pass parameters from your routes to your middleware in cases where a middleware should act differently depending on your route. 
+
+You can do this with a `:` symbol next to your route middleware name and then pass in those parameters to the `before` and `after` middleware methods.
+
+For example, we may be creating a middleware for request throttling and in our routes we have something like this:
+
+```python
+Get('/feeds', 'FeedController').middleware('throttle:2,100')
+```
+
+notice the throttle:2,100 syntax. The 2 and the 100 will then be passed into the before and after methods of your middleware:
+
+```python
+class ThrottleMiddleware:
+
+    def before(self, minutes, requests):
+        # throttle requests
+        
+    def after(self, minutes, requests):
+        # throttle requests
+```
+
 ## Creating Middleware
 
 Again, middleware should live inside the `app/http/middleware` folder and should look something like:

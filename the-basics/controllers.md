@@ -216,3 +216,38 @@ def show(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## Passing Route Parameters
+
+Optionally you can pass route parameters along with your resolving code. This is useful to keep a nice clean codebase. 
+
+For example, these two code snippets are the same:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/DashboardController.py" %}
+```python
+from masonite.request import Request
+from masonite.view import View
+...
+
+def show(self, request: Request, view: View):
+    return User.find(request.param('user_id'))
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+And this:
+
+{% code-tabs %}
+{% code-tabs-item title="app/http/controllers/DashboardController.py" %}
+```python
+from masonite.view import View
+...
+
+def show(self, user_id, view: View):
+    return User.find(user_id)
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+You can specify parameters along with any other container resolving.
+

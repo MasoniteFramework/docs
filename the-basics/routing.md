@@ -59,50 +59,21 @@ There are several HTTP verbs you can use for routes:
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-from masonite.routes import Get, Post, Put, Patch, Delete, Match
+from masonite.routes import Get, Post, Put, Patch, Delete, Match, Options, Trace, Connect
 
-Get().route(...)
-Post().route(...)
-Put().route(...)
-Patch().route(...)
-Delete().route(...)
-Match().route(...)
+Get(..)
+Post(..)
+Put(..)
+Patch(..)
+Delete(..)
+Match(..)
+Options(..)
+Trace(..)
+Connect(..)
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-### **HTTP Helpers**
-
-If the syntax is a bit cumbersome, you just want to make it shorter or you like using shorthand helper functions, then you can also use these:
-
-{% code-tabs %}
-{% code-tabs-item title="routes/web.py" %}
-```python
-from masonite.helpers.routes import get, post, put, patch, delete, match
-
-ROUTES = [
-    get('/url/here', 'Controller@method'),
-    post('/url/here', 'Controller@method'),
-    put('/url/here', 'Controller@method'),
-    patch('/url/here', 'Controller@method'),
-    delete('/url/here', 'Controller@method'),
-    match(['GET', 'POST'], '/url/here', 'Controller@method')
-]
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-These return instances of their respective classes so you can append on to them:
-
-{% code-tabs %}
-{% code-tabs-item title="routes/web.py" %}
-```python
-get('/url/here', 'Controller@method').middleware(...),
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-Most developers choose to use these instead of the classes.
 
 ### Route Groups
 
@@ -111,15 +82,14 @@ Some routes may be very similar. We may have a group of routes under the same do
 We can add route groups like so:
 
 ```python
-from masonite.routes import RouteGroup
-from masonite.helpers.routes import get
+from masonite.routes import RouteGroup, Get
 
 ROUTES = [
 
     RouteGroup([
-        get('/url1', ...),
-        get('/url2', ...),
-        get('/url3', ...),
+        Get('/url1', ...),
+        Get('/url2', ...),
+        Get('/url3', ...),
     ]),
 
 ]
@@ -131,9 +101,9 @@ This alone is great to group routes together that are similar but in addition to
 ROUTES = [
 
     RouteGroup([
-        get('/url1', ...),
-        get('/url2', ...),
-        get('/url3', ...),
+        Get('/url1', ...),
+        Get('/url2', ...),
+        Get('/url3', ...),
     ], middleware=('auth', 'jwt')),
 
 ]
@@ -145,9 +115,9 @@ In this instance we are adding these 2 middleware to all of the routes inside th
 ROUTES = [
 
     RouteGroup([
-        get('/url1', ...).name('create'),
-        get('/url2', ...).name('update'),
-        get('/url3', ...).name('delete'),
+        Get('/url1', ...).name('create'),
+        Get('/url2', ...).name('update'),
+        Get('/url3', ...).name('delete'),
     ], 
     middleware=('auth', 'jwt'),
     domain='subdomain',
@@ -165,9 +135,9 @@ All of the options in a route group are named parameters so if you think adding 
 
 ```python
 RouteGroup(middleware=('auth', 'jwt'), name='post.', routes = [
-    get('/url1', ...).name('create'),
-    get('/url2', ...).name('update'),
-    get('/url3', ...).name('delete'),
+    Get('/url1', ...).name('create'),
+    Get('/url2', ...).name('update'),
+    Get('/url3', ...).name('delete'),
 ]),
 ```
 
@@ -179,12 +149,12 @@ Even more awesome is the ability to nest route groups:
 ROUTES = [
 
     RouteGroup([
-        get('/url1', ...).name('create'),
-        get('/url2', ...).name('update'),
-        get('/url3', ...).name('delete'),
+        Get('/url1', ...).name('create'),
+        Get('/url2', ...).name('update'),
+        Get('/url3', ...).name('delete'),
         RouteGroup([
-            get('/url4', ...).name('read'),
-            get('/url5', ...).name('put'),
+            Get('/url4', ...).name('read'),
+            Get('/url5', ...).name('put'),
         ], prefix='/users', name='user.'),
     ], prefix='/dashboard', name='post.', middleware=('auth', 'jwt')),
 
@@ -230,29 +200,29 @@ ROUTES = [
         RouteGroup([
             # App Routes
             RouteGroup([
-                Get().route('', 'AppController@show').name('show'),
-                Get().route('/create', 'AppController@create').name('create'),
-                Post().route('/create', 'AppController@store').name('store'),
-                Post().route('/delete', 'AppController@delete').name('delete'),
+                Get('', 'AppController@show').name('show'),
+                Get('/create', 'AppController@create').name('create'),
+                Post('/create', 'AppController@store').name('store'),
+                Post('/delete', 'AppController@delete').name('delete'),
             ], prefix='/apps', name='app.'),
 
-            Get().route('/plans', 'PlanController@show').name('plans'),
-            Post().route('/plans/subscribe', 'PlanController@subscribe').name('subscribe'),
-            Post().route('/plans/cancel', 'PlanController@cancel').name('cancel'),
-            Post().route('/plans/resume', 'PlanController@resume').name('resume'),
+            Get('/plans', 'PlanController@show').name('plans'),
+            Post('/plans/subscribe', 'PlanController@subscribe').name('subscribe'),
+            Post('/plans/cancel', 'PlanController@cancel').name('cancel'),
+            Post('/plans/resume', 'PlanController@resume').name('resume'),
         ], prefix="/dashboard", middleware=('auth',)),
 
         # Login and Register Routes
-        Get().route('/login', 'LoginController@show').name('login'),
-        Get().route('/logout', 'LoginController@logout'),
-        Post().route('/login', 'LoginController@store'),
-        Get().route('/register', 'RegisterController@show'),
-        Post().route('/register', 'RegisterController@store'),
-        Get().route('/home', 'HomeController@show').name('home'),
+        Get('/login', 'LoginController@show').name('login'),
+        Get('/logout', 'LoginController@logout'),
+        Post('/login', 'LoginController@store'),
+        Get('/register', 'RegisterController@show'),
+        Post('/register', 'RegisterController@store'),
+        Get('/home', 'HomeController@show').name('home'),
 
         # Base Routes
-        Get().route('/', 'WelcomeController@show').name('welcome'),
-        Post().route('/invite', 'InvitationController@send').name('invite'),
+        Get('/', 'WelcomeController@show').name('welcome'),
+        Post('/invite', 'InvitationController@send').name('invite'),
     ], domain='www'),
 
 
@@ -313,7 +283,7 @@ We can name our routes so we can utilize these names later when or if we choose 
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-Get().route('/dashboard', 'DashboardController@show').name('dashboard')
+Get('/dashboard', 'DashboardController@show').name('dashboard')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -327,7 +297,7 @@ Middleware is a great way to execute classes, tasks or actions either before or 
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-Get().route('/dashboard', 'DashboardController@show').middleware('auth', 'anothermiddleware')
+Get('/dashboard', 'DashboardController@show').middleware('auth', 'anothermiddleware')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -345,7 +315,7 @@ All controllers are located in `app/http/controllers` but sometimes you may wish
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-Get().route('/dashboard', 'users.DashboardController@show')
+Get('/dashboard', 'users.DashboardController@show')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -355,7 +325,7 @@ Get().route('/dashboard', 'users.DashboardController@show')
 Controllers are defaulted to the `app/http/controllers` directory but you may wish to completely change the directory for a certain route. We can use a forward slash in the beginning of the controller namespace:
 
 ```python
-Get().route('/dashboard', '/thirdparty.package.users.DashboardController@show')
+Get('/dashboard', '/thirdparty.package.users.DashboardController@show')
 ```
 
 This can enable us to use controllers in third party packages.
@@ -365,7 +335,7 @@ You can also import the class directly and reference the method you want to use:
 ```python
 from app.controllers.SomeController import SomeController
 
-Get().route('/dashboard', SomeController.show)
+Get('/dashboard', SomeController.show)
 ```
 
 ## Route Parameters
@@ -375,7 +345,7 @@ Very often you’ll need to specify parameters in your route in order to retriev
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-Get().route('/dashboard/@id', 'Controller@show')
+Get('/dashboard/@id', 'Controller@show')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -400,7 +370,7 @@ Sometimes you will want to make sure that the route parameter is of a certain ty
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-Get().route('/dashboard/@id:int', 'Controller@show')
+Get('/dashboard/@id:int', 'Controller@show')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -412,7 +382,7 @@ If we want to match all strings but not integers we can pass:
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-Get().route('/dashboard/@id:string', 'Controller@show')
+Get('/dashboard/@id:string', 'Controller@show')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
