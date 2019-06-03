@@ -197,3 +197,56 @@ This is why the Auth class no longer needs to accept the request class. Masonite
 
 This works with all classes and even your custom classes to help manage your application dependencies
 
+## Added a new register method for authentication
+
+In order for Masonite to be more pluggable and modular, we stopped hardcoding how registering was done so we can add new drivers in the future.
+
+{% hint style="info" %}
+Read the [authentication documentation](../security/authentication.md) for more information.
+{% endhint %}
+
+## Moved all regex compiling before the server boots
+
+There were a lot of needless computations behind done to constantly recompile regex that has already been compiled before. Now all routes are responsible for compiling their own regex **when they are constructed**. This offsets a lot of computations before the server even boots. This is a huge performance boost.
+
+## Added Container Remembering
+
+The container can now remember previous objects it has already resolved. This can lead to a performance boost of 10 - 15x when it comes to container resolving.
+
+## Added with\_errors to the request class
+
+Previous we had to flash errors to the session and then redirect back. Now we can do both at the same time.
+
+This takes this code example:
+
+```python
+def show(self, request: Request):
+    errors = request.validate(
+        required('field')
+    )
+    
+    if errors:
+        request.session.flash('errors', errors)
+        request.back()
+```
+
+Now we can do this:
+
+```python
+def show(self, request: Request):
+    errors = request.validate(
+        required('field')
+    )
+    
+    if errors:
+        request.back().with_errors(errors)
+```
+
+## Added the concept of publishing
+
+In order to assist in package development, it is now easier to publish assets like migrations, routes, and commands from your package and into the developers application
+
+## Added a new JWT driver for authentication
+
+Previously every request required a database call. Now you can set the driver to `jwt` and it will store all the user information into a `jwt` token, encrypted as a cookie and continuously fetch the information from the token instead of calling the database on every request.
+
