@@ -191,16 +191,6 @@ $ craft serve
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-You can also run the server in auto-reload mode which will rerun the server when file changes are detected:
-
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
-```text
-$ craft serve -r
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
 Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications.
 
 The Masonite CLI \(also known as craft\) will try to find all the commands in your project but may not be able to. In this case you will need to call craft directly using something like:
@@ -208,14 +198,10 @@ The Masonite CLI \(also known as craft\) will try to find all the commands in yo
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ python craft serve -r
+$ python craft serve
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-{% hint style="info" %}
-You can also add a auto reloading option to the serve command by running `craft serve -r` which will reload the server whenever you save a python file.
-{% endhint %}
 
 {% hint style="success" %}
 You can learn more about craft by reading [The Craft Command](https://github.com/MasoniteFramework/docs/tree/ba9d9f8ac3e41d58b9d92d951f92c898fb16a2a4/the-craft-command.md) documentation or continue on to learning about how to create web application by first reading the [Routing ](the-basics/routing.md)documentation

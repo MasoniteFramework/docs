@@ -406,3 +406,99 @@ You can access the session here:
 Learn more about session in the [Session](../advanced/sessions.md) documentation.
 {% endhint %}
 
+### Sign
+
+You can sign things using your secret token:
+
+```markup
+<p> Signed: {{ sign('token') }} </p>
+```
+
+### Unsign
+
+You can also unsign already signed string:
+
+```markup
+<p> Signed: {{ unsign('signed_token') }} </p>
+```
+
+### Encrypt
+
+This is just an alias for sign
+
+### Decrypt
+
+This is just an alias for unsign
+
+### Config
+
+This allows you to easily fetch configuration values in your templates:
+
+```markup
+<h2> App Name: {{ config('application.name') }}</h2>
+```
+
+### Optional
+
+Allows you to fetch values from objects that may or may not be None. Instead of doing something like:
+
+```markup
+{% if auth() and auth().name == 'Joe' %}
+    <p>Hello!</p>
+{% endif %}
+```
+
+You can use this helper:
+
+```markup
+{% if optional(auth()).name == 'Joe' %}
+    <p>Hello!</p>
+{% endif %}
+```
+
+### DD
+
+This is the normal dd helper you use in your controllers
+
+### Hidden
+
+You can use this helper to quickly add a hidden field
+
+```markup
+<form action="/" method="POST">
+    {{ hidden('secret' name='secret-value') }}
+</form>
+```
+
+### Exists
+
+Check if a template exists
+
+```markup
+{% if exists('auth/base') %}
+    {% extends 'auth/base.html' %}
+{% else %}
+    {% extends 'base.html' %}
+{% endif %}
+```
+
+### Cookie
+
+Gets a cookie:
+
+```markup
+<h2> Token: {{ cookie('token') }}</h2>
+```
+
+### Url
+
+Get the URL to a location:
+
+```markup
+<form action="{{ url('/about', full=True) }}" method="POST">
+
+</form>
+```
+
+
+

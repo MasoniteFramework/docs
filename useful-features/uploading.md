@@ -106,6 +106,12 @@ By default, Masonite only allows uploads to accept images for security reasons b
 upload.accept('yml', 'zip').store('some.yml')
 ```
 
+You can also just accept all file types as well:
+
+```python
+upload.accept('*').store('some.yml')
+```
+
 ## Uploading Files
 
 You can upload files directly by passing in a `open()` file:

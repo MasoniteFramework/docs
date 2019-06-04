@@ -414,16 +414,18 @@ You can run the WSGI server by simply running:
 $ craft serve
 ```
 
-You will likely only use that command in production. For development, you can make the server autoreload after you save a python file, similiar to how Django does.
+This will set the server to auto-reload when you make file changes.
+
+You can also set it to not auto-reload on file changes:
 
 ```text
-$ craft serve --reload
+$ craft serve --dont-reload
 ```
 
 or the shorthand
 
 ```text
-$ craft serve -r
+$ craft serve -d
 ```
 
 {% hint style="info" %}
