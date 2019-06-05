@@ -4,13 +4,7 @@
 
 Masonite testing is very simple. You can test very complex parts of your code with ease by just extending your class with a Masonite unit test class.
 
-The Masonite test suite is based on `unittest`.
-
-You can run tests by running:
-
-```bash
-$ python -m unittest
-```
+Although Masonite uses `pytest` to run tests, Masonite's test suite is based on `unittest`. Pytest has the ability to run `unittest` style test cases.
 
 ## Configuration
 
@@ -60,8 +54,8 @@ from masonite.routes import Get
 
 class TestSomeUnit(UnitTest):
 
-    def setup_method(self):
-        super().setup_method()
+    def setUp(self):
+        super().setUp()
 
         self.routes([
             Get().route('/testing', 'TestController@show').name('testing.route').middleware('auth', 'owner')
@@ -95,6 +89,8 @@ Now we are working with the routes in our specific project.
 We have a few options for testing our routes.
 
 #### Testing If a Route Exists:
+
+To check if a route exists, we can simple use either get
 
 {% code-tabs %}
 {% code-tabs-item title="tests/unit/test\_unit.py" %}
@@ -236,4 +232,196 @@ def test_owner_user_can_view(self):
 ## Getting Output
 
 You can get the output by using the capture output
+
+## Testing the Database
+
+With Masonite you can test the database very easily. Like before we will make a test but we will instead inherit from `DatabaseTestCase`. 
+
+### Setting Up the TestCase
+
+Here is the boilerplate for a basic test
+
+```python
+from masonite.testing import DatabaseTestCase
+
+class TestUser(DatabaseTestCase):
+
+    """Start and rollback transactions for this test
+    """
+    transactions = True
+
+    def setUp(self):
+        super().setUp()
+```
+
+Note that you do not have to specify the setUp method but if you do you must call the parent setUp method too.
+
+### Databases
+
+By default, to prevent messing with running databases, database test cases are set to only run on the `sqlite` database. You can disable this by setting the `sqlite` attribute to `False`.
+
+```python
+from masonite.testing import DatabaseTestCase
+
+class TestUser(DatabaseTestCase):
+    
+    """Start and rollback transactions for this test
+    """
+    transactions = True
+    sqlite = False
+
+    def setUp(self):
+        super().setUp()
+```
+
+This will allow you to use whatever database driver you need.
+
+### Transactions and Refreshing
+
+By default, all your tests will run inside a transaction so any data you create will only exist within the lifecycle of the test. Once the test completes, your database is rolled back to its previous state. This is a perfect way to prevent test data from clogging up your database.
+
+Although this is good for most use cases, you may want to actually migrate and refresh the entire migration stack. In this case you can set the `refreshes_database` attribute to `True`.
+
+```python
+from masonite.testing import DatabaseTestCase
+
+class TestUser(DatabaseTestCase):
+
+    """Start and rollback transactions for this test
+    """
+    transactions = False
+    refreshes_database = True
+
+    def setUp(self):
+        super().setUp()
+```
+
+Now this will migrate and refresh the database.
+
+{% hint style="danger" %}
+Beware that this will destroy any database information you have.
+{% endhint %}
+
+### Creating Tests
+
+You can create tests by prepending method names with `test_`.
+
+```python
+from masonite.testing import DatabaseTestCase
+
+class TestUser(DatabaseTestCase):
+
+    """Start and rollback transactions for this test
+    """
+    transactions = True
+
+    def setUp(self):
+        super().setUp()
+    
+    def test_creates_users(self):
+        pass
+```
+
+### Factories
+
+Factories are simply ways to seed some dummy data into your database. You can create a factory by making a method that accepts a faker argument and using that to seed data.
+
+Masonite has a convenient method you can use that will run once the test first boots up called `setUpFactories`. **This will run once and only once and not between every test.**
+
+Let's create the factory as well as use the setUpFactories method to run them now.
+
+Below is how to create 100 users:
+
+```python
+from masonite.testing import DatabaseTestCase
+from app.User import User
+
+class TestUser(DatabaseTestCase):
+
+    """Start and rollback transactions for this test
+    """
+    transactions = True
+
+    def setUp(self):
+        super().setUp()
+    
+    def setUpFactories(self):
+        self.make(User, self.user_factory, 100)
+    
+    def user_factory(self, faker):
+        return {
+            'name': faker.name()
+            'email': faker.email()
+            'password': '$2b$12$WMgb5Re1NqUr.uSRfQmPQeeGWudk/8/aNbVMpD1dR.Et83vfL8WAu',  # == 'secret'
+        }
+    
+    def test_creates_users(self):
+        pass
+```
+
+You don't need to build factories though. This can be used to simply create new records:
+
+```python
+from masonite.testing import DatabaseTestCase
+from app.User import User
+
+class TestUser(DatabaseTestCase):
+
+    """Start and rollback transactions for this test
+    """
+    transactions = True
+
+    def setUp(self):
+        super().setUp()
+    
+    def setUpFactories(self):
+        User.create({
+            'name': 'Joe',
+            'email': 'user@example.com',
+            'password': '$2b$12$WMgb5Re1NqUr.uSRfQmPQeeGWudk/8/aNbVMpD1dR.Et83vfL8WAu',  # == 'secret'
+        })
+    
+    def test_creates_users(self):
+        pass
+```
+
+### Test Example
+
+To complete our test, let's check if the user is actually create:
+
+```python
+from masonite.testing import DatabaseTestCase
+from app.User import User
+
+class TestUser(DatabaseTestCase):
+
+    """Start and rollback transactions for this test
+    """
+    transactions = True
+
+    def setUp(self):
+        super().setUp()
+    
+    def setUpFactories(self):
+        User.create({
+            'name': 'Joe',
+            'email': 'user@example.com',
+            'password': '$2b$12$WMgb5Re1NqUr.uSRfQmPQeeGWudk/8/aNbVMpD1dR.Et83vfL8WAu',  # == 'secret'
+        })
+    
+    def test_creates_users(self):
+        self.assertTrue(User.find(1))
+```
+
+Thats it! This test will now check that the user is created properly
+
+### Running Tests
+
+You can run tests by running:
+
+```text
+$ python -m pytest
+```
+
+
 
