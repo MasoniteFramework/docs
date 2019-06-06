@@ -214,13 +214,13 @@ def show(self, auth: Auth):
 
 ## Changed all regex compiling to be done before the server starts
 
-Previously, each route's regex was being compiled when Masonite checked for it but we realized this was redundant. So now all route compiling is done before the server starts. 
+Previously, each route's regex was being compiled when Masonite checked for it but we realized this was redundant. So now all route compiling is done before the server starts.
 
 This has given Masonite a bit of a speed boost.
 
 ## Container Remembering
 
-Masonite now has the ability to remember the previous container bindings for each object. This can speed of resolving your code by 10-15x. This is disabled by default as it is still not clear what kind of issues this can cause. 
+Masonite now has the ability to remember the previous container bindings for each object. This can speed of resolving your code by 10-15x. This is disabled by default as it is still not clear what kind of issues this can cause.
 
 This is scheduled to be set by default in the next major version of Masonite
 
