@@ -424,35 +424,6 @@ def show(self, request: Request):
     return request.back()
 ```
 
-## Encryption Key
-
-This will route back to the form when you run this back method
-
-```python
-def show(self, request: Request):
-    return request.back() # uses value from the back() method helper
-```
-
-### No Input
-
-The next state is using the back method without any parameters or form helpers:
-
-```python
-def show(self, request: Request):
-    return request.back() # defaults to current route
-```
-
-This will redirect back to the current route. This might be useful we have have routes like:
-
-```python
-ROUTES = [
-    get('/dashboard/create', 'Controller@show'),
-    post('/dashboard/create', 'Controller@store')
-]
-```
-
-Where we are going to the `POST` version but want to redirect back to the `GET` version of the route.
-
 ### Default Back URL
 
 We can also specify a default route just in case a form submitted does not specify one using a form helper:
@@ -462,7 +433,7 @@ def show(self, request: Request):
     return request.back(default='/hit/route')
 ```
 
-This will check for the `__back` input and if it doesn't exist it will use this default route.
+This will check for the `__back` input and if it doesn't exist it will use this default route. This is the same as a redirect if you don't use the `back()` helper.
 
 ## Encryption Key
 
@@ -593,3 +564,19 @@ ROUTES = [
 ]
 ```
 
+# Validation
+
+There is a convenient helper method you can use the validate the request. You can import the `Validator` class and use validation like so:
+
+```python
+from masonite.request import Request
+from masonite.validation import Validator
+
+def show(self, request: Request, validate: Validator):
+    errors = request.validate(
+      validate.required('user')
+    )
+
+    if errors:
+      return request.back().with_errors(errors)
+```
