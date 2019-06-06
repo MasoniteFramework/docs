@@ -21,6 +21,33 @@ AUTH = {
 }
 ```
 
+## Cookie Driver
+
+The cookie driver will set a token as a cookie and then fetch the user from the database on every request. For most applications this is fine although you are making an additional query per request just to fetch the user.
+
+This is the most basic authentication driver.
+
+## JWT Driver
+
+The JWT driver will store an encrypted JWT token inside a cookie with all the authenticated user information. Then when the authenticated user goes to the page, the JWT token is decrypted and fills in the data on the user model without calling the database.
+
+You can set this driver in your `.env` file:
+
+```
+AUTH_DRIVER=jwt
+```
+
+There are also 2 options you can set as well. The first option is how long until the jwt token expires. By default this is 5 minutes but you can extend it out longer:
+
+```python
+    'jwt': {
+        'reauthentication': True,
+        'lifetime': '5 minutes'
+    }
+```
+
+The second option is whether or not the user should reauthenticate with the database after their token has expired. If set to `False`, the token will simply continue to refill the user model and set a new token all without touching the database.
+
 ## Authentication Model
 
 Again the default authentication model is the `app/User` model which out of the box comes with a `__auth__` class attribute. This attribute should be set to the column that you want to authenticate with when a user logs in.
