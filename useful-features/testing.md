@@ -19,7 +19,7 @@ This will create a user test for us which we can work on. You can drag this test
 This command will create a basic test like the one below:
 
 {% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code-tabs-item title="tests/test\user.py" %}
 ```python
 """Example Testcase."""
 
@@ -41,7 +41,6 @@ class TestUser(TestCase):
 
 That's it! You're ready to start testing. Read on to learn how to start building your test cases.
 
-
 # Calling Routes
 
 We have a few options for testing our routes.
@@ -51,7 +50,7 @@ We have a few options for testing our routes.
 To check if a route exists, we can simple use either get or post:
 
 {% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code-tabs-item title="tests/test\_unit.py" %}
 ```python
 def test_route_exists(self):
     self.assertTrue(self.get('/testing'))
@@ -63,7 +62,7 @@ def test_route_exists(self):
 ## Testing If Route Has The Correct Name
 
 {% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code-tabs-item title="tests/test\_unit.py" %}
 ```python
 def test_route_has_the_correct_name(self):
     self.assertTrue(self.get('/testing').is_named('testing.route'))
@@ -74,7 +73,7 @@ def test_route_has_the_correct_name(self):
 ## Testing If A Route Has The Correct Middleware
 
 {% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code-tabs-item title="tests/test\_unit.py" %}
 ```python
 def test_route_has_route_middleware(self):
     assert self.get('/testing').has_middleware('auth', 'owner')
@@ -87,7 +86,7 @@ def test_route_has_route_middleware(self):
 This can be used to see if the template returned a specific value
 
 {% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code-tabs-item title="tests/test\_unit.py" %}
 ```python
 def test_view_contains(self):
     assert self.get('/login').contains('Login Here')
@@ -100,10 +99,10 @@ def test_view_contains(self):
 You can easily check if the response is ok by using the `ok` method:
 
 {% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code-tabs-item title="tests/test\_unit.py" %}
 ```python
 def test_view_is_ok(self):
-    assert self.route('/testing').ok()
+    assert self.get('/testing').ok()
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -120,37 +119,16 @@ def test_get_output(self):
     self.assertEqual(o, 'hello world!')
 ```
 
-## Testing the Database
+# Testing the Database
 
-With Masonite you can test the database very easily. Like before we will make a test but we will instead inherit from `DatabaseTestCase`. 
-
-### Setting Up the TestCase
-
-Here is the boilerplate for a basic test
-
-```python
-from masonite.testing import DatabaseTestCase
-
-class TestUser(DatabaseTestCase):
-
-    """Start and rollback transactions for this test
-    """
-    transactions = True
-
-    def setUp(self):
-        super().setUp()
-```
-
-Note that you do not have to specify the setUp method but if you do you must call the parent setUp method too.
-
-### Databases
+## Databases
 
 By default, to prevent messing with running databases, database test cases are set to only run on the `sqlite` database. You can disable this by setting the `sqlite` attribute to `False`.
 
 ```python
-from masonite.testing import DatabaseTestCase
+from masonite.testing import TestCase
 
-class TestUser(DatabaseTestCase):
+class TestUser(TestCase):
     
     """Start and rollback transactions for this test
     """
@@ -163,16 +141,16 @@ class TestUser(DatabaseTestCase):
 
 This will allow you to use whatever database driver you need.
 
-### Transactions and Refreshing
+## Transactions and Refreshing
 
 By default, all your tests will run inside a transaction so any data you create will only exist within the lifecycle of the test. Once the test completes, your database is rolled back to its previous state. This is a perfect way to prevent test data from clogging up your database.
 
 Although this is good for most use cases, you may want to actually migrate and refresh the entire migration stack. In this case you can set the `refreshes_database` attribute to `True`.
 
 ```python
-from masonite.testing import DatabaseTestCase
+from masonite.testing import TestCase
 
-class TestUser(DatabaseTestCase):
+class TestUser(TestCase):
 
     """Start and rollback transactions for this test
     """
@@ -200,10 +178,10 @@ Let's create the factory as well as use the setUpFactories method to run them no
 Below is how to create 100 users:
 
 ```python
-from masonite.testing import DatabaseTestCase
+from masonite.testing import TestCase
 from app.User import User
 
-class TestUser(DatabaseTestCase):
+class TestUser(TestCase):
 
     """Start and rollback transactions for this test
     """
@@ -217,9 +195,10 @@ class TestUser(DatabaseTestCase):
     
     def user_factory(self, faker):
         return {
-            'name': faker.name()
-            'email': faker.email()
-            'password': '$2b$12$WMgb5Re1NqUr.uSRfQmPQeeGWudk/8/aNbVMpD1dR.Et83vfL8WAu',  # == 'secret'
+            'name': faker.name(),
+            'email': faker.email(),
+            'password': '$2b$12$WMgb5Re1NqUr.uSRfQmPQeeGWudk/8/aNbVMpD1dR.Et83vfL8WAu',  
+            # == 'secret'
         }
     
     def test_creates_users(self):
@@ -229,10 +208,10 @@ class TestUser(DatabaseTestCase):
 You don't need to build factories though. This can be used to simply create new records:
 
 ```python
-from masonite.testing import DatabaseTestCase
+from masonite.testing import TestCase
 from app.User import User
 
-class TestUser(DatabaseTestCase):
+class TestUser(TestCase):
 
     """Start and rollback transactions for this test
     """
@@ -257,7 +236,7 @@ class TestUser(DatabaseTestCase):
 We can load users into the route and check if they can view the route. This is good to see if your middleware is acting good against various users. This can be done with the `acting_as()` method.
 
 {% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code-tabs-item title="tests/test\_unit.py" %}
 ```python
 from app.User import User
 ...
@@ -293,15 +272,15 @@ def test_user_can_see_dashboard(self):
 
 The same can be applied to the get method except it will be in the form of query parameters.
 
-### Test Example
+## Test Example
 
 To complete our test, let's check if the user is actually created:
 
 ```python
-from masonite.testing import DatabaseTestCase
+from masonite.testing import TestCase
 from app.User import User
 
-class TestUser(DatabaseTestCase):
+class TestUser(TestCase):
 
     """Start and rollback transactions for this test
     """
@@ -314,7 +293,8 @@ class TestUser(DatabaseTestCase):
         User.create({
             'name': 'Joe',
             'email': 'user@example.com',
-            'password': '$2b$12$WMgb5Re1NqUr.uSRfQmPQeeGWudk/8/aNbVMpD1dR.Et83vfL8WAu',  # == 'secret'
+            # == 'secret'
+            'password': '$2b$12$WMgb5Re1NqUr.uSRfQmPQeeGWudk/8/aNbVMpD1dR.Et83vfL8WAu',  
         })
     
     def test_creates_users(self):
@@ -323,7 +303,7 @@ class TestUser(DatabaseTestCase):
 
 Thats it! This test will now check that the user is created properly
 
-### Running Tests
+## Running Tests
 
 You can run tests by running:
 
