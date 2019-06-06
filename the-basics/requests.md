@@ -58,7 +58,7 @@ There is no difference between any HTTP methods \(GET, POST, PUT, etc\) when it 
 
 # Method Options
 
-## Input Data
+# Input Data
 
 We can get all the request input variables such as input data from a form request or GET data from a query string. Note that it does not matter what HTTP method you are using, the input method will know what input data to get dependent on the current HTTP method \(`GET`, `POST`, `PUT`, etc\)
 
@@ -89,7 +89,7 @@ def show(self, request: Request):
     return request.input('firstname') # Joe
 ```
 
-## Input Cleaning
+# Input Cleaning
 
 Input data will be cleaned of HTML tags and other security measures. This may cause unwanted return values if you are expecting something like a JSON string. If you want to opt to not clean the input you can specify that as a keyword argument:
 
@@ -106,7 +106,7 @@ def show(self, request: Request):
     return request.has('firstname') # True
 ```
 
-## Getting Dictionary Input
+# Getting Dictionary Input
 
 If your input is a dictionary you have two choices how you want to access the dictionary. You can either access it normally:
 
@@ -120,7 +120,7 @@ Or you can use dot notation to fetch the value for simplicity:
 request.input('payload.user.address') # 123 Smith Rd
 ```
 
-## Only
+# Only
 
 You can only get a certain set of parameters if you have a need to do so. This can be used like:
 
@@ -131,7 +131,7 @@ def show(self, request: Request):
     return request.only('firstname', 'active') # {'firstname': 'Joe', 'active': '1'}
 ```
 
-## Without
+# Without
 
 We can specify a set of parameters to exclude from the inputs returned. For example:
 
@@ -144,11 +144,11 @@ def show(self, request: Request):
 
 Notice it returned everything besides `lastname`.
 
-## URL Parameters
+# URL Parameters
 
 Notice it returned everything besides `lastname`.
 
-## URL Parameters
+# URL Parameters
 
 To get the request parameter retrieved from the url. This is used to get variables inside: `/dashboard/@firstname` for example.
 
@@ -160,7 +160,7 @@ def show(self, request: Request):
     return request.param('firstname') # Joe
 ```
 
-## JSON Payloads
+# JSON Payloads
 
 Sometimes you may want to handle incoming JSON requests. This could be form external API's like Github.
 
@@ -180,7 +180,7 @@ def show(self, request: Request):
     request.input('name') # Joe
 ```
 
-## Cookies
+# Cookies
 
 You may also set a cookie in the browser. The below code will set a cookie named `key` to the value of `value`.
 
@@ -188,14 +188,14 @@ You may also set a cookie in the browser. The below code will set a cookie named
 By default, all cookies are encrypted with your secret key which is generated in your `.env` file when you installed Masonite. This is a security measure to ensure malicious Javascript code cannot fetch cookies if they are somehow retrieved. All cookies are set with the HTTP\_ONLY flag meaning that Javascript cannot read them although you can turn this off using a parameter.
 {% endhint %}
 
-## **Creating**
+# **Creating**
 
 ```python
 def show(self, request: Request):
     return request.cookie('key', 'value')
 ```
 
-## Not Encrypting
+# Not Encrypting
 
 If you choose to not encrypt your values and create cookies with the plain text value then you can pass a third value of `True` or `False`. You can also be more explicit if you like:
 
@@ -204,7 +204,7 @@ def show(self, request: Request):
     return request.cookie('key', 'value', encrypt=False)
 ```
 
-## Expirations
+# Expirations
 
 All cookies are set as session cookies. This means that when the user closes out the browser completely, all cookies will be deleted.
 
@@ -215,7 +215,7 @@ def show(self, request: Request):
 
 This will set a cookie thats expires 5 minutes from the current time.
 
-## HttpOnly
+# HttpOnly
 
 Again, as a security measure, all cookies automatically are set with the `HttpOnly` flag which makes it unavailable to any Javascript code. You can turn this off:
 
@@ -226,7 +226,7 @@ def show(self, request: Request):
 
 This will now allow Javascript to read the cookie.
 
-## **Reading**
+# **Reading**
 
 You can get all the cookies set from the browser
 
@@ -257,7 +257,7 @@ If Masonite attempts to decrypt a cookie but cannot then Masonite will assume th
 If your secret key has been compromised then you may change the key at anytime and all cookies set on your server will be removed.
 {% endhint %}
 
-## **Deleting**
+# **Deleting**
 
 You may also delete a cookie. This will remove it from the browser.
 
@@ -266,7 +266,7 @@ def show(self, request: Request):
     return request.delete_cookie('key')
 ```
 
-## User
+# User
 
 You can also get the current user from the request. This requires the `LoadUserMiddleware` middleware which is in Masonite by default. This will return an instance of the current user.
 
@@ -275,7 +275,7 @@ def show(self, request: Request):
     return request.user()
 ```
 
-## Routes
+# Routes
 
 You can also get a route URL via the route name. Let's say we have a route like this:
 
@@ -290,7 +290,7 @@ def show(self):
     request().route('dashboard') # /dashboard
 ```
 
-## Route Parsing
+# Route Parsing
 
 if we have route parameters like this:
 
@@ -326,7 +326,7 @@ def show(self):
     # /dashboard/1/2/some-slug
 ```
 
-## Current URL
+# Current URL
 
 We can get the current url with:
 
@@ -335,7 +335,7 @@ def show(self, request: Request):
     return request.path #== /dashboard/user
 ```
 
-## Redirection
+# Redirection
 
 You can specify a url to redirect to
 
@@ -388,11 +388,11 @@ def show(self, request: Request):
     return request.redirect('dashboard/@id', {'id': '1'})
 ```
 
-## Redirecting Back
+# Redirecting Back
 
 There will be plenty of times you will need to redirect back to where the user came just came from. In order for this work we will need to specify where we need to go back to. We can use the back method for this.
 
-## Form Back Redirection
+# Form Back Redirection
 
 Masonite will check for a `__back` input and redirect to that route. We can specify one using the `back()` view helper function:
 
@@ -414,7 +414,7 @@ You can also specify a path to go back to:
 </form>
 ```
 
-## Redirecting Back
+# Redirecting Back
 
 After submiting the form you can redirect back to wherever the `back` template method was pointing to using the `back()` method:
 
@@ -424,7 +424,7 @@ def show(self, request: Request):
     return request.back()
 ```
 
-## Default Back URL
+# Default Back URL
 
 We can also specify a default route just in case a form submitted does not specify one using a form helper:
 
@@ -435,7 +435,7 @@ def show(self, request: Request):
 
 This will check for the `__back` input and if it doesn't exist it will use this default route. This is the same as a redirect if you don't use the `back()` helper.
 
-## Encryption Key
+# Encryption Key
 
 You can load a specific secret key into the request by using:
 
@@ -449,7 +449,7 @@ This will load a secret key into the request which will be used for encryptions 
 Note that by default, the secret key is pulled from your configuration file so you do NOT need to supply a secret key, but the option is there if you need to change it for testing and development purposes.
 {% endhint %}
 
-## Headers
+# Headers
 
 You can also get and set any headers that the request has.
 
@@ -497,7 +497,7 @@ request.header({
 })
 ```
 
-## Status Codes
+# Status Codes
 
 Masonite will set a status code of `404 Not Found` at the beginning of every request. If the status code is not changed throughout the code, either through the developer or third party packages, as it passes through each Service Provider then the status code will continue to be `404 Not Found` when the output is generated. You do not have to explicitly specify this as the framework itself handles status codes. If a route matches and your controller method is about to be hit then Masonite will set `200 OK` and hit your route. This allows Masonite to specify a good status code but also allows you to change it again inside your controller method.
 
@@ -521,7 +521,7 @@ This snippet is exactly the same as the string based snippet above.
 
 This will set the correct status code before the output is sent to the browser. You can look up a list of HTTP status codes from an online resource and specify any you need to. There are no limitations to which ones you can use.
 
-## Get Request Method Type
+# Get Request Method Type
 
 You can get the request method simply:
 
@@ -532,7 +532,7 @@ def show(self, request: Request):
     return request.get_request_method() # 'PUT'
 ```
 
-## Changing Request Methods in Forms
+# Changing Request Methods in Forms
 
 Typically, forms only have support for `GET` and `POST`. You may want to change what HTTP method is used when submitting a form such as `PATCH`.
 
