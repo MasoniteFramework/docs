@@ -392,8 +392,6 @@ def show(self, request: Request):
 
 There will be plenty of times you will need to redirect back to where the user came just came from. In order for this work we will need to specify where we need to go back to. We can use the back method for this.
 
-There are 3 states which we should be aware of when using this method.
-
 ### Form Back Redirection
 
 Masonite will check for a `__back` input and redirect to that route. We can specify one using the `back()` view helper function:
@@ -401,11 +399,30 @@ Masonite will check for a `__back` input and redirect to that route. We can spec
 ```markup
 <form action="{{ route('dashboard.create') }}" method="POST">
     {{ csrf_field }}
-    {{ back(request().path) }}
+    {{ back() }}
 </form>
 ```
 
-This will check for the `__back` input and if it doesn't exist it will use this default route.
+By default the `back` helper will return the current path so you can easily go back to the previous page after the form is submitted. 
+
+You can also specify a path to go back to:
+
+```markup
+<form action="{{ route('dashboard.create') }}" method="POST">
+    {{ csrf_field }}
+    {{ back('/another/path') }}
+</form>
+```
+
+### Redirecting Back
+
+After submiting the form you can redirect back to wherever the `back` template method was pointing to using the `back()` method:
+
+```python
+def show(self, request: Request):
+    ...
+    return request.back()
+```
 
 ## Encryption Key
 
