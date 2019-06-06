@@ -4,151 +4,85 @@
 
 Masonite testing is very simple. You can test very complex parts of your code with ease by just extending your class with a Masonite unit test class.
 
-Although Masonite uses `pytest` to run tests, Masonite's test suite is based on `unittest`. Pytest has the ability to run `unittest` style test cases.
+Although Masonite uses `pytest` to run tests, Masonite's test suite is based on `unittest`. SO you will use `unittest` syntax but run the tests with Pytest.
 
 ## Configuration
 
-First, create a new test class in a testing directory. We will use the directory `tests/unit` for the purposes of this documentation. In that file we will create a `test_unit.py` file and put a simple class in it like so:
+First, create a new test class in a testing directory. There is a craft command you can run to create tests for you so just run:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
-```python
-class TestSomeUnit:
-    pass
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-We will then inherit the Masonite UnitTest class so we have access to several built in helpers:
-
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
-```python
-from masonite.testing import UnitTest
-
-class TestSomeUnit(UnitTest):
-    pass
+$ craft test User
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
-That's it! You're ready to start testing.
+This will create a user test for us which we can work on. You can drag this test in any subdirectory you like.
 
-{% hint style="warning" %}
-Your unit test needs to start with `Test` in order for pytest to pick it up.
-{% endhint %}
-
-## Usage
-
-### Setup method
-
-In unit testing, there is something called a setup\_method. What this method does is it runs when the test class is first ran. This is good for setting up routes or anything else all your tests need.
-
-If we modify the setup method, we need to call the parent classes setup method. This looks like this:
+This command will create a basic test like the one below:
 
 {% code-tabs %}
 {% code-tabs-item title="tests/unit/test\_unit.py" %}
 ```python
-from masonite.testing import UnitTest
-from masonite.routes import Get
+"""Example Testcase."""
 
-class TestSomeUnit(UnitTest):
+from masonite.testing import TestCase
+
+
+class TestUser(TestCase):
+
+    transactions = True
 
     def setUp(self):
         super().setUp()
 
-        self.routes([
-            Get().route('/testing', 'TestController@show').name('testing.route').middleware('auth', 'owner')
-        ])
+    def setUpFactories(self):
+        pass
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Notice here we are adding a mock route here that we can do some testing on. You might instead want to test your routes specifically:
+That's it! You're ready to start testing. Read on to learn how to start building your test cases.
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
-```python
-from masonite.testing import UnitTest
-from routes.web import ROUTES
 
-class TestSomeUnit(UnitTest):
-
-    def setup_method(self):
-        super().setup_method()
-
-        self.routes(ROUTES)
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-Now we are working with the routes in our specific project.
-
-### Routes
+# Calling Routes
 
 We have a few options for testing our routes.
 
-#### Testing If a Route Exists:
+## Testing If a Route Exists:
 
-To check if a route exists, we can simple use either get
+To check if a route exists, we can simple use either get or post:
 
 {% code-tabs %}
 {% code-tabs-item title="tests/unit/test\_unit.py" %}
 ```python
-from masonite.testing import UnitTest
-from routes.web import ROUTES
-
-class TestSomeUnit(UnitTest):
-
-    def setup_method(self):
-        super().setup_method()
-
-        self.routes([
-            Get().route('/testing', 'SomeController@show').name('testing.route').middleware('auth', 'owner')
-        ])
-
-    def test_route_exists(self):
-        assert self.route('/testing')
+def test_route_exists(self):
+    self.assertTrue(self.get('/testing'))
+    self.assertTrue(self.post('/testing'))
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-#### Testing If Route Has The Correct Name
+## Testing If Route Has The Correct Name
 
 {% code-tabs %}
 {% code-tabs-item title="tests/unit/test\_unit.py" %}
 ```python
 def test_route_has_the_correct_name(self):
-    assert self.route('/testing').is_named('testing.route')
+    self.assertTrue(self.get('/testing').is_named('testing.route'))
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-#### Testing If A Route Has The Correct Middleware
+## Testing If A Route Has The Correct Middleware
 
 {% code-tabs %}
 {% code-tabs-item title="tests/unit/test\_unit.py" %}
 ```python
 def test_route_has_route_middleware(self):
-    assert self.route('/testing').has_middleware('auth', 'owner')
+    assert self.get('/testing').has_middleware('auth', 'owner')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-#### Testing If A Route Has The Correct Controller
-
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
-```python
-from app.http.controllers.SomeController import SomeController
-
-def test_unit_test_has_controller(self):
-    assert self.route('/testing').has_controller(SomeController)
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-#### Testing If A Route Contains A String
+## Testing If A Route Contains A String
 
 This can be used to see if the template returned a specific value
 
@@ -156,25 +90,14 @@ This can be used to see if the template returned a specific value
 {% code-tabs-item title="tests/unit/test\_unit.py" %}
 ```python
 def test_view_contains(self):
-    assert self.route('/testing').contains('Login')
+    assert self.get('/login').contains('Login Here')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### Status Code
+## Checking 200 Status Code
 
-You can also check if a route is "ok" or a status 200:
-
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
-```python
-def test_view_is_status_200(self):
-    assert self.route('/testing').status('200 OK')
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-or a shorthand:
+You can easily check if the response is ok by using the `ok` method:
 
 {% code-tabs %}
 {% code-tabs-item title="tests/unit/test\_unit.py" %}
@@ -185,53 +108,17 @@ def test_view_is_ok(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### JSON
-
-You can also test the result of a JSON response:
-
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
-```python
-def test_json_response(self):
-    json = self.json('/test/json/response/1', {'id': 1}, method="POST")
-    assert json.status('200 OK')
-    assert json.contains('success')
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-### Users
-
-We can load users into the route and check if they can view the route. This is good to see if your middleware is acting good against various users.
-
-For example we can check if a user that isn't logged in has access to the dashboard homepage:
-
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
-```python
-def test_guest_user_can_view(self):
-    assert not self.route('/some/protect/route').user(None).can_view()
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-Or we can set a value on a mock user and see if that passes:
-
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
-```python
-class MockUser:
-    is_admin = 1
-
-def test_owner_user_can_view(self):
-    assert self.route('/some/protect/route').user(MockUser).can_view()
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
 ## Getting Output
 
-You can get the output by using the capture output
+You can get the output by using the capture output easily by calling the `captureOutput` method on your unit test:
+
+```python
+def test_get_output(self):
+    with self.captureOutput() as o:
+        print('hello world!')
+    
+    self.assertEqual(o, 'hello world!')
+```
 
 ## Testing the Database
 
@@ -302,27 +189,7 @@ Now this will migrate and refresh the database.
 Beware that this will destroy any database information you have.
 {% endhint %}
 
-### Creating Tests
-
-You can create tests by prepending method names with `test_`.
-
-```python
-from masonite.testing import DatabaseTestCase
-
-class TestUser(DatabaseTestCase):
-
-    """Start and rollback transactions for this test
-    """
-    transactions = True
-
-    def setUp(self):
-        super().setUp()
-    
-    def test_creates_users(self):
-        pass
-```
-
-### Factories
+## Factories
 
 Factories are simply ways to seed some dummy data into your database. You can create a factory by making a method that accepts a faker argument and using that to seed data.
 
@@ -385,9 +252,50 @@ class TestUser(DatabaseTestCase):
         pass
 ```
 
+## Users
+
+We can load users into the route and check if they can view the route. This is good to see if your middleware is acting good against various users. This can be done with the `acting_as()` method.
+
+{% code-tabs %}
+{% code-tabs-item title="tests/unit/test\_unit.py" %}
+```python
+from app.User import User
+...
+
+    def setUpFactories(self):
+        User.create({
+            'name': 'Joe',
+            'email': 'user@example.com',
+            'password': '$2b$12$WMgb5Re1NqUr.uSRfQmPQeeGWudk/8/aNbVMpD1dR.Et83vfL8WAu',  # == 'secret'
+        })
+    
+    def test_user_can_see_dashboard(self):
+        self.assertTrue(
+            self.acting_as(User.find(1)).get('/dashboard').ok()
+        )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## Passing in Data
+
+Maybe you need to check a post request and pass in some input data like submitting a form. You can do this by passing in a dictionary as the second value to either the `get` or `post` method:
+
+```python
+def test_user_can_see_dashboard(self):
+    self.assertTrue(
+        self.acting_as(User.find(1)).post('/dashboard', {
+            'name': 'Joe',
+            'active': 1
+        })
+    )
+```
+
+The same can be applied to the get method except it will be in the form of query parameters.
+
 ### Test Example
 
-To complete our test, let's check if the user is actually create:
+To complete our test, let's check if the user is actually created:
 
 ```python
 from masonite.testing import DatabaseTestCase
@@ -422,6 +330,3 @@ You can run tests by running:
 ```text
 $ python -m pytest
 ```
-
-
-
