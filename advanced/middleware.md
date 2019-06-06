@@ -82,12 +82,12 @@ You can run this middleware on any route by specifying the key in the middleware
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-from masonite.helpers.routes import get
+from masonite.routes import Get
 ...
 
 ROUTES = [
     ...
-    get('/dashboard', 'DashboardController@show').middleware('auth')
+    Get('/dashboard', 'DashboardController@show').middleware('auth')
 ]
 ```
 {% endcode-tabs-item %}
@@ -102,12 +102,12 @@ You can run this middleware on any route by specifying the key in the middleware
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-from masonite.helpers.routes import get
+from masonite.routes import Get
 ...
 
 ROUTES = [
     ...
-    get('/dashboard', 'DashboardController@show').middleware('verified')
+    Get('/dashboard', 'DashboardController@show').middleware('verified')
 ]
 ```
 {% endcode-tabs-item %}

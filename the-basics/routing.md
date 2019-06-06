@@ -9,7 +9,7 @@ All routes are created inside `routes/web.py` and are contained in a `ROUTES` co
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-Get().route('/url/here', 'WelcomeController@show')
+Get('/url/here', 'WelcomeController@show')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -19,7 +19,7 @@ Most of your routes will consist of a structure like this. All URI’s should ha
 {% code-tabs %}
 {% code-tabs-item title="routes/web.py" %}
 ```python
-Post().route('/url/here', 'WelcomeController@store')
+Post('/url/here', 'WelcomeController@store')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -38,7 +38,7 @@ from app.http.controllers.DashboardController import DashboardController
 
 
 ROUTES = [
-    Get().route('/url/here', DashboardController.show)
+    Get('/url/here', DashboardController.show)
 ]
 ```
 {% endcode-tabs-item %}

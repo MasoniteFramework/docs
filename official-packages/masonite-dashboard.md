@@ -230,12 +230,12 @@ $ craft controller HelloWorld
 Now remember, our route was localhost:8000/helloworld so let's add that to our ROUTES list. We'll import a helper for this as well:
 
 ```python
-from masonites.helpers.routes import get
+from masonites.routes import Get
 ...
 
 ROUTES = [
     ...
-    get('/dashboard/helloworld', 'HelloWorldController@show'),
+    Get('/dashboard/helloworld', 'HelloWorldController@show'),
     ...
 ]
 ```
