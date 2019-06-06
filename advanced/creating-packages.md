@@ -207,64 +207,118 @@ Again, not all packages will need to be installed or even need commands. Only pa
 
 You will know if a package needs to be installed by reading the packages install documentation that is written by the package authors.
 
-## Helper Functions
+# Publishing
 
-These helper functions are used inside the install commands or anywhere else in your package where you need to scaffold a Masonite project.
+Masonite has the concept of publishing packages. This allows you to manage the integration with your package and Masonite in a more seamless way. Publishing allows you to add things like routes, views, migrations and commands easily into any Masonite app and it is all handled through your service provider
 
-The `location` specified as parameters here are absolute path locations. You can achieve this by using the `package_directory` variable in your `integration.py` file.
+The goal is to have a developer run:
 
-To achieve an absolute path location, this will look like:
-
-```python
-location = os.path.join(
-    package_directory, 'snippets/configs/services.py'
-)
+```bash
+$ craft publish YourProvider
 ```
 
-All helper functions are located in the `masonite.packages` module. To use these functions you’ll need to import the function to be used like:
+This should be the name of your provider class.
 
-```python
-from masonite.packages import create_or_append_config
+and have all your assets moved into the new Masonite application.
+
+## Publishing Files
+
+You can create or append any files you need to in a developers masonite application. This can be used for any files to include commands, routes, config files etc.
+
+For example let's say you have a directory in your package like:
+
+```
+validation/
+  providers/
+    ValidationProvider.py
+  commands/
+    RuleCommand.py
+setup.py
 ```
 
-### **Creating Configuration Files**
-
-`create_or_append_config(location)` will create a configuration file based on a configuration file from your package.
-
-### **Creating Web Routes**
-
-`append_web_routes(location)` will append web routes to the `routes/web.py` file. Your web routes should have a `+=` to the `ROUTES` constant and should look something like:
+Inside our service provider we can do this:
 
 ```python
-ROUTES += [
-    # your package routes here
-]
+import os
+
+class ValidationProvider(ServiceProvider):
+
+    wsgi = False
+
+    def register(self):
+        pass
+
+    def boot(self):
+        command_path = os.path.join(os.path.dirname(__file__), '../commands')
+
+        self.publishes({
+            os.path.join(command_path, 'RuleCommand.py'): 'app/commands/RuleCommand.py'
+        })
 ```
 
-### **Creating Api Routes**
+Notice our command path is 1 directory back inside the `commands` directory. We then combine the directory with the `RuleCommand.py` file and tell Masonite to put it inside the `app/commands/RuleCommand.py` module inside the users directory.
 
-`append_api_routes(location)` will append api routes to a masonite project under `routes/api.py`. Your api routes should have a `+=` to the `ROUTES` constant and should look something like:
+The user of your package will now have a new command in their application!
+
+## Publishing Migrations
+
+You can take any migrations in your package and send them to the Masonite applications migration directory. This is useful if you want to have some developers edit your custom migrations before they migrate them.
+
+For example let's say you have a directory in your package like:
+
+```
+validation/
+  providers/
+    ValidationProvider.py
+  migrations/
+    user_migration.py
+    team_migration.py
+setup.py
+```
+
+The migrations like `user_migration.py` should be full migration files.
+
+Then you can have a service provider like this:
 
 ```python
-ROUTES += [
-    # your package routes here
-]
+import os
+
+def boot(self):
+    migration_path = os.path.join(os.path.dirname(__file__), '../migrations')
+
+    self.publishes_migrations([
+        os.path.join(migration_path, 'user_migration.py'),
+        os.path.join(migration_path, 'team_migration.py'),
+    ])
 ```
 
-### **Creating Controllers**
+This will create a new migration in the users directory.
 
-`create_controller(location)` will take a controller from your package and append it under the `app.http.controllers` namespace by default.
+## Publishing Tags
 
-You can also optionally add a `to` parameter to specify which directory you want to install the controller into. The directory will automatically be created.
+You can also add tags to each of these migrations as well. For example if you have 2 sets of migrations you can do this instead:
 
 ```python
-create_controller(
-    os.path.join(
-        package_directory, 'snippets/controller/ControllerHere.py'
-    ),
-    to = 'app/http/controllers/Vendor/Package'
-)
+import os
+
+def boot(self):
+    migration_path = os.path.join(os.path.dirname(__file__), '../migrations')
+    command_path = os.path.join(os.path.dirname(__file__), '../commands')
+
+    self.publishes({
+        os.path.join(command_path, 'RuleCommand.py'): 'app/commands/RuleCommand.py'
+    }, tag="commands")
+
+    self.publishes_migrations([
+        os.path.join(migration_path, 'user_migration.py'),
+        os.path.join(migration_path, 'team_migration.py'),
+    ], tag="migrations")
 ```
 
-This will create the controller in `app.http.controller.Vendor.Package.ControllerHere.py`
+Now a user can only either publish migrations or commands by adding a `--tag` option
 
+```bash
+$ craft publish ValidationProvider --tag migrations
+```
+
+This will ignore the commands publishing and only publish the migrations
