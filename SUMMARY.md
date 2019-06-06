@@ -88,15 +88,15 @@
 * [Authentication](security/authentication.md)
 * [CSRF Protection](security/csrf-protection.md)
 * [Encryption](security/encryption.md)
-* [CSRF Protection](security/csrf-protection-1.md)
 * [Headers](security/headers.md)
+* [CSRF Protection](security/csrf-protection-1.md)
 * [Releases](security/releases.md)
 
 ## Orator ORM
 
+* [Database Migrations](orator-orm/database-migrations.md)
 * [Basic Usage](https://orator-orm.com/docs/0.9/basic_usage.html)
 * [Collections](https://orator-orm.com/docs/0.9/collections.html)
-* [Database Migrations](orator-orm/database-migrations.md)
 * [ORM](https://orator-orm.com/docs/0.9/orm.html)
 * [Pagination](https://orator-orm.com/docs/0.9/pagination.html)
 * [Query Builder](https://orator-orm.com/docs/0.9/query_builder.html)
