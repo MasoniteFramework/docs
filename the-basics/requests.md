@@ -282,7 +282,7 @@ def show(self, request: Request):
 You can also get a route URL via the route name. Let's say we have a route like this:
 
 ```python
-get('/dashboard').name('dashboard')
+Get('/dashboard').name('dashboard')
 ```
 
 We can get the URL from the route name like so:
@@ -297,35 +297,52 @@ def show(self):
 if we have route parameters like this:
 
 ```python
-get('/dashboard/@user').name('dashboard.user')
+Get('/dashboard/@user').name('dashboard.user')
 ```
 
 then we can pass in a dictionary:
 
 ```python
-def show(self):
-    request().route('dashboard.user', {'user': 1}) # /dashboard/1
+def show(self, request: Request):
+    request.route('dashboard.user', {'user': 1}) # /dashboard/1
 ```
 
 You may also pass a list if that makes more sense to you:
 
 ```python
-def show(self):
-    request().route('dashboard.user', [1]) # /dashboard/1
+def show(self, request: Request):
+    request.route('dashboard.user', [1]) # /dashboard/1
 ```
 
 This will inject that value for each parameter in order. For example if we have this route:
 
 ```python
-get('/dashboard/@user/@id/@slug').name('dashboard.user')
+Get('/dashboard/@user/@id/@slug').name('dashboard.user')
 ```
 
 then we can use:
 
 ```python
-def show(self):
-    request().route('dashboard.user', [1, 2, 'some-slug']) 
+def show(self, request: Request):
+    request.route('dashboard.user', [1, 2, 'some-slug']) 
     # /dashboard/1/2/some-slug
+```
+
+# Contains
+
+We can also check if a route contains a specific pattern:
+
+```python
+# GET /dashboard/user/1
+def show(self, request: Request):
+    request.contains('/dashboard/*/1') #== True
+```
+
+You can also use this in a template and pass in a `show` parameter to return a string instead. This is useful if you want to show active status classes depending on the current route:
+
+```html
+<a href=".." class="{{ request().contains('/dashboard/*/edit', show='active')">
+<a href=".." class="{{ request().contains('/dashboard/*/create', show='active')">
 ```
 
 # Current URL
