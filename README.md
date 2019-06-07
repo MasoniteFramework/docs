@@ -34,14 +34,11 @@ These, among many other features, are all shipped out of the box and ready to go
 In order to use Masonite, you’ll need:
 
 * Python 3.4+
+* Latest version of OpenSSL
 * Pip3
 
 {% hint style="warning" %}
 All commands of python and pip in this documentation is assuming they are pointing to the corresponding Python 3 versions. If you are having issues with any installation steps just be sure the commands are for Python 3.4+ and not 2.7 or below.
-{% endhint %}
-
-{% hint style="danger" %}
-NOTE: Masonite does not support the Anaconda virtual environment system. In order for the craft command to work, something you will be using often, Masonite needs to be able to locate the Masonite package even in a virtual environment. If you follow the installation steps here and use Python 3's builtin virtualenv package \(`python3 -m venv venv`\) then this will work best. If you would like to add Anaconda support to Masonite then feel free to open an issue in GitHub :\)
 {% endhint %}
 
 ### Linux
@@ -96,7 +93,7 @@ $ pip install masonite-cli
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-If you already have craft installed, Masonite 2.1 requires `masonite-cli>=2.1.0` so you may have to run with the upgrade flag to.
+If you already have craft installed, Masonite 2.2 requires `masonite-cli>=2.2.0` so you may have to run with the upgrade flag to.
 
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
