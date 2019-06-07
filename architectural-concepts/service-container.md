@@ -82,6 +82,24 @@ In order to retrieve a class from the service container, we can simply use the `
 
 That's it! This is useful as an IOC container which you can load a single class into the container and use that class everywhere throughout your project.
 
+## Singleton
+
+You can bind singletons into the container. This will resolve the object **at the time of binding**. This will allow the same object to be used throughout the lifetime of the server.
+
+```python
+from masonite.provider import ServiceProvider
+from app.helpers import SomeClass
+
+
+class UserModelProvider(ServiceProvider):
+
+    def register(self):
+        self.app.singleton('SomeClass', SomeClass)
+
+    def boot(self):
+        pass
+```
+
 ## Has
 
 You can also check if a key exists in the container by using the `has` method:
