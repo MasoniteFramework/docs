@@ -474,3 +474,31 @@ This command is ran whenever you run `craft install`
 
 Great! You are now a master at the craft command line tool.
 
+## Testing
+
+You can also scaffold out basic test cases. You can do this by running:
+
+```python
+$ craft test NameOfTest
+```
+
+This will scaffold the test in the base `tests/` directory and you can move it to wherever you like from there.
+
+## Publish
+
+Masonite has the concept of publishing where you can publish specific assets to a developers application. This will allow them to make tweaks to better fit your package to their needs.
+
+You can publish a specific provider by running:
+
+```python
+$ craft provider ProviderName
+```
+
+You can also optionally specify a tag:
+
+```python
+$ craft provider ProviderName --tag name
+```
+
+You should read more about publishing at the publishing documentation page.
+
