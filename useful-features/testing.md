@@ -2,13 +2,13 @@
 
 ## Testing
 
-### Introduction
+## Introduction
 
 Masonite testing is very simple. You can test very complex parts of your code with ease by just extending your class with a Masonite unit test class.
 
 Although Masonite uses `pytest` to run tests, Masonite's test suite is based on `unittest`. SO you will use `unittest` syntax but run the tests with Pytest.
 
-### Configuration
+## Configuration
 
 First, create a new test class in a testing directory. There is a craft command you can run to create tests for you so just run:
 
@@ -42,6 +42,26 @@ class TestUser(TestCase):
 {% endcode-tabs %}
 
 That's it! You're ready to start testing. Read on to learn how to start building your test cases.
+
+## Environments
+
+Most times you want to develop and test on different databases. Maybe you develop on a local MySQL database but your tests should run in a SQLlite database. 
+
+You can create a `.env.testing` file and put all database configs in that. When Pytest runs it will additionally load and override any additional environment variables.
+
+Your `.env.testing` file may look like this:
+
+```
+DB_CONNECTION=sqlite
+DB_HOST=127.0.0.1
+DB_DATABASE=masonite.db
+DB_LOG=False
+
+STRIPE_CLIENT=test_sk-9uxaxixjsxjsin
+STRIPE_SECRET=test_sk-suhxs87cen88h7
+```
+
+Feel free to load any testing environment variables in here. By default they will not be commited.
 
 ## Calling Routes
 
