@@ -61,6 +61,28 @@ def test_route_exists(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### Method options
+
+You can choose anyone of the normal request methods:
+
+```python
+def test_route_exists(self):
+    self.get('/testing')
+    self.post('/testing')
+    self.put('/testing')
+    self.patch('/testing')
+    self.delete('/testing')
+```
+
+### JSON Requests
+
+You can use a standard JSON request and specify whichever option you need using the `json()` method:
+
+```python
+def test_route_exists(self):
+    self.json('POST', '/testing', {'user': 'Joe'})
+```
+
 ### Testing If Route Has The Correct Name
 
 {% code-tabs %}
@@ -108,6 +130,30 @@ def test_view_is_ok(self):
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+### CSRF Protection
+
+By default, all calls to your routes with the above methods will be without CSRF protection. The testing code will allow you to bypass that protection. 
+
+This is very useful since you don't need to worry about setting CSRF tokens on every request but you may want to enable this protection. You can do so by calling the `with_csrf()` method on your test.
+
+```python
+def test_csrf(self):
+    self.with_csrf()
+
+    self.post('/unit/test/json', {'test': 'testing'})
+```
+
+This will enable it on a specific test but you may want to enable it on all your tests. You can do this by adding the method to your `setUp()` method:
+
+```python
+def setUp(self):
+    super().setUp()
+    self.with_csrf()
+
+def test_csrf(self):
+    self.post('/unit/test/json', {'test': 'testing'})
+```
 
 ### Getting Output
 
