@@ -33,7 +33,7 @@ The JWT driver will store an encrypted JWT token inside a cookie with all the au
 
 You can set this driver in your `.env` file:
 
-```
+```text
 AUTH_DRIVER=jwt
 ```
 

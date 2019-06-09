@@ -2,15 +2,15 @@
 
 ## Introduction
 
-Masonite Dashboard is a barebones dashboard designed for third party packages to add links and views to your dashboard. 
+Masonite Dashboard is a barebones dashboard designed for third party packages to add links and views to your dashboard.
 
-These links and views could be: 
+These links and views could be:
 
 * A payment package adding a setup page to ease in the packages configuration 
 * A CMS to manage your site's content
 * An API dashboard to monitor API requests
 
-This package does not supply these features but it is up to the community to use this package in order to  simply build out functionality on existing dashboards.
+This package does not supply these features but it is up to the community to use this package in order to simply build out functionality on existing dashboards.
 
 ## Requirements:
 
@@ -111,7 +111,7 @@ Again, this package is a very basic package and only contains the minimum necess
 
 ## Creating Links
 
-The beautiful thing about this dashboard package is that we can now simply add new links and views. There are two classes we need to know about. The dashboard can be expanded by interacting with the Service Container by using Service Providers. 
+The beautiful thing about this dashboard package is that we can now simply add new links and views. There are two classes we need to know about. The dashboard can be expanded by interacting with the Service Container by using Service Providers.
 
 ### BaseLink
 
@@ -151,7 +151,6 @@ class HelloWorldProvider(ServiceProvider):
 
     def boot(self):
         pass
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -206,7 +205,6 @@ class HelloWorldProvider(ServiceProvider):
 
     def boot(self):
         pass
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -264,7 +262,7 @@ content here
 {% endblock %}
 ```
 
-Notice here we extended from dashboard/base.html. This is the template that contains the sidebar as well as the header for logging in. 
+Notice here we extended from dashboard/base.html. This is the template that contains the sidebar as well as the header for logging in.
 
 Once that is done we can go ahead and open up localhost:8000/dashboard/helloworld and you will see your new hello world template there!
 

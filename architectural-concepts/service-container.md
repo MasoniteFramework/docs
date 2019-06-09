@@ -1,10 +1,12 @@
 # Service Container
 
-## Introduction
+## Service Container
+
+### Introduction
 
 The Service Container is an extremely powerful feature of Masonite and should be used to the fullest extent possible. It's important to understand the concepts of the Service Container. It's a simple concept but is a bit magical if you don't understand what's going on under the hood.
 
-## Getting Started
+### Getting Started
 
 The Service Container is just a dictionary where classes are loaded into it by key-value pairs, and then can be retrieved by either the key or value through resolving objects. That's it.
 
@@ -20,7 +22,7 @@ There are a few objects that are resolved by the container by default. These inc
 
 There are four methods that are important in interacting with the container: `bind`, `make` and `resolve`
 
-## Bind
+### Bind
 
 In order to bind classes into the container, we will just need to use a simple `bind` method on our `app` container. In a service provider, that will look like:
 
@@ -51,7 +53,7 @@ def show(self, request: Request):
     request.app() # will return the service container
 ```
 
-## Simple Binding
+### Simple Binding
 
 Sometimes you really don't care what the key is for the object you are binding. For example you may be binding a `Markdown` class into the container but really don't care what the key binding is called. This is a great reason to use simple binding which will set the key as the object class:
 
@@ -69,7 +71,7 @@ class UserModelProvider(ServiceProvider):
         pass
 ```
 
-## Make
+### Make
 
 In order to retrieve a class from the service container, we can simply use the `make` method.
 
@@ -82,7 +84,7 @@ In order to retrieve a class from the service container, we can simply use the `
 
 That's it! This is useful as an IOC container which you can load a single class into the container and use that class everywhere throughout your project.
 
-## Singleton
+### Singleton
 
 You can bind singletons into the container. This will resolve the object **at the time of binding**. This will allow the same object to be used throughout the lifetime of the server.
 
@@ -100,7 +102,7 @@ class UserModelProvider(ServiceProvider):
         pass
 ```
 
-## Has
+### Has
 
 You can also check if a key exists in the container by using the `has` method:
 
@@ -114,11 +116,11 @@ You can also check if a key exists in the container by using the `in` keyword.
 'Request' in app
 ```
 
-## Collecting
+### Collecting
 
 You may want to collect specific kinds of objects from the container based on the key. For example we may want all objects that start with "Exception" and end with "Hook" or want all keys that end with "ExceptionHook" if we are building an exception handler.
 
-## Collect By Key
+### Collect By Key
 
 We can easily collect all objects based on a key:
 
@@ -144,7 +146,7 @@ app.collect('Sentry*Hook')
 
 This will get keys like "SentryExceptionHook" and "SentryHandlerHook"
 
-## Collecting By Object
+### Collecting By Object
 
 You can also collect all subclasses of an object. You may use this if you want to collect all instances of a specific class from the container:
 
@@ -155,7 +157,7 @@ app.collect(Command)
 # Returns {'FirstCommand': <class ...>, 'AnotherCommand': ...}
 ```
 
-## Resolve
+### Resolve
 
 This is the most useful part of the container. It is possible to retrieve objects from the container by simply passing them into the parameter list of any object. Certain aspects of Masonite are resolved such as controller methods, middleware and drivers.
 
@@ -172,7 +174,7 @@ Masonite will know that you are trying to get the `Request` class and will actua
 
 Pretty powerful stuff, eh?
 
-## Resolving Instances
+### Resolving Instances
 
 Another powerful feature of the container is it can actually return instances of classes you annotate. For example, all `Upload` drivers inherit from the `UploadContract` which simply acts as an interface for all `Upload` drivers. Many programming paradigms say that developers should code to an interface instead of an implementation so Masonite allows instances of classes to be returned for this specific use case.
 
@@ -187,7 +189,7 @@ def show(self, upload: UploadContract)
 
 Notice that we passed in a contract instead of the upload class. Masonite went into the container and fetched a class with the instance of the contract.
 
-## Resolving Parameters
+### Resolving Parameters
 
 {% hint style="danger" %}
 This feature should not be used and you should instead use the more explicit form of resolving in the section above.
@@ -210,7 +212,7 @@ container = App(resolve_parameters=True)
 
 Your project will now resolve parameters as well. Resolving parameters looks for the key in the container instead of the class.
 
-## Resolving your own code
+### Resolving your own code
 
 The service container can also be used outside of the flow of Masonite. Masonite takes in a function or class method, and resolves it's dependencies by finding them in the service container and injecting them for you.
 
@@ -233,7 +235,7 @@ Remember not to call it and only reference the function. The Service Container n
 
 This will fetch all of the parameters of `randomFunction` and retrieve them from the service container. There probably won't be many times you'll have to resolve your own code but the option is there.
 
-## Resolving With Additional Parameters
+### Resolving With Additional Parameters
 
 Sometimes you may wish to resolve your code in addition to passing in variables within the same parameter list. For example you may want to have 3 parameters like this:
 
@@ -253,7 +255,7 @@ app.resolve(send_email, 'user@email.com')
 
 Masonite will go through each parameter list and resolve them, if it does not find the parameter it will pull it from the other parameters specified. These parameters can be in any order.
 
-## Using the container outside of Masonite flow
+### Using the container outside of Masonite flow
 
 If you need to utilize a container outside the normal flow of Masonite like inside a command then you can import the container directly.
 
@@ -270,11 +272,11 @@ class SomeCommand:
         queue.push(..)
 ```
 
-## Container Swapping
+### Container Swapping
 
 Sometimes when you resolve an object or class, you want a different value to be returned.
 
-## Using a value:
+### Using a value:
 
 We can pass a simple value as the second parameter to the `swap` method which will be returned instead of the object being resolved. For example this is used currently when resolving the `Mail` class like this:
 
@@ -305,7 +307,7 @@ def boot(self, mail: MailManager):
 
 Notice that we specified which class should be returned whenever we resolve the `Mail` class. In this case we want to resolve the default driver specified in the projects configurations.
 
-## Using a callable
+### Using a callable
 
 Instead of directly passing in a value as the second parameter we can pass in a callable instead. The callable MUST take 2 parameters. The first parameter will be the annotation we are trying to resolve and the second will be the container itself. Here is an example of how the above would work with a callable:
 
@@ -326,7 +328,7 @@ Notice that the second parameter is a callable object. This means that it will b
 
 Remember: If the second parameter is a callable, it will be called. If it is a value, it will simply be returned instead of the resolving object.
 
-## Container Hooks
+### Container Hooks
 
 Sometimes we might want to run some code when things happen inside our container. For example we might want to run some arbitrary function about we resolve the Request object from the container or we might want to bind some values to a View class anytime we bind a Response to the container. This is excellent for testing purposes if we want to bind a user object to the request whenever it is resolved.
 
@@ -381,7 +383,7 @@ container.on_make(Request, attribute_on_make)
 container.on_resolve(Request, attribute_on_make)
 ```
 
-## Strict and Overriding
+### Strict and Overriding
 
 By default, Masonite will not care if you override objects from the container. In other words you can do this:
 
@@ -396,15 +398,15 @@ Without issue. Notice we are binding twice to the same key. You can change this 
 container = App(strict=True, override=False)
 ```
 
-## Override
+### Override
 
 If override is `False`, it will not override values in the container. It will simply ignore them if you are trying to bind twice to the same key. If override is `True`, which it is by default, you will be allowed to override keys in the container with new values by binding them.
 
-## Strict
+### Strict
 
 Strict will throw an exception if you try binding a key to the container. So with override being `False` it simply ignored binding a key to the container that already exists, setting strict to `True` will actually throw an exception.
 
-# Remembering
+## Remembering
 
 Container remembering is an awesome feature where the container will remember the objects you passed in and instead of resolving the object over and over again which could possibly be expensive, it will pass in the previous objects that were passed in by storing and retrieving them from a separate remembering list the container builds.
 
@@ -417,3 +419,4 @@ You can enable this on a per application basis by setting the `remembering` para
 ```python
 container = App(remembering = True)
 ```
+

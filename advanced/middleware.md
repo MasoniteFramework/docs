@@ -140,7 +140,7 @@ This middleware will take the response provided and add the necessary headers to
 
 ## Middleware Parameters
 
-You can pass parameters from your routes to your middleware in cases where a middleware should act differently depending on your route. 
+You can pass parameters from your routes to your middleware in cases where a middleware should act differently depending on your route.
 
 You can do this with a `:` symbol next to your route middleware name and then pass in those parameters to the `before` and `after` middleware methods.
 
@@ -157,7 +157,7 @@ class ThrottleMiddleware:
 
     def before(self, minutes, requests):
         # throttle requests
-        
+
     def after(self, minutes, requests):
         # throttle requests
 ```

@@ -38,6 +38,10 @@ def show(self, user_id, view: View):
     return view.render('some.template', {'user': user})
 ```
 
+{% hint style="success" %}
+Learn more in the [Controllers documentation here](../the-basics/controllers.md#passing-route-parameters).
+{% endhint %}
+
 ## Added a storage manager and disk storage drivers
 
 This is used as a wrapper around I/O operations. It will also be a wrapper around the upload drivers and moving files around and other file management type operations
@@ -46,9 +50,13 @@ This is used as a wrapper around I/O operations. It will also be a wrapper aroun
 
 We can now specify directly in the configuration file whether or not the threading or multiprocessing for the async type operations.
 
+{% hint style="success" %}
+Learn more in the [Queues documentation here](../useful-features/queues-and-jobs.md#async-driver).
+{% endhint %}
+
 ## Added new HTTP Verbs
 
-We added 4 new HTTP verbs: HEAD, CONNECT, OPTIONS, TRACE. You import these and use them like normal:
+We added 4 new HTTP verbs: `HEAD`, `CONNECT`, `OPTIONS`, `TRACE`. You import these and use them like normal:
 
 ```python
 from masonite.routes import Connect, Trace
@@ -57,6 +65,10 @@ ROUTES = [
     Trace('..'),
 ]
 ```
+
+{% hint style="success" %}
+Learn more in the [Routes documentation here](../the-basics/routing.md#http-verbs).
+{% endhint %}
 
 ## JSON error responses
 
@@ -102,6 +114,10 @@ $ craft serve -d
 $ craft serve --dont-reload
 ```
 
+{% hint style="success" %}
+Learn more in the [Craft commands documentation here](../the-craft-command/introduction.md#running-the-wsgi-server).
+{% endhint %}
+
 ## Added Accept\(\*\) to drivers
 
 By default you can only upload image files because of security reasons but now you can disable that by doing an accept\(\*\) option:
@@ -111,13 +127,23 @@ def show(self, upload: Upload):
     upload.accept(*).store(request.input('file'))
 ```
 
+{% hint style="success" %}
+Learn more in the [Uploading documentation here](../useful-features/uploading.md#accepting-specific-files).
+{% endhint %}
+
 ## Added much more view helpers
 
-A list of view helpers can be [found here](../the-basics/views.md#helpers)
+{% hint style="success" %}
+Learn more in the [Views documentation here](../the-basics/views.md#helpers).
+{% endhint %}
 
 ## All Tests are now unittests
 
 We moved from pytest to unittests for test structures.
+
+{% hint style="success" %}
+Learn more in the [Testing documentation here](../useful-features/testing.md#testing).
+{% endhint %}
 
 ## Added a better way to run database tests
 
@@ -145,11 +171,19 @@ We can now do:
 
 In order to learn how to use this you can visit the [documentation here](../the-basics/requests.md#form-back-redirection).
 
+{% hint style="success" %}
+Learn more in the [Requests documentation here](../the-basics/requests.md#redirecting-back).
+{% endhint %}
+
 ## Added a completely new validation library
 
 We built a new validation library from scratch and completely ripped out the old validation code. Any current validation code will need to be updated to the new way.
 
 The new way is MUCH better. You can read about it in the new [validation section here](https://docs.masoniteproject.com/v/v2.2/advanced/validation).
+
+{% hint style="success" %}
+Learn more in the [Validation documentation here](../advanced/validation.md#validation).
+{% endhint %}
 
 ## Auth class does not need the request class.
 
@@ -212,6 +246,10 @@ def show(self, auth: Auth):
     })
 ```
 
+{% hint style="success" %}
+Learn more in the [Authentication documentation here](../security/authentication.md#authentication).
+{% endhint %}
+
 ## Changed all regex compiling to be done before the server starts
 
 Previously, each route's regex was being compiled when Masonite checked for it but we realized this was redundant. So now all route compiling is done before the server starts.
@@ -223,6 +261,10 @@ This has given Masonite a bit of a speed boost.
 Masonite now has the ability to remember the previous container bindings for each object. This can speed of resolving your code by 10-15x. This is disabled by default as it is still not clear what kind of issues this can cause.
 
 This is scheduled to be set by default in the next major version of Masonite
+
+{% hint style="success" %}
+Learn more in the [Service Container documentation here](../architectural-concepts/service-container.md#remembering).
+{% endhint %}
 
 ## Added a new `with_errors()` method in order to cut down on setting an errors session.
 
@@ -256,4 +298,8 @@ def show(self, request: Request, validate: Validator):
     if errors:
       return request.back().with_errors(errors)
 ```
+
+{% hint style="success" %}
+Learn more in the [Requests documentation here](../advanced/validation.md#validating-the-request).
+{% endhint %}
 

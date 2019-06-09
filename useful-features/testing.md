@@ -52,13 +52,13 @@ That's it! You're ready to start testing. Read on to learn how to start building
 
 ## Environments
 
-Most times you want to develop and test on different databases. Maybe you develop on a local MySQL database but your tests should run in a SQLlite database. 
+Most times you want to develop and test on different databases. Maybe you develop on a local MySQL database but your tests should run in a SQLlite database.
 
 You can create a `.env.testing` file and put all database configs in that. When Pytest runs it will additionally load and override any additional environment variables.
 
 Your `.env.testing` file may look like this:
 
-```
+```text
 DB_CONNECTION=sqlite
 DB_HOST=127.0.0.1
 DB_DATABASE=masonite.db
@@ -160,7 +160,7 @@ def test_view_is_ok(self):
 
 ### CSRF Protection
 
-By default, all calls to your routes with the above methods will be without CSRF protection. The testing code will allow you to bypass that protection. 
+By default, all calls to your routes with the above methods will be without CSRF protection. The testing code will allow you to bypass that protection.
 
 This is very useful since you don't need to worry about setting CSRF tokens on every request but you may want to enable this protection. You can do so by calling the `withCsrf()` method on your test.
 
