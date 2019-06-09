@@ -1,26 +1,28 @@
 # Masonite 2.1 to 2.2
 
-# Introduction
+## Masonite 2.1 to 2.2
+
+## Introduction
 
 Welcome to the upgrade guide to get your Masonite 2.1 application working with Masonite 2.2. We'll be focusing on all the breaking changes so we can get all your code working on a Masonite 2.2 release cycle.
 
-We will not go into all the better ways to use some of the features. For those changes be sure to read the "Whats New in 2.1" documentation to the left to see what fits into your application and what doesn't.
+**We will not go into all the better ways to use some of the features.** For those changes be sure to read the "[Whats New in 2.1](../whats-new/masonite-2.2.md)" documentation to the left to see what fits into your application and what doesn't.
 
 Masonite 2.2 is jam packed with amazing new features and most of which are backwards compatible so upgrading from Masonite 2.1 to 2.2 is really simple.
 
 We'll go through each section that your application will need to be upgraded and how it can be done.
 
-# Getting Started
+## Getting Started
 
 First let's upgrade Masonite 2.2 first so we can see any exceptions that will be raised.
 
 Let's upgrade by doing:
 
-```
+```text
 pip install masonite==2.2.0
 ```
 
-# Removing route helpers
+## Removing route helpers
 
 In Masonite 2.1, route helpers were deprecated and you likely started receiving deprecation warnings. In Masonite 2.2, these were removed. You may have had routes that looks like this:
 
@@ -42,9 +44,9 @@ ROUTES = [
 ]
 ```
 
-# Changed Validation
+## Changed Validation
 
-## Validation Provider
+### Validation Provider
 
 You'll need to add a new validation provider if you want your application to have the new validation features.
 
@@ -60,7 +62,7 @@ PROVIDERS = [
 ]
 ```
 
-## Validation Code
+### Validation Code
 
 Masonite 2.2 completely removed the validation package from 2.1 and created an even better all new validation package. You'll have to remove all your validation classes and use the new validation package.
 
@@ -119,7 +121,7 @@ from masonite.validation import Validator
 
 You can do a lot of other awesome things like rule enclosures. Read more under the Validation documentation
 
-## Auth class now auto resolves it's own request class
+### Auth class now auto resolves it's own request class
 
 Masonite 2.2 changes a bit how the `masonite.auth.Auth` class resolves out of the container and how it resolves its own dependencies.
 
@@ -145,18 +147,17 @@ There should be quite a bit of these in your application if you have used this c
 
 Here is an example application that is being upgraded from 2.1 to 2.2 [GitHub Repo](https://github.com/josephmancuso/gbaleague-masonite2/pull/2/files)
 
-
-## Resolving Classes
+### Resolving Classes
 
 The behavior for resolving classes has now been changes. If you bind a class into the container like this:
 
-```
+```text
 from some.place import SomeClass
 
 self.app.bind('SomeClass', SomeClass)
 ```
 
-This will now resolve from the container *when you resolve it as a parameter list*. This means that you will never get back a class inside places like controllers. Before you may have gotten it back from the container and passed in dependencies yourself like:
+This will now resolve from the container _when you resolve it as a parameter list_. This means that you will never get back a class inside places like controllers. Before you may have gotten it back from the container and passed in dependencies yourself like:
 
 ```python
 from some.place import SomeClass
@@ -166,3 +167,4 @@ def show(self, request: Request, some: SomeClass):
 ```
 
 But this is no longer possible. You will now only get back objects so you will not be able to instantiate these variables. So take this into account if you have bound classes into the container.
+
