@@ -6,7 +6,14 @@
 
 Masonite testing is very simple. You can test very complex parts of your code with ease by just extending your class with a Masonite unit test class.
 
-Although Masonite uses `pytest` to run tests, Masonite's test suite is based on `unittest`. SO you will use `unittest` syntax but run the tests with Pytest.
+Although Masonite uses `pytest` to run tests, Masonite's test suite is based on `unittest`. So you will use `unittest` syntax but run the tests with Pytest. Because of this, all syntax will be in `camelCase` instead of PEP 8 `under_score`. Just know that all `TestCase` method calls used during testing is in `camelCase` form to maintain unittest standards.
+
+Normal tests should still be underscore and start with `test_` though like this:
+
+```python
+def test_user_can_login(self):
+    pass
+```
 
 ## Configuration
 
@@ -109,7 +116,7 @@ def test_route_exists(self):
 {% code-tabs-item title="tests/test\_unit.py" %}
 ```python
 def test_route_has_the_correct_name(self):
-    self.assertTrue(self.get('/testing').is_named('testing.route'))
+    self.assertTrue(self.get('/testing').isNamed('testing.route'))
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -120,7 +127,7 @@ def test_route_has_the_correct_name(self):
 {% code-tabs-item title="tests/test\_unit.py" %}
 ```python
 def test_route_has_route_middleware(self):
-    assert self.get('/testing').has_middleware('auth', 'owner')
+    assert self.get('/testing').hasMiddleware('auth', 'owner')
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -155,11 +162,11 @@ def test_view_is_ok(self):
 
 By default, all calls to your routes with the above methods will be without CSRF protection. The testing code will allow you to bypass that protection. 
 
-This is very useful since you don't need to worry about setting CSRF tokens on every request but you may want to enable this protection. You can do so by calling the `with_csrf()` method on your test.
+This is very useful since you don't need to worry about setting CSRF tokens on every request but you may want to enable this protection. You can do so by calling the `withCsrf()` method on your test.
 
 ```python
 def test_csrf(self):
-    self.with_csrf()
+    self.withCsrf()
 
     self.post('/unit/test/json', {'test': 'testing'})
 ```
@@ -169,7 +176,22 @@ This will enable it on a specific test but you may want to enable it on all your
 ```python
 def setUp(self):
     super().setUp()
-    self.with_csrf()
+    self.withCsrf()
+
+def test_csrf(self):
+    self.post('/unit/test/json', {'test': 'testing'})
+```
+
+### Exception Handling
+
+As you have noticed, Masonite has exception handling which it uses to display useful information during development. 
+
+This is an issue during testing because we wan't to be able to see more useful testing related issues. Because of this, testing will disable Masonite's default exception handling and you will see more useful exceptions during testing. If you want to use Masonite's built in exception handling then you can enable it by running:
+
+```python
+def setUp(self):
+    super().setUp()
+    self.withExceptionHandling()
 
 def test_csrf(self):
     self.post('/unit/test/json', {'test': 'testing'})
@@ -331,7 +353,7 @@ Maybe you need to check a post request and pass in some input data like submitti
 ```python
 def test_user_can_see_dashboard(self):
     self.assertTrue(
-        self.acting_as(User.find(1)).post('/dashboard', {
+        self.actingAs(User.find(1)).post('/dashboard', {
             'name': 'Joe',
             'active': 1
         })
