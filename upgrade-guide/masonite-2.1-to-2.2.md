@@ -6,6 +6,8 @@ Welcome to the upgrade guide to get your Masonite 2.1 application working with M
 
 We will not go into all the better ways to use some of the features. For those changes be sure to read the "Whats New in 2.1" documentation to the left to see what fits into your application and what doesn't.
 
+Masonite 2.2 is jam packed with amazing new features and most of which are backwards compatible so upgrading from Masonite 2.1 to 2.2 is really simple.
+
 We'll go through each section that your application will need to be upgraded and how it can be done.
 
 # Getting Started
@@ -144,3 +146,23 @@ There should be quite a bit of these in your application if you have used this c
 Here is an example application that is being upgraded from 2.1 to 2.2 [GitHub Repo](https://github.com/josephmancuso/gbaleague-masonite2/pull/2/files)
 
 
+## Resolving Classes
+
+The behavior for resolving classes has now been changes. If you bind a class into the container like this:
+
+```
+from some.place import SomeClass
+
+self.app.bind('SomeClass', SomeClass)
+```
+
+This will now resolve from the container *when you resolve it as a parameter list*. This means that you will never get back a class inside places like controllers. Before you may have gotten it back from the container and passed in dependencies yourself like:
+
+```python
+from some.place import SomeClass
+
+def show(self, request: Request, some: SomeClass):
+    setup = some(request)
+```
+
+But this is no longer possible. You will now only get back objects so you will not be able to instantiate these variables. So take this into account if you have bound classes into the container.
