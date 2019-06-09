@@ -111,10 +111,10 @@ from masonite.controllers import Controller
 
 class BlogController(Controller):
     """BlogController Controller Class."""
-    
+
     def __init__(self, request: Request):
         """BlogController Initializer
-        
+
         Arguments:
             request {masonite.request.Request} -- The Masonite Request class.
         """
@@ -132,7 +132,7 @@ But also notice we now have our show method that we specified in our route earli
 
 ### Returning a View
 
-We can return a lot of different things in our controller but for now we can return a view from our controller. A view in Masonite are html files or "templates". They are not Python objects themselves like other Python frameworks. Views are what the users will see (or view).
+We can return a lot of different things in our controller but for now we can return a view from our controller. A view in Masonite are html files or "templates". They are not Python objects themselves like other Python frameworks. Views are what the users will see \(or view\).
 
 This is important as this is our first introduction to Python's IOC container. We specify in our parameter list that we need a view class and Masonite will inject it for us.
 
@@ -215,7 +215,7 @@ We will check what was created for us in a bit.
 
 In order to register these users, we will need a database. Hopefully you already have some kind of local database setup like MySQL or Postgres but we will assume that you do not. In this case we can just use SQLite.
 
-Now we just need to change a few environment variables so Masonite can create the SQLite database. 
+Now we just need to change a few environment variables so Masonite can create the SQLite database.
 
 These environment variable can be found in the `.env` file in the root of the project. Open that file up and you should see a few lines that look like:
 
@@ -932,3 +932,4 @@ We can throw a delete link right inside our update template:
 {% endcode-tabs %}
 
 Great! You now have a blog that you can use to create, view, update and delete posts! Go on to create amazing things!
+

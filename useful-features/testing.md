@@ -184,7 +184,7 @@ def test_csrf(self):
 
 ### Exception Handling
 
-As you have noticed, Masonite has exception handling which it uses to display useful information during development. 
+As you have noticed, Masonite has exception handling which it uses to display useful information during development.
 
 This is an issue during testing because we wan't to be able to see more useful testing related issues. Because of this, testing will disable Masonite's default exception handling and you will see more useful exceptions during testing. If you want to use Masonite's built in exception handling then you can enable it by running:
 
