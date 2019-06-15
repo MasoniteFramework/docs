@@ -2,10 +2,6 @@
 
 ## Masonite 2.2
 
-{% hint style="danger" %}
-This release is still in beta and is not yet released. All information in this documentation section is subject to change.
-{% endhint %}
-
 ## Route Prefixes
 
 Previously you had to append all routes with a `/` character. This would look something like:
