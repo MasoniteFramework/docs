@@ -14,7 +14,7 @@ Previously you had to append all routes with a `/` character. This would look so
 Get('/some/url')
 ```
 
-You can know optionally prefix this without a `/` character:
+You can now optionally prefix this without a `/` character:
 
 ```python
 Get('some/url')
