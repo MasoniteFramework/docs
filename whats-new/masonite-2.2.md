@@ -1,7 +1,5 @@
 # Masonite 2.2
 
-## Masonite 2.2
-
 ## Route Prefixes
 
 Previously you had to append all routes with a `/` character. This would look something like:
