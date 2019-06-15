@@ -1,7 +1,5 @@
 # Masonite 2.1 to 2.2
 
-# Masonite 2.1 to 2.2
-
 # Introduction
 
 Welcome to the upgrade guide to get your Masonite 2.1 application working with Masonite 2.2. We'll be focusing on all the breaking changes so we can get all your code working on a Masonite 2.2 release cycle.

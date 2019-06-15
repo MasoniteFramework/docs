@@ -1,7 +1,5 @@
 # Masonite 2.0 to 2.1
 
-## Masonite 2.0 to 2.1
-
 ## Introduction
 
 Masonite 2.1 is a fantastic release. It works out a lot of the kinks that were in 2.0 as well as brings several new syntactically good looking code generation
