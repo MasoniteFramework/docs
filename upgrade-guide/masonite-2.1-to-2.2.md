@@ -4,7 +4,7 @@
 
 Welcome to the upgrade guide to get your Masonite 2.1 application working with Masonite 2.2. We'll be focusing on all the breaking changes so we can get all your code working on a Masonite 2.2 release cycle.
 
-**We will not go into all the better ways to use some of the features.** For those changes be sure to read the "[Whats New in 2.1](../whats-new/masonite-2.2.md)" documentation to the left to see what fits into your application and what doesn't. We will only focus on the breaking changes here.
+**We will not go into all the better ways to use some of the features.** For those changes be sure to read the "[Whats New in 2.2](../whats-new/masonite-2.2.md)" documentation to the left to see what fits into your application and what doesn't. We will only focus on the breaking changes here.
 
 Masonite 2.2 is jam packed with amazing new features and most of which are backwards compatible so upgrading from Masonite 2.1 to 2.2 is really simple.
 
