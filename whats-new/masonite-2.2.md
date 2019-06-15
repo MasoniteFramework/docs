@@ -118,9 +118,9 @@ $ craft serve --dont-reload
 Learn more in the [Craft commands documentation here](../the-craft-command/introduction.md#running-the-wsgi-server).
 {% endhint %}
 
-## Added Accept\('\*\') to drivers
+## Added Accept\('\*'\) to drivers
 
-By default you can only upload image files because of security reasons but now you can disable that by doing an accept\('\*\') option:
+By default you can only upload image files because of security reasons but now you can disable that by doing an accept\('\*'\) option:
 
 ```python
 def show(self, upload: Upload):
