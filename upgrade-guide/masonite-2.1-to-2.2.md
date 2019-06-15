@@ -14,7 +14,7 @@ We'll go through each section that your application will need to be upgraded and
 
 ## Getting Started
 
-First let's upgrade Masonite 2.2 first so we can see any exceptions that will be raised.
+First let's upgrade Masonite to 2.2 first so we can see any exceptions that will be raised.
 
 Let's upgrade by doing:
 
@@ -22,7 +22,7 @@ Let's upgrade by doing:
 pip install masonite==2.2.0
 ```
 
-You can also add it to your requirements.txt or Pipfile as well.
+You can also add it to your requirements.txt or Pipfile.
 
 ## Removing route helpers
 ### Impact: MEDIUM
@@ -50,7 +50,7 @@ ROUTES = [
 ## Changed Validation
 #### Impact: MEDIUM
 
-Masonite 2.2 completely removes the validation library that shipped with Masonite is favor of a brand new one that was built specifically for Masonite.
+Masonite 2.2 completely removes the validation library that shipped with Masonite in favor of a brand new one that was built specifically for Masonite.
 
 ### Validation Provider
 
