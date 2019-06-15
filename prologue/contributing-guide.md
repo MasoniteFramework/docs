@@ -1,22 +1,22 @@
 # Contributing Guide
 
-## Introduction
+# Introduction
 
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners or contributors of this repository before making a change.
+When contributing to this repository, please first discuss the change you wish to make via an issue or in the [Masonite Slack](http://slack.masoniteproject.com) channel.
 
-Please note we have a code of conduct, please follow it in all your interactions with the project.
+Please note we have a code of conduct, please follow it in all your interactions with the project. You can find it in the base of the core project directory.
 
-## Getting Started
+# Getting Started
 
 The framework has three main parts.
 
-This `MasoniteFramework/masonite` repository is the main repository that will install when creating new projects using the `craft new` command. Not much development will be done in this repository and won't be changed unless new releases of Masonite require changes in the default installation project.
+This `MasoniteFramework/masonite` repository is the main repository that will install when creating new projects using the `craft new` command. This is actually a full Masonite project. Not much development will be done in this repository and won't be changed unless new releases of Masonite require changes in the default installation project.
 
-The `MasoniteFramework/core` repository where the main `masonite` pip package lives. This is where the `from masonite ...` module lives.
+The `MasoniteFramework/core` repository is where the main `masonite` pip package lives. This is where the `from masonite ...` module lives.
 
-The `MasoniteFramework/craft` repository where the `craft` command lives
+The `MasoniteFramework/craft` repository where the `craft` command lives. This is the actual command itself and is installed when you run `pip install masonite-cli`.
 
-### Getting the Masonite repository up and running to be edited
+# Getting the Masonite repository up and running to be edited
 
 [You can read about how the framework flows, works and architectural concepts here](https://masoniteframework.gitbooks.io/docs/content/request-lifecycle.html)
 
@@ -26,9 +26,10 @@ This repo is simple and will be able to be installed following the installation 
 * Clone that repo into your computer:
   * `git clone http://github.com/your-username/masonite.git`
 * Checkout the current release branch \(example: `develop`\)
+    * `git checkout -b develop`
 * You should now be on a `develop` local branch.
 * Run `git pull origin develop` to get the current release version.
-* From there simply create your feature branches \(`change-default-orm`\) and make your desired changes.
+* From there simply create your feature branches \(`<feature|fix>-<issue-number>`\) and make your desired changes.
 * Push to your origin repository:
   * `git push origin change-default-orm`
 * Open a pull request and follow the PR process below
@@ -69,21 +70,23 @@ Craft commands make up a large part of the workflow for Masonite. Follow these i
 
 Comments are a vital part of any repository and should be used where needed. It is important not to overcomment something. If you find you need to constantly add comments, you're code may be too complex. Code should be self documenting \(with clearly defined variable and method names\)
 
-#### Types of comments to use
+# Types of comments to use
 
 There are 3 main type of comments you should use when developing for Masonite:
 
-**Module Docstrings**
+## Module Docstrings
 
 All modules should have a docstring at the top of every module file and should look something like:
 
 ```python
-""" This is a module to add support for Billing users """
+"""This is a module to add support for Billing users."""
 from masonite.request import Request
 ...
 ```
 
-**Method and Function Docstrings**
+Notice there are no spaces before and after the sentence.
+
+## Method and Function Docstrings
 
 All methods and functions should also contain a docstring with a brief description of what the module does
 
@@ -91,14 +94,45 @@ For example:
 
 ```python
 def some_function(self):
-    """
-    This is a function that does x action. 
+    """This is a function that does x action. 
+
     Then give an exmaple of when to use it 
     """
     ... code ...
 ```
 
-**Code Comments**
+## Methods and Functions with Dependencies
+
+Most methods will require some dependency or parameters. You must specify them like this:
+
+```python
+def route(self, route, output):
+    """Load the route into the class. This also looks for the controller and attaches it to the route.
+
+    Arguments:
+        route {string} -- This is a URI to attach to the route (/dashboard/user).
+        output {string|object} -- Controller to attach to the route.
+
+    Returns:
+        self
+    """
+```
+
+And if your dependency are object it should give the path to the module:
+
+```python
+def __init__(self, request: Request, csrf: Csrf, view: View):
+    """Initialize the CSRF Middleware
+
+    Arguments:
+        request {masonite.request.Request} -- The normal Masonite request class.
+        csrf {masonite.auth.Csrf} -- CSRF auth class.
+        view {masonite.view.View} -- The normal Masonite view class.
+    """
+    pass
+```
+
+## Code Comments
 
 If you're code MUST be complex enough that future developers will not understand it, add a `#` comment above it
 
@@ -112,33 +146,15 @@ complex_code = 'value'
 perform_some_complex_task()
 ```
 
-**Flagpole Comments**
+# Pull Request Process
 
-Flag pole comments are a fantastic way to give developers an inside to what is really happening and for now should only be reserved for configuration files. A flag pole comment gets its name from how the comment looks
-
-```text
-'''
-|--------------------------------------------------------------------------
-| A Heading of The Setting Being Set
-|--------------------------------------------------------------------------
-|
-| A quick description
-|
-'''
-
-SETTING = 'some value'
-```
-
-It's important to note that there should have exactly 75 `-` above and below the header and have a trailing `|` at the bottom of the comment.
-
-### Pull Request Process
-
-1. You should open an issue before making any pull requests. Not all features will be added to the framework and some may be better off as a third party package. It wouldn't be good if you worked on a feature for several days and the pull request gets rejected for reasons that could have been discussed in an issue for several minutes.
-2. Ensure any changes are well commented and any configuration files that are added have a flagpole comment on the variables it's setting.
+1. You should open an issue before making any pull requests. Not all features will be added to the framework and some may be better off as a third party package or not be done at all. It wouldn't be good if you worked on a feature for several days and the pull request gets rejected for reasons that could have been discussed in an issue for several minutes.
+2. Ensure any changes are well commented and any configuration files that are added have a docstring comments on the variables it's setting.
 3. Update the README.md and `MasoniteFramework/docs` repo with details of changes to the interface, this includes new environment variables, new file locations, container parameters etc.
-4. You must add unit testing for any changes made. Of the three repositories listed above, only the `craft` and `core` repos require unit testing.
-5. Increase the version numbers in any example files and the README.md to the new version that this Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/) for both `core` and `craft` or [RomVer](http://blog.legacyteam.info/2015/12/romver-romantic-versioning/) for the main Masonite repo.
-6. The PR must pass the Travis CI build. The Pull Request can be merged in once you have a successful review from two other collaborators, or the feature maintainer for your specific feature improvement or the repo owner. 
+4. Name your branches in the form of `feature|fix-<issue-number>`. For example if you are doing a bug fix and the issue number is `576` then name your branch `fix-576`. This will help us locate the branches on our systems at later dates. If it is a new feature name it `feature-576`.
+5. You must add unit testing for any changes made. Of the three repositories listed above, only the `craft` and `core` repos require unit testing.
+6. Increase the version numbers in any example files and the README.md to the new version that this Pull Request would represent. The versioning scheme we use is [RomVer](http://blog.legacyteam.info/2015/12/romver-romantic-versioning/).
+7. The PR must pass the Travis CI build. The Pull Request can be merged in once you have a successful review from two other collaborators, or one review from a maintainer or Masonite creator. 
 
 ## Code of Conduct
 
