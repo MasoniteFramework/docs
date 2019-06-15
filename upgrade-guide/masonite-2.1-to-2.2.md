@@ -25,6 +25,7 @@ pip install masonite==2.2.0
 You can also add it to your requirements.txt or Pipfile.
 
 ## Removing route helpers
+
 ### Impact: MEDIUM
 
 In Masonite 2.1, route helpers were deprecated and you likely started receiving deprecation warnings. In Masonite 2.2, these were removed. You may have had routes that looks like this:
@@ -48,6 +49,7 @@ ROUTES = [
 ```
 
 ## Changed Validation
+
 #### Impact: MEDIUM
 
 Masonite 2.2 completely removes the validation library that shipped with Masonite in favor of a brand new one that was built specifically for Masonite.
@@ -154,6 +156,7 @@ There should be quite a bit of these in your application if you have used this c
 Here is an example application that is being upgraded from 2.1 to 2.2 [GitHub Repo](https://github.com/josephmancuso/gbaleague-masonite2/pull/2/files)
 
 ## Resolving Classes
+
 #### Impact: MEDIUM
 
 The behavior for resolving classes has now been changed. If you bind a class into the container like this:
@@ -188,4 +191,5 @@ def show(self, request: Request, some: SomeClass):
     some #== <some.place.SomeClass x9279182>
 ```
 
-notice it now returns an object. This is because Masonite will check before it resolves the class if the class itself needs to be resolved (if it is a class). If `SomeClass` requires the request object, it will be passed automatically when you resolve it.
+notice it now returns an object. This is because Masonite will check before it resolves the class if the class itself needs to be resolved \(if it is a class\). If `SomeClass` requires the request object, it will be passed automatically when you resolve it.
+

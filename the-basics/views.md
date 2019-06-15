@@ -1,6 +1,8 @@
 # Views
 
-## Introduction
+## Views
+
+### Introduction
 
 Views contain all the HTML that you’re application will use to render to the user. Unlike Django, views in Masonite are your HTML templates. All views are located inside the `resources/templates` directory.
 
@@ -18,7 +20,7 @@ All views are rendered with Jinja2 so we can use all the Jinja2 code you are use
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Creating Views
+### Creating Views
 
 Since all views are located in `resources/templates`, we can use simply create all of our views manually here or use our `craft` command tool. To make a view just run:
 
@@ -32,7 +34,7 @@ $ craft view hello
 
 This will create a template under `resources/templates/hello.html`.
 
-## Calling Views
+### Calling Views
 
 The `View` class is loaded into the container so we can retrieve it in our controller methods like so:
 
@@ -53,7 +55,7 @@ This is exactly the same as using the helper function above. So if you choose to
 If this looks weird to you or you are not sure how the container integrates with Masonite, make sure you read the [Service Container](../architectural-concepts/service-container.md) documentation
 {% endhint %}
 
-### Global Views
+#### Global Views
 
 Some views may not reside in the `resources/templates` directory and may even reside in third party packages such as a dashboard package. We can locate these views by passing a `/` in front of our view.
 
@@ -80,7 +82,7 @@ def show(self, view: View):
 
 This will look inside the `dashboard.views` package for a `dashboard.html` file and return that. You can obviously pass in data as usual.
 
-#### Caveats
+**Caveats**
 
 It's important to note that if you are building a third party package that integrates with Masonite that you place any `.html` files inside a Python package instead of directly inside a module. For example, you should place .html files inside a file structure that looks like:
 
@@ -121,7 +123,7 @@ package/
 
 Or find the package in a completely separate third part module. So if you are making a package for Masonite then keep this in mind of where you should put your templates.
 
-## Passing Data to Views
+### Passing Data to Views
 
 Most of the time we’ll need to pass in data to our views. This data is passed in with a dictionary that contains a key which is the variable with the corresponding value. We can pass data to the function like so:
 
@@ -152,7 +154,7 @@ This will send a variable named `id` to the view which can then be rendered like
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## View Syntax
+### View Syntax
 
 Views use [Jinja2](http://jinja.pocoo.org/docs/2.10/) for it's template rendering. You can read about Jinja2 at the [official documentation here](http://jinja.pocoo.org/docs/2.10/).
 
@@ -192,7 +194,7 @@ Or using line statements with the `@` character:
 
 The choice is yours on what you would like to use but keep in mind that line statements need to use only that line. Nothing can be after after or before the line.
 
-## Adding Environments
+### Adding Environments
 
 {% hint style="success" %}
 This section requires knowledge of [Service Providers](../architectural-concepts/service-providers.md) and how the [Service Container](../architectural-concepts/service-container.md) works. Be sure to read those documentation articles.
@@ -227,7 +229,7 @@ def boot(self, view: View):
 
 The default loader of `PackageLoader` will work for most cases but if it doesn't work for your use case, you may need to change the Jinja2 loader type.
 
-## Using Dot Notation
+### Using Dot Notation
 
 If using a `/` doesn't seem as clean to you, you can also optionally use dots:
 
@@ -243,11 +245,11 @@ def show(self, view: View):
     view.render('/dashboard.user.show')
 ```
 
-## Helpers
+### Helpers
 
 There are quite a few built in helpers in your views. Here is an extensive list of all view helpers:
 
-### Request
+#### Request
 
 You can get the request class:
 
@@ -255,7 +257,7 @@ You can get the request class:
 <p> Path: {{ request().path }} </p>
 ```
 
-### Static
+#### Static
 
 You can get the location of static assets:
 
@@ -287,7 +289,7 @@ this will render:
 <img src="https://s3.us-east-2.amazonaws.com/bucket/profile.jpg" alt="profile">
 ```
 
-### CSRF Field
+#### CSRF Field
 
 You can create a CSRF token hidden field to be used with forms:
 
@@ -298,7 +300,7 @@ You can create a CSRF token hidden field to be used with forms:
 </form>
 ```
 
-### CSRF Token
+#### CSRF Token
 
 You can get only the token that generates. This is useful for JS frontends where you need to pass a CSRF token to the backend for an AJAX call
 
@@ -306,7 +308,7 @@ You can get only the token that generates. This is useful for JS frontends where
 <p> Token: {{ csrf_token }} </p>
 ```
 
-### Current User
+#### Current User
 
 You can also get the current authenticated user. This is the same as doing `request.user()`.
 
@@ -314,7 +316,7 @@ You can also get the current authenticated user. This is the same as doing `requ
 <p> User: {{ auth().email }} </p>
 ```
 
-### Request Method
+#### Request Method
 
 On forms you can typically only have either a GET or a POST because of the nature of html. With Masonite you can use a helper to submit forms with PUT or DELETE
 
@@ -327,7 +329,7 @@ On forms you can typically only have either a GET or a POST because of the natur
 
 This will now submit this form as a PUT request.
 
-### Route
+#### Route
 
 You can get a route by it's name by using this method:
 
@@ -376,7 +378,7 @@ You can just leave it out completely since the `id` key is already stored on the
 </form>
 ```
 
-### Back
+#### Back
 
 This is useful for redirecting back to the previous page. If you supply this helper then the request.back\(\) method will go to this endpoint. It's typically good to use this to go back to a page after a form is submitted with errors:
 
@@ -394,7 +396,7 @@ def show(self, request: Request):
     return request.back()
 ```
 
-### Session
+#### Session
 
 You can access the session here:
 
@@ -406,7 +408,7 @@ You can access the session here:
 Learn more about session in the [Session](../advanced/sessions.md) documentation.
 {% endhint %}
 
-### Sign
+#### Sign
 
 You can sign things using your secret token:
 
@@ -414,7 +416,7 @@ You can sign things using your secret token:
 <p> Signed: {{ sign('token') }} </p>
 ```
 
-### Unsign
+#### Unsign
 
 You can also unsign already signed string:
 
@@ -422,15 +424,15 @@ You can also unsign already signed string:
 <p> Signed: {{ unsign('signed_token') }} </p>
 ```
 
-### Encrypt
+#### Encrypt
 
 This is just an alias for sign
 
-### Decrypt
+#### Decrypt
 
 This is just an alias for unsign
 
-### Config
+#### Config
 
 This allows you to easily fetch configuration values in your templates:
 
@@ -438,7 +440,7 @@ This allows you to easily fetch configuration values in your templates:
 <h2> App Name: {{ config('application.name') }}</h2>
 ```
 
-### Optional
+#### Optional
 
 Allows you to fetch values from objects that may or may not be None. Instead of doing something like:
 
@@ -456,11 +458,11 @@ You can use this helper:
 {% endif %}
 ```
 
-### DD
+#### DD
 
 This is the normal dd helper you use in your controllers
 
-### Hidden
+#### Hidden
 
 You can use this helper to quickly add a hidden field
 
@@ -470,7 +472,7 @@ You can use this helper to quickly add a hidden field
 </form>
 ```
 
-### Exists
+#### Exists
 
 Check if a template exists
 
@@ -482,7 +484,7 @@ Check if a template exists
 {% endif %}
 ```
 
-### Cookie
+#### Cookie
 
 Gets a cookie:
 
@@ -490,7 +492,7 @@ Gets a cookie:
 <h2> Token: {{ cookie('token') }}</h2>
 ```
 
-### Url
+#### Url
 
 Get the URL to a location:
 
@@ -500,17 +502,17 @@ Get the URL to a location:
 </form>
 ```
 
-# Jinja2
+## Jinja2
 
 Below is example Jinja2 syntax which Masonite uses to build views
 
-## Line Statements
+### Line Statements
 
 It's important to note that all syntax can be rewritten with line statements.
 
 So syntax like this:
 
-```html
+```markup
 {% if expression %}
     <p>do something</p>
 {% endif %}
@@ -518,7 +520,7 @@ So syntax like this:
 
 can be rewritten like this:
 
-```html
+```markup
 @if expression:
     <p>do something</p>
 @endif
@@ -526,7 +528,7 @@ can be rewritten like this:
 
 It's important to note though that these are line statements. Meaning nothing else can be on the line when doing these. For example you CANNOT do this:
 
-```html
+```markup
 <form action="@if expression: 'something' @endif">
 
 </form>
@@ -534,7 +536,7 @@ It's important to note though that these are line statements. Meaning nothing el
 
 But you could achieve that with the regular formatting:
 
-```html
+```markup
 <form action="{% if expression %} 'something' {% endif %}">
 
 </form>
@@ -542,11 +544,11 @@ But you could achieve that with the regular formatting:
 
 Whichever syntax you choose is up to you.
 
-## Variables
+### Variables
 
 You can show variable text by using `{{ }}` characters:
 
-```html
+```markup
 <p>
     {{ variable }}
 </p>
@@ -555,11 +557,11 @@ You can show variable text by using `{{ }}` characters:
 </p>
 ```
 
-## If statement
+### If statement
 
 If statements look like this:
 
-```html
+```markup
 {% if expression %}
     <p>do something</p>
 {% elif %}
@@ -569,21 +571,21 @@ If statements look like this:
 {% endif %}
 ```
 
-## For Loops
+### For Loops
 
 Similiar to Python syntax, a for loop looks like this:
 
-```html
+```markup
 {% for item in items %}
     <p>{{ item }}</p>
 {% endfor %}
 ```
 
-## Include statement
+### Include statement
 
 An include statement is useful for including other templates:
 
-```html
+```markup
 {% include 'components/errors.html' %}
 
 <form action="/">
@@ -593,11 +595,11 @@ An include statement is useful for including other templates:
 
 Any place you have repeating code you can break out and put it into an include template. These templates will have access to all variables in the current template.
 
-## Extends
+### Extends
 
 This is useful for having a child template extend a parent template. There can only be 1 extends per template:
 
-```html
+```markup
 {% extends 'components/base.html' %}
 
 {% block content %}
@@ -605,11 +607,11 @@ This is useful for having a child template extend a parent template. There can o
 {% endblock %}
 ```
 
-## Blocks
+### Blocks
 
 Blocks are sections of code that can be used as placeholders for a parent template. These are only useful when used with the `extends` above. For example we may have 3 blocks in our parent template that look like this:
 
-```html
+```markup
 <!-- components/base.html -->
 <html>
     <head>
@@ -628,7 +630,7 @@ Blocks are sections of code that can be used as placeholders for a parent templa
 
 Then when we inherit from it we can specify the blocks we want in our child template:
 
-```html
+```markup
 {% extends 'components/base.html' %}
 
 {% block css %}
@@ -645,3 +647,4 @@ Then when we inherit from it we can specify the blocks we want in our child temp
 ```
 
 You will find that nearly all of your templates use the extends and block features.
+
