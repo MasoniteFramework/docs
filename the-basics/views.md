@@ -500,5 +500,148 @@ Get the URL to a location:
 </form>
 ```
 
+# Jinja2
 
+Below is example Jinja2 syntax which Masonite uses to build views
 
+## Line Statements
+
+It's important to note that all syntax can be rewritten with line statements.
+
+So syntax like this:
+
+```html
+{% if expression %}
+    <p>do something</p>
+{% endif %}
+```
+
+can be rewritten like this:
+
+```html
+@if expression:
+    <p>do something</p>
+@endif
+```
+
+It's important to note though that these are line statements. Meaning nothing else can be on the line when doing these. For example you CANNOT do this:
+
+```html
+<form action="@if expression: 'something' @endif">
+
+</form>
+```
+
+But you could achieve that with the regular formatting:
+
+```html
+<form action="{% if expression %} 'something' {% endif %}">
+
+</form>
+```
+
+Whichever syntax you choose is up to you.
+
+## Variables
+
+You can show variable text by using `{{ }}` characters:
+
+```html
+<p>
+    {{ variable }}
+</p>
+<p>
+    {{ 'hello world' }}
+</p>
+```
+
+## If statement
+
+If statements look like this:
+
+```html
+{% if expression %}
+    <p>do something</p>
+{% elif %}
+    <p>do something else</p>
+{% else %}
+    <p>above all are false</p>
+{% endif %}
+```
+
+## For Loops
+
+Similiar to Python syntax, a for loop looks like this:
+
+```html
+{% for item in items %}
+    <p>{{ item }}</p>
+{% endfor %}
+```
+
+## Include statement
+
+An include statement is useful for including other templates:
+
+```html
+{% include 'components/errors.html' %}
+
+<form action="/">
+
+</form>
+```
+
+Any place you have repeating code you can break out and put it into an include template. These templates will have access to all variables in the current template.
+
+## Extends
+
+This is useful for having a child template extend a parent template. There can only be 1 extends per template:
+
+```html
+{% extends 'components/base.html' %}
+
+{% block content %}
+    <p> read below to find out what a block is </p>
+{% endblock %}
+```
+
+## Blocks
+
+Blocks are sections of code that can be used as placeholders for a parent template. These are only useful when used with the `extends` above. For example we may have 3 blocks in our parent template that look like this:
+
+```html
+<!-- components/base.html -->
+<html>
+    <head>
+    {% block css %} {% endblock %}
+    </head>
+
+<body>
+    <div class="container">
+        {% block content %} {% endblock %}
+    </div>
+
+{% block js %} {% endblock %}
+</body>
+</html>
+```
+
+Then when we inherit from it we can specify the blocks we want in our child template:
+
+```html
+{% extends 'components/base.html' %}
+
+{% block css %}
+    <link rel=".." ..>
+{% endblock %}
+
+{% block content %}
+    <p> This is content </p>
+{% endblock %}
+
+{% block js %}
+    <script src=".." />
+{% endblock %}
+```
+
+You will find that nearly all of your templates use the extends and block features.
