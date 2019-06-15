@@ -1,6 +1,6 @@
 # Masonite 2.1 to 2.2
 
-# Introduction
+## Introduction
 
 Welcome to the upgrade guide to get your Masonite 2.1 application working with Masonite 2.2. We'll be focusing on all the breaking changes so we can get all your code working on a Masonite 2.2 release cycle.
 
@@ -12,7 +12,7 @@ We'll go through each section that your application will need to be upgraded and
 
 **Each upgrade will have an impact rating from LOW to HIGH. The lower the rating, the less likely it will be that your specific application needs the upgrade.**
 
-# Getting Started
+## Getting Started
 
 First let's upgrade Masonite 2.2 first so we can see any exceptions that will be raised.
 
@@ -24,7 +24,7 @@ pip install masonite==2.2.0
 
 You can also add it to your requirements.txt or Pipfile as well.
 
-# Removing route helpers
+## Removing route helpers
 ### Impact: MEDIUM
 
 In Masonite 2.1, route helpers were deprecated and you likely started receiving deprecation warnings. In Masonite 2.2, these were removed. You may have had routes that looks like this:
@@ -47,12 +47,12 @@ ROUTES = [
 ]
 ```
 
-# Changed Validation
+## Changed Validation
 #### Impact: MEDIUM
 
 Masonite 2.2 completely removes the validation library that shipped with Masonite is favor of a brand new one that was built specifically for Masonite.
 
-## Validation Provider
+### Validation Provider
 
 You'll need to add a new validation provider if you want your application to have the new validation features.
 
@@ -68,7 +68,7 @@ PROVIDERS = [
 ]
 ```
 
-## Replacing Validation Code
+### Replacing Validation Code
 
 Masonite 2.2 completely removed the validation package from 2.1 and created an even better all new validation package. You'll have to remove all your validation classes and use the new validation package.
 
@@ -127,7 +127,7 @@ from masonite.validation import Validator
 
 You can do a lot of other awesome things like rule enclosures. Read more under the Validation documentation
 
-# Auth class now auto resolves it's own request class
+## Auth class now auto resolves it's own request class
 
 Masonite 2.2 changes a bit how the `masonite.auth.Auth` class resolves out of the container and how it resolves its own dependencies.
 
@@ -153,7 +153,7 @@ There should be quite a bit of these in your application if you have used this c
 
 Here is an example application that is being upgraded from 2.1 to 2.2 [GitHub Repo](https://github.com/josephmancuso/gbaleague-masonite2/pull/2/files)
 
-# Resolving Classes
+## Resolving Classes
 #### Impact: MEDIUM
 
 The behavior for resolving classes has now been changed. If you bind a class into the container like this:
