@@ -437,12 +437,26 @@ You can also specify a path to go back to:
 
 ## Redirecting Back
 
-After submiting the form you can redirect back to wherever the `back` template method was pointing to using the `back()` method:
+After submitting the form you can redirect back to wherever the `back` template method was pointing to using the `back()` method:
 
 ```python
 def show(self, request: Request):
     ...
     return request.back()
+```
+
+## Redirecting Back With Errors
+
+You can redirect back with validation error message or redirect back with input value:
+
+```python
+def show(self, request: Request):
+    errors = request.validate(
+        required(['email', 'password'])
+    )
+
+    if errors:
+        return request.back().with_errors(errors)
 ```
 
 ## Default Back URL
