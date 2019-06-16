@@ -314,7 +314,7 @@ class AcceptedTerms(RuleEnclosure):
 You can then fill the list with rules:
 
 ```python
-from masonite.validations import required, accepted
+from masonite.validation import required, accepted
 
 class LoginForm(RuleEnclosure):
 
