@@ -1,8 +1,7 @@
 # Testing
 
-## Testing
 
-## Introduction
+# Introduction
 
 Masonite testing is very simple. You can test very complex parts of your code with ease by just extending your class with a Masonite unit test class.
 
@@ -15,7 +14,7 @@ def test_user_can_login(self):
     pass
 ```
 
-## Configuration
+# Configuration
 
 First, create a new test class in a testing directory. There is a craft command you can run to create tests for you so just run:
 
@@ -50,7 +49,7 @@ class TestUser(TestCase):
 
 That's it! You're ready to start testing. Read on to learn how to start building your test cases.
 
-## Environments
+# Environments
 
 Most times you want to develop and test on different databases. Maybe you develop on a local MySQL database but your tests should run in a SQLlite database.
 
@@ -70,11 +69,11 @@ STRIPE_SECRET=test_sk-suhxs87cen88h7
 
 Feel free to load any testing environment variables in here. By default they will not be commited.
 
-## Calling Routes
+# Calling Routes
 
 We have a few options for testing our routes.
 
-### Testing If a Route Exists:
+## Testing If a Route Exists:
 
 To check if a route exists, we can simple use either get or post:
 
@@ -88,7 +87,7 @@ def test_route_exists(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### Method options
+## Method options
 
 You can choose anyone of the normal request methods:
 
@@ -101,7 +100,7 @@ def test_route_exists(self):
     self.delete('/testing')
 ```
 
-### JSON Requests
+## JSON Requests
 
 You can use a standard JSON request and specify whichever option you need using the `json()` method:
 
@@ -110,7 +109,7 @@ def test_route_exists(self):
     self.json('POST', '/testing', {'user': 'Joe'})
 ```
 
-### Testing If Route Has The Correct Name
+## Testing If Route Has The Correct Name
 
 {% code-tabs %}
 {% code-tabs-item title="tests/test\_unit.py" %}
@@ -121,7 +120,7 @@ def test_route_has_the_correct_name(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### Testing If A Route Has The Correct Middleware
+## Testing If A Route Has The Correct Middleware
 
 {% code-tabs %}
 {% code-tabs-item title="tests/test\_unit.py" %}
@@ -132,7 +131,7 @@ def test_route_has_route_middleware(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### Testing If A Route Contains A String
+## Testing If A Route Contains A String
 
 This can be used to see if the template returned a specific value
 
@@ -145,7 +144,7 @@ def test_view_contains(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### Checking 200 Status Code
+## Checking 200 Status Code
 
 You can easily check if the response is ok by using the `ok` method:
 
@@ -158,7 +157,7 @@ def test_view_is_ok(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### CSRF Protection
+# CSRF Protection
 
 By default, all calls to your routes with the above methods will be without CSRF protection. The testing code will allow you to bypass that protection.
 
@@ -182,7 +181,7 @@ def test_csrf(self):
     self.post('/unit/test/json', {'test': 'testing'})
 ```
 
-### Exception Handling
+# Exception Handling
 
 As you have noticed, Masonite has exception handling which it uses to display useful information during development.
 
@@ -197,7 +196,7 @@ def test_csrf(self):
     self.post('/unit/test/json', {'test': 'testing'})
 ```
 
-### Getting Output
+# Getting Output
 
 You can get the output by using the capture output easily by calling the `captureOutput` method on your unit test:
 
@@ -209,9 +208,114 @@ def test_get_output(self):
     self.assertEqual(o, 'hello world!')
 ```
 
-## Testing the Database
+# Testing JSON
 
-### Databases
+A lot of times you will want to build tests around your API's. There are quite a few methods for testing your endpoints
+
+## Testing the count
+
+You can test to make sure your endpoint returns a specific amount of something. Like returning 5 articles:
+
+```python
+def test_has_articles(self):
+    self.assertTrue(
+        self.json('GET', '/api/articles').count(5)
+    )
+```
+
+You can also use `amount` which is just an alias for `count`:
+
+```python
+def test_has_articles(self):
+    self.assertTrue(
+        self.json('GET', '/api/articles').amount(5)
+    )
+```
+
+## Checking Amount of Specific Key
+
+You can also check if a specific JSON key has a specific amount. For example:
+
+```python
+"""
+{
+    "name": "Joe",
+    "tags": ['python', 'framework'],
+    "age": 25
+}
+"""
+
+def test_has_several_tags(self):
+    self.assertTrue(
+        self.json('GET', '/api/user').hasAmount('tags', 2)
+    )
+```
+
+## Testing Specific Responses
+
+Sometimes you will want to check if your endpoint returns some specific JSON values:
+
+```python
+"""
+{
+    "name": "Joe",
+    "title": "creator",
+    "age": 25
+}
+"""
+
+def test_has_age(self):
+    self.assertTrue(
+        self.json('GET', '/api/user').hasJson('age', 25)
+    )
+```
+
+You can also specify a dictionary of values as well and will check if each value inside the response:
+
+```python
+"""
+{
+    "name": "Joe",
+    "title": "creator",
+    "age": 25
+}
+"""
+
+def test_has_age(self):
+    self.assertTrue(
+        self.json('GET', '/api/user').hasJson({
+            "name": "Joe",
+            "age": 25
+        })
+    )
+```
+
+You do not have to specify all of the endpoints, just the ones you want to check for.
+
+## Dot Notation
+
+You can also use dot notation for multi dimensional endpoints:
+
+```python
+"""
+{
+    "profile": {
+        "name": "Joe",
+        "title": "creator",
+        "age": 25
+    }
+}
+"""
+
+def test_has_name(self):
+    self.assertTrue(
+        self.json('GET', '/api/user').hasJson('profile.name', 'Joe')
+    )
+```
+
+# Testing the Database
+
+## Databases
 
 By default, to prevent messing with running databases, database test cases are set to only run on the `sqlite` database. You can disable this by setting the `sqlite` attribute to `False`.
 
@@ -231,7 +335,7 @@ class TestUser(TestCase):
 
 This will allow you to use whatever database driver you need.
 
-### Transactions and Refreshing
+## Transactions and Refreshing
 
 By default, all your tests will run inside a transaction so any data you create will only exist within the lifecycle of the test. Once the test completes, your database is rolled back to its previous state. This is a perfect way to prevent test data from clogging up your database.
 
@@ -257,7 +361,7 @@ Now this will migrate and refresh the database.
 Beware that this will destroy any database information you have.
 {% endhint %}
 
-### Factories
+## Factories
 
 Factories are simply ways to seed some dummy data into your database. You can create a factory by making a method that accepts a faker argument and using that to seed data.
 
@@ -321,7 +425,7 @@ class TestUser(TestCase):
         pass
 ```
 
-### Users
+# Users
 
 We can load users into the route and check if they can view the route. This is good to see if your middleware is acting good against various users. This can be done with the `acting_as()` method.
 
@@ -340,13 +444,13 @@ from app.User import User
 
     def test_user_can_see_dashboard(self):
         self.assertTrue(
-            self.acting_as(User.find(1)).get('/dashboard').ok()
+            self.actingAs(User.find(1)).get('/dashboard').ok()
         )
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### Passing in Data
+# Passing in Data
 
 Maybe you need to check a post request and pass in some input data like submitting a form. You can do this by passing in a dictionary as the second value to either the `get` or `post` method:
 
@@ -362,7 +466,7 @@ def test_user_can_see_dashboard(self):
 
 The same can be applied to the get method except it will be in the form of query parameters.
 
-### Test Example
+# Test Example
 
 To complete our test, let's check if the user is actually created:
 
@@ -393,7 +497,7 @@ class TestUser(TestCase):
 
 Thats it! This test will now check that the user is created properly
 
-### Running Tests
+# Running Tests
 
 You can run tests by running:
 
