@@ -1,6 +1,8 @@
 # Masonite 2.1 to 2.2
 
-## Introduction
+## Masonite 2.1 to 2.2
+
+### Introduction
 
 Welcome to the upgrade guide to get your Masonite 2.1 application working with Masonite 2.2. We'll be focusing on all the breaking changes so we can get all your code working on a Masonite 2.2 release cycle.
 
@@ -12,7 +14,7 @@ We'll go through each section that your application will need to be upgraded and
 
 **Each upgrade will have an impact rating from LOW to HIGH. The lower the rating, the less likely it will be that your specific application needs the upgrade.**
 
-## Getting Started
+### Getting Started
 
 First let's upgrade Masonite to 2.2 first so we can see any exceptions that will be raised.
 
@@ -24,9 +26,9 @@ pip install masonite==2.2.0
 
 You can also add it to your requirements.txt or Pipfile.
 
-## Removing route helpers
+### Removing route helpers
 
-### Impact: MEDIUM
+#### Impact: MEDIUM
 
 In Masonite 2.1, route helpers were deprecated and you likely started receiving deprecation warnings. In Masonite 2.2, these were removed. You may have had routes that looks like this:
 
@@ -48,13 +50,13 @@ ROUTES = [
 ]
 ```
 
-## Changed Validation
+### Changed Validation
 
-#### Impact: MEDIUM
+**Impact: MEDIUM**
 
 Masonite 2.2 completely removes the validation library that shipped with Masonite in favor of a brand new one that was built specifically for Masonite.
 
-### Validation Provider
+#### Validation Provider
 
 You'll need to add a new validation provider if you want your application to have the new validation features.
 
@@ -70,7 +72,7 @@ PROVIDERS = [
 ]
 ```
 
-### Replacing Validation Code
+#### Replacing Validation Code
 
 Masonite 2.2 completely removed the validation package from 2.1 and created an even better all new validation package. You'll have to remove all your validation classes and use the new validation package.
 
@@ -129,7 +131,7 @@ from masonite.validation import Validator
 
 You can do a lot of other awesome things like rule enclosures. Read more under the [Validation documentation](../advanced/validation.md)
 
-## Auth class now auto resolves it's own request class
+### Auth class now auto resolves it's own request class
 
 Masonite 2.2 changes a bit how the `masonite.auth.Auth` class resolves out of the container and how it resolves its own dependencies.
 
@@ -155,9 +157,9 @@ There should be quite a bit of these in your application if you have used this c
 
 Here is an example application that is being upgraded from 2.1 to 2.2 [GitHub Repo](https://github.com/josephmancuso/gbaleague-masonite2/pull/2/files)
 
-## Resolving Classes
+### Resolving Classes
 
-#### Impact: MEDIUM
+**Impact: MEDIUM**
 
 The behavior for resolving classes has now been changed. If you bind a class into the container like this:
 
@@ -193,11 +195,11 @@ def show(self, request: Request, some: SomeClass):
 
 notice it now returns an object. This is because Masonite will check before it resolves the class if the class itself needs to be resolved \(if it is a class\). If `SomeClass` requires the request object, it will be passed automatically when you resolve it.
 
-# Testing
+## Testing
 
 Masonite 2.2 focused a lot on new testing aspects of Masonite and has some big rewrites of the package internally.
 
-## UnitTest class
+### UnitTest class
 
 The UnitTest class has been completely removed in favor of the new `masonite.testing.TestCase` method.
 
@@ -219,7 +221,7 @@ class TestSomeUnit(TestCase):
     ...
 ```
 
-## Pytest VS Unittest
+### Pytest VS Unittest
 
 All classes have now been changed to unittest classes. This will still work with pytest and you can still run `python -m pytest`. The only thing that changes is the structure of the `setup_method()`. This has been renamed to `setUp()`.
 
@@ -248,7 +250,7 @@ class TestSomeUnit(TestCase):
         super().setUp()
 ```
 
-## Method naming
+### Method naming
 
 Previously all methods were `snake_case` but to continue with the unittest convention, all testing methods are `camelCase`.
 
@@ -266,7 +268,7 @@ self.get('/some/protect/route').isNamed()
 
 Again this is to prevent developers from needing to switch between `snake_case` and `camelCase` when using Masonite methods and unittest methods.
 
-## Route method
+### Route method
 
 The route method that looked something like this:
 
@@ -291,7 +293,7 @@ def test_route_has_the_correct_name(self):
 
 So be sure to update all methods of `self.route()` with the correct request methods.
 
-## Loading Routes
+### Loading Routes
 
 In 2.1 you had to manually load your routes in like this:
 
@@ -306,7 +308,7 @@ In 2.1 you had to manually load your routes in like this:
 
 this is no longer required and routes will be found automatically. There is no longer a `self.routes()` method.
 
-## JSON method
+### JSON method
 
 The JSON method signature has changed and you now should specify the request method as the first parameter.
 
@@ -322,7 +324,7 @@ should become:
 self.json('POST', '/test/json/response/1', {'id': 1})
 ```
 
-## User
+### User
 
 Previously you logged a user in by using the `user` method but now you can using the `actingAs` method before you call the route:
 
@@ -346,3 +348,4 @@ def test_owner_user_can_view(self):
         self.actingAs(User.find(1)).get('/some/protect/route').contains('Welcome')
     )
 ```
+

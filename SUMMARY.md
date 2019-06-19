@@ -44,11 +44,6 @@
 * [Introduction](the-craft-command/introduction.md)
 * [Creating Commands](the-craft-command/creating-commands.md)
 
-## The Craft Command <a id="the-craft-command-1"></a>
-
-* [Introduction](the-craft-command-1/introduction.md)
-* [Creating Commands](the-craft-command-1/creating-commands.md)
-
 ## Architectural Concepts
 
 * [Request Lifecycle](architectural-concepts/request-lifecycle.md)
