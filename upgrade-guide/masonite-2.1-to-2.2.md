@@ -193,3 +193,97 @@ def show(self, request: Request, some: SomeClass):
 
 notice it now returns an object. This is because Masonite will check before it resolves the class if the class itself needs to be resolved \(if it is a class\). If `SomeClass` requires the request object, it will be passed automatically when you resolve it.
 
+# Testing
+
+Masonite 2.2 focused a lot on new testing aspects of Masonite and has some big rewrites of the package internally.
+
+## UnitTest class
+
+The UnitTest class has been completely removed in favor of the new `masonite.testing.TestCase` method.
+
+An import that looked like this:
+
+```python
+from masonite.testing import UnitTest
+
+class TestSomeUnit(UnitTest):
+    ...
+```
+
+Should now look like this:
+
+```python
+from masonite.testing import TestCase
+
+class TestSomeUnit(TestCase):
+    ...
+```
+
+## Pytest VS Unittest
+
+All classes have now been changed to unittest classes. This will still work with pytest and you can still run `python -m pytest`. The only thing that changes is the structure of the `setup_method()`. This has been renamed to `setUp()`.
+
+A class like this:
+
+```python
+from masonite.testing import UnitTest
+from routes.web import ROUTES
+
+class TestSomeUnit(UnitTest):
+
+    def setup_method(self):
+        super().setup_method()
+
+        self.routes(ROUTES)
+```
+
+Should now look like this:
+
+```python
+from masonite.testing import TestCase
+
+class TestSomeUnit(TestCase):
+
+    def setUp(self):
+        super().setUp()
+```
+
+## Route method
+
+The route method that looked something like this:
+
+```python
+def test_route_has_the_correct_name(self):
+    assert self.route('/testing')
+```
+
+Has now been replaced with the method name of the route. So to get a GET route you would do:
+
+```python
+def test_route_has_the_correct_name(self):
+    assert self.get('/testing')
+```
+
+or a POST route:
+
+```python
+def test_route_has_the_correct_name(self):
+    assert self.post('/testing')
+```
+
+So be sure to update all methods of `self.route()` with the correct request methods.
+
+## Loading Routes
+
+In 2.1 you had to manually load your routes in like this:
+
+```python
+    def setup_method(self):
+        super().setup_method()
+
+        self.routes([
+            Get().route('/testing', 'SomeController@show').name('testing.route').middleware('auth', 'owner')
+        ])
+```
+
+this is no longer required and routes will be found automatically. There is no longer a `self.routes()` method.
