@@ -44,7 +44,7 @@
 * [Introduction](the-craft-command/introduction.md)
 * [Creating Commands](the-craft-command/creating-commands.md)
 
-## The Craft Command
+## The Craft Command <a id="the-craft-command-1"></a>
 
 * [Introduction](the-craft-command-1/introduction.md)
 * [Creating Commands](the-craft-command-1/creating-commands.md)
@@ -80,6 +80,7 @@
 * [Queues and Jobs](useful-features/queues-and-jobs.md)
 * [Task Scheduling](useful-features/task-scheduling.md)
 * [Testing](useful-features/testing.md)
+* [Selenium Testing](useful-features/selenium-testing.md)
 * [Template Caching](useful-features/template-caching.md)
 * [Uploading](useful-features/uploading.md)
 * [View Composers, Sharing and Filters](useful-features/view-composers-and-sharing.md)
