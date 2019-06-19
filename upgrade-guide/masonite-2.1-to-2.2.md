@@ -248,6 +248,24 @@ class TestSomeUnit(TestCase):
         super().setUp()
 ```
 
+## Method naming
+
+Previously all methods were `snake_case` but to continue with the unittest convention, all testing methods are `camelCase`.
+
+A method like:
+
+```python
+self.route('/some/protect/route').is_named()
+```
+
+Now becomes:
+
+```python
+self.get('/some/protect/route').isNamed()
+```
+
+Again this is to prevent developers from needing to switch between `snake_case` and `camelCase` when using Masonite methods and unittest methods.
+
 ## Route method
 
 The route method that looked something like this:
@@ -287,3 +305,44 @@ In 2.1 you had to manually load your routes in like this:
 ```
 
 this is no longer required and routes will be found automatically. There is no longer a `self.routes()` method.
+
+## JSON method
+
+The JSON method signature has changed and you now should specify the request method as the first parameter.
+
+A previous call that looked like this:
+
+```python
+self.json('/test/json/response/1', {'id': 1}, method="POST")
+```
+
+should become:
+
+```python
+self.json('POST', '/test/json/response/1', {'id': 1})
+```
+
+## User
+
+Previously you logged a user in by using the `user` method but now you can using the `actingAs` method before you call the route:
+
+A method like this:
+
+```python
+class MockUser:
+    is_admin = 1
+​
+def test_owner_user_can_view(self):
+    assert self.route('/some/protect/route').user(MockUser).can_view()
+```
+
+Should now be:
+
+```python
+from app.User import User
+​
+def test_owner_user_can_view(self):
+    self.assertTrue(
+        self.actingAs(User.find(1)).get('/some/protect/route').contains('Welcome')
+    )
+```
