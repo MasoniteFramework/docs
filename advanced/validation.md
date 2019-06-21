@@ -496,8 +496,8 @@ All other rules within an explicit exception error will throw the `ValueError`.
 | [after\_today](validation.md#after_today) | [is\_past](validation.md#is_past) | [timezone](validation.md#timezone) |
 | [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) | [phone](validation.md#phone) |
 | [contains](validation.md#contains) | [json](validation.md#json) |  |
-| [equals](validation.md#equals) | [length](validation.md#length) |  |
 | [email](validation.md#email) | [less\_than](validation.md#less_than) |  |
+| [equals](validation.md#equals) | [length](validation.md#length) |  |
 | [exists](validation.md#exists) | [none](validation.md#none) |  |
 | [greater\_than](validation.md#greater_than) | [numeric](validation.md#numeric) |  |
 | [in\_range](validation.md#in_range) | [required](validation.md#required) |  |
@@ -589,6 +589,25 @@ This is used to make sure a value exists inside an iterable \(like a list or str
 }
 """
 validate.contains('description', 'Masonite')
+```
+
+### Does_not
+
+Used for running a set of rules when a set of rules does not match. Has a `then()` method as well. Can be seen as the opposite of when.
+
+```python
+"""
+{
+  'age': 15,
+  'email': 'user@email.com',
+  'terms': 'on'
+}
+"""
+validate.does_not(
+    validate.exists('user')
+).then(
+    validate.accepted('terms'),
+)
 ```
 
 ### Equals
@@ -839,6 +858,23 @@ Used to make sure a value is a numeric value
 """
 validate.numeric('age')
 ```
+
+### One_of
+
+Sometimes you will want only one of several fields to be required. At least one of them need to be required.
+
+```python
+"""
+{
+  'user': 'Joe',
+  'email': 'user@example.com,
+  'phone': '123-456-7890'
+}
+"""
+validate.one_of(['user', 'accepted', 'location'])
+```
+
+This will pass because at least 1 value has been found: `user`.
 
 ### Phone
 
