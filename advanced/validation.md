@@ -55,7 +55,7 @@ In this case you can create a new rule.
 
 ### Rule Command
 
-You  can easily create a new rule boiler plate by running:
+You can easily create a new rule boiler plate by running:
 
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
@@ -78,14 +78,14 @@ class equals_masonite(BaseValidation):
 
     def passes(self, attribute, key, dictionary):
         """The passing criteria for this rule. 
-        
+
         ...
         """
         return attribute
 
     def message(self, key):
         """A message to show when this rule fails
-        
+
         ...
         """
         return '{} is required'.format(key)
@@ -111,7 +111,7 @@ For example if you need to make a rule that a value always equals Masonite then 
 ```python
 def passes(self, attribute, key, dictionary):
     """The passing criteria for this rule. 
-        
+
     ...
     """
     return attribute == 'Masonite'
@@ -125,7 +125,7 @@ When validating a dictionary like this:
 }
 ```
 
-then 
+then
 
 * the `attribute` will be the value \(`Masonite`\)
 * the `key` will be the dictionary key \(`name`\)
@@ -138,7 +138,7 @@ The message method needs to return a string used as the error message. If you ar
 ```python
 def passes(self, attribute, key, dictionary):
     """The passing criteria for this rule. 
-        
+
     ...
     """
     return attribute == 'Masonite'
@@ -154,14 +154,14 @@ The negated message method needs to return a message when this rule is negated. 
 ```python
 def passes(self, attribute, key, dictionary):
     """The passing criteria for this rule. 
-        
+
     ...
     """
     return attribute == 'Masonite'
 
 def message(self, key):
     return '{} must be equal to Masonite'.format(key)
-    
+
 def negated_message(self, key):
     return '{} must not be equal to Masonite'.format(key)
 ```
@@ -197,7 +197,7 @@ or we can register our rule and use it with the Validator class as normal.
 
 #### Register the rule
 
-In any service provider's boot method \(preferably a provider where `wsgi=False` to prevent it from running on every request\) we can register our rule with the validator class. 
+In any service provider's boot method \(preferably a provider where `wsgi=False` to prevent it from running on every request\) we can register our rule with the validator class.
 
 If you don't have a provider yet we can make one specifically for adding custom rules:
 
@@ -220,7 +220,7 @@ class RuleProvider(ServiceProvider):
     """
 
     wsgi = False
-    
+
     ...
 
     def boot(self, validator: Validator):
@@ -372,7 +372,7 @@ def show(self, request: Request):
 
 ## Nested Validations
 
-Sometimes you will need to check values that aren't on the top level of a dictionary like the  examples shown here. In this case we can use dot notation to validate deeper dictionaries:
+Sometimes you will need to check values that aren't on the top level of a dictionary like the examples shown here. In this case we can use dot notation to validate deeper dictionaries:
 
 ```python
 """
@@ -399,6 +399,40 @@ errors = request.validate(
 
 notice the dot notation here. Each `.` being a deeper level to the dictionary.
 
+## Nested Validations With Lists
+
+Sometimes your validations will have lists and you will need to ensure that each element in the list validates. For example you want to make sure that a user passes in a list of names and ID's.
+
+For this you can use the \* asterisk to validate these:
+
+```python
+"""
+{
+  'domain': 'http://google.com',
+  'email': 'user@example.com'
+  'user': {
+     'id': 1,
+     'email': 'user@example.com',
+     'addresses': [{
+         'id': 1, 'street': 'A Street',
+         'id': 2, 'street': 'B Street'
+     }]
+  }
+}
+"""
+```
+
+Here is an example to make sure that street is a required field:
+
+```python
+errors = request.validate(
+
+    validate.required('user.addresses.*.street'),
+    validate.integer('user.addresses.*.id'),
+
+)
+```
+
 ## Custom Messages
 
 All errors returned will be very generic. Most times you will need to specify some custom error that is more tailored to your user base.
@@ -418,7 +452,7 @@ validate.accepted(['terms', 'active'], messages = {
 })
 ```
 
-Now instead of returning the generic errors, the error message returned will be  the one you supplied.
+Now instead of returning the generic errors, the error message returned will be the one you supplied.
 
 {% hint style="info" %}
 Leaving out a message will result in the generic one still being returned for that value.
@@ -451,15 +485,15 @@ errors = request.validate(
 )
 ```
 
-Now if the  required rule fails it will throw a `ValueError`. You can catch the message like so:
+Now if the required rule fails it will throw a `ValueError`. You can catch the message like so:
 
 ```python
 try:
     errors = request.validate(
-    
+
         validate.required('user.email', raises=True),
         validate.truthy('user.status.active')
-    
+
     )
 except ValueError as e:
     str(e) #== 'user.email is required'
@@ -472,12 +506,12 @@ You can also specify which exceptions should be thrown with which key being chec
 ```python
 try:
     errors = request.validate(
-    
+
         validate.required(['user.email', 'user.id'], raises={
             'user.id': AttributeError,
             'user.email': CustomException
         }),
-    
+
     )
 except AttributeError as e:
     str(e) #== 'user.id is required'
@@ -505,7 +539,7 @@ All other rules within an explicit exception error will throw the `ValueError`.
 
 ### Accepted
 
-The accepted rule is most useful when seeing if a checkbox has been checked. When a checkbox is submitted it usually has the value of `on` so this rule will check to make sure the value is either on, 1, or yes. 
+The accepted rule is most useful when seeing if a checkbox has been checked. When a checkbox is submitted it usually has the value of `on` so this rule will check to make sure the value is either on, 1, or yes.
 
 ```python
 """
@@ -591,7 +625,7 @@ This is used to make sure a value exists inside an iterable \(like a list or str
 validate.contains('description', 'Masonite')
 ```
 
-### Does_not
+### Does\_not
 
 Used for running a set of rules when a set of rules does not match. Has a `then()` method as well. Can be seen as the opposite of when.
 
@@ -639,7 +673,7 @@ validate.email('email')
 
 ### Exists
 
-Checks to see if a key  exists in the dictionary. 
+Checks to see if a key exists in the dictionary.
 
 ```python
 """
@@ -725,7 +759,7 @@ notice how 5 is in the list
 
 ### Isnt
 
-This will negate all rules. So if you need to get the opposite of any of these rules you will add them as rules inside this rule. 
+This will negate all rules. So if you need to get the opposite of any of these rules you will add them as rules inside this rule.
 
 For example to get the opposite if `is_in` you will do:
 
@@ -859,7 +893,7 @@ Used to make sure a value is a numeric value
 validate.numeric('age')
 ```
 
-### One_of
+### One\_of
 
 Sometimes you will want only one of several fields to be required. At least one of them need to be required.
 

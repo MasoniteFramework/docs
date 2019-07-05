@@ -128,6 +128,23 @@ Or you can use dot notation to fetch the value for simplicity:
 request.input('payload.user.address') # 123 Smith Rd
 ```
 
+You can also use a \* wildcard to get all values from a dictionary list. Take this code example:
+
+```python
+"""
+Payload: 
+"user": {
+    "id": 1,
+    "addresses": [
+        {"id": 1, 'street': "A Street"},
+        {"id": 2, 'street': "B Street"}
+    ] 
+}
+"""
+
+request.input('user.addresses.*.id') # [1,2]
+```
+
 ## Only
 
 You can only get a certain set of parameters if you have a need to do so. This can be used like:
