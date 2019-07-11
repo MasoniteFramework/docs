@@ -25,7 +25,9 @@ Releases are planned to be upgradable from the previous release in 30 minutes or
 * [x] v1.5 - April 2018
 * [x] v1.6 - May 2018
 * [x] v2.0 - June 2018
-* v2.1 - December 2018
+* [x] v2.1 - December 2018
+* [x] v2.2 - June 2019
+* [ ] Next Version - December 2019
 
 ### Creating Releases
 
