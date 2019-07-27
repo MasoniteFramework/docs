@@ -231,6 +231,9 @@ def test_has_articles(self):
     self.assertTrue(
         self.json('GET', '/api/articles').amount(5)
     )
+
+    self.json('GET', '/api/articles').assertHasAmount(5)
+    self.json('GET', '/api/articles').assertNotHasAmount(10)
 ```
 
 ### Checking Amount of Specific Key
