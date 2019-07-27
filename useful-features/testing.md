@@ -314,6 +314,47 @@ def test_has_name(self):
     )
 ```
 
+### Testing Parameters
+
+You can test if a specific parameter contains a specific value. For example if you want to see if the parameter `id` is equal to `5`:
+
+```python
+def test_has_name(self):
+    # Route is: /dashboard/user/@id
+    self.assertTrue(
+        self.get('GET', '/dashboard/user/5').parameterIs('id', '5')
+    )
+
+    self.get('GET', '/dashboard/user/5').assertParameterIs('id', '5')
+```
+
+### Testing Headers
+
+You can test if a specific header contains a specific value. For example if you want to see if the header `Content-Type` is equal to `text/html`:
+
+```python
+def test_has_name(self):
+    # Route is: /dashboard/user/@id
+    self.assertTrue(
+        self.get('GET', '/dashboard/user/5').headerIs('Content-Type', 'text/html')
+    )
+   
+    self.get('GET', '/dashboard/user/5').assertHeaderIs('Content-Type', 'text/html')
+```
+
+### Subdomains
+
+By default, Masonite turns off subdomains since this can cause issues when deploying to a PaaS that deploys to a subdomain like `sunny-land-176892.herokuapp.com` for example. 
+
+To activate subdomains in your tests you will have to use the `withSubdomains()` method. You can then set the host in the `wsgi` attribute.
+
+```python
+def test_subdomains(self):
+    self.withSubdomains().get('/view', wsgi={
+            'HTTP_HOST': 'subb.domain.com'
+        }).assertIsStatus(404)
+```
+
 ## Testing the Database
 
 ### Databases
