@@ -528,11 +528,11 @@ All other rules within an explicit exception error will throw the `ValueError`.
 | [accepted](validation.md#accepted) | [is\_in](validation.md#is_in) | [truthy](validation.md#truthy) |
 | [active\_domain](validation.md#active_domain) | [isnt](validation.md#isnt) | [when](validation.md#when) |
 | [after\_today](validation.md#after_today) | [is\_past](validation.md#is_past) | [timezone](validation.md#timezone) |
-| [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) | [phone](validation.md#phone) |
+| [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) | [phone](validation.md#phone) | Phone
 | [contains](validation.md#contains) | [json](validation.md#json) |  |
 | [email](validation.md#email) | [less\_than](validation.md#less_than) |  |
 | [equals](validation.md#equals) | [length](validation.md#length) |  |
-| [exists](validation.md#exists) | [none](validation.md#none) |  |
+| [exists](validation.md#exists) | [none](validation.md#none) |  | 
 | [greater\_than](validation.md#greater_than) | [numeric](validation.md#numeric) |  |
 | [in\_range](validation.md#in_range) | [required](validation.md#required) |  |
 | [ip](validation.md#ip) | [string](validation.md#string) |  |
@@ -623,6 +623,22 @@ This is used to make sure a value exists inside an iterable \(like a list or str
 }
 """
 validate.contains('description', 'Masonite')
+```
+
+### Confirmed
+
+This rule is used to make sure a key is "confirmed". This is simply a `key_confirmed` representation of the key. 
+
+For example, if you need to confirm a `password` you would set the password confirmation to `password_confirmed`.
+
+```python
+"""
+{
+  'password': 'secret',
+  'password_confirmed': 'secret'
+}
+"""
+validate.confirmed('password')
 ```
 
 ### Does\_not
