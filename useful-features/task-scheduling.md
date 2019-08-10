@@ -94,7 +94,6 @@ AUTOLOAD = [
 ...
 ```
 
-
 This will find all the tasks in the app/tasks directory and load them into the container for you with the key binding being the name of the class.
 
 ## Making The Task
@@ -119,7 +118,6 @@ class SayHi(Task):
         pass
 ```
 
-
 ### Handle Method
 
 The handle method is where the logic of the task should live. This is where you should put the logic of the task that should be running recurrently.
@@ -138,7 +136,6 @@ class SayHi(Task):
     def handle(self):
         requests.post('http://url.com/api/store')
 ```
-
 
 ### When To Run
 
@@ -192,11 +189,10 @@ class SayHi(Task):
 
     def __init__(self):
         pass
-        
+
     def handle(self):
         requests.post('http://url.com/api/store')
 ```
-
 
 ## Caveats
 

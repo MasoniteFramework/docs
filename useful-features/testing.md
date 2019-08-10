@@ -341,13 +341,13 @@ def test_has_name(self):
     self.assertTrue(
         self.get('GET', '/dashboard/user/5').headerIs('Content-Type', 'text/html')
     )
-   
+
     self.get('GET', '/dashboard/user/5').assertHeaderIs('Content-Type', 'text/html')
 ```
 
 ### Subdomains
 
-By default, Masonite turns off subdomains since this can cause issues when deploying to a PaaS that deploys to a subdomain like `sunny-land-176892.herokuapp.com` for example. 
+By default, Masonite turns off subdomains since this can cause issues when deploying to a PaaS that deploys to a subdomain like `sunny-land-176892.herokuapp.com` for example.
 
 To activate subdomains in your tests you will have to use the `withSubdomains()` method. You can then set the host in the `wsgi` attribute.
 

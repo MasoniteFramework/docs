@@ -63,14 +63,18 @@ Notice the change in the new header we changed.
 
 You may also choose to use CORS for your application for advanced security measures. Using CORS is very similar to the secure headers above.
 
+{% hint style="info" %}
+This middleware needs to be at the TOP of the `HTTP_MIDDLEWARE` stack so the request will not be rejected inside the other middleware.
+{% endhint %}
+
 To get started just import the `CorsMiddleware` class into your `config/middleware.py` file and add it to your `HTTP_MIDDLEWARE` list:
 
 ```python
 from masonite.middleware import CorsMiddleware
 ...
 HTTP_MIDDLEWARE = [
-    ...,
     CorsMiddleware,
+    ...,
 ]
 ```
 
@@ -80,8 +84,8 @@ Then below this list you can put your CORS headers as a dictionary. Here is a li
 from masonite.middleware import CorsMiddleware
 ...
 HTTP_MIDDLEWARE = [
-    ...,
     CorsMiddleware,
+    ...,
 ]
 
 ...
