@@ -37,7 +37,7 @@ def show(self, request: Request, validate: Validator):
     )
 
     if errors:
-        request.session.flash({'errors': errors})
+        request.session.flash('errors', errors)
         return request.back()
 ```
 
@@ -342,7 +342,7 @@ def show(self, request: Request):
     errors = request.validate(AcceptedTerms)
 
     if errors:
-        request.session.flash('errors': errors)
+        request.session.flash('errors', errors)
         return request.back()
 ```
 
@@ -366,7 +366,7 @@ def show(self, request: Request):
     )
 
     if errors:
-        request.session.flash('errors': errors)
+        request.session.flash('errors', errors)
         return request.back()
 ```
 
