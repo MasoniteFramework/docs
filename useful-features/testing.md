@@ -1,7 +1,5 @@
 # Testing
 
-## Testing
-
 ## Introduction
 
 Masonite testing is very simple. You can test very complex parts of your code with ease by just extending your class with a Masonite unit test class.
