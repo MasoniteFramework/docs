@@ -67,24 +67,28 @@ You may also choose to use CORS for your application for advanced security measu
 This middleware needs to be at the TOP of the `HTTP_MIDDLEWARE` stack so the request will not be rejected inside the other middleware.
 {% endhint %}
 
-To get started just import the `CorsMiddleware` class into your `config/middleware.py` file and add it to your `HTTP_MIDDLEWARE` list:
+To get started just import the `CorsProvider` class into your `config/providers.py` file and add it to your `PROVIDERS` list:
 
 ```python
-from masonite.middleware import CorsMiddleware
+from masonite.providers import CorsProvider
 ...
-HTTP_MIDDLEWARE = [
-    CorsMiddleware,
+PROVIDERS = [
+    AppProvider,
+    CorsProvider,
     ...,
 ]
 ```
 
-Then below this list you can put your CORS headers as a dictionary. Here is a list of sensible defaults:
+Then inside your `config/middleware.py` file you can put your CORS headers as a dictionary. Here is a list of sensible defaults:
 
 ```python
 from masonite.middleware import CorsMiddleware
 ...
 HTTP_MIDDLEWARE = [
-    CorsMiddleware,
+    ...,
+]
+
+ROUTE_MIDDLEWARE = [
     ...,
 ]
 
