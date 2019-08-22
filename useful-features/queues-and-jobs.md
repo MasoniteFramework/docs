@@ -195,6 +195,49 @@ DRIVERS = {
 }
 ```
 
+### Blocking
+
+During development it may be hard to debug asyncronous tasks. If an exception is thrown it will be hard to catch that. It may appear that a job is never ran.
+
+In order to combat this you can set the `blocking` setting in your `config/queue.py` file:
+
+```python
+DRIVERS = {
+    'async': {
+        'mode': 'threading' # or 'multiprocess',
+        'blocking': True
+    },
+}
+```
+
+Blocking bascially makes asyncronous tasks run syncronously. This will enable some reporting inside your terminal that looks something like:
+
+```
+GET Route: /categories
+ Job Ran: <Future at 0x1032cef60 state=finished returned str> 
+ Job Ran: <Future at 0x1032f1a90 state=finished returned str> 
+ ...
+```
+
+This will also run tasks syncronously so you can find exceptions and issues in your jobs during development.
+
+For production this should be set to `False`.
+
+It may be good to set this setting equal to whatever your `APP_DEBUG` environment variable is:
+
+```python
+from masonite import env
+
+DRIVERS = {
+    'async': {
+        'mode': 'threading' # or 'multiprocess',
+        'blocking': env('APP_DEBUG')
+    },
+}
+```
+
+This way it will always be blocking during development and automatically switch to unblocking during production.
+
 ## AMQP Driver
 
 The `amqp` driver can be used to communicate with RabbitMQ services.
