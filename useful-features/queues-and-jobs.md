@@ -140,18 +140,22 @@ def show(self, queue: Queue):
 Most of the time you will want to resolve the constructor but pass in variables into the `handle()` method. This can be done by passing in an iterator into the `args=` keyword argument:
 
 ```python
-def show(self, Queue):
-    Queue.push(SendWelcomeEmail, args=['user@email.com'])
+from masonite import Queue
+
+def show(self, queue: Queue):
+    queue.push(SendWelcomeEmail, args=['user@email.com'])
 ```
 
 This will pass to your handle method:
 
 ```python
+from masonite.request import Request
+from masonite import Mail
 class SendWelcomeEmail(Queueable):
 
-    def __init__(self, Request, Mail):
-        self.request = Request
-        self.mail = Mail
+    def __init__(self, request: Request, mail: Mail):
+        self.request = request
+        self.mail = mail
 
     def handle(self, email):
         email # =='user@email.com'
