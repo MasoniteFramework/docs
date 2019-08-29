@@ -509,6 +509,32 @@ def test_user_can_see_dashboard(self):
 
 The same can be applied to the get method except it will be in the form of query parameters.
 
+## Asserting Values
+
+Instead of doing model calls to check if values exist in the database, you can use a simple `assertDatabaseHas` assertion:
+
+```python
+def test_create_article(self):
+    self.assertTrue(
+        self.post('/articles', {
+            'name': 'Masonite is great',
+            'author_id': 1
+        }).assertDatabaseHas('articles.name', 'Masonite is great')
+    )
+```
+
+You can also do the same thing with the opposite `assertDatabaseNotHas` assertion:
+
+```python
+def test_create_article(self):
+    self.assertTrue(
+        self.post('/articles', {
+            'name': 'Masonite is great',
+            'author_id': 1
+        }).assertDatabaseNotHas('articles.name', 'Masonite is bad')
+    )
+```
+
 ## Test Example
 
 To complete our test, let's check if the user is actually created:
