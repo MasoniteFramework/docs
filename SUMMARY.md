@@ -86,7 +86,6 @@
 * [CSRF Protection](security/csrf-protection.md)
 * [Encryption](security/encryption.md)
 * [Headers](security/headers.md)
-* [CSRF Protection](security/csrf-protection-1.md)
 * [Releases](security/releases.md)
 
 ## Orator ORM

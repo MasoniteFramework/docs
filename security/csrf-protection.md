@@ -32,6 +32,12 @@ If this token is changed or manipulated, Masonite will throw an `InvalidCsrfToke
 
 If you attempt a `POST` request without the `{{ csrf_field }}` then you will receive a `InvalidCsrfException` exception. This just means you are either missing the Jinja2 tag or you are missing that route from the `exempt` class attribute in your middleware.
 
+You can get also get the token that is generated. This is useful for JS frontends where you need to pass a CSRF token to the backend for an AJAX call
+
+```markup
+<p> Token: {{ csrf_token }} </p>
+```
+
 ## Exempting Routes
 
 Not all routes may require CSRF protection such as OAuth authentication or various webhooks. In order to exempt routes from protection we can add it to the `exempt` class attribute in the middleware located at `app/http/middleware/CsrfMiddleware.py`:
