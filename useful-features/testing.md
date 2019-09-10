@@ -86,6 +86,16 @@ def test_route_exists(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### Getting the Request and Response
+
+The request and responses of a test are gotten by accessing the `request` and `response` attributes. The `response` attribute will be a string representation of your route:
+
+```python
+def test_request_and_response(self):
+    request = self.get('/testing').request # <masonite.request.Request>
+    response = self.get('/testing').response # HTML code
+```
+
 ### Method options
 
 You can choose anyone of the normal request methods:
@@ -313,6 +323,26 @@ def test_has_name(self):
     self.assertTrue(
         self.json('GET', '/api/user').hasJson('profile.name', 'Joe')
     )
+```
+
+### Converting to a Dictionary
+
+Sometimes you don't want to use dot notation and may choose to convert directly to a dictionary and assert values on that. You can do so easily:
+
+```python
+"""
+{
+    "profile": {
+        "name": "Joe",
+        "title": "creator",
+        "age": 25
+    }
+}
+"""
+
+def test_has_name(self):
+    dictionary = self.json('GET', '/api/user').asDictonary()
+    self.assertEqual(dictionary['profile']['name'], 'Joe')
 ```
 
 ### Testing Parameters
