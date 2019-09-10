@@ -327,7 +327,7 @@ def test_has_name(self):
 
 ### Converting to a Dictionary
 
-Sometimes you don't want to use dot notation and may choose to convert directly to a dictionary and assert values on that. You can do so easily:
+Sometimes you don't want to use dot notation and may choose to convert directly to a dictionary and assert values on that. This is also good for debugging so you can print the dictionary to these terminal. You can do this easily:
 
 ```python
 """
