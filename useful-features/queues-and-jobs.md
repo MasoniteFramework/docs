@@ -20,7 +20,7 @@ All configuration settings by default are in the `config/queue.py` file. Out of 
 * `amqp`
 * `database`
 
-The `async` driver simply sends jobs into the background using multithreading. The `amqp` driver is used for any AMQP compatible message queues like RabbitMQ. If you do create a driver, consider making it available on PyPi so others can also install it. The `database` driver has a few additional features that the other drivers do not have if you need more fine-grained control 
+The `async` driver simply sends jobs into the background using multithreading. The `amqp` driver is used for any AMQP compatible message queues like RabbitMQ. If you do create a driver, consider making it available on PyPi so others can also install it. The `database` driver has a few additional features that the other drivers do not have if you need more fine-grained control
 
 #### Jobs
 
@@ -188,7 +188,7 @@ The `async` queue driver will allow you to send jobs into the background to run 
 
 ### Change Modes
 
-The async driver has 2 different modes: `threading` and `multiprocess`.  The differences between the two is that `threading` uses several threads and `multiprocess` uses several processes. Which mode you should use depends on the type of jobs you are processing. You should research what is best depending on your use cases.
+The async driver has 2 different modes: `threading` and `multiprocess`. The differences between the two is that `threading` uses several threads and `multiprocess` uses several processes. Which mode you should use depends on the type of jobs you are processing. You should research what is best depending on your use cases.
 
 You can change the mode inside the `config/queue.py` file:
 
@@ -217,7 +217,7 @@ DRIVERS = {
 
 Blocking bascially makes asyncronous tasks run syncronously. This will enable some reporting inside your terminal that looks something like:
 
-```
+```text
 GET Route: /categories
  Job Ran: <Future at 0x1032cef60 state=finished returned str> 
  Job Ran: <Future at 0x1032f1a90 state=finished returned str> 
@@ -316,19 +316,19 @@ In order to get these two queue table you can run the `queue:table` command with
 
 This command will create the `queue_jobs` migration where you can store your jobs:
 
-```
+```text
 $ craft queue:table --jobs
 ```
 
 This command will create the `failed_jobs` migration where you can store your failed jobs:
 
-```
+```text
 $ craft queue:table --failed
 ```
 
 Once these migrations are created you can run the migrate command:
 
-```
+```text
 $ craft migrate
 ```
 
@@ -363,7 +363,7 @@ You may also specify the `channel` as well. `channel` may mean different things 
 $ craft queue:work --driver database --channel sqlite
 ```
 
-### Sending Jobs
+## Sending Jobs
 
 That's it! send jobs like you normally would and it will process via RabbitMQ:
 
@@ -457,7 +457,7 @@ $ craft queue:work --failed
 
 This will get all the jobs from the database and send them back into the queue. If they fail again then they will be added back into this database table.
 
-## Specifying Failed Jobs
+### Specifying Failed Jobs
 
 You can modify the settings above by specifying it directly on the job. For example you may want to specify that the job reruns 5 times instead of 3 times when it fails or that it should not rerun at all.
 
