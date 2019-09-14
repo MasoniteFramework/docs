@@ -14,12 +14,13 @@ It would be wise to read about [pickle exploitations](https://blog.nelhage.com/2
 
 ### Getting Started
 
-All configuration settings by default are in the `config/queue.py` file. Out of the box, Masonite supports 2 drivers:
+All configuration settings by default are in the `config/queue.py` file. Out of the box, Masonite supports 3 drivers:
 
 * `async`
 * `amqp`
+* `database`
 
-The `async` driver simply sends jobs into the background using multithreading. The `amqp` driver is used for any AMQP compatible message queues like RabbitMQ. If you do create a driver, consider making it available on PyPi so others can also install it.
+The `async` driver simply sends jobs into the background using multithreading. The `amqp` driver is used for any AMQP compatible message queues like RabbitMQ. If you do create a driver, consider making it available on PyPi so others can also install it. The `database` driver has a few additional features that the other drivers do not have if you need more fine-grained control 
 
 #### Jobs
 
@@ -305,6 +306,41 @@ DRIVERS = {
 }
 ```
 
+## Database Driver
+
+The database driver will store all jobs in a database table called `queue_jobs` and on fail, will store all failed jobs in a `failed_jobs` table if one exists. If the `failed_jobs` table does not exist then it will not store any failed jobs and any jobs that fail will be lost.
+
+### Migrations
+
+In order to get these two queue table you can run the `queue:table` command with the flag on which table you would like:
+
+This command will create the `queue_jobs` migration where you can store your jobs:
+
+```
+$ craft queue:table --jobs
+```
+
+This command will create the `failed_jobs` migration where you can store your failed jobs:
+
+```
+$ craft queue:table --failed
+```
+
+Once these migrations are created you can run the migrate command:
+
+```
+$ craft migrate
+```
+
+### Delaying Jobs
+
+Jobs can be easily delayed using the `database` driver. Other drivers currently do not have this ability. In order to delay a job you can use a string time using the `wait` keyword.
+
+```python
+def show(self, queue: Queue):
+    queue.push(SendWelcomeEmail, wait="10 minutes")
+```
+
 ### Starting The Worker
 
 We can now start the worker using the `queue:work` command. It might be a good idea to run this command in a new terminal window since it will stay running until we close it.
@@ -318,7 +354,13 @@ This will startup the worker and start listening for jobs to come in via your Ma
 You can also specify the driver you want to create the worker for by using the `-d` or `--driver` option
 
 ```bash
-$ craft queue:work -d amqp
+$ craft queue:work --driver amqp
+```
+
+You may also specify the `channel` as well. `channel` may mean different things to different drivers. For the `amqp` driver, the `channel` is which queue to listen to. For the `database` driver, the `channel` is the connection to find the `queue_jobs` and `queue_failed` tables.
+
+```bash
+$ craft queue:work --driver database --channel sqlite
 ```
 
 ### Sending Jobs
