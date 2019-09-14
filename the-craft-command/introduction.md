@@ -432,6 +432,16 @@ $ craft serve -d
 If you have unmigrated migrations, Masonite will recommend running `craft migrate` when running the server.
 {% endhint %}
 
+### Live Reloading
+
+The serve command also has a live reloading option which will refresh any connected browsers so you can more quickly prototype your jinja templates.
+
+This is not a great tool for changing Python code and any Python code changes may still require a browser refresh to see the changes.
+
+```text
+$ craft serve --live-reload
+```
+
 ### Host and Port
 
 You can bind to a host using `-b` and/or a port using `-p`
