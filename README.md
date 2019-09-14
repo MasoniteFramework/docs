@@ -1,8 +1,8 @@
 # Introduction and Installation
 
 {% hint style="success" %}
-Any developers that are using or have used Masonite   
-  
+Any developers that are using or have used Masonite
+
 If you can take 5 minutes to complete this survey it would be very much appreciated. Just very simple questions that we can use to make Masonite an even better framework then it already is!
 
 [Click here to start the survey](https://joemancuso.typeform.com/to/mOh1ox)
@@ -13,7 +13,7 @@ The modern and developer centric Python web framework that strives for an actual
 Masonite works hard to be fast and easy from install to deployment so developers can go from concept to creation in as quick and efficiently as possible. Use it for your next SaaS! Try it once and you’ll fall in love.
 
 {% hint style="success" %}
-![](.gitbook/assets/go_arrow_next_up_green_forward-512.png) If you are more of a visual learner you can watch[ Masonite 2.1 tutorial videos here](https://www.youtube.com/playlist?list=PLdR9bD5hyZigsHxhJ-hLGYIGXUne2JwsL).  
+![](.gitbook/assets/go_arrow_next_up_green_forward-512.png) If you are more of a visual learner you can watch[ Masonite 2.1 tutorial videos here](https://www.youtube.com/playlist?list=PLdR9bD5hyZigsHxhJ-hLGYIGXUne2JwsL).
 {% endhint %}
 
 ## Some Notable Features Shipped With Masonite
@@ -189,82 +189,9 @@ $ craft install
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-After install you are ready to create Something Amazing!
-Masonite folder structure is like this.
+After install you are ready to create Something Amazing! Masonite folder structure is like this.
 
-
-.
-├── LICENSE
-├── README.md
-├── app
-│  ├── User.py
-│  ├── http
-│  │   ├── controllers  [controllers](https://docs.masoniteproject.com/the-basics/controllers)
-│  │   │   └── WelcomeController.py
-│  │   └── middleware  [middleware](https://docs.masoniteproject.com/advanced/middleware)
-│  │       ├── AuthenticationMiddleware.py
-│  │       ├── CsrfMiddleware.py
-│  │       ├── LoadUserMiddleware.py
-│  │       └── VerifyEmailMiddleware.py
-│  └── providers  [service-providers](https://docs.masoniteproject.com/architectural-concepts/service-providers)
-├── bootstrap
-│  ├── cache  [caching](https://docs.masoniteproject.com/useful-features/caching)
-│  └── start.py
-├── config
-│  ├── __init__.py
-│  ├── application.py
-│  ├── auth.py
-│  ├── broadcast.py
-│  ├── cache.py
-│  ├── database.py
-│  ├── mail.py
-│  ├── middleware.py
-│  ├── packages.py
-│  ├── providers.py
-│  ├── queue.py
-│  ├── session.py
-│  └── storage.py
-├── craft
-├── databases
-│  ├── migrations  [database-migrations](https://docs.masoniteproject.com/orator-orm/database-migrations)
-│  │   ├── 2018_01_09_043202_create_users_table.py
-│  │   └── __init__.py
-│  └── seeds
-│      ├── __init__.py
-│      ├── database_seeder.py
-│      └── user_table_seeder.py
-├── requirements.txt
-├── resources
-│  ├── __init__.py
-│  └── templates
-│      ├── __init__.py
-│      └── welcome.html
-├── routes  [routing](https://docs.masoniteproject.com/the-basics/routing)
-│  └── web.py
-├── storage  [static-files](https://docs.masoniteproject.com/the-basics/static-files)
-│  ├── compiled
-│  │   └── style.css
-│  ├── public
-│  │   ├── favicon.ico
-│  │   └── robots.txt
-│  ├── static
-│  │   ├── __init__.py
-│  │   └── sass
-│  │       └── style.scss
-│  └── uploads
-│      └── __init__.py
-├── tests  [testing](https://docs.masoniteproject.com/useful-features/testing)
-│  ├── feature <-- Add tests to your single fetures or functions.
-│  │   └── test_feature_works.py
-│  ├── framework
-│  │   ├── test_file_locations.py
-│  │   └── test_imports.py
-│  └── unit  <-- Add tests to your unit test.
-│      └── test_works.py
-└── wsgi.py
-
-
-
+. ├── LICENSE ├── README.md ├── app │ ├── User.py │ ├── http │ │ ├── controllers [controllers](https://docs.masoniteproject.com/the-basics/controllers) │ │ │ └── WelcomeController.py │ │ └── middleware [middleware](https://docs.masoniteproject.com/advanced/middleware) │ │ ├── AuthenticationMiddleware.py │ │ ├── CsrfMiddleware.py │ │ ├── LoadUserMiddleware.py │ │ └── VerifyEmailMiddleware.py │ └── providers [service-providers](https://docs.masoniteproject.com/architectural-concepts/service-providers) ├── bootstrap │ ├── cache [caching](https://docs.masoniteproject.com/useful-features/caching) │ └── start.py ├── config │ ├── **init**.py │ ├── application.py │ ├── auth.py │ ├── broadcast.py │ ├── cache.py │ ├── database.py │ ├── mail.py │ ├── middleware.py │ ├── packages.py │ ├── providers.py │ ├── queue.py │ ├── session.py │ └── storage.py ├── craft ├── databases │ ├── migrations [database-migrations](https://docs.masoniteproject.com/orator-orm/database-migrations) │ │ ├── 2018_0109043202createuserstable.py │ │ └── **init**.py │ └── seeds │ ├── **init**.py │ ├── databaseseeder.py │ └── usertable\_seeder.py ├── requirements.txt ├── resources │ ├── \_\_init.py │ └── templates │ ├── \_\_init.py │ └── welcome.html ├── routes_ [_routing_](https://docs.masoniteproject.com/the-basics/routing) _│ └── web.py ├── storage_ [_static-files_](https://docs.masoniteproject.com/the-basics/static-files) _│ ├── compiled │ │ └── style.css │ ├── public │ │ ├── favicon.ico │ │ └── robots.txt │ ├── static │ │ ├── \_\_init.py │ │ └── sass │ │ └── style.scss │ └── uploads │ └── \_\_init_.py ├── tests [testing](https://docs.masoniteproject.com/useful-features/testing) │ ├── feature &lt;-- Add tests to your single fetures or functions. │ │ └── test\_feature\_works.py │ ├── framework │ │ ├── test\_file\_locations.py │ │ └── test\_imports.py │ └── unit &lt;-- Add tests to your unit test. │ └── test\_works.py └── wsgi.py
 
 This command is just a wrapper around the `pip`command. This installs all the required dependencies of Masonite, creates a `.env` file for us, generates a new secret key, and puts that secret key in our `.env` file. After it’s done we can just run the server by using another `craft` command:
 
