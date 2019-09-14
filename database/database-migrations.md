@@ -91,3 +91,10 @@ What this does is sets a foreign key on the `user_id` column which references th
 
 Check the [Orator documentation](https://orator-orm.com/docs/0.9/schema_builder.html#adding-columns) for more information on creating a migration file.
 
+## Specifying Connections
+
+Each migration command has a `--connection` option so you can tell which connection you want to run the migration task for:
+
+```
+$ craft migrate --connection sqlite
+```
