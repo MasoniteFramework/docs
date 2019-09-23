@@ -521,7 +521,7 @@ So syntax like this:
 can be rewritten like this:
 
 ```markup
-@if expression:
+@if expression
     <p>do something</p>
 @endif
 ```
@@ -559,7 +559,7 @@ You can show variable text by using `{{ }}` characters:
 
 ### If statement
 
-If statements look like this:
+If statements look like this with Jinja syntax:
 
 ```markup
 {% if expression %}
@@ -569,6 +569,18 @@ If statements look like this:
 {% else %}
     <p>above all are false</p>
 {% endif %}
+```
+
+If statements look like this with line statements:
+
+```markup
+@if expression
+    <p>do something</p>
+@elif expression
+    <p>do something else</p>
+@else
+    <p>above all are false</p>
+@endif
 ```
 
 ### For Loops
