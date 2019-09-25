@@ -108,6 +108,21 @@ ROUTES = [
 ]
 ```
 
+In the case you are only using one middleware:
+
+```python
+ROUTES = [
+
+    RouteGroup([
+        Get('/url1', ...),
+        Get('/url2', ...),
+        Get('/url3', ...),
+    ], middleware=('auth',)),
+
+]
+```
+The *,* at the end of *'auth'* ensures that it's treated as a tuple and not as an array of strings.
+
 In this instance we are adding these 2 middleware to all of the routes inside the group. We have access to a couple of different methods. Feel free to use some or all of these options:
 
 ```python
