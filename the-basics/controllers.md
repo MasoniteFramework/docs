@@ -216,6 +216,60 @@ def show(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Returning a paginated response directly will include the collection data, along with results metadata.
+
+Query parameters accepted are: 'page_size' and 'page'. These will be handled directly as part of the response, there is no need to pass them in explicitly.
+
+Orator classes LengthAwarePaginator and Paginator will return slightly different responses.
+
+LengthAwarePaginator:
+
+```python
+from app.User import User
+
+# with query params ?page_size=10&page=2
+def index(self, request: Request):
+    return User.paginate() 
+```
+
+returns:
+
+```json
+{
+  "total": 44,
+  "count": 10,
+  "per_page": 10,
+  "current_page": 2,
+  "last_page": 5,
+  "from": 11,
+  "to": 20,
+  "data": [ ... ]
+}
+```
+
+Paginator:
+
+```python
+from app.User import User
+
+# no query params, therefore uses Orator default (15, 1)
+def index(self, request: Request):
+    return User.simple_paginate() 
+```
+
+returns:
+
+```json
+{
+  "count": 15,
+  "per_page": 15,
+  "current_page": 1,
+  "from": 1,
+  "to": 15,
+  "data": [ ... ]
+}
+```
+
 ## Passing Route Parameters
 
 Optionally you can pass route parameters along with your resolving code. This is useful to keep a nice clean codebase. 
