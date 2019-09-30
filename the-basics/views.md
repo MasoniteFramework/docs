@@ -508,7 +508,7 @@ Below are some examples of the Jinja2 syntax which Masonite uses to build views.
 
 ### Line Statements
 
-It's important to note that Jinja2 statements can be rewritten with line statements and line statements are preferred in Masonite. In comparison to Jinja2 line statements evaluate the whole line, thus the name line statement.
+It's important to note that Jinja2 statements can be rewritten with line statements and line statements are **preferred** in Masonite. In comparison to Jinja2 line statements evaluate the whole line, thus the name line statement.
 
 So Jinja2 syntax looks like this:
 
