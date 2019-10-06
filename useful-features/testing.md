@@ -153,6 +153,12 @@ def test_view_contains(self):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+You can also use:
+
+```python
+self.get('/login').assertContains('Login Here')
+```
+
 ### Checking 200 Status Code
 
 You can easily check if the response is ok by using the `ok` method:
@@ -232,6 +238,13 @@ def test_has_articles(self):
     )
 ```
 
+You can also use `assertCount(5)`:
+
+```python
+def test_has_articles(self):
+    self.json('GET', '/api/articles').assertCount(5)
+```
+
 You can also use `amount` which is just an alias for `count`:
 
 ```python
@@ -302,7 +315,37 @@ def test_has_age(self):
     )
 ```
 
-You do not have to specify all of the endpoints, just the ones you want to check for.
+You do not have to specify all of the elements. Just the ones you want to check for.
+
+You can alo use:
+
+```python
+self.assertJsonHas('key', 'value')
+```
+
+#### Asserting values inside a collection
+
+You can also assert values inside a list of responses:
+
+```python
+"""
+[
+	{
+    "name": "Joe",
+    "title": "creator",
+    "age": 25
+	},
+	{
+    "name": "Bob",
+    "title": "Co-Founder",
+    "age": 26
+	}
+]
+"""
+
+def test_bob_in_result(self):
+    self.json('GET', '/api/user').assertJsonContains('name', 'Bob')
+```
 
 ### Dot Notation
 
@@ -372,6 +415,26 @@ def test_has_name(self):
 
     self.get('GET', '/dashboard/user/5').assertHeaderIs('Content-Type', 'text/html')
 ```
+
+#### Testing Status
+
+You can use the `isStatus` and `assertIsStatus` methods to assert status checks:
+
+```python
+self.assertTrue(
+		self.get('GET', '/dashboard/user/5').isStatus(200)
+)
+
+self.get('GET', '/dashboard/user/5').assertIsStatus(200)
+```
+
+You can also easily assert `404` methods:
+
+```python
+self.get('GET', '/dashboard/not/exists').assertNotFound()
+```
+
+This is the same as asserting a `404` status code.
 
 ### Subdomains
 

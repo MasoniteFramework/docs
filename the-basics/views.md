@@ -396,6 +396,17 @@ def show(self, request: Request):
     return request.back()
 ```
 
+#### Old
+
+The `request.back()` method will also flash the current inputs to the session so you can get them when you land back on your template. You can get these values by using the `old()` method:
+
+```html
+<form>
+  <input type="text" name="email" value="{{ old('email') }}">
+  ...
+</form>
+```
+
 #### Session
 
 You can access the session here:
