@@ -1,8 +1,6 @@
 # Queues and Jobs
 
-## Queues and Jobs
-
-### Introduction
+# Introduction
 
 Almost all applications can make use of queues. Queues are a great way to make time intensive tasks seem immediate by sending the task into the background or into a message queue. It's great to send anything and everything into the queue that doesn't require an immediate return value \(such as sending an email or firing an API call\). The queue system is loaded into masonite via the `QueueProvider` Service Provider.
 
@@ -12,16 +10,14 @@ Masonite uses pickle to serialize and deserialize Python objects when appropriat
 It would be wise to read about [pickle exploitations](https://blog.nelhage.com/2011/03/exploiting-pickle/) and ensure your specific application is protected against any avenues of attack.
 {% endhint %}
 
-### Getting Started
-
-All configuration settings by default are in the `config/queue.py` file. Out of the box, Masonite supports 2 drivers:
+All configuration settings by default are in the `config/queue.py` file. Out of the box, Masonite supports 3 drivers:
 
 * `async`
 * `amqp`
 
 The `async` driver simply sends jobs into the background using multithreading. The `amqp` driver is used for any AMQP compatible message queues like RabbitMQ. If you do create a driver, consider making it available on PyPi so others can also install it.
 
-#### Jobs
+# Jobs
 
 Jobs are simply Python classes that inherit the `Queueable` class that is provided by Masonite. We can simply create jobs using the `craft job` command.
 
@@ -43,7 +39,7 @@ class SendWelcomeEmail(Queueable):
         pass
 ```
 
-#### Running Jobs
+## Adding Jobs to the queue
 
 We can run jobs by using the `Queue` class. Let's run this job from a controller method:
 
@@ -59,7 +55,7 @@ That's it. This job will now send to the queue and run the `handle` method.
 
 ### Resolving
 
-Notice in the show method above that we passed in just the class object. We did not instantiate the class. In this instance, Masonite will resolve the controller constructor. All job constructors are able to be resolved by the container so we can simply pass anything we need as normal:
+Notice in the show method above that we passed in just the class object. We did not instantiate the class. In this case, Masonite will resolve the job constructor. All job constructors are able to be resolved by the container so we can simply pass anything we need as normal:
 
 ```python
 from masonite.queues import Queueable
