@@ -515,13 +515,13 @@ Get the URL to a location:
 
 ## Jinja2
 
-Below is example Jinja2 syntax which Masonite uses to build views
+Below are some examples of the Jinja2 syntax which Masonite uses to build views. 
 
 ### Line Statements
 
-It's important to note that all syntax can be rewritten with line statements.
+It's important to note that Jinja2 statements can be rewritten with line statements and line statements are preferred in Masonite. In comparison to Jinja2 line statements evaluete the whole line, thus the name line statement.
 
-So syntax like this:
+So Jinja2 syntax looks like this:
 
 ```markup
 {% if expression %}
@@ -529,13 +529,14 @@ So syntax like this:
 {% endif %}
 ```
 
-can be rewritten like this:
+This can be rewritten like this with line statement syntax:
 
 ```markup
-@if expression:
+@if expression
     <p>do something</p>
 @endif
 ```
+
 
 It's important to note though that these are line statements. Meaning nothing else can be on the line when doing these. For example you CANNOT do this:
 
@@ -570,7 +571,10 @@ You can show variable text by using `{{ }}` characters:
 
 ### If statement
 
-If statements look like this:
+If statements are similar to python but require an endif!
+
+Jinja2:
+
 
 ```markup
 {% if expression %}
@@ -581,10 +585,22 @@ If statements look like this:
     <p>above all are false</p>
 {% endif %}
 ```
+Line Statements:
+```markup
+@if expression
+    <p>do something</p>
+@elif expression
+    <p>do something else</p>
+@else
+    <p>above all are false</p>
+@endif
+```
 
 ### For Loops
 
-Similiar to Python syntax, a for loop looks like this:
+For loop look similar to the regular python syntax.
+
+Jinja2:
 
 ```markup
 {% for item in items %}
@@ -592,12 +608,35 @@ Similiar to Python syntax, a for loop looks like this:
 {% endfor %}
 ```
 
+Line Statements:
+
+```markup
+@for item in items
+    <p>{{ item }}</p>
+@endfor
+```
+
+
+
+
 ### Include statement
 
-An include statement is useful for including other templates:
+An include statement is useful for including other templates.
+
+Jinja2:
 
 ```markup
 {% include 'components/errors.html' %}
+
+<form action="/">
+
+</form>
+```
+
+Line Statements:
+
+```markup
+@include 'components/errors.html'
 
 <form action="/">
 
@@ -610,6 +649,8 @@ Any place you have repeating code you can break out and put it into an include t
 
 This is useful for having a child template extend a parent template. There can only be 1 extends per template:
 
+Jinja2:
+
 ```markup
 {% extends 'components/base.html' %}
 
@@ -617,31 +658,48 @@ This is useful for having a child template extend a parent template. There can o
     <p> read below to find out what a block is </p>
 {% endblock %}
 ```
+Line Statements:
+
+```markup
+@extends 'components/base.html'
+
+@block content
+    <p> read below to find out what a block is </p>
+@endblock
+```
 
 ### Blocks
 
-Blocks are sections of code that can be used as placeholders for a parent template. These are only useful when used with the `extends` above. For example we may have 3 blocks in our parent template that look like this:
+Blocks are sections of code that can be used as placeholders for a parent template. These are only useful when used with the `extends` above. The "base.html" template is the parent template and contains blocks, which are defined in the child template "blocks.html". 
+
+Jinja2:
 
 ```markup
 <!-- components/base.html -->
 <html>
     <head>
-    {% block css %} {% endblock %}
+        {% block css %} 
+        <!-- block named "css" defined in child template will be inserted here -->
+        {% endblock %}
     </head>
 
 <body>
     <div class="container">
-        {% block content %} {% endblock %}
+        {% block content %} 
+        <!-- block named "content" defined in child template will be inserted here -->
+        {% endblock %}
     </div>
 
-{% block js %} {% endblock %}
+{% block js %}
+<!-- block named "js" defined in child template will be inserted here -->
+{% endblock %}
+
 </body>
 </html>
 ```
 
-Then when we inherit from it we can specify the blocks we want in our child template:
-
 ```markup
+<!-- components/blocks.html -->
 {% extends 'components/base.html' %}
 
 {% block css %}
@@ -657,5 +715,50 @@ Then when we inherit from it we can specify the blocks we want in our child temp
 {% endblock %}
 ```
 
-You will find that nearly all of your templates use the extends and block features.
+Line Statements:
 
+```markup
+<!-- components/base.html -->
+<html>
+    <head>
+        @block css 
+        <!-- block named "css" defined in child template will be inserted here -->
+        @endblock
+    </head>
+
+<body>
+    <div class="container">
+        @block content
+        <!-- block named "content" defined in child template will be inserted here -->
+        @endblock
+    </div>
+
+@block js
+<!-- block named "js" defined in child template will be inserted here -->
+@endblock
+
+</body>
+</html>
+```
+
+```markup
+<!-- components/blocks.html -->
+@extends 'components/base.html'
+
+@block css
+    <link rel=".." ..>
+@endblock
+
+@block content
+    <p> This is content </p>
+@endblock
+
+@block js
+    <script src=".." />
+@endblock
+```
+
+As you see blocks are fundamental and can be defined with Jinja2 and line statements. It allows you to structure your templates and have less repeating code. 
+
+
+The blocks defined in the child template will be passed to the parent template.

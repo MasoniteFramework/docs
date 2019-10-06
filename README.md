@@ -1,7 +1,7 @@
 # Introduction and Installation
 
 {% hint style="success" %}
-Any developers that are using or have used Masonite
+Any developers that are using or have used Masonite 
 
 If you can take 5 minutes to complete this survey it would be very much appreciated. Just very simple questions that we can use to make Masonite an even better framework then it already is!
 
