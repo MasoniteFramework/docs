@@ -462,6 +462,15 @@ def show(self, request: Request):
     return request.back()
 ```
 
+This will also flash the current inputs to the session. You can then get the inputs using the `{{ old('key') }}` template helper:
+
+```html
+<form>
+  <input type="text" name="email" value="{{ old ('email') }}">
+  ...
+</form>
+```
+
 ## Redirecting Back With Errors
 
 You can redirect back with validation error message or redirect back with input value:
@@ -474,6 +483,29 @@ def show(self, request: Request):
 
     if errors:
         return request.back().with_errors(errors)
+```
+
+## Redirecting Back With Inputs
+
+When redirecting back there are times where you will also want to flash the inputs to the session. With this you can simply use the `back()` method but if you want a bit more control you can use the `with_input()` method.
+
+```python
+def show(self, request: Request):
+    errors = request.validate(
+        required(['email', 'password'])
+    )
+
+    if errors:
+        return request.redirect('/dashboard/errors').with_input()
+```
+
+You can then get the inputs using the `{{ old('key') }}` template helper:
+
+```html
+<form>
+  <input type="text" name="email" value="{{ old ('email') }}">
+  ...
+</form>
 ```
 
 ## Default Back URL
