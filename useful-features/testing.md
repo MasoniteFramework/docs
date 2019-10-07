@@ -68,6 +68,24 @@ STRIPE_SECRET=test_sk-suhxs87cen88h7
 
 Feel free to load any testing environment variables in here. By default they will not be commited.
 
+## Available Assertion Methods
+
+Here is a list of methods that can be used for assetions.
+
+All methods that begin with `assert` can be chained together to run through many assertions. All other method will return some kind of boolean or value which you can use to do your own assertions.
+
+| assertContains(value)          | assertHasAmount(amount)             | assertHeaderIs(key, value) |
+| ------------------------------ | ----------------------------------- | -------------------------- |
+| assertNotFound()               | assertNotHasAmount(amount)          | assertPathIs(value)        |
+| assertHasJson(key, value)      | assertParameterIs(parameter, value) | isNamed(name)              |
+| assertJsonContains(key, value) | assertIsStatus(code)                | hasMiddleware(*middleware) |
+| assertCount(number)            | assertHasHeader(name)               | hasController(name)        |
+| contains(value)                | ok()                                | canView()                  |
+| hasJson(key, value)            | count(number)                       | amount(number)             |
+| isGet()                        | isPost()                            | isPut()                    |
+| isPatch()                      | isDelete()                          | hasSession(key, value)     |
+| parameterIs()                  | headerIs()                          |                            |
+
 ## Calling Routes
 
 We have a few options for testing our routes.
