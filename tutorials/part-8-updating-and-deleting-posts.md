@@ -72,7 +72,7 @@ That should be it! We can now update our posts.
 
 ## Delete Method
 
-Let's expand a bit and made a delete method.
+Let's expand a bit and make a delete method.
 
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/PostController.py" %}
