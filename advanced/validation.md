@@ -281,6 +281,30 @@ def show(self, validator: Validator):
 
 Just put the dictionary as the first argument and then each rule being its own argument.
 
+## Using The Decorator
+
+Masonite validation has a convenient decorator you can use on your controller methods. This will prevent the controller method being hit all together if validation isn't correct:
+
+```python
+from masonite.validation.decorators import validate
+from masonite.validation import required
+
+@validate(required('name'))
+def show(self, view: View):
+  return view.render(..)
+```
+
+This will return a JSON response. You can also choose where to redirect back to:
+
+```python
+from masonite.validation.decorators import validate
+from masonite.validation import required
+
+@validate(required('name'), redirect='/login')
+def show(self, view: View):
+  return view.render(..)
+```
+
 ## Rule Enclosures
 
 Rule enclosures are self contained classes with rules. You can use these to help reuse your validation logic. For example if you see you are using the same rules often you can use an enclosure to always keep them together and reuse them throughout your code base.
