@@ -580,9 +580,10 @@ and create a new store method on our controller:
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/BlogController.py" %}
 ```python
+from masonite.view import View
 ....
-def show(self): 
-    return view('blog')
+def show(self, view: View): 
+    return view.render('blog')
 
 # New store Method
 def store(self): 
@@ -684,14 +685,14 @@ Let's get the `show` method to return the posts view with all the posts:
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/PostController.py" %}
 ```python
+from masonite.view import View
 from app.Post import Post
-
 ...
 
-def show(self):
+def show(self, view: View):
     posts = Post.all()
 
-    return view('posts', {'posts': posts})
+    return view.render('posts', {'posts': posts})
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -767,14 +768,15 @@ Let's create a `single` method so we show a single post.
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/PostController.py" %}
 ```python
+from masonite.view import View
 from app.Post import Post
 
 ...
 
-def single(self):
+def single(self, view: View):
     post = Post.find(request().param('id'))
 
-    return view('single', {'post': post})
+    return view.render('single', {'post': post})
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -813,10 +815,12 @@ Let's just make an update method on the `PostController`:
 {% code-tabs %}
 {% code-tabs-item title="app/http/controllers/PostController.py" %}
 ```python
-def update(self):
+from masonite.view import View
+...
+def update(self, view: View):
     post = Post.find(request().param('id'))
 
-    return view('update', {'post': post})
+    return view.render('update', {'post': post})
 
 def store(self):
     post = Post.find(request().param('id'))
