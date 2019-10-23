@@ -176,3 +176,62 @@ class UserModelProvider(ServiceProvider):
     ...
 ```
 
+## Exception Listeners
+
+While an exception handler will actually handle the incoming exception, exception listeners are a little different. 
+
+Masonite can have several listeners registered with the framework that will listen to specific (or all) exceptions and have that exception passed into it if one is raised. It will then perform any logic it needs until an exception handler finally handles the exception.
+
+### Creating a Listener
+
+A listener is a simple class that requires a list of exceptions to listen for. Here is a simple boilerplate of an exception listener:
+
+```python
+from masonite.request import Request
+from .BaseExceptionListener import BaseExceptionListener
+
+class ExceptionListener(BaseExceptionListener):
+
+    listens = [
+        ZeroDivisionError
+    ]
+
+    def __init__(self, request: Request):
+        self.request = request
+
+    def handle(self, exception, file, line):
+        # Perform an action
+```
+
+Note that the `__init__` method of a listener is resolved by the container so feel free to type hint anything you need there.
+
+Finally it requires a `handle` method which takes 3 arguments. the `exception` that was thrown, the `file` that the exception was thrown in and the `line` the exception was thrown on.
+
+You can either listen to any number of exceptions or all exceptions by passing in a `*` to the `listens` attribute:
+
+```python
+class ExceptionListener(BaseExceptionListener):
+
+    listens = ['*']
+
+    # ...
+```
+
+A good use case for this would be Masonite Logging package which uses this to log any exceptions.
+
+### Registering Exception Listeners
+
+You can register an exception listener directly to the container with any service provider. For easy use, you can use a `simple` bind to the container which will bind the class to the container with the name of the class as the key:
+
+```python
+from some.place import LoggerExceptionListener
+
+class YourProvider:
+
+    wsgi = False
+
+    def register(self):
+        self.app.simple(LoggerExceptionListener)
+```
+
+Your listener will now run whenever an exception occurs that your listener is listening to.
