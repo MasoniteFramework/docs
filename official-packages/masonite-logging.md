@@ -1,5 +1,3 @@
-# Masonite Logging
-
 # Introduction
 
 Logging is a pretty crucial part of any application. The Masonite Logging package allows you to see errors your application is throwing as well as allow you to log your own messages in several different alert levels.
