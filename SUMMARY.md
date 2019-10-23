@@ -108,7 +108,6 @@
 
 * [Masonite API](official-packages/masonite-api.md)
 * [Masonite Billing](official-packages/masonite-billing.md)
-* [Masonite Dashboard](official-packages/masonite-dashboard.md)
 * [Masonite Notifications](official-packages/masonite-notifications.md)
 
 ## Masonite Essentials
