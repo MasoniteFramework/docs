@@ -377,6 +377,30 @@ def show(self, request: Request):
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## Optional Route Parameters
+
+Sometimes you want to optionally match routes and route parameters. For example you may want to match `/dashboard/user` and `/dashboard/user/settings` to the same controller method. In this event you can use optional parameters which are simply replacing the `@` with a `?`:
+
+{% code-tabs %}
+{% code-tabs-item title="routes/web.py" %}
+```python
+Get('/dashboard/user/?option', 'Controller@show')
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+You can also set default values if the route is not hit:
+
+{% code-tabs %}
+{% code-tabs-item title="routes/web.py" %}
+```python
+Get('/dashboard/user/?option', 'Controller@show').default({
+    'option': 'settings'
+})
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ## Route Compilers
 
 Sometimes you will want to make sure that the route parameter is of a certain type. For example you may want to match a URI like `/dashboard/1` but not `/dashboard/joseph`. In order to do this we simply need to pass a type to our parameter. If we do not specify a type then our parameter will default to matching all alphanumeric and underscore characters.
