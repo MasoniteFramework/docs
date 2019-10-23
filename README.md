@@ -13,7 +13,7 @@ The modern and developer centric Python web framework that strives for an actual
 Masonite works hard to be fast and easy from install to deployment so developers can go from concept to creation in as quick and efficiently as possible. Use it for your next SaaS! Try it once and you’ll fall in love.
 
 {% hint style="success" %}
-If you are more of a visual learner you can watch[ Masonite 2.1 tutorial videos here](https://www.youtube.com/playlist?list=PLdR9bD5hyZigsHxhJ-hLGYIGXUne2JwsL).
+If you are more of a visual learner you can watch Masonite related tutorial videos at [MasoniteCasts.com](https://masonitecasts.com)
 {% endhint %}
 
 ## Some Notable Features Shipped With Masonite
