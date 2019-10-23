@@ -218,3 +218,20 @@ class ExceptionListener(BaseExceptionListener):
 ```
 
 A good use case for this would be Masonite Logging package which uses this to log any exceptions.
+
+### Registering Exception Listeners
+
+You can register an exception listener directly to the container with any service provider. For easy use, you can use a `simple` bind to the container which will bind the class to the container with the name of the class as the key:
+
+```python
+from some.place import LoggerExceptionListener
+
+class YourProvider:
+
+    wsgi = False
+
+    def register(self):
+        self.app.simple(LoggerExceptionListener)
+```
+
+Your listener will now run whenever an exception occurs that your listener is listening to.
