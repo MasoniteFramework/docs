@@ -693,7 +693,7 @@ from app.Post import Post
 def show(self):
     posts = Post.all()
 
-    return view('posts', {'posts': posts})
+    return view.render('posts', {'posts': posts})
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
