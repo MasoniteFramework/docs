@@ -50,7 +50,7 @@ If you are running on a Linux flavor, you’ll need the Python dev package and t
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ sudo apt-get install python-dev libssl-dev
+$ sudo apt-get install python-dev libssl-dev python3-pip
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -60,7 +60,7 @@ Or you may need to specify your `python3.x-dev` version:
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ sudo apt-get install python3.6-dev libssl-dev
+$ sudo apt-get install python3.6-dev libssl-dev python3-pip
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
