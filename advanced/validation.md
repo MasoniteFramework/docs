@@ -1,6 +1,5 @@
 # Validation
 
-# Validation
 
 # Introduction
 
