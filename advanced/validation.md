@@ -77,7 +77,7 @@ class equals_masonite(BaseValidation):
     """
 
     def passes(self, attribute, key, dictionary):
-        """The passing criteria for this rule. 
+        """The passing criteria for this rule.
 
         ...
         """
@@ -110,7 +110,7 @@ For example if you need to make a rule that a value always equals Masonite then 
 
 ```python
 def passes(self, attribute, key, dictionary):
-    """The passing criteria for this rule. 
+    """The passing criteria for this rule.
 
     ...
     """
@@ -137,7 +137,7 @@ The message method needs to return a string used as the error message. If you ar
 
 ```python
 def passes(self, attribute, key, dictionary):
-    """The passing criteria for this rule. 
+    """The passing criteria for this rule.
 
     ...
     """
@@ -153,7 +153,7 @@ The negated message method needs to return a message when this rule is negated. 
 
 ```python
 def passes(self, attribute, key, dictionary):
-    """The passing criteria for this rule. 
+    """The passing criteria for this rule.
 
     ...
     """
@@ -651,9 +651,9 @@ validate.contains('description', 'Masonite')
 
 ## Confirmed
 
-This rule is used to make sure a key is "confirmed". This is simply a `key_confirmed` representation of the key.
+This rule is used to make sure a key is "confirmed". This is simply a `key_confirmation` representation of the key.
 
-For example, if you need to confirm a `password` you would set the password confirmation to `password_confirmed`.
+For example, if you need to confirm a `password` you would set the password confirmation to `password_confirmation`.
 
 ```python
 """
