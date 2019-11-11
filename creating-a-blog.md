@@ -142,7 +142,7 @@ For now on we won't focus on the whole controller but just the sections we are w
 {% code-tabs-item title="app/http/controllers/BlogController.py" %}
 ```python
 from masonite.view import View 
-..
+...
 def show(self, view: View):
     return view.render('blog')
 ```
