@@ -26,23 +26,19 @@ Masonite is smart enough to know that we need the `Request` class and it will in
 
 Masonite ships with a `HelpersProvider` Service Provider which adds several helper functions. One of these helper functions is the `request()` function. This function will return the request object. Because of this, these two pieces of code are identical:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     Request.input('username')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self):
     request().input('username')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Notice we didn't import anything at the top of our file and also didn't retrieve any objects from the IOC container. Masonite helper functions act just like any other built in Python function. 
 
@@ -56,14 +52,12 @@ The `Request` has several helper methods attached to it in order to interact wit
 
 In order to get the current request input variables such as the form data during a `POST` request or the query string during a `GET` request looks like:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     Request.input('username')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="info" %}
 There is no difference between any HTTP methods \(GET, POST, PUT, etc\) when it comes to getting input data. They are both retrieved through this `.input()` method so there is no need to make a distinction if the request is `GET` or `POST`
@@ -77,70 +71,60 @@ We can get all the request input variables such as input data from a form reques
 
 This will return all the available request input variables for that request as a dictionary.
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 # GET: /dashboard?user=Joe&status=1
 
 def show(self, Request):
     return Request.all() # {'user': 'Joe', 'status': '1'}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 To get a specific input:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 # GET: /dashboard?firstname=Joe
 
 def show(self, Request):
     return Request.input('firstname') # Joe
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 To check if some request input data exists:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 # GET: /dashboard?firstname=Joe
 
 def show(self, Request):
     return Request.has('firstname') # True
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Incoming JSON Requests
 
 All data can be retrieved as usual by using the input method above for incoming requests like form requests. Masnoite will handle `application/json` requests slightly differently. When the incoming request is JSON, masonite will load the JSON into a `payload` input which will return a dictionary representation of the JSON string.
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.input('payload') # returns {'id': 1, ...}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## URL Parameters
 
 To get the request parameter retrieved from the url. This is used to get variables inside: `/dashboard/@firstname` for example.
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 # GET: /dashboard/Joe
 
 def show(self, Request):
     return Request.param('firstname') # Joe
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Cookies
 
@@ -152,36 +136,30 @@ By default, all cookies are encrypted with your secret key which is generated in
 
 ### **Creating**
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.cookie('key', 'value')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 If you choose to not encrypt your values and create cookies with the plain text value then you can pass a third value of `True` or `False`. You can also be more explicit if you like:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.cookie('key', 'value', encrypt=False)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 All cookies are set as session cookies. This means that when the user closes out the browser completely, all cookies will be deleted.
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.cookie('key', 'value', expires="5 minutes")
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will set a cookie thats expires 5 minutes from the current time.
 
@@ -189,36 +167,30 @@ This will set a cookie thats expires 5 minutes from the current time.
 
 You can get all the cookies set from the browser
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.get_cookies()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can get a specific cookie set from the browser
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.get_cookie('key')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Again, all cookies are encrypted by default so if you set a cookie with encryption then this method will decrypt the cookie. If you set a cookie in plain text then you should pass the `False` as the second parameter here to tell Masonite not to decrypt your plain text cookie value.:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.get_cookie('key', decrypt=False)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will return the plain text version of the cookie.
 
@@ -232,108 +204,90 @@ If your secret key has been compromised then you may change the key at anytime a
 
 You may also delete a cookie. This will remove it from the browser.
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.delete_cookie('key')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## User
 
 You can also get the current user from the request. This requires the `LoadUserMiddleware` middleware which is in Masonite by default. This will return an instance of the current user.
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.user()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Redirection
 
 You can specify a url to redirect to
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.redirect('/home')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 If the url contains `http` than the route will redirect to the external website
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.redirect('http://google.com')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can redirect to a named route
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.redirectTo('dashboard')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can also go back to a named route specified from the form input `back`. This will get the request input named `back` and redirect to that named route. This is great if you want to redirect the user to a login page and then back to where they came from. Just remember during your form submission that you need to supply a `back` input.
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.back()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This is equivalent to:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.redirectTo(request.input('back'))
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can also specify the input parameter that contains the named route
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.back('redirect')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Sometimes your routes may require parameters passed to it such as redirecting to a route that has a url like: `/url/@firstname:string/@lastname:string`. For this you can use the `send` method. Currently this only works with named routes.
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return Request.back().send({'firstname': 'Joseph', 'lastname': 'Mancuso'})
 
     return Request.redirectTo('dashboard').send({'firstname': 'Joseph', 'lastname': 'Mancuso'})
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Encryption Key
 
@@ -355,52 +309,44 @@ You can also get and set any headers that the request has.
 
 You can get all WSGI information by printing:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     print(Request.environ)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will print the environment setup by the WSGI server. Use this for development purposes.
 
 You can also get a specific header:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     Request.header('AUTHORIZATION')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will return whatever the `HTTP_AUTHORIZATION` header if one exists. If that does not exist then the `AUTHORIZATION` header will be returned. If that does not exist then `None` will be returned.
 
 We can also set headers:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     Request.header('AUTHORIZATION', 'Bearer some-secret-key')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="warning" %}
 Masonite will automatically prepend a `HTTP_` to the header being set for standards purposes so this will set the `HTTP_AUTHORIZATION` header. If you do not want the `HTTP` prefix then pass a third parameter:
 {% endhint %}
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 Request.header('AUTHORIZATION', 'Bearer some-secret-key', http_prefix=None)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will set the `AUTHORIZATION` header **instead** of the `HTTP_AUTHORIZATION` header.
 
@@ -426,34 +372,29 @@ Typically, forms only have support for `GET` and `POST`. You may want to change 
 
 This will look like:
 
-{% code-tabs %}
-{% code-tabs-item title="resources/templates/index.html" %}
+{% code title="resources/templates/index.html" %}
 ```markup
 <form action="/dashboard" method="POST">
     <input type="hidden" name="request_method" value="PATCH">
 </form>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 or you can optionally use a helper method:
 
-{% code-tabs %}
-{% code-tabs-item title="resources/templates/index.html" %}
+{% code title="resources/templates/index.html" %}
 ```markup
 <form action="/dashboard" method="POST">
     {{ request_method('PATCH')|safe }}
 </form>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 When the form is submitted, it will process as a PUT request instead of a POST request. 
 
 This will allow this form to hit a route like this:
 
-{% code-tabs %}
-{% code-tabs-item title="routes/web.py" %}
+{% code title="routes/web.py" %}
 ```python
 from masonite.routes import Patch
 
@@ -461,6 +402,5 @@ ROUTES = [
     Patch().route('/dashboard', 'DashboardController@update')
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

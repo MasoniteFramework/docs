@@ -92,21 +92,18 @@ Masonite will know that you are trying to get the `Request` class and will actua
 {% hint style="warning" %}
 Because of how objects are resolved, you can only use annotations at the end of your parameter list. For example:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 from masonite.request import Request
 
 def show(self, request_class: Request, Upload)
     request_class.user()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 will throw an error because Masonite gets annotations last and will not catch the Upload parameter. If you need to use both normal parameters and annotations then you will need to specify them at the end:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 from masonite.request import Request
 
@@ -114,8 +111,7 @@ def show(self, Upload, request_class: Request)
     request_class.user()
     Upload.store(request_class.input('file'))
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endhint %}
 
 Pretty powerful stuff, eh?

@@ -26,23 +26,19 @@ In order to use Masonite, you’ll need:
 
 If you are running on a Linux flavor, you’ll need the Python dev package and OpenSSL. You can download this package by running:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ sudo apt-get install python-dev libssl-dev
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Or you may need to specify your `python3.x-dev` version:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ sudo apt-get install python3.6-dev libssl-dev
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Installation
 
@@ -50,13 +46,11 @@ Masonite works at being simple to install and get going. We use a simple command
 
 We can download our `craft` command line tool by just running:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ pip install masonite-cli
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="danger" %}
 You may have to use sudo if you are on a UNIX machine
@@ -64,68 +58,56 @@ You may have to use sudo if you are on a UNIX machine
 
 Great! We are now ready to create our first project. We should have the new `craft` command. We can check this by running:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This should show a list of command options. If it doesn't then try closing your terminal and reopening it or running it with `sudo` if you are on a UNIX machine. We are currently only interested in the `craft new` command. To create a new project just run:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft new project_name
 $ cd project_name
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will get the latest Masonite project template and unzip it for you. We just need to go into our new project directory and install the dependencies in our `requirements.txt` file.
 
 You can optionally create a virtual environment if you don't want to install all of masonite's dependencies on your systems Python. If you use virtual environments then create your virtual environment by running:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ python -m venv venv
 $ source venv/bin/activate
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 or if you are on Windows:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ python -m venv venv
 $ ./venv/Scripts/activate
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Now lets install our dependencies. We can do this simply by using a `craft` command:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft install
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This installs all the required dependencies of Masonite, creates a `.env` file for us, generates a new secret key, and puts that secret key in our `.env` file. After it’s done we can just run the server by using another `craft` command:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft serve
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications. You can learn more about craft by reading [The Craft Command](https://github.com/MasoniteFramework/docs/tree/ba9d9f8ac3e41d58b9d92d951f92c898fb16a2a4/the-craft-command.md) documentation.
 

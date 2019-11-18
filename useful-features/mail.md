@@ -22,8 +22,7 @@ There are two drivers out of the box that masonite uses and there is a tiny bit 
 
 The SMTP driver takes several configuration files we can all put in our `.env` file.
 
-{% code-tabs %}
-{% code-tabs-item title=".env" %}
+{% code title=".env" %}
 ```text
 MAIL_DRIVER=smtp
 MAIL_FROM_ADDRESS=admin@email.com
@@ -33,8 +32,7 @@ MAIL_PORT=465
 MAIL_USERNAME=admin@email.com
 MAIL_PASSWORD=password
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Because this is SMTP, we can utilize all SMTP services such as mailtrap and gmail.
 
@@ -48,49 +46,40 @@ Remember that it is save to put sensitive data in your `.env` file because it is
 
 Mailgun does not use SMTP and instead uses API calls to their service to send emails. Mailgun only requires 2 configuration settings:
 
-{% code-tabs %}
-{% code-tabs-item title=".env" %}
+{% code title=".env" %}
 ```text
 MAILGUN_SECRET=key-xx
 MAILGUN_DOMAIN=sandboxXX.mailgun.org
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 If you change to using Mailgun then you will need to change the driver. By default the driver looks like:
 
-{% code-tabs %}
-{% code-tabs-item title="config/mail.py" %}
+{% code title="config/mail.py" %}
 ```python
 DRIVER = os.getenv('MAIL_DRIVER', 'smtp')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This means you can specify the mail driver in the .env file:
 
-{% code-tabs %}
-{% code-tabs-item title=".env" %}
+{% code title=".env" %}
 ```text
 MAIL_DRIVER=mailgun
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 or we can specify the driver directly inside `config/mail.py`
 
-{% code-tabs %}
-{% code-tabs-item title="config/mail.py" %}
+{% code title="config/mail.py" %}
 ```python
 DRIVER = 'mailgun'
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Masonite will retrieve the configuration settings for the mailgun driver from the `DRIVERS` configuration setting which Masonite has by default, you do not have to change this.
 
-{% code-tabs %}
-{% code-tabs-item title="config/mail.py" %}
+{% code title="config/mail.py" %}
 ```python
 DRIVERS = {
     ...
@@ -100,8 +89,7 @@ DRIVERS = {
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Sending an Email
 
