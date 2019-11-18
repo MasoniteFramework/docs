@@ -305,6 +305,19 @@ def show(self, view: View):
   return view.render(..)
 ```
 
+As well as redirect back to where you came from (if you use the `{{ back() }}` template helper)
+
+```python
+from masonite.validation.decorators import validate
+from masonite.validation import required
+
+@validate(required('name'), back=True)
+def show(self, view: View):
+  return view.render(..)
+```
+
+> Both of these redirections will redirect with errors and input. So you can use the `{{ old() }}` template helper to get previous input.
+
 # Rule Enclosures
 
 Rule enclosures are self contained classes with rules. You can use these to help reuse your validation logic. For example if you see you are using the same rules often you can use an enclosure to always keep them together and reuse them throughout your code base.
