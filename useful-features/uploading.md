@@ -125,13 +125,11 @@ def show(self, Upload):
 
 Before you get started with uploading to Amazon S3, you will need the boto3 library:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ pip install boto3
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Uploading to S3 is exactly the same. Simply add your username, secret key and bucket to the S3 setting:
 

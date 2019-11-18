@@ -12,13 +12,11 @@ Most applications will require some form of authentication. Masonite comes with 
 
 For our blog, we will need to setup some a registration form so we can get new users to start posting to our blog. We can create an authentication system by running the craft command:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft auth
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 We should get a success message saying that some new assets were created. You can check your controllers folder and you should see a few new controllers there that should handle registrations.
 
@@ -30,8 +28,7 @@ Create a database and name it whatever you like. For the purposes of this tutori
 
 Once that is done we just need to change a few environment variables so Masonite can connect to the database. These environment variable can be found in the `.env` file in the root of the project. Open that file up and you should see a few lines that look like:
 
-{% code-tabs %}
-{% code-tabs-item title=".env" %}
+{% code title=".env" %}
 ```text
 DB_DRIVER=mysql
 DB_HOST=127.0.0.1
@@ -40,8 +37,7 @@ DB_DATABASE=masonite
 DB_USERNAME=root
 DB_PASSWORD=root
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Go ahead and change those setting to your connection settings. The `DB_DRIVER` constant takes 3 values: `mysql`, `postgres` and `sqlite`.
 
@@ -49,13 +45,11 @@ Go ahead and change those setting to your connection settings. The `DB_DRIVER` c
 
 Once you have set the correct credentials, we can go ahead and migrate the database. Out of the box, Masonite has a migration for a users table which will be the foundation of our user. You can edit this user migration before migrating but the default configuration will suit most needs just fine and you can always add column at a later date.
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft migrate
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will create our users table for us along with a migrations table to keep track of any migrations we add later.
 
@@ -65,13 +59,11 @@ Now that we have the authentication and the migrations all migrated in, let's cr
 
 Go ahead and run the server:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft serve
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 and head over to `localhost:8000/register` and fill out the form. You can use whatever name and email you like but for this purpose we will use:
 

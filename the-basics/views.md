@@ -6,8 +6,7 @@ Views contain all the HTML that you’re application will use to render to the u
 
 All views are rendered with Jinja2 so we can use all the Jinja2 code you are used to. An example view looks like:
 
-{% code-tabs %}
-{% code-tabs-item title="resources/templates/helloworld.html" %}
+{% code title="resources/templates/helloworld.html" %}
 ```markup
 <html>
   <body>
@@ -15,20 +14,17 @@ All views are rendered with Jinja2 so we can use all the Jinja2 code you are use
   </body>
 </html>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Creating Views
 
 Since all views are located in `resources/templates`, we can use simply create all of our views manually here or use our `craft` command tool. To make a view just run:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft view hello
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will create a template under `resources/templates/hello.html`.
 
@@ -42,25 +38,21 @@ One of the helper functions is the `view()` function which is accessible like an
 
 We can call views in our controllers like so:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self):
     return view('dashboard')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will return the view located at `resources/templates/dashboard.html`. We can also specify a deeper folder structure like so:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self):
     return view('profiles/dashboard')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will look for the view at `resources/templates/profiles/dashboard.html`
 
@@ -68,14 +60,12 @@ This will look for the view at `resources/templates/profiles/dashboard.html`
 
 The `View` class is loaded into the container so we can retrieve it in our controller methods like so:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, View):
     return View('dashboard')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This is exactly the same as using the helper function above. So if you choose to code more explicitly, the option is there for you.
 
@@ -89,24 +79,20 @@ Some views may not reside in the `resources/templates` directory and may even re
 
 For example as a use case we might pip install a package:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ pip install package-dashboard
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 and then be directed or required to return one of their views:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self):
     return view('/package/views/dashboard')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will look inside the `dashboard.views` package for a `dashboard.html` file and return that. You can obviously pass in data as usual.
 
@@ -131,14 +117,12 @@ and not inside the package directory. This is a Jinja limitation that says that 
 
 Accessing a global view such as:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self):
     return view('/package/dashboard')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 will perform a relative import for your Masonite project. For example it will catch:
 
@@ -172,19 +156,16 @@ MANIFEST.in
 
 And a controller like:
 
-{% code-tabs %}
-{% code-tabs-item title="package/controllers/PackageController.py" %}
+{% code title="package/controllers/PackageController.py" %}
 ```python
 def show(self):
     return view('/package/templates/index')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You will have to extend your template like so:
 
-{% code-tabs %}
-{% code-tabs-item title="package/templates/index.html" %}
+{% code title="package/templates/index.html" %}
 ```markup
 <!-- This is right -->
 {% extends 'base.html' %}
@@ -193,13 +174,11 @@ You will have to extend your template like so:
     ... index.html code goes here ...
 {% endblock %}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 and not extend your template with another global view:
 
-{% code-tabs %}
-{% code-tabs-item title="package/templates/index.html" %}
+{% code title="package/templates/index.html" %}
 ```markup
 <!-- This is wrong -->
 {% extends '/package/templates/base.html' %}
@@ -208,21 +187,18 @@ and not extend your template with another global view:
     ... index.html code goes here ...
 {% endblock %}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Passing Data to Views
 
 A lot of the time we’ll need to pass in data to our views. This data is passed in with a dictionary that contains a key which is the variable with the corresponding value. We can pass data to the function like so:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, Request):
     return view('dashboard', {'id': Request.param('id')})
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="info" %}
 Remember that by passing in parameters like `Request` to the controller method, we can retrieve objects from the IOC container. Read more about the IOC container in the [Service Container](../architectural-concepts/service-container.md) documentation.
@@ -230,8 +206,7 @@ Remember that by passing in parameters like `Request` to the controller method, 
 
 This will send a variable named `id` to the view which can then be rendered like:
 
-{% code-tabs %}
-{% code-tabs-item title="resources/templates/dashboard.html" %}
+{% code title="resources/templates/dashboard.html" %}
 ```markup
 <html>
   <body>
@@ -239,6 +214,5 @@ This will send a variable named `id` to the view which can then be rendered like
   </body>
 </html>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

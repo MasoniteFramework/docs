@@ -16,18 +16,15 @@ You can of course move controllers around wherever you like them but the craft c
 
 Like most parts of Masonite, you can scaffold a controller with a craft command:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft controller Blog
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will create a controller in `app/http/controllers` that looks like:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controller/BlogController.py" %}
+{% code title="app/http/controller/BlogController.py" %}
 ```python
 class BlogController:
     ''' Class Docstring Description '''
@@ -35,8 +32,7 @@ class BlogController:
     def show(self):
         pass
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Simple enough, right? You'll notice we have a `show` method. These are called "controller methods" and are similiar to what Django calls a "view."
 
@@ -46,14 +42,12 @@ Notice we now have our show method that we specified in our route.
 
 We can return a view from our controller. A view in Masonite are html files. They are not Python objects themselves like other Python frameworks. Views are what the users will see. We can return a view by using the `view()` function:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/BlogController.py" %}
+{% code title="app/http/controllers/BlogController.py" %}
 ```python
 def show(self):
     return view('blog')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Notice here we didn't import anything. Masonite comes with several helper functions that act like built in Python functions. These helper functions make developing with Masonite really efficient.
 
@@ -67,35 +61,29 @@ You'll notice now that we are returning the `blog` view but it does not exist.
 
 All views are in the `resources/templates` directory. We can create a new file called resources/templates/blog.html or we can use another craft command:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft view blog
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will create that file for us.
 
 If we put some text in this file like:
 
-{% code-tabs %}
-{% code-tabs-item title="resources/templates/blog.html" %}
+{% code title="resources/templates/blog.html" %}
 ```markup
 This is a blog
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 and then run the server
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft serve
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 and open up `localhost:8000/blog`, we will see "This is a blog"
 

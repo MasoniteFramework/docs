@@ -156,8 +156,7 @@ ViewClass.exists('/masonite/errors/404')
 
 An entire use case as code may look something like:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, ViewClass):
     if ViewClass.exists('errors/404'):
@@ -165,6 +164,5 @@ def show(self, ViewClass):
     
     return view('/some/package/404')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
