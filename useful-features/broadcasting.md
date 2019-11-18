@@ -35,25 +35,21 @@ Make sure that the key in the `DRIVER` setting has a corresponding key in the `D
 
 If you are using Pusher you will need the Pusher library:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ pip install pusher
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Ably
 
 If you are using Ably you will need the ably driver:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ pip install ably
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Usage
 

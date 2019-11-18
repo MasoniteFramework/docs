@@ -44,16 +44,14 @@ Since the app directory is autoloaded, and our `User` model is in that directory
 
 All bindings into the Service Container will be the name of the object as the key and the actual object as the value. So the `User` model will be accessed like:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 from app.User import User
 
 def show(self, user: User):
     user.find(1)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 There is no reason to add models into the container unless your specific use case requires it but this is just an example.
 
@@ -84,8 +82,7 @@ AUTOLOAD = [
 
 And then be able to do:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 from app.User import User
 from app.Blog import Blog
@@ -96,8 +93,7 @@ def show(self, user: User, blog: Blog, author: Author):
     blog.find(1)
     author.find(1)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="info" %}
 Being that the container is useful as an IOC container, another use case would be if a third party library needed some models to manipulate and then bind them back into the container. An example of this type of library would be one that needs to change the models methods in order to capture query operations and send them to a dashboard or a report.

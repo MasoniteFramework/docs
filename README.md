@@ -50,33 +50,27 @@ If you are running on a Linux flavor, you’ll need the Python dev package and t
 
 #### Debian and Ubuntu based Linux distributions
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ sudo apt-get install python-dev libssl-dev
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Or you may need to specify your `python3.x-dev` version:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ sudo apt-get install python3.6-dev libssl-dev
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 #### Enterprise Linux based distributions \(Fedora, CentOS, RHEL, ...\)
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 # dnf install python-devel openssl-devel
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Installation
 
@@ -88,23 +82,19 @@ Masonite excels at being simple to install and get going. We use a simple comman
 
 We can download our `craft` command line tool by just running:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ pip install masonite-cli
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 If you already have craft installed, Masonite 2.1 requires `masonite-cli>=2.1.0` so you may have to run with the upgrade flag to.
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ pip install masonite-cli --upgrade
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="warning" %}
 If you are having installation issues, be sure to read the [Known Installation Issues](prologue/known-installation-issues.md) documentation.
@@ -114,18 +104,15 @@ If you are having installation issues, be sure to read the [Known Installation I
 
 Great! We are now ready to create our first project. We should have the new `craft` command. We can check this by running:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This should show a list of command options. If it doesn't then try closing your terminal and reopening it or running it with `sudo` if you are on a UNIX machine. We are currently only interested in the `craft new` command. To create a new project just run:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft new project_name
 
@@ -142,8 +129,7 @@ $ craft new project_name
 #Create Something Amazing!
 $ cd project_name
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will get the latest Masonite project template and unzip it for you. We just need to go into our new project directory and install the dependencies in our `requirements.txt` file.
 
@@ -151,25 +137,21 @@ This will get the latest Masonite project template and unzip it for you. We just
 
 You can optionally create a virtual environment if you don't want to install all of masonite's dependencies on your systems Python. If you use virtual environments then create your virtual environment by running:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ python -m venv venv
 $ source venv/bin/activate
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 or if you are on Windows:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ python -m venv venv
 $ ./venv/Scripts/activate
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="info" %}
 The `python`command here is utilizing Python 3. Your machine may run Python 2 \(typically 2.7\) by default for UNIX machines. You may set an alias on your machine for Python 3 or simply run `python3`anytime you see the `python`command.
@@ -181,13 +163,11 @@ For example, you would run `python3 -m venv venv` instead of `python -m venv ven
 
 Now lets install our dependencies. We can do this simply by using a `craft` command:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft install
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 After install you are ready to create Something Amazing! Masonite folder structure is like this.
 
@@ -199,35 +179,29 @@ This command is just a wrapper around the `pip`command. This installs all the re
 
 After it’s done we can just run the server by using another `craft` command:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft serve
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can also run the server in auto-reload mode which will rerun the server when file changes are detected:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft serve -r
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications.
 
 The Masonite CLI \(also known as craft\) will try to find all the commands in your project but may not be able to. In this case you will need to call craft directly using something like:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ python craft serve -r
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="info" %}
 You can also add a auto reloading option to the serve command by running `craft serve -r` which will reload the server whenever you save a python file.

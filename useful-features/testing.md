@@ -14,27 +14,23 @@ $ python -m pytest
 
 First, create a new test class in a testing directory. We will use the directory `tests/unit` for the purposes of this documentation. In that file we will create a `test_unit.py` file and put a simple class in it like so:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 class TestSomeUnit:
     pass
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 We will then inherit the Masonite UnitTest class so we have access to several built in helpers:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 from masonite.testing import UnitTest
 
 class TestSomeUnit(UnitTest):
     pass
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 That's it! You're ready to start testing.
 
@@ -50,8 +46,7 @@ In unit testing, there is something called a setup\_method. What this method doe
 
 If we modify the setup method, we need to call the parent classes setup method. This looks like this:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 from masonite.testing import UnitTest
 from masonite.routes import Get
@@ -65,13 +60,11 @@ class TestSomeUnit(UnitTest):
             Get().route('/testing', 'TestController@show').name('testing.route').middleware('auth', 'owner')
         ])
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Notice here we are adding a mock route here that we can do some testing on. You might instead want to test your routes specifically:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 from masonite.testing import UnitTest
 from routes.web import ROUTES
@@ -83,8 +76,7 @@ class TestSomeUnit(UnitTest):
 
         self.routes(ROUTES)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Now we are working with the routes in our specific project.
 
@@ -94,8 +86,7 @@ We have a few options for testing our routes.
 
 #### Testing If a Route Exists:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 from masonite.testing import UnitTest
 from routes.web import ROUTES
@@ -112,95 +103,80 @@ class TestSomeUnit(UnitTest):
     def test_route_exists(self):
         assert self.route('/testing')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 #### Testing If Route Has The Correct Name
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 def test_route_has_the_correct_name(self):
     assert self.route('/testing').is_named('testing.route')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 #### Testing If A Route Has The Correct Middleware
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 def test_route_has_route_middleware(self):
     assert self.route('/testing').has_middleware('auth', 'owner')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 #### Testing If A Route Has The Correct Controller
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 from app.http.controllers.SomeController import SomeController
 
 def test_unit_test_has_controller(self):
     assert self.route('/testing').has_controller(SomeController)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 #### Testing If A Route Contains A String
 
 This can be used to see if the template returned a specific value
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 def test_view_contains(self):
     assert self.route('/testing').contains('Login')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Status Code
 
 You can also check if a route is "ok" or a status 200:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 def test_view_is_status_200(self):
     assert self.route('/testing').status('200 OK')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 or a shorthand:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 def test_view_is_ok(self):
     assert self.route('/testing').ok()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### JSON
 
 You can also test the result of a JSON response:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 def test_json_response(self):
     json = self.json('/test/json/response/1', {'id': 1}, method="POST")
     assert json.status('200 OK')
     assert json.contains('success')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Users
 
@@ -208,19 +184,16 @@ We can load users into the route and check if they can view the route. This is g
 
 For example we can check if a user that isn't logged in has access to the dashboard homepage:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 def test_guest_user_can_view(self):
     assert not self.route('/some/protect/route').user(None).can_view()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Or we can set a value on a mock user and see if that passes:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/unit/test\_unit.py" %}
+{% code title="tests/unit/test\_unit.py" %}
 ```python
 class MockUser:
     is_admin = 1
@@ -228,6 +201,5 @@ class MockUser:
 def test_owner_user_can_view(self):
     assert self.route('/some/protect/route').user(MockUser).can_view()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

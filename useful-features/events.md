@@ -24,8 +24,7 @@ $ pip install masonite-events
 
 Once installed we'll need to add the provider to our providers list:
 
-{% code-tabs %}
-{% code-tabs-item title="config/providers.py" %}
+{% code title="config/providers.py" %}
 ```python
 from events.providers import EventProvider
 ...
@@ -36,8 +35,7 @@ PROVIDERS = [
     ...
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Commands
 

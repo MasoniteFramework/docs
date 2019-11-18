@@ -16,15 +16,13 @@ You likely won't have to use this class since this class handles most use cases 
 
 In `bootstrap/start.py` you will see a code that looks something like:
 
-{% code-tabs %}
-{% code-tabs-item title="bootstrap/start.py" %}
+{% code title="bootstrap/start.py" %}
 ```python
 from masonite.environment import LoadEnvironment
 ...
 LoadEnvironment()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This class instantiation does a few things:
 
@@ -34,15 +32,13 @@ The next thing it will do is look for an `APP_ENV` variable inside your `.env` f
 
 For example, this variable:
 
-{% code-tabs %}
-{% code-tabs-item title=".env" %}
+{% code title=".env" %}
 ```text
 ...
 APP_ENV=local
 ...
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Will load additionally load the `.env.local` environment file.
 
@@ -52,25 +48,21 @@ This may be useful to have more global environment variables that can be shared 
 
 In addition to loading the `.env` file and the additional environment file defined in your `.env` file, you can load a third environment by specifying it in the constructor:
 
-{% code-tabs %}
-{% code-tabs-item title=".env" %}
+{% code title=".env" %}
 ```text
 ...
 APP_ENV=local
 ...
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="bootstrap/start.py" %}
+{% code title="bootstrap/start.py" %}
 ```python
 from masonite.environment import LoadEnvironment
 ...
 LoadEnvironment('development')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will load the `.env` file, the `.env.local` file and the `.env.development` environment file. 
 
@@ -78,15 +70,13 @@ This will load the `.env` file, the `.env.local` file and the `.env.development`
 
 If you don't want to load an additional environment and instead want to load only 1 single environment then you can pass in the `only` parameter.
 
-{% code-tabs %}
-{% code-tabs-item title="bootstrap/start.py" %}
+{% code title="bootstrap/start.py" %}
 ```python
 from masonite.environment import LoadEnvironment
 ...
 LoadEnvironment(only='development')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will load only the `.env.development` environment file.
 

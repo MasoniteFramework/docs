@@ -79,8 +79,7 @@ This middleware is design to redirect users to the login page if they are not lo
 
 You can run this middleware on any route by specifying the key in the middleware method on your route:
 
-{% code-tabs %}
-{% code-tabs-item title="routes/web.py" %}
+{% code title="routes/web.py" %}
 ```python
 from masonite.helpers.routes import get
 ...
@@ -90,8 +89,7 @@ ROUTES = [
     get('/dashboard', 'DashboardController@show').middleware('auth')
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Verify Email Middleware
 
@@ -99,8 +97,7 @@ This middleware checks to see if the logged in user has verified their email. If
 
 You can run this middleware on any route by specifying the key in the middleware method on your route:
 
-{% code-tabs %}
-{% code-tabs-item title="routes/web.py" %}
+{% code title="routes/web.py" %}
 ```python
 from masonite.helpers.routes import get
 ...
@@ -110,8 +107,7 @@ ROUTES = [
     get('/dashboard', 'DashboardController@show').middleware('verified')
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### CSRF Middleware
 
@@ -121,14 +117,12 @@ This middleware is an HTTP Middleware and runs on every request. This middleware
 
 This middleware checks if the user is logged in and if so, loads the user into the request object. This enables you to use something like:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self):
     return request().user() # Returns the user or None
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### JsonResponseMiddleware
 

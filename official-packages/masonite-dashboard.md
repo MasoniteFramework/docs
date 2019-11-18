@@ -30,8 +30,7 @@ $ pip install masonite-dashboard
 
 Just add the provider to the providers list in `config/providers.py`:
 
-{% code-tabs %}
-{% code-tabs-item title="config/providers.py" %}
+{% code title="config/providers.py" %}
 ```python
 from dashboard.providers import DashboardProvider
 
@@ -40,13 +39,11 @@ PROVIDERS = [
     DashboardProvider,
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Next we will just add the routes to our routes list:
 
-{% code-tabs %}
-{% code-tabs-item title="routes/web.py" %}
+{% code title="routes/web.py" %}
 ```python
 from dashboard.routes import routes as DashboardRoutes
 
@@ -56,15 +53,13 @@ ROUTES = [
     ...
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Development Only \(optional\)
 
 A likely use case for this dashboard package is that is should only be used by your team in local development environments. In that case you could set a flag in the `routes/web.py` file to only add the routes when `APP_DEBUG` is True:
 
-{% code-tabs %}
-{% code-tabs-item title="routes/web.py" %}
+{% code title="routes/web.py" %}
 ```python
 ...
 import os
@@ -77,8 +72,7 @@ ROUTES = [
 if os.getenv('APP_DEBUG') == True:
     ROUTES += DashboardRoutes()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Migrations
 
@@ -133,8 +127,7 @@ The `Link` class takes 2 attributes. The `display` attribute is what you want th
 
 Next we will just bind that class into the container.
 
-{% code-tabs %}
-{% code-tabs-item title="app/providers/HelloWorldProvider.py" %}
+{% code title="app/providers/HelloWorldProvider.py" %}
 ```python
 ...
 from masonite.provider import ServiceProvider
@@ -153,8 +146,7 @@ class HelloWorldProvider(ServiceProvider):
         pass
 
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Lastly, we just need to put this service provider into the PROVIDERS list:
 
@@ -183,8 +175,7 @@ The UserLink class works in the exact same way but this time we will inherit fro
 
 Again, you can name your class whatever you want. Masonite Dashboard will find all instances of `UserLink` from the container.
 
-{% code-tabs %}
-{% code-tabs-item title="app/providers/HelloWorldProvider.py" %}
+{% code title="app/providers/HelloWorldProvider.py" %}
 ```python
 ...
 from masonite.provider import ServiceProvider
@@ -208,8 +199,7 @@ class HelloWorldProvider(ServiceProvider):
         pass
 
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Now we will see a new link in the user dropdown menu when a user is logged in:
 
