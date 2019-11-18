@@ -38,8 +38,7 @@ If you are using SQLite then the configuration will be slightly different. Curre
 
 In your config/database.py file we'll just need to remove host, username and password from the configuration settings completely:
 
-{% code-tabs %}
-{% code-tabs-item title="config/database.py" %}
+{% code title="config/database.py" %}
 ```python
 DATABASES = {
     'default': {
@@ -48,8 +47,7 @@ DATABASES = {
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Getting Started
 

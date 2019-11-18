@@ -30,8 +30,7 @@ Let's explore how we can simply add [Sentry](http://sentry.io) to our applicatio
 
 Let's create a class called `SentryHook` and put it into `app/hooks/sentry.py`.
 
-{% code-tabs %}
-{% code-tabs-item title="app/hooks/sentry.py" %}
+{% code title="app/hooks/sentry.py" %}
 ```python
 class SentryHook:
     def __init__(self):
@@ -40,8 +39,7 @@ class SentryHook:
     def load(self, app):
         self._app = app
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This should be the basic structure for a hook. All hooks require a load method. This load method will always be passed the application container so it always requires that parameter. From here we can do whatever we need to by making objects from the container.
 

@@ -10,8 +10,7 @@ The best way to create a reusable validator class within your Masonite project i
 
 We can make a class called `RegistrationValidator()`, inherit from `masonite.validator.Validator()` and put it inside `app/validators/RegistrationValidator.py` like so:
 
-{% code-tabs %}
-{% code-tabs-item title="app/validators/RegistrationValidator.py" %}
+{% code title="app/validators/RegistrationValidator.py" %}
 ```python
 from masonite.validator import Validator
 
@@ -20,8 +19,7 @@ class RegistrationValidator(Validator):
     def register_form(self):
         pass
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can put this file wherever you want but we will put it here for the purposes of this documentation.
 

@@ -14,18 +14,15 @@ Read more about Cleo by visiting the [Cleo Documentation](http://cleo.readthedoc
 
 You can create commands by using craft itself:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft command HelloCommand
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will create a `app/commands/HelloCommand.py` file with boilerplate code that looks like this:
 
-{% code-tabs %}
-{% code-tabs-item title="app/commands/HelloCommand.py" %}
+{% code title="app/commands/HelloCommand.py" %}
 ```python
 """ A HelloCommand Command """
 from cleo import Command
@@ -42,15 +39,13 @@ class HelloCommand(Command):
     def handle(self):
         pass
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Let's create a simple hello name application which prints "hello your-name" to the console.
 
 Where it says `command:name` inside the docstring we can put `hello` and inside the argument we can put `name` like so:
 
-{% code-tabs %}
-{% code-tabs-item title="app/commands/HelloCommand.py" %}
+{% code title="app/commands/HelloCommand.py" %}
 ```python
 """ A HelloCommand Command """
 from cleo import Command
@@ -67,13 +62,11 @@ class HelloCommand(Command):
     def handle(self):
         pass
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Inside the `handle` method we can get the argument passed by specifying `self.argument('name')`. Simply put:
 
-{% code-tabs %}
-{% code-tabs-item title="app/commands/HelloCommand.py" %}
+{% code title="app/commands/HelloCommand.py" %}
 ```python
 """ A HelloCommand Command """
 from cleo import Command
@@ -90,8 +83,7 @@ class HelloCommand(Command):
     def handle(self):
         print('Hello {0}'.format(self.argument('name')))
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 That's it! Now we just have to add it to our craft command.
 
@@ -101,18 +93,15 @@ We can add commands to craft by creating a Service Provider and registering our 
 
 Let's create a Service Provider:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft provider HelloProvider
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will create a provider in `app/providers/HelloProvider.py` that looks like:
 
-{% code-tabs %}
-{% code-tabs-item title="app/providers/HelloProvider.py" %}
+{% code title="app/providers/HelloProvider.py" %}
 ```python
 ''' A HelloProvider Service Provider '''
 from masonite.provider import ServiceProvider
@@ -126,13 +115,11 @@ class HelloProvider(ServiceProvider):
     def boot(self):
         pass
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Let's import our command and register it into the container. Also because we are only registering things into the container, we can set `wsgi = False` so it is not ran on every request and only before the server starts:
 
-{% code-tabs %}
-{% code-tabs-item title="app/providers/HelloProvider.py" %}
+{% code title="app/providers/HelloProvider.py" %}
 ```python
 ''' A HelloProvider Service Provider '''
 from masonite.provider import ServiceProvider
@@ -148,8 +135,7 @@ class HelloProvider(ServiceProvider):
     def boot(self):
         pass
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="warning" %}
 **Make sure you instantiate the command. Also the command name needs to end in "Command". So binding** `HelloCommand` **will work but binding** `Hello` **will not. Craft will only pick up commands that end in** `Command`**. This is also case sensitive so make sure** `Command` **is capitalized.**
@@ -159,8 +145,7 @@ class HelloProvider(ServiceProvider):
 
 Like normal, we need to add our Service Provider to the `PROVIDERS` list inside our `config/providers.py` file:
 
-{% code-tabs %}
-{% code-tabs-item title="config/application.py" %}
+{% code title="config/application.py" %}
 ```python
 from app.providers.HelloProvider import HelloProvider
 ...
@@ -176,48 +161,39 @@ PROVIDERS = [
 
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 That's it! Now if we run:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 We will see our new `hello` command:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```python
   help              Displays help for a command
   hello             Say hello to you
   install           Installs all of Masonite's dependencies
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 and if we run:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft hello Joseph
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 We will see an output of:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 Hello Joseph
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

@@ -8,8 +8,7 @@ These functions do not require any imports and are simply just available which i
 
 It may make more sense if we take a peak at this Service Provider:
 
-{% code-tabs %}
-{% code-tabs-item title="masonite.providers.HelpersProvider" %}
+{% code title="masonite.providers.HelpersProvider" %}
 ```python
 class HelpersProvider(ServiceProvider):
 
@@ -29,8 +28,7 @@ class HelpersProvider(ServiceProvider):
 
         ViewClass.share({'request': Request.helper, 'auth': Request.user})
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Notice how we simply just add builtin functions via this provider.
 
