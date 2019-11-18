@@ -25,8 +25,7 @@ This will create a user test for us which we can work on. You can drag this test
 
 This command will create a basic test like the one below:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/test\\user.py" %}
+{% code title="tests/test\\user.py" %}
 ```python
 """Example Testcase."""
 
@@ -43,8 +42,7 @@ class TestUser(TestCase):
     def setUpFactories(self):
         pass
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 That's it! You're ready to start testing. Read on to learn how to start building your test cases.
 
@@ -74,17 +72,17 @@ Here is a list of methods that can be used for assetions.
 
 All methods that begin with `assert` can be chained together to run through many assertions. All other method will return some kind of boolean or value which you can use to do your own assertions.
 
-| assertContains(value)          | assertHasAmount(amount)             | assertHeaderIs(key, value) |
-| ------------------------------ | ----------------------------------- | -------------------------- |
-| assertNotFound()               | assertNotHasAmount(amount)          | assertPathIs(value)        |
-| assertHasJson(key, value)      | assertParameterIs(parameter, value) | isNamed(name)              |
-| assertJsonContains(key, value) | assertIsStatus(code)                | hasMiddleware(*middleware) |
-| assertCount(number)            | assertHasHeader(name)               | hasController(name)        |
-| contains(value)                | ok()                                | canView()                  |
-| hasJson(key, value)            | count(number)                       | amount(number)             |
-| isGet()                        | isPost()                            | isPut()                    |
-| isPatch()                      | isDelete()                          | hasSession(key, value)     |
-| parameterIs()                  | headerIs()                          |                            |
+| assertContains\(value\) | assertHasAmount\(amount\) | assertHeaderIs\(key, value\) |
+| :--- | :--- | :--- |
+| assertNotFound\(\) | assertNotHasAmount\(amount\) | assertPathIs\(value\) |
+| assertHasJson\(key, value\) | assertParameterIs\(parameter, value\) | isNamed\(name\) |
+| assertJsonContains\(key, value\) | assertIsStatus\(code\) | hasMiddleware\(\*middleware\) |
+| assertCount\(number\) | assertHasHeader\(name\) | hasController\(name\) |
+| contains\(value\) | ok\(\) | canView\(\) |
+| hasJson\(key, value\) | count\(number\) | amount\(number\) |
+| isGet\(\) | isPost\(\) | isPut\(\) |
+| isPatch\(\) | isDelete\(\) | hasSession\(key, value\) |
+| parameterIs\(\) | headerIs\(\) |  |
 
 ## Calling Routes
 
@@ -94,15 +92,13 @@ We have a few options for testing our routes.
 
 To check if a route exists, we can simple use either get or post:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/test\_unit.py" %}
+{% code title="tests/test\_unit.py" %}
 ```python
 def test_route_exists(self):
     self.assertTrue(self.get('/testing'))
     self.assertTrue(self.post('/testing'))
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Getting the Request and Response
 
@@ -138,38 +134,32 @@ def test_route_exists(self):
 
 ### Testing If Route Has The Correct Name
 
-{% code-tabs %}
-{% code-tabs-item title="tests/test\_unit.py" %}
+{% code title="tests/test\_unit.py" %}
 ```python
 def test_route_has_the_correct_name(self):
     self.assertTrue(self.get('/testing').isNamed('testing.route'))
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Testing If A Route Has The Correct Middleware
 
-{% code-tabs %}
-{% code-tabs-item title="tests/test\_unit.py" %}
+{% code title="tests/test\_unit.py" %}
 ```python
 def test_route_has_route_middleware(self):
     assert self.get('/testing').hasMiddleware('auth', 'owner')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Testing If A Route Contains A String
 
 This can be used to see if the template returned a specific value
 
-{% code-tabs %}
-{% code-tabs-item title="tests/test\_unit.py" %}
+{% code title="tests/test\_unit.py" %}
 ```python
 def test_view_contains(self):
     assert self.get('/login').contains('Login Here')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can also use:
 
@@ -181,14 +171,12 @@ self.get('/login').assertContains('Login Here')
 
 You can easily check if the response is ok by using the `ok` method:
 
-{% code-tabs %}
-{% code-tabs-item title="tests/test\_unit.py" %}
+{% code title="tests/test\_unit.py" %}
 ```python
 def test_view_is_ok(self):
     assert self.get('/testing').ok()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## CSRF Protection
 
@@ -348,16 +336,16 @@ You can also assert values inside a list of responses:
 ```python
 """
 [
-	{
+    {
     "name": "Joe",
     "title": "creator",
     "age": 25
-	},
-	{
+    },
+    {
     "name": "Bob",
     "title": "Co-Founder",
     "age": 26
-	}
+    }
 ]
 """
 
@@ -440,7 +428,7 @@ You can use the `isStatus` and `assertIsStatus` methods to assert status checks:
 
 ```python
 self.assertTrue(
-		self.get('GET', '/dashboard/user/5').isStatus(200)
+        self.get('GET', '/dashboard/user/5').isStatus(200)
 )
 
 self.get('GET', '/dashboard/user/5').assertIsStatus(200)
@@ -583,8 +571,7 @@ class TestUser(TestCase):
 
 We can load users into the route and check if they can view the route. This is good to see if your middleware is acting good against various users. This can be done with the `acting_as()` method.
 
-{% code-tabs %}
-{% code-tabs-item title="tests/test\_unit.py" %}
+{% code title="tests/test\_unit.py" %}
 ```python
 from app.User import User
 ...
@@ -601,8 +588,7 @@ from app.User import User
             self.actingAs(User.find(1)).get('/dashboard').ok()
         )
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Passing in Data
 

@@ -36,8 +36,7 @@ $ pip install psycopg2
 
 If you are using SQLite configure your `.env` file with the following options
 
-{% code-tabs %}
-{% code-tabs-item title=".env" %}
+{% code title=".env" %}
 ```text
 ...
 DB_CONNECTION=sqlite
@@ -45,8 +44,7 @@ DB_DATABASE=masonite
 DB_LOG=True
 ...
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Your sqlite database will be created on project root directory.
 

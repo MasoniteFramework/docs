@@ -1,14 +1,16 @@
-# Introduction
+# Masonite Logging
+
+## Introduction
 
 Logging is a pretty crucial part of any application. The Masonite Logging package allows you to see errors your application is throwing as well as allow you to log your own messages in several different alert levels.
 
 Masonite Logging currently contains the ability to log to a file, syslog and slack.
 
-# Installation
+## Installation
 
 To get the Masonite Logging package up and running on your machine you must first install the package:
 
-```terminal
+```text
 $ pip install masonite-logging
 ```
 
@@ -28,21 +30,21 @@ PROVIDERS = [
 
 You can then publish the provider which will create your `config/logging.py` configuration file:
 
-```
+```text
 $ craft publish LoggingProvider
 ```
 
-# Logging Exceptions
+## Logging Exceptions
 
 The Masonite Logging package will automatically register an exception listener with your Masonite application and log any exceptions your application encounters with the corresponding channel.
 
-# Channels
+## Channels
 
 The Masonite Logging package uses the concept of channels and drivers. A channel internally is used to create and pass various information to instantiate the driver. At a higher level, you will mainly be working with channels.
 
 Out of the box there are several different channels: `single`, `stack`, `daily`, `slack`, `syslog` and `terminal`. Each channel will handle logging messages in it's own way.
 
-## Single Channel
+### Single Channel
 
 The single channel will put all information in a "single" file. This file can be specified in your `config/logging.py` file in the `path` option:
 
@@ -53,9 +55,9 @@ The single channel will put all information in a "single" file. This file can be
 },
 ```
 
-## Daily Channel
+### Daily Channel
 
-The daily channel is similiar to the single channel except this will create a new log file based on the current day. So this will create log files like `10-23-2019.log` and `10-24-2019.log`. 
+The daily channel is similiar to the single channel except this will create a new log file based on the current day. So this will create log files like `10-23-2019.log` and `10-24-2019.log`.
 
 The path to set here needs to be a directory instead of a path to a file:
 
@@ -66,17 +68,17 @@ The path to set here needs to be a directory instead of a path to a file:
 },
 ```
 
-## Slack Channel
+### Slack Channel
 
 The Slack channel will send messages directly to your Slack channel so you or your team can act quickly and be alerted directly of any messages logged.
 
 You'll need to generate a Slack application token. You can add it to your `.env` file:
 
-```
+```text
 SLACK_TOKEN=xoxp-35992....
 ```
 
-You then need to set a few options in your config file if you need to change any default settings like the user, the icon emoji, 
+You then need to set a few options in your config file if you need to change any default settings like the user, the icon emoji,
 
 ```python
 'slack': {
@@ -91,11 +93,11 @@ You then need to set a few options in your config file if you need to change any
 
 These options are up to you.
 
-## Terminal Channel
+### Terminal Channel
 
 The terminal channel will simply output errors to the terminal. This is handy for debugging or in addition to other channels when using the `stack` channel.
 
-## Stack Channel
+### Stack Channel
 
 The stack channel is useful when you need to combine several channels together. Maybe you want it to log to both a `daily` channel file as well as send a message to your slack group. You can do this easily by specifying the `channels` within your `stack` channel options.
 
@@ -108,7 +110,7 @@ The stack channel is useful when you need to combine several channels together. 
 
 You can have as many channels as you want here.
 
-## Syslog
+### Syslog
 
 The `syslog` channel will tie directly into your system level logging software. Each operating system has its own type of system monitoring.
 
@@ -121,11 +123,11 @@ You'll need to tie into your system socket path. This can be different per opera
 }
 ```
 
-# Log Levels
+## Log Levels
 
 Log levels are a hierarchy of log levels that you can specify on your channels. The hierarchy in order of most important to least important are:
 
-```
+```text
 emergency
 alert
 critical
@@ -140,7 +142,6 @@ Each channel can have its own minimum log level. The log message will only conti
 
 For example, if we have a configuration like this on the `daily` channel:
 
-
 ```python
 'daily': {
     'level': 'info',
@@ -150,7 +151,7 @@ For example, if we have a configuration like this on the `daily` channel:
 
 This will only send messages to this channel if the log level is notice or above. It will ignore all `debug` level log messages.
 
-# Writing Log Messages
+## Writing Log Messages
 
 You can of course write your own log messages. You can resolve the logger class from the container and use a method equal to the log level you want to write the message for.
 
@@ -165,7 +166,7 @@ def show(self, logger: Logger):
     # ...
 ```
 
-## Write to a specific channel
+### Write to a specific channel
 
 You can easily switch channels by using the `channel` method:
 
@@ -177,7 +178,7 @@ def show(self, logger: Logger):
     # ...
 ```
 
-# Timezones
+## Timezones
 
 By default, Masonite Logging will record all times in the `UTC` timezone but in the event you want to switch timezones, you can do so in your configuration file:
 
@@ -190,3 +191,4 @@ CHANNELS = {
 ```
 
 All timestamps associated with logging will now use the correct timezone.
+

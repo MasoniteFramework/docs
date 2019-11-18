@@ -1,6 +1,8 @@
 # Queues and Jobs
 
-# Introduction
+## Queues and Jobs
+
+## Introduction
 
 Almost all applications can make use of queues. Queues are a great way to make time intensive tasks seem immediate by sending the task into the background or into a message queue. It's great to send anything and everything into the queue that doesn't require an immediate return value \(such as sending an email or firing an API call\). The queue system is loaded into masonite via the `QueueProvider` Service Provider.
 
@@ -18,7 +20,7 @@ All configuration settings by default are in the `config/queue.py` file. Out of 
 
 The `async` driver simply sends jobs into the background using multithreading. The `amqp` driver is used for any AMQP compatible message queues like RabbitMQ. If you do create a driver, consider making it available on PyPi so others can also install it. The `database` driver has a few additional features that the other drivers do not have if you need more fine-grained control
 
-# Jobs
+## Jobs
 
 Jobs are simply Python classes that inherit the `Queueable` class that is provided by Masonite. We can simply create jobs using the `craft job` command.
 
@@ -40,7 +42,7 @@ class SendWelcomeEmail(Queueable):
         pass
 ```
 
-## Adding Jobs to the queue
+### Adding Jobs to the queue
 
 We can run jobs by using the `Queue` class. Let's run this job from a controller method:
 
@@ -54,7 +56,7 @@ def show(self, queue: Queue):
 
 That's it. This job will now send to the queue and run the `handle` method.
 
-### Resolving
+#### Resolving
 
 Notice in the show method above that we passed in just the class object. We did not instantiate the class. In this case, Masonite will resolve the job constructor. All job constructors are able to be resolved by the container so we can simply pass anything we need as normal:
 
@@ -75,7 +77,7 @@ class SendWelcomeEmail(Queueable):
 
 Remember that anything that is resolved by the container is able to retrieve anything from the container by simply passing in parameters of objects that are located in the container. Read more about the container in the [Service Container](../architectural-concepts/service-container.md) documentation.
 
-### Instantiating
+#### Instantiating
 
 We can also instantiate the job as well if we need to pass in data from a controller method. This will not resolve the job's constructor at all:
 
@@ -100,7 +102,7 @@ class SendWelcomeEmail(Queueable):
         self.var2 = var2
 ```
 
-### Executing Jobs
+#### Executing Jobs
 
 Whenever jobs are executed, it simply executes the handle method. Because of this we can send our welcome email:
 
@@ -132,7 +134,7 @@ def show(self, queue: Queue):
     queue.push(SendWelcomeEmail, TutorialEmail('val1', 'val2'))
 ```
 
-### Passing Variables Into Jobs
+#### Passing Variables Into Jobs
 
 Most of the time you will want to resolve the constructor but pass in variables into the `handle()` method. This can be done by passing in an iterator into the `args=` keyword argument:
 
@@ -158,7 +160,7 @@ class SendWelcomeEmail(Queueable):
         email # =='user@email.com'
 ```
 
-### Passing Functions or Methods
+#### Passing Functions or Methods
 
 You can also call any arbitrary function or method using the queue driver. All you need to do is pass the reference for it in the push method and pass any arguments you need in the args parameter like so:
 
@@ -178,11 +180,11 @@ This will then queue this function to be called later.
 Note that you will not be able to get a response value back. Once it gets sent to the queue it will run at an arbitrary time later.
 {% endhint %}
 
-## Async Driver
+### Async Driver
 
 The `async` queue driver will allow you to send jobs into the background to run asynchronously. This does not need any third party services like the `amqp` driver below.
 
-### Change Modes
+#### Change Modes
 
 The async driver has 2 different modes: `threading` and `multiprocess`. The differences between the two is that `threading` uses several threads and `multiprocess` uses several processes. Which mode you should use depends on the type of jobs you are processing. You should research what is best depending on your use cases.
 
@@ -196,7 +198,7 @@ DRIVERS = {
 }
 ```
 
-### Blocking
+#### Blocking
 
 During development it may be hard to debug asyncronous tasks. If an exception is thrown it will be hard to catch that. It may appear that a job is never ran.
 
@@ -239,17 +241,17 @@ DRIVERS = {
 
 This way it will always be blocking during development and automatically switch to unblocking during production.
 
-## AMQP Driver
+### AMQP Driver
 
 The `amqp` driver can be used to communicate with RabbitMQ services.
 
-### Installing
+#### Installing
 
 In order to get started with this driver you will need to install RabbitMQ on your development machine \(or production machine depending on where you are running Masonite\)
 
 You can find the [installation guide for RabbitMQ here](https://www.rabbitmq.com/download.html).
 
-### Running RabbitMQ
+#### Running RabbitMQ
 
 Once you have RabbitMQ installed you can go ahead and run it. This looking something like this in the terminal if ran successfully:
 
@@ -302,11 +304,11 @@ DRIVERS = {
 }
 ```
 
-## Database Driver
+### Database Driver
 
 The database driver will store all jobs in a database table called `queue_jobs` and on fail, will store all failed jobs in a `failed_jobs` table if one exists. If the `failed_jobs` table does not exist then it will not store any failed jobs and any jobs that fail will be lost.
 
-### Migrations
+#### Migrations
 
 In order to get these two queue table you can run the `queue:table` command with the flag on which table you would like:
 
@@ -328,7 +330,7 @@ Once these migrations are created you can run the migrate command:
 $ craft migrate
 ```
 
-### Delaying Jobs
+#### Delaying Jobs
 
 Jobs can be easily delayed using the `database` driver. Other drivers currently do not have this ability. In order to delay a job you can use a string time using the `wait` keyword.
 
@@ -337,7 +339,7 @@ def show(self, queue: Queue):
     queue.push(SendWelcomeEmail, wait="10 minutes")
 ```
 
-### Starting The Worker
+#### Starting The Worker
 
 We can now start the worker using the `queue:work` command. It might be a good idea to run this command in a new terminal window since it will stay running until we close it.
 
@@ -359,7 +361,7 @@ You may also specify the `channel` as well. `channel` may mean different things 
 $ craft queue:work --driver database --channel sqlite
 ```
 
-## Sending Jobs
+### Sending Jobs
 
 That's it! send jobs like you normally would and it will process via RabbitMQ:
 
@@ -378,13 +380,13 @@ you can also specify the channel to push to by running:
 queue.push(SomeJob, AnotherJob(1,2), channel="high")
 ```
 
-## Failed Jobs
+### Failed Jobs
 
 Sometimes your jobs will fail. This could be for many reasons such as an exception but Masonite will try to run the job 3 times in a row, waiting 1 second between jobs before finally calling the job failed.
 
 If the object being passed into the queue is not a job \(or a class that implements `Queueable`\) then the job will not requeue. It will only ever attempt to run once.
 
-### Handling Failed Jobs
+#### Handling Failed Jobs
 
 Each job can have a `failed` method which will be called when the job fails. You can do things like fix a parameter and requeue something, call other queues, send an email to your development team etc.
 
@@ -423,7 +425,7 @@ payload == {
 
 and the error may be something like `division by zero`.
 
-### Storing Failed Jobs
+#### Storing Failed Jobs
 
 By default, when a job is failed it disappears and cannot be ran again since Masonite does not store this information.
 
@@ -443,7 +445,7 @@ $ craft migrate
 
 Now whenever a failed job occurs it will store the information inside this new table.
 
-### Running Failed Jobs
+#### Running Failed Jobs
 
 You can run all the failed jobs by running
 
@@ -453,7 +455,7 @@ $ craft queue:work --failed
 
 This will get all the jobs from the database and send them back into the queue. If they fail again then they will be added back into this database table.
 
-### Specifying Failed Jobs
+#### Specifying Failed Jobs
 
 You can modify the settings above by specifying it directly on the job. For example you may want to specify that the job reruns 5 times instead of 3 times when it fails or that it should not rerun at all.
 
