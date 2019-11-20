@@ -672,7 +672,7 @@ For example, if you need to confirm a `password` you would set the password conf
 """
 {
   'password': 'secret',
-  'password_confirmed': 'secret'
+  'password_confirmation': 'secret'
 }
 """
 validate.confirmed('password')
