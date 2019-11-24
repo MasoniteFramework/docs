@@ -22,8 +22,7 @@ Masonite 2 brings a more explicit way of declaring Service Providers in your app
 
 Now all Service Providers should be imported at top of the file and added to the list:
 
-{% code-tabs %}
-{% code-tabs-item title="config/providers.py" %}
+{% code title="config/providers.py" %}
 ```python
 from masonite.providers import (
     AppProvider,
@@ -41,8 +40,7 @@ PROVIDERS = [
     ....
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="info" %}
 String providers will still work but it is not recommended and will not be supported in current and future releases of Masonite.
@@ -72,8 +70,7 @@ container.bind('WSGIProviders', providers)
 
 Then change the code logic of bootstrapping service providers from:
 
-{% code-tabs %}
-{% code-tabs-item title="wsgi.py" %}
+{% code title="wsgi.py" %}
 ```python
 for provider in container.make('Application').PROVIDERS:
     locate(provider)().load_app(container).register()
@@ -83,13 +80,11 @@ for provider in container.make('Application').PROVIDERS:
     if located_provider.wsgi is False:
         container.resolve(locate(provider)().load_app(container).boot)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 to:
 
-{% code-tabs %}
-{% code-tabs-item title="wsgi.py" %}
+{% code title="wsgi.py" %}
 ```python
  for provider in container.make('ProvidersConfig').PROVIDERS: 
     located_provider = provider()
@@ -100,19 +95,16 @@ to:
         container.resolve(located_provider.boot)
         container.make('Providers').append(located_provider)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 and change the logic in `bootstrap/start.py` to:
 
-{% code-tabs %}
-{% code-tabs-item title="bootstrap/start.py" %}
+{% code title="bootstrap/start.py" %}
 ```python
 for provider in container.make('WSGIProviders'): 
     container.resolve(located_provider.boot)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Notice here we split the providers list when the server first boots up into two lists which significantly lowers the overhead of each request. 
 
@@ -180,8 +172,7 @@ Masonite 2 comes with a new autoloader. This can load all classes in any directo
 
 Simply add a new `AUTOLOAD` constant in your `config/application.py` file. This is the entire section of the autoload configuration.
 
-{% code-tabs %}
-{% code-tabs-item title="config/application.py" %}
+{% code title="config/application.py" %}
 ```python
 '''
 |--------------------------------------------------------------------------
@@ -198,13 +189,11 @@ AUTOLOAD = [
     'app',
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 By default this points to the app directory where models are stored by default but if you moved your models to other directories like app/models or app/admin/models then add those directories to your list:
 
-{% code-tabs %}
-{% code-tabs-item title="config/application.py" %}
+{% code title="config/application.py" %}
 ```python
 ....
 
@@ -214,8 +203,7 @@ AUTOLOAD = [
     'app/admin/models'
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="warning" %}
 Be caution that this will autoload all models into the [Service Container](../architectural-concepts/service-container.md) with the class name as the key and the class as the binding.
@@ -229,8 +217,7 @@ Because of a minor rewrite of the Request class, we now do not need the Redirect
 
 There is a new status code provider which adds support for adding custom status codes and rendering better default status code pages such as 400 and 500 error pages. This should be added right above the StartResponseProvider:
 
-{% code-tabs %}
-{% code-tabs-item title="config/application.py" %}
+{% code title="config/application.py" %}
 ```python
 PROVIDERS = [
     # Framework Providers
@@ -246,22 +233,19 @@ PROVIDERS = [
     ...
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## .env File
 
 The .env got a small upgrade and in order to make the `APP_DEBUG` variable consistent, it should be set to either `True` or `False`. Previously this was set to something like `true` or `false`.
 
-{% code-tabs %}
-{% code-tabs-item title=".env" %}
+{% code title=".env" %}
 ```text
 APP_DEBUG=True
 # or
 APP_DEBUG=False
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Masonite 2 also removed the `APP_LOG_LEVEL` environment variable completely.
 

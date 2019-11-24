@@ -8,8 +8,7 @@ Views contain all the HTML that you’re application will use to render to the u
 
 All views are rendered with Jinja2 so we can use all the Jinja2 code you are used to. An example view looks like:
 
-{% code-tabs %}
-{% code-tabs-item title="resources/templates/helloworld.html" %}
+{% code title="resources/templates/helloworld.html" %}
 ```markup
 <html>
   <body>
@@ -17,20 +16,17 @@ All views are rendered with Jinja2 so we can use all the Jinja2 code you are use
   </body>
 </html>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Creating Views
 
 Since all views are located in `resources/templates`, we can use simply create all of our views manually here or use our `craft` command tool. To make a view just run:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ craft view hello
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will create a template under `resources/templates/hello.html`.
 
@@ -38,16 +34,14 @@ This will create a template under `resources/templates/hello.html`.
 
 The `View` class is loaded into the container so we can retrieve it in our controller methods like so:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 from masonite.view import View
 
 def show(self, view: View):
     return view.render('dashboard')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This is exactly the same as using the helper function above. So if you choose to code more explicitly, the option is there for you.
 
@@ -61,24 +55,20 @@ Some views may not reside in the `resources/templates` directory and may even re
 
 For example as a use case we might pip install a package:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ pip install package-dashboard
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 and then be directed or required to return one of their views:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, view: View):
     return view.render('/package/views/dashboard')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will look inside the `dashboard.views` package for a `dashboard.html` file and return that. You can obviously pass in data as usual.
 
@@ -101,14 +91,12 @@ ensuring there is a `__init__.py` file. This is a Jinja2 limitation that says th
 
 Accessing a global view such as:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, view: View):
     return view.render('/package/dashboard')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 will perform an absolute import for your Masonite project. For example it will locate:
 
@@ -127,14 +115,12 @@ Or find the package in a completely separate third part module. So if you are ma
 
 Most of the time we’ll need to pass in data to our views. This data is passed in with a dictionary that contains a key which is the variable with the corresponding value. We can pass data to the function like so:
 
-{% code-tabs %}
-{% code-tabs-item title="app/http/controllers/YourController.py" %}
+{% code title="app/http/controllers/YourController.py" %}
 ```python
 def show(self, view: View, request: Request):
     return view.render('dashboard', {'id': request.param('id')})
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="info" %}
 Remember that by passing in parameters like `Request` to the controller method, we can retrieve objects from the IOC container. Read more about the IOC container in the [Service Container](../architectural-concepts/service-container.md) documentation.
@@ -142,8 +128,7 @@ Remember that by passing in parameters like `Request` to the controller method, 
 
 This will send a variable named `id` to the view which can then be rendered like:
 
-{% code-tabs %}
-{% code-tabs-item title="resources/templates/dashboard.html" %}
+{% code title="resources/templates/dashboard.html" %}
 ```markup
 <html>
   <body>
@@ -151,8 +136,7 @@ This will send a variable named `id` to the view which can then be rendered like
   </body>
 </html>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### View Syntax
 
@@ -263,8 +247,7 @@ You can get the location of static assets:
 
 If you have a configuration file like this:
 
-{% code-tabs %}
-{% code-tabs-item title="config/storage.py" %}
+{% code title="config/storage.py" %}
 ```python
 ....
 's3': {
@@ -274,8 +257,7 @@ If you have a configuration file like this:
   },
 ....
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ```markup
 ...
@@ -400,7 +382,7 @@ def show(self, request: Request):
 
 The `request.back()` method will also flash the current inputs to the session so you can get them when you land back on your template. You can get these values by using the `old()` method:
 
-```html
+```markup
 <form>
   <input type="text" name="email" value="{{ old('email') }}">
   ...
@@ -515,7 +497,7 @@ Get the URL to a location:
 
 ## Jinja2
 
-Below are some examples of the Jinja2 syntax which Masonite uses to build views. 
+Below are some examples of the Jinja2 syntax which Masonite uses to build views.
 
 ### Line Statements
 
@@ -536,7 +518,6 @@ This can be rewritten like this with line statement syntax:
     <p>do something</p>
 @endif
 ```
-
 
 It's important to note though that these are line statements. Meaning nothing else can be on the line when doing these. For example you CANNOT do this:
 
@@ -574,6 +555,7 @@ You can show variable text by using `{{ }}` characters:
 If statements are similar to python but require an endif!
 
 Line Statements:
+
 ```markup
 @if expression
     <p>do something</p>
@@ -585,7 +567,6 @@ Line Statements:
 ```
 
 Using alternative Jinja2 syntax:
-
 
 ```markup
 {% if expression %}
@@ -601,8 +582,6 @@ Using alternative Jinja2 syntax:
 
 For loop look similar to the regular python syntax.
 
-
-
 Line Statements:
 
 ```markup
@@ -613,15 +592,11 @@ Line Statements:
 
 Using alternative Jinja2 syntax:
 
-
 ```markup
 {% for item in items %}
     <p>{{ item }}</p>
 {% endfor %}
 ```
-
-
-
 
 ### Include statement
 
@@ -639,7 +614,6 @@ Line Statements:
 
 Using alternative Jinja2 syntax:
 
-
 ```markup
 {% include 'components/errors.html' %}
 
@@ -647,8 +621,6 @@ Using alternative Jinja2 syntax:
 
 </form>
 ```
-
-
 
 Any place you have repeating code you can break out and put it into an include template. These templates will have access to all variables in the current template.
 
@@ -668,7 +640,6 @@ Line Statements:
 
 Using alternative Jinja2 syntax:
 
-
 ```markup
 {% extends 'components/base.html' %}
 
@@ -677,12 +648,9 @@ Using alternative Jinja2 syntax:
 {% endblock %}
 ```
 
-
 ### Blocks
 
-Blocks are sections of code that can be used as placeholders for a parent template. These are only useful when used with the `extends` above. The "base.html" template is the parent template and contains blocks, which are defined in the child template "blocks.html". 
-
-
+Blocks are sections of code that can be used as placeholders for a parent template. These are only useful when used with the `extends` above. The "base.html" template is the parent template and contains blocks, which are defined in the child template "blocks.html".
 
 Line Statements:
 
@@ -770,7 +738,7 @@ Using alternative Jinja2 syntax:
 {% endblock %}
 ```
 
-As you see blocks are fundamental and can be defined with Jinja2 and line statements. It allows you to structure your templates and have less repeating code. 
-
+As you see blocks are fundamental and can be defined with Jinja2 and line statements. It allows you to structure your templates and have less repeating code.
 
 The blocks defined in the child template will be passed to the parent template.
+

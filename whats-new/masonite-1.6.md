@@ -103,8 +103,7 @@ This will get a template that is located in the masonite package itself.
 
 You can now group routes based on a specific string prefix. This will now look like:
 
-{% code-tabs %}
-{% code-tabs-item title="routes/web.py" %}
+{% code title="routes/web.py" %}
 ```python
 from masonite.helpers.routes import get, group
 ROUTES = [
@@ -115,8 +114,7 @@ ROUTES = [
     ])
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 which will compile down into `/dashboard/user` and `/dashboard/user/1`
 

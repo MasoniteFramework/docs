@@ -42,13 +42,13 @@ You can get also get the token that is generated. This is useful for JS frontend
 
 For ajax calls, the best way to pass CSRF tokens is by setting the token inside a parent template inside a `meta` tag like this:
 
-```html
+```markup
 <meta name="csrf-token" content="{{ csrf_token }}">
 ```
 
 And then you can fetch the token and put it wherever you need:
 
-```js
+```javascript
 token = document.head.querySelector('meta[name="csrf-token"]')
 ```
 
