@@ -17,7 +17,7 @@ request().cookie('key', 'value', http_only=False)
 Because craft is it's own tool essentially and it needs to work across Masonite versions, all commands have been moved into the Masonite repository itself. Now each version of Masonite maintains it's own commands. The new craft version is 2.0
 
 ```text
-pip install masonite-cli==2.0
+pip install masonite-cli==2.0 --user
 ```
 
 ## Drivers Can Now Change To Other Drivers

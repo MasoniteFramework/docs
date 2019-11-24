@@ -88,12 +88,12 @@ We can download our `craft` command line tool by just running:
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ pip install masonite-cli
+$ pip install masonite-cli --user
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-If you already have craft installed, Masonite 2.2 requires `masonite-cli>=2.2.0` so you may have to run with the upgrade flag to.
+If you already have craft installed, Masonite 2.2 requires `masonite-cli>=2.2.0` so you may have to run with the upgrade flag too.
 
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
@@ -119,7 +119,9 @@ $ craft
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-This should show a list of command options. If it doesn't then try closing your terminal and reopening it or running it with `sudo` if you are on a UNIX machine. We are currently only interested in the `craft new` command. To create a new project just run:
+> This should show a list of command options. If it doesn't then you may have installed the masonite cli incorrectly. Try uninstalling it and be sure to run it with a `--user` flag. 
+
+We are currently only interested in the `craft new` command. To create a new project just run:
 
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}

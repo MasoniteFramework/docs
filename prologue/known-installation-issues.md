@@ -17,7 +17,7 @@ You are likely running this command on a UNIX based machine like Mac or Linux. I
 
 
 ```text
-$ sudo pip install masonite-cli
+$ pip install masonite-cli --user
 ```
 
 or
@@ -31,7 +31,7 @@ $ pip install --user masonite-cli
 If you ran:
 
 ```text
-$ pip install masonite-cli
+$ pip install masonite-cli --user
 ```
 
 and then run:
