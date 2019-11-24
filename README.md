@@ -107,7 +107,7 @@ $ craft
 ```
 {% endcode %}
 
-> This should show a list of command options. If it doesn't then you may have installed the masonite cli incorrectly. Try uninstalling it and be sure to run it with a `--user` flag. 
+> This should show a list of command options. If it doesn't then you may have installed the masonite cli incorrectly. Try uninstalling it and be sure when you install it you install it with a `--user` flag like `pip install masonite-cli --user`. 
 
 We are currently only interested in the `craft new` command. To create a new project just run:
 
