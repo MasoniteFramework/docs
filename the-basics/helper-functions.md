@@ -14,8 +14,7 @@ You can continue to use these helper functions as much as you like but most deve
 
 It may make more sense if we take a peak at this Service Provider:
 
-{% code-tabs %}
-{% code-tabs-item title="masonite.providers.HelpersProvider" %}
+{% code title="masonite.providers.HelpersProvider" %}
 ```python
 class HelpersProvider(ServiceProvider):
 
@@ -35,8 +34,7 @@ class HelpersProvider(ServiceProvider):
 
         view.share({'request': request.helper, 'auth': request.user})
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Notice how we simply just add builtin functions via this provider.
 
@@ -211,8 +209,7 @@ This function can be used to retrieve values from any configuration file but we 
 
 With a `config/storage.py` file like this:
 
-{% code-tabs %}
-{% code-tabs-item title="config/storage.py" %}
+{% code title="config/storage.py" %}
 ```python
 DRIVERS = {
     's3': {
@@ -225,8 +222,7 @@ DRIVERS = {
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 We can get the value of the west key in the location inner dictionary like so:
 

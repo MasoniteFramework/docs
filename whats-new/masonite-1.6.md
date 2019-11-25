@@ -17,7 +17,7 @@ request().cookie('key', 'value', http_only=False)
 Because craft is it's own tool essentially and it needs to work across Masonite versions, all commands have been moved into the Masonite repository itself. Now each version of Masonite maintains it's own commands. The new craft version is 2.0
 
 ```text
-pip install masonite-cli==2.0
+pip install masonite-cli==2.0 --user
 ```
 
 ## Drivers Can Now Change To Other Drivers
@@ -103,8 +103,7 @@ This will get a template that is located in the masonite package itself.
 
 You can now group routes based on a specific string prefix. This will now look like:
 
-{% code-tabs %}
-{% code-tabs-item title="routes/web.py" %}
+{% code title="routes/web.py" %}
 ```python
 from masonite.helpers.routes import get, group
 ROUTES = [
@@ -115,8 +114,7 @@ ROUTES = [
     ])
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 which will compile down into `/dashboard/user` and `/dashboard/user/1`
 

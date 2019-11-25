@@ -16,7 +16,7 @@ This `MasoniteFramework/masonite` repository is the main repository that will in
 
 The `MasoniteFramework/core` repository is where the main `masonite` pip package lives. This is where the `from masonite ...` module lives.
 
-The `MasoniteFramework/craft` repository where the `craft` command lives. This is the actual command itself and is installed when you run `pip install masonite-cli`.
+The `MasoniteFramework/craft` repository where the `craft` command lives. This is the actual command itself and is installed when you run `pip install masonite-cli --user`.
 
 ## Getting the Masonite repository up and running to be edited
 

@@ -15,18 +15,15 @@ Or anything in between. There are lots of use cases for simple tasks to be ran d
 
 First we will need to install the scheduler feature. We can simply pip install it:
 
-{% code-tabs %}
-{% code-tabs-item title="terminal" %}
+{% code title="terminal" %}
 ```text
 $ pip install masonite-scheduler
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 and then add the [Service Provider](../architectural-concepts/service-providers.md) to our `PROVIDERS` list in config/providers.py:
 
-{% code-tabs %}
-{% code-tabs-item title="config/providers.py" %}
+{% code title="config/providers.py" %}
 ```python
 ...
 from scheduler.providers import ScheduleProvider
@@ -38,8 +35,7 @@ PROVIDERS = [
     ScheduleProvider, # Here
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This provider will add several new features to Masonite. The first is that it will add two new commands.
 

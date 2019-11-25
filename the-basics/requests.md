@@ -464,7 +464,7 @@ def show(self, request: Request):
 
 This will also flash the current inputs to the session. You can then get the inputs using the `{{ old('key') }}` template helper:
 
-```html
+```markup
 <form>
   <input type="text" name="email" value="{{ old ('email') }}">
   ...
@@ -501,7 +501,7 @@ def show(self, request: Request):
 
 You can then get the inputs using the `{{ old('key') }}` template helper:
 
-```html
+```markup
 <form>
   <input type="text" name="email" value="{{ old ('email') }}">
   ...

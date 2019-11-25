@@ -38,6 +38,22 @@ You can get also get the token that is generated. This is useful for JS frontend
 <p> Token: {{ csrf_token }} </p>
 ```
 
+## AJAX / Vue / Axios
+
+For ajax calls, the best way to pass CSRF tokens is by setting the token inside a parent template inside a `meta` tag like this:
+
+```markup
+<meta name="csrf-token" content="{{ csrf_token }}">
+```
+
+And then you can fetch the token and put it wherever you need:
+
+```javascript
+token = document.head.querySelector('meta[name="csrf-token"]')
+```
+
+You can then pass the token via the `X-CSRF-TOKEN` header instead of the `__token` input for ease of use.
+
 ## Exempting Routes
 
 Not all routes may require CSRF protection such as OAuth authentication or various webhooks. In order to exempt routes from protection we can add it to the `exempt` class attribute in the middleware located at `app/http/middleware/CsrfMiddleware.py`:

@@ -35,15 +35,13 @@ This will add these default headers for your server:
 
 If you want to change or add any headers, you just need to specify them in your config/middleware.py file and this middleware will automatically pick them up. For example you can change the `X-Frame-Options` header like this:
 
-{% code-tabs %}
-{% code-tabs-item title="config/middleware.py" %}
+{% code title="config/middleware.py" %}
 ```python
 SECURE_HEADERS = {
    'X-Frame-Options' : 'deny'
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This will then change your headers to:
 

@@ -12,15 +12,13 @@ The directories to include as keys is simply the location of your static file lo
 
 For this setup, our `STATICFILES` constant should look like:
 
-{% code-tabs %}
-{% code-tabs-item title="config/storage.py" %}
+{% code title="config/storage.py" %}
 ```python
 STATICFILES = {
     'storage/assets/css': 'assets/',
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Now in our templates we can use:
 
@@ -36,8 +34,7 @@ All templates have a static function that can be used to assist in getting locat
 
 Take this for example:
 
-{% code-tabs %}
-{% code-tabs-item title="config/storage.py" %}
+{% code title="config/storage.py" %}
 ```python
 ....
 's3': {
@@ -47,8 +44,7 @@ Take this for example:
   },
 ....
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ```markup
 ...
@@ -64,8 +60,7 @@ this will render:
 
 You can also make the config location a dictionary and use dot notation:
 
-{% code-tabs %}
-{% code-tabs-item title="config/storage.py" %}
+{% code title="config/storage.py" %}
 ```python
 ....
 's3': {
@@ -77,8 +72,7 @@ You can also make the config location a dictionary and use dot notation:
   },
 ....
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 and use the dot notation like so:
 
@@ -108,8 +102,7 @@ storage/
 
 and you can alias this in your `STATICFILES` constant:
 
-{% code-tabs %}
-{% code-tabs-item title="config/storage.py" %}
+{% code title="config/storage.py" %}
 ```python
 STATICFILES = {
     # folder          # template alias
@@ -118,8 +111,7 @@ STATICFILES = {
     'storage/root': '/'
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You will now be able to access `localhost:8000/robots.txt` and you will have your robots.txt served correctly and it can be indexed by search engines properly.
 

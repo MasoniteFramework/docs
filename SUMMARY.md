@@ -108,7 +108,7 @@
 
 * [Masonite API](official-packages/masonite-api.md)
 * [Masonite Billing](official-packages/masonite-billing.md)
-* [Masonite Logging](official-packages/masonite-logging.md) 
+* [Masonite Logging](official-packages/masonite-logging.md)
 * [Masonite Notifications](official-packages/masonite-notifications.md)
 
 ## Masonite Essentials
