@@ -568,7 +568,7 @@ All other rules within an explicit exception error will throw the `ValueError`.
 | [active\_domain](validation.md#active_domain) | [isnt](validation.md#isnt) | [when](validation.md#when) |  |
 | [after\_today](validation.md#after_today) | [is\_past](validation.md#is_past) | [timezone](validation.md#timezone) |  |
 | [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) | [phone](validation.md#phone) | Phone |
-| [contains](validation.md#contains) | [json](validation.md#json) |  |  |
+| [contains](validation.md#contains) | [json](validation.md#json) | [strong](validatoin.md#strong)  |  |
 | [email](validation.md#email) | [less\_than](validation.md#less_than) |  |  |
 | [equals](validation.md#equals) | [length](validation.md#length) |  |  |
 | [exists](validation.md#exists) | [none](validation.md#none) |  |  |
@@ -1009,6 +1009,22 @@ Used to make sure the value is a string
 }
 """
 validate.string('email')
+```
+
+### Strong
+
+The strong rule is used to make sure a string has a certain amount of characters required to be considered a "strong" string. 
+
+This is really useful for passwords when you want to make sure a password has at least 8 characters, have at least 2 uppercase letters and at least 2 special characters.
+
+```python
+"""
+{
+  'email': 'user@email.com'
+  'password': 'SeCreT!!'
+}
+"""
+validate.strong('password', length=8, special=2, uppercase=3)
 ```
 
 ### Timezone
