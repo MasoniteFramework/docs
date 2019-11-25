@@ -560,6 +560,31 @@ except CustomException as e:
 
 All other rules within an explicit exception error will throw the `ValueError`.
 
+## String Validation
+
+In addition to using the methods provided below, you can also use each one as a pipe delimitted string. For example these two validations are identical:
+
+```python
+# Normal
+errors = request.validate(
+  validate.required(['email', 'username', 'password', 'bio']),
+  validate.accepted('terms'),
+  validate.length('bio', min=5, max=50),
+  validate.strong('password')
+)
+
+# With Strings
+errors = request.validate({
+  'email': 'required',
+  'username': 'required',
+  'password': 'required|strong',
+  'bio': 'required|length:5,50'
+  'terms': 'accepted'
+})
+```
+
+These rules are identical so use whichever feels more comfortable.
+
 ## Available Rules
 
 |  |  |  |  |
