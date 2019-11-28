@@ -186,7 +186,7 @@ A listener is a simple class that requires a list of exceptions to listen for. H
 
 ```python
 from masonite.request import Request
-from masonite.exceptions import BaseExceptionListener
+from masonite.listeners import BaseExceptionListener
 
 class ExceptionListener(BaseExceptionListener):
 
