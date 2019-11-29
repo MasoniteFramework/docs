@@ -1,5 +1,7 @@
 # Masonite 2.3
 
+**NOTE: Masonite is currently in Beta 2 Phase. There will be 1 more Beta (Beta 3) until Masonite 2.3 is finally released. The current release is 2.3.0b2. You can install this with `pip install masonite==2.3.0b2`. Note that the docs are not currently updated.**
+
 Masonite 2.3 brings a lot of code and quality of life improvements. There aren't a lot of major ground breaking changes and depending on how your application is structured, may not require much effort to upgrade.
 
 Below is a list of changes that will be in Masonite 2.3:
