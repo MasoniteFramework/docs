@@ -20,6 +20,7 @@
 * [Masonite 2.0](whats-new/masonite-2.0.md)
 * [Masonite 2.1](whats-new/masonite-2.1.md)
 * [Masonite 2.2](whats-new/masonite-2.2.md)
+* [Masonite 2.3](whats-new/masonite-2.3.md)
 
 ## Upgrade Guide
 
