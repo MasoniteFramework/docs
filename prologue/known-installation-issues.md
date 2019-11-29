@@ -13,8 +13,7 @@ Ensure you are installing masonite-cli with `pip3` and not `pip`.
 
 ## I ran pip install masonite-cli but it gave me a permission error?
 
-You are likely running this command on a UNIX based machine like Mac or Linux. In that case you should either run it again with a sudo command or a user command flag:  
-
+You are likely running this command on a UNIX based machine like Mac or Linux. In that case you should either run it again with a sudo command or a user command flag:
 
 ```text
 $ pip install masonite-cli --user
@@ -80,7 +79,7 @@ If that doesn't work we can just go back to the lower idna version:
 pip install idna==2.6
 ```
 
-If that does not fix the issue then continue reading. 
+If that does not fix the issue then continue reading.
 
 If the above fix did not work then this likely means you installed masonite-cli using the Python 2.7 pip command. Out of the box, all Mac and Linux based machines have Python 2.7. If you run:
 
@@ -168,6 +167,4 @@ $ craft new project_name
 ```
 
 and it should work great!
-
-
 

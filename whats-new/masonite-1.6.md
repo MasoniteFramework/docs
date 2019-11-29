@@ -47,7 +47,7 @@ ROUTES = [
     ...
     # Old Syntax:
     Get().route('/url/here', 'Controller@show').module('billing.controllers')
-    
+
     # New Syntax:
     Get().route('/url/here', '/billing.controllers.Controller@show')
     ...
@@ -144,7 +144,7 @@ This will now work when previously it did not.
 
 ## Resolving Instances
 
-The container will now resolve instances of classes as well. It's a common paradigm to "code to an interface and not an implementation." Because of this paradigm, Masonite comes with contracts that act as interfaces but in addition to this, we can also resolve instances of classes. 
+The container will now resolve instances of classes as well. It's a common paradigm to "code to an interface and not an implementation." Because of this paradigm, Masonite comes with contracts that act as interfaces but in addition to this, we can also resolve instances of classes.
 
 For example, all Upload drivers inherit the UploadContract contract so we can simply resolve the UploadContract which will return an Upload Driver:
 

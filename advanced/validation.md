@@ -589,7 +589,7 @@ These rules are identical so use whichever feels more comfortable.
 | [active\_domain](validation.md#active_domain) | [isnt](validation.md#isnt) | [when](validation.md#when) |  |
 | [after\_today](validation.md#after_today) | [is\_past](validation.md#is_past) | [timezone](validation.md#timezone) |  |
 | [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) | [phone](validation.md#phone) | Phone |
-| [contains](validation.md#contains) | [json](validation.md#json) | [strong](validatoin.md#strong)  |  |
+| [contains](validation.md#contains) | [json](validation.md#json) | [strong](https://github.com/MasoniteFramework/docs/tree/90803759e440176c8bf9521c424a2b0f164c41fe/advanced/validatoin.md#strong) |  |
 | [email](validation.md#email) | [less\_than](validation.md#less_than) |  |  |
 | [equals](validation.md#equals) | [length](validation.md#length) |  |  |
 | [exists](validation.md#exists) | [none](validation.md#none) |  |  |
@@ -1034,7 +1034,7 @@ validate.string('email')
 
 ### Strong
 
-The strong rule is used to make sure a string has a certain amount of characters required to be considered a "strong" string. 
+The strong rule is used to make sure a string has a certain amount of characters required to be considered a "strong" string.
 
 This is really useful for passwords when you want to make sure a password has at least 8 characters, have at least 2 uppercase letters and at least 2 special characters.
 
