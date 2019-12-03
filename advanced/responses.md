@@ -29,7 +29,7 @@ def show(self, view: View):
 
 Notice you can also pass in a dictionary as a second argument which will pass those variables to your Jinja templates.
 
-## JSON (Dictionaries)
+## JSON (Dictionaries / Lists)
 
 There are a few ways to return JSON responses. The easiest way is to simply return a dictionary like this:
 
@@ -39,6 +39,13 @@ def show(self):
 ```
 
 This will return a response with the appropriate JSON related headers.
+
+Similiarly you can return a list:
+
+```python
+def show(self):
+    return [1,2,3,4]
+```
 
 ## JSON (Models)
 
@@ -145,7 +152,21 @@ You can override the page size and page number by passing in the appropriate que
 
 If you are building an API this might look like `/api/users?page=2&page_size=5`. This will return 5 results on page 2 for this endpoint.
 
+## Request Class (Redirections)
 
+You can also return a few methods on the request class. These are mainly used for redirection.
+
+For redirecting to a new route you can return the `redirect()` method:
+
+```python
+from masonite.request import Request
+# ...
+
+def show(self, request: Request):
+    return request.redirect('/some/route')
+```
+
+There are several different ways for redirecting like redirecting to a named route or redirecting back to the previous route. For a full list of request redirection methods read the [Request Redirection](../the-basics/requests#redirection) docs.
 
 # Response Class
 
