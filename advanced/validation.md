@@ -583,19 +583,19 @@ These rules are identical so use whichever feels more comfortable.
 
 ## Available Rules
 
-|  |  |  |  |
-| :--- | :--- | :--- | :--- |
-| [accepted](validation.md#accepted) | [is\_in](validation.md#is_in) | [truthy](validation.md#truthy) |  |
-| [active\_domain](validation.md#active_domain) | [isnt](validation.md#isnt) | [when](validation.md#when) |  |
-| [after\_today](validation.md#after_today) | [is\_past](validation.md#is_past) | [timezone](validation.md#timezone) |  |
-| [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) | [phone](validation.md#phone) | Phone |
-| [contains](validation.md#contains) | [json](validation.md#json) | [strong](https://github.com/MasoniteFramework/docs/tree/90803759e440176c8bf9521c424a2b0f164c41fe/advanced/validatoin.md#strong) |  |
-| [email](validation.md#email) | [less\_than](validation.md#less_than) |  |  |
-| [equals](validation.md#equals) | [length](validation.md#length) |  |  |
-| [exists](validation.md#exists) | [none](validation.md#none) |  |  |
-| [greater\_than](validation.md#greater_than) | [numeric](validation.md#numeric) |  |  |
-| [in\_range](validation.md#in_range) | [required](validation.md#required) |  |  |
-| [ip](validation.md#ip) | [string](validation.md#string) |  |  |
+|  |  |  |
+| :--- | :--- | :--- |
+| [accepted](validation.md#accepted) | [is\_in](validation.md#is_in) | [truthy](validation.md#truthy) |
+| [active\_domain](validation.md#active_domain) | [isnt](validation.md#isnt) | [when](validation.md#when) |
+| [after\_today](validation.md#after_today) | [is\_past](validation.md#is_past) | [timezone](validation.md#timezone) |
+| [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) | [phone](validation.md#phone) |
+| [contains](validation.md#contains) | [json](validation.md#json) | [strong](https://github.com/MasoniteFramework/docs/tree/90803759e440176c8bf9521c424a2b0f164c41fe/advanced/validatoin.md#strong) |
+| [email](validation.md#email) | [less\_than](validation.md#less_than) |  |
+| [equals](validation.md#equals) | [length](validation.md#length) |  |
+| [exists](validation.md#exists) | [none](validation.md#none) |  |
+| [greater\_than](validation.md#greater_than) | [numeric](validation.md#numeric) |  |
+| [in\_range](validation.md#in_range) | [required](validation.md#required) |  |
+| [ip](validation.md#ip) | [string](validation.md#string) |  |
 
 ### Accepted
 
