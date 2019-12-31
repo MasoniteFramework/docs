@@ -508,7 +508,7 @@ errors.amount('email') #== 1
 
 ```python
 errors = MessageBag(errors)
-errors.amount('email')
+errors.get('email')
 """
 ['Your email is required']
 """
