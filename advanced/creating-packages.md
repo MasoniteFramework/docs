@@ -256,7 +256,7 @@ Again, not all packages will need to be installed or even need commands. Only pa
 
 You will know if a package needs to be installed by reading the packages install documentation that is written by the package authors.
 
-## Publishing
+# Publishing
 
 Masonite has the concept of publishing packages. This allows you to manage the integration with your package and Masonite in a more seamless way. Publishing allows you to add things like routes, views, migrations and commands easily into any Masonite app and it is all handled through your service provider
 
@@ -270,7 +270,7 @@ This should be the name of your provider class.
 
 and have all your assets moved into the new Masonite application.
 
-### Publishing Files
+## Publishing Files
 
 You can create or append any files you need to in a developers masonite application. This can be used for any files to include commands, routes, config files etc.
 
@@ -309,7 +309,7 @@ Notice our command path is 1 directory back inside the `commands` directory. We 
 
 The user of your package will now have a new command in their application!
 
-### Publishing Migrations
+## Publishing Migrations
 
 You can take any migrations in your package and send them to the Masonite applications migration directory. This is useful if you want to have some developers edit your custom migrations before they migrate them.
 
@@ -343,7 +343,7 @@ def boot(self):
 
 This will create a new migration in the users directory.
 
-### Publishing Tags
+## Publishing Tags
 
 You can also add tags to each of these migrations as well. For example if you have 2 sets of migrations you can do this instead:
 
@@ -371,10 +371,3 @@ $ craft publish ValidationProvider --tag migrations
 ```
 
 This will ignore the commands publishing and only publish the migrations
-
-
-#### **Creating a Config Package**
-
-Lets create a simple package that will add or append a config file from our package and into the project.
-
-First lets create a config file inside `src/package/snippets/configs/services.py`. We should now have a project structure like:
