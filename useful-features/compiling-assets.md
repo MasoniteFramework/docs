@@ -1,50 +1,48 @@
 # Compiling Assets
 
-## Introduction
+# Introduction
 
-Understanding that modern frameworks need to handle modern web applications. Many developers are starting to use third party packages, like Sass, to write CSS. Normally, many people who write Sass in other frameworks will need to run other third party services like Webpack or grunt. Masonite tries to make this as simple as possible and comes with Sass built in. So you just need to write Sass and it will compile into CSS when you run the server.
+Previously Masonite used to use the libsass package for handling SASS and LESS but Masonite has now moved over to using NPM for provide better support out of the box. More specifically, Masonite uses Laravel Mix which provides a really simple way to handle asset compiling even greater than simple SASS and LESS. You don't need to be an expert in either Laravel Mix or NPM to compile assets, though.
 
-## Getting Started
+# Getting Started
 
-Now although Masonite comes with the ability to compile Sass, it is deliberately missing the `libsass` dependency. This dependency takes several minutes to install and therefore was left out of the requirements to speed up the process of creating a new project.
+To get started we can simply run NPM install:
 
-Masonite can compile all of your Sass into CSS files when you run the server. The code needed to compile Sass is already inside the framework although it does not execute without `libsass` .
-
-In order to activate this feature we can run:
-
-```text
-pip install libsass
+```
+$ npm install
 ```
 
-Awesome! We're good to go. All Sass put inside `resources/static` will compile into `resources/compiled` .
+This will install everything you need to start compiling assets.
 
-## Configuration
+# Configuration
 
-Masonite comes with a configuration file that will allow you to tweak the locations of files that Sass will be looked for, as well as where it will compile into. This setting page can be found in `config/storage.py` . The configuration constant looks something like:
+The configuration settings will be made inside your `webpack.mix.js` file located in the root of your project.
 
-```python
-SASSFILES = {
-    'importFrom': [
-        'storage/static'
-    ],
-    'includePaths': [
-        'storage/static/sass'
-    ],
-    'compileTo': 'storage/compiled'
-}
+You can see there is already an example config setup for you that looks like this:
+
+```js
+mix.js('storage/static/js/app.js', 'storage/compiled/js')
+    .sass('storage/static/sass/style.scss', 'storage/compiled/css');
 ```
 
-#### ImportFrom Setting
+This will move these 2 files, `storage/static/js/app.js` and `storage/statis/sass/style.scss` and compile them both into the `storage/compiled` directory. 
 
-This setting will look for base `.sass` and `.scss` files. Base Sass files are files without a preceding underscore. So `style.scss` is a base Sass file but `_dashboard.scss` is not. Once all the base Sass files are found, it will compile them into CSS and put them in the location specifed in the `compileTo` setting.
+**Feel free to change which directories the files get compiled to. For more information on additional configuration values take a look at the [Laravel Mix Documentation](https://laravel.com/docs/6.x/mix)**
 
-#### IncludePaths Setting
+# Compiling
 
-This setting is where Masonite will look for files anytime you want to include using the `@include` keyword in your sass files. Without the correct location here, Masonite will not find any files you include in your Sass files. This setting can be a list of directory locations.
+Now that we have our compiled assets configured we can now actually compile them.
 
-#### CompileTo Setting
+You can do so by running:
 
-This setting specifies a single directory you want all of your Sass compiled down into.
+```
+$ npm run dev
+```
 
-This is all setup by default for you and works as soon as you install the `libsass` dependency.
+This will compile the assets and put them in the directories you put in the configuration file.
+ 
+You can also have NPM wait for changes and recompile when changes are detected. This is similiar to an auto reloading server. To do this just run:
 
+```
+$ npm run watch
+```
