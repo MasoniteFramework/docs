@@ -325,3 +325,23 @@ def show(self):
 
 You have access to all the methods on a normal collection object.
 
+### Query String
+
+Masonite uses this helper internally but if you find a need to parse query strings in the same way Masonite does then you can use this helper like this:
+
+```python
+from masonite.helpers import query_string
+qs = "param=value&filters[name]=Joe&filters[age]=25"
+
+query_string(qs)
+"""
+{
+    "param": "value",
+    "filters": {
+        "name": "Joe",
+        "age": "25"
+    }
+}
+"""
+```
+
