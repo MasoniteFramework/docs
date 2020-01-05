@@ -156,6 +156,18 @@ class ThrottleMiddleware:
         # throttle requests
 ```
 
+## Request Parameters
+
+Similiar to the way we can pass values to a middleware using the `:` splice we can also use the `@` in the value to pass the value of the parameter.
+
+For example, we may create a route and a middleware like this
+
+```python
+Get('/dashboard/@user_id/settings', 'FeedController').middleware('permission:@user_id')
+```
+
+If we go to a route like `/dashboard/152/settings` then the value of 152 will be passed to the middleware before and after methods.
+
 ## Creating Middleware
 
 Again, middleware should live inside the `app/http/middleware` folder and should look something like:
