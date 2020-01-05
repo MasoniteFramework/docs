@@ -79,5 +79,5 @@ def show(self):
     return HelloWorld()
 ```
 
-Masonite will check if the response is an instance of `Responsable` and run the `get_response` method. This is actually how Masonites view class works so you can see how powerful this can be.
+Masonite will check if the response is an instance of `Responsable` and run the `get_response` method. This will show "Hello world" to the browser. This is actually how Masonites view class and mail classes work so you can see how powerful this can be.
 
