@@ -261,3 +261,46 @@ You are also able to pass data into our mail templates. This data is passed in a
 mail.to('idmann509@gmail.com').template('mail/welcome', {'name': 'Masonite User'}).send()
 ```
 
+## Mailable Classes
+
+Mailable classes are really helpful classes you can use to abstract some of the logic of sending emails out.
+
+You can make a mailable class by creating a class in your `app/mailables` directory. You can do so by running a craft command:
+
+```python
+$ craft mailable WelcomeEmail
+```
+
+Now you can build a mailable class which you can use to later send. Let's build a welcome email:
+
+```python
+from masonite.drivers import Mailable
+
+
+class WelcomeEmail(Mailable):
+
+    def __init__(self, to):
+        self.to = to
+
+    def build(self):
+        return (
+            self.subject('Welcome To My Application')
+            .reply_to('service@example.com')
+            .send_from('admin@example.com')
+            .view('emails/welcome')
+            .to(self.to)
+        )
+```
+
+Once built you can then use it in anyway you need to:
+
+```python
+from masonite import Mail
+from app.mailables import WelcomeEmail
+
+def show(self, mail: Mail):
+    mail.mailable(WelcomeEmail('user@example.com')).send()
+```
+
+
+
