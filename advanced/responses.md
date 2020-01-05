@@ -93,3 +93,34 @@ def show(self, mail: Mail):
 ```
 
 This will now show what the email will look like.
+
+# Download Images and Files
+
+Sometimes you will want to return an image or a file like a PDF file. You can do with Masonite pretty easily by using the `Download` class. Simply pass it path to a file and Masonite will take care of the rest like setting the correct headers and getting the file content
+
+```python
+from masonite.response import Download
+
+def show(self):
+    return Download('path/to/file.png')
+```
+
+This will display the image or file in the browser. You can also force a download in 1 of 2 ways:
+
+```python
+from masonite.response import Download
+
+def show(self):
+    return Download('path/to/file.png').force()
+    return Download('path/to/file.png', force=True)
+```
+
+Lastly you can change the name of the image when it downloads:
+
+```python
+from masonite.response import Download
+
+def show(self):
+    return Download('path/to/file.png').force()
+    return Download('path/to/file.png', name="new-file-name.jpg", force=True)
+```
