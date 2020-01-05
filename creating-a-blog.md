@@ -690,7 +690,7 @@ from app.Post import Post
 
 ...
 
-def show(self):
+def show(self, view: View):
     posts = Post.all()
 
     return view.render('posts', {'posts': posts})
