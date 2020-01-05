@@ -110,7 +110,7 @@ This will find a model with the supplied username, check if the password matches
 Again all authenticating models need to have a `password` column. The column being used to authenticate, such as a username or email field can be specified in the model using the `__auth__` class attribute.
 {% endhint %}
 
-### Changing The Authentication Model
+### Changing The Authentication Column
 
 You may change the column to be authenticated by simply changing the column value of the `__auth__` class attribute. This will look something like:
 
