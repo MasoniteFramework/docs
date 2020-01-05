@@ -77,7 +77,7 @@ All methods that begin with `assert` can be chained together to run through many
 | assertNotFound\(\) | assertNotHasAmount\(amount\) | assertPathIs\(value\) |
 | assertHasJson\(key, value\) | assertParameterIs\(parameter, value\) | isNamed\(name\) |
 | assertJsonContains\(key, value\) | assertIsStatus\(code\) | hasMiddleware\(\*middleware\) |
-| assertCount\(number\) | assertHasHeader\(name\) | hasController\(name\) |
+| assertCount\(number\) | assertHasHeader\(name\) | assertNotHasHeader\(name\) | hasController\(name\) |
 | contains\(value\) | ok\(\) | canView\(\) |
 | hasJson\(key, value\) | count\(number\) | amount\(number\) |
 | isGet\(\) | isPost\(\) | isPut\(\) |
