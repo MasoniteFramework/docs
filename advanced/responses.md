@@ -81,3 +81,15 @@ def show(self):
 
 Masonite will check if the response is an instance of `Responsable` and run the `get_response` method. This will show "Hello world" to the browser. This is actually how Masonites view class and mail classes work so you can see how powerful this can be.
 
+# Mailables
+
+You can also return mailables. This is great if you want to debug what your emails will look like before you send them. You can do so by simply returning the mailable method of the mail class:
+
+```python
+from app.mailables import WelcomeEmail
+
+def show(self, mail: Mail):
+    return mail.mailable(WelcomeEmail())
+```
+
+This will now show what the email will look like.
