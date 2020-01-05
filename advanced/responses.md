@@ -1,5 +1,3 @@
-# Responses
-
 # Controller Methods
 
 Most of the responses you will work with simply involve returning various data types / classes / objects in the controller method. For example, you may be used to returning a `view.render()` object in the controller method. This will return a `View` instance which Masonite will extract out the rendered html template from it.
