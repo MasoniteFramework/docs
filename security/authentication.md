@@ -4,20 +4,60 @@
 
 ## Introduction
 
-Masonite comes with some authentication out of the box but leaves it up to the developer to implement. Everything is already configured for you by default. The default authentication model is the `app/User` model but you can change this in the `config/auth.py` configuration file.
+Masonite comes with some authentication out of the box. Nothing is too opinionated to be restrictive so Masonite leaves it really customizable but gives you a great starting point.
+
+The concept of authentication is a "Guard" concept. Guards are simply authentication logic for different scenarios. For example if you are building an API you might have an `api` guard but if you are building for a normal web app you might use a `web` guard. You can put different routes behind different guards to give you an ultimate level of control.
 
 ## Configuration
 
-There is a single `config/auth.py` configuration file which you can use to set the authentication behavior of your Masonite project. If you wish to change the authentication model, to a `Company` model for example, feel free to do in this configuration file.
+There is a single `config/auth.py` configuration file which you can use to set the authentication behavior of your Masonite project. 
+The default configuration looks something like:
+
+```python
+AUTH = {
+    'defaults': {
+        'guard': env('AUTH_GUARD', 'web')
+    },
+    'guards': {
+        'web': {
+            'driver': 'cookie',
+            'model': User,
+            'drivers': { # 'cookie', 'jwt'
+                'jwt': {
+                    'reauthentication': True,
+                    'lifetime': '5 minutes'
+                }
+            }
+        },
+    }
+}
+```
+
+You can set the default guard to use in the `defaults` key. From there you can set various different settings based on which guard you need inside the `guards` key. Each guard takes a few different settings like the `driver` the guard will use, the `model`, and then `driver` settings here.
+
+If you wish to change the authentication model, to a `Company` model for example, feel free to do in this configuration file.
 
 This would look something like:
 
 ```python
 from app.Company import Company
-...
+
 AUTH = {
-    'driver': env('AUTH_DRIVER', 'cookie'),
-    'model': Company,
+    'defaults': {
+        'guard': env('AUTH_GUARD', 'web')
+    },
+    'guards': {
+        'web': {
+            'driver': 'cookie',
+            'model': Company,
+            'drivers': { # 'cookie', 'jwt'
+                'jwt': {
+                    'reauthentication': True,
+                    'lifetime': '5 minutes'
+                }
+            }
+        },
+    }
 }
 ```
 
@@ -29,13 +69,7 @@ This is the most basic authentication driver.
 
 ## JWT Driver
 
-The JWT driver will store an encrypted JWT token inside a cookie with all the authenticated user information. Then when the authenticated user goes to the page, the JWT token is decrypted and fills in the data on the user model without calling the database.
-
-You can set this driver in your `.env` file:
-
-```text
-AUTH_DRIVER=jwt
-```
+The JWT driver will store an encrypted JWT token inside a cookie with all the authenticated user information. Then when the authenticated user goes to the page, the JWT token is decrypted and fills in the data on the user model without having to recall the database. Use this option for high traffic sites that you don't want making that extra database call on every request.
 
 There are also 2 options you can set as well. The first option is how long until the jwt token expires. By default this is 5 minutes but you can extend it out longer:
 
@@ -46,7 +80,7 @@ There are also 2 options you can set as well. The first option is how long until
     }
 ```
 
-The second option is whether or not the user should reauthenticate with the database after their token has expired. If set to `False`, the token will simply continue to refill the user model and set a new token all without touching the database.
+The second option is whether or not the user should reauthenticate with the database after their token has expired. If set to `False`, the token will simply continue to refill the user model and set a new token all without touching the database. If set to `True` it will cancel out the token and reauthenticate with the database to create a new token.
 
 ## Authentication Model
 
@@ -75,6 +109,8 @@ class User(Model):
 
     __auth__ = ['name', 'email']
 ```
+
+Now you can do something like "Please enter Username or Email".
 
 ### Password Column
 
@@ -123,6 +159,37 @@ class User(Model):
 ```
 
 This will look inside the `email` column now and check that column and password. The authentication column is `email` by default.
+
+### Changing The Guard
+
+The above examples will use the default guard. You can change the guard on the fly by doing:
+
+```python
+from masonite.auth import Auth
+
+def show(self, request: Request, auth: Auth):
+    auth.guard('api').login('user@email.com', 'password')
+```
+
+This will now use the `api` guard (if one existed).
+
+### Changing the Guard in Routes
+
+Masonite ships with a guard middleware which allows you to switch the guard based on the route. For example if you had an API route you might want to use an `api` guard you have created:
+
+```python
+Get('/api/users').middleware('guard:api')
+```
+
+Or you may want to use route groups:
+
+```python
+RouteGroup([
+    Get('/api/users'),
+    Get('/api/settings'),
+    Get('/api/posts'),
+], middleware=('guard:api',))
+```
 
 ### Creating an Authentication System
 
