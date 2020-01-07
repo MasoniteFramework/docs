@@ -161,7 +161,7 @@ app.collect(Command)
 
 This is the most useful part of the container. It is possible to retrieve objects from the container by simply passing them into the parameter list of any object. Certain aspects of Masonite are resolved such as controller methods, middleware and drivers.
 
-For example, we can hint that we want to get the `Request` class and put it into our controller. All controller methods are resolved by the container. Masonite 2.1 only supports annotations resolving by default:
+For example, we can type hint that we want to get the `Request` class and put it into our controller. All controller methods are resolved by the container. Masonite 2.1 only supports annotations resolving by default:
 
 ```python
 def show(self, request: Request):

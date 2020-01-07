@@ -120,7 +120,7 @@ def show(self, view: View):
 ```
 {% endcode %}
 
-Notice here we annotated the `View` class. This is what Masonite call's "Auto resolving dependency injection". If you don't like the semantics of this there are other ways to "resolve" from the container that you will discover in the reference documentation but for now let's stay with this method of resolving.
+Notice here we type hinted the `View` class. This is what Masonite call's "Auto resolving dependency injection". If you don't like the semantics of this there are other ways to "resolve" from the container that you will discover in the reference documentation but for now let's stay with this method of resolving.
 
 {% hint style="success" %}
 Be sure to learn more about the [Service Container](https://docs.masoniteproject.com/architectural-concepts/service-container).

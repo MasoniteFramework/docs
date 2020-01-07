@@ -149,7 +149,7 @@ def show(self, view: View):
 {% endtab %}
 {% endtabs %}
 
-Notice here we annotated the `View` class. This is what Masonite calls "Auto resolving dependency injection". If this doesn't make sense to you right now don't worry. The more you read on the more you will understand.
+Notice here we "type hinted" the `View` class. This is what Masonite calls "Auto resolving dependency injection". If this doesn't make sense to you right now don't worry. The more you read on the more you will understand.
 
 {% hint style="success" %}
 Be sure to learn more about the [Service Container](https://docs.masoniteproject.com/architectural-concepts/service-container).
