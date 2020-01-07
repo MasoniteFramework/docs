@@ -119,6 +119,28 @@ PROVIDERS = [
 ]
 ```
 
+## Removed The Sass Provider
+
+Masonite no longer supports SASS and LESS compiling. Masonite now uses webpack and NPM to compile assets. You will need to now reference the Compiling Assets documentation.
+
+You will need to remove the `SassProvider` completely from the providers list in `config/providers.py`. As well as remove the `SassProvider` import from on top of the file.
+
+You can also completely remove the configuration settings in your `config/storage.py` file:
+
+```python
+SASSFILES = {
+    'importFrom': [
+        'storage/static'
+    ],
+    'includePaths': [
+        'storage/static/sass'
+    ],
+    'compileTo': 'storage/compiled'
+}
+```
+
+Be sure to reference the Compiling Assets documentation to know how to use the new NPM features.
+
 ## Removed The Ability For The Container To Hold Modules
 
 The container can no longer hold modules. Modules now have to be imported in the class you require them. For example you can't bind a module like this:
@@ -149,7 +171,39 @@ class ClassA:
         self.auth = auth
 ```
 
-# Changed How Query Strings Are Parsed
+## Remove Modules from Container
+
+Now that we can no longer bind modules to the container we need to make some changes to the `wsgi.py` file because we did that here.
+
+Around line 16 you will see this:
+
+```python
+container.bind('Application', application)
+```
+
+Just completely remove that line. Its no longer needed.
+
+Also around line 19 you will see this line:
+
+```python
+container.bind('ProvidersConfig', providers)
+```
+
+You can completely remove that as well.
+
+Lastly, around line 31 you can change this line:
+
+```python
+for provider in container.make('ProvidersConfig').PROVIDERS:
+```
+
+to this:
+
+```python
+for provider in providers.make('ProvidersConfig').PROVIDERS:
+```
+
+## Changed How Query Strings Are Parsed
 
 It's unlikely this effects you and query string parsing didn't change much but if you relied on query strings like this:
 
@@ -182,3 +236,6 @@ Not many breaking changes were done to the scheduler but there are alot of new f
 
 We did change the namespace from `scheduler` to `masonite.scheduler`. So you will need to refactor your imports if you are using the scheduler.
 
+# Conclusion
+
+You should be all good now! Try running your tests or running `craft serve` and browsing your site and see if there are any issues you can find. If you ran into a problem during upgrading that is not found in this guide then be sure to reach out so we can get the guide upgraded.
