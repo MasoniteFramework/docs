@@ -215,3 +215,7 @@ def show(self):
 # Changed how the WSGI server returns responses
 
 Previously we converted the response to a string when the request was finished but this prevented use cases where we wanted to return bytes (like returning an image or PDF). Now the conversion is happens (or doesn't happen) internally before the WSGI server needs to render a response. This results in a slight change in your application.
+
+# Masonite CLI is not inside Masonite core.
+
+The CLI tool no longer needs to be installed as the first step. Now the first step would be to install masonite which will give you access to craft. From there you can create a new project.

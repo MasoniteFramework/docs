@@ -236,6 +236,14 @@ Not many breaking changes were done to the scheduler but there are alot of new f
 
 We did change the namespace from `scheduler` to `masonite.scheduler`. So you will need to refactor your imports if you are using the scheduler.
 
+# Pip uninstall masonite-cli
+
+Craft is now a part of Masonite core so you can uninstall the masonite-cli tool. You now no longer need to use that as a package.
+
+```
+$ pip uninstall masonite-cli
+```
+
 # Conclusion
 
 You should be all good now! Try running your tests or running `craft serve` and browsing your site and see if there are any issues you can find. If you ran into a problem during upgrading that is not found in this guide then be sure to reach out so we can get the guide upgraded.
