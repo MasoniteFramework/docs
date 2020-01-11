@@ -79,7 +79,7 @@ In order for tasks to be discovered they need to be inside the container. Once i
 
 There are two ways to get classes into the container. The first is to [bind them into the container](../architectural-concepts/service-container.md#bind) manually by creating a [Service Provider](../architectural-concepts/service-providers.md). You can read the documentation on creating [Service Providers](../architectural-concepts/service-providers.md) if you don't know how to do that.
 
-The other way is to [Autoload](../advanced/autoloading.md) them. Starting with Masonite 2.0, You can autoload entire directories which will find classes in that directory and load them into the container. This can be done by adding the directory your tasks are located in to the AUTOLOAD config variable inside config/application.py:
+The other way is to [Autoload](../advanced/autoloading.md) them. Starting with Masonite 2.0, You can autoload entire directories which will find classes in that directory and load them into the container. This can be done by adding the directory your tasks are located in to the AUTOLOAD config variable inside `config/application.py`:
 
 ```python
 ...
@@ -91,6 +91,42 @@ AUTOLOAD = [
 ```
 
 This will find all the tasks in the app/tasks directory and load them into the container for you with the key binding being the name of the class.
+
+# Loading Jobs Manually
+
+You don't need to use the autoloader. You can also schedule jobs manually. To do this you'll need to use a Service Provider and bind. 
+
+If you are loading jobs manually it is useful to inherit the `CanSchedule` class. This simply gives you a `self.call()` method you can use to more easily schedule your jobs and commands.
+
+You can do so in the register method of the Service Provider:
+
+```python
+from masonite.scheduler import CanSchedule
+from app.jobs.YourJob import YourJob
+
+class YourServiceProvider(ServiceProvider, CanSchedule):
+
+    def register(self):
+       self.schedule(YourJob()).every('3 days')
+``` 
+
+You can use these methods to schedule: `every('5 minutes')`, `every_minute()`, `every_15_minutes()`, `every_30_minutes()`, `every_45_minutes()`, `daily()`, `hourly()`, `weekly()`, `monthly()`.
+
+## Scheduling Commands
+
+You can schedule commands in a similiar way.
+
+If you are loading jobs manually it is useful to inherit the `CanSchedule` class. This simply gives you a `self.call()` method you can use to more easily schedule your jobs and commands.
+
+```python
+from masonite.scheduler import CanSchedule
+from app.jobs.YourJob import YourJob
+
+class YourServiceProvider(Serv):
+
+    def register(self):
+        self.call('your:command --flag').daily().at('9:00')
+```
 
 # Making The Task
 
