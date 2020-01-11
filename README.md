@@ -141,19 +141,9 @@ $ craft new
 ```
 {% endcode %}
 
+This will also run `craft install` which will install our dependencies.
+
 This will get the latest Masonite project template and unzip it for you. We just need to go into our new project directory and install the dependencies in our `requirements.txt` file.
-
-## Installing Our Dependencies
-
-Now lets install our dependencies. We can do this simply by using a `craft` command. Remember that other craft command called `craft install`? 
-
-{% code title="terminal" %}
-```text
-$ craft install
-```
-{% endcode %}
-
-This command is just a wrapper around the `pip` or `pipenv` command. This installs all the required dependencies of Masonite, creates a `.env` file for us, generates a new secret key, and puts that secret key in our `.env` file. After it’s done we can just run the server by using another `craft` command:
 
 ## Additional Commands
 

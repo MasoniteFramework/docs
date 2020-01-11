@@ -1,23 +1,54 @@
-# Masonite API
-
-## Introduction
+# Introduction
 
 [Masonite API](https://github.com/MasoniteFramework/api) is a package designed to make it dead simple to add externally facing API's with various types of authentication and permission scopes. There is a new concept called "API Resources" which you will use to build your specific endpoint. In this documentation we will walk through how to make a User Resource so we can walk through the various moving parts.
 
-## Installation
+# Installation
 
-Just run:
+Install the PyPi package:
 
-```bash
+```terminal
 $ pip install masonite-api
 ```
 
-## Creating a Resource
+Add the Service Provider to your provider list in `config/providers.py`:
+
+```python
+from masonite.api.providers import ApiProvider
+
+PROVIDERS = [
+    #..
+
+    # Third Party Providers
+    ApiProvider,
+]
+```
+
+## Adding The Guard
+
+Masonite API comes with an `api` guard which you can use to handle fetching users as you would in a normal web app using the `request.user()` method or `auth()` function.
+
+You can add this config to your `config/auth.py`:
+
+```python
+    'guards': {
+        'web': {
+            # ..
+            # Normal config here
+            # ..
+        },
+        'api': {
+            'driver': 'jwt',
+            'model': User,
+        },
+    }
+```
+
+# Creating a Resource
 
 We can create API Resources by building them wherever you want to. In this documentation we will put them in `app/resources`. We just need to create a simple resource class which inherits from `api.resources.Resource`.
 
 ```python
-from api.resources import Resource
+from masonite.api.resources import Resource
 
 class UserResource(Resource):
     pass
@@ -26,7 +57,7 @@ class UserResource(Resource):
 You should also specify a model by importing it and specifying the model attribute:
 
 ```python
-from api.resources import Resource
+from masonite.api.resources import Resource
 from app.User import User
 
 class UserResource(Resource):
@@ -36,9 +67,9 @@ class UserResource(Resource):
 Lastly for simplicity sake, we can specify a serializer. This will take any Orator models or Collection we return and serialize them into a dictionary which will be picked up via the `JsonResponseMiddleware`.
 
 ```python
-from api.resources import Resource
+from masonite.api.resources import Resource
 from app.User import User
-from api.serializers import JSONSerializer
+from masonite.api.serializers import JSONSerializer
 
 class UserResource(Resource, JSONSerializer):
     model = User
@@ -46,7 +77,7 @@ class UserResource(Resource, JSONSerializer):
 
 Awesome! Now we are ready to go!
 
-## Specifying our routes
+# Specifying our routes
 
 Our resource has several routes that it will build based on the information we provided so let's import it into our web.py file so it will build the routes for us. We can also specify the base route which will be used for all routes.
 
@@ -78,9 +109,9 @@ DELETE    /api/user/@id
 We can also specify the routes that we want to create by setting the `methods` attribute:
 
 ```python
-from api.resources import Resource
+from masonite.api.resources import Resource
 from app.User import User
-from api.serializers import JSONSerializer
+from masonite.api.serializers import JSONSerializer
 
 class UserResource(Resource, JSONSerializer):
     model = User
@@ -99,7 +130,7 @@ GET       /api/user/@id
 ========  =============  =======  ========  ============
 ```
 
-## Adding Middleware
+# Adding Middleware
 
 You can easily add middleware to routes by specifying them using the `middleware` method:
 
@@ -130,7 +161,9 @@ ROUTES = [
 ]
 ```
 
-## Overriding Methods
+## Using The Guard Middleware
+
+# Overriding Methods
 
 You may want to override some methods that are used internally by the API endpoint to return the necessary data.
 
@@ -141,10 +174,10 @@ You can check the repo on how these methods are used and how you should modify t
 Overriding a method will look something like:
 
 ```python
-from api.resources import Resource
+from masonite.api.resources import Resource
 from masonite.request import Request
 from app.User import User
-from api.serializers import JSONSerializer
+from masonite.api.serializers import JSONSerializer
 
 class UserResource(Resource, JSONSerializer):
     model = User
@@ -157,9 +190,9 @@ class UserResource(Resource, JSONSerializer):
 This will not only return all the results where active is `1`. Keep in mind as well that these methods are resolved via the container so we can use dependency injection:
 
 ```python
-from api.resources import Resource
+from masonite.api.resources import Resource
 from app.User import User
-from api.serializers import JSONSerializer
+from masonite.api.serializers import JSONSerializer
 from masonite.request import Request
 
 class UserResource(Resource, JSONSerializer):
@@ -175,7 +208,7 @@ class UserResource(Resource, JSONSerializer):
 
 The index method is ran when getting all records with: `POST /api/user`.
 
-## Removing model attributes
+# Removing model attributes
 
 Currently our response may look something like:
 
@@ -197,9 +230,9 @@ Currently our response may look something like:
 You might not want to display all the model attributes like `id`, `email` or `password`. We can choose to remove these with the `without` class attribute:
 
 ```python
-from api.resources import Resource
+from masonite.api.resources import Resource
 from app.User import User
-from api.serializers import JSONSerializer
+from masonite.api.serializers import JSONSerializer
 from masonite.request import Request
 
 class UserResource(Resource, JSONSerializer):
@@ -224,19 +257,19 @@ Now our response will look like:
 
 Yes, it's that easy.
 
-## Authentication
+# Authentication
 
 For any API package to be awesome, it really needs to have powerful and simple authentication.
 
-### JWT Authentication
+## JWT Authentication
 
 We can specify our authentication for our specific endpoint by inheriting from a class:
 
 ```python
-from api.resources import Resource
+from masonite.api.resources import Resource
 from app.User import User
-from api.serializers import JSONSerializer
-from api.authentication import JWTAuthentication
+from masonite.api.serializers import JSONSerializer
+from masonite.api.authentication import JWTAuthentication
 
 class UserResource(Resource, JSONSerializer, JWTAuthentication):
     model = User
@@ -259,14 +292,14 @@ Great! If we specify a token by hitting [http://localhost:8000/api/user?token=12
 }
 ```
 
-### JWT Tokens
+## JWT Tokens
 
 We can easily create an endpoint for giving out and refreshing API tokens by adding some routes to our web.py:
 
 ```python
 ...
 from app.resources.UserResource import UserResource
-from api.routes import JWTRoutes
+from masonite.api.routes import JWTRoutes
 
 ROUTES = [
     ...
@@ -318,7 +351,7 @@ The password to authenticate using your authentication model
 
 we can now use this token to make our calls by using that new token. This token is good for 5 minutes and it will be required to refresh the token once expired.
 
-### Refreshing Tokens
+## Refreshing Tokens
 
 Once our JWT token expires, we need to refresh it by sending our old expired token to
 
@@ -356,15 +389,15 @@ The expired JWT token
 {% endapi-method-spec %}
 {% endapi-method %}
 
-## Permission Scopes
+# Permission Scopes
 
 You can also specify any permission scopes you need. Most of the time some API endpoints will need to have more restrictive scopes than others. We can specify whatever scopes we need to with the `scopes` attribute as well as inheriting another class.
 
 ```python
-from api.resources import Resource
+from masonite.api.resources import Resource
 from app.User import User
-from api.serializers import JSONSerializer
-from api.authentication import JWTAuthentication, PermissionScopes
+from masonite.api.serializers import JSONSerializer
+from masonite.api.authentication import JWTAuthentication, PermissionScopes
 
 class UserResource(Resource, JSONSerializer, JWTAuthentication, PermissionScopes):
     model = User
@@ -388,14 +421,14 @@ http://localhost:8000/token?scopes=user:read,user:create
 
 This will generate a new token with the correct permission scopes.
 
-## Filter Scopes
+# Filter Scopes
 
 Filter scopes is an extension of the scopes above. It will filter the data based on the scope level. This is useful if you want a specific scope to have more permission than other scopes.
 
 To do this we can extend our resource with the `FilterScopes` class:
 
 ```python
-from api.filters import FilterScopes
+from masonite.api.filters import FilterScopes
 
 class UserResource(..., ..., FilterScopes):
     model = User
@@ -409,12 +442,12 @@ class UserResource(..., ..., FilterScopes):
 
 Now when you make this request it will return the columns in accordance with the user scopes.
 
-## Creating Authentication Classes
+# Creating Authentication Classes
 
 Authentication classes are extremely simple classes. They just need to inherit the BaseAuthentication class and contain 2 methods: `authenticate` and `get_token`.
 
 ```python
-from api.authentication import BaseAuthentication
+from masonite.api.authentication import BaseAuthentication
 
 class JWTAuthentication(BaseAuthentication):
 
@@ -434,7 +467,7 @@ class JWTAuthentication(BaseAuthentication):
         pass
 ```
 
-### Authenticate
+## Authenticate
 
 This method is resolved via the container. it is important to note that if the authenticate is successful, it should not return anything. Masonite will only look for exceptions thrown in this method and then correlate an error response to it.
 
@@ -442,7 +475,7 @@ For example if we want to return an error because the token was not found, we ca
 
 ```python
 ...
-from api.exceptions import NoApiTokenFound
+from masonite.api.exceptions import NoApiTokenFound
 ...
 
     def authenticate(self, request: Request):
@@ -461,12 +494,12 @@ Which will result in an error response:
 }
 ```
 
-### Get Token
+## Get Token
 
 This method is used to return a dictionary which is the decrypted version of the token. So however your authentication class should decrypt the token, it needs to do so in this method. This all depends on how the token was encrypted in the first place. This may look something like:
 
 ```text
-from api.exceptions import InvalidToken
+from masonite.api.exceptions import InvalidToken
 ...
         def get_token(self):
         """Returns the decrypted string as a dictionary. This method needs to be overwritten on each authentication class.
@@ -480,7 +513,7 @@ from api.exceptions import InvalidToken
             raise InvalidToken
 ```
 
-## Creating Serializers
+# Creating Serializers
 
 Serializers are simple classes with a single `serialize` method on them. The `serialize` method takes a single parameter which is the response returned from one of the create, index, show, update, delete methods.
 
@@ -523,11 +556,11 @@ notice we take the response and then convert that response into a dictionary dep
 
 Once we convert to a dictionary here, the `JSONResponseMiddleware` will pick that dictionary up and return a JSON response.
 
-## Builtin Methods
+# Builtin Methods
 
 We have access to a few builtin methods from anywhere in our resource.
 
-### Getting the token
+## Getting the token
 
 The token can be in several different forms coming into the request. It can be either a JWT token or a regular token or some other form of token. Either way it needs to be "unencrypted" in order for it to be used and since the authentication class is responsible for un-encrypting it, it is the responsibility of the authentication class to get the token.
 
@@ -540,7 +573,7 @@ def index(self):
 This method is only available when inheriting from an authentication class like `JWTAuthentication` which requires this method and should return the un-encrypted version of the token
 {% endhint %}
 
-### Fetching the token
+## Fetching the token
 
 There are a few locations the token can be. The two main locations are in the query string itself \(`/endpoint?token=123..`\) or inside a header \(the `HTTP_AUTHORIZATION` header\). We can get the token regardless of where it is with the `fetch_token()` method:
 

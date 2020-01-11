@@ -219,3 +219,7 @@ Previously we converted the response to a string when the request was finished b
 # Masonite CLI is not inside Masonite core.
 
 The CLI tool no longer needs to be installed as the first step. Now the first step would be to install masonite which will give you access to craft. From there you can create a new project.
+
+# Changed namespace for Masonite API
+
+Masonite API now uses the `from masonite.api.` namespace rather than the previous `from api.`
