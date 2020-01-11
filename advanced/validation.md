@@ -542,7 +542,25 @@ errors = MessageBag(errors)
 errors.merge({'key': 'value'})
 ```
 
-## Nested Validations
+# Template Helper
+
+You can use the `bag()` template helper which will contain the list of errors. Inside an HTML template you can do something like this:
+
+```html
+@if(bag().any())
+    <div class="bg-yellow-200 text-yellow-800 px-4 py-2">
+        <ul>
+            @for message in bag().messages()
+            <li>{{ message }}</li>
+            @endfor
+        </ul>
+    </div>
+@endif
+```
+
+This will give you all the errors inside each list.
+
+# Nested Validations
 
 Sometimes you will need to check values that aren't on the top level of a dictionary like the examples shown here. In this case we can use dot notation to validate deeper dictionaries:
 
@@ -571,7 +589,7 @@ errors = request.validate(
 
 notice the dot notation here. Each `.` being a deeper level to the dictionary.
 
-# Nested Validations With Lists
+## Nested Validations With Lists
 
 Sometimes your validations will have lists and you will need to ensure that each element in the list validates. For example you want to make sure that a user passes in a list of names and ID's.
 
