@@ -90,7 +90,7 @@ AUTOLOAD = [
 ...
 ```
 
-This will find all the tasks in the app/tasks directory and load them into the container for you with the key binding being the name of the class.
+This will find all the tasks in the app/tasks directory and load them into the container for you with the key binding being the name of the class. 
 
 # Loading Jobs Manually
 
