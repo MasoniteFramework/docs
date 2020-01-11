@@ -8,9 +8,19 @@ We'll walk through both Masonite upgrades and breaking packages as well
 
 # Masonite
 
+## Pip uninstall masonite-cli
+
+Craft is now a part of Masonite core so you can uninstall the masonite-cli tool. You now no longer need to use that as a package.
+
+This is a little weird but we'll get craft back when we install Masonite 2.3
+
+```
+$ pip uninstall masonite-cli
+```
+
 ## Upgrade Your Masonite and CLI Version
 
-Let's first start by upgrading your Masonite version. Depending on your dependancy manager it will look something like this:
+Next, we can upgrade your Masonite version. Depending on your dependancy manager it will look something like this:
 
 Change it from this:
 
@@ -24,11 +34,12 @@ to
 masonite>=2.3,<2.4
 ```
 
-Now let's make sure our cli tool is up to date as well:
+Go ahead and install masonite now:
 
 ```
-$ pip install masonite-cli --upgrade
+pip install "masonite>=2.3,<2.4"
 ```
+
 
 ## Change Server Response
 
@@ -235,14 +246,6 @@ You'll have to update any code that uses this. If you are not using this then do
 Not many breaking changes were done to the scheduler but there are alot of new features. Head over to the Whats New in Masonite 2.3 section to read more.
 
 We did change the namespace from `scheduler` to `masonite.scheduler`. So you will need to refactor your imports if you are using the scheduler.
-
-# Pip uninstall masonite-cli
-
-Craft is now a part of Masonite core so you can uninstall the masonite-cli tool. You now no longer need to use that as a package.
-
-```
-$ pip uninstall masonite-cli
-```
 
 # Conclusion
 
