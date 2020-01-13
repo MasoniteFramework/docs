@@ -44,7 +44,7 @@ There is also a much better way to register new guards so packages will be able 
 
 This is a very small change but will save a lot of time when upgrading your application. Now anytime you resolve the `Auth` class you will get an instance of a `Guard` class instead. The use of both classes are identical so they should just work as is.
 
-\(This swap by be removed in Masonite 2.4+\)
+\(This swap may be removed in Masonite 2.4+\)
 
 # Added A New `AuthenticationProvider`
 
