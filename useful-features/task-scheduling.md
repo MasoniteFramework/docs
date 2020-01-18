@@ -26,7 +26,7 @@ and then add the [Service Provider](../architectural-concepts/service-providers.
 {% code title="config/providers.py" %}
 ```python
 ...
-from scheduler.providers import ScheduleProvider
+from masonite.scheduler.providers import ScheduleProvider
 
 PROVIDERS = [
     AppProvider,
