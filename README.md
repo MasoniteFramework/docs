@@ -43,7 +43,7 @@ If you are running on a Linux flavor, you’ll need the Python dev package and t
 
 {% code title="terminal" %}
 ```text
-$ sudo apt-get install python-dev libssl-dev python3-pip
+$ sudo apt install python3-dev python3-pip libssl-dev build-essential python3-venv
 ```
 {% endcode %}
 
@@ -51,7 +51,7 @@ Or you may need to specify your `python3.x-dev` version:
 
 {% code title="terminal" %}
 ```text
-$ sudo apt-get install python3.6-dev libssl-dev python3-pip
+$ sudo apt-get install python3.6-dev python3-pip libssl-dev build-essential python3-venv
 ```
 {% endcode %}
 
