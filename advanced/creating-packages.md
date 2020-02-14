@@ -20,7 +20,7 @@ You do not have to use this functionality and instead have the developer copy an
 
 # Creating a Package
 
-The best way to create a package is to you the [Masonite Starter Package Repo](https://github.com/MasoniteFramework/starter-package). 
+The best way to create a package is to download the [Masonite Starter Package Repo](https://github.com/MasoniteFramework/starter-package). 
 
 Just go to the repo and download a zip of the file. It's not beneficial to simply git clone it since you will eventually need to create your own repository and cloning the repo will still track the existing starter-package repo.
 
