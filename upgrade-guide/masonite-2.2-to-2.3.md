@@ -211,7 +211,7 @@ for provider in container.make('ProvidersConfig').PROVIDERS:
 to this:
 
 ```python
-for provider in providers.make('ProvidersConfig').PROVIDERS:
+for provider in providers.PROVIDERS:
 ```
 
 ## Changed How Query Strings Are Parsed
