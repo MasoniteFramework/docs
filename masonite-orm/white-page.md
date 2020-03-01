@@ -22,13 +22,13 @@ user.where('id', 1) #== <masonite.orm.Querybuilder object>
 
 Since it returns a query builder we can simply build up this class and chain on a whole bunch of methods:
 
-```
+```python
 user.where('id', 1).where('active', 1) #== <masonite.orm.Querybuilder object>
 ```
 
 Finally when we are done building a query we will call a `.get()`:
 
-```
+```python
 user.select('id').where('id', 1).where('active', 1).get() #== <masonite.orm.Collection object>
 ```
 
@@ -247,7 +247,7 @@ This means that we can't do things like set the query result on the model class 
 
 The real reason we do this is really only for the visual effect. I would like to do this:
 
-```
+```python
 User.find(1)
 ```
 
