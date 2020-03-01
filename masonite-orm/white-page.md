@@ -14,7 +14,7 @@ First, everything starts with a model. You will import the model into your appli
 
 For example, 
 
-```
+```python
 user = User
 user #== <class User>
 user.where('id', 1) #== <masonite.orm.Querybuilder object>
