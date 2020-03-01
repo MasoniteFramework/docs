@@ -6,6 +6,8 @@
 - [x] Grammar class
 - [x] Relationships
 
+> **This project is not currently in Masonite but is in development. This article is designed to be a learning document to aid in those who wish to contribute to the project. This article will be updated when concepts are added to the ORM project or when concepts change. It is still a young project so concepts may change but the basic foundation is in place and the foundation you read here likely will not change. You can contribute to the project at the [Masonite ORM Repo](https://github.com/MasoniteFramework/orm)**
+
 # The Flow
 
 I will discuss the flow at a high level first and then can talk about each part separarely. 
