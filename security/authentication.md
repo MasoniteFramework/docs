@@ -10,8 +10,7 @@ The concept of authentication is a "Guard" concept. Guards are simply authentica
 
 ## Configuration
 
-There is a single `config/auth.py` configuration file which you can use to set the authentication behavior of your Masonite project. 
-The default configuration looks something like:
+There is a single `config/auth.py` configuration file which you can use to set the authentication behavior of your Masonite project. The default configuration looks something like:
 
 ```python
 AUTH = {
@@ -171,7 +170,7 @@ def show(self, request: Request, auth: Auth):
     auth.guard('api').login('user@email.com', 'password')
 ```
 
-This will now use the `api` guard (if one existed).
+This will now use the `api` guard \(if one existed\).
 
 ### Changing the Guard in Routes
 

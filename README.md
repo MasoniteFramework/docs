@@ -73,7 +73,7 @@ Masonite excels at being simple to install and get going. If you are coming from
 
 Firstly, open a terminal and head to a directory you want to create your application in. You might want to create it in a programming directory for example:
 
-```
+```text
 $ cd ~/programming
 $ mkdir myapp
 $ cd myapp
@@ -111,15 +111,15 @@ For example, you would run `python3 -m venv venv` instead of `python -m venv ven
 
 Now we can install Masonite. This will give us access to a craft command we can use to finish the install steps for us:
 
-```
+```text
 $ pip install masonite
 ```
 
-Once Masonite installs you will now have access to the `craft` command line tool. Craft will become your best friend during your development. You will learn to love it very quickly :).
+Once Masonite installs you will now have access to the `craft` command line tool. Craft will become your best friend during your development. You will learn to love it very quickly :\).
 
 You can ensure Masonite and craft installed correctly by running:
 
-```
+```text
 $ craft
 ```
 
@@ -149,9 +149,9 @@ This will get the latest Masonite project template and unzip it for you. We just
 
 ## Additional Commands
 
-Now that Masonite installed fully we can check all the new commands we have available. There are many :).
+Now that Masonite installed fully we can check all the new commands we have available. There are many :\).
 
-```
+```text
 $ craft
 ```
 

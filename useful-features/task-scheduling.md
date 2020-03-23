@@ -1,6 +1,6 @@
+# Task Scheduling
 
-
-# Introduction
+## Introduction
 
 Often your application will require some kind of recurring task that should happen at a specific time of the week, every minute, or every few months. These tasks can be things like:
 
@@ -11,7 +11,7 @@ Often your application will require some kind of recurring task that should happ
 
 Or anything in between. There are lots of use cases for simple tasks to be ran during certain parts of the day or even "offline" hours when your employees are gone.
 
-# Getting Started
+## Getting Started
 
 First we will need to install the scheduler feature. We can simply pip install it:
 
@@ -43,7 +43,7 @@ The first command that will be added is the `craft schedule:run` command which w
 
 The second command is a `craft task` command which will create a new task under the `app/tasks` directory.
 
-# Creating a Task
+## Creating a Task
 
 Now that we added the Service Provider, we can start creating tasks. Let's create a super basic task that prints "Hi". First let's create the task itself:
 
@@ -73,7 +73,7 @@ All tasks should inherit the `scheduler.task.Task` class. This adds some needed 
 Make sure you read about collecting objects from the container by reading the [Collecting](../architectural-concepts/service-container.md#collecting) section of the [Service Container](../architectural-concepts/service-container.md) documentation.
 {% endhint %}
 
-# Container Autoloading
+## Container Autoloading
 
 In order for tasks to be discovered they need to be inside the container. Once inside the container, we collect them, see if they need to run and then decide to execute them or not.
 
@@ -90,11 +90,11 @@ AUTOLOAD = [
 ...
 ```
 
-This will find all the tasks in the app/tasks directory and load them into the container for you with the key binding being the name of the class. 
+This will find all the tasks in the app/tasks directory and load them into the container for you with the key binding being the name of the class.
 
-# Loading Jobs Manually
+## Loading Jobs Manually
 
-You don't need to use the autoloader. You can also schedule jobs manually. To do this you'll need to use a Service Provider and bind. 
+You don't need to use the autoloader. You can also schedule jobs manually. To do this you'll need to use a Service Provider and bind.
 
 If you are loading jobs manually it is useful to inherit the `CanSchedule` class. This simply gives you a `self.call()` method you can use to more easily schedule your jobs and commands.
 
@@ -108,11 +108,11 @@ class YourServiceProvider(ServiceProvider, CanSchedule):
 
     def register(self):
        self.schedule(YourJob()).every('3 days')
-``` 
+```
 
 You can use these methods to schedule: `every('5 minutes')`, `every_minute()`, `every_15_minutes()`, `every_30_minutes()`, `every_45_minutes()`, `daily()`, `hourly()`, `weekly()`, `monthly()`.
 
-## Scheduling Commands
+### Scheduling Commands
 
 You can schedule commands in a similiar way.
 
@@ -128,11 +128,11 @@ class YourServiceProvider(Serv):
         self.call('your:command --flag').daily().at('9:00')
 ```
 
-# Making The Task
+## Making The Task
 
 Now that our task is able to be added to the container automatically, let's start building the class.
 
-## Constructors
+### Constructors
 
 Firstly, the constructor of all tasks are resolved by the container. You can fetch anything from the container that doesn't need the WSGI server to be running \(which is pretty much everything\). So we can fetch things like the Upload, Mail, Broadcast and Request objects. This will look something like:
 
@@ -150,7 +150,7 @@ class SayHi(Task):
         pass
 ```
 
-## Handle Method
+### Handle Method
 
 The handle method is where the logic of the task should live. This is where you should put the logic of the task that should be running recurrently.
 
@@ -169,7 +169,7 @@ class SayHi(Task):
         requests.post('http://url.com/api/store')
 ```
 
-## When To Run
+### When To Run
 
 The awesomeness of recurring tasks is telling the task when it should run. There are a few options we can go over here:
 
@@ -206,7 +206,7 @@ All possible options are `False` by default. The options here are:
 If the time on the task is `days` or `months` then you can also specify a `run_at` attribute which will set the time of day it should should. By default, all tasks will run at midnight if `days` is set and midnight on the first of the month when `months` is set. We can specify which time of day using the `run_at` attribute along side the `run_every` attribute. This option will be ignored if `run_every` is `minutes` or `hours`.
 {% endhint %}
 
-## Timezones
+### Timezones
 
 You can also set timezones on individual tasks by setting a `timezone` attribute on the task:
 
@@ -226,19 +226,19 @@ class SayHi(Task):
         requests.post('http://url.com/api/store')
 ```
 
-# Caveats
+## Caveats
 
 {% hint style="warning" %}
 This feature is designed to run without having to spin up a seperate server command and therefore has some caveats so be sure to read this section to get a full understanding on how this feature works.
 {% endhint %}
 
-# When it Runs
+## When it Runs
 
 Since the scheduler doesn't actually know when the server starts, it doesn't know from what day to start the count down. In order to get around this, Masonite calculates the current day using a modulus operator to see if the modulus of the tasks time and the current time are 0.
 
 For example, if the task above is to be ran \(every 3 days\) in May then the task will be ran at midnight on May 3rd, May 6th, May 9th, May 12th etc etc. So it's important to note that if the task is created on May 11th and should be ran every 3 days, then it will run the next day on the 12th and then 3 days after that.
 
-# Running The Tasks
+## Running The Tasks
 
 After we add the directory to the `AUTOLOAD` list, we can run the `schedule:run` command which will find the command and execute it.
 
@@ -273,7 +273,7 @@ $ craft schedule:run
 
 We should now see "Hi!" output to the terminal window.
 
-## Running a Specific Task
+### Running a Specific Task
 
 You may also run a specific task by running the schedule:run command with a --task flag. The flag value is the container binding \(usually the task class name\):
 
@@ -305,7 +305,7 @@ and then run the command by name
  craft schedule:run --task hey
 ```
 
-# Cron Jobs
+## Cron Jobs
 
 {% hint style="warning" %}
 Setting up Cron Jobs are for UNIX based machines like Mac and Linux only. Windows has a similar schedule called Task Scheduler which is similar but will require different instructions in setting it up.
@@ -320,7 +320,7 @@ PATH=/Users/Masonite/Programming/project_name/venv/bin:/Library/Frameworks/Pytho
 * * * * * cd /Users/Masonite/Programming/project_name && source venv/bin/activate && craft schedule:run
 ```
 
-## Getting The Path
+### Getting The Path
 
 When a cron job runs, it will typically run commands with a /bin/sh command instead of the usual /bin/bash. Because of this, craft may not be found on the machine so we need to tell the cron job the PATH that should be loaded in. We can simply find the PATH by going to our project directory and running:
 
@@ -358,7 +358,7 @@ PATH=/Users/Masonite/Programming/masonitetesting/venv/bin:/Library/Frameworks/Py
 
 Exit out of nano. Now we just need to setup the actual cron job:
 
-## Setting The Cron Task
+### Setting The Cron Task
 
 Now we just need to setup the cron task itself. This could be as easy as copying it and pasting it into the nano editor again. You may need to change a few things though.
 

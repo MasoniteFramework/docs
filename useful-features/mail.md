@@ -302,5 +302,3 @@ def show(self, mail: Mail):
     mail.mailable(WelcomeEmail('user@example.com')).send()
 ```
 
-
-

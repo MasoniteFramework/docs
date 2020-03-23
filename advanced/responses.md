@@ -1,10 +1,12 @@
-# Controller Methods
+# Responses
+
+## Controller Methods
 
 Most of the responses you will work with simply involve returning various data types / classes / objects in the controller method. For example, you may be used to returning a `view.render()` object in the controller method. This will return a `View` instance which Masonite will extract out the rendered html template from it.
 
 Below is a list of all the responses you can return
 
-## Strings
+### Strings
 
 You can simply return a string which will output the string to the browser:
 
@@ -15,7 +17,7 @@ def show(self):
 
 This will set headers and content lengths similiar to a normal HTML response.
 
-## Views
+### Views
 
 You can return an instance of a `View` object which Masonite will then pull the HTML information that Jinja has rendered. This is the normal process of returning your templates. You can do so by type hinting the view class and using the render method:
 
@@ -28,7 +30,7 @@ def show(self, view: View):
 
 Notice you can also pass in a dictionary as a second argument which will pass those variables to your Jinja templates.
 
-## JSON \(Dictionaries / Lists\)
+### JSON \(Dictionaries / Lists\)
 
 There are a few ways to return JSON responses. The easiest way is to simply return a dictionary like this:
 
@@ -46,7 +48,7 @@ def show(self):
     return [1,2,3,4]
 ```
 
-## JSON \(Models\)
+### JSON \(Models\)
 
 If you are working with models then its pretty easy to return a model as a JSON response by simply returning a model. This is useful when working with single records:
 
@@ -73,7 +75,7 @@ This will return a response like this:
 }
 ```
 
-## JSON \(Collections\)
+### JSON \(Collections\)
 
 If you are working with collections you can return something similiar which will return a slightly different JSON response with several results:
 
@@ -108,7 +110,7 @@ Which will return a response like:
 ]
 ```
 
-## JSON \(Pagination\)
+### JSON \(Pagination\)
 
 If you need to paginate a response you can return an instance of `Paginator`. You can do so easily by using the `paginate()` method:
 
@@ -150,7 +152,7 @@ You can override the page size and page number by passing in the appropriate que
 
 If you are building an API this might look like `/api/users?page=2&page_size=5`. This will return 5 results on page 2 for this endpoint.
 
-## Request Class \(Redirections\)
+### Request Class \(Redirections\)
 
 You can also return a few methods on the request class. These are mainly used for redirection.
 
@@ -166,13 +168,13 @@ def show(self, request: Request):
 
 There are several different ways for redirecting like redirecting to a named route or redirecting back to the previous route. For a full list of request redirection methods read the [Request Redirection](../the-basics/requests.md#redirection) docs.
 
-# Response Class
+## Response Class
 
 The response class is what Masonite uses internally but you can explicit use it if you find the need to. A need might include setting a response in a middleware or a service provider where Masonite does not handle all the response converting for you. It is typically used to condense a lot of redundant logic down throughout the framework like getting the response ready, status codes, content lengths and content types.
 
 Previously this needed to be individually set but now the response object abstracts a lot of the logic. You will likely never need to encounter this object during normal development but it is documented here if you need to use it similarly to how we use it in core.
 
-## JSON Responses
+### JSON Responses
 
 We can set a JSON response by using the `json()` method. This simply requires a dictionary:
 
@@ -194,7 +196,7 @@ def show(self):
 
 Since Masonite uses a middleware that abstracts this logic.
 
-## View and Text Response
+### View and Text Response
 
 The `view()` method either takes a `View` object or a string:
 
@@ -209,7 +211,7 @@ def show(self, response: Response, view: View):
     return response.view(view.render('some.template'))
 ```
 
-# Setting Status Codes
+## Setting Status Codes
 
 Status codes can be set in the controller methods by 1 of 2 ways. The first way is to use the response object like above but set a `status=` parameter. Something like thihs:
 
@@ -231,7 +233,7 @@ def show(self, response: Response, view: View):
     return 'hello world', 401
 ```
 
-# Redirecting
+## Redirecting
 
 You can also use some very basic URL redirection using the response object:
 
@@ -242,7 +244,7 @@ def show(self, response: Response):
     return response.redirect('/some/route')
 ```
 
-# Responsable Classes
+## Responsable Classes
 
 Responsable classes are classes that are allowed to be returned in your controller methods. These classes simply need to inherit a `Responsable` class and then contain a `get_response` method.
 
@@ -268,7 +270,7 @@ def show(self):
 
 Masonite will check if the response is an instance of `Responsable` and run the `get_response` method. This will show "Hello world" to the browser. This is actually how Masonites view class and mail classes work so you can see how powerful this can be.
 
-# Mailables
+## Mailables
 
 You can also return mailables. This is great if you want to debug what your emails will look like before you send them. You can do so by simply returning the mailable method of the mail class:
 
@@ -281,7 +283,7 @@ def show(self, mail: Mail):
 
 This will now show what the email will look like.
 
-# Download Images and Files
+## Download Images and Files
 
 Sometimes you will want to return an image or a file like a PDF file. You can do with Masonite pretty easily by using the `Download` class. Simply pass it path to a file and Masonite will take care of the rest like setting the correct headers and getting the file content
 
@@ -311,3 +313,4 @@ def show(self):
     return Download('path/to/file.png').force()
     return Download('path/to/file.png', name="new-file-name.jpg", force=True)
 ```
+
