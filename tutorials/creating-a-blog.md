@@ -116,7 +116,7 @@ This is important as this is our first introduction to Python's IOC container. W
 from masonite.view import View 
 
 def show(self, view: View):
-    return view.render('blog')
+    return view.render('blogView')
 ```
 {% endcode %}
 
@@ -130,7 +130,7 @@ Be sure to learn more about the [Service Container](https://docs.masoniteproject
 
 You'll notice now that we are returning the `blog` view but it does not exist yet.
 
-All views are in the `resources/templates` directory. We can create a new file called `resources/templates/blog.html` or we can use another craft command:
+All views are in the `resources/templates` directory. We can create a new file called `resources/templates/blogView.html` or we can use another craft command:
 
 {% code title="terminal" %}
 ```text
@@ -142,7 +142,7 @@ This will create that template we wanted above for us.
 
 We can put some text in this file like:
 
-{% code title="resources/templates/blog.html" %}
+{% code title="resources/templates/blogView.html" %}
 ```markup
 This is a blog
 ```
