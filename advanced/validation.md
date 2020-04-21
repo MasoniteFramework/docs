@@ -745,7 +745,7 @@ These rules are identical so use whichever feels more comfortable.
 | [active\_domain](validation.md#active_domain) | [isnt](validation.md#isnt) | [when](validation.md#when) |
 | [after\_today](validation.md#after_today) | [is\_past](validation.md#is_past) | [timezone](validation.md#timezone) |
 | [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) | [phone](validation.md#phone) |
-| [contains](validation.md#contains) | [json](validation.md#json) | [strong](https://github.com/MasoniteFramework/docs/tree/90803759e440176c8bf9521c424a2b0f164c41fe/advanced/validatoin.md#strong) |
+| [contains](validation.md#contains) | [json](validation.md#json) | [strong](validation.md#strong) |
 | [email](validation.md#email) | [less\_than](validation.md#less_than) |  |
 | [equals](validation.md#equals) | [length](validation.md#length) |  |
 | [exists](validation.md#exists) | [none](validation.md#none) |  |

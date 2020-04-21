@@ -1,16 +1,18 @@
+# 🔌 Installation
+
 **This ORM is still in development**
 
 First install via pip:
 
-```
+```text
 $ pip install masonite-orm
 ```
 
-# Base Python Projects
+## Base Python Projects
 
-## Configuration File
+### Configuration File
 
-The first thing you will need is a configuration file. This will be home to all your database connection information. 
+The first thing you will need is a configuration file. This will be home to all your database connection information.
 
 We can simply create a `config/database.py` file and then put a `CONNECTIONS` variable with a dictionary of connection details. This file will look like this:
 
@@ -39,7 +41,7 @@ CONNECTIONS = {
 }
 ```
 
-## Creating a Model
+### Creating a Model
 
 Now you can create a model. Refer to the model documentation but in simplest form you can create a class which inherits Masonite ORM's `Model` class. Assuming you have a `users` table:
 
@@ -51,7 +53,7 @@ class User(Model):
     pass
 ```
 
-## Make a database call
+### Make a database call
 
 To make sure everything is correct let's try making a database call:
 
@@ -64,3 +66,4 @@ print(User.all())
 You should see a collection class in the terminal.
 
 Congratulations! You just installed Masonite ORM.
+

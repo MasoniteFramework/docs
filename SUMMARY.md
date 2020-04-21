@@ -139,19 +139,19 @@
 * [Drivers](deployment/drivers.md)
 * [Optimization](deployment/optimization.md)
 
-## Masonite ORM [In development] <a id="masonite-orm"></a>
+## Masonite ORM \[In development\] <a id="masonite-orm-1"></a>
 
-* [🔌 Installation](masonite-orm/installation.md)
-* [🧩 Query Builder](masonite-orm/query-builder.md)
-* [📘 Schema Builder](masonite-orm/schema-builder/README.md)
-  * [Migrations](masonite-orm/schema-builder/migrations.md)
-* [⚡️ORM](masonite-orm/orm/README.md)
-  * [Models](masonite-orm/orm/models.md)
-* [🛠 Extending & Building](masonite-orm/extending-and-building/README.md)
-  * [Creating Connections](masonite-orm/extending-and-building/creating-connections.md)
-  * [Creating Grammar](masonite-orm/extending-and-building/creating-grammar.md)
-* [📄 Pagination](masonite-orm/pagination.md)
-* [🌱 Seeding](masonite-orm/seeding.md)
-* [🧪 Testing](masonite-orm/testing.md)
-* [⛓ Collections](masonite-orm/collections.md)
+* [🔌 Installation](masonite-orm-1/installation.md)
+* [🧩 Query Builder](masonite-orm-1/query-builder.md)
+* [📘 Schema Builder](masonite-orm-1/schema-builder/README.md)
+  * [Migrations](masonite-orm-1/schema-builder/migrations.md)
+* [⚡️ORM](masonite-orm-1/orm/README.md)
+  * [Models](masonite-orm-1/orm/models.md)
+* [🛠 Extending & Building](masonite-orm-1/extending-and-building/README.md)
+  * [Creating Connections](masonite-orm-1/extending-and-building/creating-connections.md)
+  * [Creating Grammar](masonite-orm-1/extending-and-building/creating-grammar.md)
+* [📄 Pagination](masonite-orm-1/pagination.md)
+* [🌱 Seeding](masonite-orm-1/seeding.md)
+* [🧪 Testing](masonite-orm-1/testing.md)
+* [⛓ Collections](masonite-orm-1/collections.md)
 
