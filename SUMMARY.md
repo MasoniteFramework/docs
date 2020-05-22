@@ -146,7 +146,7 @@
 * [Query Builder](masonite-orm/query-builder.md)
 * [Schema Builder](masonite-orm/schema-builder/README.md)
   * [Migrations](masonite-orm/schema-builder/migrations.md)
-* [⚡️ORM](masonite-orm/orm/README.md)
+* [ORM](masonite-orm/orm/README.md)
   * [Models](masonite-orm/orm/models.md)
 * [Extending & Building](masonite-orm/extending-and-building/README.md)
   * [Creating Connections](masonite-orm/extending-and-building/creating-connections.md)

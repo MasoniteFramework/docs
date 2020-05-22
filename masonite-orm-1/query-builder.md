@@ -1,16 +1,18 @@
 # 🧩 Query Builder
 
-# Preface
+## 🧩 Query Builder
+
+## Preface
 
 The query builder is a class which is used to build up a query for execution later. For example if you need multiple wheres for a query you can chain them together on this `QueryBuilder` class. The class is then modified until you want to execute the query. Models use the query builder under the hood to make all of those calls. Many model methods actually return an instance of `QueryBuilder` so you can continue to chain complex queries together.
 
-Using the query builder class directly allows you to make database calls without needing to use a model. 
+Using the query builder class directly allows you to make database calls without needing to use a model.
 
-# Getting the QueryBuilder class.
+## Getting the QueryBuilder class.
 
 To get the query builder class you can simply import the query builder. Once imported you will need to pass the `connection_details` dictionary you store in your `config.database` file:
 
-```
+```text
 from masonite.orm.builder import QueryBuilder
 from config.database import CONNECTIONS
 
@@ -19,16 +21,16 @@ builder = QueryBuilder(connection_details=CONNECTIONS)
 
 You can then start making any number of database calls.
 
-# Fetching Records
+## Fetching Records
 
-## Select
+### Select
 
 ```python
 builder.table('users').select('username').get()
 # SELECT `username` from `users`
 ```
 
-## First
+### First
 
 You can easily get the first record:
 
@@ -37,7 +39,7 @@ builder.table('users').first()
 # SELECT `username` from `users`
 ```
 
-## All Records
+### All Records
 
 You can also simply fetch all records from a table:
 
@@ -45,7 +47,7 @@ You can also simply fetch all records from a table:
 builder.table('users').all()
 ```
 
-## The Get Method
+### The Get Method
 
 Anytime you need to get records you call the `get()` method instead of the `all()` method.
 
@@ -61,7 +63,7 @@ And this is wrong:
 builder.table('users').select('username').all()
 ```
 
-## Wheres
+### Wheres
 
 You may also specify any one of these where statements:
 
@@ -81,7 +83,7 @@ builder.table('users').where('age', '>=', 18).get()
 builder.table('users').where('age', '<=', 18).get()
 ```
 
-## Where Null
+### Where Null
 
 Another common where clause is the checking where a value is `NULL`:
 
@@ -99,7 +101,7 @@ builder.table('users').where_not_null('admin').get()
 
 This selects all columns where admin is `NOT NULL`.
 
-## Where In
+### Where In
 
 In order to fetch all records within a certain list we can pass in a list:
 
@@ -109,7 +111,7 @@ builder.table('users').where_in('age', [18,21,25]).get()
 
 This will fetch all records where the age is either `18`, `21` or `25`.
 
-## Limits / Offsets
+### Limits / Offsets
 
 It's also very simple to both limit or offset a query.
 
@@ -131,7 +133,7 @@ Or here is an example of using both:
 builder.table('users').limit(10).offset(10).get()
 ```
 
-## Between
+### Between
 
 You may need to get all records where column values are between 2 values:
 
@@ -139,7 +141,7 @@ You may need to get all records where column values are between 2 values:
 builder.table('users').where_between('age', 18, 21).get()
 ```
 
-## Group By
+### Group By
 
 You may want to group by a specific column:
 
@@ -147,7 +149,7 @@ You may want to group by a specific column:
 builder.table('users').group_by('active').get()
 ```
 
-## Having
+### Having
 
 Having clauses are typically used during a group by. For example, returning all users grouped by salary where the salary is greater than 0:
 
@@ -161,7 +163,7 @@ You may also specify the same query but where the sum of the salary is greater t
 builder.table('users').sum('salary').group_by('salary').having('salary', 50000).get()
 ```
 
-## Inner Joining
+### Inner Joining
 
 Joining is a way to take data from related tables and return it in 1 result set as well as filter anything out that doesn't have a relationship on the joining tables.
 
@@ -173,7 +175,7 @@ This join will create an inner join.
 
 You can also choose a left join:
 
-## Left Join
+### Left Join
 
 ```python
 builder.table('users').left_join('table1', 'table2.id', '=', 'table1.table_id')
@@ -181,13 +183,13 @@ builder.table('users').left_join('table1', 'table2.id', '=', 'table1.table_id')
 
 and a right join:
 
-## Right Join
+### Right Join
 
 ```python
 builder.table('users').right_join('table1', 'table2.id', '=', 'table1.table_id')
 ```
 
-## Increment
+### Increment
 
 There are times where you really just need to increment a column and don't need to pull any additional information. A lot of the incrementing logic is hidden away:
 
@@ -197,54 +199,55 @@ builder.table('users').increment('status')
 
 Decrementing is also similiar:
 
-## Decrement
+### Decrement
 
 ```python
 builder.table('users').decrement('status')
 ```
 
-# Aggregates
+## Aggregates
 
 There are several aggregating methods you can use to aggregate columns:
 
-## Sum
+### Sum
 
 ```python
 builder.table('users').sum('salary').get()
 ```
 
-## Average
+### Average
 
 ```python
 builder.table('users').avg('salary').get()
 ```
 
-## Count
+### Count
 
 ```python
 builder.table('users').count('salary').get()
 ```
 
-## Max
+### Max
 
 ```python
 builder.table('users').max('salary').get()
 ```
 
-## Min
+### Min
 
 ```python
 builder.table('users').min('salary').get()
 ```
 
-# Raw Queries
+## Raw Queries
 
 If some queries would be easier written raw you can easily do so for both selects and wheres:
 
 ```python
 builder.table('users').select_raw("COUNT(`username`) as username").where_raw("`username` = 'Joe'").get()
 ```
-## Getting SQL
+
+### Getting SQL
 
 If you want to find out the SQL that will run when the command is executed. You can use `to_sql()`. This method returns the full query and is not the query that gets sent to the database. The query sent to the database is a "qmark query". This `to_sql()` method is mainly for debugging purposes.
 
@@ -255,7 +258,7 @@ builder.table('users').count('salary').to_sql()
 #== SELECT COUNT(`users`.`salary`) FROM `users`
 ```
 
-## Getting Qmark
+### Getting Qmark
 
 Qmark is essentially just a normal SQL statement except the query is replaced with question marks. The values that should have been in the position of the question marks are stored in a tuple and sent along with the qmark query to help in sql injection. The qmark query is the actual query sent using the connection class.
 
@@ -264,11 +267,11 @@ builder.table('users').count('salary').where('age', 18).to_sql()
 #== SELECT COUNT(`users`.`salary`) FROM `users` WHERE `users`.`age` = '?'
 ```
 
-# Updates
+## Updates
 
-## Updating Records
+### Updating Records
 
-You can update many records. 
+You can update many records.
 
 ```python
 builder.where('active', 0).update({
@@ -276,11 +279,12 @@ builder.where('active', 0).update({
 })
 # UPDATE `users` SET `users`.`active` = 1 where `users`.`active` = 0
 ```
-You may update records as well. 
 
-# Deletes
+You may update records as well.
 
-## Deleting Records
+## Deletes
+
+### Deleting Records
 
 You can delete many records as well. For example, deleting all records where active is set to 0.
 
@@ -288,52 +292,52 @@ You can delete many records as well. For example, deleting all records where act
 builder.where('active', 0).delete()
 ```
 
-# Available Methods
+## Available Methods
 
 **Section In Development**
 
-- where
-- where_has
-- first
-- update
-- create
-- set_scope
-- set_global_scope
-- select
-- select_raw
-- create
-- delete
-- where
-- where_raw
-- or_where[str, int, callable])
-- where_exists"QueryBuilder"]):
-- having
-- where_null
-- where_not_null
-- between
-- not_between
-- where_in
-- where_not_in
-- join
-- left_join
-- right_join
-- where_column
-- limit
-- offset
-- update
-- increment
-- decrement
-- sum
-- count
-- max
-- order_by
-- group_by
-- aggregate
-- first
-- all
-- get
-- get_grammar
-- to_sql
-- to_qmark
-- new
+* where
+* where\_has
+* first
+* update
+* create
+* set\_scope
+* set\_global\_scope
+* select
+* select\_raw
+* create
+* delete
+* where
+* where\_raw
+* or\_where\[str, int, callable\]\)
+* where\_exists"QueryBuilder"\]\):
+* having
+* where\_null
+* where\_not\_null
+* between
+* not\_between
+* where\_in
+* where\_not\_in
+* join
+* left\_join
+* right\_join
+* where\_column
+* limit
+* offset
+* update
+* increment
+* decrement
+* sum
+* count
+* max
+* order\_by
+* group\_by
+* aggregate
+* first
+* all
+* get
+* get\_grammar
+* to\_sql
+* to\_qmark
+* new
 
