@@ -100,10 +100,6 @@
 * [Query Builder](https://orator-orm.com/docs/0.9/query_builder.html)
 * [Schema Builder](https://orator-orm.com/docs/0.9/schema_builder.html)
 
-## Masonite ORM
-
-* [White Page](masonite-orm/white-page.md)
-
 ## Managers and Drivers
 
 * [About Drivers](managers-and-drivers/about-drivers.md)

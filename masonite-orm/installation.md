@@ -18,32 +18,39 @@ We can simply create a `config/database.py` file and then put a `CONNECTIONS` va
 
 ```python
 # config/database.py
-CONNECTIONS = {
+DATABASES = {
     'default': 'mysql',
     'mysql': {
         'driver': 'mysql',
         'host': 'localhost',
-        'username': 'root',
+        'user': 'root',
         'password': '',
         'database': 'orm',
         'port': '3306',
         'prefix': '',
-        'grammar': 'mysql',
         'options': {
             'charset': 'utf8mb4',
         },
     },
+    'postgres': {
+        'driver': 'postgres',
+        'host': 'localhost',
+        'user': 'postgres',
+        'password': 'postgres',
+        'database': 'orm',
+        'port': '5432',
+        'prefix': ''
+    },
     'sqlite': {
         'driver': 'sqlite',
         'database': 'orm.db',
-        'prefix': ''
     }
 }
 ```
 
 ### Creating a Model
 
-Now you can create a model. Refer to the model documentation but in simplest form you can create a class which inherits Masonite ORM's `Model` class. Assuming you have a `users` table:
+Now you can create a model. Refer to the model documentation but in simplest form you can create a class which inherits Masonite ORM `Model` class. Assuming you have a `users` table:
 
 ```python
 # user.py
@@ -58,7 +65,8 @@ class User(Model):
 To make sure everything is correct let's try making a database call:
 
 ```python
-from user import User
+# Import your Model wherever it is
+from user import User 
 
 print(User.all())
 ```
