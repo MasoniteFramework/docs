@@ -141,17 +141,18 @@
 
 ## Masonite ORM [In development] <a id="masonite-orm"></a>
 
-* [🔌 Installation](masonite-orm/installation.md)
-* [🧩 Query Builder](masonite-orm/query-builder.md)
-* [📘 Schema Builder](masonite-orm/schema-builder/README.md)
+* [Introduction](masonite-orm/introduction.md)
+* [Installation](masonite-orm/installation.md)
+* [Query Builder](masonite-orm/query-builder.md)
+* [Schema Builder](masonite-orm/schema-builder/README.md)
   * [Migrations](masonite-orm/schema-builder/migrations.md)
 * [⚡️ORM](masonite-orm/orm/README.md)
   * [Models](masonite-orm/orm/models.md)
-* [🛠 Extending & Building](masonite-orm/extending-and-building/README.md)
+* [Extending & Building](masonite-orm/extending-and-building/README.md)
   * [Creating Connections](masonite-orm/extending-and-building/creating-connections.md)
   * [Creating Grammar](masonite-orm/extending-and-building/creating-grammar.md)
-* [📄 Pagination](masonite-orm/pagination.md)
-* [🌱 Seeding](masonite-orm/seeding.md)
-* [🧪 Testing](masonite-orm/testing.md)
-* [⛓ Collections](masonite-orm/collections.md)
+* [Pagination](masonite-orm/pagination.md)
+* [Seeding](masonite-orm/seeding.md)
+* [Testing](masonite-orm/testing.md)
+* [Collections](masonite-orm/collections.md)
 
