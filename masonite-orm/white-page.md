@@ -14,7 +14,7 @@
 
 I will discuss the flow at a high level first and then can talk about each part separarely.
 
-First, everything starts with a model. You will import the model into your application and run some methods on it. Most of these methods simply return a instance of a query builder to kick off the flow.
+First, almost everything starts with a model You can use the underlying query builder directly  You will import the model into your application and run some methods on it. Most of these methods simply return a instance of a query builder to kick off the flow.
 
 For example,
 
@@ -36,7 +36,7 @@ Finally when we are done building a query we will call a `.get()`:
 user.select('id').where('id', 1).where('active', 1).get() #== <masonite.orm.Collection object>
 ```
 
-When you call get, the query builder will pass everything you built up \(1 select, 2 where statements\) and pass those into a grammar class. The grammar class is responsible for looping through the 3 statements and compiling them into a query that will run. So the grammar class will compile a query that looks like this:
+When you call `get`, the query builder will pass everything you built up \(1 select, 2 where statements\) and pass those into a grammar class. The grammar class is responsible for looping through the 3 statements and compiling them into a query that will run (both sql and qmark). So the grammar class will compile a query that looks like this:
 
 ```text
 SELECT `id` FROM `users` WHERE `id` = '1' AND `active` = 1
@@ -44,11 +44,11 @@ SELECT `id` FROM `users` WHERE `id` = '1' AND `active` = 1
 
 Once we get the query we can then pass the query into the connection class which will connect to the MySQL database to send the query.
 
-We will then get back a dictionary from the query and "hydrate" the original model. When you hydrate a model it simply means we set the dictionary result into the model so when we access something like `user.name` we will get the name of the user. Think of it as loading the dictionary into the class to be fetched later.
+We will then get back a dictionary from the query and "hydrate" the original model. When you hydrate a model it simply means we set the dictionary result into the model so when we access something like `user.name` we will get the name of the user. Think of it as loading the dictionary into the class to be used later during accession and setting.
 
 ## Grammar Classes
 
-Grammar classes are classes which are responsible for the compiling of attributes into a SQL statement. The SQL statement will then be given to the connection class to make the database call and return the result. Again the grammar class is only responsible for compiling the query into a string.
+Grammar classes are classes which are responsible for the compiling of attributes into a SQL statement. The SQL statement will then be given back to whatever called it (like the `QueryBuilder` class) and then passed to the connection class to make the database call and return the result. Again the grammar class is only responsible for compiling the query into a string. Simply taking attributes passed to it and looping through them and compiling them into a query.
 
 The grammar class will be responsible for both SQL and Qmark. SQL looks like this:
 
@@ -62,13 +62,13 @@ Qmark is this:
 SELECT * FROM `users` where `age` = '?'
 ```
 
-Qmark queries will then be passed off to the connection class with a tuple of bindings like `(18,)`. This helps protect against SQL injection.
+Qmark queries will then be passed off to the connection class with a tuple of bindings like `(18,)`. This helps protect against SQL injection attacks. **All queries passed to the connection class should be the qmark query. Compiling SQL is really for debugging purposes while developing. Passing straight SQL into the connection class could leave queries open to SQL injection.**
 
-**Any values should be able to be qmarked**. This is done inside the grammar class by replacing the value with a `'?'` and then adding the value to the bindings.
+**Any values should be able to be qmarked**. This is done inside the grammar class by replacing the value with a `'?'` and then adding the value to the bindings. The grammar class knows it should be qmarked by passing the qmark boolean variable throughout the grammar class. 
 
 The grammar class is also really an abstraction as well. All the heavy lifting is done inside the `BaseGrammar` class. Child classes \(like `MySQLGrammar` and `PostgresGrammar`, etc\) really just contain the formatting of the sql strings.
 
-Almost all SQL is bascially the same but with slightly different formats.
+Almost all SQL is bascially the same but with slightly different formats or placements for where some syntax goes. This is why this structure is so powerful and easy to expand or fix later on.
 
 For example, MySQL has this format for select statements with a limit:
 
@@ -82,9 +82,9 @@ But Microsoft SQL Server has this:
 SELECT TOP 1 * from `users`
 ```
 
-Notice the SQL is bascially the same but the limit statement is in a different spot in the SQL.
+Notice the SQL is bascially the same but the limiting statement is in a different spot in the SQL.
 
-We can accomplish this by specifying the format order so we can swap the placement. We do this by using Python keyword string interpolation. For example let's break down a more low level on how we can accomplish this:
+We can accomplish this by specifying the general, select, insert, update and delete formats so we can better organize and swap the placement later. We do this by using Python keyword string interpolation. For example let's break down to a more low level way on how we can accomplish this:
 
 Here is the MySQL grammar class select statement structure. I will simplify this for the sake of explanation but just know this also contains the formatting for joins, group by's in the form of `{joins}`, `{group_by}` etc:
 
@@ -104,11 +104,13 @@ def select_format(self):
 
 Simply changing the order in this string will allow us to replace the format of the SQL statement generated. The last step is to change exactly what the word is.
 
-Again, MySQL is `LIMIT X` and Microsoft is `TOP X`. We can accomplish this by doing this.
+Again, MySQL is `LIMIT X` and Microsoft is `TOP X`. We can accomplish this by doing this. Remember these are all in the subclasses of the grammar class. Mysql is in `MySQLGrammar` and Microsoft is in `MSSQLGrammar`
 
 MySQL:
 
 ```python
+# MySQLGrammar 
+
 def limit_string(self):
   return "LIMIT {limit}"
 ```
@@ -116,21 +118,24 @@ def limit_string(self):
 and Microsoft:
 
 ```python
+# MSSQLGrammar
+
 def limit_string(self):
   return "TOP {limit}"
 ```
 
-Now we have abstracted the differences into their own classes. Now when we compile the string, everything falls into place:
+Now we have abstracted the differences into their own classes and class methods. Now when we compile the string, everything falls into place:
 
 ```python
-self.select_format().format(
-    columns="*",
-    table="`users`",
-      limit="1"
+# Everything completely abstracted into it's own class and class methods.
+sql = self.select_format().format(
+    columns=self._compile_columns(),
+    table=self._compile_table(),
+    limit=self._compile_limit()
 )
 ```
 
-Let's remove the abstractions a bit so we can see more low level what it would be doing:
+Let's remove the abstractions and explode the variables a bit so we can see more low level what it would be doing:
 
 MySQL:
 
@@ -138,7 +143,7 @@ MySQL:
 "SELECT {columns} FROM {table} {limit}".format(
     columns="*",
     table="`users`",
-      limit="LIMIT 1"
+    limit="LIMIT 1"
 )
 #== 'SELECT * FROM `users` LIMIT 1'
 ```
@@ -149,12 +154,12 @@ Microsoft:
 "SELECT {limit} {columns} FROM {table} ".format(
     columns="*",
     table="`users`",
-      limit="TOP 1"
+    limit="TOP 1"
 )
 #== 'SELECT TOP 1 * FROM `users`'
 ```
 
-So notice here the abstractions can be changed per each grammar for databases with different SQL structures.
+So notice here the abstractions can be changed per each grammar for databases with different SQL structures. You just need to change the response of the string returning methods and the structure of the `select_format` methods
 
 ### Format Strings
 
@@ -166,6 +171,12 @@ MySQL tables are in the format of this:
 
 ```text
 `users`
+```
+
+Postgres and SQLite tables are in the format of this:
+
+```text
+"users"
 ```
 
 and Microsoft are this:
@@ -183,28 +194,28 @@ table = self.table_string().format(table=table)
 Which unabstracted looks like this for MySQL:
 
 ```python
+# MySQL
 table = "`{table}`".format(table=table)
 ```
 
 and this for Microsoft:
 
 ```python
+# MSSQL
 table = "[{table}]".format(table=table)
 ```
 
-There are a whole bunch of these. Column statements are the exact same thing.
+There are a whole bunch of these methods in the grammar classes for a whole range of things. Any differences that there can possible be between databases are abstracted into these methods.
 
 ## Compiling Methods
 
 There are a whole bunch of methods that begin with `_compile` so let's explain what those are.
 
-Now that all the differences between grammars are abstracted into the child grammar classes, all the heavy listing can be done in the `BaseGrammar` class which is the parent grammar class.
+Now that all the differences between grammars are abstracted into the child grammar classes, all the heavy listing can be done in the `BaseGrammar` class which is the parent grammar class and really the engine behind compiling the queries for all grammars.
 
-This `BaseGrammar` class is responsible for doing the actual compiling in the above section. So this class really just has a bunch of classes like `_compile_wheres`, `_compile_selects` etc.
+This `BaseGrammar` class is responsible for doing the actual compiling in the above section. So this class really just has a bunch of classes like `_compile_wheres`, `_compile_selects` etc. 
 
-The heart of this class really lies in the `_compile_select`, `_compile_create` methods. Most other `_compile` methods are really just to do the string interpolation explained above.
-
-Take a look at what the abstracted format for compiling the query statement above.
+The heart of this class really lies in the `_compile_select`, `_compile_create`, `_compile_update`, `_compile_delete` methods. Most other `_compile` methods are really just to do the string interpolation explained above to support these 4 main `_compile` methods.
 
 Let's bring back the unabstracted version first:
 
@@ -217,19 +228,19 @@ Let's bring back the unabstracted version first:
 #== 'SELECT * FROM `users` LIMIT 1'
 ```
 
-And now what that method would really look like:
+And now what that method would really look likes with the supporting `_compile` methods:
 
 ```python
 "SELECT {columns} FROM {table} {wheres} {limit}".format(
     columns=self._compile_columns(),
     table=self._compile_from(),
-      limit=self._compile_limit()
+    limit=self._compile_limit()
     wheres=self._compile_wheres
 )
 #== 'SELECT * FROM `users` LIMIT 1'
 ```
 
-So notice we have a whole bunch of `_compile` methods but they are mainly just for compiling the select, create or alter statements.
+So notice we have a whole bunch of `_compile` methods but they are mainly just for supporting the main compiling of the select, create or alter statements.
 
 ## Models and Query Builder
 
@@ -243,11 +254,7 @@ It is important though to know the differences between class \(`cls`\) and an ob
 
 ### CLS
 
-Since we instantiate the model later, we are typically working with a `cls` variable. This `cls` variable is the class of the model and not the instance of the model. You may want to research what the difference between classes and instances are if you don't know but one important thing to know is that:
-
-> All attributes set on a class are distributed down to all instances.
-
-This means that we can't do things like set the query result on the model class because it would defeat the purpose. Each model needs to have its own result.
+Since we never really instantiate the model until much later in the flow (basically not until we get the result back), we are typically working with a `cls` variable. This `cls` variable is the class of the model and not the instance of the model. You may want to research what the difference between classes and instances are if you don't know but one important thing to know is that:
 
 The real reason we do this is really only for the visual effect. I would like to do this:
 
@@ -261,7 +268,7 @@ and not:
 User().find(1)
 ```
 
-The second way would make things a bit easier but I am willing to go through a little more trouble to make sure the ORM looks really clean.
+Instantiating the class first would make things significantly easier but I am willing to go through a little more trouble to make sure the ORM looks really clean.
 
 So just keep this in mind when working with models and the query builder
 
@@ -273,12 +280,12 @@ This is really the meat and potatoes of the ORM and really needs to be perfect a
 
 When you call `where` on the model it will pass the info to the query builder and return this `QueryBuilder` class.
 
-```text
+```python
 user = User.where('age', 18)
 #== <masonite.orm.QueryBuilder object>
 ```
 
-All additional calls will be done on the query builder object:
+All additional calls will be done on THAT query builder object:
 
 ```python
 user = User.where('age', 18).where('name', 'Joe').limit(1)
@@ -303,7 +310,7 @@ So again we use the `QueryBuilder` to build up a query and then later execute it
 
 ### Expression Classes
 
-There are a few different classes which will aid in the compiling of SQL from the grammar class. These really are just various classes with different attributes on them. These classes are:
+There are a few different classes which will aid in the compiling of SQL from the grammar class. These really are just various classes with different attributes on them. They are internal only classes made to better compile things inside the `BaseGrammar` class, since we use things like isinstance checks and attribute conditionals. You will not be using these directly when developing applications. These classes are:
 
 * `QueryExpression` - Used for compiling of where statements
 * `HavingExpression` - Used for the compiling of Having statements
@@ -314,13 +321,15 @@ There are a few different classes which will aid in the compiling of SQL from th
 
 These are simply used when building up different parts of a query. When the `_compile_wheres`, `_compile_update` and other methods are ran on the grammar class, these just make it more simple to fetch the needed data and are not too generic to make difficult use cases challenging to code for.
 
+## How classes interact with eachother
+
 ### QueryBuilder -&gt; Grammar
 
 To be more clear, once we are done building the query and then call `.get()` or `.first()`, all the wheres, selects, group\_by's etc are passed off to the correct grammar class like `MySQLGrammar` which will then compile down to a SQL string.
 
 ### QueryBuilder -&gt; Connection
 
-That SQL string is then sent to the connection class along with the bindings from the grammar class. We then have a result in the form of a dictionary. We don't want to be working with a bunch of dictionaries though, we want to work with more models.
+That SQL string returned from the grammar class is then sent to the connection class along with the bindings from the grammar class. We then have a result in the form of a dictionary. We don't want to be working with a bunch of dictionaries though, we want to work with more models.
 
 ### QueryBuilder Hydrating
 
@@ -330,12 +339,12 @@ For times we have several results \(a list of dictionaries\) we simply loop thro
 
 ## Relationships
 
-Relationships are a bit magical. We needed to do some Python class management magic to get nail the inherently magical nature of the relationship classes. For example we have a relationship like this:
+Relationships are a bit magical and uses a lot of internal low level Python magic to get right. We needed to do some Python class management magic to nail the inherently magical nature of the relationship classes. For example we have a relationship like this:
 
 ```python
 class User:
 
-        @belongs_to('local_key', 'foreign_key')
+    @belongs_to('local_key', 'foreign_key')
     def profile(self):
         return Profile
 ```
@@ -347,14 +356,22 @@ user = User.find(1)
 user.profile.city
 ```
 
-to work. Very strange I know. How would we get an attribute accession to:
+BUT we also want to be able to extend the relationship as well:
+
+```python
+user = User.find(1)
+user.profile().city
+```
+
+so we need to both access the attribute AND call the attribute. Very strange I know. How would we get an attribute accession to:
 
 * find the correct model in the method
 * build the query
 * Find the correct foreign key's to fetch on
 * return a fully hydrated model ready to go
+* but when you call it simple do the wheres and return the query builder.
 
-For this we do some decorator and attribute accession magic using the `__get__` magic method which is called whenever an attribute is accessed. We can then hijack this hook and return whatever we need. In this case, a fully hydrated model.
+For this we do some decorator and attribute accession magic using the `__get__` magic method which is called whenever an attribute is accessed. We can then hijack this hook and return whatever we need. In this case, a fully hydrated model or a query builder.
 
 ### Relationship classes
 
