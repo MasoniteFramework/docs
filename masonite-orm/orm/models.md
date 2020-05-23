@@ -4,9 +4,67 @@ Models are the main starting point for using the ORM portion of Masonite ORM. Mo
 
 # Creating a Model
 
-# Model Methods
+Models are pretty simple to create. They are simple classes that expand as you need them to. To create a model simply create a new class and extend Masonite ORM's `Model` class:
 
-## Selecting
+```python
+from masonite.orm.models import Model
+
+class User(Model):
+    pass
+```
+
+Once created that is it. There are a few conventions you might need to take into account to get started though.
+
+## Table Names
+
+The `User` model we created above will use the plural version of the models name. So a `User` model will use a `users` table and a `Company` model will use a `companies` table. Masonite ORM will also use a snake case version of the model name for the table. So it will take a class name like `UserInvoice` and automatically set the table to `user_invoices`.
+
+If you need to override this behavior you can do so by specifying the `__table__` attribute:
+
+```python
+from masonite.orm.models import Model
+
+class User(Model):
+    __table__ = 'accounts'
+```
+
+## Primary Keys
+
+Masonite ORM will also default that all primary keys are `id`. If this is not the case you can specify the primary key column explicitly:
+
+```python
+from masonite.orm.models import Model
+
+class User(Model):
+    __table__ = 'accounts'
+    __primary_key__ = 'user_id'
+```
+
+## Connections
+
+By default, Masonite will also assume that all models are using the `default` connection which was defined in your database configuration dictionary. It is possible to have different models use difference connections by specifying the `__connection__` attribute:
+
+```python
+from masonite.orm.models import Model
+
+class User(Model):
+    __table__ = 'accounts'
+    __primary_key__ = 'user_id'
+    __connection__ = 'db-server-1'
+```
+
+## Retrieving Records
+
+### Getting All Records
+
+Once your model is created you can start querying your database. It's pretty simple to get all records:
+
+```python
+from models import User
+
+for user in User.all():
+    user.name
+```
 
 ### Selecting Columns
 
@@ -15,6 +73,8 @@ Models are the main starting point for using the ORM portion of Masonite ORM. Mo
 ### Subgroups
 
 ### Aggregates
+
+## Timestamps
 
 ## Inserting
 

@@ -36,7 +36,7 @@ You can easily get the first record:
 
 ```python
 builder.table('users').first()
-# SELECT `username` from `users`
+# SELECT `username` from `users` LIMIT 1
 ```
 
 ### All Records
