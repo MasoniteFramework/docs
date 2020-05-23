@@ -137,6 +137,7 @@
 
 ## Masonite ORM [In development] <a id="masonite-orm"></a>
 
+* [White Page](masonite-orm/white-page.md)
 * [Introduction](masonite-orm/introduction.md)
 * [Installation](masonite-orm/installation.md)
 * [Query Builder](masonite-orm/query-builder.md)
