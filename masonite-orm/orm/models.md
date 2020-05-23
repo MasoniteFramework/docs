@@ -85,6 +85,3 @@ Models are the main starting point for using the ORM portion of Masonite ORM. Mo
 ## Serializing Relationships
 
 ## Serializing Dates
-
-
-
