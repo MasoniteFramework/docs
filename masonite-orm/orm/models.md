@@ -15,7 +15,7 @@ class User(Model):
 
 Once created that is it. There are a few conventions you might need to take into account to get started though.
 
-## Table Names
+# Table Names
 
 The `User` model we created above will use the plural version of the models name. So a `User` model will use a `users` table and a `Company` model will use a `companies` table. Masonite ORM will also use a snake case version of the model name for the table. So it will take a class name like `UserInvoice` and automatically set the table to `user_invoices`.
 
@@ -28,7 +28,7 @@ class User(Model):
     __table__ = 'accounts'
 ```
 
-## Primary Keys
+# Primary Keys
 
 Masonite ORM will also default that all primary keys are `id`. If this is not the case you can specify the primary key column explicitly:
 
@@ -40,7 +40,7 @@ class User(Model):
     __primary_key__ = 'user_id'
 ```
 
-## Connections
+# Connections
 
 By default, Masonite will also assume that all models are using the `default` connection which was defined in your database configuration dictionary. It is possible to have different models use difference connections by specifying the `__connection__` attribute:
 
@@ -53,9 +53,9 @@ class User(Model):
     __connection__ = 'db-server-1'
 ```
 
-## Retrieving Records
+# Retrieving Records
 
-### Getting All Records
+## Getting All Records
 
 Once your model is created you can start querying your database. It's pretty simple to get all records:
 
@@ -66,49 +66,49 @@ for user in User.all():
     user.name
 ```
 
-### Selecting Columns
+## Selecting Columns
 
-### Subqueries
+## Subqueries
 
-### Subgroups
+## Subgroups
 
-### Aggregates
+## Aggregates
 
-## Timestamps
+# Timestamps
 
-## Inserting
+# Inserting
 
-### Mass Assignment
+## Mass Assignment
 
-## Updating
+# Updating
 
-## Deleting
+# Deleting
 
 # Relationships
 
-## Making a Relationship
+# Making a Relationship
 
-### Belongs To
+## Belongs To
 
-### Has Many
+## Has Many
 
-## Accessing a Relationship
+# Accessing a Relationship
 
-## Calling a Relationship
+# Calling a Relationship
 
-## Checking Existence
+# Checking Existence
 
 * has queries
 * where_has queries
 * doesnt_have queries
 
-## Eager Loading
+# Eager Loading
 
 * with_
 
 # Scopes
 
-## Passing Parameters
+# Passing Parameters
 
 # Global Scopes
 
@@ -120,7 +120,7 @@ for user in User.all():
 
 # Dates
 
-## Setting Timezones
+# Setting Timezones
 
 # Touching
 
@@ -128,20 +128,20 @@ for user in User.all():
 
 # Serializing and JSON
 
-## Hiding Attributes
+# Hiding Attributes
 
-## Hiding Relationships
+# Hiding Relationships
 
-## Converting Attributes
+# Converting Attributes
 
-## Adding Attributes
+# Adding Attributes
 
 * set_appends
 
-## To Dictionary
+# To Dictionary
 
-## To JSON
+# To JSON
 
-## Serializing Relationships
+# Serializing Relationships
 
-## Serializing Dates
+# Serializing Dates
