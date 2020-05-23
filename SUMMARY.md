@@ -140,6 +140,7 @@
 * [White Page](masonite-orm/white-page.md)
 * [Introduction](masonite-orm/introduction.md)
 * [Installation](masonite-orm/installation.md)
+* [Orator To Masonite ORM](masonite-orm/orator-to-masonite-orm.md)
 * [Query Builder](masonite-orm/query-builder.md)
 * [Schema Builder](masonite-orm/schema-builder/README.md)
   * [Migrations](masonite-orm/schema-builder/migrations.md)
