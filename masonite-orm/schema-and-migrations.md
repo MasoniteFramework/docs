@@ -126,7 +126,7 @@ You can use these options:
 
 In addition to building up the migration, you should also build onto the `down` method which should reverse whatever was done in the `up` method. If you create a table in the up method, you should drop the table in the down method.
 
-|Command | Description | 
+| Command | Description | 
 |---|---|
 | `table.drop_table()`  | DROP TABLE equivalent statement. |
 | `table.drop_table_if_exists()`  | DROP TABLE IF EXISTS equivalent statement. |
