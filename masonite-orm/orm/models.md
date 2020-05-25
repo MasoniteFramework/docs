@@ -362,9 +362,56 @@ users = User.gender('F').get()
 
 # Global Scopes
 
-# Accessors and Mutators
+# Accessors
 
-# Casting
+Accessors are called in place of the attribute you want to access. For example, if you want to access `first_name` but you want to add some additional logic to it you can simply create an accessor method for it. To do this you just need to specify a method that starts with `get_`
+
+```python
+class User(Model):
+
+    def get_first_name(self):
+        return "Hello, " + self.get_raw_attribute('first_name')
+```
+
+You can see if we don't specify `get_raw_attribute` then we will end up in an infinite loop
+
+# Casting Attributes
+
+Some values you may need to be casted to other values. For example, you may have an `is_admin` column that is either a `1` or `0`. It might be more useful to cast this to a `True` or `False` boolean value when you access it. You can create specific castings:
+
+```python
+class User(Model):
+    __casts__ = {"is_admin": "bool"}
+```
+
+The cast methods (the dictionary values here) are predefined. The available casting methods are:
+
+* bool
+* json
+
+## Creating Casting Methods
+
+You can create your own casting methods as well. If you want to convert a string value to an integer value for example you can create your own casting class:
+
+```python
+class IntCast:
+
+    def get(self, value):
+        return int(value)
+```
+
+and then register it to your model:
+
+```python
+from casts import IntCast
+
+class User(Model):
+    __cast_map__ = {
+        'int': IntCast
+    }
+
+    __casts__ = {"age": "int"}
+```
 
 # Timestamps
 
@@ -397,9 +444,11 @@ class Article(Model):
     __dates__ = ['published_at', 'printed_at']
 ```
 
+This will handle both setting and accessing dates on your models
+
 # Setting Timezones
 
-Not currently possible
+In development. Not currently possible.
 
 # Touching
 
@@ -409,26 +458,94 @@ If you just want to update the `updated_at` column quickly you can use the `touc
 user = User.find(1).touch()
 ```
 
-This will update the `updated_at` column on your table
+This will update the `updated_at` column on your table to the current time.
 
-# Available Methods
 
 # Serializing and JSON
 
-# Hiding Attributes
+If you need to convert your models (and their relationships) to a dictionary you can do so simple:
 
-# Hiding Relationships
+```python
+user = User.find(1)
+user.serialize()
+```
 
-# Converting Attributes
+This will convert the model into a dictionary. You can also do the same thing with a collection:
+
+```python
+users = User.all()
+users.serialize()
+```
+
+This will convert into a list of dictionaries.
+
+## Serializing Relationships
+
+You can automatically serialize relationships as well but specifying them in the with:
+
+```python
+users = User.with_('articles').get()
+users.serialize()
+```
+
+This list of dictionaries will now also have the correct relationship results attached to each value
+
+## Hiding Attributes And Relationships
+
+Sometimes you don't want to return some results from the dictionary. For example, you may be building an API and don't want to show the user's password.
+
+You can do so by specifying the `__hidden__` attribute before serializing:
+
+```python
+user = User.find(1)
+user.__hidden__ = ['password']
+user.serialize()
+```
+
+This also works with relationships as well.
 
 # Adding Attributes
 
-* set_appends
+Sometimes you will want to add extra attributes to a serialization. For example, maybe you want to add the fact that a user is subscribed:
 
-# To Dictionary
+First you will need to set a `@property` attribute on your model:
+
+```python
+class User(Model):
+
+    @property
+    def is_subscribed(self):
+        return {
+            'subscribed': True
+        }
+```
+
+then you can use the `set_appends` method before serializing:
+
+```python
+user = User.find(1)
+user.set_appends(['is_subscribed'])
+user.serialize()
+```
+
+This will now attach the `is_subscribed` response to the dictionary.
 
 # To JSON
 
-# Serializing Relationships
+Not currently available
 
 # Serializing Dates
+
+If you need to serialize dates to a specific format you can override a few methods. Whenever Masonite serializes a model, for all the dates in the `__dates__` list it will pass those values into a `get_new_serialized_date` method.
+
+You can override this method and change the format of the dates:
+
+```python
+class Article(Model):
+
+    __dates__ = ['completed_at', 'published_at']
+
+    def get_new_serialized_date(self, datetime):
+        datetime #== instance of datetime.datetime from python library
+        return pendulum.instance(datetime).to_datetime_string()
+```
