@@ -57,47 +57,13 @@ class MigrationForUsersTable(Migration):
 
 ## Available Methods
 
-|Command | Description | 
-|---|---|
-| `table.string()`  | The varchar version of the table. Can optional pass in a length `table.string('name', length=181)` |
-| `table.integer()` |  The INT version of the database. Can also specify a length `table.integer('age', length=5)`|
-| `table.increments()`  | The auto incrementing version of the table. An unsigned non nullable auto incrementing integer.  |
-| `table.big_increments()`  | An unsigned non nullable auto incrementing big integer. Use this if you expect the rows in a table to be very large  |
-| `table.binary()`  | BINARY equivalent column. Sometimes is text field on unsupported databases.  |
-| `table.boolean()`  | BOOLEAN equivalent column.   |
-| `table.char()`  | CHAR equivalent column.  |
-| `table.date()`  | DATE equivalent column.  |
-| `table.datetime()`  | DATETIME equivalent column.  |
-| `table.timestamp()`  |  TIMESTAMP equivalent column. |
-| `table.timestamps()`  | Creates `created_at` and `updated_at` columns on the table with the `timestamp` column and defaults to the current time. |
-| `table.decimal()`  | DECIMAL equivalent column. Can also specify the length and decimal position. `table.decimal('salary', 17, 6)`  | 
-| `table.double()`  | DOUBLE equivalent column. Can also specify a float length `table.double('salary', 17,6)`  |
-| `table.enum()`  | ENUM equivalent column. You can also specify available options as a list. `table.enum('flavor', ['chocolate', 'vanilla'])`. Sometimes defaults to a TEXT field with a constraint on unsupported databases.  |
-| `table.text()`  | TEXT equivalent column.  |
-| `table.unsigned_integer()`  |  UNSIGNED INT equivalent column. |
-| `table.unsigned()`  |  Alias for `unsigned_integer` |
-
 # Modifiers
 
 In addition to the available columns you can use, you can also specify some modifers which will change the behavior of the column:
 
-|Command | Description | 
-|---|---|
-| .nullable()  | Allows NULL values to be inserted into the column. |
-| .unique() | Forces all values in the column to be unique.  |
-| .after() | Adds the column after another column in the table. Can be used like `table.string('is_admin').after('email')`.  |
-| .unsigned() | Makes the column unsigned. Used with the `table.integer('age').unsigned()` column.  |
-| .use_current() | Makes the column use the `CURRENT_TIMESTAMP` modifer.  |
-
 # Indexes
 
 In addition to columns, you can also create indexes. Below are the available indexes you can create:
-
-|Command | Description | 
-|---|---|
-| `table.primary()`  | Make the column use the PRIMARY KEY modifer.  |
-| `table.unique()` | Makes a unique index. Can pass in a column `table.unique('email')` or list of columns `table.unique(['email', 'phone_number'])`. |
-| `table.index()` | Creates an index on the column. `table.index('email')` |
 
 # Foreign Keys
 
