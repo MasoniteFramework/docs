@@ -167,7 +167,7 @@ class MigrationForUsersTable(Migration):
         """
         with self.schema.table("users") as table:
             table.drop_column('email')
-            
+
         with self.schema.table("users") as table:
             table.string('email').unique()
 
