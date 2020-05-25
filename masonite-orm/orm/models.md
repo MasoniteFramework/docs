@@ -362,6 +362,45 @@ users = User.gender('F').get()
 
 # Global Scopes
 
+Global scopes are a way to ALWAYS attach a query to your database call. This is used for Masonite's timestamp updates to manage the `updated_at` and `created_at` timestamps. This is also used for Masonite's soft deleting features.
+
+## Soft Deleting
+
+Masonite comes with a soft deleting feature to prevent from hard deleting records in the database. Instead of deleting records in the database, Masonite will instead manage a `deleted_at` record on the database instead. This way you can always get back the deleted records and they are never really gone.
+
+To use the soft deleting feature, simple inherit your model with the `SoftDeletes` class:
+
+```python
+from masonite.orm.scopes import SoftDeletes
+
+class User(Model, SoftDeletes):
+    pass
+```
+
+This will now only fetch records where `deleted_at` column is null.
+
+## Creating Global Scopes
+
+If you would like, you can also create your own global scopes. Let's take the example of only ever wanting to get records that `is_active` is set to `1`.
+
+We can start with creating a new class with the following boiler plate:
+
+```python
+class ActiveScope:
+    """Scope class to add is_active to queries.
+    """
+
+    def boot_active_scope():
+        return {
+            "select": ActiveScope.query_active,
+        }
+
+    def query_active(owner_cls, query):
+        return query.where("is_active", 1)
+```
+
+Once done you can now inherit this scope on your model and it will apply the query on select statements.
+
 # Accessors
 
 Accessors are called in place of the attribute you want to access. For example, if you want to access `first_name` but you want to add some additional logic to it you can simply create an accessor method for it. To do this you just need to specify a method that starts with `get_`
