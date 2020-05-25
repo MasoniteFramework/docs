@@ -10,6 +10,8 @@ Before moving your project over to Masonite ORM please keep in mind some feature
 * Database Transactions
 * Model Events and Observers
 * `.change()` functionality in migrations
+* polymorphic relationships
+* through relationships
 
 # Config
 
