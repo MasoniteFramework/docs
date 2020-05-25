@@ -126,16 +126,6 @@ You can use these options:
 
 In addition to building up the migration, you should also build onto the `down` method which should reverse whatever was done in the `up` method. If you create a table in the up method, you should drop the table in the down method.
 
-| Command | Description | 
-|---|---|
-| `table.drop_table()`  | DROP TABLE equivalent statement. |
-| `table.drop_table_if_exists()`  | DROP TABLE IF EXISTS equivalent statement. |
-| `table.drop_column()`  | DROP COLUMN equivalent statement.  |
-| `table.drop_index()`  | Drops the constraint. Must pass in the name of the constraint. `drop_index('email_index')` |
-| `table.drop_unique()`  | Drops the uniqueness constraint. Must pass in the name of the constraint. `table.drop_unique('users_email_unique')`  |
-| `table.drop_foreign()`  | Drops the foreign key. Must specify the index name. `table.drop_foreign('users_article_id_foreign')`  |
-| `table.drop_primary()`  |  Drops the primary key constraint. Must pass in the constraint name `table.drop_foreign('users_id_primary')` |
-
 # Refreshing
 
 Refreshing a database is simply rolling back all migrations and then migrating again. This "refreshes" your database.
