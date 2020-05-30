@@ -43,11 +43,26 @@ You may need to use an ssl version of SMTP depending on the service you are usin
 ```python
 DRIVERS = {
     'smtp': {
-        'host': os.getenv('MAIL_HOST', 'smtp.mailtrap.io'),
-        'port': os.getenv('MAIL_PORT', '465'),
-        'username': os.getenv('MAIL_USERNAME', 'username'),
-        'password': os.getenv('MAIL_PASSWORD', 'password'),
+        'host': env('MAIL_HOST', 'smtp.mailtrap.io'),
+        'port': env('MAIL_PORT', '465'),
+        'username': env('MAIL_USERNAME', 'username'),
+        'password': env('MAIL_PASSWORD', 'password'),
         'ssl': True
+    },
+```
+
+#### TLS \(optional\)
+
+The SMTP driver supports a TLS option as well if your mail server requires TLS:
+
+```python
+DRIVERS = {
+    'smtp': {
+        'host': env('MAIL_HOST', 'smtp.mailtrap.io'),
+        'port': env('MAIL_PORT', '465'),
+        'username': env('MAIL_USERNAME', 'username'),
+        'password': env('MAIL_PASSWORD', 'password'),
+        'tls': True
     },
 ```
 
@@ -72,7 +87,7 @@ If you change to using Mailgun then you will need to change the driver. By defau
 
 {% code title="config/mail.py" %}
 ```python
-DRIVER = os.getenv('MAIL_DRIVER', 'smtp')
+DRIVER = env('MAIL_DRIVER', 'smtp')
 ```
 {% endcode %}
 
@@ -99,8 +114,8 @@ Masonite will retrieve the configuration settings for the mailgun driver from th
 DRIVERS = {
     ...
     'mailgun': {
-        'secret': os.getenv('MAILGUN_SECRET', 'key-XX'),
-        'domain': os.getenv('MAILGUN_DOMAIN', 'sandboxXX.mailgun.org')
+        'secret': env('MAILGUN_SECRET', 'key-XX'),
+        'domain': env('MAILGUN_DOMAIN', 'sandboxXX.mailgun.org')
     }
 }
 ```
@@ -145,7 +160,7 @@ Masonite will retrieve the configuration settings for the log driver from the `D
 DRIVERS = {
     ...
     'log': {
-        'file': os.getenv('LOG_FILE', 'mail.log'),
+        'file': env('LOG_FILE', 'mail.log'),
         'location': 'bootstrap/logs'
     }
 }
@@ -180,6 +195,28 @@ from masonite import Mail
 ...
 def show(self, mail: Mail):
     mail.to(User.find(1).email).send('Welcome!')
+```
+
+Masonite also supports the following `.to()` formats:
+
+```python
+from masonite import Mail
+
+def show(self, mail: Mail):
+    # Single email address
+    mail.to('user1@email.com').send('Welcome!')
+
+    # Email with name
+    mail.to('Joe Mancuso <user1@email.com>').send('Welcome!')
+
+    # List of emails
+    mail.to(['user1@email.com', 'user2.email.com']).send('Welcome!')
+
+    # List of emails with name
+    mail.to([
+        'Joe Mancuso <user1@email.com>', 
+        'John Mancuso <user2@email.com>'
+    ]).send('Welcome!')
 ```
 
 ## Queuing Emails

@@ -105,6 +105,14 @@ Input data will be cleaned of HTML tags and other security measures. This may ca
 request.input('firstname', clean=False) # Joe
 ```
 
+## Quotes
+
+By default, Masonite will clean quotes in order to sanitize the input. If you would to preserve quotes you can set whether you would like quotes to be cleaned. A value of `False` will keep the quotes:
+
+```python
+request.input('firstname', quotes=False)
+```
+
 To check if some request input data exists:
 
 ```python
@@ -143,6 +151,23 @@ Payload:
 """
 
 request.input('user.addresses.*.id') # [1,2]
+```
+
+You may also use list indexes to fetch data:
+
+```python
+"""
+Payload: 
+"user": {
+    "id": 1,
+    "addresses": [
+        {"id": 1, 'street': "A Street"},
+        {"id": 2, 'street': "B Street"}
+    ] 
+}
+"""
+
+request.input('user.addresses.2.street') # B Street
 ```
 
 ## Only
