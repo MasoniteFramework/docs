@@ -541,7 +541,16 @@ user.__hidden__ = ['password']
 user.serialize()
 ```
 
-This also works with relationships as well.
+You may of course also set the attribute on the model itself:
+
+```python
+from masonite.orm.scopes import scope
+
+class User(Model):
+    __hidden__ = ['password']
+```
+
+This also works with relationships as well. Just specify the name of the relationship method.
 
 # Adding Attributes
 
