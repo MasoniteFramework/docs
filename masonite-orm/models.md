@@ -414,6 +414,25 @@ class User(Model):
 
 You can see if we don't specify `get_raw_attribute` then we will end up in an infinite loop
 
+# Mutators
+
+Mutators are used to change (mutate) attributes that are set on the model. If you want to always uppercase the first name when setting the `first_name` attribute you can so do by using the `set_{attribute}_attribute` format:
+
+```python
+class User(Model):
+
+    def set_first_name_attribute(self, first_name):
+        return str(first_name).ucwords()
+```
+
+Now when you set the first name on the model it will be tranformed into all upper case:
+
+```python
+user = User.find(1)
+user.name = 'joe'
+user.name #== 'JOE'
+```
+
 # Casting Attributes
 
 Some values you may need to be casted to other values. For example, you may have an `is_admin` column that is either a `1` or `0`. It might be more useful to cast this to a `True` or `False` boolean value when you access it. You can create specific castings:
