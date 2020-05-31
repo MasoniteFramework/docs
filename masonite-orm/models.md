@@ -111,15 +111,33 @@ def store(self, request: Request):
     user = User.create(request.all())
 ```
 
-This would present a pretty big security vulnerability so a user could manipulate the form to add a `is_admin` input to the form before they submit it. So Masonite protects against this behavior and instead will simply ignore anything not explicitly in the `__fillable__` array.
+This would present a pretty big security vulnerability so a user could manipulate the form to add a `is_admin` input to the form before they submit it. So Masonite protects against this behavior and instead will simply ignore anything not explicitly in the `__fillable__` array. The `__fillable__` attribute created a white list of attributes you can mass assign.
 
-This only is for mass creating and mass updating. Setting attributes on the model itself is not affected:
+```python
+class User:
+    __fillable__ = ['username', 'email', 'active']
+```
+
+This is only for mass creating and mass updating. 
+
+Setting attributes on the model itself is not affected:
 
 ```python
 user = User.find(1)
 user.is_admin = 1
 user.save()
 ```
+
+## Guarded
+
+As the opposite of `__fillable__`, which is setting a white list, you can use `__guarded__` which is creating a black list of columns:
+
+```python
+class User:
+    __guarded__ = ['is_admin']
+```
+
+This is saying that all attributes on this model are fillable **except** the `is_admin` column.
 
 # Updating
 
