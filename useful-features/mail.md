@@ -264,7 +264,7 @@ Instead of taking seconds to send an email, this will seem immediate and be sent
 Read more about creating Jobs and sending emails asynchronously in the [Queues and Jobs](queues-and-jobs.md) documentation.
 {% endhint %}
 
-## Methods
+## Changing the subject
 
 We can also specify the subject:
 
@@ -272,10 +272,31 @@ We can also specify the subject:
 mail.subject('Welcome!').to('hello@email.com').send('Welcome!')
 ```
 
+## Changing the Send From
 You can specify which address you want the email to appear from:
 
 ```python
 mail.send_from('Admin@email.com').to('hello@email.com').send('Welcome!')
+```
+
+## Changing the Mime Type
+
+By default, Masonite will send HTML emails but you can specify either HTML or plain text emails simply:
+
+```python
+mail.html('<h1>Hello</h1>').send()
+```
+
+or plain text:
+
+```python
+mail.text('world').send()
+```
+
+You can also send both:
+
+```python
+mail.html('<h1>Hello</h1>').text('world').send()
 ```
 
 ## Templates
