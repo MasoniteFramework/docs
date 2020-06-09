@@ -64,7 +64,7 @@ def show(self, request: Request):
 There is no difference between any HTTP methods \(GET, POST, PUT, etc\) when it comes to getting input data. They are all retrieved through this `.input()` method so there is no need to make a distinction if the request is `GET` or `POST`
 {% endhint %}
 
-### Method Options
+# Method Options
 
 ## Input Data
 
@@ -95,6 +95,40 @@ To get a specific input:
 
 def show(self, request: Request):
     return request.input('firstname') # Joe
+```
+
+## Query Strings
+
+Sometimes you want to only get the query strings or access the query strings. These can be times where you are posting to `POST: /dashboard?firstname=Joe` and want to access both the POST input AND the URL query strings.
+
+You can do so simply:
+
+```python
+# POST: /dashboard?firstname=Joe
+
+def show(self, request: Request):
+    request.query('firstname') # Joe
+    request.query('firstname', 'default') # Joe
+    request.query('lastname', 'default') # default
+```
+
+There may be times you have multiple parameters you need to fetch. By default Masonite will only fetch the first one but you may have an example like this:
+
+```python
+# POST: /dashboard?firstname=Joe&firstname=Bob
+
+def show(self, request: Request):
+    request.query('firstname') # Joe
+    request.query('firstname', multi=True) # ['Joe', 'Bob']
+```
+
+You may also get all the query params:
+
+```python
+# POST: /dashboard?firstname=Joe
+
+def show(self, request: Request):
+    return request.all_query() # {'firstname': 'Joe'}
 ```
 
 ## Input Cleaning
