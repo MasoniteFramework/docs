@@ -144,7 +144,7 @@ For now on we won't focus on the whole controller but just the sections we are w
 from masonite.view import View 
 ...
 def show(self, view: View):
-    return view.render('blog')
+    return view.render('blogView')
 ```
 {% endtab %}
 {% endtabs %}
@@ -159,7 +159,7 @@ Be sure to learn more about the [Service Container](https://docs.masoniteproject
 
 You'll notice now that we are returning the `blog` view but it does not exist yet.
 
-All views are in the `resources/templates` directory. We can create a new file called `resources/templates/blog.html` or we can use another craft command:
+All views are in the `resources/templates` directory. We can create a new file called `resources/templates/blogView.html` or we can use another craft command:
 
 {% tabs %}
 {% tab title="terminal" %}
@@ -174,7 +174,7 @@ This will create that template we wanted above for us.
 We can put some text in this file like:
 
 {% tabs %}
-{% tab title="resources/templates/blog.html" %}
+{% tab title="resources/templates/blogView.html" %}
 ```markup
 This is a blog
 ```
@@ -464,7 +464,7 @@ We will also check if the user is logged in before creating a template.
 The URL for creating will be located at `/blog/create` and will be a simple form for creating a blog post
 
 {% tabs %}
-{% tab title="resources/templates/blog.html" %}
+{% tab title="resources/templates/blogView.html" %}
 ```markup
 <form action="/blog/create" method="POST">
     {{ csrf_field }}
@@ -481,7 +481,7 @@ Notice here we have this strange `{{ csrf_field }}` looking text. Masonite comes
 Now because we have a foreign key in our posts table, we need to make sure the user is logged in before creating this so let's change up our template a bit:
 
 {% tabs %}
-{% tab title="resources/templates/blog.html" %}
+{% tab title="resources/templates/blogView.html" %}
 ```markup
 {% if auth() %}
     <form action="/blog/create" method="POST">
@@ -527,7 +527,7 @@ html {
 Now we can add it to our template like so right at the top:
 
 {% tabs %}
-{% tab title="resources/templates/blog.html" %}
+{% tab title="resources/templates/blogView.html" %}
 ```markup
 <link href="/static/blog.css" rel="stylesheet">
 {% if auth() %}
@@ -554,7 +554,7 @@ That's it. Static files are really simple. It's important to know how they work 
 Javascript files are the same exact thing:
 
 {% tabs %}
-{% tab title="resources/templates/blog.html" %}
+{% tab title="resources/templates/blogView.html" %}
 ```markup
 <link href="/static/blog.css" rel="stylesheet">
 {% if auth() %}
@@ -606,7 +606,7 @@ and create a new store method on our controller:
 ```python
 ...
 def show(self, view: View): 
-    return view.render('blog')
+    return view.render('blogView')
 
 # New store Method
 def store(self): 
@@ -693,7 +693,7 @@ from app.Post import Post
 def show(self, view: View):
     posts = Post.all()
 
-    return view.render('posts', {'posts': posts})
+    return view.render('postsView', {'posts': posts})
 ```
 {% endtab %}
 {% endtabs %}
@@ -715,7 +715,7 @@ Get('/posts', 'PostController@show')
 Our posts view can be very simple:
 
 {% tabs %}
-{% tab title="resources/templates/posts.html" %}
+{% tab title="resources/templates/postsView.html" %}
 ```markup
 {% for post in posts %}
     {{ post.title }}
@@ -734,7 +734,7 @@ Go ahead and run the server and head over to `http://localhost:8000/posts` route
 Remember we made our author relationship before. Orator will take that relationship and make an attribute from it so we can display the author's name as well:
 
 {% tabs %}
-{% tab title="resources/templates/posts.html" %}
+{% tab title="resources/templates/postsView.html" %}
 ```markup
 {% for post in posts %}
     {{ post.title }} by {{ post.author.name }}
@@ -777,7 +777,7 @@ from masonite.view import View
 def single(self, view: View, request: Request):
     post = Post.find(request.param('id'))
 
-    return view.render('single', {'post': post})
+    return view.render('singleView', {'post': post})
 ```
 {% endtab %}
 {% endtabs %}
@@ -793,7 +793,7 @@ For a real application we might do something like `@slug` and then fetch it with
 We just need to display 1 post so lets just put together a simple view:
 
 {% tabs %}
-{% tab title="resources/templates/single.html" %}
+{% tab title="resources/templates/singleView.html" %}
 ```markup
 {{ post.title }}
 <br>
@@ -819,7 +819,7 @@ Let's just make an update method on the `PostController`:
 def update(self, view: View, request: Request):
     post = Post.find(request.param('id'))
 
-    return view.render('update', {'post': post})
+    return view.render('updateView', {'post': post})
 
 def store(self, request: Request):
     post = Post.find(request.param('id'))
@@ -843,7 +843,7 @@ $ craft view update
 ```
 
 {% tabs %}
-{% tab title="resources/templates/update.html" %}
+{% tab title="resources/templates/updateView.html" %}
 ```markup
 <form action="/post/{{ post.id }}/update" method="POST">
     {{ csrf_field }}
@@ -912,7 +912,7 @@ Notice we used a `GET` route here, It would be much better to use a `POST` metho
 We can throw a delete link right inside our update template:
 
 {% tabs %}
-{% tab title="resources/templates/update.html" %}
+{% tab title="resources/templates/updateView.html" %}
 ```markup
 <form action="/post/{{ post.id }}/update" method="POST">
     {{ csrf_field }}
