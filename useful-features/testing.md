@@ -226,7 +226,7 @@ def test_get_output(self):
     with self.captureOutput() as o:
         print('hello world!')
 
-    self.assertEqual(o.getvalue(), 'hello world!')
+    self.assertEqual(o.getvalue().rstrip(), 'hello world!')
 ```
 
 ## Testing JSON
