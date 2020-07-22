@@ -516,6 +516,49 @@ This will also flash the current inputs to the session. You can then get the inp
 </form>
 ```
 
+## Redirecting Back To Intended Routes
+
+There are times where you want your user to visit a page where they must be logged in. You may have a check in your controller to redirect a user to the login page if they are not authenticated. You may easily redirect them back to the intended page after they login.
+
+To activate the intended route you simply need to append `.then_back()` after the redirection. For example you may have this:
+
+Assume the current URL is `/dashboard`
+
+```python
+from masonite.request import Request
+
+class DashboardController:
+
+    def show(self, request: Request):
+        if not self.request.user():
+            return request.redirect('/login').then_back()
+```
+
+When you go to your login page you'll need to have the normal `{{ back() }}` form helper:
+
+```markup
+<form action="{{ route('login') }}" method="POST">
+    {{ csrf_field }}
+    {{ back() }}
+    ...
+</form>
+```
+
+In your `LoginController` (or wherever this form submits to) you simply need to use the `redirect_intended` method on the request class:
+
+```python
+from masonite.request import Request
+
+class LoginController(Controller):
+
+    def store(self, request: Request)
+        # ...
+        if auth.login(request.input('email'), request.input('password')):
+            return request.redirect_intended(default='/home')
+```
+
+This will redirect to the `/dashboard` route (because that was the intended route). If no route is intended then it will simply redirect to the default you specify (which is `/home`).
+
 ## Redirecting Back With Errors
 
 You can redirect back with validation error message or redirect back with input value:
