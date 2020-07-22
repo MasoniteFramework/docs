@@ -21,7 +21,7 @@ def show(self, request: Request):
 
 Masonite is smart enough to know that we need the `Request` class and it will inject it into our method for us.
 
-## **Helper Function**
+## Helper Function
 
 Masonite ships with a `HelpersProvider` Service Provider which adds several helper functions. One of these helper functions is the `request()` function. This function will return the request object. Because of this, these two pieces of code are identical:
 
@@ -691,6 +691,33 @@ from masonite.routes import Patch
 ROUTES = [
     Patch().route('/dashboard', 'DashboardController@update')
 ]
+```
+
+# Request Information
+
+You can get information related to the request like the scheme, domain and other attribute by accessing them right from the request class:
+
+## Getting Domain Information
+
+You can get different parts of the domain using the below methods:
+
+```python
+request.scheme() # https
+request.host() # www.masonitecasts.com
+request.port() # 8000
+```
+
+## Path Information
+
+You can easily get the current path and query string information:
+
+```python
+request.full_path() # /dashboard/hello%20world
+request.full_path(quoted=False) # /dashboard/hello world
+request.query_string() # email=joe@masoniteproject.com
+request.url() # www.masonitecasts.com/dashboard/hello%20world
+request.url(include_standard_port=True) # www.masonitecasts.com:443/dashboard/hello%20world
+request.full_url() # https://www.masonitecasts.com/dashboard/hello%20world
 ```
 
 # Validation
