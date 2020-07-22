@@ -2,6 +2,7 @@
 
 * [Introduction and Installation](README.md)
 * [Creating a Blog](creating-a-blog.md)
+* [Sponsors](sponsors.md)
 
 ## Prologue
 
