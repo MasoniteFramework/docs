@@ -193,6 +193,15 @@ def show(self):
     dd(User.find(7))
 ```
 
+You may also specify several parameters for see several values dumped at once:
+
+```python
+from app.User import User
+
+def show(self, request: Request):
+    dd(request, User.find(7))
+```
+
 If we then go to the browser and visit this URL as normal then we can now see the object fully inspected which will kill the script wherever it is in place and throw an exception but instead of showing the normal debugger it will use a custom exception handler and show the inspection of the object instead:
 
 ![](../.gitbook/assets/screen-shot-2018-10-31-at-4.56.30-pm.png)
