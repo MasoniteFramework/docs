@@ -59,9 +59,11 @@ You can easily create a new rule boiler plate by running:
 
 {% tabs %}
 {% tab title="terminal" %}
+
 ```bash
 $ craft rule equals_masonite
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -69,7 +71,7 @@ $ craft rule equals_masonite
 There is no particular reason that rules are lowercase class names. The main reason it is improves readability when you end up using it as a method if you choose to register the rule with the validation class like you will see below.
 {% endhint %}
 
-This will create a boiler plate rule inside app/rules/equals\_masonite.py that looks like:
+This will create a boiler plate rule inside app/rules/equals_masonite.py that looks like:
 
 ```python
 class equals_masonite(BaseValidation):
@@ -127,9 +129,9 @@ When validating a dictionary like this:
 
 then
 
-* the `attribute` will be the value \(`Masonite`\)
-* the `key` will be the dictionary key \(`name`\)
-* the `dictionary` will be the full dictionary in case you need to do any additional checks.
+- the `attribute` will be the value \(`Masonite`\)
+- the `key` will be the dictionary key \(`name`\)
+- the `dictionary` will be the full dictionary in case you need to do any additional checks.
 
 **Message method**
 
@@ -203,9 +205,11 @@ If you don't have a provider yet we can make one specifically for adding custom 
 
 {% tabs %}
 {% tab title="terminal" %}
+
 ```bash
 $ craft provider RuleProvider
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -739,19 +743,40 @@ These rules are identical so use whichever feels more comfortable.
 
 ## Available Rules
 
-|  |  |  |
-| :--- | :--- | :--- |
-| [accepted](validation.md#accepted) | [is\_in](validation.md#is_in) | [truthy](validation.md#truthy) |
-| [active\_domain](validation.md#active_domain) | [isnt](validation.md#isnt) | [when](validation.md#when) |
-| [after\_today](validation.md#after_today) | [is\_past](validation.md#is_past) | [timezone](validation.md#timezone) |
-| [before\_today](validation.md#before_today) | [is\_future](validation.md#is_future) | [phone](validation.md#phone) |
-| [contains](validation.md#contains) | [json](validation.md#json) | [strong](validation.md#strong) |
-| [email](validation.md#email) | [less\_than](validation.md#less_than) |  |
-| [equals](validation.md#equals) | [length](validation.md#length) |  |
-| [exists](validation.md#exists) | [none](validation.md#none) |  |
-| [greater\_than](validation.md#greater_than) | [numeric](validation.md#numeric) |  |
-| [in\_range](validation.md#in_range) | [required](validation.md#required) |  |
-| [ip](validation.md#ip) | [string](validation.md#string) |  |
+[accepted](validation.md#accepted)
+[active_domain](validation.md#active_domain)
+[after_today](validation.md#after_today)
+[before_today](validation.md#before_today)
+[confirmed](validation.md#confirmed)
+[contains](validation.md#contains)
+[date](validation.md#date)
+[does_not](validation.md#does_not)
+[email](validation.md#email)
+[equals](validation.md#equals)
+[exists](validation.md#exists)
+[greater_than](validation.md#greater_than)
+[in_range](validation.md#in_range)
+[ip](validation.md#ip)
+[is_future](validation.md#is_future)
+[is_list](validation.md#is_list)
+[is_in](validation.md#is_in)
+[is_past](validation.md#is_past)
+[isnt](validation.md#isnt)
+[json](validation.md#json)
+[length](validation.md#length)
+[less_than](validation.md#less_than)
+[matches](validation.md#matches)
+[none](validation.md#none)
+[numeric](validation.md#numeric)  
+[one_of](validation.md#one_of)  
+[phone](validation.md#phone)  
+[regex](validation.md#regex)  
+[required](validation.md#required)
+[string](validation.md#string)  
+[strong](validation.md#strong)  
+[timezone](validation.md#timezone)
+[truthy](validation.md#truthy)  
+[when](validation.md#when)
 
 ### Accepted
 
@@ -766,7 +791,7 @@ The accepted rule is most useful when seeing if a checkbox has been checked. Whe
 validate.accepted('terms')
 ```
 
-### Active\_domain
+### Active_domain
 
 This is used to verify that the domain being passed in is a DNS resolvable domain name. You can also do this for email addresses as well. The preferred search is domain.com but Masonite will strip out `http://`, `https://` and `www` automatically for you.
 
@@ -780,7 +805,7 @@ This is used to verify that the domain being passed in is a DNS resolvable domai
 validate.active_domain(['domain', 'email'])
 ```
 
-### After\_today
+### After_today
 
 Used to make sure the date is a date after today. In this example, this will work for any day that is 2019-10-21 or later.
 
@@ -804,7 +829,7 @@ You may also pass in a timezone for this rule:
 validate.after_today('date', tz='America/New_York')
 ```
 
-### Before\_today
+### Before_today
 
 Used to make sure the date is a date before today. In this example, this will work for any day that is 2019-10-19 or earlier.
 
@@ -828,19 +853,6 @@ You may also pass in a timezone for this rule:
 validate.before_today('date', tz='America/New_York')
 ```
 
-### Contains
-
-This is used to make sure a value exists inside an iterable \(like a list or string\). You may want to check if the string contains the value Masonite for example:
-
-```python
-"""
-{
-  'description': 'Masonite is an amazing framework'
-}
-"""
-validate.contains('description', 'Masonite')
-```
-
 ### Confirmed
 
 This rule is used to make sure a key is "confirmed". This is simply a `key_confirmation` representation of the key.
@@ -857,7 +869,39 @@ For example, if you need to confirm a `password` you would set the password conf
 validate.confirmed('password')
 ```
 
-### Does\_not
+### Contains
+
+This is used to make sure a value exists inside an iterable \(like a list or string\). You may want to check if the string contains the value Masonite for example:
+
+```python
+"""
+{
+  'description': 'Masonite is an amazing framework'
+}
+"""
+validate.contains('description', 'Masonite')
+```
+
+### Date (TODO)
+
+Used for running a set of rules when a set of rules does not match. Has a `then()` method as well. Can be seen as the opposite of when.
+
+```python
+"""
+{
+  'age': 15,
+  'email': 'user@email.com',
+  'terms': 'on'
+}
+"""
+validate.date(
+    validate.exists('user')
+).then(
+    validate.accepted('terms'),
+)
+```
+
+### Does_not
 
 Used for running a set of rules when a set of rules does not match. Has a `then()` method as well. Can be seen as the opposite of when.
 
@@ -876,19 +920,6 @@ validate.does_not(
 )
 ```
 
-### Equals
-
-Used to make sure a dictionary value is equal to a specific value
-
-```python
-"""
-{
-  'age': 25
-}
-"""
-validate.equals('age', 25)
-```
-
 ### Email
 
 This is useful for verifying that a value is a valid email address
@@ -901,6 +932,19 @@ This is useful for verifying that a value is a valid email address
 }
 """
 validate.email('email')
+```
+
+### Equals
+
+Used to make sure a dictionary value is equal to a specific value
+
+```python
+"""
+{
+  'age': 25
+}
+"""
+validate.equals('age', 25)
 ```
 
 ### Exists
@@ -935,7 +979,7 @@ validate.when(
 )
 ```
 
-### Greater\_than
+### Greater_than
 
 This is used to make sure a value is greater than a specific value
 
@@ -948,7 +992,7 @@ This is used to make sure a value is greater than a specific value
 validate.greater_than('age', 18)
 ```
 
-### In\_range
+### In_range
 
 Used when you need to check if an integer is within a given range of numbers
 
@@ -974,41 +1018,7 @@ You can also check if the input is a valid IPv4 address:
 validate.ip('address')
 ```
 
-### Is\_in
-
-Used to make sure if a value is in a specific value
-
-```python
-"""
-{
-  'age': 5
-}
-"""
-validate.is_in('age', [2,4,5])
-```
-
-notice how 5 is in the list
-
-### Isnt
-
-This will negate all rules. So if you need to get the opposite of any of these rules you will add them as rules inside this rule.
-
-For example to get the opposite if `is_in` you will do:
-
-```python
-"""
-{
-  'age': 5
-}
-"""
-validate.isnt(
-  validate.is_in('age', [2,4,5])
-)
-```
-
-This will produce an error because age it is looking to make sure age **is not in** the list now.
-
-### Is\_future
+### Is_future
 
 Checks to see the date and time passed is in the future. This will pass even if the datetime is 5 minutes in the future.
 
@@ -1032,7 +1042,24 @@ You may also pass in a timezone for this rule:
 validate.is_future('date', tz='America/New_York')
 ```
 
-### Is\_past
+### Is_list (TODO)
+
+### Is_in
+
+Used to make sure if a value is in a specific value
+
+```python
+"""
+{
+  'age': 5
+}
+"""
+validate.is_in('age', [2,4,5])
+```
+
+notice how 5 is in the list
+
+### Is_past
 
 Checks to see the date and time passed is in the past. This will pass even if the datetime is 5 minutes in the past.
 
@@ -1055,6 +1082,25 @@ You may also pass in a timezone for this rule:
 """
 validate.is_past('date', tz='America/New_York')
 ```
+
+### Isnt
+
+This will negate all rules. So if you need to get the opposite of any of these rules you will add them as rules inside this rule.
+
+For example to get the opposite if `is_in` you will do:
+
+```python
+"""
+{
+  'age': 5
+}
+"""
+validate.isnt(
+  validate.is_in('age', [2,4,5])
+)
+```
+
+This will produce an error because age it is looking to make sure age **is not in** the list now.
 
 ### Json
 
@@ -1084,7 +1130,7 @@ Used to make sure a string is of a certain length
 validate.length('description', min=5, max=35)
 ```
 
-### Less\_than
+### Less_than
 
 This is used to make sure a value is less than a specific value
 
@@ -1125,7 +1171,7 @@ Used to make sure a value is a numeric value
 validate.numeric('age')
 ```
 
-### One\_of
+### One_of
 
 Sometimes you will want only one of several fields to be required. At least one of them need to be required.
 
@@ -1157,8 +1203,10 @@ validate.phone('phone', pattern='123-456-7890')
 
 The available patterns are:
 
-* `123-456-7890`
-* `(123)456-7890`
+- `123-456-7890`
+- `(123)456-7890`
+
+### Regex (TODO)
 
 ### Required
 
@@ -1252,4 +1300,3 @@ validate.when(
     validate.accepted('terms')
 )
 ```
-
