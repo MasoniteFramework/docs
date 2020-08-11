@@ -743,40 +743,40 @@ These rules are identical so use whichever feels more comfortable.
 
 ## Available Rules
 
-[accepted](validation.md#accepted)
-[active_domain](validation.md#active_domain)
-[after_today](validation.md#after_today)
-[before_today](validation.md#before_today)
-[confirmed](validation.md#confirmed)
-[contains](validation.md#contains)
-[date](validation.md#date)
-[does_not](validation.md#does_not)
-[email](validation.md#email)
-[equals](validation.md#equals)
-[exists](validation.md#exists)
-[greater_than](validation.md#greater_than)
-[in_range](validation.md#in_range)
-[ip](validation.md#ip)
-[is_future](validation.md#is_future)
-[is_list](validation.md#is_list)
-[is_in](validation.md#is_in)
-[is_past](validation.md#is_past)
-[isnt](validation.md#isnt)
-[json](validation.md#json)
-[length](validation.md#length)
-[less_than](validation.md#less_than)
-[matches](validation.md#matches)
-[none](validation.md#none)
-[numeric](validation.md#numeric)  
-[one_of](validation.md#one_of)  
-[phone](validation.md#phone)  
-[regex](validation.md#regex)  
-[required](validation.md#required)
-[string](validation.md#string)  
-[strong](validation.md#strong)  
-[timezone](validation.md#timezone)
-[truthy](validation.md#truthy)  
-[when](validation.md#when)
+- [accepted](validation.md#accepted)
+- [active_domain](validation.md#active_domain)
+- [after_today](validation.md#after_today)
+- [before_today](validation.md#before_today)
+- [confirmed](validation.md#confirmed)
+- [contains](validation.md#contains)
+- [date](validation.md#date)
+- [does_not](validation.md#does_not)
+- [email](validation.md#email)
+- [equals](validation.md#equals)
+- [exists](validation.md#exists)
+- [greater_than](validation.md#greater_than)
+- [in_range](validation.md#in_range)
+- [ip](validation.md#ip)
+- [is_future](validation.md#is_future)
+- [is_list](validation.md#is_list)
+- [is_in](validation.md#is_in)
+- [is_past](validation.md#is_past)
+- [isnt](validation.md#isnt)
+- [json](validation.md#json)
+- [length](validation.md#length)
+- [less_than](validation.md#less_than)
+- [matches](validation.md#matches)
+- [none](validation.md#none)
+- [numeric](validation.md#numeric)
+- [one_of](validation.md#one_of)
+- [phone](validation.md#phone)
+- [regex](validation.md#regex)
+- [required](validation.md#required)
+- [string](validation.md#string)
+- [strong](validation.md#strong)
+- [timezone](validation.md#timezone)
+- [truthy](validation.md#truthy)
+- [when](validation.md#when)
 
 ### Accepted
 
@@ -882,23 +882,17 @@ This is used to make sure a value exists inside an iterable \(like a list or str
 validate.contains('description', 'Masonite')
 ```
 
-### Date (TODO)
+### Date
 
-Used for running a set of rules when a set of rules does not match. Has a `then()` method as well. Can be seen as the opposite of when.
+This is used to verify that the value is a valid date. [Pendulum](https://pendulum.eustace.io/docs/#parsing) module is used to verify validity. It supports the RFC 3339 format, most ISO 8601 formats and some other common formats.
 
 ```python
 """
 {
-  'age': 15,
-  'email': 'user@email.com',
-  'terms': 'on'
+  'date': '1975-05-21T22:00:00'
 }
 """
-validate.date(
-    validate.exists('user')
-).then(
-    validate.accepted('terms'),
-)
+validate.date('date')
 ```
 
 ### Does_not
@@ -1042,7 +1036,30 @@ You may also pass in a timezone for this rule:
 validate.is_future('date', tz='America/New_York')
 ```
 
-### Is_list (TODO)
+### Is_list
+
+Used to make sure the value is a list (a Python list instance)
+
+```python
+"""
+{
+  'tags': [1,3,7]
+}
+"""
+validate.is_list('tags')
+```
+
+`*` notation can also be used
+
+```python
+"""
+{
+  'name': 'Joe',
+  'discounts_ref': [1,2,3]
+}
+"""
+validate.is_list('discounts_ref.*')
+```
 
 ### Is_in
 
@@ -1206,7 +1223,20 @@ The available patterns are:
 - `123-456-7890`
 - `(123)456-7890`
 
-### Regex (TODO)
+### Regex
+
+Sometimes you want to do more complex validations on some fields. This rule allows to validate against
+a regular expression directly.
+In the following example we check that `username` value is a valid user name (without special characters and between 3 and 16 characters).
+
+```python
+"""
+{
+  'username': 'masonite_user_1'
+}
+"""
+validate.regex('username', pattern='^[a-z0-9_-]{3,16}$'))
+```
 
 ### Required
 
