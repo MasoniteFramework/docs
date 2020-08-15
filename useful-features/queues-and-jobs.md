@@ -247,9 +247,15 @@ The `amqp` driver can be used to communicate with RabbitMQ services.
 
 #### Installing
 
-In order to get started with this driver you will need to install RabbitMQ on your development machine \(or production machine depending on where you are running Masonite\)
+In order to get started with this driver you will need to install RabbitMQ on your development machine \(or production machine depending on where you are running Masonite\).
 
 You can find the [installation guide for RabbitMQ here](https://www.rabbitmq.com/download.html).
+
+Before you continue, make sure to install `pika` which is a Python RabbitMQ/AMQP client library.
+
+```python
+pip install pika
+```
 
 #### Running RabbitMQ
 
