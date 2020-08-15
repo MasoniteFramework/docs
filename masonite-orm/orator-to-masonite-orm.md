@@ -1,8 +1,10 @@
-# Masonite To Orator Upgrade Guide
+# Orator To Masonite ORM
+
+## Masonite To Orator Upgrade Guide
 
 This guide will explain how to move from Orator to Masonite ORM. Masonite ORM was made to be pretty much a straight port of Orator but allow the Masonite organization complete creative control of the ORM.
 
-Before moving your project over to Masonite ORM please keep in mind some features are not (at least currently) ported over from Orator. These are features that may be ported over in the future. These features are:
+Before moving your project over to Masonite ORM please keep in mind some features are not \(at least currently\) ported over from Orator. These are features that may be ported over in the future. These features are:
 
 * Pagination
 * Inserting related models
@@ -13,7 +15,7 @@ Before moving your project over to Masonite ORM please keep in mind some feature
 * polymorphic relationships
 * through relationships
 
-# Config
+## Config
 
 The configuration dictionary between Orator and Masonite ORM is identical. The only difference is that Masonite ORM **requires** a `config/database.py` file whereas Orator was optional and needed to be explicitly specified in several places.
 
@@ -46,7 +48,7 @@ DATABASES = {
 }
 ```
 
-# Models
+## Models
 
 Models are also identical in terms of setup. With Orator you need to set up a the model with the database resolver like this:
 
@@ -66,7 +68,7 @@ class User(Model):
     pass
 ```
 
-# Scopes
+## Scopes
 
 Scopes are also identical but the import changes:
 

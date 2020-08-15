@@ -136,7 +136,7 @@
 * [Drivers](deployment/drivers.md)
 * [Optimization](deployment/optimization.md)
 
-## Masonite ORM [In development] <a id="masonite-orm"></a>
+## Masonite ORM \[In development\] <a id="masonite-orm"></a>
 
 * [White Page](masonite-orm/white-page.md)
 * [Introduction](masonite-orm/introduction.md)

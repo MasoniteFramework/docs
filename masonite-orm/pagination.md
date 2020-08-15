@@ -1,2 +1,2 @@
-# 📄 Pagination
+# Pagination
 

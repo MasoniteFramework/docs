@@ -273,6 +273,7 @@ mail.subject('Welcome!').to('hello@email.com').send('Welcome!')
 ```
 
 ## Changing the Send From
+
 You can specify which address you want the email to appear from:
 
 ```python

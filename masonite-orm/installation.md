@@ -1,4 +1,4 @@
-# 🔌 Installation
+# Installation
 
 **This ORM is still in development**
 

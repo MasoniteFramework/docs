@@ -14,7 +14,7 @@
 
 I will discuss the flow at a high level first and then can talk about each part separarely.
 
-First, almost everything starts with a model You can use the underlying query builder directly  You will import the model into your application and run some methods on it. Most of these methods simply return a instance of a query builder to kick off the flow.
+First, almost everything starts with a model You can use the underlying query builder directly You will import the model into your application and run some methods on it. Most of these methods simply return a instance of a query builder to kick off the flow.
 
 For example,
 
@@ -36,7 +36,7 @@ Finally when we are done building a query we will call a `.get()`:
 user.select('id').where('id', 1).where('active', 1).get() #== <masonite.orm.Collection object>
 ```
 
-When you call `get`, the query builder will pass everything you built up \(1 select, 2 where statements\) and pass those into a grammar class. The grammar class is responsible for looping through the 3 statements and compiling them into a query that will run (both sql and qmark). So the grammar class will compile a query that looks like this:
+When you call `get`, the query builder will pass everything you built up \(1 select, 2 where statements\) and pass those into a grammar class. The grammar class is responsible for looping through the 3 statements and compiling them into a query that will run \(both sql and qmark\). So the grammar class will compile a query that looks like this:
 
 ```text
 SELECT `id` FROM `users` WHERE `id` = '1' AND `active` = 1
@@ -48,7 +48,7 @@ We will then get back a dictionary from the query and "hydrate" the original mod
 
 ## Grammar Classes
 
-Grammar classes are classes which are responsible for the compiling of attributes into a SQL statement. The SQL statement will then be given back to whatever called it (like the `QueryBuilder` class) and then passed to the connection class to make the database call and return the result. Again the grammar class is only responsible for compiling the query into a string. Simply taking attributes passed to it and looping through them and compiling them into a query.
+Grammar classes are classes which are responsible for the compiling of attributes into a SQL statement. The SQL statement will then be given back to whatever called it \(like the `QueryBuilder` class\) and then passed to the connection class to make the database call and return the result. Again the grammar class is only responsible for compiling the query into a string. Simply taking attributes passed to it and looping through them and compiling them into a query.
 
 The grammar class will be responsible for both SQL and Qmark. SQL looks like this:
 
@@ -64,7 +64,7 @@ SELECT * FROM `users` where `age` = '?'
 
 Qmark queries will then be passed off to the connection class with a tuple of bindings like `(18,)`. This helps protect against SQL injection attacks. **All queries passed to the connection class should be the qmark query. Compiling SQL is really for debugging purposes while developing. Passing straight SQL into the connection class could leave queries open to SQL injection.**
 
-**Any values should be able to be qmarked**. This is done inside the grammar class by replacing the value with a `'?'` and then adding the value to the bindings. The grammar class knows it should be qmarked by passing the qmark boolean variable throughout the grammar class. 
+**Any values should be able to be qmarked**. This is done inside the grammar class by replacing the value with a `'?'` and then adding the value to the bindings. The grammar class knows it should be qmarked by passing the qmark boolean variable throughout the grammar class.
 
 The grammar class is also really an abstraction as well. All the heavy lifting is done inside the `BaseGrammar` class. Child classes \(like `MySQLGrammar` and `PostgresGrammar`, etc\) really just contain the formatting of the sql strings.
 
@@ -213,7 +213,7 @@ There are a whole bunch of methods that begin with `_compile` so let's explain w
 
 Now that all the differences between grammars are abstracted into the child grammar classes, all the heavy listing can be done in the `BaseGrammar` class which is the parent grammar class and really the engine behind compiling the queries for all grammars.
 
-This `BaseGrammar` class is responsible for doing the actual compiling in the above section. So this class really just has a bunch of classes like `_compile_wheres`, `_compile_selects` etc. 
+This `BaseGrammar` class is responsible for doing the actual compiling in the above section. So this class really just has a bunch of classes like `_compile_wheres`, `_compile_selects` etc.
 
 The heart of this class really lies in the `_compile_select`, `_compile_create`, `_compile_update`, `_compile_delete` methods. Most other `_compile` methods are really just to do the string interpolation explained above to support these 4 main `_compile` methods.
 
@@ -254,7 +254,7 @@ It is important though to know the differences between class \(`cls`\) and an ob
 
 ### CLS
 
-Since we never really instantiate the model until much later in the flow (basically not until we get the result back), we are typically working with a `cls` variable. This `cls` variable is the class of the model and not the instance of the model. You may want to research what the difference between classes and instances are if you don't know but one important thing to know is that:
+Since we never really instantiate the model until much later in the flow \(basically not until we get the result back\), we are typically working with a `cls` variable. This `cls` variable is the class of the model and not the instance of the model. You may want to research what the difference between classes and instances are if you don't know but one important thing to know is that:
 
 The real reason we do this is really only for the visual effect. I would like to do this:
 

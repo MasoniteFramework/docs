@@ -1,6 +1,8 @@
+# Models
+
 Models are the main starting point for using the ORM portion of Masonite ORM. Models are pretty simple classes to start out with. They can get more robust over time but nearly all the overhead is abstracted away for you and they allow you to override anything you need.
 
-# Creating a Model
+## Creating a Model
 
 Models are pretty simple to create. They are simple classes that expand as you need them to. To create a model simply create a new class and extend Masonite ORM's `Model` class:
 
@@ -13,7 +15,7 @@ class User(Model):
 
 Once created that is it. There are a few conventions you might need to take into account to get started though.
 
-# Table Names
+## Table Names
 
 The `User` model we created above will use the plural version of the models name. So a `User` model will use a `users` table and a `Company` model will use a `companies` table. Masonite ORM will also use a snake case version of the model name for the table. So it will take a class name like `UserInvoice` and automatically set the table to `user_invoices`.
 
@@ -26,7 +28,7 @@ class User(Model):
     __table__ = 'accounts'
 ```
 
-# Primary Keys
+## Primary Keys
 
 Masonite ORM will also default that all primary keys are `id`. If this is not the case you can specify the primary key column explicitly:
 
@@ -38,7 +40,7 @@ class User(Model):
     __primary_key__ = 'user_id'
 ```
 
-# Connections
+## Connections
 
 By default, Masonite will also assume that all models are using the `default` connection which was defined in your database configuration dictionary. It is possible to have different models use difference connections by specifying the `__connection__` attribute:
 
@@ -51,9 +53,9 @@ class User(Model):
     __connection__ = 'db-server-1'
 ```
 
-# Retrieving Records
+## Retrieving Records
 
-## Getting All Records
+### Getting All Records
 
 Once your model is created you can start querying your database. It's pretty simple to get all records:
 
@@ -66,7 +68,7 @@ for user in users:
     user.name
 ```
 
-Models are simple proxies around the (QueryBuilder)[masonite-orm/query-builder.md] class so if you need to reference any models you can simply call any query builder methods. Because of this, you can chain as many query builder methods onto the model as you want and all will be proxied to the underlying query builder:
+Models are simple proxies around the \(QueryBuilder\)\[masonite-orm/query-builder.md\] class so if you need to reference any models you can simply call any query builder methods. Because of this, you can chain as many query builder methods onto the model as you want and all will be proxied to the underlying query builder:
 
 ```python
 from models import User
@@ -81,19 +83,19 @@ for user in users:
     user.name
 ```
 
-For additional methods for use with building queries, refer to the (QueryBuilder)[masonite-orm/query-builder.md] documentation.
+For additional methods for use with building queries, refer to the \(QueryBuilder\)\[masonite-orm/query-builder.md\] documentation.
 
-# Timestamps
+## Timestamps
 
-# Inserting
+## Inserting
 
-# Mass Assignment
+## Mass Assignment
 
 Masonite protects against mass assignment which simply means that you cannot mass update or mass create columns that are not inside the `__fillable__` array. This is a security feature and can be explained pretty simply.
 
 Let's say we have a `users` table like this:
 
-```
+```text
 users:
 
 username
@@ -102,7 +104,7 @@ active
 is_admin
 ```
 
-For the most part we want to create some kind of form that allows the creation of this model (like a registration form). In our controller or wherever we are saving this new record we may have somthing like this:
+For the most part we want to create some kind of form that allows the creation of this model \(like a registration form\). In our controller or wherever we are saving this new record we may have somthing like this:
 
 ```python
 from models import User
@@ -118,7 +120,7 @@ class User:
     __fillable__ = ['username', 'email', 'active']
 ```
 
-This is only for mass creating and mass updating. 
+This is only for mass creating and mass updating.
 
 Setting attributes on the model itself is not affected:
 
@@ -128,7 +130,7 @@ user.is_admin = 1
 user.save()
 ```
 
-## Guarded
+### Guarded
 
 As the opposite of `__fillable__`, which is setting a white list, you can use `__guarded__` which is creating a black list of columns:
 
@@ -139,7 +141,7 @@ class User:
 
 This is saying that all attributes on this model are fillable **except** the `is_admin` column.
 
-# Updating
+## Updating
 
 Its also simple to do an update to a model. Updating is a fairly simple process. You can either update all records:
 
@@ -159,7 +161,7 @@ User.where('email', 'joe@masoniteproject.com').update(admin)
 #== UPDATE `users` SET `users`.`is_admin` = 1 WHERE `users`.`email`
 ```
 
-# Deleting
+## Deleting
 
 Deleting is very similiar to updating. You can specify where conditions to delete:
 
@@ -167,15 +169,15 @@ Deleting is very similiar to updating. You can specify where conditions to delet
 User.where('email', 'joe@masoniteproject.com').delete()
 ```
 
-# Relationships
+## Relationships
 
 Relations are a way to represent table relationships through Python code.
 
-# Making a Relationship
+## Making a Relationship
 
-You can easily make a relationship using various relationship scopes. 
+You can easily make a relationship using various relationship scopes.
 
-## One To One
+### One To One
 
 You can make one-to-one relationship between models using the "belongs to" relationship. Let's say we have a one-to-one relationship between users and phones. Your `User` model will look something like this:
 
@@ -190,11 +192,11 @@ class User:
         return Phone
 ```
 
-**It's a good idea to lazy import (import your models inside the methods) to avoid circuluar dependency issues when using models as seen above.**
+**It's a good idea to lazy import \(import your models inside the methods\) to avoid circuluar dependency issues when using models as seen above.**
 
 Unlike Orator and Eloquent, the first and second key constraints in the decorator is ALWAYS `local_key, foreign_key`. This is to avoid confusion when specifying different relationships.
 
-To make the keys work, the first parameter is the local related key on the current model. The second parameter is the foreign related key on the related model. So on our example, `id` is the related key on the user table (the primary key in this case) and the `user_id` is the related column on the `phones` table.
+To make the keys work, the first parameter is the local related key on the current model. The second parameter is the foreign related key on the related model. So on our example, `id` is the related key on the user table \(the primary key in this case\) and the `user_id` is the related column on the `phones` table.
 
 Now when you need to get a phone record for a user you can simply fetch it as an attribute on the user:
 
@@ -205,7 +207,7 @@ user.phone #== <models.Phone object>
 user.phone.number #== 123-456-7890
 ```
 
-## One To Many
+### One To Many
 
 Sometimes your user will have a related table where there are many records in it. This table can be something like an `articles` table where a user can have many articles.
 
@@ -232,7 +234,7 @@ for article in user.articles:
     article.description
 ```
 
-# Calling a Relationship
+## Calling a Relationship
 
 Sometimes you need to access a relationship but also add some additional clauses. For example you might want to get all articles that are published. You can do this by **calling** the relationship, adding any clauses you need and then calling the `get` method:
 
@@ -244,9 +246,9 @@ for article in user.articles().where('is_published', 1).get():
     article.description
 ```
 
-This is useful for on the fly adjustments to your code. 
+This is useful for on the fly adjustments to your code.
 
-# Adding Clauses Relationships
+## Adding Clauses Relationships
 
 In addition to calling relationships on the fly you can also add clauses directly to the relationship definition:
 
@@ -263,11 +265,11 @@ class User:
 
 Now when you access this relationship using `user.articles`, the where clause will be included.
 
-# Checking Existence
+## Checking Existence
 
 Sometimes you want to get all records where a relationship exists. For example, you might want to get all users that have articles in the first place:
 
-## Has
+### Has
 
 ```python
 users = User.has('articles').get()
@@ -276,7 +278,7 @@ for user in users:
     user.name
 ```
 
-## Where Has
+### Where Has
 
 This will only fetch users that have articles. You can also run an additional query while checking for existence:
 
@@ -289,9 +291,9 @@ for user in users:
 
 This will get all users that have published articles.
 
-# Eager Loading
+## Eager Loading
 
-Eager loading is the act of fetching various values before looping over the query. For example, let's take the example of fetching the phone for all users again (a one-to-one relationship):
+Eager loading is the act of fetching various values before looping over the query. For example, let's take the example of fetching the phone for all users again \(a one-to-one relationship\):
 
 ```python
 users = User.all() # == 5 users
@@ -331,17 +333,17 @@ SELECT * `phones` where `phones`.`user_id` IN ('1', '2', '3', '4', '5')
 
 Notice how we take the result of the second query and load the result into the model. Then when we fetch the `phone` attribute, the result is found in memory rather than making subsquent calls to the database.
 
-# Scopes
+## Scopes
 
 Scopes are an excellent way to abstract out recurring statesments and make them much more readable. For example, we have been specifying a `is_active` column in our where clauses for our users. We can turn this query here:
 
-```
+```text
 users = User.where('is_active', 1).get()
 ```
 
 Into this:
 
-```
+```text
 users = User.is_active().get()
 ```
 
@@ -357,7 +359,7 @@ class User(Model):
         return query.where('is_active', 1)
 ```
 
-## Passing Parameters
+### Passing Parameters
 
 You can also pass variables into your scopes if you need to keep them abstract:
 
@@ -378,11 +380,11 @@ users = User.gender('M').get()
 users = User.gender('F').get()
 ```
 
-# Global Scopes
+## Global Scopes
 
 Global scopes are a way to ALWAYS attach a query to your database call. This is used for Masonite's timestamp updates to manage the `updated_at` and `created_at` timestamps. This is also used for Masonite's soft deleting features.
 
-## Soft Deleting
+### Soft Deleting
 
 Masonite comes with a soft deleting feature to prevent from hard deleting records in the database. Instead of deleting records in the database, Masonite will instead manage a `deleted_at` record on the database instead. This way you can always get back the deleted records and they are never really gone.
 
@@ -397,7 +399,7 @@ class User(Model, SoftDeletes):
 
 This will now only fetch records where `deleted_at` column is null.
 
-## Creating Global Scopes
+### Creating Global Scopes
 
 If you would like, you can also create your own global scopes. Let's take the example of only ever wanting to get records that `is_active` is set to `1`.
 
@@ -419,7 +421,7 @@ class ActiveScope:
 
 Once done you can now inherit this scope on your model and it will apply the query on select statements.
 
-# Accessors
+## Accessors
 
 Accessors are called in place of the attribute you want to access. For example, if you want to access `first_name` but you want to add some additional logic to it you can simply create an accessor method for it. To do this you just need to specify a method that starts with `get_`
 
@@ -432,9 +434,9 @@ class User(Model):
 
 You can see if we don't specify `get_raw_attribute` then we will end up in an infinite loop
 
-# Mutators
+## Mutators
 
-Mutators are used to change (mutate) attributes that are set on the model. If you want to always uppercase the first name when setting the `first_name` attribute you can so do by using the `set_{attribute}_attribute` format:
+Mutators are used to change \(mutate\) attributes that are set on the model. If you want to always uppercase the first name when setting the `first_name` attribute you can so do by using the `set_{attribute}_attribute` format:
 
 ```python
 class User(Model):
@@ -451,7 +453,7 @@ user.name = 'joe'
 user.name #== 'JOE'
 ```
 
-# Casting Attributes
+## Casting Attributes
 
 Some values you may need to be casted to other values. For example, you may have an `is_admin` column that is either a `1` or `0`. It might be more useful to cast this to a `True` or `False` boolean value when you access it. You can create specific castings:
 
@@ -460,12 +462,12 @@ class User(Model):
     __casts__ = {"is_admin": "bool"}
 ```
 
-The cast methods (the dictionary values here) are predefined. The available casting methods are:
+The cast methods \(the dictionary values here\) are predefined. The available casting methods are:
 
 * bool
 * json
 
-## Creating Casting Methods
+### Creating Casting Methods
 
 You can create your own casting methods as well. If you want to convert a string value to an integer value for example you can create your own casting class:
 
@@ -489,7 +491,7 @@ class User(Model):
     __casts__ = {"age": "int"}
 ```
 
-# Timestamps
+## Timestamps
 
 By default, Masonite assumes that there are `created_at` and `updated_at` columns and will manage those for you automatically. If you don't want Masonite to manage those columns or your table does not have those columns, you can turn this off:
 
@@ -510,7 +512,7 @@ class User(Model):
     date_updated_at = "updated_at"
 ```
 
-# Dates
+## Dates
 
 Masonite needs to know explicitly which columns are date columns. You can do so directly on the model:
 
@@ -522,11 +524,11 @@ class Article(Model):
 
 This will handle both setting and accessing dates on your models
 
-# Setting Timezones
+## Setting Timezones
 
 In development. Not currently possible.
 
-# Touching
+## Touching
 
 If you just want to update the `updated_at` column quickly you can use the `touch` method:
 
@@ -536,10 +538,9 @@ user = User.find(1).touch()
 
 This will update the `updated_at` column on your table to the current time.
 
+## Serializing and JSON
 
-# Serializing and JSON
-
-If you need to convert your models (and their relationships) to a dictionary you can do so simple:
+If you need to convert your models \(and their relationships\) to a dictionary you can do so simple:
 
 ```python
 user = User.find(1)
@@ -555,7 +556,7 @@ users.serialize()
 
 This will convert into a list of dictionaries.
 
-## Serializing Relationships
+### Serializing Relationships
 
 You can automatically serialize relationships as well but specifying them in the with:
 
@@ -566,7 +567,7 @@ users.serialize()
 
 This list of dictionaries will now also have the correct relationship results attached to each value
 
-## Hiding Attributes And Relationships
+### Hiding Attributes And Relationships
 
 Sometimes you don't want to return some results from the dictionary. For example, you may be building an API and don't want to show the user's password.
 
@@ -589,7 +590,7 @@ class User(Model):
 
 This also works with relationships as well. Just specify the name of the relationship method.
 
-# Adding Attributes
+## Adding Attributes
 
 Sometimes you will want to add extra attributes to a serialization. For example, maybe you want to add the fact that a user is subscribed:
 
@@ -615,11 +616,11 @@ user.serialize()
 
 This will now attach the `is_subscribed` response to the dictionary.
 
-# To JSON
+## To JSON
 
 Not currently available
 
-# Serializing Dates
+## Serializing Dates
 
 If you need to serialize dates to a specific format you can override a few methods. Whenever Masonite serializes a model, for all the dates in the `__dates__` list it will pass those values into a `get_new_serialized_date` method.
 
@@ -634,3 +635,4 @@ class Article(Model):
         datetime #== instance of datetime.datetime from python library
         return pendulum.instance(datetime).to_datetime_string()
 ```
+

@@ -1,4 +1,4 @@
-# 🧩 Query Builder
+# Query Builder
 
 ## 🧩 Query Builder
 

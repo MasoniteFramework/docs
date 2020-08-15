@@ -271,7 +271,7 @@ $ rabbitmq-server
 
 Great! Now that RabbitMQ is up and running we can look at the Masonite part.
 
-Now we will need to make sure our driver and driver configurations are specified correctly. Below are the default values which should connect to your current RabbitMQ configuration. This will be in your `app/queue.py` file
+Now we will need to make sure our driver and driver configurations are specified correctly. Below are the default values which should connect to your current RabbitMQ configuration. This will be in your `config/queue.py` file
 
 ```python
 DRIVER = 'amqp'
