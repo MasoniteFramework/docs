@@ -177,8 +177,8 @@ You can select by the name by simply passing in the name value. This will defaul
 
 ```python
 (self.visit('/form')
-    .text('#username', 'user')
-    .text('#password', 'secret')
+    .text('username', 'user')
+    .text('password', 'secret')
     .submit())
 ```
 
