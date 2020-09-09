@@ -783,12 +783,12 @@ These rules are identical so use whichever feels more comfortable.
 [one_of](validation.md#one_of)
 [phone](validation.md#phone)
 [regex](validation.md#regex) -->
-[required](validation.md#required)
+<!-- [required](validation.md#required)
 [string](validation.md#string)
 [strong](validation.md#strong)
 [timezone](validation.md#timezone)
 [truthy](validation.md#truthy)
-[when](validation.md#when)
+[when](validation.md#when) -->
 
 ### Accepted
 
