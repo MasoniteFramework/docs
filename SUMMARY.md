@@ -4,35 +4,6 @@
 * [Creating a Blog](creating-a-blog.md)
 * [Sponsors](sponsors.md)
 
-## Prologue
-
-* [Contributing Guide](prologue/contributing-guide.md)
-* [How To Contribute](prologue/how-to-contribute.md)
-* [Release Cycle](prologue/release-cycle.md)
-* [Known Installation Issues](prologue/known-installation-issues.md)
-* [Deprecation](prologue/deprecation.md)
-
-## What's New
-
-* [Masonite 1.3](whats-new/masonite-1.3.md)
-* [Masonite 1.4](whats-new/masonite-1.4.md)
-* [Masonite 1.5](whats-new/masonite-1.5.md)
-* [Masonite 1.6](whats-new/masonite-1.6.md)
-* [Masonite 2.0](whats-new/masonite-2.0.md)
-* [Masonite 2.1](whats-new/masonite-2.1.md)
-* [Masonite 2.2](whats-new/masonite-2.2.md)
-* [Masonite 2.3](whats-new/masonite-2.3.md)
-
-## Upgrade Guide
-
-* [Masonite 1.3 to 1.4](upgrade-guide/masonite-1.3-to-1.4.md)
-* [Masonite 1.4 to 1.5](upgrade-guide/masonite-1.4-to-1.5.md)
-* [Masonite 1.5 to 1.6](upgrade-guide/masonite-1.5-to-1.6.md)
-* [Masonite 1.6 to 2.0](upgrade-guide/masonite-1.6-to-2.0.md)
-* [Masonite 2.0 to 2.1](upgrade-guide/masonite-2.0-to-2.1.md)
-* [Masonite 2.1 to 2.2](upgrade-guide/masonite-2.1-to-2.2.md)
-* [Masonite 2.2 to 2.3](upgrade-guide/masonite-2.2-to-2.3.md)
-
 ## The Basics
 
 * [Controllers](the-basics/controllers.md)
@@ -152,4 +123,34 @@
 * [Seeding](masonite-orm/seeding.md)
 * [Testing](masonite-orm/testing.md)
 * [Collections](masonite-orm/collections.md)
+
+## Prologue
+
+* [Contributing Guide](prologue/contributing-guide.md)
+* [How To Contribute](prologue/how-to-contribute.md)
+* [Release Cycle](prologue/release-cycle.md)
+* [Known Installation Issues](prologue/known-installation-issues.md)
+* [Deprecation](prologue/deprecation.md)
+
+## What's New
+
+* [Masonite 1.3](whats-new/masonite-1.3.md)
+* [Masonite 1.4](whats-new/masonite-1.4.md)
+* [Masonite 1.5](whats-new/masonite-1.5.md)
+* [Masonite 1.6](whats-new/masonite-1.6.md)
+* [Masonite 2.0](whats-new/masonite-2.0.md)
+* [Masonite 2.1](whats-new/masonite-2.1.md)
+* [Masonite 2.2](whats-new/masonite-2.2.md)
+* [Masonite 2.3](whats-new/masonite-2.3.md)
+
+## Upgrade Guide
+
+* [Masonite 1.3 to 1.4](upgrade-guide/masonite-1.3-to-1.4.md)
+* [Masonite 1.4 to 1.5](upgrade-guide/masonite-1.4-to-1.5.md)
+* [Masonite 1.5 to 1.6](upgrade-guide/masonite-1.5-to-1.6.md)
+* [Masonite 1.6 to 2.0](upgrade-guide/masonite-1.6-to-2.0.md)
+* [Masonite 2.0 to 2.1](upgrade-guide/masonite-2.0-to-2.1.md)
+* [Masonite 2.1 to 2.2](upgrade-guide/masonite-2.1-to-2.2.md)
+* [Masonite 2.2 to 2.3](upgrade-guide/masonite-2.2-to-2.3.md)
+
 
