@@ -730,7 +730,7 @@ errors = request.validate({
   'email': 'required',
   'username': 'required',
   'password': 'required|strong',
-  'bio': 'required|length:5,50'
+  'bio': 'required|length:5..50'
   'terms': 'accepted'
 })
 ```
