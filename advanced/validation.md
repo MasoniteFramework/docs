@@ -747,14 +747,13 @@ These rules are identical so use whichever feels more comfortable.
 |---|---|---|---|---|
 | [accepted](validation.md#accepted)  |  [active_domain](validation.md#active_domain) | [after_today](validation.md#after_today)  | [before_today](validation.md#before_today)  |
 | [confirmed](validation.md#confirmed)  | [contains](validation.md#contains)  | [date](validation.md#date)  |  [does_not](validation.md#does_not) | 
-| [email](validation.md#email)  | [equals](validation.md#equals)  |  [exists](validation.md#exists) | [file](validation.md#file) |
-| [greater_than](validation.md#greater_than) | [image](validation.md#image) | [in_range](validation.md#in_range)  |  [ip](validation.md#ip) |
-| [is_future](validation.md#is_future)  | [is_list](validation.md#is_list)  | [is_in](validation.md#is_in)  | [is_past](validation.md#is_past)  |
-| [isnt](validation.md#isnt) | [json](validation.md#json)  | [length](validation.md#length)  |  [less_than](validation.md#less_than) |
-| [matches](validation.md#matches)  | [none](validation.md#none)  | [numeric](validation.md#numeric) | [one_of](validation.md#one_of)  |
-| [phone](validation.md#phone) |  [regex](validation.md#regex) | [required](validation.md#required)  | [string](validation.md#string)  |
-| [strong](validation.md#strong) |  [timezone](validation.md#timezone) | [truthy](validation.md#truthy) | [video](validation.md#video) |
-| [when](validation.md#when) |   |   |   |
+| [email](validation.md#email)  | [equals](validation.md#equals)  |  [exists](validation.md#exists) |  [file](validation.md#file)  | 
+| [greater_than](validation.md#greater_than) | [in_range](validation.md#in_range)   | [ip](validation.md#ip)  | [is_future](validation.md#is_future)  | 
+| [is_list](validation.md#is_list)  |  [is_in](validation.md#is_in) | [is_past](validation.md#is_past)  | [isnt](validation.md#isnt) | 
+| [json](validation.md#json)   | [length](validation.md#length)  | [less_than](validation.md#less_than)  | [matches](validation.md#matches) | 
+|  [none](validation.md#none)  |  [numeric](validation.md#numeric) | [one_of](validation.md#one_of)  | [phone](validation.md#phone) | 
+| [postal_code](validation.md#postal_code) | [regex](validation.md#regex)  | [required](validation.md#required)   | [string](validation.md#string) | 
+| [strong](validation.md#strong)  | [timezone](validation.md#timezone)   | [truthy](validation.md#truthy)  |  [when](validation.md#when) | 
 
 <!-- - [accepted](validation.md#accepted)
 - [active_domain](validation.md#active_domain)
@@ -1289,6 +1288,21 @@ The available patterns are:
 
 - `123-456-7890`
 - `(123)456-7890`
+
+### Postal Code
+
+Every country has their own postal code formats. We added regular expressions for over 130 countries which you can specify by using a comma separated string of country codes:
+
+```python
+"""
+{
+  'zip': '123456'
+}
+"""
+validate.postal_code('zip', "US,IN,GB")
+```
+
+Please look up the "alpha-2 code" for available country formats.
 
 ### Regex
 
