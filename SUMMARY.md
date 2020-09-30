@@ -107,7 +107,7 @@
 * [Drivers](deployment/drivers.md)
 * [Optimization](deployment/optimization.md)
 
-## Masonite ORM \[In development\] <a id="masonite-orm"></a>
+<!-- ## Masonite ORM \[In development\] <a id="masonite-orm"></a>
 
 * [White Page](masonite-orm/white-page.md)
 * [Introduction](masonite-orm/introduction.md)
@@ -122,7 +122,7 @@
 * [Pagination](masonite-orm/pagination.md)
 * [Seeding](masonite-orm/seeding.md)
 * [Testing](masonite-orm/testing.md)
-* [Collections](masonite-orm/collections.md)
+* [Collections](masonite-orm/collections.md) -->
 
 ## Prologue
 
