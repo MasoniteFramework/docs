@@ -388,16 +388,20 @@ Global scopes are a way to ALWAYS attach a query to your database call. This is 
 
 Masonite comes with a soft deleting feature to prevent from hard deleting records in the database. Instead of deleting records in the database, Masonite will instead manage a `deleted_at` record on the database instead. This way you can always get back the deleted records and they are never really gone.
 
-To use the soft deleting feature, simple inherit your model with the `SoftDeletes` class:
+To use the soft deleting feature, simple add the `SoftDeletesMixin` to your model:
 
 ```python
-from masonite.orm.scopes import SoftDeletes
+from masonite.orm.scopes import SoftDeletesMixin
 
-class User(Model, SoftDeletes):
+class User(Model, SoftDeletesMixin):
     pass
 ```
 
 This will now only fetch records where `deleted_at` column is null.
+
+{% hint style="warning" %}
+**You still need to manually add a `deleted_at` timestamp field to your User table for this feature to work.**
+{% endhint %}
 
 ### Creating Global Scopes
 
@@ -464,8 +468,8 @@ class User(Model):
 
 The cast methods \(the dictionary values here\) are predefined. The available casting methods are:
 
-* bool
-* json
+- bool
+- json
 
 ### Creating Casting Methods
 
@@ -635,4 +639,3 @@ class Article(Model):
         datetime #== instance of datetime.datetime from python library
         return pendulum.instance(datetime).to_datetime_string()
 ```
-
