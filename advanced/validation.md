@@ -1312,16 +1312,19 @@ validate.regex('username', pattern='^[a-z0-9_-]{3,16}$'))
 
 ### Required
 
-Used to make sure the value is actually available in the dictionary. This will add errors if the key is not present
+Used to make sure the value is actually available in the dictionary and not null. This will add errors if the key is not present. To check only the presence of the value in the dictionary use [exists](#exists).
 
 ```python
 """
 {
   'age': 25,
-  'email': 'user@email.com'
+  'email': 'user@email.com',
+  'first_name': ''
 }
 """
 validate.required(['age', 'email'])
+validate.required('first_name')  # would fail
+validate.required('last_name')  # would fail
 ```
 
 ### Required If
