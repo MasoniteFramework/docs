@@ -1354,6 +1354,21 @@ Used to make sure a value is a truthy value. This is anything that would pass in
 validate.truthy('active')
 ```
 
+### Uuid
+
+Used to check that a value is a valid UUID. The UUID version (according to [RFC 4122](https://en.wikipedia.org/wiki/Universally_unique_identifier#Versions)) standard can optionally be verified (1,3,4 or 5).
+
+```python
+"""
+{
+  'doc_id': 'c1d38bb1-139e-4099-8a20-61a2a0c9b996'
+}
+"""
+validate.uuid('doc_id')
+# check that value is valid UUID4
+validate.uuid('doc_id', 4)  # or '4'
+```
+
 ### When
 
 Conditional rules. This is used when you want to run a specific set of rules only if a first set of rules succeeds.
