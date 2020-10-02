@@ -907,6 +907,21 @@ This is used to verify that the value is a valid date. [Pendulum](https://pendul
 validate.date('date')
 ```
 
+### Different
+
+Used to check that value is different from another field value. It is the opposite of
+[matches](#matches) validation rule.
+
+```python
+"""
+{
+  'first_name': 'Sam',
+  'last_name': 'Gamji'
+}
+"""
+validate.different('first_name', 'last_name')
+```
+
 ### Does_not
 
 Used for running a set of rules when a set of rules does not match. Has a `then()` method as well. Can be seen as the opposite of when.
