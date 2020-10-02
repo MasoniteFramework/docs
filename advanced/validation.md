@@ -922,6 +922,33 @@ Used to check that value is different from another field value. It is the opposi
 validate.different('first_name', 'last_name')
 ```
 
+### Distinct
+
+Used to check that an array value contains distinct items.
+```python
+"""
+{
+  'users': ['mark', 'joe', 'joe']
+}
+"""
+validate.distinct('users')  # would fail
+"""
+{
+  'users': [
+       {
+            'id': 1,
+            'name': 'joe'
+       },
+       {
+            'id': 2,
+            'name': 'mark'
+       },
+  ]
+}
+"""
+validate.distinct('users.*.id')  # would pass
+```
+
 ### Does_not
 
 Used for running a set of rules when a set of rules does not match. Has a `then()` method as well. Can be seen as the opposite of when.
