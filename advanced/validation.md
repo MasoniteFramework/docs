@@ -1324,6 +1324,34 @@ Used to make sure the value is actually available in the dictionary. This will a
 validate.required(['age', 'email'])
 ```
 
+### Required If
+
+Used to make sure that value is present and not empty only if an other field has a given value.
+```python
+"""
+{
+  'first_name': 'Sam',
+  'last_name': 'Gamji'
+}
+"""
+validate.required_if('first_name', 'last_name', 'Gamji')
+```
+
+### Required With
+
+Used to make sure that value is present and not empty onlyf if any of the other specified fields are present.
+```python
+"""
+{
+  'first_name': 'Sam',
+  'last_name': 'Gamji'
+  'email': 'samgamji@lotr.com'
+}
+"""
+validate.required_with('email', ['last_name', 'nick_name'])
+```
+
+
 ### String
 
 Used to make sure the value is a string
