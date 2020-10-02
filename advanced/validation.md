@@ -747,13 +747,14 @@ These rules are identical so use whichever feels more comfortable.
 |---|---|---|---|---|
 | [accepted](validation.md#accepted)  |  [active_domain](validation.md#active_domain) | [after_today](validation.md#after_today)  | [before_today](validation.md#before_today)  |
 | [confirmed](validation.md#confirmed)  | [contains](validation.md#contains)  | [date](validation.md#date)  |  [does_not](validation.md#does_not) | 
-| [email](validation.md#email)  | [equals](validation.md#equals)  |  [exists](validation.md#exists) |  [greater_than](validation.md#greater_than) | 
-| [in_range](validation.md#in_range)  |  [ip](validation.md#ip) | [is_future](validation.md#is_future)  | [is_list](validation.md#is_list)  | 
-| [is_in](validation.md#is_in)  | [is_past](validation.md#is_past)  |  [isnt](validation.md#isnt) | [json](validation.md#json)  | 
-| [length](validation.md#length)  |  [less_than](validation.md#less_than) | [matches](validation.md#matches)  | [none](validation.md#none)  | 
-|  [numeric](validation.md#numeric) | [one_of](validation.md#one_of)  |  [phone](validation.md#phone) |  [regex](validation.md#regex) | 
-| [required](validation.md#required)  | [string](validation.md#string)  |  [strong](validation.md#strong) |  [timezone](validation.md#timezone) | 
-|  [truthy](validation.md#truthy) |  [when](validation.md#when) |   |   | 
+| [email](validation.md#email)  | [equals](validation.md#equals)  |  [exists](validation.md#exists) |  [file](validation.md#file)  | 
+| [greater_than](validation.md#greater_than) | [image](validation.md#image)    | [in_range](validation.md#in_range)  | [ip](validation.md#ip)  | 
+| [is_future](validation.md#is_future)  | [is_list](validation.md#is_list) | [is_in](validation.md#is_in)   | [is_past](validation.md#is_past) | 
+|  [isnt](validation.md#isnt)  | [json](validation.md#json) | [length](validation.md#length)   | [less_than](validation.md#less_than) | 
+| [matches](validation.md#matches)  | [none](validation.md#none)   | [numeric](validation.md#numeric)  | [one_of](validation.md#one_of) | 
+| [phone](validation.md#phone) | [postal_code](validation.md#postal_code) | [regex](validation.md#regex)    | [required](validation.md#required) | 
+| [string](validation.md#string)  |  [strong](validation.md#strong)  | [timezone](validation.md#timezone)  | [truthy](validation.md#truthy)  | 
+| [video](validation.md#video) | [when](validation.md#when)| |
 
 <!-- - [accepted](validation.md#accepted)
 - [active_domain](validation.md#active_domain)
@@ -1026,6 +1027,39 @@ validate.when(
     validate.greater_than('age', 18)
 )
 ```
+### File
+
+Used to make sure that value is a valid file.
+
+```python
+"""
+{
+  'document': '/my/doc.pdf'
+}
+"""
+validate.file('document')
+```
+
+Additionally you can check file size, with different file size formats:
+
+```python
+validate.file('document', 1024) # check valid file and max size is 1 Kilobyte (1024 bytes)
+validate.file('document', '1K') # check valid file and max size is 1 Kilobyte (1024 bytes), 1k or 1KB also works
+validate.file('document', '15M') # check valid file and max size is 15 Megabytes
+```
+
+Finally file type can be checked through a MIME types list:
+```python
+validate.file('document', mimes=['jpg', 'png'])
+```
+
+You can combine all those file checks at once:
+```python
+validate.file('document', mimes=['pdf', 'txt'], size='4MB')
+```
+
+For image or video file type validation prefer the direct [image](#image) and [video](#video) validation rules.
+
 
 ### Greater_than
 
@@ -1038,6 +1072,27 @@ This is used to make sure a value is greater than a specific value
 }
 """
 validate.greater_than('age', 18)
+```
+
+### Image
+
+Used to make sure that value is a valid image.
+
+```python
+"""
+{
+  'avatar': '/my/picture.png'
+}
+"""
+validate.image('avatar')
+```
+Valid image types are defined by all MIME types starting with `image/`. For more details you can check
+`mimetypes` Python package which gives known MIME types with `mimetypes.types_map`.
+
+Additionally you can check image size as with basic file validator
+
+```python
+validate.image('avatar', size="2MB")
 ```
 
 ### In_range
@@ -1295,6 +1350,21 @@ The available patterns are:
 - `123-456-7890`
 - `(123)456-7890`
 
+### Postal Code
+
+Every country has their own postal code formats. We added regular expressions for over 130 countries which you can specify by using a comma separated string of country codes:
+
+```python
+"""
+{
+  'zip': '123456'
+}
+"""
+validate.postal_code('zip', "US,IN,GB")
+```
+
+Please look up the "alpha-2 code" for available country formats.
+
 ### Regex
 
 Sometimes you want to do more complex validations on some fields. This rule allows to validate against
@@ -1415,7 +1485,6 @@ validate.truthy('active')
 ### Uuid
 
 Used to check that a value is a valid UUID. The UUID version (according to [RFC 4122](https://en.wikipedia.org/wiki/Universally_unique_identifier#Versions)) standard can optionally be verified (1,3,4 or 5).
-
 ```python
 """
 {
@@ -1425,6 +1494,27 @@ Used to check that a value is a valid UUID. The UUID version (according to [RFC 
 validate.uuid('doc_id')
 # check that value is valid UUID4
 validate.uuid('doc_id', 4)  # or '4'
+```
+
+### Video
+
+Used to make sure that value is a valid video file.
+```python
+"""
+{
+  'document': '/my/movie.mp4'
+}
+"""
+validate.video('document')
+```
+
+Valid video types are defined by all MIME types starting with `video/`. For more details you can check
+`mimetypes` Python package which gives known MIME types with `mimetypes.types_map`.
+
+Additionally you can check video size as with basic file validator
+
+```python
+validate.video('document', size="2MB")
 ```
 
 ### When
