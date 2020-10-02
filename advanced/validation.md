@@ -1172,6 +1172,24 @@ This is used to make sure a value is less than a specific value
 validate.less_than('age', 18)
 ```
 
+### Matches
+
+Used to make sure the value matches another field value
+
+```python
+"""
+{
+  'user1': {
+    'role': 'admin'
+  },
+  'user2': {
+    'role': 'admin'
+  }
+}
+"""
+validate.matches('user1.role', 'user2.role')
+```
+
 ### None
 
 Used to make sure the value is None
