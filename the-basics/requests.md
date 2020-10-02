@@ -575,6 +575,27 @@ def show(self, request: Request):
         return request.back().with_errors(errors)
 ```
 
+### Redirecting Back With Success
+
+You can redirect back with success message:
+
+```python
+def show(self, request: Request):
+    errors = request.validate(
+        required(['email', 'password'])
+    )
+
+    if errors:
+        return request.back().with_errors(errors)
+
+    return request.redirect('users').with_success('Ok !')
+```
+
+{% hint style="info" %}
+You can also simply use the base helper `with_flash(key, value)` to redirect with other session data.
+{% endhint %}
+
+
 ### Redirecting Back With Inputs
 
 When redirecting back there are times where you will also want to flash the inputs to the session. With this you can simply use the `back()` method but if you want a bit more control you can use the `with_input()` method.
