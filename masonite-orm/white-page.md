@@ -8,11 +8,11 @@
 
 I will discuss the flow at a high level first and then can talk about each part separately.
 
-There are a few different paths you can start out with. Not everything starts out at the model level. You may use the query builder class directly to build your queries. The query builder class is exactly that: a class to build queries. So you will interact with this class (more on the class later) and it will set things like wheres, limits, selects, etc to the class and then pass all that off to build a query.
+There are a few different paths you can start out with. Not everything starts out at the model level. You may use the query builder class directly to build your queries. The query builder class is exactly that: a class to build queries. So you will interact with this class \(more on the class later\) and it will set things like wheres, limits, selects, etc to the class and then pass all that off to build a query.
 
 ### The Model
 
-First let's talk about the flow of the `Model`. The `Model` is probably what most people will be using the majority of the time. The `Model` is basically an wrapper entity around a table. So 1 table will likely equal to 1 model. A `users` table will have a `User` model and a `articles` table will have an `Article` model. 
+First let's talk about the flow of the `Model`. The `Model` is probably what most people will be using the majority of the time. The `Model` is basically an wrapper entity around a table. So 1 table will likely equal to 1 model. A `users` table will have a `User` model and a `articles` table will have an `Article` model.
 
 The interesting things about the `Model` is that its just a shell around the `QueryBuilder` class. The majority of the time you call something on the `Model` it's actually just building a query builder class immediately and passing the rest of the call off. This is important to understand:
 
@@ -42,7 +42,7 @@ When you call `get`, the query builder will pass everything you built up \(1 sel
 SELECT `id` FROM `users` WHERE `id` = '1' AND `active` = 1
 ```
 
-If it needs to build a Qmark query (a query with question marks which will be replaced with query bindings to prevent SQL injection) then it will look like this:
+If it needs to build a Qmark query \(a query with question marks which will be replaced with query bindings to prevent SQL injection\) then it will look like this:
 
 ```text
 SELECT `id` FROM `users` WHERE `id` = '?' AND `active` = ?
@@ -80,7 +80,7 @@ Qmark queries will then be passed off to the connection class with a tuple of bi
 
 The grammar class is also really an abstraction as well. All the heavy lifting is done inside the `BaseGrammar` class. Child classes \(like `MySQLGrammar` and `PostgresGrammar`, etc\) really just contain the formatting of the sql strings.
 
-**Currently there are 2 different grammar classes for each of the supported grammars. There is one for normal queries and one for schema queries. They could be 1 big class but the class would be giant and it is hard to maintain a god class like this responsable for everything. It also makes it harder to first build the grammar up for quering (selects, updates, deletes, etc) and then later support schema building.**
+**Currently there are 2 different grammar classes for each of the supported grammars. There is one for normal queries and one for schema queries. They could be 1 big class but the class would be giant and it is hard to maintain a god class like this responsable for everything. It also makes it harder to first build the grammar up for quering \(selects, updates, deletes, etc\) and then later support schema building.**
 
 Almost all SQL is bascially the same but with slightly different formats or placements for where some syntax goes. This is why this structure we use is so powerful and easy to expand or fix later on.
 
@@ -138,7 +138,7 @@ def limit_string(self):
   return "TOP {limit}"
 ```
 
-Now we have abstracted the differences into their own classes and class methods. Now when we compile the string, everything falls into place. This code snippet is located in the `BaseGrammar` class (which calls the supported grammar class we built above). 
+Now we have abstracted the differences into their own classes and class methods. Now when we compile the string, everything falls into place. This code snippet is located in the `BaseGrammar` class \(which calls the supported grammar class we built above\).
 
 ```python
 # Everything completely abstracted into it's own class and class methods.
@@ -286,7 +286,7 @@ It is important though to know the differences between class \(`cls`\) and an ob
 
 ### Meta Classing
 
-One of the trickier bits of magic we have when it comes to the model is we set a meta class on the `Model` class (the base class that all of your `User` and `Article` models will inherit). What this does is essentially creates a middleware between first calling methods. Since its really hard to do everything while handling different class instantances and class classes it's easier to catch the call and turn it into an instance before moving on. 
+One of the trickier bits of magic we have when it comes to the model is we set a meta class on the `Model` class \(the base class that all of your `User` and `Article` models will inherit\). What this does is essentially creates a middleware between first calling methods. Since its really hard to do everything while handling different class instantances and class classes it's easier to catch the call and turn it into an instance before moving on.
 
 This is hard to explain but let's see what this really solves:
 
@@ -309,15 +309,15 @@ But it doesn't look as clean as:
 result = User.where('...')
 ```
 
-(Also for backwards compatability with Orator it would be a huge change if we didn't support this).
+\(Also for backwards compatability with Orator it would be a huge change if we didn't support this\).
 
-So if you look at the `Model.py` class we have a meta class inherited (you'll notice if you look at the file) which actually does a bit of magic and actually instanitates the class before any methods are called. This is similiar to any normal Python hook you can tie into like `__getattr__`. 
+So if you look at the `Model.py` class we have a meta class inherited \(you'll notice if you look at the file\) which actually does a bit of magic and actually instanitates the class before any methods are called. This is similiar to any normal Python hook you can tie into like `__getattr__`.
 
 **This makes handling `cls` and `self` much easier. Although there are special use cases where we need to handle cls directly which is why you will see some `@classmethod` decorators on some model methods.**
 
 ### Pass Through
 
-We mentioned that the model simply constructs a query builder and essentially passes everything off to the query builder class. 
+We mentioned that the model simply constructs a query builder and essentially passes everything off to the query builder class.
 
 The issue though is that when you call something like `User.where(..)` it will call the where on the User class. Since theres actually no `where` method on the model class it will hook into the `__getattr__` on the model class. From there we catch a bunch of different methods located in the `__passthrough__` attribute on the model and pass that right off to the query builder. This is important to understand.
 

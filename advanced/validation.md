@@ -59,11 +59,9 @@ You can easily create a new rule boiler plate by running:
 
 {% tabs %}
 {% tab title="terminal" %}
-
 ```bash
 $ craft rule equals_masonite
 ```
-
 {% endtab %}
 {% endtabs %}
 
@@ -71,7 +69,7 @@ $ craft rule equals_masonite
 There is no particular reason that rules are lowercase class names. The main reason it is improves readability when you end up using it as a method if you choose to register the rule with the validation class like you will see below.
 {% endhint %}
 
-This will create a boiler plate rule inside app/rules/equals_masonite.py that looks like:
+This will create a boiler plate rule inside app/rules/equals\_masonite.py that looks like:
 
 ```python
 class equals_masonite(BaseValidation):
@@ -129,9 +127,9 @@ When validating a dictionary like this:
 
 then
 
-- the `attribute` will be the value \(`Masonite`\)
-- the `key` will be the dictionary key \(`name`\)
-- the `dictionary` will be the full dictionary in case you need to do any additional checks.
+* the `attribute` will be the value \(`Masonite`\)
+* the `key` will be the dictionary key \(`name`\)
+* the `dictionary` will be the full dictionary in case you need to do any additional checks.
 
 **Message method**
 
@@ -205,11 +203,9 @@ If you don't have a provider yet we can make one specifically for adding custom 
 
 {% tabs %}
 {% tab title="terminal" %}
-
 ```bash
 $ craft provider RuleProvider
 ```
-
 {% endtab %}
 {% endtabs %}
 
@@ -743,53 +739,18 @@ These rules are identical so use whichever feels more comfortable.
 
 ## Available Rules
 
-|   |   |   |   |   |
-|---|---|---|---|---|
-| [accepted](validation.md#accepted)  |  [active_domain](validation.md#active_domain) | [after_today](validation.md#after_today)  | [before_today](validation.md#before_today)  |
-| [confirmed](validation.md#confirmed)  | [contains](validation.md#contains)  | [date](validation.md#date)  |  [does_not](validation.md#does_not) | 
-| [email](validation.md#email)  | [equals](validation.md#equals)  |  [exists](validation.md#exists) |  [file](validation.md#file)  | 
-| [greater_than](validation.md#greater_than) | [image](validation.md#image)    | [in_range](validation.md#in_range)  | [ip](validation.md#ip)  | 
-| [is_future](validation.md#is_future)  | [is_list](validation.md#is_list) | [is_in](validation.md#is_in)   | [is_past](validation.md#is_past) | 
-|  [isnt](validation.md#isnt)  | [json](validation.md#json) | [length](validation.md#length)   | [less_than](validation.md#less_than) | 
-| [matches](validation.md#matches)  | [none](validation.md#none)   | [numeric](validation.md#numeric)  | [one_of](validation.md#one_of) | 
-| [phone](validation.md#phone) | [postal_code](validation.md#postal_code) | [regex](validation.md#regex)    | [required](validation.md#required) | 
-| [string](validation.md#string)  |  [strong](validation.md#strong)  | [timezone](validation.md#timezone)  | [truthy](validation.md#truthy)  | 
-| [video](validation.md#video) | [when](validation.md#when)| |
-
-<!-- - [accepted](validation.md#accepted)
-- [active_domain](validation.md#active_domain)
-- [after_today](validation.md#after_today)
-- [before_today](validation.md#before_today) -->
-<!-- - [confirmed](validation.md#confirmed) -->
-<!-- - [contains](validation.md#contains) -->
-<!-- - [date](validation.md#date) -->
-<!-- - [does_not](validation.md#does_not) -->
-<!-- - [email](validation.md#email)
-- [equals](validation.md#equals) -->
-<!-- - [exists](validation.md#exists) -->
-<!-- - [greater_than](validation.md#greater_than) -->
-<!-- - [in_range](validation.md#in_range) -->
-<!-- - [ip](validation.md#ip) -->
-<!-- - [is_future](validation.md#is_future) -->
-<!-- - [is_list](validation.md#is_list) -->
-<!-- [is_in](validation.md#is_in)
-[is_past](validation.md#is_past)
-[isnt](validation.md#isnt)
-[json](validation.md#json)
-[length](validation.md#length)
-[less_than](validation.md#less_than)
-[matches](validation.md#matches)
-[none](validation.md#none)
-[numeric](validation.md#numeric)
-[one_of](validation.md#one_of)
-[phone](validation.md#phone)
-[regex](validation.md#regex) -->
-<!-- [required](validation.md#required)
-[string](validation.md#string)
-[strong](validation.md#strong)
-[timezone](validation.md#timezone)
-[truthy](validation.md#truthy)
-[when](validation.md#when) -->
+|  |  |  |  |  |
+| :--- | :--- | :--- | :--- | :--- |
+| [accepted](validation.md#accepted) | [active\_domain](validation.md#active_domain) | [after\_today](validation.md#after_today) | [before\_today](validation.md#before_today) |  |
+| [confirmed](validation.md#confirmed) | [contains](validation.md#contains) | [date](validation.md#date) | [does\_not](validation.md#does_not) |  |
+| [email](validation.md#email) | [equals](validation.md#equals) | [exists](validation.md#exists) | [file](validation.md#file) |  |
+| [greater\_than](validation.md#greater_than) | [image](validation.md#image) | [in\_range](validation.md#in_range) | [ip](validation.md#ip) |  |
+| [is\_future](validation.md#is_future) | [is\_list](validation.md#is_list) | [is\_in](validation.md#is_in) | [is\_past](validation.md#is_past) |  |
+| [isnt](validation.md#isnt) | [json](validation.md#json) | [length](validation.md#length) | [less\_than](validation.md#less_than) |  |
+| [matches](validation.md#matches) | [none](validation.md#none) | [numeric](validation.md#numeric) | [one\_of](validation.md#one_of) |  |
+| [phone](validation.md#phone) | [postal\_code](validation.md#postal_code) | [regex](validation.md#regex) | [required](validation.md#required) |  |
+| [string](validation.md#string) | [strong](validation.md#strong) | [timezone](validation.md#timezone) | [truthy](validation.md#truthy) |  |
+| [video](validation.md#video) | [when](validation.md#when) |  |  |  |
 
 ### Accepted
 
@@ -804,7 +765,7 @@ The accepted rule is most useful when seeing if a checkbox has been checked. Whe
 validate.accepted('terms')
 ```
 
-### Active_domain
+### Active\_domain
 
 This is used to verify that the domain being passed in is a DNS resolvable domain name. You can also do this for email addresses as well. The preferred search is domain.com but Masonite will strip out `http://`, `https://` and `www` automatically for you.
 
@@ -818,7 +779,7 @@ This is used to verify that the domain being passed in is a DNS resolvable domai
 validate.active_domain(['domain', 'email'])
 ```
 
-### After_today
+### After\_today
 
 Used to make sure the date is a date after today. In this example, this will work for any day that is 2019-10-21 or later.
 
@@ -842,7 +803,7 @@ You may also pass in a timezone for this rule:
 validate.after_today('date', tz='America/New_York')
 ```
 
-### Before_today
+### Before\_today
 
 Used to make sure the date is a date before today. In this example, this will work for any day that is 2019-10-19 or earlier.
 
@@ -908,7 +869,7 @@ This is used to verify that the value is a valid date. [Pendulum](https://pendul
 validate.date('date')
 ```
 
-### Does_not
+### Does\_not
 
 Used for running a set of rules when a set of rules does not match. Has a `then()` method as well. Can be seen as the opposite of when.
 
@@ -985,6 +946,7 @@ validate.when(
     validate.greater_than('age', 18)
 )
 ```
+
 ### File
 
 Used to make sure that value is a valid file.
@@ -1007,19 +969,20 @@ validate.file('document', '15M') # check valid file and max size is 15 Megabytes
 ```
 
 Finally file type can be checked through a MIME types list:
+
 ```python
 validate.file('document', mimes=['jpg', 'png'])
 ```
 
 You can combine all those file checks at once:
+
 ```python
 validate.file('document', mimes=['pdf', 'txt'], size='4MB')
 ```
 
-For image or video file type validation prefer the direct [image](#image) and [video](#video) validation rules.
+For image or video file type validation prefer the direct [image](validation.md#image) and [video](validation.md#video) validation rules.
 
-
-### Greater_than
+### Greater\_than
 
 This is used to make sure a value is greater than a specific value
 
@@ -1044,8 +1007,8 @@ Used to make sure that value is a valid image.
 """
 validate.image('avatar')
 ```
-Valid image types are defined by all MIME types starting with `image/`. For more details you can check
-`mimetypes` Python package which gives known MIME types with `mimetypes.types_map`.
+
+Valid image types are defined by all MIME types starting with `image/`. For more details you can check `mimetypes` Python package which gives known MIME types with `mimetypes.types_map`.
 
 Additionally you can check image size as with basic file validator
 
@@ -1053,7 +1016,7 @@ Additionally you can check image size as with basic file validator
 validate.image('avatar', size="2MB")
 ```
 
-### In_range
+### In\_range
 
 Used when you need to check if an integer is within a given range of numbers
 
@@ -1079,7 +1042,7 @@ You can also check if the input is a valid IPv4 address:
 validate.ip('address')
 ```
 
-### Is_future
+### Is\_future
 
 Checks to see the date and time passed is in the future. This will pass even if the datetime is 5 minutes in the future.
 
@@ -1103,9 +1066,9 @@ You may also pass in a timezone for this rule:
 validate.is_future('date', tz='America/New_York')
 ```
 
-### Is_list
+### Is\_list
 
-Used to make sure the value is a list (a Python list instance)
+Used to make sure the value is a list \(a Python list instance\)
 
 ```python
 """
@@ -1128,7 +1091,7 @@ validate.is_list('tags')
 validate.is_list('discounts_ref.*')
 ```
 
-### Is_in
+### Is\_in
 
 Used to make sure if a value is in a specific value
 
@@ -1143,7 +1106,7 @@ validate.is_in('age', [2,4,5])
 
 notice how 5 is in the list
 
-### Is_past
+### Is\_past
 
 Checks to see the date and time passed is in the past. This will pass even if the datetime is 5 minutes in the past.
 
@@ -1214,7 +1177,7 @@ Used to make sure a string is of a certain length
 validate.length('description', min=5, max=35)
 ```
 
-### Less_than
+### Less\_than
 
 This is used to make sure a value is less than a specific value
 
@@ -1255,7 +1218,7 @@ Used to make sure a value is a numeric value
 validate.numeric('age')
 ```
 
-### One_of
+### One\_of
 
 Sometimes you will want only one of several fields to be required. At least one of them need to be required.
 
@@ -1287,8 +1250,8 @@ validate.phone('phone', pattern='123-456-7890')
 
 The available patterns are:
 
-- `123-456-7890`
-- `(123)456-7890`
+* `123-456-7890`
+* `(123)456-7890`
 
 ### Postal Code
 
@@ -1307,9 +1270,7 @@ Please look up the "alpha-2 code" for available country formats.
 
 ### Regex
 
-Sometimes you want to do more complex validations on some fields. This rule allows to validate against
-a regular expression directly.
-In the following example we check that `username` value is a valid user name (without special characters and between 3 and 16 characters).
+Sometimes you want to do more complex validations on some fields. This rule allows to validate against a regular expression directly. In the following example we check that `username` value is a valid user name \(without special characters and between 3 and 16 characters\).
 
 ```python
 """
@@ -1403,8 +1364,8 @@ Used to make sure that value is a valid video file.
 """
 validate.video('document')
 ```
-Valid video types are defined by all MIME types starting with `video/`. For more details you can check
-`mimetypes` Python package which gives known MIME types with `mimetypes.types_map`.
+
+Valid video types are defined by all MIME types starting with `video/`. For more details you can check `mimetypes` Python package which gives known MIME types with `mimetypes.types_map`.
 
 Additionally you can check video size as with basic file validator
 
@@ -1433,3 +1394,4 @@ validate.when(
     validate.accepted('terms')
 )
 ```
+
