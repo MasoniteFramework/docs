@@ -67,3 +67,30 @@ ConnectionResolver.set_connection_details(DATABASES)
 
 After this you have successfully setup Masonite ORM in your project!
 
+## Logging
+
+If you would like, you can log any queries Masonite ORM generates to any supported Python logging handler. 
+
+Inside your `config/database.py` file you can put on the bottom here. The StreamHandler will output the queries to the terminal.
+
+```python
+logger = logging.getLogger('masoniteorm.connection.queries')
+logger.setLevel(logging.DEBUG)
+
+handler = logging.StreamHandler()
+
+logger.addHandler(handler)
+```
+
+You can specify as many handlers as you would like. Here's an example of logging to both the terminal and a file:
+
+```python
+logger = logging.getLogger('masoniteorm.connection.queries')
+logger.setLevel(logging.DEBUG)
+
+handler = logging.StreamHandler()
+file_handler = logging.FileHandler('queries.log')
+
+logger.addHandler(handler)
+logger.addHandler(file_handler)
+```
