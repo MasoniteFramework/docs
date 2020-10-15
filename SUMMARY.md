@@ -110,7 +110,7 @@
 ## Masonite ORM \[In development\] <a id="masonite-orm"></a>
 
 * [White Page](masonite-orm/white-page.md)
-<!-- * [Introduction](masonite-orm/introduction.md)
+<!-- * [Introduction](masonite-orm/introduction.md) 
 * [Installation](masonite-orm/installation.md)
 * [Orator To Masonite ORM](masonite-orm/orator-to-masonite-orm.md)
 * [Query Builder](masonite-orm/query-builder.md)
