@@ -13,23 +13,22 @@ for user in users:
   user.email #== 'joe@masoniteproject.com'
 ```
 
-# Available Methods
+## Available Methods
 
-|          |          |           |
-| -------- | -------- | --------- |
-| all      | avg      | chunk     |
-| collapse | contains | count     |
-| diff     | each     | every     |
-| filter   | first    | flatten   |
-| for_page | forget   | get       |
-| group_by | implode  | is_empty  |
-| last     | map_into | map       |
-| max      | merge    | pluck     |
-| pop      | prepend  | pull      |
-| push     | put      | reduce    |
-| reject   | reverse  | serialize |
-| shift    | sort     | sum       |
-| take     | to_json  | transform |
-| unique   | where    | zip       |
-
+|  |  |  |
+| :--- | :--- | :--- |
+| all | avg | chunk |
+| collapse | contains | count |
+| diff | each | every |
+| filter | first | flatten |
+| for\_page | forget | get |
+| group\_by | implode | is\_empty |
+| last | map\_into | map |
+| max | merge | pluck |
+| pop | prepend | pull |
+| push | put | reduce |
+| reject | reverse | serialize |
+| shift | sort | sum |
+| take | to\_json | transform |
+| unique | where | zip |
 

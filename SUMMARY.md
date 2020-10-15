@@ -147,4 +147,3 @@
 * [Masonite 2.1 to 2.2](upgrade-guide/masonite-2.1-to-2.2.md)
 * [Masonite 2.2 to 2.3](upgrade-guide/masonite-2.2-to-2.3.md)
 
-

@@ -170,3 +170,4 @@ users = Factory(User, 50).create({'email': 'john@masoniteproject.com'}) #== <mas
 ```
 
 This is a great way to make constant values when testing that you can later assert to.
+

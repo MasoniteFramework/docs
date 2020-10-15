@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Selenium tests are browser tests. With normal unit testing you are usually testing sections of your code like JSON endpoints or seeing a header on a page. 
+Selenium tests are browser tests. With normal unit testing you are usually testing sections of your code like JSON endpoints or seeing a header on a page.
 
 With Selenium testing, you are able to test more advanced features that may require JS handling like what happens when a user clicks a button or submits or a form.
 
@@ -155,7 +155,7 @@ Take this form for example:
 <form action="/submit">
     <input id="username" type="text" name="username">
     <input id="password" type="password" name="password">
-    
+
     <button type="submit">Submit</button>
 </form>
 ```
@@ -201,7 +201,7 @@ You may change your form a bit to do something like this instead:
 <form action="/submit">
     <input selenium="username" type="text" name="username">
     <input selenium="password" type="password" name="password">
-    
+
     <button type="submit">Submit</button>
 </form>
 ```
@@ -424,10 +424,4 @@ Closes the browser
 (self.visit('https://www.python.org/')
     .close())
 ```
-
-
-
-
-
- 
 

@@ -2,11 +2,11 @@
 
 Models are the easiest way to interact with your tables. A model is a way for you to interact with a Python class in a simple and elegant way and have all the hard overhead stuff handled for you under the hood. A model can be used to query the data in the table or even create new records, fetch related records between tables and many other features.
 
-## Creating A Model
+### Creating A Model
 
 The first step in using models is actually creating them. You can scaffold out a model by using the command:
 
-```
+```text
 $ python craft model Post
 ```
 
@@ -32,13 +32,13 @@ active_users = User.where('active', 1).first()
 
 We'll talk more about setting up your model below
 
-## Conventions And Configuration
+### Conventions And Configuration
 
-Masonite ORM makes a few assumptions in order to have the easiest interface for your models. 
+Masonite ORM makes a few assumptions in order to have the easiest interface for your models.
 
 The first is table names. Table names are assumed to be the plural of your model name. If you have a User model then the `users` table is assumed and if you have a model like `Company` then the `companies` table is assumed. You can realize that Masonite ORM is smart enough to know that the plural of `Company` is not `Companys` so don't worry about Masonite not being able to pick up your table name.
 
-### Table Name
+#### Table Name
 
 If your table name is something other than the plural of your models you can change it using the `__table__` attribute:
 
@@ -47,7 +47,7 @@ class Clients:
   __table__ = "users"
 ```
 
-### Primary Keys
+#### Primary Keys
 
 The next thing Masonite assumes is the primary key. Masonite ORM assumes that the primary key name is `id`. You can change the primary key name easily:
 
@@ -56,7 +56,7 @@ class Clients:
   __primary_key__ = "user_id"
 ```
 
-### Connections
+#### Connections
 
 The next thing Masonite assumes is that you are using the `default` connection you setup in your configuration settings. You can also change thing on the model:
 
@@ -65,9 +65,9 @@ class Clients:
   __connection__ = "staging"
 ```
 
-### Mass Assignment
+#### Mass Assignment
 
-By default, Masonite ORM protects against mass assignment to help prevent users from changing values on your tables you didn't want. 
+By default, Masonite ORM protects against mass assignment to help prevent users from changing values on your tables you didn't want.
 
 This is used in the create and update methods. You can set the columns you want to be mass assignable easily:
 
@@ -76,7 +76,7 @@ class Clients:
   __fillable__ = ['email', "active", "password"]
 ```
 
- ### Timestamps
+#### Timestamps
 
 Masonite also assumed you have `created_at` and `updated_at` columns on your table. You can easily disable this behavior:
 
@@ -85,13 +85,13 @@ class Clients:
   __timestamps__ = False
 ```
 
-## Quering
+### Quering
 
-Almost all of a models querying methods are passed off to the query builder. If you would like to see all the methods available for the query builder, see the [QueryBuilder]() documentation here.
+Almost all of a models querying methods are passed off to the query builder. If you would like to see all the methods available for the query builder, see the [QueryBuilder](models.md) documentation here.
 
 * sub queries
 
-### Single results
+#### Single results
 
 A query result will either have 1 or more records. If your model result has a single record then the result will be the model instance. You can then access attributes on that model instance. Here's an example:
 
@@ -103,7 +103,7 @@ user.name #== 'Joe'
 user.email #== 'joe@masoniteproject.com'
 ```
 
-### Collections
+#### Collections
 
 If your model result returns several results then it will be wrapped in a collection instance which you can use to iterate over:
 
@@ -123,9 +123,9 @@ The collection class also has some handy methods you can use to interact with yo
 user_emails = User.where('active', 1).get().pluck('email') #== Collection of email addresses
 ```
 
-If you would like to see more methods available like `pluck` be sure to read the [Collections]() documentation.
+If you would like to see more methods available like `pluck` be sure to read the [Collections](models.md) documentation.
 
-### Deleting
+#### Deleting
 
 You may also quickly delete records:
 
@@ -145,7 +145,7 @@ from app.models import User
 users = User.where('active', 0).delete()
 ```
 
-### Sub Queries
+#### Sub Queries
 
 You may also use subqueries to do more advanced queries using lambda expressions:
 
@@ -156,11 +156,11 @@ users = User.where(lambda q: q.where('active', 1).where_null('deleted_at'))
 # == SELECT * FROM `users` WHERE (`active` = '1' AND `deleted_at` IS NULL)
 ```
 
-## Relationships
+### Relationships
 
-Another great feature when using models is to be able to relate several models together (like how tables can relate to eachother).
+Another great feature when using models is to be able to relate several models together \(like how tables can relate to eachother\).
 
-### Belongs To
+#### Belongs To
 
 A belongs to relationship is a one-to-one relationship between 2 table records.
 
@@ -169,7 +169,7 @@ You can add a one-to-one relationship easily:
 ```python
 from masoniteorm.relationships import belongs_to
 class User:
-  
+
   @belongs_to
   def company(self):
     from app.models import Company
@@ -181,7 +181,7 @@ It will be assumed here that the primary key of the relationship here between us
 ```python
 from masoniteorm.relationships import belongs_to
 class User:
-  
+
   @belongs_to('company_id', 'id')
   def company(self):
     from app.models import Company
@@ -190,14 +190,14 @@ class User:
 
 The first argument is always the column name on the current models table and the second argument is the related field on the other table.
 
-### Has Many
+#### Has Many
 
 Another relationship is a one-to-many relationship where a record relates to many records in another table:
 
 ```python
 from masoniteorm.relationships import has_many
 class User:
-  
+
   @has_many('company_id', 'id')
   def posts(self):
     from app.models import Post
@@ -206,7 +206,7 @@ class User:
 
 The first argument is always the column name on the current models table and the second argument is the related field on the other table.
 
-### Using Relationships
+#### Using Relationships
 
 You can easily use relationships to get those related records. Here is an example on how to get the company record:
 
@@ -219,7 +219,7 @@ for post in user.posts:
     post.title
 ```
 
-# Scopes
+## Scopes
 
 Scopes are a way to take common queries you may be doing and be able to condense them into a method where you can then chain onto them. Let's say you are doing a query like getting the active user a lot:
 
@@ -232,7 +232,7 @@ We can take this query and add it as a scope:
 ```python
 from masoniteorm.scopes import scope
 class User(Model):
-  
+
   @scope
   def active(self, query):
     return query.where('active', 1)
@@ -249,7 +249,7 @@ You may also pass in arguments:
 ```python
 from masoniteorm.scopes import scope
 class User(Model):
-  
+
   @scope
   def active(self, query, active_or_inactive):
     return query.where('active', active_or_inactive)
@@ -262,7 +262,7 @@ user = User.active(1).get()
 user = User.active(0).get()
 ```
 
-## Soft Deleting
+### Soft Deleting
 
 Masonite ORM also comes with a global scope to enable soft deleting for your models.
 
@@ -294,7 +294,7 @@ You can disable this behavior as well:
 User.with_trashed().all() #== SELECT * FROM `users`
 ```
 
-## Casting
+### Casting
 
 Not all data may be in the format you need it it. If you find yourself casting attributes to different values, like casting active to an `int` then you can set it right on the model:
 
@@ -310,3 +310,4 @@ Other valid values are:
 * `int`
 * `bool`
 * `json`
+

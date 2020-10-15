@@ -1,6 +1,6 @@
 # Installation
 
-Setting up Masonite is extremely simple. 
+Setting up Masonite is extremely simple.
 
 If you are using the Masonite web framework than all the installation is setup for you. If you are using anything other than Masonite or building your own Python application then be sure to follow the install steps below:
 
@@ -8,7 +8,7 @@ If you are using the Masonite web framework than all the installation is setup f
 
 First install via pip:
 
-```
+```text
 $ pip install masonite-orm
 ```
 
@@ -66,3 +66,4 @@ ConnectionResolver.set_connection_details(DATABASES)
 ```
 
 After this you have successfully setup Masonite ORM in your project!
+
