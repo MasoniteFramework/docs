@@ -1,641 +1,312 @@
 # Models
 
-Models are the main starting point for using the ORM portion of Masonite ORM. Models are pretty simple classes to start out with. They can get more robust over time but nearly all the overhead is abstracted away for you and they allow you to override anything you need.
+Models are the easiest way to interact with your tables. A model is a way for you to interact with a Python class in a simple and elegant way and have all the hard overhead stuff handled for you under the hood. A model can be used to query the data in the table or even create new records, fetch related records between tables and many other features.
 
-## Creating a Model
+## Creating A Model
 
-Models are pretty simple to create. They are simple classes that expand as you need them to. To create a model simply create a new class and extend Masonite ORM's `Model` class:
+The first step in using models is actually creating them. You can scaffold out a model by using the command:
+
+```
+$ python craft model Post
+```
+
+This will create a post model like so:
 
 ```python
-from masonite.orm.models import Model
+from masoniteorm.models import Model
 
-class User(Model):
+class Post(Model):
+    """Post Model"""
     pass
 ```
 
-Once created that is it. There are a few conventions you might need to take into account to get started though.
+From here you can do as basic or advanced queries as you want. You may need to configure your model based on your needs, though.
 
-## Table Names
-
-The `User` model we created above will use the plural version of the models name. So a `User` model will use a `users` table and a `Company` model will use a `companies` table. Masonite ORM will also use a snake case version of the model name for the table. So it will take a class name like `UserInvoice` and automatically set the table to `user_invoices`.
-
-If you need to override this behavior you can do so by specifying the `__table__` attribute:
+From here you can start querying your records:
 
 ```python
-from masonite.orm.models import Model
-
-class User(Model):
-    __table__ = 'accounts'
-```
-
-## Primary Keys
-
-Masonite ORM will also default that all primary keys are `id`. If this is not the case you can specify the primary key column explicitly:
-
-```python
-from masonite.orm.models import Model
-
-class User(Model):
-    __table__ = 'accounts'
-    __primary_key__ = 'user_id'
-```
-
-## Connections
-
-By default, Masonite will also assume that all models are using the `default` connection which was defined in your database configuration dictionary. It is possible to have different models use difference connections by specifying the `__connection__` attribute:
-
-```python
-from masonite.orm.models import Model
-
-class User(Model):
-    __table__ = 'accounts'
-    __primary_key__ = 'user_id'
-    __connection__ = 'db-server-1'
-```
-
-## Retrieving Records
-
-### Getting All Records
-
-Once your model is created you can start querying your database. It's pretty simple to get all records:
-
-```python
-from models import User
-
+user = User.first()
 users = User.all()
-
-for user in users:
-    user.name
+active_users = User.where('active', 1).first()
 ```
 
-Models are simple proxies around the \(QueryBuilder\)\[masonite-orm/query-builder.md\] class so if you need to reference any models you can simply call any query builder methods. Because of this, you can chain as many query builder methods onto the model as you want and all will be proxied to the underlying query builder:
+We'll talk more about setting up your model below
+
+## Conventions And Configuration
+
+Masonite ORM makes a few assumptions in order to have the easiest interface for your models. 
+
+The first is table names. Table names are assumed to be the plural of your model name. If you have a User model then the `users` table is assumed and if you have a model like `Company` then the `companies` table is assumed. You can realize that Masonite ORM is smart enough to know that the plural of `Company` is not `Companys` so don't worry about Masonite not being able to pick up your table name.
+
+### Table Name
+
+If your table name is something other than the plural of your models you can change it using the `__table__` attribute:
 
 ```python
-from models import User
-
-users = (User
-    .where('active', 1)
-    .order_by('created_at', 'desc')
-    .limit(10)
-    .get())
-
-for user in users:
-    user.name
+class Clients:
+  __table__ = "users"
 ```
 
-For additional methods for use with building queries, refer to the \(QueryBuilder\)\[masonite-orm/query-builder.md\] documentation.
+### Primary Keys
 
-## Timestamps
-
-## Inserting
-
-## Mass Assignment
-
-Masonite protects against mass assignment which simply means that you cannot mass update or mass create columns that are not inside the `__fillable__` array. This is a security feature and can be explained pretty simply.
-
-Let's say we have a `users` table like this:
-
-```text
-users:
-
-username
-email
-active
-is_admin
-```
-
-For the most part we want to create some kind of form that allows the creation of this model \(like a registration form\). In our controller or wherever we are saving this new record we may have somthing like this:
+The next thing Masonite assumes is the primary key. Masonite ORM assumes that the primary key name is `id`. You can change the primary key name easily:
 
 ```python
-from models import User
-
-def store(self, request: Request):
-    user = User.create(request.all())
+class Clients:
+  __primary_key__ = "user_id"
 ```
 
-This would present a pretty big security vulnerability so a user could manipulate the form to add a `is_admin` input to the form before they submit it. So Masonite protects against this behavior and instead will simply ignore anything not explicitly in the `__fillable__` array. The `__fillable__` attribute created a white list of attributes you can mass assign.
+### Connections
+
+The next thing Masonite assumes is that you are using the `default` connection you setup in your configuration settings. You can also change thing on the model:
 
 ```python
-class User:
-    __fillable__ = ['username', 'email', 'active']
+class Clients:
+  __connection__ = "staging"
 ```
 
-This is only for mass creating and mass updating.
+### Mass Assignment
 
-Setting attributes on the model itself is not affected:
+By default, Masonite ORM protects against mass assignment to help prevent users from changing values on your tables you didn't want. 
+
+This is used in the create and update methods. You can set the columns you want to be mass assignable easily:
 
 ```python
-user = User.find(1)
-user.is_admin = 1
-user.save()
+class Clients:
+  __fillable__ = ['email', "active", "password"]
 ```
 
-### Guarded
+ ### Timestamps
 
-As the opposite of `__fillable__`, which is setting a white list, you can use `__guarded__` which is creating a black list of columns:
+Masonite also assumed you have `created_at` and `updated_at` columns on your table. You can easily disable this behavior:
 
 ```python
-class User:
-    __guarded__ = ['is_admin']
+class Clients:
+  __timestamps__ = False
 ```
 
-This is saying that all attributes on this model are fillable **except** the `is_admin` column.
+## Quering
 
-## Updating
+Almost all of a models querying methods are passed off to the query builder. If you would like to see all the methods available for the query builder, see the [QueryBuilder]() documentation here.
 
-Its also simple to do an update to a model. Updating is a fairly simple process. You can either update all records:
+* sub queries
+
+### Single results
+
+A query result will either have 1 or more records. If your model result has a single record then the result will be the model instance. You can then access attributes on that model instance. Here's an example:
 
 ```python
-admin = {'is_admin': 1}
+from app.models import User
 
-User.update(admin)
-#== UPDATE `users` SET `users`.`is_admin` = 1
+user = User.first()
+user.name #== 'Joe'
+user.email #== 'joe@masoniteproject.com'
 ```
 
-Or specify a where condition to update records:
+### Collections
+
+If your model result returns several results then it will be wrapped in a collection instance which you can use to iterate over:
 
 ```python
-admin = {'is_admin': 1}
+from app.models import User
 
-User.where('email', 'joe@masoniteproject.com').update(admin)
-#== UPDATE `users` SET `users`.`is_admin` = 1 WHERE `users`.`email`
+users = User.where('active', 1).get()
+for users in user:
+  user.name #== 'Joe'
+  user.active #== '1'
+  user.email #== 'joe@masoniteproject.com'
 ```
 
-## Deleting
-
-Deleting is very similiar to updating. You can specify where conditions to delete:
+The collection class also has some handy methods you can use to interact with your data:
 
 ```python
-User.where('email', 'joe@masoniteproject.com').delete()
+user_emails = User.where('active', 1).get().pluck('email') #== Collection of email addresses
+```
+
+If you would like to see more methods available like `pluck` be sure to read the [Collections]() documentation.
+
+### Deleting
+
+You may also quickly delete records:
+
+```python
+from app.models import User
+
+users = User.delete(1)
+```
+
+This will delete the record based on the primary key value of 1.
+
+You cal also delete based on a query:
+
+```python
+from app.models import User
+
+users = User.where('active', 0).delete()
+```
+
+### Sub Queries
+
+You may also use subqueries to do more advanced queries using lambda expressions:
+
+```python
+from app.models import User
+
+users = User.where(lambda q: q.where('active', 1).where_null('deleted_at'))
+# == SELECT * FROM `users` WHERE (`active` = '1' AND `deleted_at` IS NULL)
 ```
 
 ## Relationships
 
-Relations are a way to represent table relationships through Python code.
+Another great feature when using models is to be able to relate several models together (like how tables can relate to eachother).
 
-## Making a Relationship
+### Belongs To
 
-You can easily make a relationship using various relationship scopes.
+A belongs to relationship is a one-to-one relationship between 2 table records.
 
-### One To One
-
-You can make one-to-one relationship between models using the "belongs to" relationship. Let's say we have a one-to-one relationship between users and phones. Your `User` model will look something like this:
+You can add a one-to-one relationship easily:
 
 ```python
-from masonite.orms.relationships import belongs_to
-
+from masoniteorm.relationships import belongs_to
 class User:
-
-    @belongs_to('id', 'user_id'):
-    def phone:
-        from models import Phone
-        return Phone
+  
+  @belongs_to
+  def company(self):
+    from app.models import Company
+    return Company
 ```
 
-**It's a good idea to lazy import \(import your models inside the methods\) to avoid circuluar dependency issues when using models as seen above.**
-
-Unlike Orator and Eloquent, the first and second key constraints in the decorator is ALWAYS `local_key, foreign_key`. This is to avoid confusion when specifying different relationships.
-
-To make the keys work, the first parameter is the local related key on the current model. The second parameter is the foreign related key on the related model. So on our example, `id` is the related key on the user table \(the primary key in this case\) and the `user_id` is the related column on the `phones` table.
-
-Now when you need to get a phone record for a user you can simply fetch it as an attribute on the user:
+It will be assumed here that the primary key of the relationship here between users and companies is `id -> id`. You can change the relating columns if that is not the case:
 
 ```python
-user = User.find(1)
-
-user.phone #== <models.Phone object>
-user.phone.number #== 123-456-7890
-```
-
-### One To Many
-
-Sometimes your user will have a related table where there are many records in it. This table can be something like an `articles` table where a user can have many articles.
-
-To perform this relationship on a model we can use the "has many" relationship:
-
-```python
-from masonite.orms.relationships import belongs_to
-
+from masoniteorm.relationships import belongs_to
 class User:
-
-    @has_many('id', 'user_id'):
-    def articles:
-        from models import Article
-        return Article
+  
+  @belongs_to('company_id', 'id')
+  def company(self):
+    from app.models import Company
+    return Company
 ```
 
-Now you can loop through all of a users articles by calling the `articles` attribute on a user model:
+The first argument is always the column name on the current models table and the second argument is the related field on the other table.
+
+### Has Many
+
+Another relationship is a one-to-many relationship where a record relates to many records in another table:
 
 ```python
-user = User.find(1)
-
-for article in user.articles:
-    article.title
-    article.description
-```
-
-## Calling a Relationship
-
-Sometimes you need to access a relationship but also add some additional clauses. For example you might want to get all articles that are published. You can do this by **calling** the relationship, adding any clauses you need and then calling the `get` method:
-
-```python
-user = User.find(1)
-
-for article in user.articles().where('is_published', 1).get():
-    article.title
-    article.description
-```
-
-This is useful for on the fly adjustments to your code.
-
-## Adding Clauses Relationships
-
-In addition to calling relationships on the fly you can also add clauses directly to the relationship definition:
-
-```python
-from masonite.orms.relationships import belongs_to
-
+from masoniteorm.relationships import has_many
 class User:
-
-    @has_many('id', 'user_id'):
-    def articles:
-        from models import Article
-        return Article.where('is_published', 1)
+  
+  @has_many('company_id', 'id')
+  def posts(self):
+    from app.models import Post
+    return Post
 ```
 
-Now when you access this relationship using `user.articles`, the where clause will be included.
+The first argument is always the column name on the current models table and the second argument is the related field on the other table.
 
-## Checking Existence
+### Using Relationships
 
-Sometimes you want to get all records where a relationship exists. For example, you might want to get all users that have articles in the first place:
-
-### Has
+You can easily use relationships to get those related records. Here is an example on how to get the company record:
 
 ```python
-users = User.has('articles').get()
+user = User.first()
+user.company #== <app.models.Company>
+user.company.name #== Masonite X Inc.
 
-for user in users:
-    user.name
+for post in user.posts:
+    post.title
 ```
 
-### Where Has
+# Scopes
 
-This will only fetch users that have articles. You can also run an additional query while checking for existence:
+Scopes are a way to take common queries you may be doing and be able to condense them into a method where you can then chain onto them. Let's say you are doing a query like getting the active user a lot:
 
 ```python
-users = User.where_has('articles', lambda query: query.where('is_published', 1)).get()
-
-for user in users:
-    user.name
+user = User.where('active', 1).get()
 ```
 
-This will get all users that have published articles.
-
-## Eager Loading
-
-Eager loading is the act of fetching various values before looping over the query. For example, let's take the example of fetching the phone for all users again \(a one-to-one relationship\):
+We can take this query and add it as a scope:
 
 ```python
-users = User.all() # == 5 users
-
-for user in users:
-   print(user.phone.number)
-```
-
-This will result in the following queries:
-
-```sql
-SELECT * FROM `users`
-SELECT * `phones` where `phones`.`user_id` = `1`
-SELECT * `phones` where `phones`.`user_id` = `2`
-SELECT * `phones` where `phones`.`user_id` = `3`
-SELECT * `phones` where `phones`.`user_id` = `4`
-SELECT * `phones` where `phones`.`user_id` = `5`
-```
-
-Notice it is doing 1 query for each user we are iterating over. This is known as the "N + 1" problem. The "N" is the number of users we are iterating over and the "1" is the first query we are doing to make the first query.
-
-To solve this, we can do something called "eager loading" which simply means we fetch all the phones for our users first and then we can loop over that in memory rather than making costly database calls. This results in a faster application and fewer database calls:
-
-```python
-users = User.with_('phone').all() # == 5 users
-
-for user in users:
-   print(user.phone.number)
-```
-
-This will now result in the following queries:
-
-```sql
-SELECT * FROM `users`
-SELECT * `phones` where `phones`.`user_id` IN ('1', '2', '3', '4', '5')
-```
-
-Notice how we take the result of the second query and load the result into the model. Then when we fetch the `phone` attribute, the result is found in memory rather than making subsquent calls to the database.
-
-## Scopes
-
-Scopes are an excellent way to abstract out recurring statesments and make them much more readable. For example, we have been specifying a `is_active` column in our where clauses for our users. We can turn this query here:
-
-```text
-users = User.where('is_active', 1).get()
-```
-
-Into this:
-
-```text
-users = User.is_active().get()
-```
-
-and put all the where logic into a query scope. To do this we can simply create the scope on our `User` model:
-
-```python
-from masonite.orm.scopes import scope
-
+from masoniteorm.scopes import scope
 class User(Model):
-
-    @scope
-    def is_active(self, query):
-        return query.where('is_active', 1)
+  
+  @scope
+  def active(self, query):
+    return query.where('active', 1)
 ```
 
-### Passing Parameters
-
-You can also pass variables into your scopes if you need to keep them abstract:
+Now we can simply call the active method:
 
 ```python
-from masonite.orm.scopes import scope
+user = User.active().get()
+```
 
+You may also pass in arguments:
+
+```python
+from masoniteorm.scopes import scope
 class User(Model):
-
-    @scope
-    def gender(self, query, gender):
-        return query.where('gender', gender)
+  
+  @scope
+  def active(self, query, active_or_inactive):
+    return query.where('active', active_or_inactive)
 ```
 
-And can pass in parameters as normal:
+then pass an argument to it:
 
 ```python
-users = User.gender('M').get()
-users = User.gender('F').get()
+user = User.active(1).get()
+user = User.active(0).get()
 ```
 
-## Global Scopes
+## Soft Deleting
 
-Global scopes are a way to ALWAYS attach a query to your database call. This is used for Masonite's timestamp updates to manage the `updated_at` and `created_at` timestamps. This is also used for Masonite's soft deleting features.
+Masonite ORM also comes with a global scope to enable soft deleting for your models.
 
-### Soft Deleting
-
-Masonite comes with a soft deleting feature to prevent from hard deleting records in the database. Instead of deleting records in the database, Masonite will instead manage a `deleted_at` record on the database instead. This way you can always get back the deleted records and they are never really gone.
-
-To use the soft deleting feature, simple add the `SoftDeletesMixin` to your model:
+Simple inherit the `SoftDeletes` scope:
 
 ```python
-from masonite.orm.scopes import SoftDeletesMixin
+from masoniteorm.scopes import SoftDeletesMixin
 
 class User(Model, SoftDeletesMixin):
-    pass
+  # ..
 ```
 
-This will now only fetch records where `deleted_at` column is null.
-
-{% hint style="warning" %}
-**You still need to manually add a `deleted_at` timestamp field to your User table for this feature to work.**
-{% endhint %}
-
-### Creating Global Scopes
-
-If you would like, you can also create your own global scopes. Let's take the example of only ever wanting to get records that `is_active` is set to `1`.
-
-We can start with creating a new class with the following boiler plate:
+Now whenever you delete a record, instead of deleting it it will update the `deleted_at` record from the table to the current timestamp:
 
 ```python
-class ActiveScope:
-    """Scope class to add is_active to queries.
-    """
-
-    def boot_active_scope():
-        return {
-            "select": ActiveScope.query_active,
-        }
-
-    def query_active(owner_cls, query):
-        return query.where("is_active", 1)
+User.delete(1)
+# == UPDATE `users` SET `deleted_at` = '2020-01-01 10:00:00' WHERE `id` = 1
 ```
 
-Once done you can now inherit this scope on your model and it will apply the query on select statements.
+When you fetch records it will also only fetch undeleted records:
 
-## Accessors
+```python
+User.all() #== SELECT * FROM `users` WHERE `deleted_at` IS NULL
+```
 
-Accessors are called in place of the attribute you want to access. For example, if you want to access `first_name` but you want to add some additional logic to it you can simply create an accessor method for it. To do this you just need to specify a method that starts with `get_`
+You can disable this behavior as well:
+
+```python
+User.with_trashed().all() #== SELECT * FROM `users`
+```
+
+## Casting
+
+Not all data may be in the format you need it it. If you find yourself casting attributes to different values, like casting active to an `int` then you can set it right on the model:
 
 ```python
 class User(Model):
-
-    def get_first_name(self):
-        return "Hello, " + self.get_raw_attribute('first_name')
+  __casts__ = {"active": "int"}
 ```
 
-You can see if we don't specify `get_raw_attribute` then we will end up in an infinite loop
+Now whenever you get the active attribute on the model it will be an `int`.
 
-## Mutators
+Other valid values are:
 
-Mutators are used to change \(mutate\) attributes that are set on the model. If you want to always uppercase the first name when setting the `first_name` attribute you can so do by using the `set_{attribute}_attribute` format:
-
-```python
-class User(Model):
-
-    def set_first_name_attribute(self, first_name):
-        return str(first_name).ucwords()
-```
-
-Now when you set the first name on the model it will be tranformed into all upper case:
-
-```python
-user = User.find(1)
-user.name = 'joe'
-user.name #== 'JOE'
-```
-
-## Casting Attributes
-
-Some values you may need to be casted to other values. For example, you may have an `is_admin` column that is either a `1` or `0`. It might be more useful to cast this to a `True` or `False` boolean value when you access it. You can create specific castings:
-
-```python
-class User(Model):
-    __casts__ = {"is_admin": "bool"}
-```
-
-The cast methods \(the dictionary values here\) are predefined. The available casting methods are:
-
-- bool
-- json
-
-### Creating Casting Methods
-
-You can create your own casting methods as well. If you want to convert a string value to an integer value for example you can create your own casting class:
-
-```python
-class IntCast:
-
-    def get(self, value):
-        return int(value)
-```
-
-and then register it to your model:
-
-```python
-from casts import IntCast
-
-class User(Model):
-    __cast_map__ = {
-        'int': IntCast
-    }
-
-    __casts__ = {"age": "int"}
-```
-
-## Timestamps
-
-By default, Masonite assumes that there are `created_at` and `updated_at` columns and will manage those for you automatically. If you don't want Masonite to manage those columns or your table does not have those columns, you can turn this off:
-
-```python
-from masonite.orm.scopes import scope
-
-class User(Model):
-    __timestamps__ = None
-```
-
-If your columns are not called `created_at` or `updated_at` you can change the name of the columns:
-
-```python
-from masonite.orm.scopes import scope
-
-class User(Model):
-    date_created_at = "created_at"
-    date_updated_at = "updated_at"
-```
-
-## Dates
-
-Masonite needs to know explicitly which columns are date columns. You can do so directly on the model:
-
-```python
-class Article(Model):
-
-    __dates__ = ['published_at', 'printed_at']
-```
-
-This will handle both setting and accessing dates on your models
-
-## Setting Timezones
-
-In development. Not currently possible.
-
-## Touching
-
-If you just want to update the `updated_at` column quickly you can use the `touch` method:
-
-```python
-user = User.find(1).touch()
-```
-
-This will update the `updated_at` column on your table to the current time.
-
-## Serializing and JSON
-
-If you need to convert your models \(and their relationships\) to a dictionary you can do so simple:
-
-```python
-user = User.find(1)
-user.serialize()
-```
-
-This will convert the model into a dictionary. You can also do the same thing with a collection:
-
-```python
-users = User.all()
-users.serialize()
-```
-
-This will convert into a list of dictionaries.
-
-### Serializing Relationships
-
-You can automatically serialize relationships as well but specifying them in the with:
-
-```python
-users = User.with_('articles').get()
-users.serialize()
-```
-
-This list of dictionaries will now also have the correct relationship results attached to each value
-
-### Hiding Attributes And Relationships
-
-Sometimes you don't want to return some results from the dictionary. For example, you may be building an API and don't want to show the user's password.
-
-You can do so by specifying the `__hidden__` attribute before serializing:
-
-```python
-user = User.find(1)
-user.__hidden__ = ['password']
-user.serialize()
-```
-
-You may of course also set the attribute on the model itself:
-
-```python
-from masonite.orm.scopes import scope
-
-class User(Model):
-    __hidden__ = ['password']
-```
-
-This also works with relationships as well. Just specify the name of the relationship method.
-
-## Adding Attributes
-
-Sometimes you will want to add extra attributes to a serialization. For example, maybe you want to add the fact that a user is subscribed:
-
-First you will need to set a `@property` attribute on your model:
-
-```python
-class User(Model):
-
-    @property
-    def is_subscribed(self):
-        return {
-            'subscribed': True
-        }
-```
-
-then you can use the `set_appends` method before serializing:
-
-```python
-user = User.find(1)
-user.set_appends(['is_subscribed'])
-user.serialize()
-```
-
-This will now attach the `is_subscribed` response to the dictionary.
-
-## To JSON
-
-Not currently available
-
-## Serializing Dates
-
-If you need to serialize dates to a specific format you can override a few methods. Whenever Masonite serializes a model, for all the dates in the `__dates__` list it will pass those values into a `get_new_serialized_date` method.
-
-You can override this method and change the format of the dates:
-
-```python
-class Article(Model):
-
-    __dates__ = ['completed_at', 'published_at']
-
-    def get_new_serialized_date(self, datetime):
-        datetime #== instance of datetime.datetime from python library
-        return pendulum.instance(datetime).to_datetime_string()
-```
+* `int`
+* `bool`
+* `json`

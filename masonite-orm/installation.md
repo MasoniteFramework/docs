@@ -1,77 +1,68 @@
 # Installation
 
-**This ORM is still in development**
+Setting up Masonite is extremely simple. 
+
+If you are using the Masonite web framework than all the installation is setup for you. If you are using anything other than Masonite or building your own Python application then be sure to follow the install steps below:
+
+## Pip install
 
 First install via pip:
 
-```text
+```
 $ pip install masonite-orm
 ```
 
-## Base Python Projects
+## Configuration File
 
-### Configuration File
+To start configuring your project you'll need a `config/database.py` file. In this file we will be able to put all our connection information.
 
-The first thing you will need is a configuration file. This will be home to all your database connection information.
+One we have our `config/database.py` file we can put a `DATABASES` variable with a dictionary of connection details. Each key will be the name of our connection. The connection name can be whatever you like and does not need to relate to a database name. Common connection names could be something like `dev`, `prod` and `staging`. Feel free to name these connections whatever you like.
 
-We can simply create a `config/database.py` file and then put a `CONNECTIONS` variable with a dictionary of connection details. This file will look like this:
+The connection variable will look something like this
 
 ```python
 # config/database.py
 DATABASES = {
-    'default': 'mysql',
-    'mysql': {
-        'driver': 'mysql',
-        'host': 'localhost',
-        'user': 'root',
-        'password': '',
-        'database': 'orm',
-        'port': '3306',
-        'prefix': '',
-        'options': {
-            'charset': 'utf8mb4',
-        },
-    },
-    'postgres': {
-        'driver': 'postgres',
-        'host': 'localhost',
-        'user': 'postgres',
-        'password': 'postgres',
-        'database': 'orm',
-        'port': '5432',
-        'prefix': ''
-    },
-    'sqlite': {
-        'driver': 'sqlite',
-        'database': 'orm.db',
+  "default": "mysql",
+  "mysql": {
+    "host": "127.0.0.1",
+    "database": "masonite",
+    "user": "root",
+    "password": "",
+    "port": 3306
+    "prefix": "",
+    "options": {
+      #  
     }
+  },  
+  "postgres": {
+    "host": "127.0.0.1",
+    "database": "masonite",
+    "user": "root",
+    "password": "",
+    "port": 5432
+    "prefix": "",
+    "options": {
+      #  
+    }
+  },
+  "sqlite": {
+    "database": "masonite.sqlite3",
+  }
 }
 ```
 
-### Creating a Model
-
-Now you can create a model. Refer to the model documentation but in simplest form you can create a class which inherits Masonite ORM `Model` class. Assuming you have a `users` table:
+Lastly you will need to import the `ConnectionResolver` class and and register the connection details:
 
 ```python
-# user.py
-from masonite.orm import Model
+# config/database.py
+from masoniteorm.connections import ConnectionResolver
 
-class User(Model):
-    pass
+DATABASES = {
+  # ...
+}
+
+ConnectionResolver.set_connection_details(DATABASES)
 ```
 
-### Make a database call
-
-To make sure everything is correct let's try making a database call:
-
-```python
-# Import your Model wherever it is
-from user import User 
-
-print(User.all())
-```
-
-You should see a collection class in the terminal.
-
-Congratulations! You just installed Masonite ORM.
-
+After this you have successfully setup Masonite ORM in your project!

@@ -1,12 +1,8 @@
 # Introduction
 
-**This ORM is in BETA. Documentation and features are subject to change at any time.**
+Masonite ORM was built for the [Masonite Web Framework](https://www.github.com/masoniteframework/masonite) but is built to work in any Python project. It is heavily inspired by the Orator Python ORM and is designed to be a drop in replacement for Orator. Orator was inspired by Laravel's Eloquent ORM so if you are coming from a framework like Laravel you should see plenty of similiarities between this project and Eloquent.
 
-## What Is Masonite ORM
+Masonite ORM is a beatiful implementation that includues models, migrations, a query builder, seeds, command scaffolding, query scopes, eager loading, model relationships and many more features. 
 
-Masonite ORM is a first-party ORM and database layer built by Masonite maintainers. The ORM is built to be used outside of Masonite and inside any framework related or non-framework related project. It can be used standalone, inside Flask or even Django \(TODO: check this. I don't see why not\).
-
-## Masonite ORM or Orator?
-
-Masonite ORM is made to be able to a drop in replacement for Orator, with some exceptions. There are some features that orator has that Masonite does not but for 95% of use cases, Masonite ORM can be a replacement for your project.
+Masonite ORM currently supports MySQL, Maria, Postgres and SQLite databases.
 
