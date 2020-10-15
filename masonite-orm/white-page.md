@@ -60,7 +60,7 @@ We will then get back a dictionary from the query and "hydrate" the original mod
 
 ## Grammar Classes
 
-Grammar classes are classes which are responsible for the compiling of attributes into a SQL statement. The SQL statement will then be given back to whatever called it \(like the `QueryBuilder` class\) and then passed to the connection class to make the database call and return the result. Again the grammar class is only responsible for compiling the query into a string. Simply taking attributes passed to it and looping through them and compiling them into a query.
+Grammar classes are classes which are responsible for the compiling of attributes into a SQL statement. Grammar classes are used for DML statements \(select, insert, update and delete\). Grammars are not used for DDL statements \(create and alter\). The SQL statement will then be given back to whatever called it \(like the `QueryBuilder` class\) and then passed to the connection class to make the database call and return the result. Again the grammar class is only responsible for compiling the query into a string. Simply taking attributes passed to it and looping through them and compiling them into a query.
 
 The grammar class will be responsible for both SQL and Qmark. Again, SQL looks like this:
 
@@ -448,18 +448,9 @@ CREATE TABLE `table` (
 )
 ```
 
-So the format is a bit different but we can do the exact same kind of string interpolation as above. I won't go over how to do that again but know we again have something like this:
-
-```python
-def create_start(self):
-    return "CREATE TABLE {table}"
-```
-
-That part right there may be abstracted again into using the full statement like the select but for now its broken up a bit more.
-
 ### Classes
 
-So now let's talk about how each class talks to eachother here.
+So now let's talk about how each class of the 3 primary classes talk to eachother here.
 
 ### Schema -&gt; Blueprint
 
@@ -474,21 +465,39 @@ The blueprint class will be built up in this format:
 ```python
 Schema.table('users') as blueprint:
     blueprint.string('name')
-  blueprint.integer('age')
+    blueprint.integer('age')
 ```
 
 Notice we are just building up a blueprint class.
 
-### Blueprint -&gt; Column
+When we start up the blueprint class, if we are creating columns then we will be setting additional attributes on a `Table` class. If we are updating a table then we will be setting attributes on the `TableDiff` class.
 
-The blueprint class passes the information given to it and builds up a list of columns using the `Column` class. These are stored in an attribute of a tuple of columns to later be passed and compiled to SQL by the grammar class.
+For example when we call:
 
-```text
-blueprint._columns
-#== (<masonite.orm.Column object>, <masonite.orm.Column object>,)
+```python
+Schema.table('users') as blueprint:
+    blueprint.string('name')
 ```
 
-Then the blueprint class is either set to a create or an Alter by the Schema class.
+it is a proxy call to 
+
+```python
+table.add_column('name', column_type='string')
+```
+
+The blueprint class then builds up the table class. 
+
+### Blueprint -&gt; Platform
+
+Compiling DDL statements are much more complicated than compiling DML statements so there is an entire class dedicated to compiling DDL statements. The Platform classes are similiar to Grammar classes as they are both used to compile sql.
+
+For example in SQLite there is an extremely limited alter statement. So adding, renaming or modifying columns relies on actually creating temporary tables, migrating the existing table to the temp table, then creating a new table based on the existing and modified schema, then migrating the old columns to the new columns and then finally dropping the temp table. You can see how this is not generic so it requires its own logic.
+
+Because of this, there are Platform classes. `SQLitePlatform`, `MySQLPlatform`, etc. These class have a compile\_create\_sql and compile\_alter\_sql methods. These methods take a single table class. The same table class the blueprint class built up.
+
+This Table class has methods like added\_columns, removed\_indexes, etc. We can use these to build up our alter and create statements.
+
+For example, Postgres requires alter statements for adding columns to be ran 1 at a time. So we can't add multiple columns with 1 alter query. So we need to loop through all the Table.added\_columns and create multiple alter queries for each column.
 
 ### Compiling
 
