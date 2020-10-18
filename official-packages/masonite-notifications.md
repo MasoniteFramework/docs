@@ -62,7 +62,68 @@ class WelcomeNotification(Notification):
         return ["mail"]
 ```
 
-## Sending a Notification (to Notifiables)
+## Defining Notifiables entities
+
+Models can be defined as `Notifiable` to allow notifications to be sent to them. The most common
+use case would be to set `User` model as `Notifiable`.
+
+### Set Model as Notifiable
+
+To set a Model as Notifiable, just add the `Notifiable` mixin to it:
+
+```python
+from masonite.notifications import Notifiable
+
+class User(Model, Notifiable):
+    ...
+```
+
+You can now send notifications to it with `user.notify()` method. When using `database` notification
+driver some getters are available to fetch user notifications (read/unread).
+
+### Define routing
+
+Then you can define how notifications should be routed for the different channels. This is always done
+by defining a `route_notification_for_{driver}` method. This method should returns the recipient field data of
+the notification or a list of recipient fields data.
+
+For example, with `mail` driver you can define:
+
+```python
+class User(Model, Notifiable):
+    ...
+    def route_notification_for_mail(self):
+        return self.email
+```
+
+This is actually the default behaviour of the mail driver so you won't have to write that but you can customize it
+to your needs if you don't have the same field name or if you want to add some logic to get the recipient email.
+
+## Sending a Notification
+
+### Configure delivery channels
+
+Every notification class has a `via` method that determines on which channels the notification will be delivered. Notifications may be sent on the `mail`, `database`, `broadcast`, and `slack` channels.
+
+{% hint style="info" %}
+If you would like to use an other delivery channel, feel free to check if a community driver has been developed for or [create your own driver and share it with the community](#) !
+{% endhint %}
+
+`via` method should returns a list of the channels you want your notification to be delivered on.
+This method receives a `notifiable` instance.
+
+```python
+class WelcomeNotification(Notification):
+    ...
+    def via(self, notifiable):
+        return ["mail", "database"]
+        # or to handle more use cases
+        # return ["mail"] if notifiable.role == "admin" else ["mail", "database"]
+```
+
+When sending the notification it will be automatically sent to each channel.
+
+### To Notifiables
 
 There is two ways of sending a Notification:
 
@@ -86,30 +147,18 @@ def register(self, view: View, notification: Notification):
     return view.render("confirmation")
 ```
 
-### Configure delivery channels
-
-Every notification class has a `via` method that determines on which channels the notification will be delivered. Notifications may be sent on the `mail`, `database`, `broadcast`, and `slack` channels.
-
-{% hint style="info" %}
-If you would like to use an other delivery channel, feel free to check if a community driver has been developed for or [create your own driver and share it with the community](#) !
-{% endhint %}
-
-`via` method should returns a list of the channels you want your notification to be delivered on.
-This method receives a `notifiable` instance.
+This last method comes handy when sending notifications to a batch of entities (which is not directly
+possible with previous without for loop):
 
 ```python
-class WelcomeNotification(Notification):
-    ...
-    def via(self, notifiable):
-        return ["mail", "database"]
-        # or to handle more use cases
-        # return ["mail"] if notifiable.role == "admin" else ["mail", "database"]
+users = User.all()
+Notification.send(users, WelcomeNotification())
 ```
 
-## Sending a Notification (to Anonymous users)
+### To Anonymous Users / On-demand
 
 Sometimes you want to send a notification to someone not registered as a User in your database,
-or which is not related to a database entity.
+or which is not related to a Notifiable entity. It is possible with the `Notification` module:
 
 ```python
 # RegisterController.py
@@ -135,43 +184,65 @@ def register(self, view: View, notification: Notification):
 entity is attached to it.
 {% endhint %}
 
+### Queue notifications
+
+**To (re)implement and document**
+
+If you would like to queue the notification then you just need to inherit the `ShouldQueue` class and it will automatically send your notifications into the queue to be processed later. This is a great way to speed up your application:
+
+```python
+from masonite.notifications import Notification
+from masonite.queues import ShouldQueue
+
+class WelcomeNotification(Notifiable, ShouldQueue):
+    ...
+```
+
 ## Mail Notifications
 
 If a notification supports being sent as an email, you should define a `to_mail` method on the notification class.
+This method should returns either:
 
-### Formatting
+- a [Mailable](#)
+- a MailComponent combination
+- (soon) Markdown
+- (soon) MJML support (maybe done through view actually)
 
-**OLD doc below**
-
-Since our notification inherits from `Notifiable`, we have access to a few methods we will use to build the notification. We'll show a final product of what it looks like since it's pretty straight forward but we'll walk through it after:
+### Using Mailable
 
 ```python
-from notifications import Notifiable
-import os
-
-
-class WelcomeNotification(Notifiable):
-
-    def mail(self):
-        return self.subject('New account signup!') \
-            .driver('smtp') \
-            .panel('GBALeague.com') \
-            .heading('You have created a new account!') \
-            .line('We greatly value your service!') \
-            .line('Attached is an invoice for your recent purchase') \
-            .action('Sign Back In', href="http://gbaleague.com") \
-            .line('See you soon! Game on!') \
-            .view('/notifications/snippets/mail/heading',
-                  {'message': 'Welcome To The GBA!'})
+# WelcomeEmail is a Mailable
+def to_mail(self, notifiable):
+    return WelcomeEmail(notifiable.name).to(notifiable.email)
 ```
 
-Notice here we are calling a few methods such as `driver`, `panel`, `line`, etc. If we send this message it will look like:
+### Using Mail Components
 
-![](../.gitbook/assets/screen-shot-2018-07-28-at-9.46.23-pm.png)
+You can combine existing handy components to quickly create a cool email or you can also use a view
+to render your email.
 
-Not bad. We can use this logic to easily build up emails into a nice format simply.
+```python
+def to_mail(self, notifiable):
+    return MailComponent()
+        .subject('New email subject') \
+        .panel('GBALeague.com') \
+        .heading(f' {notifiable.name} you have created a new account!') \
+        .line('We greatly value your service!') \
+        .line('Attached is an invoice for your recent purchase') \
+        .action('Sign Back In', href="http://gbaleague.com") \
+        .line('See you soon! Game on!') \
+```
 
-### Options
+```python
+# will render the mail with resources/templates/emails/welcome.html
+def to_mail(self, notifiable):
+    return MailComponent()
+        .subject('New email subject') \
+        .view('emails.welcome', {"name": notifiable.name}) \
+```
+
+The email will looked like:
+**ADD IMAGE**
 
 Let's walk through the different options to build an email notification and what they do.
 
@@ -183,73 +254,7 @@ Let's walk through the different options to build an email notification and what
 | .panel\(\)   | This creates a grey background header panel.                                                                                                                                   | .panel\('Some Header'\)                                                             |
 | .heading\(\) | Creates a header                                                                                                                                                               | .heading\('Welcome!'\)                                                              |
 | .subject\(\) | The subject of the email                                                                                                                                                       | .subject\('New Account!'\)                                                          |
-| .dry\(\)     | Sets all the necessary fields but does not actually send the email. This is great for testing purposes. This takes no parameters                                               | .dry\(\)                                                                            |
 | .driver\(\)  | The driver you want to use to send the email                                                                                                                                   | .driver\('mailgun'\)                                                                |
-
-## Sending the Notification
-
-Now that we have built our notification above, we can send it in our controller \(or anywhere else we like\):
-
-```python
-from app.notifications.WelcomeNotification import WelcomeNotification
-from notifications import Notify
-...
-
-def show(self, notify: Notify):
-    notify.mail(WelcomeNotification, to='user@gmail.com')
-```
-
-Notice here we simply specified the Notify class in the parameter list and we are able to pass in our awesome new WelcomeNotification into the mail method.
-
-{% hint style="info" %}
-NOTE: The method you should use on the notify class should correspond to the method on the notification class. So for example if we want to execute the slack method on the WelcomeNotification then we would call :
-
-```python
-notify.slack(WelcomeNotification)
-```
-
-The method you call should be the same as the method you want to call on the notification class. The `Notify` class actually doesn't contain any methods but will call the same method on the notification class as you called on the `Notify` class.
-{% endhint %}
-
-### Sending Via
-
-You can also send multiple notifications and notification types with the `via` and `send` method like so:
-
-```python
-from app.notifications.WelcomeNotification import WelcomeNotification
-from notifications import Notify
-...
-
-def show(self, notify: Notify):
-    notify.via('mail', 'slack').send(WelcomeNotification, to='user@gmail.com')
-```
-
-This is useful for sending mail more dynamically or just sending multiple types of notifications in 1 line.
-
-## Queuing the Notification
-
-If you would like to queue the notification then you just need to inherit the `ShouldQueue` class and it will automatically send your notifications into the queue to be processed later. This is a great way to speed up your application:
-
-```python
-from notifications import Notifiable
-from masonite.queues import ShouldQueue
-import os
-
-
-class WelcomeNotification(Notifiable, ShouldQueue):
-
-    def mail(self):
-        return self.subject('New account signup!') \
-            .driver('smtp') \
-            .panel('GBALeague.com') \
-            .heading('You have created a new account!') \
-            .line('We greatly value your service!') \
-            .line('Attached is an invoice for your recent purchase') \
-            .action('Sign Back In', href="http://gbaleague.com") \
-            .line('See you soon! Game on!') \
-            .view('/notifications/snippets/mail/heading',
-                  {'message': 'Welcome To The GBA!'})
-```
 
 ## Database Notifications
 
@@ -331,195 +336,22 @@ class WelcomeNotification(Notifiable):
 | .button\(\)           | Used to create action buttons under a message. This requires `text` and a `url` but can also contain `style`, and `confirm`                                                                                                                                                   | .button\('Sure!', '[http://google.com](http://google.com)', style='primary', confirm='Are you sure?'\) |
 | .dry\(\)              | Sets all the necessary fields but does not actually send the email. This is great for testing purposes. This takes no parameters                                                                                                                                              | .dry\(\)                                                                                               |
 
-## Sending a Slack Notification
+## Adding Notifications drivers
 
-Now that we have built our notification above, we can send it in our controller \(or anywhere else we like\):
+**Explain here how to develop new notifications drivers in external packages**
 
-```python
-from app.notifications.WelcomeNotification import WelcomeNotification
-from notifications import Notify
-...
+Masonite ships with a handful of notification channels, but you may want to write your own drivers to deliver notifications via other channels. Masonite makes this process simple.
 
-def show(self, notify: Notify):
-    notify.slack(WelcomeNotification)
-```
+### Create a Notification driver class
 
-Notice here we simply specified the `Notify` class in the parameter list and we are able to pass in our awesome new WelcomeNotification into the slack method.
+**TODO**
 
-## Building Integrations
+- template
+- send(notifiables, notification)
+- get_data()
 
-The `Notifiable` class is very modular and you are able to build custom integrations if you like pretty simply. In this section we'll walk through how to create what are called `Components`.
+### Register it
 
-## What are Components?
+As any drivers you should register it into the Notification service provider ?
 
-Components are classes that can be added to a Notification class that extend the behavior of the notification. In fact, the Notifiable class is just a simple abstraction of two different components. Let's look at the signature of the class that we have been inheriting from.
-
-```python
-from notifications.components import MailComponent, SlackComponent
-
-
-class Notifiable(MailComponent, SlackComponent):
-    pass
-```
-
-The Component classes are the classes that have our methods we have been using. If you'd like to see the source code on those components you can check them out on GitHub to get a lower level understanding on how they work.
-
-## Creating a Component
-
-Let's walk through a bit on how we created our MailComponent by creating a simplified version of it. First let's create a simple class:
-
-```python
-class MailComponent:
-    pass
-```
-
-Now let's add a line and a subject method to it:
-
-```python
-class MailComponent:
-
-    def line(self, message):
-        pass
-
-    def subject(self, subject)
-        pass
-```
-
-and let's use these two methods to build a template attribute
-
-```python
-class MailComponent:
-
-    template = ''
-
-    def line(self, message):
-        self.template += template
-        return self
-
-    def subject(self, subject)
-        self._subject = subject
-        return self
-```
-
-Since we returned self we can keep appending onto the notification class like we have been.
-
-{% hint style="info" %}
-The actual MailComponent class is a bit more complex than this but we'll keep this simple for explanatory purposes.
-{% endhint %}
-
-### The Fire Method
-
-Whenever we insert the notification into the Notify class:
-
-```python
-notify.mail(WelcomeNotification)
-```
-
-This will call the mail method on the notification class \(or whatever other method we called on the Notify class\).
-
-Once that is returned then it will call the fire_mail method which you will specify in your component.
-
-{% hint style="info" %}
-If you are created a discord notification then you should have a `fire_discord` method on your component and you will call it using `notify.discord(WelcomeNotification)`.
-{% endhint %}
-
-Since we want to call the mail method on it, we will create a `fire_mail` method:
-
-```python
-class MailComponent:
-
-    template = ''
-
-    def line(self, message):
-        self.template += template
-        return self
-
-    def subject(self, subject)
-        self._subject = subject
-        return self
-
-    def fire_mail(self):
-        pass
-```
-
-### Passing Data With Protected Members
-
-Sometimes you will want to pass in data into the `fire_mail` method. In order to keep this simple and modular, any keyword arguments you pass into the Notify class will be set on the notification class as a protected member. For example if we have this:
-
-```text
-notify.mail(WelcomeNotification, to='admin@site.com')
-```
-
-It will set a `_to` attribute on the notification class BEFORE we get to the fire method.
-
-So using the example above we will be able to do:
-
-```python
-def fire_mail(self):
-    self._to # admin@site.com
-```
-
-We can use this behavior to pass in information into the `fire_mail` method while keeping everything clean.
-
-A practical example is sending the message to a certain user:
-
-```text
-notify.mail(WelcomeNotification, to='admin@site.com')
-```
-
-```python
-class WelcomeNotification(Notifiable):
-
-    def mail(self):
-        return self.line('{0} We greatly value your service!'.format(self._to)) \
-            .action('Sign Back In', href="http://gbaleague.com")
-```
-
-Notice here we now have a `_to` member on our class we can use because we passed it through from our `Notify` class.
-
-### Sending The Mail
-
-Ok so finally we have enough information we need to send the actual email. The fire_method is resolved by the container so we can simply specify what we need to send the email.
-
-Our notification class will look like:
-
-```python
-from your.package import MailComponent
-
-class WelcomeNotification(Notifiable, MailComponent):
-
-    def mail(self):
-        return self.subject('New account signup!') \
-            .line('We greatly value your service!')
-```
-
-Our Notify class will look like:
-
-```text
-notify.mail(WelcomeNotification, to='admin@site.com')
-```
-
-and our fire method will look like:
-
-```python
-from masonite import Mail
-
-class MailComponent:
-
-    template = ''
-
-    def line(self, message):
-        self.template += template
-        return self
-
-    def subject(self, subject)
-        self._subject = subject
-        return self
-
-    def fire_mail(self, mail: Mail):
-        mail.to(self._to) \
-            .subject(self._subject) \
-            .send(self.template)
-```
-
-Remember the `_to` class attribute that came from the keyword argument in the `Notify` class.
+Finally the best would be to scaffold this into a new Masonite package (**show resources**) so that community can use it.
