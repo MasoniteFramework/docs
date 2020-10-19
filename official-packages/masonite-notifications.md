@@ -346,6 +346,17 @@ Masonite ships with a handful of notification channels, but you may want to writ
 
 **TODO**
 
+```python
+from masonite.drivers import BaseDriver
+from masonite.notifications import NotificationContract
+
+class VoiceNotification(BaseDriver, NotificationContract)
+
+    def send(self, notifiables, notification):
+        pass
+
+```
+
 - template
 - send(notifiables, notification)
 - get_data()
@@ -353,5 +364,4 @@ Masonite ships with a handful of notification channels, but you may want to writ
 ### Register it
 
 As any drivers you should register it into the Notification service provider ?
-
 Finally the best would be to scaffold this into a new Masonite package (**show resources**) so that community can use it.
