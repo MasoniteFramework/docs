@@ -307,7 +307,7 @@ class User(Model, UUIDPrimaryKeyMixin):
   # ..
 ```
 
-You should also in your migration define a UUID column with primary constraint
+You should also define a UUID column with primary constraint in a migration
 
 ```python
 with self.schema.create("users") as table:
@@ -317,7 +317,7 @@ with self.schema.create("users") as table:
 
 Your model is now set to use UUID4 as primary key. It will be automatically generated at creation.
 
-You can also configure UUID version standard you want to use:
+You can change UUID version standard you want to use:
 
 ```python
 import uuid
