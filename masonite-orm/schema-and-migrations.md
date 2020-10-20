@@ -101,6 +101,8 @@ In addition to columns, you can also create indexes. Below are the available ind
 | `table.unique()` | Makes a unique index. Can pass in a column `table.unique('email')` or list of columns `table.unique(['email', 'phone_number'])`. |
 | `table.index()` | Creates an index on the column. `table.index('email')` |
 
+The default primary key is an incrementing integer, but you can [use UUID instead](models.md#changing-primary-key-to-use-uuid).
+
 ## Foreign Keys
 
 If you want to create a foreign key you can do so simply as well:
