@@ -85,7 +85,7 @@ class Clients:
   __timestamps__ = False
 ```
 
-### Quering
+### Querying
 
 Almost all of a models querying methods are passed off to the query builder. If you would like to see all the methods available for the query builder, see the [QueryBuilder](models.md) documentation here.
 
@@ -137,7 +137,7 @@ users = User.delete(1)
 
 This will delete the record based on the primary key value of 1.
 
-You cal also delete based on a query:
+You can also delete based on a query:
 
 ```python
 from app.models import User
