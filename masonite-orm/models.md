@@ -294,6 +294,42 @@ You can disable this behavior as well:
 User.with_trashed().all() #== SELECT * FROM `users`
 ```
 
+### Changing Primary Key to use UUID
+
+Masonite ORM also comes with another global scope to enable using UUID as primary keys for your models.
+
+Simple inherit the `UUIDPrimaryKey` scope:
+
+```python
+from masoniteorm.scopes import UUIDPrimaryKeyMixin
+
+class User(Model, UUIDPrimaryKeyMixin):
+  # ..
+```
+
+You should also in your migration define a UUID column with primary constraint
+
+```python
+with self.schema.create("users") as table:
+    table.uuid('id')
+    table.primary('id')
+```
+
+Your model is now set to use UUID4 as primary key. It will be automatically generated at creation.
+
+You can also configure UUID version standard you want to use:
+
+```python
+import uuid
+from masoniteorm.scopes import UUIDPrimaryKeyMixin
+
+class User(Model, UUIDPrimaryKeyMixin):
+  __uuid_version__ = 3
+  # the two following parameters are only needed for UUID 3 and 5
+  __uuid_namespace__ = uuid.NAMESPACE_DNS
+  __uuid_name__ = "domain.com
+```
+
 ### Casting
 
 Not all data may be in the format you need it it. If you find yourself casting attributes to different values, like casting active to an `int` then you can set it right on the model:
