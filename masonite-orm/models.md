@@ -85,7 +85,7 @@ class Clients:
   __timestamps__ = False
 ```
 
-### Quering
+### Querying
 
 Almost all of a models querying methods are passed off to the query builder. If you would like to see all the methods available for the query builder, see the [QueryBuilder](models.md) documentation here.
 
@@ -137,7 +137,7 @@ users = User.delete(1)
 
 This will delete the record based on the primary key value of 1.
 
-You cal also delete based on a query:
+You can also delete based on a query:
 
 ```python
 from app.models import User
@@ -266,7 +266,7 @@ user = User.active(0).get()
 
 Masonite ORM also comes with a global scope to enable soft deleting for your models.
 
-Simple inherit the `SoftDeletes` scope:
+Simply inherit the `SoftDeletes` scope:
 
 ```python
 from masoniteorm.scopes import SoftDeletesMixin
@@ -292,6 +292,42 @@ You can disable this behavior as well:
 
 ```python
 User.with_trashed().all() #== SELECT * FROM `users`
+```
+
+### Changing Primary Key to use UUID
+
+Masonite ORM also comes with another global scope to enable using UUID as primary keys for your models.
+
+Simply inherit the `UUIDPrimaryKey` scope:
+
+```python
+from masoniteorm.scopes import UUIDPrimaryKeyMixin
+
+class User(Model, UUIDPrimaryKeyMixin):
+  # ..
+```
+
+You should also define a UUID column with primary constraint in a migration
+
+```python
+with self.schema.create("users") as table:
+    table.uuid('id')
+    table.primary('id')
+```
+
+Your model is now set to use UUID4 as primary key. It will be automatically generated at creation.
+
+You can change UUID version standard you want to use:
+
+```python
+import uuid
+from masoniteorm.scopes import UUIDPrimaryKeyMixin
+
+class User(Model, UUIDPrimaryKeyMixin):
+  __uuid_version__ = 3
+  # the two following parameters are only needed for UUID 3 and 5
+  __uuid_namespace__ = uuid.NAMESPACE_DNS
+  __uuid_name__ = "domain.com
 ```
 
 ### Casting
