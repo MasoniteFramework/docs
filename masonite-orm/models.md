@@ -266,7 +266,7 @@ user = User.active(0).get()
 
 Masonite ORM also comes with a global scope to enable soft deleting for your models.
 
-Simple inherit the `SoftDeletes` scope:
+Simply inherit the `SoftDeletes` scope:
 
 ```python
 from masoniteorm.scopes import SoftDeletesMixin
@@ -298,7 +298,7 @@ User.with_trashed().all() #== SELECT * FROM `users`
 
 Masonite ORM also comes with another global scope to enable using UUID as primary keys for your models.
 
-Simple inherit the `UUIDPrimaryKey` scope:
+Simply inherit the `UUIDPrimaryKey` scope:
 
 ```python
 from masoniteorm.scopes import UUIDPrimaryKeyMixin
