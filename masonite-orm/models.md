@@ -312,6 +312,7 @@ You should also define a UUID column with primary constraint in a migration
 ```python
 with self.schema.create("users") as table:
     table.uuid('id')
+    table.primary('id')
 ```
 
 Your model is now set to use UUID4 as primary key. It will be automatically generated at creation.
