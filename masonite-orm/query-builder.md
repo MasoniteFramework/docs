@@ -247,6 +247,16 @@ If some queries would be easier written raw you can easily do so for both select
 builder.table('users').select_raw("COUNT(`username`) as username").where_raw("`username` = 'Joe'").get()
 ```
 
+# Chunking
+
+If you need to loop over a lot of results then consider chunking. A chunk will only pull in the specified number of records:
+
+```python
+for users in builder.table('users').chunk(100):
+    for user in users:
+        user #== <User object>
+```
+
 # Getting SQL
 
 If you want to find out the SQL that will run when the command is executed. You can use `to_sql()`. This method returns the full query and is not the query that gets sent to the database. The query sent to the database is a "qmark query". This `to_sql()` method is mainly for debugging purposes.
