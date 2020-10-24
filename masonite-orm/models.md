@@ -438,3 +438,49 @@ Other valid values are:
 * `bool`
 * `json`
 
+# Events
+
+Models emit various events in different stages of its life cycle. Available events are:
+
+* booting
+* booted  
+* creating
+* created
+* deleting
+* deleted 
+* hydrating
+* hydrated
+* saving
+* saved
+* updating
+* updated
+
+## Observers
+
+You can listen to various events through observers. Observers are simple classes that contain methods equal to the event you would like to listen to.
+
+For example, if you want to listen to when users are created you will create a `UserObserver` class that contains the `created` method.
+
+You can scaffold an obsever by running:
+
+```
+python craft observer User --model User
+```
+
+> If you do not specify a model option, it will be assumed the model name is the same as the observer name
+
+Once the observer is created you can add your logic to the event methods:
+
+```python
+class UserObserver:
+    def created(self, user):
+        pass
+
+    def creating(self, user):
+        pass
+
+    #..
+```
+
+The model object receieved in each event method will be the model at that point in time.
+
