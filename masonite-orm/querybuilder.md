@@ -290,6 +290,25 @@ You can delete many records as well. For example, deleting all records where act
 builder.where('active', 0).delete()
 ```
 
+## Find Or Fail
+
+There are several methods that will throw exceptions if it cannot find records. These are useful for frameworks that handle these exceptions or even in your own code to catch an example:
+
+```python
+builder.find_or_fail(1)
+builder.first_or_fail()
+```
+
+These methods will throw a `masoniteorm.exceptions.ModelNotFound` exception. 
+
+Additionally, designed for frameworks that support it, you can use:
+
+```python
+builder.find_or_404(1)
+```
+
+This method will throw a `masoniteorm.exceptions.HTTP404` exception.
+
 ## Available Methods
 
 |  |  |  |
