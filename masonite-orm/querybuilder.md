@@ -304,7 +304,7 @@ These methods will throw a `masoniteorm.exceptions.ModelNotFound` exception.
 Additionally, designed for frameworks that support it, you can use:
 
 ```python
-builder.first_or_404()
+builder.find_or_404(1)
 ```
 
 This method will throw a `masoniteorm.exceptions.HTTP404` exception.
