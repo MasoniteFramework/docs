@@ -498,3 +498,29 @@ class ModelProvider(Provider):
         #..
 ```
 
+# Related Records
+
+There's many times you need to take several related records and assign them all the same attribute based on another record.
+
+For example you may have articles you want to switch the authors of. 
+
+For this you can use the `associate` and `save_many` methods. Let's say you had a `User` model that had a `articles` method that related to the `Articles` model.
+
+```python
+user = User.find(1)
+articles = Articles.where('user_id', 2).get()
+
+user.save_many('articles', articles)
+```
+
+This will take all articles where user_id is 2 and assign them the related record between users and article (user_id).
+
+You may do the same for a one-to-one relationship:
+
+```python
+user = User.find(1)
+phone = Phone.find(30)
+
+user.associate('phone', phone)
+```
+
