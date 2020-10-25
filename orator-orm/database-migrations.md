@@ -115,6 +115,17 @@ Ok let's go ahead and break down what we just created.
 
 Notice that we are using a context processor which is our schema builder. All we have to worry about is whats inside it. Notice that we have a `table` object that has a few methods that are related to columns. Most of these columns are pretty obvious and you can read about different [Orator Schema Columns](https://orator-orm.com/docs/0.9/schema_builder.html#adding-columns) you can use. We'll mention the foreign key here though.
 
+## Showing SQL
+
+Sometimes you may want to not actually run the migrations but simply show the SQL that will run. You can show the SQL that will run for migrations by passing the `-s` flag:
+
+```
+python craft migrate -s
+python craft migrate:rollback -s
+```
+
+This will show a table of SQL queries that will run.
+
 ### Foreign Keys
 
 So adding columns is really straight forward and Orator has some great documentation on their website. In order to add a foreign key, we'll need an unsigned integer column which we specified above called:
