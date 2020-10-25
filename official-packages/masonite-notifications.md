@@ -4,7 +4,7 @@
 
 Masonite Notifications can easily add new notification sending semantics for your Masonite project. These notifications could be sending an email or a slack message. This package is designed to be extremely simple and modular. New notification drivers can be added through third party integrations (Masonite packages).
 
-Masonite provides support for sending notifications across mail and Slack. Notifications may also be stored in a database so they may be displayed in your web interface.
+Masonite provides support for sending notifications accross mail, Slack and SMS. Notifications may also be stored in a database so they may be displayed in your web interface.
 
 ## Installation
 
@@ -103,7 +103,7 @@ to your needs if you don't have the same field name or if you want to add some l
 
 ### Configure delivery channels
 
-Every notification class has a `via` method that determines on which channels the notification will be delivered. Notifications may be sent on the `mail`, `database`, `broadcast`, and `slack` channels.
+Every notification class has a `via` method that determines on which channels the notification will be delivered. Notifications may be sent on the `mail`, `database`, `broadcast`, `slack` and `vonage` channels.
 
 {% hint style="info" %}
 If you would like to use an other delivery channel, feel free to check if a community driver has been developed for or [create your own driver and share it with the community](#) !
@@ -265,6 +265,8 @@ TODO
 TODO
 
 ## Slack Notifications
+** Rewrite this part **
+
 
 Out of the box, Masonite notifications comes with Slack support as well in case we want to send a message to a specific slack group.
 
@@ -335,6 +337,46 @@ class WelcomeNotification(Notifiable):
 | .comment\(\)          | Only used when using the .as_snippet\(\) method. This will set a comment on the snippet.                                                                                                                                                                                      | .comment\('Great Snippet'\)                                                                            |
 | .button\(\)           | Used to create action buttons under a message. This requires `text` and a `url` but can also contain `style`, and `confirm`                                                                                                                                                   | .button\('Sure!', '[http://google.com](http://google.com)', style='primary', confirm='Are you sure?'\) |
 | .dry\(\)              | Sets all the necessary fields but does not actually send the email. This is great for testing purposes. This takes no parameters                                                                                                                                              | .dry\(\)                                                                                               |
+
+## SMS Notifications
+
+Sending SMS notifications in Masonite is powered by [Vonage](https://www.vonage.com/communications-apis/sms/) (formerly Nexmo).
+Before you can send notifications via Vonage, you need to install the `vonage` Python client.
+```
+$ pip install vonage
+```
+
+Then you should add your `VONAGE_KEY` and `VONAGE_SECRET` credentials in `notifications.py` configuration file:
+
+```python
+# config/notifications.py
+
+VONAGE = {
+  "key": env("VONAGE_KEY"),
+  "secret": env("VONAGE_SECRET"),
+  "sms_from": "1234567890"
+}
+```
+
+You can also define (globally) `sms_from` which is the phone number or name that your SMS will be sent from. You can generate a phone number for your application in the Vonage dashboard.
+
+### Formatting SMS Notifications
+
+### Overriding "from" setting
+
+### Routing your notifications
+
+You should define the related `route_notification_for_vonage` method on your notifiable to return a phone number or a list of phone numbers to send the notification to.
+
+```python
+class User(Model, Notifiable):
+    # ...
+
+    def route_notification_for_vonage(self, notification):
+        return self.phone
+        # or return [self.mobile_phone, self.land_phone]
+```
+
 
 ## Adding Notifications drivers
 
