@@ -158,9 +158,19 @@ At any time you can get the migrations that have run or need to be ran:
 $ masonite-orm migrate:status
 ```
 
+## Seeing SQL Dumps
+
+If you would like to see just the SQL that would run instead of running the actual migrations, you can specify the `-s` flag (short for `--show`). This works on the migrate and migrate:rollback commands.
+
+```
+python craft migrate -s
+```
+
 ## Changing Columns
 
-**There currently is no "change" functionality, yet. In order to change a column you currently will have to drop the column and then create a new one**
+If you would like to change a column you should simply specify the new column and then specify a `.change()` method on it.
+
+Here is an example of changing an email field to a nullable field:
 
 ```python
 class MigrationForUsersTable(Migration):
@@ -169,7 +179,7 @@ class MigrationForUsersTable(Migration):
         Run the migrations.
         """
         with self.schema.table("users") as table:
-            table.drop_column('email')
+            table.string('email').nullable().change()
 
         with self.schema.table("users") as table:
             table.string('email').unique()
