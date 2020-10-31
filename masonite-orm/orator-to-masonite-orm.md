@@ -2,11 +2,17 @@
 
 This guide will explain how to move from Orator to Masonite ORM. Masonite ORM was made to be pretty much a straight port of Orator but allow the Masonite organization complete creative control of the ORM.
 
-Before moving your project over to Masonite ORM please keep in mind some features are not _\(_at least currently_\)_ ported over from Orator. These are features that may be ported over in the future. Currently these features are:
+Orator has since been abandoned and Masonite needed a good ORM to keep fresh features and security up to date with the ORM.
+
+Before moving your project over to Masonite ORM please keep in mind some features are not _\(_at least currently_\)_ ported over from Orator. These are features that may be ported over in the future. 
+
+This list is a continuously evolving list of features and anything we develop will be removed from the list. These features are planned but not yet finished.
+
+Currently these features are:
 
 * through relationships (HasOneThrough, HasManyThrough, etc)
 
-## Config
+# Config
 
 The configuration dictionary between Orator and Masonite ORM is identical. The only difference is that Masonite ORM requires a `config/database.py` file whereas Orator was optional and needed to be explicitly specified in several places like commands.
 
@@ -87,7 +93,7 @@ DATABASES = {
 db = ConnectionResolver().set_connection_details(DATABASES)
 ```
 
-## Models
+# Models
 
 Models are identical but the imports are different. Orator requires you to set the model resolver from the configuration file and then you import that model.
 
@@ -101,7 +107,7 @@ class User(Model):
     pass
 ```
 
-## Scopes
+# Scopes
 
 Scopes are also identical but the import changes:
 
@@ -127,7 +133,7 @@ class User(Model):
         return query.where('votes', '>', 100)
 ```
 
-## Relationships
+# Relationships
 
 Relationships are also slightly different. In Orator there is a `has_one` relationship and a `belongs_to` relationship. In Masonite ORM this is only a belongs_to relationship. The logic behind has_one and belongs_to is generally identical so there was no reason to port over has_one other than for semantical purposes.
 
