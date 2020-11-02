@@ -78,6 +78,7 @@ class MigrationForUsersTable(Migration):
 | `table.text()` | TEXT equivalent column. |
 | `table.unsigned_integer()` | UNSIGNED INT equivalent column. |
 | `table.unsigned()` | Alias for `unsigned_integer` |
+| `table.soft_deletes()` | A nullable DATETIME column named `deleted_at`. This is used by the [SoftDeletes](models.md/#soft-deleting) scope. |
 
 ## Modifiers
 
@@ -191,4 +192,3 @@ class MigrationForUsersTable(Migration):
         """
         pass
 ```
-
