@@ -386,7 +386,7 @@ User.with_trashed().all() #== SELECT * FROM `users`
 ```
 
 {% hint style="warning" %}
-**You still need to add the `deleted_at` timestamp field to your User table for this feature to work.**
+**You still need to add the `deleted_at` datetime field to your User table for this feature to work.**
 {% endhint %}
 Hopefully there is a `soft_deletes()` helper that you can use in migrations to add this field quickly.
 ```python
@@ -454,7 +454,7 @@ Other valid values are:
 Models emit various events in different stages of its life cycle. Available events are:
 
 * booting
-* booted  
+* booted
 * creating
 * created
 * deleting
