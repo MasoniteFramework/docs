@@ -8,11 +8,11 @@
 
 I will discuss the flow at a high level first and then can talk about each part separately.
 
-There are a few different paths you can start out with. Not everything starts out at the model level. You may use the query builder class directly to build your queries. The query builder class is exactly that: a class to build queries. So you will interact with this class (more on the class later) and it will set things like wheres, limits, selects, etc to the class and then pass all that off to build a query.
+There are a few different paths you can start out with. Not everything starts out at the model level. You may use the query builder class directly to build your queries. The query builder class is exactly that: a class to build queries. So you will interact with this class \(more on the class later\) and it will set things like wheres, limits, selects, etc to the class and then pass all that off to build a query.
 
 ### The Model
 
-First let's talk about the flow of the `Model`. The `Model` is probably what most people will be using the majority of the time. The `Model` is basically an wrapper entity around a table. So 1 table will likely equal to 1 model. A `users` table will have a `User` model and a `articles` table will have an `Article` model. 
+First let's talk about the flow of the `Model`. The `Model` is probably what most people will be using the majority of the time. The `Model` is basically an wrapper entity around a table. So 1 table will likely equal to 1 model. A `users` table will have a `User` model and a `articles` table will have an `Article` model.
 
 The interesting things about the `Model` is that its just a shell around the `QueryBuilder` class. The majority of the time you call something on the `Model` it's actually just building a query builder class immediately and passing the rest of the call off. This is important to understand:
 
@@ -42,7 +42,7 @@ When you call `get`, the query builder will pass everything you built up \(1 sel
 SELECT `id` FROM `users` WHERE `id` = '1' AND `active` = 1
 ```
 
-If it needs to build a Qmark query (a query with question marks which will be replaced with query bindings to prevent SQL injection) then it will look like this:
+If it needs to build a Qmark query \(a query with question marks which will be replaced with query bindings to prevent SQL injection\) then it will look like this:
 
 ```text
 SELECT `id` FROM `users` WHERE `id` = '?' AND `active` = ?
@@ -60,7 +60,7 @@ We will then get back a dictionary from the query and "hydrate" the original mod
 
 ## Grammar Classes
 
-Grammar classes are classes which are responsible for the compiling of attributes into a SQL statement. The SQL statement will then be given back to whatever called it \(like the `QueryBuilder` class\) and then passed to the connection class to make the database call and return the result. Again the grammar class is only responsible for compiling the query into a string. Simply taking attributes passed to it and looping through them and compiling them into a query.
+Grammar classes are classes which are responsible for the compiling of attributes into a SQL statement. Grammar classes are used for DML statements \(select, insert, update and delete\). Grammars are not used for DDL statements \(create and alter\). The SQL statement will then be given back to whatever called it \(like the `QueryBuilder` class\) and then passed to the connection class to make the database call and return the result. Again the grammar class is only responsible for compiling the query into a string. Simply taking attributes passed to it and looping through them and compiling them into a query.
 
 The grammar class will be responsible for both SQL and Qmark. Again, SQL looks like this:
 
@@ -80,7 +80,7 @@ Qmark queries will then be passed off to the connection class with a tuple of bi
 
 The grammar class is also really an abstraction as well. All the heavy lifting is done inside the `BaseGrammar` class. Child classes \(like `MySQLGrammar` and `PostgresGrammar`, etc\) really just contain the formatting of the sql strings.
 
-**Currently there are 2 different grammar classes for each of the supported grammars. There is one for normal queries and one for schema queries. They could be 1 big class but the class would be giant and it is hard to maintain a god class like this responsable for everything. It also makes it harder to first build the grammar up for quering (selects, updates, deletes, etc) and then later support schema building.**
+**Currently there are 2 different grammar classes for each of the supported grammars. There is one for normal queries and one for schema queries. They could be 1 big class but the class would be giant and it is hard to maintain a god class like this responsable for everything. It also makes it harder to first build the grammar up for quering \(selects, updates, deletes, etc\) and then later support schema building.**
 
 Almost all SQL is bascially the same but with slightly different formats or placements for where some syntax goes. This is why this structure we use is so powerful and easy to expand or fix later on.
 
@@ -138,7 +138,7 @@ def limit_string(self):
   return "TOP {limit}"
 ```
 
-Now we have abstracted the differences into their own classes and class methods. Now when we compile the string, everything falls into place. This code snippet is located in the `BaseGrammar` class (which calls the supported grammar class we built above). 
+Now we have abstracted the differences into their own classes and class methods. Now when we compile the string, everything falls into place. This code snippet is located in the `BaseGrammar` class \(which calls the supported grammar class we built above\).
 
 ```python
 # Everything completely abstracted into it's own class and class methods.
@@ -286,7 +286,7 @@ It is important though to know the differences between class \(`cls`\) and an ob
 
 ### Meta Classing
 
-One of the trickier bits of magic we have when it comes to the model is we set a meta class on the `Model` class (the base class that all of your `User` and `Article` models will inherit). What this does is essentially creates a middleware between first calling methods. Since its really hard to do everything while handling different class instantances and class classes it's easier to catch the call and turn it into an instance before moving on. 
+One of the trickier bits of magic we have when it comes to the model is we set a meta class on the `Model` class \(the base class that all of your `User` and `Article` models will inherit\). What this does is essentially creates a middleware between first calling methods. Since its really hard to do everything while handling different class instantances and class classes it's easier to catch the call and turn it into an instance before moving on.
 
 This is hard to explain but let's see what this really solves:
 
@@ -309,15 +309,15 @@ But it doesn't look as clean as:
 result = User.where('...')
 ```
 
-(Also for backwards compatability with Orator it would be a huge change if we didn't support this).
+\(Also for backwards compatability with Orator it would be a huge change if we didn't support this\).
 
-So if you look at the `Model.py` class we have a meta class inherited (you'll notice if you look at the file) which actually does a bit of magic and actually instanitates the class before any methods are called. This is similiar to any normal Python hook you can tie into like `__getattr__`. 
+So if you look at the `Model.py` class we have a meta class inherited \(you'll notice if you look at the file\) which actually does a bit of magic and actually instanitates the class before any methods are called. This is similiar to any normal Python hook you can tie into like `__getattr__`.
 
 **This makes handling `cls` and `self` much easier. Although there are special use cases where we need to handle cls directly which is why you will see some `@classmethod` decorators on some model methods.**
 
 ### Pass Through
 
-We mentioned that the model simply constructs a query builder and essentially passes everything off to the query builder class. 
+We mentioned that the model simply constructs a query builder and essentially passes everything off to the query builder class.
 
 The issue though is that when you call something like `User.where(..)` it will call the where on the User class. Since theres actually no `where` method on the model class it will hook into the `__getattr__` on the model class. From there we catch a bunch of different methods located in the `__passthrough__` attribute on the model and pass that right off to the query builder. This is important to understand.
 
@@ -448,18 +448,9 @@ CREATE TABLE `table` (
 )
 ```
 
-So the format is a bit different but we can do the exact same kind of string interpolation as above. I won't go over how to do that again but know we again have something like this:
-
-```python
-def create_start(self):
-    return "CREATE TABLE {table}"
-```
-
-That part right there may be abstracted again into using the full statement like the select but for now its broken up a bit more.
-
 ### Classes
 
-So now let's talk about how each class talks to eachother here.
+So now let's talk about how each class of the 3 primary classes talk to eachother here.
 
 ### Schema -&gt; Blueprint
 
@@ -474,21 +465,39 @@ The blueprint class will be built up in this format:
 ```python
 Schema.table('users') as blueprint:
     blueprint.string('name')
-  blueprint.integer('age')
+    blueprint.integer('age')
 ```
 
 Notice we are just building up a blueprint class.
 
-### Blueprint -&gt; Column
+When we start up the blueprint class, if we are creating columns then we will be setting additional attributes on a `Table` class. If we are updating a table then we will be setting attributes on the `TableDiff` class.
 
-The blueprint class passes the information given to it and builds up a list of columns using the `Column` class. These are stored in an attribute of a tuple of columns to later be passed and compiled to SQL by the grammar class.
+For example when we call:
 
-```text
-blueprint._columns
-#== (<masonite.orm.Column object>, <masonite.orm.Column object>,)
+```python
+Schema.table('users') as blueprint:
+    blueprint.string('name')
 ```
 
-Then the blueprint class is either set to a create or an Alter by the Schema class.
+it is a proxy call to 
+
+```python
+table.add_column('name', column_type='string')
+```
+
+The blueprint class then builds up the table class. 
+
+### Blueprint -&gt; Platform
+
+Compiling DDL statements are much more complicated than compiling DML statements so there is an entire class dedicated to compiling DDL statements. The Platform classes are similiar to Grammar classes as they are both used to compile sql.
+
+For example in SQLite there is an extremely limited alter statement. So adding, renaming or modifying columns relies on actually creating temporary tables, migrating the existing table to the temp table, then creating a new table based on the existing and modified schema, then migrating the old columns to the new columns and then finally dropping the temp table. You can see how this is not generic so it requires its own logic.
+
+Because of this, there are Platform classes. `SQLitePlatform`, `MySQLPlatform`, etc. These class have a compile\_create\_sql and compile\_alter\_sql methods. These methods take a single table class. The same table class the blueprint class built up.
+
+This Table class has methods like added\_columns, removed\_indexes, etc. We can use these to build up our alter and create statements.
+
+For example, Postgres requires alter statements for adding columns to be ran 1 at a time. So we can't add multiple columns with 1 alter query. So we need to loop through all the Table.added\_columns and create multiple alter queries for each column.
 
 ### Compiling
 

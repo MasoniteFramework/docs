@@ -59,11 +59,9 @@ You can easily create a new rule boiler plate by running:
 
 {% tabs %}
 {% tab title="terminal" %}
-
 ```bash
 $ craft rule equals_masonite
 ```
-
 {% endtab %}
 {% endtabs %}
 
@@ -71,7 +69,7 @@ $ craft rule equals_masonite
 There is no particular reason that rules are lowercase class names. The main reason it is improves readability when you end up using it as a method if you choose to register the rule with the validation class like you will see below.
 {% endhint %}
 
-This will create a boiler plate rule inside app/rules/equals_masonite.py that looks like:
+This will create a boiler plate rule inside app/rules/equals\_masonite.py that looks like:
 
 ```python
 class equals_masonite(BaseValidation):
@@ -129,9 +127,9 @@ When validating a dictionary like this:
 
 then
 
-- the `attribute` will be the value \(`Masonite`\)
-- the `key` will be the dictionary key \(`name`\)
-- the `dictionary` will be the full dictionary in case you need to do any additional checks.
+* the `attribute` will be the value \(`Masonite`\)
+* the `key` will be the dictionary key \(`name`\)
+* the `dictionary` will be the full dictionary in case you need to do any additional checks.
 
 **Message method**
 
@@ -205,11 +203,9 @@ If you don't have a provider yet we can make one specifically for adding custom 
 
 {% tabs %}
 {% tab title="terminal" %}
-
 ```bash
 $ craft provider RuleProvider
 ```
-
 {% endtab %}
 {% endtabs %}
 
@@ -743,8 +739,8 @@ These rules are identical so use whichever feels more comfortable.
 
 ## Available Rules
 
-|   |   |   |   |   |
-|---|---|---|---|---|
+|  |  |  |  |  |
+| :--- | :--- | :--- | :--- | :--- |
 | [accepted](validation.md#accepted)  |  [active_domain](validation.md#active_domain) | [after_today](validation.md#after_today)  | [before_today](validation.md#before_today)  |
 | [confirmed](validation.md#confirmed)  | [contains](validation.md#contains)  | [date](validation.md#date)  | [different](validation.md#different) |
 | [distinct](validation.md#distinct) | [does_not](validation.md#does_not) | [email](validation.md#email)  | [equals](validation.md#equals)  |
@@ -1028,6 +1024,7 @@ validate.when(
     validate.greater_than('age', 18)
 )
 ```
+
 ### File
 
 Used to make sure that value is a valid file.
@@ -1050,17 +1047,18 @@ validate.file('document', '15M') # check valid file and max size is 15 Megabytes
 ```
 
 Finally file type can be checked through a MIME types list:
+
 ```python
 validate.file('document', mimes=['jpg', 'png'])
 ```
 
 You can combine all those file checks at once:
+
 ```python
 validate.file('document', mimes=['pdf', 'txt'], size='4MB')
 ```
 
-For image or video file type validation prefer the direct [image](#image) and [video](#video) validation rules.
-
+For image or video file type validation prefer the direct [image](validation.md#image) and [video](validation.md#video) validation rules.
 
 ### Greater_than
 
@@ -1087,8 +1085,8 @@ Used to make sure that value is a valid image.
 """
 validate.image('avatar')
 ```
-Valid image types are defined by all MIME types starting with `image/`. For more details you can check
-`mimetypes` Python package which gives known MIME types with `mimetypes.types_map`.
+
+Valid image types are defined by all MIME types starting with `image/`. For more details you can check `mimetypes` Python package which gives known MIME types with `mimetypes.types_map`.
 
 Additionally you can check image size as with basic file validator
 
@@ -1148,7 +1146,7 @@ validate.is_future('date', tz='America/New_York')
 
 ### Is_list
 
-Used to make sure the value is a list (a Python list instance)
+Used to make sure the value is a list \(a Python list instance\)
 
 ```python
 """
@@ -1348,8 +1346,8 @@ validate.phone('phone', pattern='123-456-7890')
 
 The available patterns are:
 
-- `123-456-7890`
-- `(123)456-7890`
+* `123-456-7890`
+* `(123)456-7890`
 
 ### Postal Code
 
@@ -1368,9 +1366,7 @@ Please look up the "alpha-2 code" for available country formats.
 
 ### Regex
 
-Sometimes you want to do more complex validations on some fields. This rule allows to validate against
-a regular expression directly.
-In the following example we check that `username` value is a valid user name (without special characters and between 3 and 16 characters).
+Sometimes you want to do more complex validations on some fields. This rule allows to validate against a regular expression directly. In the following example we check that `username` value is a valid user name \(without special characters and between 3 and 16 characters\).
 
 ```python
 """
@@ -1510,8 +1506,7 @@ Used to make sure that value is a valid video file.
 validate.video('document')
 ```
 
-Valid video types are defined by all MIME types starting with `video/`. For more details you can check
-`mimetypes` Python package which gives known MIME types with `mimetypes.types_map`.
+Valid video types are defined by all MIME types starting with `video/`. For more details you can check `mimetypes` Python package which gives known MIME types with `mimetypes.types_map`.
 
 Additionally you can check video size as with basic file validator
 
@@ -1540,3 +1535,4 @@ validate.when(
     validate.accepted('terms')
 )
 ```
+

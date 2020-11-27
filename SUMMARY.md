@@ -110,19 +110,6 @@
 ## Masonite ORM \[In development\] <a id="masonite-orm"></a>
 
 * [White Page](masonite-orm/white-page.md)
-<!-- * [Introduction](masonite-orm/introduction.md)
-* [Installation](masonite-orm/installation.md)
-* [Orator To Masonite ORM](masonite-orm/orator-to-masonite-orm.md)
-* [Query Builder](masonite-orm/query-builder.md)
-* [Schema and Migrations](masonite-orm/schema-and-migrations.md)
-* [Models](masonite-orm/models.md)
-* [Extending & Building](masonite-orm/extending-and-building/README.md)
-  * [Creating Connections](masonite-orm/extending-and-building/creating-connections.md)
-  * [Creating Grammar](masonite-orm/extending-and-building/creating-grammar.md)
-* [Pagination](masonite-orm/pagination.md)
-* [Seeding](masonite-orm/seeding.md)
-* [Testing](masonite-orm/testing.md)
-* [Collections](masonite-orm/collections.md) -->
 
 ## Prologue
 
@@ -152,5 +139,4 @@
 * [Masonite 2.0 to 2.1](upgrade-guide/masonite-2.0-to-2.1.md)
 * [Masonite 2.1 to 2.2](upgrade-guide/masonite-2.1-to-2.2.md)
 * [Masonite 2.2 to 2.3](upgrade-guide/masonite-2.2-to-2.3.md)
-
 
