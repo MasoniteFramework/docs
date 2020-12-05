@@ -103,6 +103,16 @@ user.name #== 'Joe'
 user.email #== 'joe@masoniteproject.com'
 ```
 
+You can also get a record by its primary key:
+
+```python
+from app.models import User
+
+user = User.find(1)
+user.name #== 'Joe'
+user.email #== 'joe@masoniteproject.com'
+```
+
 ## Collections
 
 If your model result returns several results then it will be wrapped in a collection instance which you can use to iterate over:
@@ -111,6 +121,16 @@ If your model result returns several results then it will be wrapped in a collec
 from app.models import User
 
 users = User.where('active', 1).get()
+for users in user:
+  user.name #== 'Joe'
+  user.active #== '1'
+  user.email #== 'joe@masoniteproject.com'
+```
+
+If you want to find a collection of records based on the models primary key you can pass a list to the `find` method:
+
+```python
+users = User.find([1,2,3])
 for users in user:
   user.name #== 'Joe'
   user.active #== '1'
