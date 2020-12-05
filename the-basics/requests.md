@@ -706,7 +706,7 @@ def show(self, request: Request):
     return request.get_request_method() # 'PUT'
 ```
 
-## Changing Request Methods in Forms
+## Changing Request Methods in Forms and URLs
 
 Typically, forms only have support for `GET` and `POST`. You may want to change what HTTP method is used when submitting a form such as `PATCH`.
 
@@ -737,6 +737,18 @@ ROUTES = [
     Patch('/dashboard', 'DashboardController@update')
 ]
 ```
+
+You can also specify the request method in the query string of the url to change it on a link:
+
+```markup
+<a href="/dashboard?__method=PATCH" rel="nofollow">Dashboard patch</a>
+```
+
+This link will use the same route as above.
+
+{% hint style="warning" %}
+Changing the request method on a link from the default `GET` method should be done with caution. It can be useful while testing, but is not typically recommended. Adding `rel="nofollow"` may prevent search engines from following the link and causing data corruption.
+{% endhint %}
 
 ## Request Information
 
