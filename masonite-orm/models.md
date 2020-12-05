@@ -405,6 +405,17 @@ You can disable this behavior as well:
 User.with_trashed().all() #== SELECT * FROM `users`
 ```
 
+{% hint style="warning" %}
+**You still need to add the `deleted_at` datetime field to your User table for this feature to work.**
+{% endhint %}
+Hopefully there is a `soft_deletes()` helper that you can use in migrations to add this field quickly.
+```python
+# user migrations
+with self.schema.create("users") as table:
+  # ...
+  table.soft_deletes()
+```
+
 # Changing Primary Key to use UUID
 
 Masonite ORM also comes with another global scope to enable using UUID as primary keys for your models.
@@ -463,11 +474,11 @@ Other valid values are:
 Models emit various events in different stages of its life cycle. Available events are:
 
 * booting
-* booted  
+* booted
 * creating
 * created
 * deleting
-* deleted 
+* deleted
 * hydrating
 * hydrated
 * saving
@@ -522,7 +533,7 @@ class ModelProvider(Provider):
 
 There's many times you need to take several related records and assign them all the same attribute based on another record.
 
-For example you may have articles you want to switch the authors of. 
+For example you may have articles you want to switch the authors of.
 
 For this you can use the `associate` and `save_many` methods. Let's say you had a `User` model that had a `articles` method that related to the `Articles` model.
 
@@ -543,4 +554,3 @@ phone = Phone.find(30)
 
 user.associate('phone', phone)
 ```
-

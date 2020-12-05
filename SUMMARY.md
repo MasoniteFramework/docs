@@ -113,6 +113,7 @@
 * [Orator To Masonite ORM Guide](masonite-orm/orator-to-masonite-orm.md)
 * [Introduction](masonite-orm/introduction.md)
 * [Installation](masonite-orm/installation.md)
+* [Schema and Migrations](masonite-orm/schema-and-migrations.md)
 * [Models](masonite-orm/models.md)
 * [Query Builder](masonite-orm/querybuilder.md)
 * [Collections](masonite-orm/collections.md)
@@ -146,4 +147,3 @@
 * [Masonite 2.0 to 2.1](upgrade-guide/masonite-2.0-to-2.1.md)
 * [Masonite 2.1 to 2.2](upgrade-guide/masonite-2.1-to-2.2.md)
 * [Masonite 2.2 to 2.3](upgrade-guide/masonite-2.2-to-2.3.md)
-
