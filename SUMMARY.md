@@ -109,15 +109,7 @@
 
 ## Masonite ORM \[In development\] <a id="masonite-orm"></a>
 
-* [White Page](masonite-orm/white-page.md)
-* [Orator To Masonite ORM Guide](masonite-orm/orator-to-masonite-orm.md)
-* [Introduction](masonite-orm/introduction.md)
-* [Installation](masonite-orm/installation.md)
-* [Schema and Migrations](masonite-orm/schema-and-migrations.md)
-* [Models](masonite-orm/models.md)
-* [Query Builder](masonite-orm/querybuilder.md)
-* [Collections](masonite-orm/collections.md)
-* [Seeding](masonite-orm/seeding.md)
+* [To Masonite ORM Docs](https://orm.masoniteproject.com)
 
 ## Prologue
 

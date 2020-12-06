@@ -12,6 +12,8 @@ Currently these features are:
 
 * through relationships (HasOneThrough, HasManyThrough, etc)
 
+**If you are using Masonite 2 then you will not be able to upgrade to Masonite ORM because of version conflicts between Masonite and Masonite 2 ORM.**
+
 # Config
 
 The configuration dictionary between Orator and Masonite ORM is identical. The only difference is that Masonite ORM requires a `config/database.py` file whereas Orator was optional and needed to be explicitly specified in several places like commands.
