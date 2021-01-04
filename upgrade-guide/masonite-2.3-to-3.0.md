@@ -159,20 +159,8 @@ from wsgi import container
 + application = Application('Masonite Version:', __version__)
 ```
 
-
+* Get flashed
 
 # Upgrading Orator
 
-
-
-* Factories
-* get query builder
-* get schema builder
-
-
-
-
-
-* Get flashed
-* uninstall masonite, uninstall orator, reinstall masonite 3
-* `ORMProvider`
+For upgrading from Orator to Masonite please read the [Orator to Masonite ORM guide](https://orm.masoniteproject.com/orator-to-masonite-orm)
