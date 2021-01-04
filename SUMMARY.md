@@ -129,6 +129,7 @@
 * [Masonite 2.1](whats-new/masonite-2.1.md)
 * [Masonite 2.2](whats-new/masonite-2.2.md)
 * [Masonite 2.3](whats-new/masonite-2.3.md)
+* [Masonite 3.0](whats-new/masonite-3.0.md)
 
 ## Upgrade Guide
 
@@ -139,3 +140,4 @@
 * [Masonite 2.0 to 2.1](upgrade-guide/masonite-2.0-to-2.1.md)
 * [Masonite 2.1 to 2.2](upgrade-guide/masonite-2.1-to-2.2.md)
 * [Masonite 2.2 to 2.3](upgrade-guide/masonite-2.2-to-2.3.md)
+* [Masonite 2.3 to 3.0](upgrade-guide/masonite-2.3-to-3.0.md)
