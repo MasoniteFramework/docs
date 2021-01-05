@@ -298,6 +298,9 @@ def show(self, request: Request):
 
 This will now allow Javascript to read the cookie.
 
+### Secure
+
+You can set secure cookies in by setting the `SECURE_COOKIES` environment variable to `True`
 ### **Reading**
 
 You can get all the cookies set from the browser
