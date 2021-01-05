@@ -148,9 +148,68 @@ This will return a response like:
         }
 ```
 
+
 You can override the page size and page number by passing in the appropriate query inputs. You can change the page you are looking at by passing in a `?page=` input and you can change the amount of results per page by using the `?page_size=` input.
 
 If you are building an API this might look like `/api/users?page=2&page_size=5`. This will return 5 results on page 2 for this endpoint.
+
+## Headers
+
+**Note that headers on the response class are only used for the server response. If you would like to see headers sent by the client, please see the Request documentation.**
+
+You can get a specific header:
+
+```python
+from masonite.response import Response
+# ..
+def show(self, response: Response):
+    response.header('AUTHORIZATION')
+```
+
+This will return whatever the `HTTP_AUTHORIZATION` header if one exists. If that does not exist then the `AUTHORIZATION` header will be returned. If that does not exist then `None` will be returned.
+
+We can also set headers:
+
+```python
+from masonite.response import Response
+# ..
+def show(self, response: Response):
+    response.header('AUTHORIZATION', 'Bearer some-secret-key')
+```
+
+Headers are not case sensitive. This will match any variation of `AUTHORIZATION` or `Authorization` or `authorization` headers.
+
+```python
+response.header('AUTHORIZATION', 'Bearer some-secret-key')
+```
+
+This will set the `AUTHORIZATION` header **instead** of the `HTTP_AUTHORIZATION` header.
+
+You can also set headers with a dictionary:
+
+```python
+response.header({
+    'AUTHORIZATION': 'Bearer some-secret-key',
+    'Content-Type': 'application/json'
+})
+```
+
+## Status Codes
+
+```python
+response.status('429 Too Many Requests')
+```
+
+You can also use an integer which will find the correct status code for you:
+
+```python
+response.status(429)
+```
+
+This snippet is exactly the same as the string based snippet above.
+
+This will set the correct status code before the output is sent to the browser. You can look up a list of HTTP status codes from an online resource and specify any you need to. There are no limitations to which ones you can use.
+
 
 ### Request Class \(Redirections\)
 
