@@ -12,7 +12,7 @@ At the root of your Masonite project just run:
 
 ```text
 $ pip install triggers
-$ craft publish triggers
+$ python craft publish triggers
 ```
 
 If publishing does not work, you may be using a virtual environment and may not have the correct `site_packages` directory added to your `config/packages.py` file. Read more about this in the `Publishing Packages` documentation.

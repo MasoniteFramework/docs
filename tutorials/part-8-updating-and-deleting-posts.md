@@ -34,7 +34,7 @@ Since we are more comfortable with controllers we can go ahead and make two at o
 ## Create The View
 
 ```text
-$ craft view update
+$ python craft view update
 ```
 
 {% code-tabs %}

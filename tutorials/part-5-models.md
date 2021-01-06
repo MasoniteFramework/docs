@@ -13,7 +13,7 @@ Again, we can use a craft command to create our model:
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft model Post
+$ python craft model Post
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

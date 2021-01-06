@@ -16,7 +16,7 @@ You can create commands by using craft itself:
 
 {% code title="terminal" %}
 ```text
-$ craft command Hello
+$ python craft command Hello
 ```
 {% endcode %}
 
@@ -95,7 +95,7 @@ Let's create a Service Provider:
 
 {% code title="terminal" %}
 ```text
-$ craft provider HelloProvider
+$ python craft provider HelloProvider
 ```
 {% endcode %}
 
@@ -165,7 +165,7 @@ That's it! Now if we run:
 
 {% code title="terminal" %}
 ```text
-$ craft
+$ python craft
 ```
 {% endcode %}
 
@@ -183,7 +183,7 @@ and if we run:
 
 {% code title="terminal" %}
 ```text
-$ craft hello Joseph
+$ python craft hello Joseph
 ```
 {% endcode %}
 

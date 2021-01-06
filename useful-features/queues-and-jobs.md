@@ -25,7 +25,7 @@ The `async` driver simply sends jobs into the background using multithreading. T
 Jobs are simply Python classes that inherit the `Queueable` class that is provided by Masonite. We can simply create jobs using the `craft job` command.
 
 ```text
-$ craft job SendWelcomeEmail
+$ python craft job SendWelcomeEmail
 ```
 
 This will create a new job inside `app/jobs/SendWelcomeEmail.py`. Our job will look like:
@@ -321,19 +321,19 @@ In order to get these two queue table you can run the `queue:table` command with
 This command will create the `queue_jobs` migration where you can store your jobs:
 
 ```text
-$ craft queue:table --jobs
+$ python craft queue:table --jobs
 ```
 
 This command will create the `failed_jobs` migration where you can store your failed jobs:
 
 ```text
-$ craft queue:table --failed
+$ python craft queue:table --failed
 ```
 
 Once these migrations are created you can run the migrate command:
 
 ```text
-$ craft migrate
+$ python craft migrate
 ```
 
 #### Delaying Jobs
@@ -350,7 +350,7 @@ def show(self, queue: Queue):
 We can now start the worker using the `queue:work` command. It might be a good idea to run this command in a new terminal window since it will stay running until we close it.
 
 ```bash
-$ craft queue:work
+$ python craft queue:work
 ```
 
 This will startup the worker and start listening for jobs to come in via your Masonite project.
@@ -358,13 +358,13 @@ This will startup the worker and start listening for jobs to come in via your Ma
 You can also specify the driver you want to create the worker for by using the `-d` or `--driver` option
 
 ```bash
-$ craft queue:work --driver amqp
+$ python craft queue:work --driver amqp
 ```
 
 You may also specify the `channel` as well. `channel` may mean different things to different drivers. For the `amqp` driver, the `channel` is which queue to listen to. For the `database` driver, the `channel` is the connection to find the `queue_jobs` and `queue_failed` tables.
 
 ```bash
-$ craft queue:work --driver database --channel sqlite
+$ python craft queue:work --driver database --channel sqlite
 ```
 
 ### Sending Jobs
@@ -440,13 +440,13 @@ If you wish to store failed jobs in order to run them again at a later date then
 First you will need to run:
 
 ```text
-$ craft queue:table
+$ python craft queue:table
 ```
 
 Which will create a new migration inside `databases/migrations`. Then you can will migrate it:
 
 ```text
-$ craft migrate
+$ python craft migrate
 ```
 
 Now whenever a failed job occurs it will store the information inside this new table.
@@ -456,7 +456,7 @@ Now whenever a failed job occurs it will store the information inside this new t
 You can run all the failed jobs by running
 
 ```text
-$ craft queue:work --failed
+$ python craft queue:work --failed
 ```
 
 This will get all the jobs from the database and send them back into the queue. If they fail again then they will be added back into this database table.

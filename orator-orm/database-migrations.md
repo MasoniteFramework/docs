@@ -55,7 +55,7 @@ Before you start using the ORM you will receive an exception saying that you nee
 Because models and migrations are separated, we never have to touch our model in order to make alterations to our database tables. In order to make a migration we can run a craft command:
 
 ```text
-$ craft migration name_of_migration_here --table dashboard
+$ python craft migration name_of_migration_here --table dashboard
 ```
 
 This command will create a migration for an existing table. A migration on an existing table will migrate into the database in a certain way so it's important to specify the `--table` flag in the command.
@@ -63,7 +63,7 @@ This command will create a migration for an existing table. A migration on an ex
 In order to create a migration file for a new table that doesn't yet exist \(but will after the migration\) you can instead use the `--create` flag like so:
 
 ```text
-$ craft migration name_of_migration_here --create dashboard
+$ python craft migration name_of_migration_here --create dashboard
 ```
 
 This will create a migration that will create a table, as well as migrate the columns you specify.
@@ -75,7 +75,7 @@ Inside the migration file you will see an `up()` method and a `down()` method. W
 We can use [Orators Schema Builder](https://orator-orm.com/docs/0.9/schema_builder.html) in order to build our migration file. First lets run a migration craft command to create a blog table:
 
 ```text
-$ craft migration create_blogs_table --create blogs
+$ python craft migration create_blogs_table --create blogs
 ```
 
 This will create a migration file located in `databases/migrations` . Lets open this file and add some columns.
@@ -151,7 +151,7 @@ There are two types of columns that we will need to change over the course of de
 To change a column, we can just use the `.change()` method on it. Since we need to create a new migration to do this, we can do something like:
 
 ```python
-$ craft migration change_default_status --table dashboard
+$ python craft migration change_default_status --table dashboard
 ```
 
 and then simply create a new migration but use the `.change()` method to let Masonite you want to change an existing column instead of adding a new one:

@@ -12,7 +12,7 @@ Its very easy to create a controller with Masonite with the help of our `craft` 
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard
+$ python craft controller Dashboard
 ```
 {% endcode %}
 
@@ -28,7 +28,7 @@ Remember that Masonite will automatically append Controller to the end of all co
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard -e
+$ python craft controller Dashboard -e
 ```
 {% endcode %}
 
@@ -36,7 +36,7 @@ or
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard --exact
+$ python craft controller Dashboard --exact
 ```
 {% endcode %}
 
@@ -48,7 +48,7 @@ Resource controllers are controllers that have basic CRUD / resource style metho
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard -r
+$ python craft controller Dashboard -r
 ```
 {% endcode %}
 
@@ -56,7 +56,7 @@ or
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard --resource
+$ python craft controller Dashboard --resource
 ```
 {% endcode %}
 

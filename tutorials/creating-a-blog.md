@@ -85,7 +85,7 @@ Like most parts of Masonite, you can scaffold a controller with a craft command:
 
 {% code title="terminal" %}
 ```text
-$ craft controller Blog
+$ python craft controller Blog
 ```
 {% endcode %}
 
@@ -134,7 +134,7 @@ All views are in the `resources/templates` directory. We can create a new file c
 
 {% code title="terminal" %}
 ```text
-$ craft view blog
+$ python craft view blog
 ```
 {% endcode %}
 
@@ -152,7 +152,7 @@ and then run the server
 
 {% code title="terminal" %}
 ```text
-$ craft serve
+$ python craft serve
 ```
 {% endcode %}
 
@@ -166,7 +166,7 @@ For our blog, we will need to setup some form of registration so we can get new 
 
 {% code title="terminal" %}
 ```text
-$ craft auth
+$ python craft auth
 ```
 {% endcode %}
 
@@ -210,7 +210,7 @@ Once you have set the correct credentials, we can go ahead and migrate the datab
 
 {% code title="terminal" %}
 ```text
-$ craft migrate
+$ python craft migrate
 ```
 {% endcode %}
 
@@ -224,7 +224,7 @@ Go ahead and run the server:
 
 {% code title="terminal" %}
 ```text
-$ craft serve
+$ python craft serve
 ```
 {% endcode %}
 
@@ -248,7 +248,7 @@ Not surprisingly, we have a craft command to create migrations. You can read mor
 
 {% code title="terminal" %}
 ```text
-$ craft migration create_posts_table --create posts
+$ python craft migration create_posts_table --create posts
 ```
 {% endcode %}
 
@@ -296,7 +296,7 @@ Now we can migrate this migration to create the posts table
 
 {% code title="terminal" %}
 ```text
-$ craft migrate
+$ python craft migrate
 ```
 {% endcode %}
 
@@ -312,7 +312,7 @@ Again, we can use a craft command to create our model:
 
 {% code title="terminal" %}
 ```text
-$ craft model Post
+$ python craft model Post
 ```
 {% endcode %}
 
@@ -593,8 +593,8 @@ Let's create 2 new templates.
 
 {% code title="terminal" %}
 ```text
-$ craft view posts
-$ craft view single
+$ python craft view posts
+$ python craft view single
 ```
 {% endcode %}
 
@@ -606,7 +606,7 @@ Let's create a controller for the posts to separate it out from the `BlogControl
 
 {% code title="terminal" %}
 ```text
-$ craft controller Post
+$ python craft controller Post
 ```
 {% endcode %}
 
@@ -758,7 +758,7 @@ Since we are more comfortable with controllers we can go ahead and make two at o
 ### Create The View
 
 ```text
-$ craft view update
+$ python craft view update
 ```
 
 {% code title="resources/templates/update.html" %}

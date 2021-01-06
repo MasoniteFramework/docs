@@ -19,7 +19,7 @@ Like most parts of Masonite, you can scaffold a controller with a craft command:
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft controller Blog
+$ python craft controller Blog
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -70,7 +70,7 @@ All views are in the `resources/templates` directory. We can create a new file c
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft view blog
+$ python craft view blog
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -92,7 +92,7 @@ and then run the server
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft serve
+$ python craft serve
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

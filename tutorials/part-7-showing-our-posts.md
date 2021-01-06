@@ -11,8 +11,8 @@ Let's create 2 new templates.
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft view posts
-$ craft view single
+$ python craft view posts
+$ python craft view single
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -26,7 +26,7 @@ Let's create a controller for the posts to separate it out from the `BlogControl
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft controller Post
+$ python craft controller Post
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
