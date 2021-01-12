@@ -10,7 +10,7 @@ Controllers have an added benefit over straight function based views as they hav
 ## Defining a Controller
 Its very easy to create a controller with Masonite with the help of our `craft` command tool. We can simply create a new file inside `app/http/controllers`, name the class the same name as the file and then create a class with methods. We can also use the `craft controller` command which is:
 
-    $ craft controller DashboardController
+    $ python craft controller DashboardController
 
 This command will scaffold the application for us as well as import the `view` function for us which we can use to render a template.
 

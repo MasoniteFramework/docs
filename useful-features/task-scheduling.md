@@ -48,7 +48,7 @@ The second command is a `craft task` command which will create a new task under 
 Now that we added the Service Provider, we can start creating tasks. Let's create a super basic task that prints "Hi". First let's create the task itself:
 
 ```text
-$ craft task SayHi
+$ python craft task SayHi
 ```
 
 This will create a file under app/tasks/SayHi.py
@@ -243,7 +243,7 @@ For example, if the task above is to be ran \(every 3 days\) in May then the tas
 After we add the directory to the `AUTOLOAD` list, we can run the `schedule:run` command which will find the command and execute it.
 
 ```text
-$ craft schedule:run
+$ python craft schedule:run
 ```
 
 Masonite will fetch all tasks from the container by finding all subclasses of `scheduler.tasks.Task`, check if they should run and then either execute it or not execute it.
@@ -268,7 +268,7 @@ class SayHi(Task):
 Now let's run the command again:
 
 ```text
-$ craft schedule:run
+$ python craft schedule:run
 ```
 
 We should now see "Hi!" output to the terminal window.

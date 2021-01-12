@@ -36,7 +36,7 @@ There are a few concepts we'll need to cover so you can fully understand how Not
 In order to use it we can create a notification class. We can do this simply with a new craft command.
 
 ```text
-$ craft notification WelcomeNotification
+$ python craft notification WelcomeNotification
 ```
 
 This will create a notification in the `app/notifications` directory. Feel free to move it wherever you like though.

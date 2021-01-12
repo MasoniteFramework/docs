@@ -15,7 +15,7 @@ All configuration settings by default are in the `config/queue.py` file. Out of 
 Jobs are simply Python classes that inherit the `Queueable` class that is provided by Masonite. We can simply create jobs using the `craft job` command.
 
 ```text
-$ craft job SendWelcomeEmail
+$ python craft job SendWelcomeEmail
 ```
 
 This will create a new job inside `app/jobs/SendWelcomeEmail.py`. Our job will look like:

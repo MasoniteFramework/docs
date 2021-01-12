@@ -15,7 +15,7 @@ For our blog, we will need to setup some a registration form so we can get new u
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft auth
+$ python craft auth
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -56,7 +56,7 @@ Once you have set the correct credentials, we can go ahead and migrate the datab
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft migrate
+$ python craft migrate
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -72,7 +72,7 @@ Go ahead and run the server:
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft serve
+$ python craft serve
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

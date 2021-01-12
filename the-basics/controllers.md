@@ -12,7 +12,7 @@ Its very easy to create a controller with Masonite with the help of our `craft` 
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard
+$ python craft controller Dashboard
 ```
 {% endcode %}
 
@@ -28,7 +28,7 @@ Remember that Masonite will automatically append Controller to the end of all co
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard -e
+$ python craft controller Dashboard -e
 ```
 {% endcode %}
 
@@ -36,7 +36,7 @@ or
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard --exact
+$ python craft controller Dashboard --exact
 ```
 {% endcode %}
 
@@ -48,7 +48,7 @@ Resource controllers are controllers that have basic CRUD / resource style metho
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard -r
+$ python craft controller Dashboard -r
 ```
 {% endcode %}
 
@@ -56,7 +56,7 @@ or
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard --resource
+$ python craft controller Dashboard --resource
 ```
 {% endcode %}
 
@@ -275,3 +275,25 @@ def show(self, user_id, view: View):
 
 You can specify parameters along with any other container resolving.
 
+## Single Action Controllers
+
+You can also create single action controllers.
+
+These controllers have a single method:
+
+```python
+class ActionController(Controller):
+
+    def __call__(self):
+        pass
+```
+
+Then in your routes file you can just add the controller name:
+
+```python
+ROUTES = [
+    Get('/some/route', 'ActionController')
+]
+```
+
+And Masonite will know to call the `__call__` method.

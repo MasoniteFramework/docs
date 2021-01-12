@@ -298,6 +298,9 @@ def show(self, request: Request):
 
 This will now allow Javascript to read the cookie.
 
+### Secure
+
+You can set secure cookies in by setting the `SECURE_COOKIES` environment variable to `True`
 ### **Reading**
 
 You can get all the cookies set from the browser
@@ -648,6 +651,8 @@ Note that by default, the secret key is pulled from your configuration file so y
 
 You can also get and set any headers that the request has.
 
+**NOTE that any headers set on the request class will be attached on the request class and will not return on the response. If you would like to see how to set response headers please see the Response documentation**
+
 You can get all WSGI information by printing:
 
 ```python
@@ -655,7 +660,7 @@ def show(self, request: Request):
     print(request.environ)
 ```
 
-This will print the environment setup by the WSGI server. Use this for development purposes.
+This will print the environment setup by the WSGI server. Use this for development or debugging purposes.
 
 You can also get a specific header:
 
@@ -664,57 +669,10 @@ def show(self, request: Request):
     request.header('AUTHORIZATION')
 ```
 
-This will return whatever the `HTTP_AUTHORIZATION` header if one exists. If that does not exist then the `AUTHORIZATION` header will be returned. If that does not exist then `None` will be returned.
+This will return whatever the `HTTP_AUTHORIZATION` header is if one exists. If that does not exist then the `AUTHORIZATION` header will be returned. If that does not exist then `None` will be returned.
 
-We can also set headers:
+Fetching headers is not case sensitive. This will match any variation of `AUTHORIZATION` or `Authorization` or `authorization` headers.
 
-```python
-def show(self, request: Request):
-    request.header('AUTHORIZATION', 'Bearer some-secret-key')
-```
-
-{% hint style="warning" %}
-Masonite will automatically prepend a `HTTP_` to the header being set for standards purposes so this will set the `HTTP_AUTHORIZATION` header. If you do not want the `HTTP` prefix then pass a third parameter:
-{% endhint %}
-
-```python
-request.header('AUTHORIZATION', 'Bearer some-secret-key')
-```
-
-This will set the `AUTHORIZATION` header **instead** of the `HTTP_AUTHORIZATION` header.
-
-You can also set headers with a dictionary:
-
-```python
-request.header({
-    'AUTHORIZATION': 'Bearer some-secret-key',
-    'Content-Type': 'application/json'
-})
-```
-
-## Status Codes
-
-Masonite will set a status code of `404 Not Found` at the beginning of every request. If the status code is not changed throughout the code, either through the developer or third party packages, as it passes through each Service Provider then the status code will continue to be `404 Not Found` when the output is generated. You do not have to explicitly specify this as the framework itself handles status codes. If a route matches and your controller method is about to be hit then Masonite will set `200 OK` and hit your route. This allows Masonite to specify a good status code but also allows you to change it again inside your controller method.
-
-You could change this status code in either any of your controllers or even a third party package via a Service Provider.
-
-For example, the Masonite Entry package sets certain status codes upon certain actions on an API endpoint. These can be `429 Too Many Requests` or `201 Created`. These status codes need to be set before the `StartProvider` is ran so if you have a third party package that sets status codes or headers, then they will need to be placed above this Service Provider in a project.
-
-If you are not specifying status codes in a package and simple specifying them in a controller then you can do so freely without any caveats. You can set status codes like so:
-
-```python
-request.status('429 Too Many Requests')
-```
-
-You can also use an integer which will find the correct status code for you:
-
-```python
-request.status(429)
-```
-
-This snippet is exactly the same as the string based snippet above.
-
-This will set the correct status code before the output is sent to the browser. You can look up a list of HTTP status codes from an online resource and specify any you need to. There are no limitations to which ones you can use.
 
 ## Get Request Method Type
 

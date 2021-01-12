@@ -31,7 +31,7 @@ PROVIDERS = [
 You can then publish the provider which will create your `config/logging.py` configuration file:
 
 ```text
-$ craft publish LoggingProvider
+$ python craft publish LoggingProvider
 ```
 
 ## Logging Exceptions

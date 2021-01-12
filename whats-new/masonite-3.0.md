@@ -54,6 +54,10 @@ It is largely the same exact method but is now maintained by the masonite framew
 
 Masonite queueing had a simple table with not a lot of options on it. Because of this we had to make some decisions to prevent the duplication of some jobs. Like sleeping and only fetching 1 job per poll. This made the queue slower than what it should have been. So now we added more columns on the queue jobs table that will allow us to reserve some jobs to prevent duplication in other queue workers. If you still experience duplication of some jobs running via supervisor you may need to specify the option that offsets when supervisor commands are started.
 
+## Dropped route helpers
+
+In the past we had route helpers which were functions that wrapped some route logic. These were located in the `masonite.helpers.routes` namespace. These were deprecated in Masonite 2.3 and now removed in Masonite 3.0.
+
 ## Dropping Orator
 
 Obviously the biggest change is dropping Orator and picking up Masonite ORM. This new ORM is designed to be a drop in replacement for Orator. I have upgraded several projects to use the new ORM and I had to change very minimal code to get it to work. 

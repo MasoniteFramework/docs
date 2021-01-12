@@ -18,7 +18,7 @@ def test_user_can_login(self):
 First, create a new test class in a testing directory. There is a craft command you can run to create tests for you so just run:
 
 ```text
-$ craft test User
+$ python craft test User
 ```
 
 This will create a user test for us which we can work on. You can drag this test in any subdirectory you like.

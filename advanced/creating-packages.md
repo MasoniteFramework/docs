@@ -87,8 +87,8 @@ Head over to that documentation page and create an `InstallCommand` and an `Inst
 Remember you have access to craft commands so you can do something like:
 
 ```text
-$ craft command Install
-$ craft provider Package
+$ python craft command Install
+$ python craft provider Package
 ```
 
 You'll need to move your command inside the `src/package` directory but it will prevent you from having to write a lot of boiler plate while developing your package.
@@ -248,7 +248,7 @@ PROVIDERS = [
 and then run:
 
 ```text
-$ craft package:install
+$ python craft package:install
 ```
 
 Remember our Service Provider added the command automatically to craft.
@@ -264,7 +264,7 @@ Masonite has the concept of publishing packages. This allows you to manage the i
 The goal is to have a developer run:
 
 ```bash
-$ craft publish YourProvider
+$ python craft publish YourProvider
 ```
 
 This should be the name of your provider class.
@@ -368,7 +368,7 @@ def boot(self):
 Now a user can only either publish migrations or commands by adding a `--tag` option
 
 ```bash
-$ craft publish ValidationProvider --tag migrations
+$ python craft publish ValidationProvider --tag migrations
 ```
 
 This will ignore the commands publishing and only publish the migrations

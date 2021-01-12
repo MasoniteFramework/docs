@@ -159,20 +159,54 @@ from wsgi import container
 + application = Application('Masonite Version:', __version__)
 ```
 
+## Queue Table
 
+If you use Masonite queues, there are 3 new columns on the `queue_jobs` table. Please make a migration and add these 3 columns:
+
+First make the migration
+
+```
+$ python craft migration add_fields_to_queue_jobs_table --table queue_jobs
+```
+
+Then add the migration:
+
+```python
+  def up(self):
+      with self.schema.create("queue_jobs") as table:
+          table.string("queue")
+          table.timestamp("available_at").nullable()
+          table.timestamp("reserved_at").nullable()
+
+  def down(self):
+      with self.schema.create("queue_jobs") as table:
+          table.drop_column("queue", "available_at", "reserved_at")
+```
+
+Then run the migration
+
+```
+$ python craft migrate
+```
+
+## Dropped route helpers
+
+If you used any helper routes inside your web.py file, these have been removed. You will now need to use only route classes:
+
+If you have code inside your web.py 
+
+```python
+from masonite.helpers.routes import get
+```
+
+You will need to remove this import and use the class based routes:
+
+```python
+from masonite.routes import Get
+```
+
+This applied for the helpers: `get`, `post`, `put`, `patch`, `delete` and `group` helpers.
 
 # Upgrading Orator
 
-
-
-* Factories
-* get query builder
-* get schema builder
-
-
-
-
-
-* Get flashed
-* uninstall masonite, uninstall orator, reinstall masonite 3
-* `ORMProvider`
+For upgrading from Orator to Masonite please read the [Orator to Masonite ORM guide](https://orm.masoniteproject.com/orator-to-masonite-orm)

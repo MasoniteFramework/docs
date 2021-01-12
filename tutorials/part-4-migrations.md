@@ -13,7 +13,7 @@ Not surprisingly, we have a craft command to create migrations. You can read mor
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft migration create_posts_table --create posts
+$ python craft migration create_posts_table --create posts
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -67,7 +67,7 @@ Now we can migrate this migration to create the posts table
 {% code-tabs %}
 {% code-tabs-item title="terminal" %}
 ```text
-$ craft migrate
+$ python craft migrate
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

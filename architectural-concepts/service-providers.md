@@ -13,7 +13,7 @@ You may create your own service provider and add it to your providers list to ex
 We can create a Service Provider by simply using a craft command:
 
 ```text
-$ craft provider DashboardProvider
+$ python craft provider DashboardProvider
 ```
 
 This will create a new Service Provider under our `app/providers/DashboardProvider.py`. This new Service Provider will have two simple methods, a `register` method and a `boot` method. We'll explain both in detail.

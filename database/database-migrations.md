@@ -13,7 +13,7 @@ In this documentation, we'll talk about how to make migrations with Masonite.
 Because models and migrations are separated, we never have to touch our model in order to make alterations to our database tables. In order to make a migration we can run a craft command:
 
 ```text
-$ craft migration name_of_migration_here --table dashboard
+$ python craft migration name_of_migration_here --table dashboard
 ```
 
 This command will create a migration for an existing table. A migration on an existing table will migrate into the database in a certain way so it's important to specify the `--table` flag in the command.
@@ -21,7 +21,7 @@ This command will create a migration for an existing table. A migration on an ex
 In order to create a migration file for a new table that doesn't yet exist \(but will after the migration\) you can instead use the `--create` flag like so:
 
 ```text
-$ craft migration name_of_migration_here --create dashboard
+$ python craft migration name_of_migration_here --create dashboard
 ```
 
 This will create a migration that will create a table, as well as migrate the columns you specify.
@@ -33,7 +33,7 @@ Inside the migration file you will see an `up()` method and a `down()` method. W
 We can use [Orators Schema Builder](https://orator-orm.com/docs/0.9/schema_builder.html) in order to build our migration file. First lets run a migration craft command to create a blog table:
 
 ```text
-$ craft migration create_blogs_table --create blogs
+$ python craft migration create_blogs_table --create blogs
 ```
 
 This will create a migration file located in `databases/migrations` . Lets open this file and add some columns.
@@ -96,5 +96,5 @@ Check the [Orator documentation](https://orator-orm.com/docs/0.9/schema_builder.
 Each migration command has a `--connection` option so you can tell which connection you want to run the migration task for:
 
 ```
-$ craft migrate --connection sqlite
+$ python craft migrate --connection sqlite
 ```

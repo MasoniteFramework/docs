@@ -24,7 +24,7 @@ Since all views are located in `resources/templates`, we can use simply create a
 
 {% code title="terminal" %}
 ```text
-$ craft view hello
+$ python craft view hello
 ```
 {% endcode %}
 

@@ -36,7 +36,7 @@ $ pip install masonite-cli --user
 and then run:
 
 ```text
-$ craft
+$ python craft
 ```
 
 and get something like:
@@ -133,7 +133,7 @@ You may have to run sudo to remove and install it and you may need to close your
 If you installed everything successfully and running:
 
 ```text
-$ craft
+$ python craft
 ```
 
 Shows an error that it can't be found then try closing your terminal and opening it again. This should refresh any commands that were recently installed
@@ -149,7 +149,7 @@ $ sudo pip3 install masonite-cli
 You likely ran:
 
 ```text
-$ craft new project_name
+$ python craft new project_name
 ```
 
 and hit this weird snag that throws this ambiguous error. You might think this is because of a Python version issue but craft is designed to work on Python 2.7 and 3.4+ \(although 2.7 and not thoroughly tested\) and you're years of Python experience would make you right but this is special. If you are getting this error then that means you are likely on a UNIX machine, Mac right?
@@ -163,7 +163,7 @@ $ /Applications/Python\ 3.6/Install\ Certificates.command
 or whatever your Python 3 version is in the middle. Now try running:
 
 ```text
-$ craft new project_name
+$ python craft new project_name
 ```
 
 and it should work great!

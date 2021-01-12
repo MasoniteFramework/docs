@@ -60,7 +60,7 @@ You can easily create a new rule boiler plate by running:
 {% tabs %}
 {% tab title="terminal" %}
 ```bash
-$ craft rule equals_masonite
+$ python craft rule equals_masonite
 ```
 {% endtab %}
 {% endtabs %}
@@ -204,7 +204,7 @@ If you don't have a provider yet we can make one specifically for adding custom 
 {% tabs %}
 {% tab title="terminal" %}
 ```bash
-$ craft provider RuleProvider
+$ python craft provider RuleProvider
 ```
 {% endtab %}
 {% endtabs %}
@@ -327,7 +327,7 @@ Rule enclosures are self contained classes with rules. You can use these to help
 You can create a rule enclosure by running:
 
 ```text
-$ craft rule:enclosure AcceptedTerms
+$ python craft rule:enclosure AcceptedTerms
 ```
 
 You will then see a file generated like this inside app/rules:

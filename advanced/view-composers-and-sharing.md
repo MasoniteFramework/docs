@@ -45,7 +45,7 @@ view.share({'request': request()})
 The best place to put this is in a new Service Provider. Let's create one now called `ViewComposer`.
 
 ```text
-$ craft provider ViewComposer
+$ python craft provider ViewComposer
 ```
 
 This will create a new Service Provider under `app/providers/ViewComposer.py` and should look like this:

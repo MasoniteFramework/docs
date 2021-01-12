@@ -48,7 +48,7 @@ Masonite Events allows you to subscribe to arbitrary event actions with various 
 We can create our event listener by executing the following command:
 
 ```text
-$ craft event:listener SubscribeUser
+$ python craft event:listener SubscribeUser
 ```
 
 This will create a new event in the app/events directory that looks like this:
@@ -117,7 +117,7 @@ We can listen to events simply by passing the listener into one of your applicat
 You likely have a Service Provider whose wsgi attribute is false but let's create a new one:
 
 ```text
-$ craft provider ListenerProvider
+$ python craft provider ListenerProvider
 ```
 
 Make sure we set the wsgi attribute to False:

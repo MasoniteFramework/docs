@@ -38,7 +38,7 @@ Again all authenticating models need to have a `password` column. The column bei
 ## Creating an Authentication System
 You may of course feel free to roll your own authentication system if you so choose but Masonite comes with one out of the box but left out by default. In order to scaffold this authentications system you can of course use a `craft` command:
 
-    $ craft auth
+    $ python craft auth
 
 This will create some controllers, views and routes for you. This command should be used primarily on fresh installs of Masonite but as long as the controllers do not have the same names as the controllers being scaffolded, you will not have any issues.
 

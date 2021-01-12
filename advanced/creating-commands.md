@@ -23,7 +23,7 @@ This will take those paths and temporarily add it to the `sys.path` for the dura
 The `craft` command comes with a `package` helper and can be used to create the boilerplate for Masonite packages. We can use this boilerplate to quickly create a package that can be used on the masonite command line. Lets create our boiler plate now by navigating to a directory we would like to build our package in and run:
 
 ```text
-$ craft package testpackage
+$ python craft package testpackage
 ```
 
 This will create a file structure like:
@@ -60,9 +60,9 @@ The `craft-vendor` command is separate from our normal `craft` command but is pr
 How the `craft-vendor` command works is there are three possible commands that can be ran after someone installs your package:
 
 ```text
-$ craft-vendor testpackage
-$ craft-vendor testpackage submodule
-$ craft-vendor testpackage submodule function_name
+$ python craft-vendor testpackage
+$ python craft-vendor testpackage submodule
+$ python craft-vendor testpackage submodule function_name
 ```
 
 #### Running craft-vendor testpackage
@@ -70,7 +70,7 @@ $ craft-vendor testpackage submodule function_name
 This allows for some flexibility in how your commands can be ran. Lets start by explaining how the first command will interact with your package.
 
 ```text
-$ craft-vendor testpackage
+$ python craft-vendor testpackage
 ```
 
 When the user runs this command, `craft-vendor` will look for a package called `testpackage`. Once it is found, it will look into the `commands` module and look for a file called `testpackage`, and then a function in that file called `testpackage` and execute that function. In this instance, we might have a structure like:
