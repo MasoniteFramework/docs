@@ -189,7 +189,23 @@ Then run the migration
 $ python craft migrate
 ```
 
-* Get flashed
+## Dropped route helpers
+
+If you used any helper routes inside your web.py file, these have been removed. You will now need to use only route classes:
+
+If you have code inside your web.py 
+
+```python
+from masonite.helpers.routes import get
+```
+
+You will need to remove this import and use the class based routes:
+
+```python
+from masonite.routes import Get
+```
+
+This applied for the helpers: `get`, `post`, `put`, `patch`, `delete` and `group` helpers.
 
 # Upgrading Orator
 
