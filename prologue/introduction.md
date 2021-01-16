@@ -5,7 +5,7 @@ Masonite is the rapid application Python development framework that strives for 
 ## Some Notable Features Shipped With Masonite
 
 * Easily send emails with the Mail Provider and the SMTP and Mailgun drivers
-* Send websocket requests from your server with the Broadcast Provider and Pusher and Ably drivers
+* Send websocket requests from your server with the Broadcast Provider and Pusher, Ably and PubNub drivers
 * IOC container and auto resolving dependency injection.
 * Extremely simple static files configured and ready to go
 * Create job classes to push to your queues
