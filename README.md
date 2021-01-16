@@ -8,8 +8,6 @@ Masonite works hard to be fast and easy from install to deployment so developers
 If you are more of a visual learner you can watch Masonite related tutorial videos at [MasoniteCasts.com](https://masonitecasts.com)
 {% endhint %}
 
-**NOTE: Masonite 2.3 is no longer compatible with the `masonite-cli` tool. Please uninstall that by running `pip uninstall masonite-cli`. If you do not uninstall `masonite-cli` you will have command clashes**
-
 ## Some Notable Features Shipped With Masonite
 
 * Easily send emails with the Mail Provider and the SMTP and Mailgun drivers.
