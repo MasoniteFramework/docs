@@ -207,6 +207,40 @@ from masonite.routes import Get
 
 This applied for the helpers: `get`, `post`, `put`, `patch`, `delete` and `group` helpers.
 
+## Flashed Messages
+
+In previous versions of Masonite, Masonite would set flashed messages for a 2 second expiration time. This caused numerous different issues like what happens when a page redirection took longer than 2 seconds or what happens when the client times are not synced correctly.
+
+Now we have took a "get and delete" approach. So now the flash data is deleted when it is retrieved. This means that flash data can stay in session until it is fetched. 
+
+To do this we have a new method for the "get and delete" of flash data.
+
+If you are using the `bag()` helper in your templates then this:
+
+```diff
+@if bag().any()
+-  @for error in bag().messages()
++  @for error in bag().get_errors()
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+  @endfor
+@endif
+```
+
+If you are using the `session()` helper than you will need to take a similiar approach:
+
+```diff
+
+@if session().has('errors')
+  @for key, error_list in session().get_flashed('errors').items()
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+  @endfor
+@endif
+```
+
 # Upgrading Orator
 
 For upgrading from Orator to Masonite please read the [Orator to Masonite ORM guide](https://orm.masoniteproject.com/orator-to-masonite-orm)
