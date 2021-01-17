@@ -81,7 +81,7 @@
 
 ## Tutorials
 
-* [Creating a Blog](tutorials/creating-a-blog.md)
+* [Creating a Blog](creating-a-blog.md)
 
 ## How-to Guides
 
