@@ -5,9 +5,7 @@
 You'll likely want to seed your database during development in order to get some dummy data into your database to start working fast.
 
 {% hint style="success" %}
-Masonite uses Orator to generate seed files. This documentation will explain how to create the files itself.
-
-Read more about creating seed classes with the [Orator documentation](https://orator-orm.com/docs/0.9/seeding.html).
+Read more about seeding in [Masonite ORM documentation](https://orm.masoniteproject.com/seeding).
 {% endhint %}
 
 ## Getting Started
@@ -18,7 +16,7 @@ We can simply create a new seeder by running:
 craft seed User
 ```
 
-This will create a new seeder inside the `databases/seeds` directory. This will also create a `database_seeder.py` file which will be where the root of all seeds should be. 
+This will create a new seeder inside the `databases/seeds` directory. This will also create a `database_seeder.py` file which will be where the root of all seeds should be.
 
 The `user_table_seeder` should be where you simply abstract your seeds to.
 
@@ -37,6 +35,3 @@ craft seed:run User
 ```
 
 Which will run the `user_table_seeder` only.
-
-
-

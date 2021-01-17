@@ -62,16 +62,6 @@
 * [Headers](security/headers.md)
 * [Releases](security/releases.md)
 
-## Orator ORM
-
-* [Database Migrations](orator-orm/database-migrations.md)
-* [Basic Usage](https://orator-orm.com/docs/0.9/basic_usage.html)
-* [Collections](https://orator-orm.com/docs/0.9/collections.html)
-* [ORM](https://orator-orm.com/docs/0.9/orm.html)
-* [Pagination](https://orator-orm.com/docs/0.9/pagination.html)
-* [Query Builder](https://orator-orm.com/docs/0.9/query_builder.html)
-* [Schema Builder](https://orator-orm.com/docs/0.9/schema_builder.html)
-
 ## Managers and Drivers
 
 * [About Drivers](managers-and-drivers/about-drivers.md)
@@ -91,7 +81,7 @@
 
 ## Tutorials
 
-* [Creating a Blog](tutorials/creating-a-blog.md)
+* [Creating a Blog](creating-a-blog.md)
 
 ## How-to Guides
 
@@ -107,7 +97,7 @@
 * [Drivers](deployment/drivers.md)
 * [Optimization](deployment/optimization.md)
 
-## Masonite ORM \[In development\] <a id="masonite-orm"></a>
+## Masonite ORM <a id="masonite-orm"></a>
 
 * [To Masonite ORM Docs](https://orm.masoniteproject.com)
 

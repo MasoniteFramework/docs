@@ -73,8 +73,8 @@ Method    Path     Name     Domain    Middleware
 ========  =======  =======  ========  ============
 GET       /        welcome
 GET       /home    home
-GET       /user 
-POST      /create  user   
+GET       /user
+POST      /create  user
 ========  =======  =======  ========  ============
 ```
 
@@ -127,7 +127,7 @@ $ python craft validator LoginValidator
 Be sure to read the [Validation](../advanced/validation.md) documentation to learn more about validators.
 {% endhint %}
 
-### Creating Model Definition Docstrings
+<!-- ### Creating Model Definition Docstrings
 
 Masonite uses Orator which is an active record style ORM. If you are coming from other Python frameworks you may be more familiar with Data Mapper ORM's like Django ORM or SQLAlchemy. These style ORM's are useful since the names of the column in your table are typically the names of class attributes. If you forget what you named your column you can typically just look at the model but if your model looks something like:
 
@@ -185,7 +185,7 @@ class User(Model):
 You can also specify the connection to use using the `--connection` option.
 
 ```bash
-$ python craft model:docstring table_name --connection amazon_db
+$ python craft model:docstring table_name --connection amazon_db -->
 ```
 
 ### Creating Controllers
@@ -511,4 +511,3 @@ $ python craft provider ProviderName --tag name
 ```
 
 You should read more about publishing at the publishing documentation page.
-

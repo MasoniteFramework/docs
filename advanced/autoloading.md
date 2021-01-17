@@ -25,8 +25,8 @@ Masonite will go through each directory listed and convert it to a module. For e
 If your code looks something like:
 
 ```python
-from orator.orm import belongs_to
-from config.database import Model
+from masoniteorm.relationships import belongs_to
+from masoniteorm.models import Model
 
 class User(Model):
     pass
@@ -34,7 +34,7 @@ class User(Model):
 
 Then the autoloader will fetch three classes: the `belongs_to` class, the `Model` class and the `User` class. The autoloader will then check if the module of the classes fetched are actually apart of the module being autoloaded.
 
-In other words the modules of the above classes are: `orator.orm`, `config.database` and `app` respectively. Remember that we are just autoloaded the `app` module so it will only bind the `app.User` class to the container with a binding of the class name: `User` and the actual object itself: `<class app.User.User>`.
+In other words the modules of the above classes are: `masoniteorm.relationships`, `masoniteorm.models` and `app` respectively. Remember that we are just autoloaded the `app` module so it will only bind the `app.User` class to the container with a binding of the class name: `User` and the actual object itself: `<class app.User.User>`.
 
 All of this autoloading is done when the server is first started but before the WSGI server is ready to start accepting requests so there are no performance hits for this.
 
@@ -169,10 +169,10 @@ Autoloading class instances could look something like:
 
 ```python
 from masonite.autoload import Autoload
-from orator.orm import Model
+from masoniteorm.models import Model
 
 classes = Autoload().instances(['app/models'], Model)
-# returns {'Model': <config.database.Model>, 'User': <class app.models.User.User>, ...}
+# returns {'Model': <masoniteorm.models.Model>, 'User': <class app.models.User.User>, ...}
 ```
 
 This will fetch all the classes in the `app/models` directory that are instances of the `Model` class. The `classes` attribute contains a dictionary of all the classes it found.
@@ -183,10 +183,10 @@ If you don't want to get classes that are instances of another class then we can
 
 ```python
 from masonite.autoload import Autoload
-from orator.orm import Model
+from masoniteorm.models import Model
 
 classes = Autoload().collect(['app/models'])
-# returns {'Model': <config.database.Model>, 'User': <class app.models.User.User>, ...}
+# returns {'Model': <masoniteorm.models.Model>, 'User': <class app.models.User.User>, ...}
 ```
 
 ### Getting Only Application Classes
@@ -201,7 +201,7 @@ We can only get application specific classes by passing a parameter in:
 
 ```python
 from masonite.autoload import Autoload
-from orator.orm import Model
+from masoniteorm.models import Model
 
 classes = Autoload().collect(['app/models'], only_app=True)
 # returns {'User': <class app.models.User.User>, ...}
@@ -221,11 +221,10 @@ If your class needs parameters then you should collect the classes and instantia
 
 ```python
 from masonite.autoload import Autoload
-from orator.orm import Model
+from masoniteorm.models import Model
 
 classes = Autoload().collect(['app/models'], only_app=True, instantiate=True)
 # returns {'User': <app.models.User.User at 0x10e36d780>, ...}
 ```
 
 You can see that now all the objects found are instantiated.
-
