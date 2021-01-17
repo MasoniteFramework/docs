@@ -66,29 +66,29 @@ this will create a controller that looks like:
 ```python
 """ A Module Description """
 
-class DashboardController: 
+class DashboardController:
  """Class Docstring Description
  """
 
-    def show(self): 
+    def show(self):
         pass
 
-    def index(self): 
+    def index(self):
         pass
 
-    def create(self): 
+    def create(self):
         pass
 
-    def store(self): 
+    def store(self):
         pass
 
-    def edit(self): 
+    def edit(self):
         pass
 
-    def update(self): 
+    def update(self):
         pass
 
-    def destroy(self): 
+    def destroy(self):
         pass
 ```
 {% endcode %}
@@ -190,7 +190,7 @@ def show(self):
 ```
 {% endcode %}
 
-Returning a paginated response directly will include the collection data, along with results metadata.
+<!-- Returning a paginated response directly will include the collection data, along with results metadata.
 
 Query parameters accepted are: 'page\_size' and 'page'. These will be handled directly as part of the response, there is no need to pass them in explicitly.
 
@@ -242,7 +242,7 @@ returns:
   "to": 15,
   "data": [ ... ]
 }
-```
+``` -->
 
 ## Passing Route Parameters
 
