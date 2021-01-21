@@ -455,6 +455,61 @@ def test_subdomains(self):
         }).assertIsStatus(404)
 ```
 
+## Testing the Controllers
+
+### Testing view template name
+
+To check that the controller renders the correct view name we can use `assertViewIs`
+
+{% code title="tests/test\_unit.py" %}
+```python
+# /testing ==> view.render("app")
+
+def test_view_name(self):
+    self.assertTrue(self.get('/testing').assertViewIs('app'))
+```
+{% endcode %}
+
+### Testing view data
+
+To check that the view is rendered with at least one data key we can use `assertViewHas`. This
+assertion methods takes one data key and optionally its associated value.
+
+{% code title="tests/test\_unit.py" %}
+```python
+# /testing ==> view.render("testing", {"count": 2})
+
+def test_route_data(self):
+    self.assertTrue(self.get('/testing').assertViewHas('count'))
+    self.assertTrue(self.get('/testing').assertViewHas('count', 2))
+```
+{% endcode %}
+
+To check all data a view is rendered with we can use `assertViewHasAll`. This
+assertion methods takes a list of data keys or the whole data dictionary (both keys and values will
+be verified in this case).
+
+{% code title="tests/test\_unit.py" %}
+```python
+# /testing ==> view.render("testing", {"count": 2, "name": Joe})
+
+def test_route_data(self):
+    self.assertTrue(self.get('/testing').assertViewHasAll(['count', 'name']))
+    self.assertTrue(self.get('/testing').assertViewHasAll({'count': 2, 'name': 'Joe'}))
+```
+{% endcode %}
+
+To check that the view is rendered without a given data key we can use `assertViewMissing`.
+
+{% code title="tests/test\_unit.py" %}
+```python
+# /testing ==> view.render("testing", {"count": 2})
+
+def test_route_data_does_not_contains(self):
+    self.assertTrue(self.get('/testing').assertViewMissing('users'))
+```
+{% endcode %}
+
 ## Testing the Database
 
 ### Databases
@@ -533,7 +588,7 @@ class TestUser(TestCase):
         return {
             'name': faker.name(),
             'email': faker.email(),
-            'password': '$2b$12$WMgb5Re1NqUr.uSRfQmPQeeGWudk/8/aNbVMpD1dR.Et83vfL8WAu',  
+            'password': '$2b$12$WMgb5Re1NqUr.uSRfQmPQeeGWudk/8/aNbVMpD1dR.Et83vfL8WAu',
             # == 'secret'
         }
 
@@ -654,7 +709,7 @@ class TestUser(TestCase):
             'name': 'Joe',
             'email': 'user@example.com',
             # == 'secret'
-            'password': '$2b$12$WMgb5Re1NqUr.uSRfQmPQeeGWudk/8/aNbVMpD1dR.Et83vfL8WAu',  
+            'password': '$2b$12$WMgb5Re1NqUr.uSRfQmPQeeGWudk/8/aNbVMpD1dR.Et83vfL8WAu',
         })
 
     def test_creates_users(self):
@@ -670,4 +725,3 @@ You can run tests by running:
 ```text
 $ python -m pytest
 ```
-
