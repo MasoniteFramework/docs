@@ -103,7 +103,7 @@ class User(Model, Notifiable):
 This is actually the default behaviour of the mail driver so you won't have to write that but you can customize it
 to your needs if your User model don't have `email` field or if you want to add some logic to get the recipient email.
 
-## Sending a Notification
+## Sending notifications
 
 ### Configure delivery channels
 
@@ -128,7 +128,7 @@ class WelcomeNotification(NotificationFacade):
 
 When sending the notification it will be automatically sent to each channel.
 
-### To Notifiables
+### Sending to Notifiables
 
 There is two ways of sending a Notification:
 
@@ -161,7 +161,7 @@ users = User.all()
 Notification.send(users, WelcomeNotification())
 ```
 
-### To Anonymous Users / On-demand
+### Sending to Anonymous Users / On-demand
 
 Sometimes you want to send a notification to someone not registered as a User in your database, or which is not related to a `Notifiable` entity. It is possible with the `Notification` service:
 
@@ -192,7 +192,7 @@ def register(self, view: View, notification: Notification):
 entity is attached to it.
 {% endhint %}
 
-### Queue notifications
+## Queueing notifications
 
 If you would like to queue the notification then you just need to inherit the `ShouldQueue` class and it will automatically send your notifications into the queue to be processed later. This is a great way to speed up your application:
 
@@ -271,21 +271,93 @@ You can find below the different components that you can use when building an em
 | .panel\(\)   | This creates a grey background header panel.                                                                                                                                   | .panel\('Some Header'\)                                                             |
 | .heading\(\) | Creates a header                                                                                                                                                               | .heading\('Welcome!'\)                                                              |
 | .subject\(\) | The subject of the email                                                                                                                                                       | .subject\('New Account!'\)                                                          |
-| .driver\(\)  | The driver you want to use to send the email                                                                                                                                   | .driver\('mailgun'\)                                                                |
+| .send_from\(\) | The sender email of the email. A name can also be specified.                                                                                                                                                      | .send_from\('sam@masonite.com',name="Sam"\)                                                          |
+| .reply_to\(\) | The reply-to field of the email. An email or a list of emails can be specified.                                                                                                                                                      | .reply_to\(['sam@masonite.com', 'joe@masonite.com']\)                                                          |
+| .driver\(\)  | Override the driver used to send the email. By default, the email notification will be sent using the default driver defined in the configuration                                                                                                                                   | .driver\('mailgun'\)                                                                |
 
 ## Database Notifications
 
-TODO
+Notifications can be stored in your application database when sent to `Notifiable` entities. The notification is stored
+in a `notifications` table. This table will contain information such as the notification type as well as a JSON data structure that describes the notification. The ORM Model describing a Notification is `DatabaseNotification`.
+
+### Creating notifications table
+Before you can store notifications in database you must create the database `notifications` table.
+A handy command is available to publish the table migration file.
+```text
+$ python craft publish NotificationProvider --tag migrations
+```
+Then you can migrate your database
+```
+$ python craft migrate
+```
+
+### Formatting database notifications
+To store a notification in the database you should define a `to_database` method on the notification class to specify how to build the notification content that will be persisted.
+```python
+class WelcomeNotification(NotificationFacade):
+    # ...
+    def to_database(self, notifiable):
+        return {"data": "Welcome {0}!".format(notifiable.name)}
+
+    def via(self):
+        return ["mail", "database"]
+```
+This method should return `str`, `dict` or `JSON` data (as it will be saved into a `TEXT` column in the notifications table).
+You also need to add `database` channel to the `via` method to enable database notification storage.
+
+### Notification Model
+The notification model have the following fields:
+- `id` is the primary key of the model (defined with UUID4)
+- `type` will store the notification type as a string (e.g. `WelcomeNotification`)
+- `read_at` is the timestamp indicating when notification has been read
+- `data` is the serialized representation of `to_database()`
+- `notifiable` is the relationship returning the `Notifiable` entity a notification belongs to (e.g. `User`)
+- `created_at`, `updated_at` timestamps
+
+### Fetching notifications
+A notifiable entity has a `notifications` relationship that will returns the notifications for the entity:
+```python
+user = User.find(1)
+user.notifications.all() # == Collection of DatabaseNotification belonging to users
+```
+
+{% hint style="info" %}
+By default, notifications will be sorted by the `created_at` timestamp with the most recent notifications at the beginning of the collection.
+{% endhint %}
+
+If you want to get only the unread notifications or the read notifications you can use the two following helpers on a
+notifiable entity:
+```python
+user = User.find(1)
+user.unread_notifications.all() # == Collection of user unread DatabaseNotification
+user.read_notifications.all() # == Collection of user read DatabaseNotification
+```
+
+
+### Managing notifications
+You can mark a notification as read or unread with the following `mark_as_read` and `mark_as_unread` methods
+```python
+user = User.find(1)
+
+for notification in user.unread_notifications.all():
+    notification.mark_as_read()
+```
+
+{% hint style="info" %}
+Finally, keep in mind that database notifications can be used as any `Masonite ORM` models, meaning you
+can for example make more complex queries to fetch notifications, directly on the model.
+{% endhint %}
+```python
+from masonite.notifications import DatabaseNotification
+
+DatabaseNotification.all()
+DatabaseNotification.where("type", "WelcomeNotification")
+```
 
 ## Broadcast Notifications
-
 TODO
 
 ## Slack Notifications
-** Rewrite this part **
-
-
-Out of the box, Masonite notifications comes with Slack support as well in case we want to send a message to a specific slack group.
 
 {% hint style="info" %}
 NOTE: In order to use this feature fully, you'll need to generate a token from Slack. This token should have at minimum the `channels:read`, `chat:write:bot`, `chat:write:user` and `files:write:user` permission scopes. If your token does not have these scopes then parts of this feature will not work.
@@ -363,7 +435,7 @@ Before you can send notifications via Vonage, you need to install the `vonage` P
 $ pip install vonage
 ```
 
-Then you should add your `VONAGE_KEY` and `VONAGE_SECRET` credentials in `notifications.py` configuration file:
+Then you should configure the `VONAGE_KEY` and `VONAGE_SECRET` credentials in `notifications.py` configuration file:
 
 ```python
 # config/notifications.py
@@ -378,8 +450,31 @@ VONAGE = {
 You can also define (globally) `sms_from` which is the phone number or name that your SMS will be sent from. You can generate a phone number for your application in the Vonage dashboard.
 
 ### Formatting SMS Notifications
+If a notification supports being sent as a SMS, you should define a `to_vonage` method on the notification class to specify how to build the notification content.
+
+```python
+from masonite.notifications import NotificationFacade
+from masonite.notifications.components import VonageComponent
+
+class WelcomeNotification(NotificationFacade):
+    def to_vonage(self, notifiable):
+        return VonageComponent().text("Welcome!")
+```
+If the SMS notification contains unicode characters, you should call the unicode method when constructing the notification
+```python
+# WelcomeNotification.py
+    def to_vonage(self, notifiable):
+        return VonageComponent().text("Welcome unicode message!").set_unicode()
+```
 
 ### Overriding "from" setting
+The global `sms_from` number can be overriden in the notification:
+
+```python
+# WelcomeNotification.py
+    def to_vonage(self, notifiable):
+        return VonageComponent().text("Welcome!").sms_from("+123 456 789")
+```
 
 ### Routing your notifications
 
@@ -387,40 +482,63 @@ You should define the related `route_notification_for_vonage` method on your not
 
 ```python
 class User(Model, Notifiable):
-    # ...
 
     def route_notification_for_vonage(self, notification):
         return self.phone
         # or return [self.mobile_phone, self.land_phone]
 ```
 
+To send a SMS notification without having a notifiable entity you must use the `route` method
+```python
+notification.route("vonage", "+33612345678").notify(
+    WelcomeNotification()
+)
+```
 
 ## Adding Notifications drivers
-
-**Explain here how to develop new notifications drivers in external packages**
 
 Masonite ships with a handful of notification channels, but you may want to write your own drivers to deliver notifications via other channels. Masonite makes this process simple.
 
 ### Create a Notification driver class
 
-**TODO**
+Two methods need to be implemented in order to create a notification driver: `send` and `queue`.
 
 ```python
 from masonite.drivers import BaseDriver
 from masonite.notifications import NotificationContract
 
-class VoiceNotification(BaseDriver, NotificationContract)
+class NotificationVoiceDriver(BaseDriver, NotificationContract):
 
-    def send(self, notifiables, notification):
-        pass
+    def send(self, notifiable, notification):
+        """Specify here how to send the notification with this driver."""
+        data = self.get_data("voice", notifiable, notification)
+
+    def queue(self, notifiable, notification):
+        """Specify here how to queue the notification with this driver."""
+        data = self.get_data("voice", notifiable, notification)
 
 ```
+`get_data()` method will be available and will return the data defined in the `to_voice()` method of the notification.
 
-- template
-- send(notifiables, notification)
-- get_data()
 
-### Register it
+### Register the driver into your application.
 
-As any drivers you should register it into the Notification service provider ?
-Finally the best would be to scaffold this into a new Masonite package (**show resources**) so that community can use it.
+As any drivers it should be registered, through a custom provider for example:
+
+```python
+from masonite.provider import ServiceProvider
+
+class VoiceNotificationProvider(ServiceProvider):
+    wsgi = False
+
+    def register(self):
+        self.app.bind("NotificationVoiceDriver", NotificationVoiceDriver)
+```
+This provider should be added after (?) the `NotificationProvider`. That's it !
+
+{% hint style="info" %}
+Feel free to browse [notifications drivers code](https://github.com/MasoniteFramework/notifications/tree/master/) to better understand how to develop your own driver.
+{% endhint %}
+
+Then you could scaffold this code into a new [Masonite package](/advanced/creating-packages) so
+that community can use it 😉 !
