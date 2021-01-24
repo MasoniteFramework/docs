@@ -35,7 +35,7 @@ PROVIDERS = [
 This will add a new install:billing command to craft. Just run:
 
 ```text
-$ craft install:billing
+$ python craft install:billing
 ```
 
 This will create a new configuration file in config/billing.py
@@ -71,7 +71,7 @@ We'll need to create 2 new migrations: one to add columns to the users table and
 Let's first add 2 new columns to our users table.
 
 ```text
-$ craft migration add_subscription_info_to_users --table users
+$ python craft migration add_subscription_info_to_users --table users
 ```
 
 Now just add this column to the migration file:
@@ -85,7 +85,7 @@ with self.schema.table('users') as table:
 Now let's add a new subscriptions table.
 
 ```text
-$ craft migration create_subscriptions_table --create subscriptions
+$ python craft migration create_subscriptions_table --create subscriptions
 ```
 
 ```python
@@ -103,7 +103,7 @@ with self.schema.create('subscriptions') as table:
 Now just migrate the new migrations:
 
 ```text
-$ craft migrate
+$ python craft migrate
 ```
 
 ## Stripe Authentication Keys

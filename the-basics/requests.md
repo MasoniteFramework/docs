@@ -298,6 +298,9 @@ def show(self, request: Request):
 
 This will now allow Javascript to read the cookie.
 
+### Secure
+
+You can set secure cookies in by setting the `SECURE_COOKIES` environment variable to `True`
 ### **Reading**
 
 You can get all the cookies set from the browser
@@ -575,6 +578,27 @@ def show(self, request: Request):
         return request.back().with_errors(errors)
 ```
 
+### Redirecting Back With Success
+
+You can redirect back with success message:
+
+```python
+def show(self, request: Request):
+    errors = request.validate(
+        required(['email', 'password'])
+    )
+
+    if errors:
+        return request.back().with_errors(errors)
+
+    return request.redirect('users').with_success('Ok !')
+```
+
+{% hint style="info" %}
+You can also simply use the base helper `with_flash(key, value)` to redirect with other session data.
+{% endhint %}
+
+
 ### Redirecting Back With Inputs
 
 When redirecting back there are times where you will also want to flash the inputs to the session. With this you can simply use the `back()` method but if you want a bit more control you can use the `with_input()` method.
@@ -627,6 +651,8 @@ Note that by default, the secret key is pulled from your configuration file so y
 
 You can also get and set any headers that the request has.
 
+**NOTE that any headers set on the request class will be attached on the request class and will not return on the response. If you would like to see how to set response headers please see the Response documentation**
+
 You can get all WSGI information by printing:
 
 ```python
@@ -634,7 +660,7 @@ def show(self, request: Request):
     print(request.environ)
 ```
 
-This will print the environment setup by the WSGI server. Use this for development purposes.
+This will print the environment setup by the WSGI server. Use this for development or debugging purposes.
 
 You can also get a specific header:
 
@@ -643,57 +669,10 @@ def show(self, request: Request):
     request.header('AUTHORIZATION')
 ```
 
-This will return whatever the `HTTP_AUTHORIZATION` header if one exists. If that does not exist then the `AUTHORIZATION` header will be returned. If that does not exist then `None` will be returned.
+This will return whatever the `HTTP_AUTHORIZATION` header is if one exists. If that does not exist then the `AUTHORIZATION` header will be returned. If that does not exist then `None` will be returned.
 
-We can also set headers:
+Fetching headers is not case sensitive. This will match any variation of `AUTHORIZATION` or `Authorization` or `authorization` headers.
 
-```python
-def show(self, request: Request):
-    request.header('AUTHORIZATION', 'Bearer some-secret-key')
-```
-
-{% hint style="warning" %}
-Masonite will automatically prepend a `HTTP_` to the header being set for standards purposes so this will set the `HTTP_AUTHORIZATION` header. If you do not want the `HTTP` prefix then pass a third parameter:
-{% endhint %}
-
-```python
-request.header('AUTHORIZATION', 'Bearer some-secret-key')
-```
-
-This will set the `AUTHORIZATION` header **instead** of the `HTTP_AUTHORIZATION` header.
-
-You can also set headers with a dictionary:
-
-```python
-request.header({
-    'AUTHORIZATION': 'Bearer some-secret-key',
-    'Content-Type': 'application/json'
-})
-```
-
-## Status Codes
-
-Masonite will set a status code of `404 Not Found` at the beginning of every request. If the status code is not changed throughout the code, either through the developer or third party packages, as it passes through each Service Provider then the status code will continue to be `404 Not Found` when the output is generated. You do not have to explicitly specify this as the framework itself handles status codes. If a route matches and your controller method is about to be hit then Masonite will set `200 OK` and hit your route. This allows Masonite to specify a good status code but also allows you to change it again inside your controller method.
-
-You could change this status code in either any of your controllers or even a third party package via a Service Provider.
-
-For example, the Masonite Entry package sets certain status codes upon certain actions on an API endpoint. These can be `429 Too Many Requests` or `201 Created`. These status codes need to be set before the `StartProvider` is ran so if you have a third party package that sets status codes or headers, then they will need to be placed above this Service Provider in a project.
-
-If you are not specifying status codes in a package and simple specifying them in a controller then you can do so freely without any caveats. You can set status codes like so:
-
-```python
-request.status('429 Too Many Requests')
-```
-
-You can also use an integer which will find the correct status code for you:
-
-```python
-request.status(429)
-```
-
-This snippet is exactly the same as the string based snippet above.
-
-This will set the correct status code before the output is sent to the browser. You can look up a list of HTTP status codes from an online resource and specify any you need to. There are no limitations to which ones you can use.
 
 ## Get Request Method Type
 
@@ -706,7 +685,7 @@ def show(self, request: Request):
     return request.get_request_method() # 'PUT'
 ```
 
-## Changing Request Methods in Forms
+## Changing Request Methods in Forms and URLs
 
 Typically, forms only have support for `GET` and `POST`. You may want to change what HTTP method is used when submitting a form such as `PATCH`.
 
@@ -714,7 +693,7 @@ This will look like:
 
 ```markup
 <form action="/dashboard" method="POST">
-    <input type="hidden" name="request_method" value="PATCH">
+    <input type="hidden" name="__method" value="PATCH">
 </form>
 ```
 
@@ -726,7 +705,7 @@ or you can optionally use a helper method:
 </form>
 ```
 
-When the form is submitted, it will process as a PUT request instead of a POST request.
+When the form is submitted, it will process as a PATCH request instead of a POST request.
 
 This will allow this form to hit a route like this:
 
@@ -734,9 +713,21 @@ This will allow this form to hit a route like this:
 from masonite.routes import Patch
 
 ROUTES = [
-    Patch().route('/dashboard', 'DashboardController@update')
+    Patch('/dashboard', 'DashboardController@update')
 ]
 ```
+
+You can also specify the request method in the query string of the url to change it on a link:
+
+```markup
+<a href="/dashboard?__method=PATCH" rel="nofollow">Dashboard patch</a>
+```
+
+This link will use the same route as above.
+
+{% hint style="warning" %}
+Changing the request method on a link from the default `GET` method should be done with caution. It can be useful while testing, but is not typically recommended. Adding `rel="nofollow"` may prevent search engines from following the link and causing data corruption.
+{% endhint %}
 
 ## Request Information
 

@@ -327,7 +327,7 @@ Mailable classes are really helpful classes you can use to abstract some of the 
 You can make a mailable class by creating a class in your `app/mailables` directory. You can do so by running a craft command:
 
 ```python
-$ craft mailable WelcomeEmail
+$ python craft mailable WelcomeEmail
 ```
 
 Now you can build a mailable class which you can use to later send. Let's build a welcome email:

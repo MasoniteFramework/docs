@@ -85,7 +85,7 @@ if os.getenv('APP_DEBUG') == True:
 It is wise to check if the user signing into the dashboard is an admin only. We will set an `is_admin` flag on our users table by creating a new migration:
 
 ```text
-$ craft migration add_is_admin_to_users --table users
+$ python craft migration add_is_admin_to_users --table users
 ```
 
 And just quickly add a new column:
@@ -122,7 +122,7 @@ The BaseLink class is a class used for creating navigation links found on the si
 Let's first create the Service Provider for it:
 
 ```text
-$ craft provider HelloWorldProvider
+$ python craft provider HelloWorldProvider
 ```
 
 Great! Now let's create our link. We can do it in the same file as our Service Provider for now but feel free to create a separate file for it.
@@ -222,7 +222,7 @@ Views are also just as simple. It's is simple as creating a controller like any 
 Again let's continue with our "hello world" example. Let's make a HelloWorldController:
 
 ```text
-$ craft controller HelloWorld
+$ python craft controller HelloWorld
 ```
 
 Now remember, our route was localhost:8000/helloworld so let's add that to our ROUTES list. We'll import a helper for this as well:

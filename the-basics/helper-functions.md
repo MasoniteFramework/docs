@@ -226,7 +226,7 @@ DRIVERS = {
         'secret': 'J8shk...'
         'location': {
             'west': 'http://west.amazon.com/..'
-            'east': 'http://east.amazon.com/..'            
+            'east': 'http://east.amazon.com/..'
         }
     }
 }
@@ -320,7 +320,7 @@ def show(self, view: View):
 
 ### Collect
 
-You can use the same Collection class that orator uses when returning model collections. This can be used like so:
+You can use the same Collection class that ORM uses when returning model collections. This can be used like so:
 
 ```python
 from masonite.helpers import collect
@@ -353,4 +353,3 @@ query_string(qs)
 }
 """
 ```
-

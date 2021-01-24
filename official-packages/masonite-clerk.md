@@ -41,7 +41,7 @@ If you are in a virtual environment it is important you add your virtual environ
 We can now run:
 
 ```text
-$ craft publish clerk
+$ python craft publish clerk
 ```
 
 This will create a new configuration file in `config/payment.py`
@@ -74,7 +74,7 @@ These API keys can be found in your Stripe dashboard.
 We'll assume you want to add billable services to your users so we'll just add a few fields to our users table. Just run:
 
 ```text
-$ craft migration add_stripe_to_users --table users
+$ python craft migration add_stripe_to_users --table users
 ```
 
 Inside this migrations `up()` method we'll just copy these columns in:
@@ -90,7 +90,7 @@ with self.schema.table('users') as table:
 Next we'll do the same thing but will be creating a subscriptions table.
 
 ```text
-$ craft migration create_subscriptions_table --create subscriptions
+$ python craft migration create_subscriptions_table --create subscriptions
 ```
 
 Now just copy and paste these migrations in:
@@ -111,7 +111,7 @@ with self.schema.create('subscriptions') as table:
 Now that we've finished our migrations lets migrate them into our database:
 
 ```text
-$ craft migrate
+$ python craft migrate
 ```
 
 #### Billable Model

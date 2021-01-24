@@ -5,11 +5,11 @@ Masonite is the rapid application Python development framework that strives for 
 ## Some Notable Features Shipped With Masonite
 
 * Easily send emails with the Mail Provider and the SMTP and Mailgun drivers
-* Send websocket requests from your server with the Broadcast Provider and Pusher and Ably drivers
+* Send websocket requests from your server with the Broadcast Provider and Pusher, Ably and PubNub drivers
 * IOC container and auto resolving dependency injection.
 * Extremely simple static files configured and ready to go
 * Create job classes to push to your queues
-* Active Record style ORM called Orator
+* Active Record style ORM called Masonite ORM
 * An extremely useful command line tool called craft commands
 
 These are all shipped out of the box and ready to go. Use what you need when you need it and forget what you don't.
@@ -18,7 +18,7 @@ These are all shipped out of the box and ready to go. Use what you need when you
 
 In order to use Masonite, you’ll need:
 
-* Python 3.5+
+* Python 3.6+
 * Pip
 
 ### Linux
@@ -82,4 +82,3 @@ $ craft serve
 ```
 
 Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications.
-

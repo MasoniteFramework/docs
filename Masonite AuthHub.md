@@ -32,7 +32,7 @@ This will allow `craft publish` to find our dependencies installed on our virtua
 
 Publish AuthHub by running:
 
-    $ craft publish authhub
+    $ python craft publish authhub
 
 This will create or append to the `config/services.py` file. If you've published a package that has used the `config/services.py` file before than you may have to take the contents of the `AUTH_PROVIDERS` dictionary that was created and condense it down into a single dictionary.
 

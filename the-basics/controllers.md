@@ -12,7 +12,7 @@ Its very easy to create a controller with Masonite with the help of our `craft` 
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard
+$ python craft controller Dashboard
 ```
 {% endcode %}
 
@@ -28,7 +28,7 @@ Remember that Masonite will automatically append Controller to the end of all co
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard -e
+$ python craft controller Dashboard -e
 ```
 {% endcode %}
 
@@ -36,7 +36,7 @@ or
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard --exact
+$ python craft controller Dashboard --exact
 ```
 {% endcode %}
 
@@ -48,7 +48,7 @@ Resource controllers are controllers that have basic CRUD / resource style metho
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard -r
+$ python craft controller Dashboard -r
 ```
 {% endcode %}
 
@@ -56,7 +56,7 @@ or
 
 {% code title="terminal" %}
 ```text
-$ craft controller Dashboard --resource
+$ python craft controller Dashboard --resource
 ```
 {% endcode %}
 
@@ -66,29 +66,29 @@ this will create a controller that looks like:
 ```python
 """ A Module Description """
 
-class DashboardController: 
+class DashboardController:
  """Class Docstring Description
  """
 
-    def show(self): 
+    def show(self):
         pass
 
-    def index(self): 
+    def index(self):
         pass
 
-    def create(self): 
+    def create(self):
         pass
 
-    def store(self): 
+    def store(self):
         pass
 
-    def edit(self): 
+    def edit(self):
         pass
 
-    def update(self): 
+    def update(self):
         pass
 
-    def destroy(self): 
+    def destroy(self):
         pass
 ```
 {% endcode %}
@@ -190,7 +190,7 @@ def show(self):
 ```
 {% endcode %}
 
-Returning a paginated response directly will include the collection data, along with results metadata.
+<!-- Returning a paginated response directly will include the collection data, along with results metadata.
 
 Query parameters accepted are: 'page\_size' and 'page'. These will be handled directly as part of the response, there is no need to pass them in explicitly.
 
@@ -242,7 +242,7 @@ returns:
   "to": 15,
   "data": [ ... ]
 }
-```
+``` -->
 
 ## Passing Route Parameters
 
@@ -275,3 +275,25 @@ def show(self, user_id, view: View):
 
 You can specify parameters along with any other container resolving.
 
+## Single Action Controllers
+
+You can also create single action controllers.
+
+These controllers have a single method:
+
+```python
+class ActionController(Controller):
+
+    def __call__(self):
+        pass
+```
+
+Then in your routes file you can just add the controller name:
+
+```python
+ROUTES = [
+    Get('/some/route', 'ActionController')
+]
+```
+
+And Masonite will know to call the `__call__` method.

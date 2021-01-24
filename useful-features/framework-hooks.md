@@ -76,7 +76,7 @@ Remeber that all we need to do is call is add it to the container and append the
 We can create a new Service Provider to store our hooks so let's make one.
 
 ```text
-$ craft provider SentryServiceProvider
+$ python craft provider SentryServiceProvider
 ```
 
 This will create a new Service Provider inside `app/providers/SentryServiceProvider.py` that looks like:

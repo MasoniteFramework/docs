@@ -78,6 +78,7 @@ class MigrationForUsersTable(Migration):
 | `table.text()` | TEXT equivalent column. |
 | `table.unsigned_integer()` | UNSIGNED INT equivalent column. |
 | `table.unsigned()` | Alias for `unsigned_integer` |
+| `table.soft_deletes()` | A nullable DATETIME column named `deleted_at`. This is used by the [SoftDeletes](models.md/#soft-deleting) scope. |
 
 ## Modifiers
 
@@ -100,6 +101,8 @@ In addition to columns, you can also create indexes. Below are the available ind
 | `table.primary()` | Make the column use the PRIMARY KEY modifer. |
 | `table.unique()` | Makes a unique index. Can pass in a column `table.unique('email')` or list of columns `table.unique(['email', 'phone_number'])`. |
 | `table.index()` | Creates an index on the column. `table.index('email')` |
+
+The default primary key is often set to an auto-incrementing integer, but you can [use UUID instead](models.md#changing-primary-key-to-use-uuid).
 
 ## Foreign Keys
 
@@ -156,9 +159,19 @@ At any time you can get the migrations that have run or need to be ran:
 $ masonite-orm migrate:status
 ```
 
+## Seeing SQL Dumps
+
+If you would like to see just the SQL that would run instead of running the actual migrations, you can specify the `-s` flag (short for `--show`). This works on the migrate and migrate:rollback commands.
+
+```
+python craft migrate -s
+```
+
 ## Changing Columns
 
-**There currently is no "change" functionality, yet. In order to change a column you currently will have to drop the column and then create a new one**
+If you would like to change a column you should simply specify the new column and then specify a `.change()` method on it.
+
+Here is an example of changing an email field to a nullable field:
 
 ```python
 class MigrationForUsersTable(Migration):
@@ -167,7 +180,7 @@ class MigrationForUsersTable(Migration):
         Run the migrations.
         """
         with self.schema.table("users") as table:
-            table.drop_column('email')
+            table.string('email').nullable().change()
 
         with self.schema.table("users") as table:
             table.string('email').unique()
@@ -179,4 +192,3 @@ class MigrationForUsersTable(Migration):
         """
         pass
 ```
-

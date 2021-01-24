@@ -62,7 +62,7 @@ DATABASES = {
   # ...
 }
 
-ConnectionResolver.set_connection_details(DATABASES)
+ConnectionResolver().set_connection_details(DATABASES)
 ```
 
 After this you have successfully setup Masonite ORM in your project!

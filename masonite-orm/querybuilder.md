@@ -290,6 +290,80 @@ You can delete many records as well. For example, deleting all records where act
 builder.where('active', 0).delete()
 ```
 
+## Find Or Fail
+
+There are several methods that will throw exceptions if it cannot find records. These are useful for frameworks that handle these exceptions or even in your own code to catch an example:
+
+```python
+builder.find_or_fail(1)
+builder.first_or_fail()
+```
+
+These methods will throw a `masoniteorm.exceptions.ModelNotFound` exception. 
+
+Additionally, designed for frameworks that support it, you can use:
+
+```python
+builder.find_or_404(1)
+```
+
+This method will throw a `masoniteorm.exceptions.HTTP404` exception.
+
+# Pagination
+
+Masonite ORM provides a very easy way to paginate through your records. There are times on a specific page you would like someone to only see 10 records and then show them a set of buttons they can click to go through each page. You can paginate records easily by doing:
+
+```python
+builder.paginate(10, page=2)
+```
+
+This will return a `LengthAwarePaginator` class. This will also get a count of all the records in the table using the `COUNT` representation of the database.
+
+You may also serialize this to show a dictionary of data and meta data:
+
+```python
+{
+    'data': [
+        {'id': 1, 'name': 'bill', ...}
+        {'id': 2, 'name': 'Joe', ...}
+    ...
+    ]
+    'meta': {
+        'total': 14, 
+        'next_page': 2, 
+        'count': 1, 
+        'previous_page': None, 
+        'last_page': 14, 
+        'current_page': 1
+    }
+}
+```
+
+If you would not like to see the total and would rather simply see previous and next buttons you can use simple pagination:
+
+```python
+builder.simple_paginate(10, page=2)
+```
+
+Simple pagination is exactly the same as length aware pagination except the meta field is different and it does not try to get a total count of all records:
+
+```python
+{
+    'data': [
+        {'id': 1, 'name': 'bill', ...}
+        {'id': 2, 'name': 'Joe', ...}
+    ...
+    ]
+    'meta': {
+        'next_page': 2, 
+        'count': 10, 
+        'previous_page': None, 
+        'current_page': 1
+    }
+}
+```
+    
+
 ## Available Methods
 
 |  |  |  |

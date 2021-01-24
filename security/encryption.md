@@ -19,7 +19,7 @@ Other frameworks use cryptographic signing which attaches a special key to your 
 In your `.env` file, you will find a setting called `KEY=your-secret-key`. This is the SALT that is used to encrypt and decrypt your cookies. It is important to change this key sometime before development. You can generate new secret keys by running:
 
 ```text
-$ craft key
+$ python craft key
 ```
 
 This will generate a new key in your terminal which you can copy and paste into your `.env` file. Your `config/application.py` file uses this environment variable to set the `KEY` configuration setting.
@@ -27,7 +27,7 @@ This will generate a new key in your terminal which you can copy and paste into 
 Additionally you can pass the `--store` flag which will automatically set the `KEY=` value in your `.env` file for you:
 
 ```text
-$ craft key --store
+$ python craft key --store
 ```
 
 {% hint style="danger" %}

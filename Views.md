@@ -21,7 +21,7 @@ All views are rendered with Jinja2 so can use all the Jinja2 code you are used t
 Since all views are located in `resources/templates`, we can use simply create all of our views manually here or use our `craft` command tool. To make a view just run:
 
 ```
-$ craft view hello
+$ python craft view hello
 ```
 
 This will create a template under `resources/templates/hello.html`.

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Masonite understands the developer need for building modern web applications so Masonite 1.4+ ships with WebSocket support. With a new Service Provider, configuration file and support for the `pusher` and `ably` drivers out of the box, we can now have full web socket support quickly and easily.
+Masonite understands the developer need for building modern web applications so Masonite 1.4+ ships with WebSocket support. With a new Service Provider, configuration file and support for the `pusher`, `ably` and `pubnub` drivers out of the box, we can now have full web socket support quickly and easily.
 
 ## Configuration
 
@@ -23,11 +23,16 @@ DRIVERS = {
     },
     'ably': {
         'secret': os.getenv('ABLY_SECRET', 'api:key')
+    },
+    'pubnub': {
+        'secret': env('PUBNUB_SECRET', ''),
+        'publish_key': env('PUBNUB_PUBLISH_KEY', ''),
+        'subscribe_key': env('PUBNUB_SUBSCRIBE_KEY', '')
     }
 }
 ```
 
-Each driver may require it's own individual setting values so be sure to check the documentation for the driver you are using. For the `ably` and `pusher` drivers, these are the only values you will need.
+Each driver may require it's own individual setting values so be sure to check the documentation for the driver you are using. For the `ably`, `pusher` and `pubnub` drivers, these are the only values you will need.
 
 Make sure that the key in the `DRIVER` setting has a corresponding key in the `DRIVERS` setting.
 
@@ -50,6 +55,17 @@ If you are using Ably you will need the ably driver:
 $ pip install ably
 ```
 {% endcode %}
+
+### PubNub
+
+If you are using PubNub you will need the PubNub library:
+
+{% code title="terminal" %}
+```text
+$ pip install pubnub
+```
+{% endcode %}
+
 
 ## Usage
 

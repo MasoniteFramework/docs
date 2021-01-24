@@ -8,16 +8,14 @@ Masonite works hard to be fast and easy from install to deployment so developers
 If you are more of a visual learner you can watch Masonite related tutorial videos at [MasoniteCasts.com](https://masonitecasts.com)
 {% endhint %}
 
-**NOTE: Masonite 2.3 is no longer compatible with the `masonite-cli` tool. Please uninstall that by running `pip uninstall masonite-cli`. If you do not uninstall `masonite-cli` you will have command clashes**
-
 ## Some Notable Features Shipped With Masonite
 
 * Easily send emails with the Mail Provider and the SMTP and Mailgun drivers.
-* Send websocket requests from your server with the Broadcast Provider and Pusher and Ably drivers.
+* Send websocket requests from your server with the Broadcast Provider and Pusher, Ably and PubNub drivers.
 * IOC container and auto resolving dependency injection.
 * Service Providers to easily add functionality to the framework.
 * Extremely simple static files configured and ready to go.
-* Active Record style ORM called Orator.
+* Active Record style ORM called Masonite ORM.
 * An extremely useful command line tool called craft commands.
 * Extremely extendable.
 
@@ -27,12 +25,12 @@ These, among many other features, are all shipped out of the box and ready to go
 
 In order to use Masonite, you’ll need:
 
-* Python 3.5+
+* Python 3.6+
 * Latest version of OpenSSL
 * Pip3
 
 {% hint style="warning" %}
-All commands of python and pip in this documentation is assuming they are pointing to the correct Python 3 versions. For example, anywhere you see the `python` command ran it is assuming that is a Python 3.5+ Python installation. If you are having issues with any installation steps just be sure the commands are for Python 3.5+ and not 2.7 or below.
+All commands of python and pip in this documentation is assuming they are pointing to the correct Python 3 versions. For example, anywhere you see the `python` command ran it is assuming that is a Python 3.6+ Python installation. If you are having issues with any installation steps just be sure the commands are for Python 3.6+ and not 2.7 or below.
 {% endhint %}
 
 ### Linux
@@ -176,4 +174,3 @@ You can learn more about craft by reading [The Craft Command](https://github.com
 {% hint style="info" %}
 Masonite uses romantic versioning instead of semantic versioning. Because of this, all minor releases \(2.0.x\) will contain bug fixes and fully backwards compatible feature releases. Be sure to always keep your application up to date with the latest minor release to get the full benefit of Masonite's romantic versioning.
 {% endhint %}
-

@@ -27,7 +27,7 @@ This package extends the current testing framework so you will add the TestCase 
 Let's build a new `TestCase` and test the homepage that shows when Masonite is first installed:
 
 ```text
-$ craft test HomePage
+$ python craft test HomePage
 ```
 
 This will generate a new test that looks like this:
