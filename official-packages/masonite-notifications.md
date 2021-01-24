@@ -2,22 +2,22 @@
 
 ## Introduction
 
-Masonite Notifications can easily add new notification sending semantics for your Masonite project. These notifications could be sending an email or a slack message. This package is designed to be extremely simple and modular. New notification drivers can be added through third party integrations (Masonite packages).
+Masonite Notifications help you to easily add sending notifications to your project. These notifications could be sending an email or a slack message. This package is designed to be extremely simple and modular. New notification drivers can be added through third party integrations (Masonite packages).
 
-Masonite provides support for sending notifications accross mail, Slack and SMS. Notifications may also be stored in a database so they may be displayed in your web interface.
+For now Masonite provides support for sending notifications across `E-mail`, `Slack` and `SMS`. Notifications can also be stored in a database so they may be displayed in your web interface.
 
 ## Installation
 
-In order to get started using Masonite Notifications, we first have to pip install it:
+In order to get started using Masonite Notifications we need to install the package:
 
 ```text
 $ pip install masonite-notifications
 ```
 
-And then add the provider to our `PROVIDERS` list:
+And then add the provider to our `PROVIDERS` list (after `ORMProvider`):
 
 ```python
-from notifications.providers import NotificationProvider
+from masonite.notifications.providers import NotificationProvider
 ...
 
 PROVIDERS = [
@@ -25,6 +25,10 @@ PROVIDERS = [
     NotificationProvider,
     ...
 ]
+```
+Finally you must publish the configuration file:
+```text
+$ python craft publish NotificationProvider --tag=config
 ```
 
 Thats it! Let's see how it works!
@@ -35,21 +39,21 @@ There are a few concepts we'll need to cover so you can fully understand how Not
 
 ## Creating a Notification
 
-In order to use it we can create a notification class. We can do this simply with a new craft command.
+In order to send a notification, we need to create a notification class. We can do this simply with a new craft command.
 
 ```text
-$ python craft notification WelcomeNotification
+$ python craft notification Welcome
 ```
 
-This will create a notification in the `app/notifications` directory. Feel free to move it wherever you like though.
+This will create a `WelcomeNotification` file in the `app/notifications` directory. Feel free to move it wherever you like though.
 
 This will create a class like so:
 
 ```python
 ''' A WelcomeNotification Notification '''
-from masonite.notifications import Notification
+from masonite.notifications import NotificationFacade
 
-class WelcomeNotification(Notification):
+class WelcomeNotification(NotificationFacade):
 
     def to_mail(self, notifiable):
         pass
@@ -64,8 +68,7 @@ class WelcomeNotification(Notification):
 
 ## Defining Notifiables entities
 
-Models can be defined as `Notifiable` to allow notifications to be sent to them. The most common
-use case would be to set `User` model as `Notifiable`.
+ORM Models can be defined as `Notifiable` to allow notifications to be sent to them. The most common use case is to set `User` model as `Notifiable` as we often send notifications to user.
 
 ### Set Model as Notifiable
 
@@ -75,11 +78,10 @@ To set a Model as Notifiable, just add the `Notifiable` mixin to it:
 from masonite.notifications import Notifiable
 
 class User(Model, Notifiable):
-    ...
+    # ...
 ```
 
-You can now send notifications to it with `user.notify()` method. When using `database` notification
-driver some getters are available to fetch user notifications (read/unread).
+You can now send notifications to it with `user.notify()` method.
 
 ### Define routing
 
@@ -90,6 +92,8 @@ the notification or a list of recipient fields data.
 For example, with `mail` driver you can define:
 
 ```python
+from masonite.notifications import Notifiable
+
 class User(Model, Notifiable):
     ...
     def route_notification_for_mail(self):
@@ -97,7 +101,7 @@ class User(Model, Notifiable):
 ```
 
 This is actually the default behaviour of the mail driver so you won't have to write that but you can customize it
-to your needs if you don't have the same field name or if you want to add some logic to get the recipient email.
+to your needs if your User model don't have `email` field or if you want to add some logic to get the recipient email.
 
 ## Sending a Notification
 
@@ -106,14 +110,15 @@ to your needs if you don't have the same field name or if you want to add some l
 Every notification class has a `via` method that determines on which channels the notification will be delivered. Notifications may be sent on the `mail`, `database`, `broadcast`, `slack` and `vonage` channels.
 
 {% hint style="info" %}
-If you would like to use an other delivery channel, feel free to check if a community driver has been developed for or [create your own driver and share it with the community](#) !
+If you would like to use an other delivery channel, feel free to check if a community driver has been developed for it or [create your own driver and share it with the community](#) !
 {% endhint %}
 
-`via` method should returns a list of the channels you want your notification to be delivered on.
-This method receives a `notifiable` instance.
+`via` method should returns a list of the channels you want your notification to be delivered on. This method receives a `notifiable` instance.
 
 ```python
-class WelcomeNotification(Notification):
+from masonite.notifications import NotificationFacade
+
+class WelcomeNotification(NotificationFacade):
     ...
     def via(self, notifiable):
         return ["mail", "database"]
@@ -137,18 +142,19 @@ def register(self, view: View):
     return view.render("confirmation")
 ```
 
-- through `send` method of the Notification module
+- through `send` method of the Notification service
 
 ```python
 # RegisterController.py
+from masonite.notifications import Notification
+
 def register(self, view: View, notification: Notification):
     user = self.request.user()
-    Notification.send(user, WelcomeNotification())
+    notification.send(user, WelcomeNotification())
     return view.render("confirmation")
 ```
 
-This last method comes handy when sending notifications to a batch of entities (which is not directly
-possible with previous without for loop):
+This last method comes handy when sending notifications to a batch of entities (which is not directly possible with previous without for loop):
 
 ```python
 users = User.all()
@@ -157,23 +163,25 @@ Notification.send(users, WelcomeNotification())
 
 ### To Anonymous Users / On-demand
 
-Sometimes you want to send a notification to someone not registered as a User in your database,
-or which is not related to a Notifiable entity. It is possible with the `Notification` module:
+Sometimes you want to send a notification to someone not registered as a User in your database, or which is not related to a `Notifiable` entity. It is possible with the `Notification` service:
 
 ```python
 # RegisterController.py
+from masonite.notifications import Notification
+
 def register(self, view: View, notification: Notification):
-    Notification.route('mail', 'sam@masonite.com').send(WelcomeNotification())
+    notification.route('mail', 'sam@masonite.com').send(WelcomeNotification())
     return view.render("confirmation")
 ```
 
-If the notification is delivered to multiple channels you can define the different routes
-at the same time:
+If the notification needs to be delivered to multiple channels you can chain the different routes:
 
 ```python
 # RegisterController.py
+from masonite.notifications import Notification
+
 def register(self, view: View, notification: Notification):
-    Notification.route('mail', 'sam@masonite.com') \
+    notification.route('mail', 'sam@masonite.com') \
         .route('slack', '#general') \
         .send(WelcomeNotification())
     return view.render("confirmation")
@@ -186,65 +194,74 @@ entity is attached to it.
 
 ### Queue notifications
 
-**To (re)implement and document**
-
 If you would like to queue the notification then you just need to inherit the `ShouldQueue` class and it will automatically send your notifications into the queue to be processed later. This is a great way to speed up your application:
 
 ```python
-from masonite.notifications import Notification
+from masonite.notifications import NotificationFacade
 from masonite.queues import ShouldQueue
 
-class WelcomeNotification(Notifiable, ShouldQueue):
-    ...
+class WelcomeNotification(NotificationFacade, ShouldQueue):
+    # ...
 ```
 
 ## Mail Notifications
 
-If a notification supports being sent as an email, you should define a `to_mail` method on the notification class.
+If a notification supports being sent as an email, you should define a `to_mail` method on the notification class to specify how to build the notification content.
 This method should returns either:
 
-- a [Mailable](#)
-- a MailComponent combination
-- (soon) Markdown
-- (soon) MJML support (maybe done through view actually)
+- a [Mailable](/useful-features/mail#mailable-classes)
+- a MailComponent based email
 
 ### Using Mailable
 
 ```python
-# WelcomeEmail is a Mailable
-def to_mail(self, notifiable):
-    return WelcomeEmail(notifiable.name).to(notifiable.email)
+from masonite.notifications import NotificationFacade
+
+# here WelcomeEmail is a Mailable
+class WelcomeNotification(NotificationFacade):
+    def to_mail(self, notifiable):
+        return WelcomeEmail(notifiable)
 ```
+then in the WelcomeEmail Mailable class you can use notifiable data.
 
 ### Using Mail Components
 
-You can combine existing handy components to quickly create a cool email or you can also use a view
-to render your email.
+You can:
+- combine existing handy components to quickly create a cool email
+- use a view to render your email.
 
 ```python
-def to_mail(self, notifiable):
-    return MailComponent()
-        .subject('New email subject') \
-        .panel('GBALeague.com') \
-        .heading(f' {notifiable.name} you have created a new account!') \
-        .line('We greatly value your service!') \
-        .line('Attached is an invoice for your recent purchase') \
-        .action('Sign Back In', href="http://gbaleague.com") \
-        .line('See you soon! Game on!') \
+from masonite.notifications import NotificationFacade
+from masonite.notifications.components import MailComponent
+
+class WelcomeNotification(NotificationFacade):
+
+    def to_mail(self, notifiable):
+        return MailComponent()
+            .subject('New email subject') \
+            .panel('GBALeague.com') \
+            .heading(f' {notifiable.name} you have created a new account!') \
+            .line('We greatly value your service!') \
+            .line('Attached is an invoice for your recent purchase') \
+            .action('Sign Back In', href="http://gbaleague.com") \
+            .line('See you soon! Game on!') \
 ```
+This will build the email with the different blocks in the specified order.
 
 ```python
-# will render the mail with resources/templates/emails/welcome.html
-def to_mail(self, notifiable):
-    return MailComponent()
-        .subject('New email subject') \
-        .view('emails.welcome', {"name": notifiable.name}) \
+from masonite.notifications import NotificationFacade
+from masonite.notifications.components import MailComponent
+
+class WelcomeNotification(NotificationFacade):
+
+    def to_mail(self, notifiable):
+        return MailComponent()
+            .subject('New email subject') \
+            .view('emails.welcome', {"name": notifiable.name}) \
 ```
+This will render the mail with the view located at `resources/templates/emails/welcome.html`.
 
-The email will looked like:
-**ADD IMAGE**
-
-Let's walk through the different options to build an email notification and what they do.
+You can find below the different components that you can use when building an email based on `MailComponent`
 
 | Method       | Description                                                                                                                                                                    | Example                                                                             |
 | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- |
