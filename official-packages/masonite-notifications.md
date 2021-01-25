@@ -484,7 +484,7 @@ The second parameter can be a channel name, a channel ID or a webhook URL.
 {% hint style="warning" %}
 When specifying channel names you must keep `#` in the name as in the example. Based on this name
 a reverse lookup will be made to find the corresponding Slack channel ID. If you want to avoid this extra
-call, you can specify directly the channel ID (right click on Slack channel > Copy Name > the ID is at the end of url)
+call, you can get the channel ID in your Slack workspace (right click on a Slack channel > Copy Name > the ID is at the end of url)
 {% endhint %}
 
 
