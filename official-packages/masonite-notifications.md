@@ -359,9 +359,9 @@ TODO
 
 ## Slack Notifications
 
-Notifications can be sent to Slack very easily. This can be achieved via [different ways](https://api.slack.com/messaging/sending#sending_methods). Here in Masonite, two options are available:
+Notifications can be sent to your Slack workspace very easily. This can be achieved via [different ways](https://api.slack.com/messaging/sending#sending_methods). Here in Masonite, two options are available:
 - Slack Incoming Webhooks [more here](https://api.slack.com/messaging/webhooks)
-- Slack Web API[more here](https://api.slack.com/methods/chat.postMessage)
+- Slack Web API [more here](https://api.slack.com/methods/chat.postMessage)
 
 ### Configure Slack integration
 
