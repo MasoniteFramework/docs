@@ -306,7 +306,7 @@ This method should return `str`, `dict` or `JSON` data (as it will be saved into
 You also need to add `database` channel to the `via` method to enable database notification storage.
 
 ### Notification Model
-The notification model have the following fields:
+The notification model has the following fields:
 - `id` is the primary key of the model (defined with UUID4)
 - `type` will store the notification type as a string (e.g. `WelcomeNotification`)
 - `read_at` is the timestamp indicating when notification has been read
