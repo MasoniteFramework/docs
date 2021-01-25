@@ -2,9 +2,13 @@
 
 ## Introduction
 
-Masonite Notifications help you to easily add sending notifications to your project. These notifications could be sending an email or a slack message. This package is designed to be extremely simple and modular. New notification drivers can be added through third party integrations (Masonite packages).
+Masonite Notifications help you to easily add sending notifications to your project. These notifications could be sending an email or a Slack message. This package is designed to be extremely simple and modular. New notification drivers can be added through third party integrations (Masonite packages).
 
-For now Masonite provides support for sending notifications across `E-mail`, `Slack` and `SMS`. Notifications can also be stored in a database so they may be displayed in your web interface.
+### Features
+- Send `E-mail`, `Slack` and `SMS` notifications
+- Store notifications in a database so they may be displayed in your web interface.
+- Queue notifications
+- Broadcast notifications
 
 ## Installation
 
@@ -17,13 +21,13 @@ $ pip install masonite-notifications
 And then add the provider to our `PROVIDERS` list (after `ORMProvider`):
 
 ```python
-from masonite.notifications.providers import NotificationProvider
+from masonite.notifications import NotificationProvider
 ...
 
 PROVIDERS = [
-    ...
+    # ...
     NotificationProvider,
-    ...
+    # ...
 ]
 ```
 Finally you must publish the configuration file:
@@ -31,11 +35,7 @@ Finally you must publish the configuration file:
 $ python craft publish NotificationProvider --tag=config
 ```
 
-Thats it! Let's see how it works!
-
-## Usage
-
-There are a few concepts we'll need to cover so you can fully understand how Notifications work. First we will cover the high level stuff and then slowly work down into the lower level implementations. For the purposes of this documentation, we will walk through how to setup a welcome notification so we can send an email when a user signs up.
+Thats it! Let's see how it works! There are a few concepts we'll need to cover so you can fully understand how Notifications work. First we will cover the high level stuff and then slowly work down into the lower level implementations.
 
 ## Creating a Notification
 
@@ -359,73 +359,134 @@ TODO
 
 ## Slack Notifications
 
+Notifications can be sent to Slack very easily. This can be achieved via [different ways](https://api.slack.com/messaging/sending#sending_methods). Here in Masonite, two options are available:
+- Slack Incoming Webhooks [more here](https://api.slack.com/messaging/webhooks)
+- Slack Web API[more here](https://api.slack.com/methods/chat.postMessage)
+
+### Configure Slack integration
+
+#### Slack Incoming Webhooks
+You will need to [configure an "Incoming Webhook"](https://masoniteproject.slack.com/apps/A0F7XDUAZ-incoming-webhooks) integration for your Slack workspace. This integration will provide you with a URL you may use when routing Slack notifications. This URL will target a specific Slack channel.
+
+#### Slack Web API
+You will need to [generate a token](https://api.slack.com/web#slack-web-api__authentication) to interact with your Slack workspace.
 {% hint style="info" %}
-NOTE: In order to use this feature fully, you'll need to generate a token from Slack. This token should have at minimum the `channels:read`, `chat:write:bot`, `chat:write:user` and `files:write:user` permission scopes. If your token does not have these scopes then parts of this feature will not work.
+This token should have at minimum the `channels:read`, `chat:write:bot`, `chat:write:user` and `files:write:user` permission scopes. If your token does not have these scopes then parts of this feature will not work.
 {% endhint %}
 
-Going back to our WelcomeNotification, we can simply specify a new method called `slack`.
+Then you can define this token globally in `config/notifications.py` file as `SLACK_TOKEN` environment variable. Or you can configure different tokens (with eventually different scopes) per notifications (more here)[TODO].
+
+### Formatting Notifications
+
+If a notification supports being sent to Slack, you should define a `to_slack` method on the notification class to specify how to build the notification content.
 
 ```python
-class WelcomeNotification(Notifiable):
+from masonite.notifications import NotificationFacade
+from masonite.notifications.components import SlackComponent
 
-    def mail(self):
-        return self.subject('New account signup!') \
-            .driver('smtp') \
-            .panel('GBALeague.com') \
-            .heading('You have created a new account!') \
-            .line('We greatly value your service!') \
-            .line('Attached is an invoice for your recent purchase') \
-            .action('Sign Back In', href="http://gbaleague.com") \
-            .line('See you soon! Game on!') \
-            .view('/notifications/snippets/mail/heading',
-                  {'message': 'Welcome To The GBA!'})
-
-      def slack(self):
-          pass
-```
-
-Notice the new slack method at the bottom. we will use this method to build our slack notification. Again we will show you a full example and then run through all the methods:
-
-```python
-class WelcomeNotification(Notifiable):
-
-    def mail(self):
-        return self.subject('New account signup!') \
-            .driver('smtp') \
-            .panel('GBALeague.com') \
-            .heading('You have created a new account!') \
-            .line('We greatly value your service!') \
-            .line('Attached is an invoice for your recent purchase') \
-            .action('Sign Back In', href="http://gbaleague.com") \
-            .line('See you soon! Game on!') \
-            .view('/notifications/snippets/mail/heading',
-                  {'message': 'Welcome To The GBA!'})
-
-    def slack(self):
-        return self.token(os.getenv('BOT')) \
-            .text('Masonite Notification: Read The Docs!, https://docs.masoniteproject.com/') \
+class WelcomeNotification(NotificationFacade):
+    def to_slack(self, notifiable):
+        return SlackComponent().text('Masonite Notification: Read The Docs!, https://docs.masoniteproject.com/') \
             .channel('#bot') \
             .as_user('Masonite Bot') \
-            .icon(':fire:') \
-            .button('Sure!', "https://docs.masoniteproject.com/")
-```
 
-### Options
+    def via(self):
+        return ["email", "slack"]
+```
+You can see that the notification content is based on the `SlackComponent` class. All the options available are listed here:
 
 | Method                | Description                                                                                                                                                                                                                                                                   | Example                                                                                                |
 | :-------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| .token\(\)            | This is your Slack token that has the correct permission scopes.                                                                                                                                                                                                              | .token\('xoxp-359926262626-35...'\)                                                                    |
 | .text\(\)             | The text you want to show in the message                                                                                                                                                                                                                                      | .text\('Welcome to Masonite!'\)                                                                        |
-| .channel\(\)          | The channel you want to broadcast to. If the value you supply starts with a \# sign then Notifications will make a POST request with your token to the Slack channel list API and get the channel ID. You can specify the channel ID directly if you don't want this behavior | .channel\('\#general'\) .channel\('CHSUU862'\)                                                         |
-| .as_user\(\)          | The username you want to show as the message                                                                                                                                                                                                                                  | .as_user\('Masonite Bot'\)                                                                             |
-| .icon\(\)             | The icon you want to show. This needs to be a Slack emoji                                                                                                                                                                                                                     | .icon\(':fire:'\)                                                                                      |
+| .to\(\)          | The channel you want to broadcast to. If the value you supply starts with a \# sign then Notifications will make a POST request with your token to the Slack channel list API and get the channel ID. You can specify the channel ID directly if you don't want this behavior | .to\('\#general'\) .to\('CHSUU862'\)                                                         |
+| .send_from\(\)          | The username you want to show as the message sender. You can also specify either the `url` or `icon` that will be displayed as the sender.                                                                                                                                                                                                                             | .send_from\('Masonite Bot', icon=":ghost:"\)                                                                             |
 | .as_current_user\(\)  | This sets a boolean value to True on whether the message should show as the currently authenticated user.                                                                                                                                                                     | .as_current_user\(\)                                                                                   |
+| .link_names\(\)  | This enables finding and linking channel names and usernames in message.                                                                                                                                                                      | .link_names\(\)                                                                                   |
+| .can_reply\(\)  | This auhtorizes replying back to the message.                                                                                                                                                                      | .can_reply\(\)                                                                                   |
 | .without_markdown\(\) | This will not parse any markdown in the message. This is a boolean value and requires no parameters.                                                                                                                                                                          | .without_markdown\(\)                                                                                  |
-| .dont_unfurl\(\)      | This sets a boolean to False on whether the message should show any attachments. Usually slack will show an icon of the website when posting a link. This disables that feature for the current message.                                                                      | .dont_unfurl\(\)                                                                                       |
+| .unfurl_links\(\)      | This enable showing message attachments and links previews. Usually slack will show an icon of the website when posting a link. This enables that feature for the current message.                                                                      | .unfurl_links\(\)                                                                                       |
 | .as_snippet\(\)       | Used to post the current message as a snippet instead of as a normal message. This option has 3 keyword arguments. The `file_type`, `name`, and `title`. This uses a different API endpoint so some previous methods may not be used.                                         | .as_snippet\(file_type='python', name='snippet', title='Awesome Snippet'\)                             |
-| .comment\(\)          | Only used when using the .as_snippet\(\) method. This will set a comment on the snippet.                                                                                                                                                                                      | .comment\('Great Snippet'\)                                                                            |
-| .button\(\)           | Used to create action buttons under a message. This requires `text` and a `url` but can also contain `style`, and `confirm`                                                                                                                                                   | .button\('Sure!', '[http://google.com](http://google.com)', style='primary', confirm='Are you sure?'\) |
-| .dry\(\)              | Sets all the necessary fields but does not actually send the email. This is great for testing purposes. This takes no parameters                                                                                                                                              | .dry\(\)                                                                                               |
+| .token\(\)            | Override the globally configured token.                                                                                                                                                                                                              | .token\('xoxp-359926262626-35...'\)                                                                    |
+
+
+### Advanced Formatting
+Slack notifications can use [Slack Blocks Kit](https://api.slack.com/block-kit/building) to build more complex notifications.
+Before using this you just have to install `slackblocks` python API to handle Block Kit formatting.
+```text
+$ pip install slackblocks
+```
+
+Then you can import most of the blocks available in Slack documentation and start building your notification. You need to use the `block()` option. Once again you can chain as many blocks as you want.
+```python
+from masonite.notifications import NotificationFacade
+from masonite.notifications.components import SlackComponent
+from slackblocks import HeaderBlock, ImageBlock, DividerBlock
+
+
+class WelcomeNotification(NotificationFacade):
+    def to_slack(self, notifiable):
+        return SlackComponent() \
+            .text('Notification text') \
+            .channel('#bot') \
+            .block(HeaderBlock("Header title")) \
+            .block(DividerBlock()) \
+            .block(ImageBlock("https://path/to/image", "Alt image text", "Image title"))
+
+    def via(self):
+        return ["email", "slack"]
+```
+
+You can find all blocks name and options in [`slackblocks` documentation](https://github.com/nicklambourne/slackblocks#usage) and more information in [Slack blocks list](https://api.slack.com/reference/block-kit/blocks).
+
+{% hint style="warning" %}
+Some blocks or elements might not be yet available in `slackblocks`, but most of them should be there.
+{% endhint %}
+
+
+### Routing your notifications
+
+You should define the related `route_notification_for_slack` method on your notifiable to return either
+- a webhook URL or a list of webhook URLs (if you're using [Incoming Webhooks](/#slack-incoming-webhooks))
+- a channel name/ID or a list of channels names/IDs (if you're using [Slack Web API](/#slack-web-api))
+
+```python
+class User(Model, Notifiable):
+
+    def route_notification_for_slack(self, notification):
+        """Examples for Incoming Webhooks."""
+        # one webhook
+        return "https://hooks.slack.com/services/..."
+        # multiple webhooks
+        return ["https://hooks.slack.com/services/...", "https://hooks.slack.com/services/..."]
+```
+
+```python
+class User(Model, Notifiable):
+
+    def route_notification_for_slack(self, notification):
+        """Examples for Slack Web API."""
+        # one channel name
+        return "#general"
+        # multiple channel name
+        return ["#users", "#general"]
+        # one channel ID
+        return "C1234567890"
+```
+
+To send a Slack notification without having a notifiable entity you must use the `route` method
+```python
+notification.route("slack", "#general").notify(
+    WelcomeNotification()
+)
+```
+The second parameter can be a channel name, a channel ID or a webhook URL.
+
+{% hint style="warning" %}
+When specifying channel names you must keep `#` in the name as in the example. Based on this name
+a reverse lookup will be made to find the corresponding Slack channel ID. If you want to avoid this extra
+call, you can specify directly the channel ID (right click on Slack channel > Copy Name > the ID is at the end of url)
+{% endhint %}
+
 
 ## SMS Notifications
 
@@ -460,6 +521,7 @@ class WelcomeNotification(NotificationFacade):
     def to_vonage(self, notifiable):
         return VonageComponent().text("Welcome!")
 ```
+
 If the SMS notification contains unicode characters, you should call the unicode method when constructing the notification
 ```python
 # WelcomeNotification.py
@@ -495,7 +557,7 @@ notification.route("vonage", "+33612345678").notify(
 )
 ```
 
-## Adding Notifications drivers
+## Custom notifications drivers
 
 Masonite ships with a handful of notification channels, but you may want to write your own drivers to deliver notifications via other channels. Masonite makes this process simple.
 
@@ -542,3 +604,38 @@ Feel free to browse [notifications drivers code](https://github.com/MasoniteFram
 
 Then you could scaffold this code into a new [Masonite package](/advanced/creating-packages) so
 that community can use it 😉 !
+
+## Advanced Usage
+
+### Dry run
+You can enable sending dry notifications to avoid notifications to be send (only logged) in two places:
+```python
+user.notify(WelcomeNotification(), dry=True)
+# or
+notification.send(WelcomeNotification(), dry=True)
+```
+
+### Ignoring errors
+When `fail_silently` parameter is enabled, notifications sending will not raise exceptions if an error occurs.
+```python
+user.notify(WelcomeNotification(), fail_silently=True)
+# or
+notification.send(WelcomeNotification(), fail_silently=True)
+```
+
+### Overriding notifications channels
+Even if channels that a notification will be sent to is defined initially in `via()` method of the notification,
+you can override this behaviour when sending:
+
+```python
+
+class WelcomeNotification(NotificationFacade):
+    # ...
+    def via(self):
+        return ["mail"]
+
+user.notify(WelcomeNotification(), channels=["slack", "database"])
+# or
+notification.send(WelcomeNotification(), channels=["slack", "database"])
+```
+This only makes sense for notifiables and not for on-demand notifications.
