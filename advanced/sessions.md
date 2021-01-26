@@ -111,7 +111,7 @@ This helper method will only point to the default driver set inside `config/sess
 ```python
 {% if session().has('success') %}
     <div class="alert alert-success">
-        {{ session().get('success') }}
+        {{ session().get_flashed('success') }}
     </div>
 {% endif %}
 ```
@@ -122,19 +122,19 @@ You could use this to create a simple Jinja include template that can show succe
 {% if session().has('success') %}
 
     <div class="alert alert-success">
-        {{ session().get('success') }}
+        {{ session().get_flashed('success') }}
     </div>
 
 {% elif session().has('warning') %}
 
     <div class="alert alert-warning">
-        {{ session().get('warning') }}
+        {{ session().get_flashed('warning') }}
     </div>
 
 {% elif session().has('danger') %}
 
     <div class="alert alert-danger">
-        {{ session().get('danger') }}
+        {{ session().get_flashed('danger') }}
     </div>
 
 {% endif %}
