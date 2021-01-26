@@ -466,7 +466,7 @@ To check that the controller renders the correct view name we can use `assertVie
 # /testing ==> view.render("app")
 
 def test_view_name(self):
-    self.assertTrue(self.get('/testing').assertViewIs('app'))
+    self.get('/testing').assertViewIs('app')
 ```
 {% endcode %}
 
@@ -480,8 +480,8 @@ assertion methods takes one data key and optionally its associated value.
 # /testing ==> view.render("testing", {"count": 2})
 
 def test_route_data(self):
-    self.assertTrue(self.get('/testing').assertViewHas('count'))
-    self.assertTrue(self.get('/testing').assertViewHas('count', 2))
+    self.get('/testing').assertViewHas('count')
+    self.get('/testing').assertViewHas('count', 2)
 ```
 {% endcode %}
 
@@ -494,8 +494,8 @@ be verified in this case).
 # /testing ==> view.render("testing", {"count": 2, "name": Joe})
 
 def test_route_data(self):
-    self.assertTrue(self.get('/testing').assertViewHasAll(['count', 'name']))
-    self.assertTrue(self.get('/testing').assertViewHasAll({'count': 2, 'name': 'Joe'}))
+    self.get('/testing').assertViewHasAll(['count', 'name'])
+    self.get('/testing').assertViewHasAll({'count': 2, 'name': 'Joe'})
 ```
 {% endcode %}
 
@@ -506,7 +506,7 @@ To check that the view is rendered without a given data key we can use `assertVi
 # /testing ==> view.render("testing", {"count": 2})
 
 def test_route_data_does_not_contains(self):
-    self.assertTrue(self.get('/testing').assertViewMissing('users'))
+    self.get('/testing').assertViewMissing('users')
 ```
 {% endcode %}
 
