@@ -33,6 +33,8 @@ Those choices to accept those files should be limited and up to the developer bu
 
 # 2.3.24, 3.0.4
 
+This vulnerability was discovered by Xhelal Likaj (xhelallikaj20@gmail.com)
+
 ## Session Based CSRF tokens
 
 The security community recently discovered several vulnerabilities from the CSRF features of Masonite. The issue was that Masonite used session based CSRF tokens. Meaning a CSRF token was set in the cookie and then was used for each request. This provides an attacker to use size based sub channels to leak the token 1 character at a time. This is known as a BREACH attack.
