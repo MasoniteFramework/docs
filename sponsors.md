@@ -8,7 +8,10 @@ To become a gold sponsor head to the [GitHub Sponsors](https://github.com/sponso
 
 ## Current Sponsors
 
-|  [![Mike](https://avatars1.githubusercontent.com/u/3219890?v=4) **Mike**](https://github.com/mkeneqa)  |
-| :--- |
+|  |  |
+| :-----------: | :-----------: |
+| [![Mike](https://avatars.githubusercontent.com/u/23809?s=460&u=cbe03c9202707a14ba43e4e94898b208bbeb693d&v=4) **René Moser**](https://github.com/mkeneqa)      | [![Mike](https://avatars1.githubusercontent.com/u/3219890?v=4) **Mike**](https://github.com/mkeneqa) |
+
+
 
 
