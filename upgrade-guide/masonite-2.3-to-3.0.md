@@ -6,7 +6,7 @@ We will go through each new breaking change in Masonite and code examples on how
 
 This document will be broken down into 2 parts, upgrading from Orator to Masonite and upgrading from Masonite 2.3 to 3.0.
 
-Before you go through this document it is highly recommended that you read [Whats New in Masonite 3]().
+Before you go through this document it is highly recommended that you read [Whats New in Masonite 3](/whats-new/masonite-3.0.md).
 
 Note that there are some large changes from 2.3 to 3.0. Depending on the size of your project it might make more sense to rebuild your project and port your code to a new Masonite 3 app. This guide is for changing your existing projects.
 

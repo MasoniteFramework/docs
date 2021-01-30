@@ -4,7 +4,7 @@ Masonite 3 is a big change from Masonite 2. The most obvious change is the fact 
 
 Hopefully many of you may not even tell we are no longer using Orator.
 
-Below is a list of high level changes of things that are new or changed in Masonite 3 from Masonite 2. If you want to see how to upgrade from Masonite 2 to 3 then refer to the [Upgrade Guide]()
+Below is a list of high level changes of things that are new or changed in Masonite 3 from Masonite 2. If you want to see how to upgrade from Masonite 2 to 3 then refer to the [Upgrade Guide](/upgrade-guide/masonite-2.3-to-3.0.md)
 
 ## Python Support
 
