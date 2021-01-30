@@ -280,7 +280,7 @@ and head over to [http://localhost:8000/register](http://localhost:8000/register
 ```text
 Username: demo
 Email: demo@email.com
-Password: password
+Password: password!!11AA
 ```
 
 ## Migrations
