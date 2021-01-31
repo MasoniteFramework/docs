@@ -10,7 +10,8 @@ To become a gold sponsor head to the [GitHub Sponsors](https://github.com/sponso
 
 |  |  |
 | :-----------: | :-----------: |
-| <div><img src="https://avatars.githubusercontent.com/u/23809?s=460&u=cbe03c9202707a14ba43e4e94898b208bbeb693d&v=4"></div> <div> <a href="https://github.com/resmo">**René Moser**</a></div> | <div><img src="https://avatars.githubusercontent.com/u/3219890?s=460&v=4"></div> <div> <a href="https://github.com/mkeneqa">**Mike**</a></div> |
+| <div><img src="https://avatars.githubusercontent.com/u/65045079?s=460&u=dd02168e9adb79ed9d18b9dcf6d787f17b7d7bc8&v=4"></div> <div> <a href="https://github.com/resmo">**rickavmaniac**</a></div> | <div><img src="https://avatars.githubusercontent.com/u/23809?s=460&u=cbe03c9202707a14ba43e4e94898b208bbeb693d&v=4"></div> <div> <a href="https://github.com/resmo">**René Moser**</a></div> |
+| <div><img src="https://avatars.githubusercontent.com/u/3219890?s=460&v=4"></div> <div> <a href="https://github.com/mkeneqa">**Mike**</a></div> |  |
  
 
 
