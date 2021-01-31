@@ -54,6 +54,10 @@
 * [Uploading](useful-features/uploading.md)
 * [View Composers, Sharing and Filters](useful-features/view-composers-and-sharing.md)
 
+## Masonite ORM <a id="masonite-orm"></a>
+
+* [To Masonite ORM Docs](https://orm.masoniteproject.com)
+
 ## Security
 
 * [Authentication](security/authentication.md)
@@ -97,9 +101,7 @@
 * [Drivers](deployment/drivers.md)
 * [Optimization](deployment/optimization.md)
 
-## Masonite ORM <a id="masonite-orm"></a>
 
-* [To Masonite ORM Docs](https://orm.masoniteproject.com)
 
 ## Prologue
 
