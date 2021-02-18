@@ -139,7 +139,7 @@ from masonite.contrib.essentials.helpers import hashid
 ​
 class SomeController:
     def show(self):
-        hashid('l9avmeG', decode=True) #== l9avmeG
+        hashid('l9avmeG', decode=True) #== 10
 ```
 
 You can also pass in a dictionary of values to decode. This helper will try to decode each one and insert the correct value. It will skip the ones it cannot decode.
