@@ -29,7 +29,7 @@
 * [Autoloading](advanced/autoloading.md)
 * [Creating a Mail Driver](advanced/creating-a-mail-driver.md)
 * [Creating Packages](advanced/creating-packages.md)
-* [Database Seeding](advanced/database-seeding.md)
+<!-- * [Database Seeding](advanced/database-seeding.md) -->
 * [Extending Classes](advanced/extending-classes.md)
 * [Middleware](advanced/middleware.md)
 * [Responses](advanced/responses.md)
@@ -100,8 +100,6 @@
 
 * [Drivers](deployment/drivers.md)
 * [Optimization](deployment/optimization.md)
-
-
 
 ## Prologue
 
