@@ -173,13 +173,13 @@ Then add the migration:
 
 ```python
   def up(self):
-      with self.schema.create("queue_jobs") as table:
+      with self.schema.table("queue_jobs") as table:
           table.string("queue")
           table.timestamp("available_at").nullable()
           table.timestamp("reserved_at").nullable()
 
   def down(self):
-      with self.schema.create("queue_jobs") as table:
+      with self.schema.table("queue_jobs") as table:
           table.drop_column("queue", "available_at", "reserved_at")
 ```
 
