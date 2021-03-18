@@ -95,7 +95,7 @@ Let's create a Service Provider:
 
 {% code title="terminal" %}
 ```text
-$ python craft provider HelloProvider
+$ python craft provider Hello
 ```
 {% endcode %}
 
