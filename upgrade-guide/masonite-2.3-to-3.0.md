@@ -128,9 +128,13 @@ PROVIDERS = [
 
 There used to be a `bootstrap/start.py` file in Masonite apps. This file contained a method was used to handle the request and response lifecycle. There was no reason to keep the method inside the application since it was such a low level method and was crucial for the framework to work.
 
-So we need to import the method from the Masonite codebase instead of the start.py file. We also renamed the method `response_handler` instead of `app`
+So we need to import the method from the Masonite codebase instead of the start.py file. We also renamed the method `response_handler` instead of `app`. Finally environment variables are now loaded at the very beginning.
 
 ```diff
++ from masonite.environment import LoadEnvironment
+
++ LoadEnvironment()
+
 - from bootstrap.start import app
 + from masonite.wsgi import response_handler
 from src.masonite.helpers import config
