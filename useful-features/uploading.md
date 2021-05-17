@@ -112,6 +112,12 @@ You can also just accept all file types as well:
 upload.accept('*').store('some.yml')
 ```
 
+Note that if you switch the driver or specify a driver, you will need to set the accept after the driver like so:
+
+```python
+upload.driver('disk').accept('*').store('some.yml')
+```
+
 ## Uploading Files
 
 You can upload files directly by passing in a `open()` file:
