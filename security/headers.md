@@ -59,10 +59,14 @@ Notice the change in the new header we changed.
 
 ## CORS
 
-You may also choose to use CORS for your application for advanced security measures. Using CORS is very similar to the secure headers above.
+You may also choose to use CORS for your application for advanced security measures. Using CORS is very similar to the secure headers above. This is easily done through a service provider.
 
 {% hint style="info" %}
-This middleware needs to be at the TOP of the `HTTP_MIDDLEWARE` stack so the request will not be rejected inside the other middleware.
+This provider needs to be at the TOP of the `PROVIDERS` array below your `AppProvider` so the request will not be rejected before it enters the lifecycle of the framework.
+{% endhint %}
+
+{% hint style="danger" %}
+NOTE: The development server is currently NOT strong enough to work with CORS headers as most implementations fire 2 requests at the same time. If testing CORS locally, please use a stronger server like waitress or gunicorn
 {% endhint %}
 
 To get started just import the `CorsProvider` class into your `config/providers.py` file and add it to your `PROVIDERS` list:
@@ -72,7 +76,7 @@ from masonite.providers import CorsProvider
 ...
 PROVIDERS = [
     AppProvider,
-    CorsProvider,
+    CorsProvider, # Right below the AppProvider
     ...,
 ]
 ```
