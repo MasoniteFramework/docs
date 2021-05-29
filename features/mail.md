@@ -104,3 +104,7 @@ class WelcomeController(Controller):
 
 You can change the driver which sends the email by using the `driver` argument in the `send()` method:
 
+```python
+mail.send(Welcome().to('user@example.com'), driver="smtp")
+```
+
