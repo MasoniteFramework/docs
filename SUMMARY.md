@@ -19,7 +19,7 @@
 * <!-- [Static Files](the-basics/static-files.md) -->
 * <!-- [Views](the-basics/views.md) -->
 
-## Concepts
+## <!-- Concepts -->
 
 * <!-- [Request Lifecycle](architectural-concepts/request-lifecycle.md) -->
 * <!-- [Service Container](architectural-concepts/service-container.md) -->
