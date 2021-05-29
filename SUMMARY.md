@@ -6,41 +6,41 @@
 
 ## Prologue
 
-* [Contributing Guide](prologue/contributing-guide.md)
+* [Contributing Guide](prologue/contributing-guide.md) 
 * [How To Contribute](prologue/how-to-contribute.md)
 * [Release Cycle](prologue/release-cycle.md)
 
 ## The Basics
 
 * [Routing](the-basics/routing.md)
-* [Controllers](the-basics/controllers.md)
-* [Helper Functions](the-basics/helper-functions.md)
-* [Requests](the-basics/requests.md)
-* [Static Files](the-basics/static-files.md)
-* [Views](the-basics/views.md)
+* <!-- [Controllers](the-basics/controllers.md) -->
+* <!-- [Helper Functions](the-basics/helper-functions.md) -->
+* <!-- [Requests](the-basics/requests.md) -->
+* <!-- [Static Files](the-basics/static-files.md) -->
+* <!-- [Views](the-basics/views.md) -->
 
 ## Concepts
 
-* [Request Lifecycle](architectural-concepts/request-lifecycle.md)
-* [Service Container](architectural-concepts/service-container.md)
-* [Service Providers](architectural-concepts/service-providers.md)
+* <!-- [Request Lifecycle](architectural-concepts/request-lifecycle.md) -->
+* <!-- [Service Container](architectural-concepts/service-container.md) -->
+* <!-- [Service Providers](architectural-concepts/service-providers.md) -->
 
 ## Features
 
-* [Middleware](advanced/middleware.md)
-* [Sessions](advanced/sessions.md)
-* Commands
-* [Status Codes](advanced/status-codes.md)
-* [Validation](advanced/validation.md)
-* [Broadcasting](useful-features/broadcasting.md)
-* [Caching](useful-features/caching.md)
-* [Environments](useful-features/environments.md)
-* [Events](useful-features/events.md)
-* [Mail](useful-features/mail.md)
-* [Queues and Jobs](useful-features/queues-and-jobs.md)
-* [Task Scheduling](useful-features/task-scheduling.md)
-* [Testing](useful-features/testing.md)
-* [Uploading](useful-features/uploading.md)
+* <!-- [Middleware](advanced/middleware.md) -->
+* <!-- [Sessions](advanced/sessions.md) -->
+* <!-- Commands -->
+* <!-- [Status Codes](advanced/status-codes.md) -->
+* <!-- [Validation](advanced/validation.md) -->
+* <!-- [Broadcasting](useful-features/broadcasting.md) -->
+* <!-- [Caching](useful-features/caching.md) -->
+* <!-- [Environments](useful-features/environments.md) -->
+* <!-- [Events](useful-features/events.md) -->
+* <!-- [Mail](useful-features/mail.md) -->
+* <!-- [Queues and Jobs](useful-features/queues-and-jobs.md) -->
+* <!-- [Task Scheduling](useful-features/task-scheduling.md) -->
+* <!-- [Testing](useful-features/testing.md) -->
+* <!-- [Uploading](useful-features/uploading.md) -->
 
 ## Masonite ORM <a id="masonite-orm"></a>
 
