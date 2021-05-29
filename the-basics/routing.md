@@ -64,6 +64,14 @@ You can specify the parameters in the URL that will later be able to be retrieve
 Route.get('/dashboard/@user_id', 'WelcomeController@show').name('welcome')
 ```
 
+## Domain
+
+You can specify the subdomain you want this route to be matched to. If you only want this route to be matched on a "docs" subdomain (docs.example.com):
+
+```python
+Route.get('/dashboard/@user_id', 'WelcomeController@show').domain('docs')
+```
+
 ## Route Compilers
 
 Route compilers are a way to match on a certain route parameter by a specific type. For example, if you only watch to match where the `@user_id` is an integer. You can do this by appending a `:` character and compiler name to the parameter:
@@ -93,7 +101,8 @@ ROUTES = [
   ], 
   prefix="/dashboard",
   middleware=['web', 'cors'],
-  name="dashboard.")
+  name="dashboard."),
+  domain="docs"
 ]
 ```
 
