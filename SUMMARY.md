@@ -46,13 +46,13 @@
 
 * [To Masonite ORM Docs](https://orm.masoniteproject.com)
 
-## Security
+## <!-- Security -->
 
-* [Authentication](security/authentication.md)
-* [CSRF Protection](security/csrf-protection.md)
-* [Encryption](security/encryption.md)
-* [Headers](security/headers.md)
-* [Releases](security/releases.md)
+* <!-- [Authentication](security/authentication.md) -->
+* <!-- [CSRF Protection](security/csrf-protection.md) -->
+* <!-- [Encryption](security/encryption.md) -->
+* <!-- [Headers](security/headers.md) -->
+* <!-- [Releases](security/releases.md) -->
 
 ## Official Packages
 
