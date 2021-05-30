@@ -27,7 +27,7 @@
 
 ## Features
 
-*  [Mail](features/mail.md)
+* [Mail](features/mail.md)
 * [Queues and Jobs](features/queues.md) 
 * [Task Scheduling](features/scheduling.md)
 * <!-- [Middleware](advanced/middleware.md) -->
