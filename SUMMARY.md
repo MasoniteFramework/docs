@@ -29,6 +29,7 @@
 
 *  [Mail](features/mail.md)
 * [Queues and Jobs](features/queues.md) 
+* [Task Scheduling](features/scheduling.md)
 * <!-- [Middleware](advanced/middleware.md) -->
 * <!-- [Sessions](advanced/sessions.md) -->
 * <!-- Commands -->
@@ -38,8 +39,6 @@
 * <!-- [Caching](useful-features/caching.md) -->
 * <!-- [Environments](useful-features/environments.md) -->
 * <!-- [Events](useful-features/events.md) -->
-* 
-* <!-- [Task Scheduling](useful-features/task-scheduling.md) -->
 * <!-- [Testing](useful-features/testing.md) -->
 * <!-- [Uploading](useful-features/uploading.md) -->
 
