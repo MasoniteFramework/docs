@@ -30,6 +30,7 @@
 * [Mail](features/mail.md)
 * [Queues and Jobs](features/queues.md) 
 * [Task Scheduling](features/scheduling.md)
+* [Filesystem and Uploading](features/uploading.md)
 * <!-- [Middleware](advanced/middleware.md) -->
 * <!-- [Sessions](advanced/sessions.md) -->
 * <!-- Commands -->
@@ -40,7 +41,6 @@
 * <!-- [Environments](useful-features/environments.md) -->
 * <!-- [Events](useful-features/events.md) -->
 * <!-- [Testing](useful-features/testing.md) -->
-* <!-- [Uploading](useful-features/uploading.md) -->
 
 ## Masonite ORM <a id="masonite-orm"></a>
 
