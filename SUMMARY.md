@@ -32,12 +32,12 @@
 * [Task Scheduling](features/scheduling.md)
 * [Filesystem and Uploading](features/uploading.md)
 * [Events](features/events.md)
+* [Broadcasting](features/broadcasting.md)
 * <!-- [Middleware](advanced/middleware.md) -->
 * <!-- [Sessions](advanced/sessions.md) -->
-* <!-- Commands -->
 * <!-- [Status Codes](advanced/status-codes.md) -->
 * <!-- [Validation](advanced/validation.md) -->
-* <!-- [Broadcasting](useful-features/broadcasting.md) -->
+* 
 * <!-- [Caching](useful-features/caching.md) -->
 * <!-- [Environments](useful-features/environments.md) -->
 * <!-- [Testing](useful-features/testing.md) -->
