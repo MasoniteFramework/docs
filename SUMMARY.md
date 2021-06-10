@@ -34,12 +34,11 @@
 * [Events](features/events.md)
 * [Broadcasting](features/broadcasting.md)
 * [Hash ID's](features/hashing.md)
+* [Sessions](features/sessions.md)
+* [Caching](features/caching.md)
 * <!-- [Middleware](advanced/middleware.md) -->
-* <!-- [Sessions](advanced/sessions.md) -->
 * <!-- [Status Codes](advanced/status-codes.md) -->
 * <!-- [Validation](advanced/validation.md) -->
-* 
-* <!-- [Caching](useful-features/caching.md) -->
 * <!-- [Environments](useful-features/environments.md) -->
 * <!-- [Testing](useful-features/testing.md) -->
 
