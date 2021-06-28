@@ -21,6 +21,7 @@ DISKS = {
         "client": os.getenv("AWS_CLIENT"),
         "secret": os.getenv("AWS_SECRET"),
         "bucket": os.getenv("AWS_BUCKET"),
+      	"path": "https://bucket.s3.us-east-2.amazonaws.com"
     },
 }
 ```
@@ -42,12 +43,13 @@ The local driver is used for local filesystems like server directories. All file
 
 The S3 driver is used for connecting to Amazon's S3 cloud service.
 
-| Option   | Description                     |
-| -------- | ------------------------------- |
-| `driver` | The driver to use for this disk |
-| `client` | The Amazon S3 client key        |
-| `secret` | The Amazon S3 secret key        |
-| `bucket` | The Amazon S3 bucket name       |
+| Option   | Description                                |
+| -------- | ------------------------------------------ |
+| `driver` | The driver to use for this disk            |
+| `client` | The Amazon S3 client key                   |
+| `secret` | The Amazon S3 secret key                   |
+| `bucket` | The Amazon S3 bucket name                  |
+| `path`   | A path to be used for displaying resources |
 
 # Uploading Files
 
@@ -96,3 +98,66 @@ storage.disk('local').put_file('avatars', request.input('avatar'), name="user1")
 ```
 
 You do not need to specify the extension in the name as the extension will be pulled from the resource object.
+
+# Asset Helper
+
+## Displaying Files
+
+When uploading images to something like an AWS bucket, you may want to display the images. You may use a combination of the asset helper and setting a path in your filesystem config. This mainly just provides a nice interface for combining 2 strings
+
+> When using Amazon S3, you will need to set your bucket permissions and policies appropriately.
+
+First, set a path in your filesystem config:
+
+```python
+DISKS = {
+    "default": "local",
+    # "..",
+    "s3": {
+        "driver": "s3",
+        # "..",
+      	"path": "https://bucket.s3.us-east-2.amazonaws.com"
+    },
+}
+```
+
+Then in your templates you can use the asset helper:
+
+```html
+<img src="{{ asset('s3', user.avatar_url) }}">
+```
+
+The signature is:
+
+```python
+asset('disk', file_name)
+```
+
+## Multiple Paths
+
+You may also specify multiple paths as a dictionary:
+
+```python
+DISKS = {
+    "default": "local",
+    # "..",
+    "s3": {
+        "driver": "s3",
+        # "..",
+      	"path": {
+          "logos": "https://bucket.s3.us-east-2.amazonaws.com/logos",
+          "invoices": "https://bucket.s3.us-east-2.amazonaws.com/invoices"
+        }
+    },
+}
+```
+
+Then inside your asset helper you can use dot notation to specify the path you want to use:
+
+```html
+<img src="{{ asset('s3.logos', user.avatar_url) }}">
+<a href="{{ asset('s3.invoices', invoice_url) }}"
+```
+
+
+

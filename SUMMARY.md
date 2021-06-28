@@ -39,7 +39,6 @@
 * <!-- [Middleware](advanced/middleware.md) -->
 * <!-- [Status Codes](advanced/status-codes.md) -->
 * <!-- [Validation](advanced/validation.md) -->
-* <!-- [Environments](useful-features/environments.md) -->
 * <!-- [Testing](useful-features/testing.md) -->
 
 ## Masonite ORM <a id="masonite-orm"></a>
