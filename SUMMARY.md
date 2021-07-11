@@ -37,6 +37,7 @@
 * [Sessions](features/sessions.md)
 * [Caching](features/caching.md)
 * [Views](features/views.md)
+* [Facades](features/facades.md)
 * <!-- [Middleware](advanced/middleware.md) -->
 * <!-- [Status Codes](advanced/status-codes.md) -->
 * <!-- [Validation](advanced/validation.md) -->
