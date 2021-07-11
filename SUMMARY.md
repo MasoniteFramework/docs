@@ -36,6 +36,7 @@
 * [Hash ID's](features/hashing.md)
 * [Sessions](features/sessions.md)
 * [Caching](features/caching.md)
+* [Views](features/views.md)
 * <!-- [Middleware](advanced/middleware.md) -->
 * <!-- [Status Codes](advanced/status-codes.md) -->
 * <!-- [Validation](advanced/validation.md) -->
