@@ -1,10 +1,4 @@
-# Compiling Assets
-
-## Compiling Assets
-
-## Introduction
-
-Previously Masonite used to use the libsass package for handling SASS and LESS but Masonite has now moved over to using NPM for provide better support out of the box. More specifically, Masonite uses Laravel Mix which provides a really simple way to handle asset compiling even greater than simple SASS and LESS. You don't need to be an expert in either Laravel Mix or NPM to compile assets, though.
+Masonite uses Laravel Mix which provides a really simple way to handle asset compiling even greater than simple SASS and LESS. You don't need to be an expert in either Laravel Mix or NPM to compile assets, though.
 
 ## Getting Started
 

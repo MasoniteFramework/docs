@@ -13,17 +13,6 @@
 ## The Basics
 
 * [Routing](the-basics/routing.md)
-* <!-- [Controllers](the-basics/controllers.md) -->
-* <!-- [Helper Functions](the-basics/helper-functions.md) -->
-* <!-- [Requests](the-basics/requests.md) -->
-* <!-- [Static Files](the-basics/static-files.md) -->
-* <!-- [Views](the-basics/views.md) -->
-
-## <!-- Concepts -->
-
-* <!-- [Request Lifecycle](architectural-concepts/request-lifecycle.md) -->
-* <!-- [Service Container](architectural-concepts/service-container.md) -->
-* <!-- [Service Providers](architectural-concepts/service-providers.md) -->
 
 ## Features
 
@@ -38,22 +27,11 @@
 * [Caching](features/caching.md)
 * [Views](features/views.md)
 * [Facades](features/facades.md)
-* <!-- [Middleware](advanced/middleware.md) -->
-* <!-- [Status Codes](advanced/status-codes.md) -->
-* <!-- [Validation](advanced/validation.md) -->
-* <!-- [Testing](useful-features/testing.md) -->
+* [Compiling Assets](features/compiling-assets.md)
 
 ## Masonite ORM <a id="masonite-orm"></a>
 
 * [To Masonite ORM Docs](https://orm.masoniteproject.com)
-
-## <!-- Security -->
-
-* <!-- [Authentication](security/authentication.md) -->
-* <!-- [CSRF Protection](security/csrf-protection.md) -->
-* <!-- [Encryption](security/encryption.md) -->
-* <!-- [Headers](security/headers.md) -->
-* <!-- [Releases](security/releases.md) -->
 
 ## Official Packages
 
