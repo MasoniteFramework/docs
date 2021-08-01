@@ -26,6 +26,7 @@
 * [Hash ID's](features/hashing.md)
 * [Sessions](features/sessions.md)
 * [Caching](features/caching.md)
+* [CSRF Protection](features/csrf.md)
 * [Views](features/views.md)
 * [Facades](features/facades.md)
 * [Compiling Assets](features/compiling-assets.md)

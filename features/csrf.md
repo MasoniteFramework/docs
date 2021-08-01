@@ -14,7 +14,7 @@ The `CsrfProvider` simply loads the CSRF features into the container and the `Cs
 
 By default, all `POST` requests require a CSRF token. We can simply add a CSRF token in our forms by adding the `{{ csrf_field }}` tag to our form like so:
 
-```markup
+```html
 <form action="/dashboard" method="POST">
     {{ csrf_field }}
 
@@ -24,7 +24,7 @@ By default, all `POST` requests require a CSRF token. We can simply add a CSRF t
 
 This will add a hidden field that looks like:
 
-```markup
+```html
 <input type="hidden" name="__token" value="8389hdnajs8...">
 ```
 
@@ -34,7 +34,7 @@ If you attempt a `POST` request without the `{{ csrf_field }}` then you will rec
 
 You can get also get the token that is generated. This is useful for JS frontends where you need to pass a CSRF token to the backend for an AJAX call
 
-```markup
+```html
 <p> Token: {{ csrf_token }} </p>
 ```
 
@@ -42,7 +42,7 @@ You can get also get the token that is generated. This is useful for JS frontend
 
 For ajax calls, the best way to pass CSRF tokens is by setting the token inside a parent template inside a `meta` tag like this:
 
-```markup
+```html
 <meta name="csrf-token" content="{{ csrf_token }}">
 ```
 
@@ -59,15 +59,11 @@ You can then pass the token via the `X-CSRF-TOKEN` header instead of the `__toke
 Not all routes may require CSRF protection such as OAuth authentication or various webhooks. In order to exempt routes from protection we can add it to the `exempt` class attribute in the middleware located at `app/http/middleware/CsrfMiddleware.py`:
 
 ```python
-class CsrfMiddleware:
-    """Verify CSRF Token Middleware
-    """
+from masonite.middleware import VerifyCsrfToken as Middleware
 
-    exempt = [
-        '/oauth/github'
-    ]
+class VerifyCsrfToken(Middleware):
 
-    ...
+    exempt = ['/oauth/github']
 ```
 
 Now any POST routes that are to `your-domain.com/oauth/github` are not protected by CSRF and no checks will be made against this route. Use this sparingly as CSRF protection is crucial to application security but you may find that not all routes need it.
@@ -77,15 +73,15 @@ Now any POST routes that are to `your-domain.com/oauth/github` are not protected
 You can also use `*` wildcards for exempting several routes under the same prefix. For example you may find yourself needing to do this:
 
 ```python
-class CsrfMiddleware:
-    """Verify CSRF Token Middleware
-    """
+from masonite.middleware import VerifyCsrfToken as Middleware
+
+class VerifyCsrfToken(Middleware):
 
     exempt = [
         '/api/document/reject-reason',
-        '/api/document/@id/reject',
-        '/api/document/@id/approve',
-        '/api/document/@id/process/@user',
+        '/api/document/*/reject',
+        '/api/document/*/approve',
+        '/api/document/*/process/@user',
     ]
 
     ...
@@ -94,9 +90,9 @@ class CsrfMiddleware:
 This can get a bit repetitive so you may specify a wildcard instead:
 
 ```python
-class CsrfMiddleware:
-    """Verify CSRF Token Middleware
-    """
+from masonite.middleware import VerifyCsrfToken as Middleware
+
+class VerifyCsrfToken(Middleware):
 
     exempt = [
         '/api/document/*',
