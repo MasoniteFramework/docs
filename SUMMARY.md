@@ -6,13 +6,14 @@
 
 ## Prologue
 
+* [Release Cycle](prologue/release-cycle.md)
 * [Contributing Guide](prologue/contributing-guide.md) 
 * [How To Contribute](prologue/how-to-contribute.md)
-* [Release Cycle](prologue/release-cycle.md)
 
 ## The Basics
 
 * [Routing](the-basics/routing.md)
+* [Middleware](features/middleware.md)
 
 ## Features
 
