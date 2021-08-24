@@ -448,7 +448,7 @@ class Post(Model):
 Because of how Masonite does models, some models may rely on each other so it is typically better to perform the import inside the relationship like we did above to prevent any possibilities of circular imports.
 
 {% hint style="success" %}
-We won't go into much more detail here about different types of relationships but to learn more, refert to [Masonite ORM Relationships](https://orm.masoniteproject.com/models#relationships) documentation.
+We won't go into much more detail here about different types of relationships but to learn more, refer to [Masonite ORM Relationships](https://orm.masoniteproject.com/models#relationships) documentation.
 {% endhint %}
 
 ## Designing Our Blog
