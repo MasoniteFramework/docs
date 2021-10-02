@@ -4,84 +4,40 @@
 * [Creating a Blog](creating-a-blog.md)
 * [Sponsors](sponsors.md)
 
+## Prologue
+
+* [Release Cycle](prologue/release-cycle.md)
+* [Contributing Guide](prologue/contributing-guide.md) 
+* [How To Contribute](prologue/how-to-contribute.md)
+
 ## The Basics
 
-* [Controllers](the-basics/controllers.md)
-* [Helper Functions](the-basics/helper-functions.md)
-* [Requests](the-basics/requests.md)
 * [Routing](the-basics/routing.md)
-* [Static Files](the-basics/static-files.md)
-* [Views](the-basics/views.md)
+* [Middleware](features/middleware.md)
 
-## The Craft Command
+## Features
 
-* [Introduction](the-craft-command/introduction.md)
-* [Creating Commands](the-craft-command/creating-commands.md)
+* [Mail](features/mail.md)
+* [Queues and Jobs](features/queues.md) 
+* [Task Scheduling](features/scheduling.md)
+* [Filesystem and Uploading](features/uploading.md)
+* [Events](features/events.md)
+* [Broadcasting](features/broadcasting.md)
+* [Hash ID's](features/hashing.md)
+* [Sessions](features/sessions.md)
+* [Caching](features/caching.md)
+* [CSRF Protection](features/csrf.md)
+* [Views](features/views.md)
+* [Facades](features/facades.md)
+* [Compiling Assets](features/compiling-assets.md)
 
-## Architectural Concepts
+## Masonite ORM <a id="masonite-orm"></a>
 
-* [Request Lifecycle](architectural-concepts/request-lifecycle.md)
-* [Service Container](architectural-concepts/service-container.md)
-* [Service Providers](architectural-concepts/service-providers.md)
-
-## Advanced
-
-* [Autoloading](advanced/autoloading.md)
-* [Creating a Mail Driver](advanced/creating-a-mail-driver.md)
-* [Creating Packages](advanced/creating-packages.md)
-* [Database Seeding](advanced/database-seeding.md)
-* [Extending Classes](advanced/extending-classes.md)
-* [Middleware](advanced/middleware.md)
-* [Responses](advanced/responses.md)
-* [Sessions](advanced/sessions.md)
-* [Status Codes](advanced/status-codes.md)
-* [Validation](advanced/validation.md)
-
-## Useful Features
-
-* [Broadcasting](useful-features/broadcasting.md)
-* [Caching](useful-features/caching.md)
-* [Compiling Assets](useful-features/compiling-assets.md)
-* [Environments](useful-features/environments.md)
-* [Events](useful-features/events.md)
-* [Framework Hooks](useful-features/framework-hooks.md)
-* [Mail](useful-features/mail.md)
-* [Queues and Jobs](useful-features/queues-and-jobs.md)
-* [Task Scheduling](useful-features/task-scheduling.md)
-* [Testing](useful-features/testing.md)
-* [Selenium Testing](useful-features/selenium-testing.md)
-* [Template Caching](useful-features/template-caching.md)
-* [Uploading](useful-features/uploading.md)
-* [View Composers, Sharing and Filters](useful-features/view-composers-and-sharing.md)
-
-## Security
-
-* [Authentication](security/authentication.md)
-* [CSRF Protection](security/csrf-protection.md)
-* [Encryption](security/encryption.md)
-* [Headers](security/headers.md)
-* [Releases](security/releases.md)
-
-## Managers and Drivers
-
-* [About Drivers](managers-and-drivers/about-drivers.md)
-* [About Managers](managers-and-drivers/about-managers.md)
-* [Contracts](managers-and-drivers/contracts.md)
+* [To Masonite ORM Docs](https://orm.masoniteproject.com)
 
 ## Official Packages
 
-* [Masonite API](official-packages/masonite-api.md)
-* [Masonite Billing](official-packages/masonite-billing.md)
 * [Masonite Logging](official-packages/masonite-logging.md)
-* [Masonite Notifications](official-packages/masonite-notifications.md)
-
-## Masonite Essentials
-
-* [Hash ID's](masonite-essentials/hash-ids.md)
-
-## Tutorials
-
-* [Creating a Blog](creating-a-blog.md)
 
 ## How-to Guides
 
@@ -91,23 +47,6 @@
 * [How-To: Use RabbitMQ with Masonite 2.0 queues](https://dev.to/masonite/how-to-use-rabbitmq-with-masonite-20-queues-4105)
 * [How To Use The Repository Pattern with Masonite](https://dev.to/masonite/repository-pattern-with-masonite-4a0n)
 * [Making Masonite and Laravel Mix work together](https://dev.to/nioperas06/lets-make-masonite-framework-and-laravel-mix-work-together--3lbj)
-
-## Deployment
-
-* [Drivers](deployment/drivers.md)
-* [Optimization](deployment/optimization.md)
-
-## Masonite ORM <a id="masonite-orm"></a>
-
-* [To Masonite ORM Docs](https://orm.masoniteproject.com)
-
-## Prologue
-
-* [Contributing Guide](prologue/contributing-guide.md)
-* [How To Contribute](prologue/how-to-contribute.md)
-* [Release Cycle](prologue/release-cycle.md)
-* [Known Installation Issues](prologue/known-installation-issues.md)
-* [Deprecation](prologue/deprecation.md)
 
 ## What's New
 
