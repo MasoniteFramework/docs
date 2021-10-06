@@ -16,7 +16,7 @@ If you are more of a visual learner you can watch Masonite related tutorial vide
 * Service Providers to easily add functionality to the framework.
 * Extremely simple static files configured and ready to go.
 * Active Record style ORM called Masonite ORM.
-* An extremely useful command line tool called craft commands.
+* An extremely useful command line tool to assist in your development tasks.
 * Extremely extendable.
 
 These, among many other features, are all shipped out of the box and ready to go. Use what you need when you need it.
@@ -105,72 +105,26 @@ The `python`command here is utilizing Python 3. Your machine may run Python 2 \(
 For example, you would run `python3 -m venv venv` instead of `python -m venv venv`
 {% endhint %}
 
-## Installing Masonite
+# Installation
 
-Now we can install Masonite. This will give us access to a craft command we can use to finish the install steps for us:
+First install the Masonite package:
 
-```text
+```
 $ pip install masonite
 ```
 
-Once Masonite installs you will now have access to the `craft` command line tool. Craft will become your best friend during your development. You will learn to love it very quickly :\).
+Then start a new project:
 
-You can ensure Masonite and craft installed correctly by running:
-
-```text
-$ craft
+```
+$ start project .
 ```
 
-You should see a list of a few commands like `install` and `new`
+This will create a new project in the current directory as well install Masonite dependencies.
 
-## Creating Our Project
+Once installed you can run the development server:
 
-Great! We are now ready to create our first project. We should have the new `craft` command. We can check this by running:
-
-{% code title="terminal" %}
-```text
-$ craft
 ```
-{% endcode %}
-
-We are currently only interested in the `craft new` command. To create a new project just run:
-
-{% code title="terminal" %}
-```text
-$ craft new
+$ python craft serve
 ```
-{% endcode %}
-
-This will also run `craft install` which will install our dependencies.
-
-This will get the latest Masonite project template and unzip it for you. We just need to go into our new project directory and install the dependencies in our `requirements.txt` file.
-
-## Additional Commands
-
-Now that Masonite installed fully we can check all the new commands we have available. There are many :\).
-
-```text
-$ craft
-```
-
-We should see many more commands now.
-
-## Running The Server
-
-After it’s done we can just run the server by using another `craft` command:
-
-{% code title="terminal" %}
-```text
-$ craft serve
-```
-{% endcode %}
 
 Congratulations! You’ve setup your first Masonite project! Keep going to learn more about how to use Masonite to build your applications.
-
-{% hint style="success" %}
-You can learn more about craft by reading [The Craft Command](https://github.com/MasoniteFramework/docs/tree/ba9d9f8ac3e41d58b9d92d951f92c898fb16a2a4/the-craft-command.md) documentation or continue on to learning about how to create web application by first reading the [Routing ](the-basics/routing.md)documentation
-{% endhint %}
-
-{% hint style="info" %}
-Masonite uses romantic versioning instead of semantic versioning. Because of this, all minor releases \(2.0.x\) will contain bug fixes and fully backwards compatible feature releases. Be sure to always keep your application up to date with the latest minor release to get the full benefit of Masonite's romantic versioning.
-{% endhint %}
