@@ -8,6 +8,8 @@ Masonite works hard to be fast and easy from install to deployment so developers
 If you are more of a visual learner you can watch Masonite related tutorial videos at [MasoniteCasts.com](https://masonitecasts.com)
 {% endhint %}
 
+> Masonite is currently in Beta phase. Some documentation may be modified to reflect how to use the framework in Beta that may not be the case upon stable release
+
 ## Some Notable Features Shipped With Masonite
 
 * Easily send emails with the Mail Provider and the SMTP and Mailgun drivers.
