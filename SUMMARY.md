@@ -30,6 +30,7 @@
 * [Views](features/views.md)
 * [Facades](features/facades.md)
 * [Compiling Assets](features/compiling-assets.md)
+* [Notifications](features/notifications.md)
 
 ## Masonite ORM <a id="masonite-orm"></a>
 
