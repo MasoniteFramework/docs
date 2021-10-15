@@ -24,6 +24,9 @@ The available facades are:
 - `Hash`
 - `Session`
 - `Notification`
+- `Auth`
+- `Config`
+- `Url`
 
 # Creating Your Own Facades
 
