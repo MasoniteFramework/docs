@@ -2,7 +2,7 @@ Facades are an easy way to access the container classes without making them from
 
 # Built in Facades
 
-Masonite ships with several facades you can use out of the box. 
+Masonite ships with several facades you can use out of the box.
 
 Facades are just a shortcut to a key in the IOC container.
 
@@ -17,12 +17,16 @@ def show(self):
 
 The available facades are:
 
-* `Request`
-* `Response`
-* `View`
-* `Mail`
-* `Hash`
-* `Session`
+- `Request`
+- `Response`
+- `View`
+- `Mail`
+- `Hash`
+- `Session`
+- `Notification`
+- `Auth`
+- `Config`
+- `Url`
 
 # Creating Your Own Facades
 
@@ -42,4 +46,3 @@ from app.facades import YourFacade
 
 YourFacade.method()
 ```
-

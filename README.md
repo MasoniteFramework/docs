@@ -118,7 +118,7 @@ $ pip install masonite==4.0.0b1
 Then start a new project:
 
 ```
-$ start project .
+$ start project . --branch 4.0
 ```
 
 This will create a new project in the current directory as well install Masonite dependencies.

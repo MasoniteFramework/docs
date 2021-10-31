@@ -17,13 +17,24 @@ The configuration settings will be made inside your `webpack.mix.js` file locate
 You can see there is already an example config setup for you that looks like this:
 
 ```javascript
-mix.js('storage/static/js/app.js', 'storage/compiled/js')
-    .sass('storage/static/sass/style.scss', 'storage/compiled/css');
+mix
+  .js("resources/js/app.js", "storage/compiled/js")
+  .postCss("resources/css/app.css", "storage/compiled/css", [
+    //
+  ]);
 ```
 
-This will move these 2 files, `storage/static/js/app.js` and `storage/statis/sass/style.scss` and compile them both into the `storage/compiled` directory.
+This will move these 2 files, `resources/js/app.js` and `resources/css/app.css` and compile them both into the `storage/compiled` directory.
 
-**Feel free to change which directories the files get compiled to. For more information on additional configuration values take a look at the** [**Laravel Mix Documentation**](https://laravel.com/docs/6.x/mix)
+**Feel free to change which directories the files get compiled to. For more information on additional configuration values take a look at the** [**Laravel Mix Documentation**](https://laravel-mix.com/docs/6.0/examples)
+
+### Installing TailwindCSS
+
+Laravel is using Laravel mix so you can just follow guidelines to setup TailwindCSS for Laravel Mix on [TailwindCSS Official Documentation](https://tailwindcss.com/docs/guides/laravel#setting-up-tailwind-css).
+
+### Installing Vue
+
+Please follow the guidelines directly on [Laravel Mix Vue Support Documentation](https://laravel-mix.com/docs/6.0/vue)
 
 ## Compiling
 
@@ -37,9 +48,27 @@ $ npm run dev
 
 This will compile the assets and put them in the directories you put in the configuration file.
 
-You can also have NPM wait for changes and recompile when changes are detected. This is similiar to an auto reloading server. To do this just run:
+You can also have NPM wait for changes and recompile when changes are detected in frontend files. This is similiar to an auto reloading server. To do this just run:
 
 ```text
 $ npm run watch
 ```
 
+## Versioning
+
+Laravel Mix can take care of file hashing when releasing assets to production, by adding a hash suffix to your assets to
+automatically bust cache when loading assets. To enable this you can add the following in your `webpack.mix.js` file:
+
+```js
+if (mix.inProduction()) {
+  mix.version();
+}
+```
+
+More information on this feature in [Laravel Mix Versioning](https://laravel-mix.com/docs/6.0/versioning).
+
+After Laravel Mix compiled your assets you won't be able to know the exact filename (because of the hash) you should use in your views to reference your assets. You can use Masonite `mix()` helper to resolve the correct file path to your assets.
+
+```html
+<script src="{{ mix('resources/js/app.js') }}"></script>
+```
