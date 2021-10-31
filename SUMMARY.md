@@ -12,7 +12,7 @@
 
 ## The Basics
 
-* [Routing](the-basics/routing.md)
+* [Routing](features/routing.md)
 * [Middleware](features/middleware.md)
 
 ## Features
