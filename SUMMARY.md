@@ -15,6 +15,7 @@
 * [Routing](features/routing.md)
 * [Controllers](features/controllers.md)
 * [Middleware](features/middleware.md)
+* [Response](features/response.md)
 
 ## Features
 
