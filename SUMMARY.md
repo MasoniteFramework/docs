@@ -13,6 +13,7 @@
 ## The Basics
 
 * [Routing](features/routing.md)
+* [Controllers](features/controllers.md)
 * [Middleware](features/middleware.md)
 
 ## Features
