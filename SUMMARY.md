@@ -21,6 +21,7 @@
 ## Features
 
 * [Mail](features/mail.md)
+* [Authentication](features/authentication.md)
 * [Queues and Jobs](features/queues.md) 
 * [Task Scheduling](features/scheduling.md)
 * [Filesystem and Uploading](features/uploading.md)
