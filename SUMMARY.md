@@ -20,21 +20,22 @@
 
 ## Features
 
-* [Mail](features/mail.md)
 * [Authentication](features/authentication.md)
-* [Queues and Jobs](features/queues.md) 
-* [Task Scheduling](features/scheduling.md)
-* [Filesystem and Uploading](features/uploading.md)
-* [Events](features/events.md)
 * [Broadcasting](features/broadcasting.md)
-* [Hash ID's](features/hashing.md)
-* [Sessions](features/sessions.md)
 * [Caching](features/caching.md)
-* [CSRF Protection](features/csrf.md)
-* [Views](features/views.md)
-* [Facades](features/facades.md)
 * [Compiling Assets](features/compiling-assets.md)
+* [CSRF Protection](features/csrf.md)
+* [Events](features/events.md)
+* [Facades](features/facades.md)
+* [Filesystem and Uploading](features/uploading.md)
+* [Hash ID's](features/hashing.md)
+* [Helpers](features/helpers.md)
+* [Mail](features/mail.md)
 * [Notifications](features/notifications.md)
+* [Queues and Jobs](features/queues.md) 
+* [Sessions](features/sessions.md)
+* [Task Scheduling](features/scheduling.md)
+* [Views](features/views.md)
 
 ## Masonite ORM <a id="masonite-orm"></a>
 
