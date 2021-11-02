@@ -24,6 +24,7 @@
 * [Broadcasting](features/broadcasting.md)
 * [Caching](features/caching.md)
 * [Compiling Assets](features/compiling-assets.md)
+* [Commands](features/commands.md)
 * [CSRF Protection](features/csrf.md)
 * [Events](features/events.md)
 * [Facades](features/facades.md)
