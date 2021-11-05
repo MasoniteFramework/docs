@@ -36,6 +36,7 @@
 * [Queues and Jobs](features/queues.md) 
 * [Sessions](features/sessions.md)
 * [Task Scheduling](features/scheduling.md)
+* [Validation](features/validation.md)
 * [Views](features/views.md)
 
 ## Masonite ORM <a id="masonite-orm"></a>

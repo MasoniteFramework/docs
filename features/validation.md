@@ -1,9 +1,3 @@
-# Validation
-
-## Validation
-
-## Introduction
-
 There are a lot of times when you need to validate incoming input either from a form or from an incoming json request. It is wise to have some form of backend validation as it will allow you to build more secure applications. Masonite provides an extremely flexible and fluent way to validate this data.
 
 Validations are based on rules where you can pass in a key or a list of keys to the rule. The validation will then use all the rules and apply them to the dictionary to validate.
@@ -37,11 +31,10 @@ def show(self, request: Request, validate: Validator):
     )
 
     if errors:
-        request.session.flash('errors', errors)
-        return request.back()
+        return request.back().with_errors(errors)
 ```
 
-This validating will read like "user and email are required and the terms must be accepted" \(more on available rules and what they mean in a bit\)
+This validation will read like "user and email are required and the terms must be accepted" \(more on available rules and what they mean in a bit\)
 
 {% hint style="info" %}
 Note you can either pass in a single value or a list of values
@@ -66,7 +59,7 @@ $ python craft rule equals_masonite
 {% endtabs %}
 
 {% hint style="info" %}
-There is no particular reason that rules are lowercase class names. The main reason it is improves readability when you end up using it as a method if you choose to register the rule with the validation class like you will see below.
+There is no particular reason that rules are lowercase class names. The main reason is that it improves readability when you end up using it as a method if you choose to register the rule with the validation class like you will see below.
 {% endhint %}
 
 This will create a boiler plate rule inside app/rules/equals\_masonite.py that looks like:
@@ -219,15 +212,14 @@ class RuleProvider(ServiceProvider):
     """Provides Services To The Service Container
     """
 
-    wsgi = False
+    def __init__(self, application):
+        self.application = application
 
-    ...
-
-    def boot(self, validator: Validator):
+    def register(self, validator: Validator):
         """Boots services required by the container
         """
 
-        validator.register(equals_masonite)
+        self.application.make('validator').register(equals_masonite)
 ```
 
 Now instead of importing the rule we can just use it as normal:
@@ -280,43 +272,6 @@ def show(self, validator: Validator):
 ```
 
 Just put the dictionary as the first argument and then each rule being its own argument.
-
-## Using The Decorator
-
-Masonite validation has a convenient decorator you can use on your controller methods. This will prevent the controller method being hit all together if validation isn't correct:
-
-```python
-from masonite.validation.decorators import validate
-from masonite.validation import required
-
-@validate(required('name'))
-def show(self, view: View):
-  return view.render(..)
-```
-
-This will return a JSON response. You can also choose where to redirect back to:
-
-```python
-from masonite.validation.decorators import validate
-from masonite.validation import required
-
-@validate(required('name'), redirect='/login')
-def show(self, view: View):
-  return view.render(..)
-```
-
-As well as redirect back to where you came from \(if you use the `{{ back() }}` template helper\)
-
-```python
-from masonite.validation.decorators import validate
-from masonite.validation import required
-
-@validate(required('name'), back=True)
-def show(self, view: View):
-  return view.render(..)
-```
-
-> Both of these redirections will redirect with errors and input. So you can use the `{{ old() }}` template helper to get previous input.
 
 ## Rule Enclosures
 
@@ -403,8 +358,7 @@ def show(self, request: Request):
     )
 
     if errors:
-        request.session.flash('errors', errors)
-        return request.back()
+        return request.back().with_errors(errors)
 ```
 
 ## Message Bag
@@ -419,8 +373,7 @@ from masonite.validation import MessageBag
 def show(self, request: Request):
     errors = request.validate(
         email('email')
-    )
-    errors = MessageBag(errors)
+    ) #== <masonite.validation.MessageBag>
 ```
 
 ### Getting All Errors:
@@ -428,7 +381,6 @@ def show(self, request: Request):
 You can easily get all errors using the `all()` method:
 
 ```python
-errors = MessageBag(errors)
 errors.all()
 """
 {
@@ -441,7 +393,6 @@ errors.all()
 ### Checking for any errors
 
 ```python
-errors = MessageBag(errors)
 errors.any() #== True
 ```
 
@@ -450,21 +401,18 @@ errors.any() #== True
 This is just the opposite of the `any()` method.
 
 ```python
-errors = MessageBag(errors)
 errors.empty() #== False
 ```
 
 ### Checking For a Specific Error
 
 ```python
-errors = MessageBag(errors)
 errors.has('email') #== True
 ```
 
 ### Getting the first Key:
 
 ```python
-errors = MessageBag(errors)
 errors.all()
 """
 {
@@ -483,14 +431,12 @@ errors.first()
 ### Getting the Number of Errors:
 
 ```python
-errors = MessageBag(errors)
 errors.count() #== 2
 ```
 
 ### Converting to JSON
 
 ```python
-errors = MessageBag(errors)
 errors.json()
 """
 '{"email": ["Your email is required"],"name": ["Your name is required"]}'
@@ -500,14 +446,12 @@ errors.json()
 ### Get the Amount of Messages:
 
 ```python
-errors = MessageBag(errors)
 errors.amount('email') #== 1
 ```
 
 ### Get the Messages:
 
 ```python
-errors = MessageBag(errors)
 errors.get('email')
 """
 ['Your email is required']
@@ -517,7 +461,6 @@ errors.get('email')
 ### Get the Errors
 
 ```python
-errors = MessageBag(errors)
 errors.errors()
 """
 ['email', 'name']
@@ -527,7 +470,6 @@ errors.errors()
 ### Get all the Messages:
 
 ```python
-errors = MessageBag(errors)
 errors.messages()
 """
 ['Your email is required', 'Your name is required']
@@ -539,27 +481,8 @@ errors.messages()
 You can also merge an existing dictionary into the bag with the errors:
 
 ```python
-errors = MessageBag(errors)
 errors.merge({'key': 'value'})
 ```
-
-## Template Helper
-
-You can use the `bag()` template helper which will contain the list of errors. Inside an HTML template you can do something like this:
-
-```markup
-@if(bag().any())
-    <div class="bg-yellow-200 text-yellow-800 px-4 py-2">
-        <ul>
-            @for message in bag().messages()
-            <li>{{ message }}</li>
-            @endfor
-        </ul>
-    </div>
-@endif
-```
-
-This will give you all the errors inside each list.
 
 ## Nested Validations
 
