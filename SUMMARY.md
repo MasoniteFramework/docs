@@ -17,6 +17,7 @@
 * [Middleware](features/middleware.md)
 * [Response](features/response.md)
 * [Request](features/request.md)
+* [Static Files](features/static-files.md)
 
 ## Features
 
