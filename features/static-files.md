@@ -1,4 +1,4 @@
-Masonite tries to make static files extremely easy and comes with whitenoise out of the box. Whitenoise wraps the WSGI application and listens for certain URI requests that can be resistered in your configuration files and serves those assets.
+Masonite tries to make static files extremely easy and comes with whitenoise out of the box. Whitenoise wraps the WSGI application and listens for certain URI requests that can be registered in your configuration files and serves those assets.
 
 ## Configuration
 
@@ -9,11 +9,13 @@ The directories to include as keys are simply the location of your static file l
 For this setup, our `STATICFILES` constant should look like:
 
 {% code title="config/storage.py" %}
+
 ```python
 STATICFILES = {
     'storage/assets/css': 'assets/',
 }
 ```
+
 {% endcode %}
 
 Now in our templates we can use:
@@ -31,6 +33,7 @@ All templates have a static function that can be used to assist in getting locat
 Take this for example:
 
 {% code title="config/filesystem.py" %}
+
 ```python
 ....
 's3': {
@@ -40,23 +43,28 @@ Take this for example:
   },
 ....
 ```
+
 {% endcode %}
 
 ```html
 ...
-<img src="{{ asset('s3', 'profile.jpg') }}" alt="profile">
+<img src="{{ asset('s3', 'profile.jpg') }}" alt="profile" />
 ...
 ```
 
 this will render:
 
 ```html
-<img src="https://s3.us-east-2.amazonaws.com/bucket/profile.jpg" alt="profile">
+<img
+  src="https://s3.us-east-2.amazonaws.com/bucket/profile.jpg"
+  alt="profile"
+/>
 ```
 
 You can also make the config location a dictionary and use dot notation:
 
 {% code title="config/storage.py" %}
+
 ```python
 ....
 's3': {
@@ -68,15 +76,16 @@ You can also make the config location a dictionary and use dot notation:
   },
 ....
 ```
+
 {% endcode %}
 
 and use the dot notation like so:
 
 ```html
 ...
-<img src="{{ asset('s3.east', 'profile.jpg') }}" alt="profile">
+<img src="{{ asset('s3.east', 'profile.jpg') }}" alt="profile" />
 ...
-<img src="{{ asset('s3.west', 'profile.jpg') }}" alt="profile">
+<img src="{{ asset('s3.west', 'profile.jpg') }}" alt="profile" />
 ...
 ```
 
@@ -99,6 +108,7 @@ storage/
 and you can alias this in your `STATICFILES` constant:
 
 {% code title="config/storage.py" %}
+
 ```python
 STATICFILES = {
     # folder          # template alias
@@ -107,9 +117,9 @@ STATICFILES = {
     'storage/public': '/'
 }
 ```
+
 {% endcode %}
 
 You will now be able to access `localhost:8000/robots.txt` and you will have your robots.txt served correctly and it can be indexed by search engines properly.
 
 Thats it! Static files are extremely simple. You are now a master at static files!
-

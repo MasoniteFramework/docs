@@ -5,7 +5,7 @@ Masonite comes with a simple way to store sessions. Currently the only session d
 To save session data you can simply "set" data into the session:
 
 ```python
-from masonite.session import Session
+from masonite.sessions import Session
 
 def store(self, session: Session):
   data = session.set('key', 'value')
@@ -16,7 +16,7 @@ def store(self, session: Session):
 Flash data is data specific to the next request. This is useful for data such as error messages or alerts:
 
 ```python
-from masonite.session import Session
+from masonite.sessions import Session
 
 def store(self, session: Session):
   data = session.flash('key', 'value')
@@ -27,7 +27,7 @@ def store(self, session: Session):
 To get back the session data you set you can simply using the "get" method:
 
 ```python
-from masonite.session import Session
+from masonite.sessions import Session
 
 def store(self, session: Session):
   data = session.get('key')
@@ -38,7 +38,7 @@ def store(self, session: Session):
 You can check if a session has a specific key:
 
 ```python
-from masonite.session import Session
+from masonite.sessions import Session
 
 def store(self, session: Session):
   if session.has('key'):
@@ -50,7 +50,7 @@ def store(self, session: Session):
 You can also delete a key from the session
 
 ```python
-from masonite.session import Session
+from masonite.sessions import Session
 
 def store(self, session: Session):
   session.delete('key')
@@ -69,4 +69,3 @@ Or you can reset only flash data:
 ```python
 session.reset(flash_only=True)
 ```
-
