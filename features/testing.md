@@ -38,6 +38,31 @@ That's it! You're ready to start testing. Read on to learn how to build your tes
 
 ### Running tests
 
+You can run tests by calling
+
+```
+$ python -m pytest
+```
+
+This will automatically discover your tests following pytest [automatic tests discovery]().
+You can also run a specific test class
+
+```
+$ python -m pytest tests/unit/test_my_feature.py
+```
+
+Or a specific test method
+
+```
+$ python -m pytest tests/unit/test_my_feature.py::MyFeatureTest::test_feature_is_working
+```
+
+Finally you can re-run the last failed tests automatically
+
+```
+$ python -m pytest --last-failed
+```
+
 ## Database tests
 
 ## Console tests
