@@ -6,6 +6,7 @@
 
 ## Prologue
 
+* [Creating A Blog Tutorial](prologue/creating-a-blog.md)
 * [Release Cycle](prologue/release-cycle.md)
 * [Contributing Guide](prologue/contributing-guide.md) 
 * [How To Contribute](prologue/how-to-contribute.md)
