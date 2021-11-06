@@ -63,14 +63,121 @@ Finally you can re-run the last failed tests automatically
 $ python -m pytest --last-failed
 ```
 
-## Database tests
+## Building test cases
 
-## Console tests
+- Explain setUp / tearDown classes
 
 ## HTTP tests
 
-## Assertions
+### CSRF protection
+
+### Exception handling
+
+## Console tests
+
+You can test [commands](/features/commands) running in console with `craft` test helper.
+
+```python
+def test_my_command(self):
+    self.craft("my_command", "arg1", "arg2").assertSuccess()
+```
+
+This will programmatically run the command if it has been registered in your project and assert that no
+errors has been reported.
+
+More [console assertions](#console-assertions) are available.
+
+## Database tests
+
+## Available Assertions
+
+### Responses Assertions
+
+- assertContains
+- assertNotContains
+- assertContainsInOrder
+- assertIsNamed
+- assertIsNotNamed
+- assertIsStatus
+- assertNotFound
+- assertOk
+- assertCreated
+- assertSuccessful
+- assertNoContent
+- assertUnauthorized
+- assertHasHeader
+- assertHeaderMissing
+- assertLocation
+- assertRedirect
+- assertCookie
+- assertPlainCookie
+- assertCookieExpired
+- assertCookieNotExpired
+- assertSessionHas
+- assertSessionMissing
+- assertSessionHasErrors
+- assertSessionHasNoErrors
+- assertViewIs
+- assertViewHas
+- assertViewHasExact
+- assertViewMissing
+- assertAuthenticated
+- assertGuest
+- assertAuthenticatedAs
+- assertHasHttpMiddleware
+- assertHasRouteMiddleware
+- assertHasController
+- assertRouteHasParameter
+- assertJson
+- assertJsonPath
+- assertJsonExact
+- assertJsonCount
+- assertJsonMissing
+
+### Console Assertions
+
+- assertSuccess
+- assertExactOutput
+- assertHasErrors
+- assertExactErrors
+- assertOutputContains
+- assertOutputMissing
+
+### Database Assertions
+
+- assertDatabaseCount
+- assertDatabaseHas
+- assertDatabaseMissing
+- assertDeleted
+- assertSoftDeleted
+
+## Helpers
+
+- withExceptionsHandling
+- withExceptionsHandling
+- withCsrf
+- withoutCsrf
+- withCookies
+- withHeaders
+- fakeTime
+- fakeTimeTomorrow
+- fakeTimeYesterday
+- fakeTimeInFuture
+- fakeTimeInPast
+- restoreTime
 
 ## Mocks
+
+### Masonite features mocks
+
+Using helpers for different features to list
+
+- fake()
+- restore()
+
+### Basic Python mocks
+
+- quick example external api
+- link to docs of mock module
 
 ## Extending test response
