@@ -1,22 +1,16 @@
-# Contributing Guide
+When contributing to Masonite, please first discuss the change you wish to make via a GitHub issue. Starting with a GitHub issue allows all contributors and maintainers to have a chance to give input on the issue. It creates a public forum to discuss the best way to implement the issue, fix, or improvement. It also creates an open discussion on if the issue will even be permitted to be in the project.
 
-## Contributing Guide
-
-## Introduction
-
-When contributing to Masonite, please first discuss the change you wish to make via a GitHub issue or in the [Masonite Slack](http://slack.masoniteproject.com) channel.
-
-Please note we have a code of conduct, please follow it in all your interactions with the project. You can find it in the base of the core project directory.
+Please note we have a code of conduct, please follow it in all your interactions with the project. You can find it in this in this documentation as well as all of Masonite's repositories.
 
 ## Getting Started
 
-The framework has three main parts: The "core" repo, the "cookie-cutter" repo and the craft CLI tool.
+The framework has 2 main parts: The "masonite" repo and the "cookie-cutter" repo.
 
-The `MasoniteFramework/cookie-cutter` repository is the main repository that will install when creating new projects using the `craft new` command. This is actually a full Masonite project. When you run `craft new` it simply reaches out to this GitHub repo, fetches the zip and unzips it on your computer. Not much development will be done in this repository and won't be changed unless something requires changes in the default installation.
+The `MasoniteFramework/cookie-cutter` repository is the main repository that will install when creating new projects using the `start project` command. This is actually a full Masonite project. When you run `start project` it simply reaches out to this GitHub repo, fetches the zip and unzips it on your computer. Not much development will be done in this repository and won't be changed unless something requires changes in the default installation project structure.
 
-The `MasoniteFramework/core` repository is deprecated and development has been moved into `Masoniteframework/masonite`. This repository contains all the development of Masonite and contains all the releases for Masonite. If you need to fix a bug or add a new feature then this is the repository to fork.
+The `MasoniteFramework/core` repository is deprecated and development has been moved into `MasoniteFramework/masonite`. This repository contains all the development of Masonite and contains all the releases for Masonite. If you need to fix a bug or add a new feature then this is the repository to fork and make your changes from.
 
-The `MasoniteFramework/craft` is deprecated. This was where the craft CLI tool lives that has since been moved into the `masonite` repository. Masonite 2.2 and below still requires repository so if you need to make a change to craft for Masonite 2.2 then you can do so in this repo. If you need to make a change to craft in Masonite 2.3 and above then do so directly in `core`.
+The `MasoniteFramework/craft` is deprecated. This was where the craft CLI tool lived that has since been moved into the `masonite` repository.
 
 ## Getting the Masonite cookie-cutter repository up and running to be edited
 
@@ -36,7 +30,7 @@ This repo is simple and will be able to be installed following the installation 
   * `git push origin change-default-orm`
 * Open a pull request and follow the PR process below
 
-## Editing the Masonite core repository
+## Editing the Masonite repository
 
 The trick to this is that we need it to be pip installed and then quickly editable until we like it, and then pushed back to the repo for a PR. Do this only if you want to make changes to the core Masonite package
 
@@ -48,27 +42,8 @@ To do this just:
 * Activate your masonite virtual environment \(optional\)
   * Go to where you installed masonite and activate the environment
 * While inside the virtual environment, `cd` into the directory you installed core.
-* Run `pip install .` from inside the masonite-core directory. This will install masonite as a pip package.
-* Any changes you make to this package just push it to your feature branch on your fork and follow the PR process below.
-
-{% hint style="warning" %}
-This repository has a barebones skeleton of a sample project in order to aid in testing all the features of Masonite against a real project. If you install this as editable by passing the `--editable` flag then this may break your project because it will override the modules in this package with your application modules.
-{% endhint %}
-
-## Editing the craft repository \(`craft` commands\)
-
-Craft commands make up a large part of the workflow for Masonite. Follow these instructions to get the masonite-cli package on your computer and editable.
-
-> If the change in Masonite's CLI tool is for 2.3 or above, please make the changes in the `MasoniteFramework/craft` repo.
-
-* Fork the `MasoniteFramework/craft` repo
-* Clone that repo into your computer:
-  * `git clone http://github.com/your-username/craft.git`
-* Activate your masonite virtual environment \(optional\)
-  * Go to where you installed masonite and activate the environment
-* While inside the virtual environment, cd into the directory you installed cli
-* Run `pip install --editable .` from inside the masonite-cli directory. This will install craft \(which contains the craft commands\) as a pip package but also keep a reference to the folder so you can make changes freely to craft commands while not having to worry about continuously reinstalling it.
-* Any changes you make to this package just push it to your feature branch on your fork and follow the PR process below.
+* Run `pip install -e .` from inside the masonite directory. This will install masonite as a pip package in editable mode. Any changes you make to the codebase will immediately be available in your project. You may need to restart your development server.
+* Any changes you make to this package just push to your feature branch on your fork and follow the PR process below.
 
 ## Comments
 
@@ -141,7 +116,7 @@ def __init__(self, request: Request, csrf: Csrf, view: View):
 
 ### Code Comments
 
-If you're code MUST be complex enough that future developers will not understand it, add a `#` comment above it
+Code comments should be left to a MINIMUM. If your code is complex to the point that it requires a comment then you should consider refactoring your code instead of adding a comment. If you're code MUST be complex enough that future developers may not understand it, add a `#` comment above it
 
 For normal code this will look something like:
 
@@ -155,29 +130,39 @@ perform_some_complex_task()
 
 ## Pull Request Process
 
-Please read this process carefully to prevent pull requests from being rejected.
+**Please read this process carefully to prevent pull requests from being rejected.**
 
 1. You should open an issue before making any pull requests. Not all features will be added to the framework and some may be better off as a third party package or not be added at all. It wouldn't be good if you worked on a feature for several days and the pull request gets rejected for reasons that could have been discussed in an issue for several minutes.
 2. Ensure any changes are well commented and any configuration files that are added have docstring comments on the variables it's setting. See the comments section above.
 3. Update the `MasoniteFramework/docs` repo \(and the README.md inside `MasoniteFramework/masonite` repo if applicable\) with details of changes to the UI. This includes new environment variables, new file locations, container parameters, new feature explanations etc.
 4. Name your branches in the form of `<feature|fix>/<issue-number>`. For example if you are doing a bug fix and the issue number is `576` then name your branch `fix/576`. This will help us locate the branches on our computers at later dates. If it is a new feature name it `feature/576`.
-5. You must add unit testing for any changes made. Of the three repositories listed above, only the `masonite` repo require unit testing.
-6. Increase the version numbers in any example files and the README.md to the new version that this Pull Request would represent. The versioning scheme we use is [RomVer](http://blog.legacyteam.info/2015/12/romver-romantic-versioning/).
-7. The PR must pass the Travis CI build. The Pull Request can be merged in once you have a successful review from two other collaborators, or one review from a maintainer or Masonite creator. 
+5. You **must** add unit testing for any changes made before the PR will be merged. If you are unsure how to write unit tests of the repositories listed above, you may open the pull request anyway and we will add the tests together.
+6. Increase the version numbers in any example files (like setup.py) and to the new version that this Pull Request would represent. The versioning scheme we use is [SEMVER](https://semver.org/).
+7. The PR must pass the GitHub actions that run on pull requests. The Pull Request can be merged in once you have a successful review from two other collaborators, or one review from a maintainer. 
 
 ## Branching
 
 Branching is also important. Depending on what fixes or features you are making you will need to branch from \(and back into\) the current branch. Branching for Masonite simple:
 
-1\) All of Masonite repositories, packages, etc. follow the same basic branching flow. 2\) Each repository has: a current release branch, previous release branches, a master branch and a develop branch. 3\) The current release branch is what the current release is on. So for example, Masonite is on version 2.3 so the current release branch will be `2.3`. 4\) Previous release branches are the same thing but instead are just previous versions. So if Masonite is currently on `2.3` then the previous release branches could be `2.0`, `2.1`, `2.2`, etc. 5\) The master branch is a staging branch that will eventually be merged into the current release branch. Here is where all non breaking changes will be staged \(new non breaking features and bug fixes\). 6\) The develop branch is a staging branch **to the next major version**. So for example, Masonite will be on version `2.3`. If you have an idea for a feature but it will break the existing feature then you will branch from \(and back into\) the `develop` branch. This branch will eventually be merged into `2.4` and become apart of the next major version when that is released.
+1\) All of Masonite repositories, packages, etc. follow the same basic branching flow. 
+
+2\) Each repository has: a current release branch, previous release branches, a master branch and a develop branch. 
+
+3\) The current release branch is what the current release is on. So for example, Masonite is on version 2.3 so the current release branch will be `2.3`. 
+
+4\) Previous release branches are the same thing but instead are just previous versions. So if Masonite is currently on `4.0` then the previous release branches could be `3.0`, `2.1`, `2.2`, etc. 
+
+5\) The master branch is a staging branch that will eventually be merged into the current release branch. Here is where all non breaking changes will be staged \(new non breaking features and bug fixes\). 
+
+6\) The `develop` branch is a staging branch **to the next major version**. So for example, Masonite will be on version `4.0`. If you have an idea for a feature but it will break the existing feature then you will branch from \(and back into\) the `develop` branch. This branch will eventually be merged into `4.1` branch and become apart of the next major version when that is released.
 
 ### Examples:
 
-For example, if you want to make a new feature and you know it will not break anything \(like adding the ability to queue something\) then you will branch from the master branch following the Pull Request flow from above. The PR will be open to the master branch. This feature will then be merged into the current release branch and be released as a new minor version bump \(`2.3.1`\).
+For example, if you want to make a new feature and you know it will not break anything \(like adding the ability to queue something\) then you will branch from the master branch following the Pull Request flow from above. The PR will be open to the master branch. This feature will then be merged into the current release branch and be released as a new minor version bump \(`4.1.0`\).
 
 Bug fixes that do not break anything is the same process as above.
 
-New feature will be the same process but be branched off of the `develop` branch. You will make your change and then open a pull request to the `develop` branch. This is a long running branch and will merge once the next major version of Masonite is ready to be released.
+New features will be the same process but be branched off of the `develop` branch. You will make your change and then open a pull request to the `develop` branch. This is a long running branch and will be merged once the next major version of Masonite is ready to be released.
 
 ## Code of Conduct
 
@@ -220,7 +205,7 @@ This Code of Conduct applies both within project spaces and in public spaces whe
 
 ### Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at idmann509@gmail.com. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at joe@masoniteproject.com. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
 
 Project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project's leadership.
 
