@@ -6,7 +6,7 @@ you don't want to test.
 Masonite comes with some mocking abilities for some of the features relying on third party services.
 For other parts or you own code you can use Python mocking abilities provided by `unittest.mock` standard module.
 
-## Masonite Features Mocks
+# Masonite Features Mocks
 
 Masonite tests case have two helpers method `fake()` and `restore()`.
 
@@ -19,7 +19,7 @@ Available features that can be mocked (for now) are:
 - [Mail](/features/mail)
 - [Notification](/features/notifications)
 
-### Mocking Mail
+## Mocking Mail
 
 When mocking emails it will prevent emails from being really sent. Typically, sending mail is unrelated to the code you are actually testing. Most likely, it is sufficient to simply assert that Masonite was instructed to send a given mailable.
 
@@ -60,7 +60,7 @@ Available assertions are:
 - seeEmailDoesNotContain(string)
 - seeEmailPriority(string)
 
-### Mocking Notification
+## Mocking Notification
 
 When mocking notifications it will prevent notifications from being really sent. Typically, sending notification is unrelated to the code you are actually testing. Most likely, it is sufficient to simply assert that Masonite was instructed to send a given notification.
 
@@ -120,7 +120,7 @@ Available helpers are:
 - resetCount()
 - last()
 
-## Basic Python mocks
+# Basic Python mocks
 
 For mocking any piece of code in Python you can use the standard `unittest.mock` module. You can find
 more information in [unittest documentation](https://docs.python.org/3/library/unittest.mock.html).
