@@ -23,6 +23,7 @@
 ## Features
 
 - [Authentication](features/authentication.md)
+- [Authorization](features/authorization.md)
 - [Broadcasting](features/broadcasting.md)
 - [Caching](features/caching.md)
 - [Compiling Assets](features/compiling-assets.md)
@@ -53,6 +54,7 @@
 - [Console Tests](testing/console-tests.md)
 - [Mocking](testing/mocking.md)
 - [Extending](testing/extending.md)
+
 
 ## Official Packages
 
