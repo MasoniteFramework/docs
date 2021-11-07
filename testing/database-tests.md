@@ -41,13 +41,13 @@ DATABASES = {
 
 Masonite provides several database assertions that can be used during testing.
 
-- [assertDatabaseCount](#assertDatabaseCount)
-- [assertDatabaseHas](#assertDatabaseHas)
-- [assertDatabaseMissing](#assertDatabaseMissing)
-- [assertDeleted](#assertDeleted)
-- [assertSoftDeleted](#assertSoftDeleted)
+- [assertDatabaseCount](#assertdatabasecount)
+- [assertDatabaseHas](#assertdatabasehas)
+- [assertDatabaseMissing](#assertdatabasemissing)
+- [assertDeleted](#assertdeleted)
+- [assertSoftDeleted](#assertsoftdeleted)
 
-#### assertDatabaseCount
+### assertDatabaseCount
 
 Assert that a table in the database contains the given number of records.
 
@@ -61,7 +61,7 @@ self.assertDatabaseCount(table, count)
       self.assertDatabaseCount("users", 1)
 ```
 
-#### assertDatabaseHas
+### assertDatabaseHas
 
 Assert that a table in the database contains records matching the given query.
 
@@ -73,7 +73,7 @@ self.assertDatabaseHas(table, query_dict)
 self.assertDatabaseCount("users", {"name": "John"})
 ```
 
-#### assertDatabaseMissing
+### assertDatabaseMissing
 
 Assert that a table in the database does not contain records matching the given query.
 
@@ -85,7 +85,7 @@ self.assertDatabaseMissing(table, query_dict)
 self.assertDatabaseMissing("users", {"name": "Jack"})
 ```
 
-#### assertDeleted
+### assertDeleted
 
 Assert that the given model instance has been deleted from the database.
 
@@ -95,7 +95,7 @@ user.delete()
 self.assertDeleted(user)
 ```
 
-#### assertSoftDeleted
+### assertSoftDeleted
 
 Assert that the given model instance has been [soft deleted](https://orm.masoniteproject.com/models#soft-deleting) from the database.
 
