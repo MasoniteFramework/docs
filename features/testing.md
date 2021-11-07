@@ -1133,8 +1133,3 @@ def test_mock_third_party_api(self):
     # do somehting in your code
     self.assertTrue(responses.assert_call_count("api.github.com", 1))
 ```
-
-## Extending test response (advanced)
-
-- adding new assertions in HTTPTestResponse
-- adding mocking of some feature
