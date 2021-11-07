@@ -1,11 +1,11 @@
 Masonite also provides a simple way to authorize user actions against a given resource. This is achieved with two concepts: gates and policies. Gates are as the name suggests an authorization check that you will be able to invoke to verify user access. Policies are a way to groupe authorization logic around a model.
 
-## Gates
+# Gates
 
 Gates are simple callable that will define if a user is authorized to perform a given action.
 A handy `Gate` facade is available to easily manipulate gates.
 
-### Registering Gates
+## Registering Gates
 
 Gates receive a user instance as their first argument and may receive additionals arguments such as
 a Model instance. You needs to define `Gates` in `boot()` method of your service provider.
@@ -34,7 +34,7 @@ Gate.has("create-post")
 If a unknown gate is used a `GateDoesNotExist` exception will be raised.
 {% endhint %}
 
-### Authorizing Actions
+## Authorizing Actions
 
 Then anywhere (often in a controller) in your code you can use those gates to check if the **current authenticated user** is authorized to perform the given action defined by the gate.
 
@@ -77,7 +77,7 @@ else:
      Session.flash("errors", response.message())
 ```
 
-### Via the User Model
+## Via the User Model
 
 `Authorizes` class can be added to your User model to allow handy permissions checking:
 
@@ -98,7 +98,7 @@ user.can_any(["delete-post", "force-delete-post"], post)
 
 All of those methods receive the gate name as first argument and then some additional arguments if required.
 
-### With a given user
+## With a given user
 
 You can use the `for_user()` method on the Gate facade to make the verification against a given user instead
 of the authenticated user.
@@ -108,7 +108,7 @@ user = User.find(1)
 Gate.for_user(user).allows("create-post")
 ```
 
-### Gates Hooks
+## Gates Hooks
 
 During gate authorization process `before` and `after` hooks can be triggered.
 
@@ -127,11 +127,11 @@ Gate.after(lambda user, permission, result : user.role == "admin")
 
 If after callback is returning a value it will take precedance over the gate result check.
 
-## Policies
+# Policies
 
 Policies are classes that organize authorization logic around a particular model.
 
-### Creating Policies
+## Creating Policies
 
 You can create a policy by calling
 
@@ -186,7 +186,7 @@ class PostPolicy(Policy):
 
 ```
 
-### Registering Policies
+## Registering Policies
 
 Then in your service provider (as for defining gates) you should register the policies and bind them with a model:
 
@@ -222,7 +222,7 @@ class PostPolicy(Policy):
 If a unknown policy is used a `PolicyDoesNotExist` exception will be raised.
 {% endhint %}
 
-### Authorizing Actions
+## Authorizing Actions
 
 You can then use the `Gate` facade methods to authorize actions defined in your policies (as for the gates). With the previously defined `PostPolicy` we could for example make the following verifications:
 
