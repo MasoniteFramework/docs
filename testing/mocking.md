@@ -144,6 +144,6 @@ import responses
 @responses.activate
 def test_mock_third_party_api(self):
     responses.add(responses.POST, "api.github.com", body=b"Ok")
-    # do somehting in your code
+    # do something in your code
     self.assertTrue(responses.assert_call_count("api.github.com", 1))
 ```
