@@ -155,7 +155,7 @@ Masonite provides a variety of assertions methods to inspect and verify request/
 - [assertJsonCount](#assertJsonCount)
 - [assertJsonMissing](#assertJsonMissing)
 
-#### assertContains
+### assertContains
 
 Assert that returned response contains the given `content` string. Note that the response content will be eventually decoded if required.
 
@@ -163,7 +163,7 @@ Assert that returned response contains the given `content` string. Note that the
 self.get("/").assertContains(content)
 ```
 
-#### assertNotContains
+### assertNotContains
 
 Assert that returned response does not contain the given `content` string. Note that the response content will be eventually decoded if required.
 
@@ -171,7 +171,7 @@ Assert that returned response does not contain the given `content` string. Note 
 self.get("/").assertNotContains(content)
 ```
 
-#### assertContainsInOrder
+### assertContainsInOrder
 
 Assert that returned response contains in order the given strings. Note that the response content will be eventually decoded if required.
 
@@ -179,7 +179,7 @@ Assert that returned response contains in order the given strings. Note that the
 self.get("/").assertContains(string1, string2, ...)
 ```
 
-#### assertNoContent
+### assertNoContent
 
 Assert that returned response has no content and the given HTTP status code. The default status code that is asserted is 204.
 
