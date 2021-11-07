@@ -4,6 +4,10 @@ For medium to large scale applications, you will need to go through the codebase
 
 It is highly recommended that you start at Masonite 3 before upgrading to Masonite 4. If you are running any version less than Masonite 3 then please use the upgrade guide to upgrade to each version first.
 
+# Python Version
+
+Masonite 4 drops support for Python 3.6. You will have to upgrade to Python 3.7+ in order to run Masonite
+
 # Install Masonite 4
 
 First step of the upgrade guide is to uninstall Masonite 3 and install Masonite 4:
