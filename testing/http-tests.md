@@ -455,10 +455,10 @@ self.get("/").assertHasController("WelcomeController@index")
 
 #### assertRouteHasParameter
 
-Assert that the route used has the given parameter name.
+Assert that the route used has the given parameter name and value (if provided).
 
 ```python
-self.get("/").assertRouteHasParameter(key)
+self.get("/").assertRouteHasParameter(key, value=None)
 ```
 
 #### assertJson
