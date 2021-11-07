@@ -21,6 +21,7 @@ During tests you can register routes used only for testing purposes. For this yo
 `addRoutes()` method at beginning of your tests:
 
 ```python
+@classmethod
 def setUpClass(cls):
     super().setUpClass()
     cls.addRoutes(
