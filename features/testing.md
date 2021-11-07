@@ -65,24 +65,89 @@ $ python -m pytest --last-failed
 
 ## Building test cases
 
-- Explain setUp / tearDown stopTestRun / startTestRun
+### Test Life Cycle
 
-startTestRun()
+When you run a test class each test method of this test class will be ran following a specific
+life cycle.
 
-    Called once before any tests are executed.
+```python
+class TestFeatures(TestCase):
 
-    New in version 3.1.
+    @classmethod
+    def setUpClass(cls):
+        """Called once before all tests of this class are executed."""
+        print("Setting up test class")
 
-stopTestRun()
+    @classmethod
+    def tearDownClass(cls):
+        """Called once after all tests of this class are executed."""
+        print("Cleaning up test class")
 
-    Called once after all tests are executed.
+    def setUp(self):
+        """Called once before each test are executed."""
+        super().setUp()
+        print("Setting up individual unit test")
 
-    New in version 3.1.
+    def tearDown(self):
+        """Called once after each test are executed."""
+        super().tearDown()
+        print("Cleaning up individual unit test")
 
-- Chaining assertions : All methods that begin with assert can be chained together to run through many assertions. All other method will return some kind of boolean or value which you can use to do your own assertions.
+    def test_1(self):
+        print("Running test 1")
 
-- Testing for exceptions
-- Testing output (print)
+    def test_2(self):
+        print("Running test 2")
+```
+
+Running the above test class will create this output:
+
+```
+Setting up test class
+Setting up individual unit test
+Running test 2
+Cleaning up individual unit test
+Setting up individual unit test
+Running test 1
+Cleaning up individual unit test
+Cleaning up test class
+```
+
+{% hint style="warning" %}
+Note that tests methods are not always ran in the order specified in the class. Anyway you should
+not make the assumptions that tests will be run in a given order. You should try to make your
+tests idempotent.
+{% endhint %}
+
+### Chaining assertions
+
+All methods that begin with `assert` can be chained together to run through many assertions. All other method will return some kind of boolean or value which you can use to do your own assertions.
+
+### Asserting exceptions
+
+Sometimes you need to assert that a given piece of code will raise a given exception. To do this you
+can use the standard `assertRaises()` context manager:
+
+```python
+with self.assertRaises(ValidationError) as e:
+    # run some code here
+    raise ValidationError("An error occured !")
+
+self.assertEqual(str(e.exception), "An error occured !")
+```
+
+### Capturing test output
+
+Sometimes you need to test the output of a function that prints to the console. To do this in your
+tests you can use the `captureOutput()` context manager:
+
+```python
+with self.captureOutput() as output:
+    # run some code here
+    print("Hello World !")
+
+self.assertEqual(output.getvalue().strip(), "Hello World !")
+```
 
 ## HTTP tests
 
@@ -920,6 +985,14 @@ def test_creation_date(self):
 
 ## Mocks
 
+When it comes to unit testing, you always want to test a unit of your piece of code. Your code might
+depends on third party services such as an API and you don't want to call it during your local tests
+or in your CI environment. That's when you should use mocking to mock the external parts or the part
+you don't want to test.
+
+Masonite comes with some mocking abilities for some of the features relying on third party services.
+For other parts or you own code you can use Python mocking abilities provided by `unittest` and `mock` standard modules.
+
 ### Masonite features mocks
 
 Using helpers for different features to list
@@ -933,3 +1006,5 @@ Using helpers for different features to list
 - link to docs of mock module
 
 ## Extending test response
+
+TODO
