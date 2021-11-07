@@ -114,46 +114,46 @@ def test_something(self):
 
 Masonite provides a variety of assertions methods to inspect and verify request/response logic when testing your application. Those assertions are available on the `HTTPTestResponse` returned by `get`, `post`, `put`, `patch`, or `delete`.
 
-- [assertContains](#assertContains)
-- [assertNotContains](#assertNotContains)
-- [assertContainsInOrder](#assertContainsInOrder)
-- [assertNoContent](#assertNoContent)
-- [assertIsNamed](#assertIsNamed)
-- [assertIsNotNamed](#assertIsNotNamed)
-- [assertIsStatus](#assertIsStatus)
-- [assertNotFound](#assertNotFound)
-- [assertOk](#assertOk)
-- [assertCreated](#assertCreated)
-- [assertSuccessful](#assertSuccessful)
-- [assertUnauthorized](#assertUnauthorized)
-- [assertHasHeader](#assertHasHeader)
-- [assertHeaderMissing](#assertHeaderMissing)
-- [assertLocation](#assertLocation)
-- [assertRedirect](#assertRedirect)
-- [assertCookie](#assertCookie)
-- [assertPlainCookie](#assertPlainCookie)
-- [assertCookieExpired](#assertCookieExpired)
-- [assertCookieNotExpired](#assertCookieNotExpired)
-- [assertSessionHas](#assertSessionHas)
-- [assertSessionMissing](#assertSessionMissing)
-- [assertSessionHasErrors](#assertSessionHasErrors)
-- [assertSessionHasNoErrors](#assertSessionHasNoErrors)
-- [assertViewIs](#assertViewIs)
-- [assertViewHas](#assertViewHas)
-- [assertViewHasExact](#assertViewHasExact)
-- [assertViewMissing](#assertViewMissing)
-- [assertAuthenticated](#assertAuthenticated)
-- [assertGuest](#assertGuest)
-- [assertAuthenticatedAs](#assertAuthenticatedAs)
-- [assertHasHttpMiddleware](#assertHasHttpMiddleware)
-- [assertHasRouteMiddleware](#assertHasRouteMiddleware)
-- [assertHasController](#assertHasController)
-- [assertRouteHasParameter](#assertRouteHasParameter)
-- [assertJson](#assertJson)
-- [assertJsonPath](#assertJsonPath)
-- [assertJsonExact](#assertJsonExact)
-- [assertJsonCount](#assertJsonCount)
-- [assertJsonMissing](#assertJsonMissing)
+- [assertContains](#assertcontains)
+- [assertNotContains](#assertnotcontains)
+- [assertContainsInOrder](#assertcontainsinorder)
+- [assertNoContent](#assertnocontent)
+- [assertIsNamed](#assertisnamed)
+- [assertIsNotNamed](#assertisnotnamed)
+- [assertIsStatus](#assertisstatus)
+- [assertNotFound](#assertnotfound)
+- [assertOk](#assertokk)
+- [assertCreated](#assertcreated)
+- [assertSuccessful](#assertsuccessful)
+- [assertUnauthorized](#assertunauthorized)
+- [assertHasHeader](#asserthasheader)
+- [assertHeaderMissing](#assertheadermissing)
+- [assertLocation](#assertlocation)
+- [assertRedirect](#assertredirect)
+- [assertCookie](#assertcookie)
+- [assertPlainCookie](#assertplaincookie)
+- [assertCookieExpired](#assertcookieexpired)
+- [assertCookieNotExpired](#assertcookienotexpired)
+- [assertSessionHas](#assertsessionhas)
+- [assertSessionMissing](#assertsessionmissing)
+- [assertSessionHasErrors](#assertsessionhaserrors)
+- [assertSessionHasNoErrors](#assertsessionhasnoerrors)
+- [assertViewIs](#assertviewis)
+- [assertViewHas](#assertviewhas)
+- [assertViewHasExact](#assertviewhasexact)
+- [assertViewMissing](#assertviewmissing)
+- [assertAuthenticated](#assertauthenticated)
+- [assertGuest](#assertguest)
+- [assertAuthenticatedAs](#assertauthenticatedas)
+- [assertHasHttpMiddleware](#asserthashttpmiddleware)
+- [assertHasRouteMiddleware](#asserthasroutemiddleware)
+- [assertHasController](#asserthascontroller)
+- [assertRouteHasParameter](#assertroutehasparameter)
+- [assertJson](#assertjson)
+- [assertJsonPath](#assertjsonpath)
+- [assertJsonExact](#assertjsonexact)
+- [assertJsonCount](#assertjsoncount)
+- [assertJsonMissing](#assertjsonmissing)
 
 ### assertContains
 
@@ -187,7 +187,7 @@ Assert that returned response has no content and the given HTTP status code. The
 self.get("/").assertNoContent(status=204)
 ```
 
-#### assertIsNamed
+### assertIsNamed
 
 Assert that given route has the given name.
 
@@ -195,7 +195,7 @@ Assert that given route has the given name.
 self.get("/").assertIsNamed("home")
 ```
 
-#### assertIsNotNamed
+### assertIsNotNamed
 
 Assert that given route has not the given name.
 
@@ -203,7 +203,7 @@ Assert that given route has not the given name.
 self.get("/").assertIsNotNamed("admin")
 ```
 
-#### assertIsStatus
+### assertIsStatus
 
 Assert that the response has the given HTTP status code:
 
@@ -211,7 +211,7 @@ Assert that the response has the given HTTP status code:
 self.get("/").assertIsStatus(201)
 ```
 
-#### assertOk
+### assertOk
 
 Assert that the response returns a 200 status code:
 
@@ -219,7 +219,7 @@ Assert that the response returns a 200 status code:
 self.get("/").assertOk()
 ```
 
-#### assertCreated
+### assertCreated
 
 Assert that the response returns a 201 status code:
 
@@ -227,7 +227,7 @@ Assert that the response returns a 201 status code:
 self.get("/").assertCreated()
 ```
 
-#### assertSuccessful
+### assertSuccessful
 
 Assert that the response has as status code between 200 and 300
 
@@ -235,7 +235,7 @@ Assert that the response has as status code between 200 and 300
 self.get("/").assertSuccessful()
 ```
 
-#### assertUnauthorized
+### assertUnauthorized
 
 Assert that the response has as 401 status code
 
@@ -243,7 +243,7 @@ Assert that the response has as 401 status code
 self.get("/").assertUnauthorized()
 ```
 
-#### assertForbidden
+### assertForbidden
 
 Assert that the response has as 403 status code
 
@@ -251,7 +251,7 @@ Assert that the response has as 403 status code
 self.get("/").assertForbidden()
 ```
 
-#### assertHasHeader
+### assertHasHeader
 
 Assert that the response has the given header name and value (if given).
 
@@ -259,7 +259,7 @@ Assert that the response has the given header name and value (if given).
 self.get("/").assertHasHeader(name, value=None)
 ```
 
-#### assertHeaderMissing
+### assertHeaderMissing
 
 Assert that the response does not have the given header.
 
@@ -267,7 +267,7 @@ Assert that the response does not have the given header.
 self.get("/").assertHeaderMissing(name)
 ```
 
-#### assertLocation
+### assertLocation
 
 Assert the response has the given URI value in `Location` header.
 
@@ -275,7 +275,7 @@ Assert the response has the given URI value in `Location` header.
 self.get("/").assertLocation(uri)
 ```
 
-#### assertRedirect
+### assertRedirect
 
 Assert that the response is a redirection to the given URI (if provided) or to the given route name with the given parameters (if provided).
 
@@ -289,7 +289,7 @@ self.get("/logout").assertRedirect("/login")
 self.get("/login").assertRedirect(name="profile", params={"user": 1})
 ```
 
-#### assertCookie
+### assertCookie
 
 Assert that the request contains the given cookie name and value (if provided).
 
@@ -297,7 +297,7 @@ Assert that the request contains the given cookie name and value (if provided).
 self.get("/").assertCookie(name, value=None)
 ```
 
-#### assertPlainCookie
+### assertPlainCookie
 
 Assert that the request contains the given unencrypted cookie name
 
@@ -305,7 +305,7 @@ Assert that the request contains the given unencrypted cookie name
 self.get("/").assertPlainCookie(name)
 ```
 
-#### assertCookieExpired
+### assertCookieExpired
 
 Assert that the request contains the given cookie name and is expired.
 
@@ -313,7 +313,7 @@ Assert that the request contains the given cookie name and is expired.
 self.get("/").assertCookieExpired(name)
 ```
 
-#### assertCookieMissing
+### assertCookieMissing
 
 Assert that the request does not contain the given cookie.
 
@@ -321,7 +321,7 @@ Assert that the request does not contain the given cookie.
 self.get("/").assertCookieMissing(name)
 ```
 
-#### assertSessionHas
+### assertSessionHas
 
 Assert that the session contains the given key and value (if provided).
 
@@ -329,7 +329,7 @@ Assert that the session contains the given key and value (if provided).
 self.get("/").assertSessionHas(name, value=None)
 ```
 
-#### assertSessionMissing
+### assertSessionMissing
 
 Assert that the session does not contain the given key.
 
@@ -337,7 +337,7 @@ Assert that the session does not contain the given key.
 self.get("/").assertSessionMissing(name)
 ```
 
-#### assertSessionHasErrors
+### assertSessionHasErrors
 
 Assert that the session contains an `errors` key or contains the given list of keys in `errors` key.
 
@@ -349,7 +349,7 @@ self.get("/").assertSessionHasErrors()
 self.get("/").assertSessionHasErrors(["email", "first_name"])
 ```
 
-#### assertSessionHasNoErrors
+### assertSessionHasNoErrors
 
 Assert that the session does not contain an `errors` key or that this key is empty.
 
@@ -357,7 +357,7 @@ Assert that the session does not contain an `errors` key or that this key is emp
 self.get("/").assertSessionHasNoErrors()
 ```
 
-#### assertViewIs
+### assertViewIs
 
 Assert that the route returned the given view name.
 
@@ -365,7 +365,7 @@ Assert that the route returned the given view name.
 self.get("/").assertViewIs("app")
 ```
 
-#### assertViewHas
+### assertViewHas
 
 Assert that view context contains a given data key and value (if provided).
 
@@ -373,7 +373,7 @@ Assert that view context contains a given data key and value (if provided).
 self.get("/").assertViewHas(key, value=None)
 ```
 
-#### assertViewHasExact
+### assertViewHasExact
 
 Assert that view context contains exactly the given data keys. It can be a list of keys or a dictionary (here only keys will be verified).
 
@@ -381,7 +381,7 @@ Assert that view context contains exactly the given data keys. It can be a list 
 self.get("/").assertViewHasExact(keys)
 ```
 
-#### assertViewMissing
+### assertViewMissing
 
 Assert that given data key is not available in the view context.
 
@@ -389,7 +389,7 @@ Assert that given data key is not available in the view context.
 self.get("/").assertViewMissing(key)
 ```
 
-#### assertAuthenticated
+### assertAuthenticated
 
 Assert that a user is authenticated after the current request.
 
@@ -397,7 +397,7 @@ Assert that a user is authenticated after the current request.
 self.get("/").assertAuthenticated()
 ```
 
-#### assertGuest
+### assertGuest
 
 Assert that a user is not authenticated after the current request.
 
@@ -405,7 +405,7 @@ Assert that a user is not authenticated after the current request.
 self.get("/").assertGuest()
 ```
 
-#### assertAuthenticatedAs
+### assertAuthenticatedAs
 
 Assert that a given user is authenticated after the current request.
 
@@ -413,7 +413,7 @@ Assert that a given user is authenticated after the current request.
 self.get("/").assertAuthenticatedAs(user)
 ```
 
-#### assertHasHttpMiddleware
+### assertHasHttpMiddleware
 
 Assert that the request has the given HTTP middleware. An HTTP middleware class should be provided.
 
@@ -426,7 +426,7 @@ from app.middleware import MyAppMiddleware
 self.get("/").assertHasHttpMiddleware(MyAppMiddleware)
 ```
 
-#### assertHasRouteMiddleware
+### assertHasRouteMiddleware
 
 Assert that the request has the given route middleware. The registration key of the middleware should be provided.
 
@@ -439,7 +439,7 @@ self.get("/").assertHasRouteMiddleware(middleware_name)
 self.get("/").assertHasRouteMiddleware("web")
 ```
 
-#### assertHasController
+### assertHasController
 
 Assert that the route used the given controller. A class or a string can be provided. If it's a string it should be formatted as follow `ControllerName@method`.
 
@@ -453,7 +453,7 @@ self.get("/").assertHasController(WelcomeController)
 self.get("/").assertHasController("WelcomeController@index")
 ```
 
-#### assertRouteHasParameter
+### assertRouteHasParameter
 
 Assert that the route used has the given parameter name and value (if provided).
 
@@ -461,7 +461,7 @@ Assert that the route used has the given parameter name and value (if provided).
 self.get("/").assertRouteHasParameter(key, value=None)
 ```
 
-#### assertJson
+### assertJson
 
 Assert that response is JSON and contains the given data dictionary (if provided). The assertion will pass even if it is not an exact match.
 
@@ -474,7 +474,7 @@ self.get("/").assertJson()  # check that response is JSON
 self.get("/").assertJson({"key": "value", "other": "value"})
 ```
 
-#### assertJsonPath
+### assertJsonPath
 
 Assert that response is JSON and contains the given path, with eventually the given value if provided. The path can be a dotted path.
 
@@ -486,7 +486,7 @@ self.get("/").assertJsonPath(path, value=None)
 self.get("/").assertJsonPath("user.profile.name", "John")
 ```
 
-#### assertJsonExact
+### assertJsonExact
 
 Assert that response is JSON and is strictly equal to the given dictionary.
 
@@ -494,7 +494,7 @@ Assert that response is JSON and is strictly equal to the given dictionary.
 self.get("/").assertJsonExact(data)
 ```
 
-#### assertJsonCount
+### assertJsonCount
 
 Assert that response is JSON and has the given count of keys at root level or at the given key (if provided).
 
@@ -502,7 +502,7 @@ Assert that response is JSON and has the given count of keys at root level or at
 self.get("/").assertJsonCount(count, key=None)
 ```
 
-#### assertJsonMissing
+### assertJsonMissing
 
 Assert that response is JSON and does not contain given path. The path can be a dotted path.
 
