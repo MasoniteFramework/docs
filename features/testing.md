@@ -63,7 +63,7 @@ Finally you can re-run the last failed tests automatically
 $ python -m pytest --last-failed
 ```
 
-## Building test cases
+## Building Test Cases
 
 ### Test Life Cycle
 
@@ -149,7 +149,7 @@ with self.captureOutput() as output:
 self.assertEqual(output.getvalue().strip(), "Hello World !")
 ```
 
-## HTTP tests
+## HTTP Tests
 
 To make a request in your tests, you may use the `get`, `post`, `put`, `patch`, or `delete` methods within your test. These methods do not actually issue a "real" HTTP request to your application. Instead of returning a Masonit class `Response` instance, test request methods return a `HTTPTestResponse`instance, which provides a variety of helpful assertions that allow you to inspect and assert application's responses.
 
@@ -663,7 +663,7 @@ Assert that response is JSON and does not contain given path. The path can be a 
 self.get("/").assertJsonMissing(path)
 ```
 
-## Console tests
+## Console Tests
 
 You can test your [custom commands](/features/commands) running in console with `craft` test helper.
 
@@ -734,7 +734,7 @@ Assert command output has exactly the given errors.
 self.craft("my_command").assertExactErrors(errors)
 ```
 
-## Database tests
+## Database Tests
 
 By default, your tests are are not ran in isolation from a database point of view. It means that your local database will be modified any time you run your tests and won't be rollbacked at the end of the tests.
 While this behaviour might be fine in most case you can learn below how to configure your tests cases to reset the database after each test.
