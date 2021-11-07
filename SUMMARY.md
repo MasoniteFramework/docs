@@ -80,3 +80,4 @@
 * [Masonite 2.1 to 2.2](upgrade-guide/masonite-2.1-to-2.2.md)
 * [Masonite 2.2 to 2.3](upgrade-guide/masonite-2.2-to-2.3.md)
 * [Masonite 2.3 to 3.0](upgrade-guide/masonite-2.3-to-3.0.md)
+* [Masonite 3.0 to 4.0](upgrade-guide/masonite-3.0-to-4.0.md)
