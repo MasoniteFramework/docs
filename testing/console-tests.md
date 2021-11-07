@@ -11,14 +11,14 @@ This will programmatically run the command if it has been registered in your pro
 
 The following assertions are available when testing command with `craft`.
 
-- [assertSuccess](#assertSuccess)
-- [assertHasErrors](#assertHasErrors)
-- [assertOutputContains](#assertOutputContains)
-- [assertExactOutput](#assertExactOutput)
-- [assertOutputMissing](#assertOutputMissing)
-- [assertExactErrors](#assertExactErrors)
+- [assertSuccess](#assertsuccess)
+- [assertHasErrors](#asserthaserrors)
+- [assertOutputContains](#assertoutputcontains)
+- [assertExactOutput](#assertexactoutput)
+- [assertOutputMissing](#assertoutputmissing)
+- [assertExactErrors](#assertexacterrors)
 
-#### assertSuccess
+### assertSuccess
 
 Assert that command exited with code 0 meaning that it ran successfully.
 
@@ -26,7 +26,7 @@ Assert that command exited with code 0 meaning that it ran successfully.
 self.craft("my_command").assertSuccess()
 ```
 
-#### assertHasErrors
+### assertHasErrors
 
 Assert command output has errors.
 
@@ -34,7 +34,7 @@ Assert command output has errors.
 self.craft("my_command").assertHasErrors()
 ```
 
-#### assertOutputContains
+### assertOutputContains
 
 Assert command output contains the given string.
 
@@ -42,7 +42,7 @@ Assert command output contains the given string.
 self.craft("my_command").assertOutputContains(output)
 ```
 
-#### assertExactOutput
+### assertExactOutput
 
 Assert command output to be exactly the same as the given reference output.
 Be careful to add eventual `\n` line endings characters when using this assertion method.
@@ -51,7 +51,7 @@ Be careful to add eventual `\n` line endings characters when using this assertio
 self.craft("my_command").assertExactOutput(output)
 ```
 
-#### assertOutputMissing
+### assertOutputMissing
 
 Assert command output does not contain the given reference output.
 
@@ -59,7 +59,7 @@ Assert command output does not contain the given reference output.
 self.craft("my_command").assertOutputMissing(output)
 ```
 
-#### assertExactErrors
+### assertExactErrors
 
 Assert command output has exactly the given errors.
 
