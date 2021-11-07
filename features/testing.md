@@ -995,10 +995,59 @@ For other parts or you own code you can use Python mocking abilities provided by
 
 ### Masonite features mocks
 
-Using helpers for different features to list
+Masonite tests case have two helpers method `fake()` and `restore()`.
 
-- fake()
-- restore()
+You can mock a Masonite feature by doing `self.fake(feature)` and then restore it to the real feature behaviour
+by calling `self.restore(feature)`. When a feature is mocked the real behaviour won't be called, instead
+a quick and simple implementation is ran, often offering the ability to inspect and test what happens.
+
+Available features that can be mocked (for now) are:
+
+- [Mail](/features/mail)
+- [Notification](/features/notifications)
+
+#### Mocking Mail
+
+When mocking emails it will prevent emails from being sent. Typically, sending mail is unrelated to the code you are actually testing. Most likely, it is sufficient to simply assert that Masonite was instructed to send a given mailable.
+
+Here is an example of how to mock emails sending in your tests:
+
+```python
+def setUp(self):
+    super().setUp()
+    self.fake("mail")
+
+def tearDown(self):
+    super().tearDown()
+    self.restore("mail")
+
+def test_mock_mail(self):
+    welcome_email = self.application.make("mail").mailable(Welcome()).send()
+    (
+        welcome_email.seeEmailContains("Hello from Masonite!")
+        .seeEmailFrom("joe@masoniteproject.com")
+        .seeEmailCountEquals(1)
+    )
+```
+
+Available assertions are:
+
+- seeEmailWasSent()
+- seeEmailWasNotSent()
+- seeEmailCountEquals(count)
+- seeEmailTo(string)
+- seeEmailFrom(string)
+- seeEmailReplyTo(string)
+- seeEmailBcc(string)
+- seeEmailCc(string)
+- seeEmailSubjectEquals(string)
+- seeEmailSubjectContains(string)
+- seeEmailSubjectDoesNotContain(string)
+- seeEmailContains(string)
+- seeEmailDoesNotContain(string)
+- seeEmailPriority(string)
+
+#### Mocking Notification
 
 ### Basic Python mocks
 
