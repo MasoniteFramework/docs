@@ -398,32 +398,263 @@ self.get("/").assertCookieMissing(name)
 
 #### assertSessionHas
 
+Assert that the session contains the given key and value (if provided).
+
+```python
+self.get("/").assertSessionHas(name, value=None)
+```
+
 #### assertSessionMissing
+
+Assert that the session does not contain the given key.
+
+```python
+self.get("/").assertSessionMissing(name)
+```
 
 #### assertSessionHasErrors
 
+Assert that the session contains an `errors` key or contains the given list of keys in `errors` key.
+
+```python
+self.get("/").assertSessionHasErrors()
+```
+
+```python
+self.get("/").assertSessionHasErrors(["email", "first_name"])
+```
+
 #### assertSessionHasNoErrors
+
+Assert that the session does not contain an `errors` key or that this key is empty.
+
+```python
+self.get("/").assertSessionHasNoErrors()
+```
+
+#### assertViewIs
+
+Assert that the route returned the given view name.
+
+```python
+self.get("/").assertViewIs("app")
+```
+
+#### assertViewHas
+
+Assert that view context contains a given data key and value (if provided).
+
+```python
+self.get("/").assertViewHas(key, value=None)
+```
+
+#### assertViewHasExact
+
+Assert that view context contains exactly the given data keys. It can be a list of keys or a dictionary (here only keys will be verified).
+
+```python
+self.get("/").assertViewHasExact(keys)
+```
+
+#### assertViewMissing
+
+Assert that given data key is not available in the view context.
+
+```python
+self.get("/").assertViewMissing(key)
+```
+
+#### assertAuthenticated
+
+Assert that a user is authenticated after the current request.
+
+```python
+self.get("/").assertAuthenticated()
+```
+
+#### assertGuest
+
+Assert that a user is not authenticated after the current request.
+
+```python
+self.get("/").assertGuest()
+```
+
+#### assertAuthenticatedAs
+
+Assert that a given user is authenticated after the current request.
+
+```python
+self.get("/").assertAuthenticatedAs(user)
+```
+
+#### assertHasHttpMiddleware
+
+Assert that the request has the given HTTP middleware. An HTTP middleware class should be provided.
+
+```python
+self.get("/").assertHasHttpMiddleware(middleware_class)
+```
+
+```python
+from app.middleware import MyAppMiddleware
+self.get("/").assertHasHttpMiddleware(MyAppMiddleware)
+```
+
+#### assertHasRouteMiddleware
+
+Assert that the request has the given route middleware. The registration key of the middleware should be provided.
+
+```python
+self.get("/").assertHasRouteMiddleware(middleware_name)
+```
+
+```python
+# route_middleware = {"web": [SessionMiddleware, VerifyCsrfToken]}
+self.get("/").assertHasRouteMiddleware("web")
+```
+
+#### assertHasController
+
+Assert that the route used the given controller. A class or a string can be provided. If it's a string it should be formatted as follow `ControllerName@method`.
+
+```python
+self.get("/").assertHasController(controller)
+```
+
+```python
+from app.controllers import WelcomeController
+self.get("/").assertHasController(WelcomeController)
+self.get("/").assertHasController("WelcomeController@index")
+```
+
+#### assertRouteHasParameter
+
+Assert that the route used has the given parameter name.
+
+```python
+self.get("/").assertRouteHasParameter(key)
+```
+
+#### assertJson
+
+Assert that response is JSON and contains the given data dictionary (if provided). The assertion will pass even if it is not an exact match.
+
+```python
+self.get("/").assertJson(data={})
+```
+
+```python
+self.get("/").assertJson()  # check that response is JSON
+self.get("/").assertJson({"key": "value", "other": "value"})
+```
+
+#### assertJsonPath
+
+Assert that response is JSON and contains the given path, with eventually the given value if provided. The path can be a dotted path.
+
+```python
+self.get("/").assertJsonPath(path, value=None)
+```
+
+```python
+self.get("/").assertJsonPath("user.profile.name", "John")
+```
+
+#### assertJsonExact
+
+Assert that response is JSON and is strictly equal to the given dictionary.
+
+```python
+self.get("/").assertJsonExact(data)
+```
+
+#### assertJsonCount
+
+Assert that response is JSON and has the given count of keys at root level or at the given key (if provided).
+
+```python
+self.get("/").assertJsonCount(count, key=None)
+```
+
+#### assertJsonMissing
+
+Assert that response is JSON and does not contain given path. The path can be a dotted path.
+
+```python
+self.get("/").assertJsonMissing(path)
+```
 
 ## Console tests
 
-You can test [commands](/features/commands) running in console with `craft` test helper.
+You can test your [custom commands](/features/commands) running in console with `craft` test helper.
 
 ```python
 def test_my_command(self):
     self.craft("my_command", "arg1", "arg2").assertSuccess()
 ```
 
-This will programmatically run the command if it has been registered in your project and assert that no
-errors has been reported.
+This will programmatically run the command if it has been registered in your project and assert that no errors has been reported.
 
 ### Available Assertions
 
-- assertSuccess
-- assertExactOutput
-- assertHasErrors
-- assertExactErrors
-- assertOutputContains
-- assertOutputMissing
+The following assertions are available when testing command with `craft`.
+
+- [assertSuccess](#assertSuccess)
+- [assertHasErrors](#assertHasErrors)
+- [assertOutputContains](#assertOutputContains)
+- [assertExactOutput](#assertExactOutput)
+- [assertOutputMissing](#assertOutputMissing)
+- [assertExactErrors](#assertExactErrors)
+
+#### assertSuccess
+
+Assert that command exited with code 0 meaning that it ran successfully.
+
+```python
+self.craft("my_command").assertSuccess()
+```
+
+#### assertHasErrors
+
+Assert command output has errors.
+
+```python
+self.craft("my_command").assertHasErrors()
+```
+
+#### assertOutputContains
+
+Assert command output contains the given string.
+
+```python
+self.craft("my_command").assertOutputContains(output)
+```
+
+#### assertExactOutput
+
+Assert command output to be exactly the same as the given reference output.
+Be careful to add eventual `\n` line endings characters when using this assertion method.
+
+```python
+self.craft("my_command").assertExactOutput(output)
+```
+
+#### assertOutputMissing
+
+Assert command output does not contain the given reference output.
+
+```python
+self.craft("my_command").assertOutputMissing(output)
+```
+
+#### assertExactErrors
+
+Assert command output has exactly the given errors.
+
+```python
+self.craft("my_command").assertExactErrors(errors)
+```
 
 ## Database tests
 
