@@ -40,11 +40,19 @@
 - [Task Scheduling](features/scheduling.md)
 - [Validation](features/validation.md)
 - [Views](features/views.md)
-- [Testing](features/testing.md)
 
 ## Masonite ORM <a id="masonite-orm"></a>
 
 - [To Masonite ORM Docs](https://orm.masoniteproject.com)
+
+## Testing
+
+- [Getting Started](testing/getting-started.md)
+- [HTTP Tests](testing/http-tests.md)
+- [Database Tests](testing/database-tests.md)
+- [Console Tests](testing/console-tests.md)
+- [Mocking](testing/mocking.md)
+- [Extending](testing/extending.md)
 
 ## Official Packages
 
