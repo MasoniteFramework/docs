@@ -778,18 +778,145 @@ self.assertSoftDeleted(user)
 
 ## Helpers
 
-- withExceptionsHandling
-- withExceptionsHandling
-- withCsrf
-- withoutCsrf
-- withCookies
-- withHeaders
-- fakeTime
-- fakeTimeTomorrow
-- fakeTimeYesterday
-- fakeTimeInFuture
-- fakeTimeInPast
-- restoreTime
+Masonite comes with different helpers that can ease writing tests. Some of them have already been explained in sections above.
+
+- [withExceptionsHandling](#withExceptionsHandling)
+- [withoutExceptionsHandling](#withoutExceptionsHandling)
+- [withCsrf](#withCsrf)
+- [withoutCsrf](#withoutCsrf)
+- [withCookies](#withCookies)
+- [withHeaders](#withHeaders)
+- [fakeTime](#fakeTime)
+- [fakeTimeTomorrow](#fakeTimeTomorrow)
+- [fakeTimeYesterday](#fakeTimeYesterday)
+- [fakeTimeInFuture](#fakeTimeInFuture)
+- [fakeTimeInPast](#fakeTimeInPast)
+- [restoreTime](#restoreTime)
+
+#### withExceptionsHandling
+
+Enable exceptions handling during testing.
+
+```python
+self.withExceptionsHandling()
+```
+
+#### withoutExceptionsHandling
+
+Disable exceptions handling during testing.
+
+```python
+self.withoutExceptionsHandling()
+```
+
+{% hint style="warning" %}
+Note that exception handling is disabled by default during testing.
+{% endhint %}
+
+#### withCsrf
+
+Enable CSRF protection during testing.
+
+```python
+self.withCsrf()
+```
+
+#### withoutCsrf
+
+Disable CSRF protection during testing.
+
+```python
+self.withoutCsrf()
+```
+
+{% hint style="warning" %}
+Note that CSRF protection is disabled by default during testing.
+{% endhint %}
+
+#### withCookies
+
+Add cookies that will be used in the next request. This method accepts a dictionary of name / value pairs. Cookies dict is reset between each test.
+
+```python
+self.withCookies(data)
+```
+
+#### withHeaders
+
+Add headers that will be used in the next request. This method accepts a dictionary of name / value pairs. Headers dict is reset between each test.
+
+```python
+self.withHeaders(data)
+```
+
+#### fakeTime
+
+Set a given pendulum instance to be returned when a `now` (or `today`, `tomorrow` `yesterday`) instance is created. It's really useful during tests to check
+timestamps logic.
+
+This allow to control which datetime will be returned to be able to always have an expected behaviour in the tests.
+
+```python
+given_date = pendulum.datetime(2021, 2, 5)
+self.fakeTime(given_date)
+self.assertEqual(pendulum.now(), given_date)
+```
+
+{% hint style="warning" %}
+When using those helpers you should not forget to reset the default `pendulum` behaviour with `restoreTime()` helper to avoid breaking other tests. It can be done directly in the test or in a `tearDown()` method.
+{% endhint %}
+
+#### fakeTimeTomorrow
+
+Set the mocked time as tomorrow. (It's a shortcut to avoid doing `self.fakeTime(pendulum.tomorrow())`).
+
+```python
+tomorrow = pendulum.tomorrow()
+self.fakeTimeTomorrow()
+self.assertEqual(pendulum.now(), tomorrow)
+```
+
+#### fakeTimeYesterday
+
+Set the mocked time as yesterday.
+
+#### fakeTimeInFuture
+
+Set the mocked time as an offset of a given unit of time in the future. Unit can be specified among pendulum units: `seconds`, `minutes`, `hours`, `days` (default), `weeks`, `months`, `years`.
+
+```python
+self.fakeTimeInFuture(offset, unit="days")
+```
+
+```python
+real_now = pendulum.now()
+self.fakeTimeInFuture(1, "months")
+self.assertEqual(pendulum.now().diff(real_now).in_months(), 1)
+```
+
+#### fakeTimeInPast
+
+Set the mocked time as an offset of a given unit of time in the past. Unit can be specified among pendulum units: `seconds`, `minutes`, `hours`, `days` (default), `weeks`, `months`, `years`.
+
+```python
+self.fakeTimeInPast(offset, unit="days")
+```
+
+#### restoreTime
+
+Restore the mocked time behaviour to default behaviour of `pendulum`. When using `fake` time helpers you should not forget to call this helper at the end.
+
+It can be done directly in the test or in a `tearDown()` method.
+
+```python
+def tearDown(self):
+    super().tearDown()
+    self.restoreTime()
+
+def test_creation_date(self):
+    self.fakeTimeYesterday()
+    # from now on until the end of this unit test, time is mocked and will return yesterday time
+```
 
 ## Mocks
 
