@@ -158,9 +158,7 @@ When developing a package you might need to use a configuration file, to add mig
 
 The following section will explain how to register those resources in your package to be used in a Masonite project and how to make those resources publishable.
 
-Masonite makes it really easy to create a Package provider that will register your package resources.
-
-The default package comes with a provider file where a provider class inheriting from `PackageProvider` is defined:
+Masonite makes it really easy to do this by creating a specific package provider that will register your package resources. The default package layout comes with such a provider inheriting from `PackageProvider` class:
 
 ```python
 # providers/SuperAwesomeProvider.py
@@ -180,11 +178,9 @@ class SuperAwesomeProvider(PackageProvider):
 
 `configure()` method is called in usual `register()` method and is used to register all resources used in your package.
 
-TODO explain name and root
+`root(path)` method should be called first and is used to specify the relative path to your package root from the package repository root.
 
-#### root()
-
-#### name()
+`name(string)` method should be called in second and is used to specify the name of your package (not the PyPi package name neither the Python module name) but the name that will be used to reference your package in the publish command or in the resources paths (this should be a name without special characters annd spaces).
 
 ### Configuration
 
@@ -212,7 +208,7 @@ def configure(self):
     )
 ```
 
-The [package publish]() command will publish the configuration into the defined project configuration folder. With the default project settings it would be in `config/super_awesome.py`.
+The [package publish](#publishing-resources) command will publish the configuration into the defined project configuration folder. With the default project settings it would be in `config/super_awesome.py`.
 
 {% hint style="info" %}
 Configuration values located in packages and in local project will be merged. Values defined locally in the project takes precedance over the default values of the package.
@@ -231,17 +227,93 @@ def configure(self):
     )
 ```
 
-The [package publish]() command will publish the migrations files into the defined project migrations folder. With the default project settings it would be in `databases/migrations/`. Migrations file are published with a timestamp, so here it would result in those two files: `{timestamp}_create_some_table.py` and `{timestamp}_create_other_table.py`.
+The [package publish](#publishing-resources) command will publish the migrations files into the defined project migrations folder. With the default project settings it would be in `databases/migrations/`. Migrations file are published with a timestamp, so here it would result in those two files: `{timestamp}_create_some_table.py` and `{timestamp}_create_other_table.py`.
 
 ### Routes / Controllers
 
 ### Views
 
+If your package contains views you can register them by providing folders containing your views. For this you will need to call `views(*folders, publish=False)` inside `configure()` method. The views will be namespaced after your package name:
+
+For example if your package contains an `admin` folder located at `src/super_awesome_package/admin/` containing a `index.html` view you can do:
+
+```python
+def configure(self):
+    (
+        self.root("src/super_awesome_package")
+        .name("super_awesome")
+        .views("admin")
+    )
+```
+
+Views will be available in controllers:
+
+```python
+class ProjectController(Controller):
+
+    def index(self, view: View):
+        return view.render("super_awesome.admin.index")
+```
+
+If you want to allow users to publish the view file into their own project so they can tweak them you should add `publish=True` argument. The [package publish](#publishing-resources) command will publish the views files into the defined project views folder. With the default project settings it would be in `templates/vendor/super_awesome/admin/index.html`.
+
 ### Assets
+
+If your project contains assets (such as JS, CSS or images files) you can register them to be published in the project by calling `assets(*paths)` inside `configure()` method.
+
+For example if your package contains an `assets` folder located at `src/super_awesome_package/assets/` containing some asset files and folders you can do:
+
+```python
+def configure(self):
+    (
+        self.root("src/super_awesome_package")
+        .name("super_awesome")
+        .views("assets")
+    )
+```
+
+The [package publish](#publishing-resources) command will publish the assets into the defined project resources folder. With the default project settings it would be in `resources/vendor/super_awesome/`.
 
 ### Commands
 
+If your project contains commands you will want to register it when your package is installed in a project so that we can run `python craft my_package_command`. For this you will need to call `commands(*command_class)` inside `configure()` method.
+
+```python
+from ..commands import MyPackageCommand, AnOtherCommand
+
+def configure(self):
+    (
+        self.root("src/super_awesome_package")
+        .name("super_awesome")
+        .commands(MyPackageCommand, AnOtherCommand)
+    )
+```
+
+Now when you run `python craft` you should see the two registered commands.
+
 ## Publishing Resources
+
+When using `PackageProvider` class to create your package service provider, you will be able to publish all package resources defined below in a project. You just need to run the command `package:publish` with the name of the package (declared inside `configure()` method). With our example it would be:
+
+```bash
+$ python craft package:publish super_awesome
+```
+
+If you want to publish some specific resources only, you can use `--resources` flag:
+
+```bash
+$ python craft package:publish super_awesome --resources config,views
+```
+
+Here this will only publish configuration and views into your project.
+
+Finally if you want to check what resources a package can publish you just need to run:
+
+```bash
+$ python craft package:publish super_awesome --dry
+```
+
+This will output the list of resources that the package is going to publish into your project.
 
 # Consuming a Package
 
