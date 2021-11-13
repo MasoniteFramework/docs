@@ -36,6 +36,7 @@
 - [Helpers](features/helpers.md)
 - [Mail](features/mail.md)
 - [Notifications](features/notifications.md)
+- [Package Development](features/package-development.md)
 - [Queues and Jobs](features/queues.md)
 - [Sessions](features/sessions.md)
 - [Task Scheduling](features/scheduling.md)
@@ -47,13 +48,13 @@
 - [To Masonite ORM Docs](https://orm.masoniteproject.com)
 
 ## Testing
+
 - [Getting Started](testing/getting-started.md)
 - [HTTP Tests](testing/http-tests.md)
 - [Database Tests](testing/database-tests.md)
 - [Console Tests](testing/console-tests.md)
 - [Mocking](testing/mocking.md)
 - [Extending](testing/extending.md)
-
 
 ## Official Packages
 
