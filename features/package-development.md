@@ -101,6 +101,14 @@ You can then visit `http://localhost:8000` to see the welcome page.
 When you make changes to your package as your package is installed locally and registered into your project, your changes will be directly available in the project. You will just need to refresh your pages to see changes.
 {% endhint %}
 
+### Migrating the test project
+
+If your package has migrations and you want to migrate your test project you should first [register your migrations](#migrations), publish them and then run the usual `migrate` command:
+
+```bash
+$ masonite-orm migrate -d tests/integrations/databases/migrations
+```
+
 ### Releasing the package
 
 Once you're satisfied with your package it's time to release it on [PyPi](https://pypi.org/) so that everyone can install it. We made it really easy to do this with the make commands.
@@ -230,6 +238,22 @@ def configure(self):
 The [package publish](#publishing-resources) command will publish the migrations files into the defined project migrations folder. With the default project settings it would be in `databases/migrations/`. Migrations file are published with a timestamp, so here it would result in those two files: `{timestamp}_create_some_table.py` and `{timestamp}_create_other_table.py`.
 
 ### Routes / Controllers
+
+If your package contains routes you can register them by providing your route files and the locations to load controllers (used by your routes) from. For this you will need to call `controllers(*locations)` and then `routes(*routes)` inside `configure()` method.
+
+If your routes are defined in `src/super_awesome_package/routes/api.py` and `src/super_awesome_package/routes/web.py` and the controllers files available in `src/super_awesome_package/controllers` you can do:
+
+```python
+def configure(self):
+    (
+        self.root("src/super_awesome_package")
+        .name("super_awesome")
+        .controllers("controllers") # before routes !
+        .routes("routes/api.py", "routes/web.py")
+    )
+```
+
+Now Masonite should be able to resolve new routes from your packages.
 
 ### Views
 
