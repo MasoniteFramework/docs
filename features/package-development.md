@@ -8,16 +8,42 @@ Masonite, being a Python framework, you can obviously use all Python packages th
 
 # Package Discovery
 
-Explain service providers ...
+Package providers are the connection between your package and Masonite. A service provider is responsible for binding things into Masonite container and specifying from where to load package resources such as views, configuration, routes and assets.
+
+Your Masonite project will discover packages through the `PROVIDERS` list defined in your `providers.py` configuration file. When a package provider is added to this list, this will allow additional bindings, commands, views, routes, migrations and assets to be registered in your project.
+
+Keep in mind that some simple packages do not need to register resources in your project though.
 
 # Creating a Package
 
 ## Package Scaffolding
 
-Two ways to quickly scaffold your package layout:
+We provide two ways to quickly scaffold your package layout:
 
-- cookiecutter
-- github repo template
+- [starter-package](https://github.com/MasoniteFramework/starter-package) GitHub template
+- [cookiecutter template](https://github.com/girardinsamuel/cookiecutter-masonite-package/)
+
+### starter-package
+
+The [starter-package](https://github.com/MasoniteFramework/starter-package) is just a GitHub template so you only have to click `Use this template` to create your own GitHub repository scaffolded with the default package layout and then clone your repository to start developing locally.
+
+### cookiecutter template
+
+The [cookiecutter template](https://github.com/girardinsamuel/cookiecutter-masonite-package/) is using `cookiecutter` package to scaffold your package with configuration options (name, author, url...). The advantages is that you won't need to edit all the occurences of your package name after generation.
+
+Install `cookiecutter` globally (or locally) on your computer:
+
+```bash
+$ pip install cookiecutter
+```
+
+Then you just have to run (in the directory where you want your package repository to be created):
+
+```bash
+$ cookiecutter https://github.com/girardinsamuel/cookiecutter-masonite-package.git
+```
+
+You can now start developing your package !
 
 ## Development process
 
@@ -99,15 +125,113 @@ $ make pypirc
 
 This will move the file to your home directory. If you are using Windows you may need to move this file manually.
 
-## Resources
+Then fill in `password` key with the token you created later prefixed by `pypi-`. With a token starting with `AgEIcHlwaS5vcmcCJGNjYjA4M...` the `.pypirc` file would look like:
+
+```
+[distutils]
+index-servers =
+  pypi
+  pypitest
+
+[pypi]
+username=__token__
+password=pypi-AgEIcHlwaS5vcmcCJGNjYjA4M...
+```
+
+#### Publishing the package to PyPI
+
+Now you're ready to upload your package to PyPI. Ensure that all parameters of `setup.py` file are up to date. It's the file describing your package. Fill in the correct version number you want to publish. When ready you can run:
+
+```bash
+$ make publish
+```
+
+This will install `twine` if not installed yet, build the package, upload it to PyPi and delete the build artifacts. You should then see a success message and be able to browse your package on [PyPi](https://pypi.org/).
+
+{% hint style="warning" %}
+You should always check that the package name is available on PyPi and that the version number to publish has not been published before. Else you won't be able to publish your package.
+{% endhint %}
+
+## Registering Resources
 
 When developing a package you might need to use a configuration file, to add migrations, routes and controllers or views. All those resources can be located in your package but at one point a user might want to override it and will need to publish those resources locally in its project.
 
 The following section will explain how to register those resources in your package to be used in a Masonite project and how to make those resources publishable.
 
+Masonite makes it really easy to create a Package provider that will register your package resources.
+
+The default package comes with a provider file where a provider class inheriting from `PackageProvider` is defined:
+
+```python
+# providers/SuperAwesomeProvider.py
+from masonite.packages import PackageProvider
+
+class SuperAwesomeProvider(PackageProvider):
+
+    def configure(self):
+        (
+            self.root("src/super_awesome_package")
+            .name("super_awesome")
+        )
+
+    def boot(self):
+        pass
+```
+
+`configure()` method is called in usual `register()` method and is used to register all resources used in your package.
+
+TODO explain name and root
+
+#### root()
+
+#### name()
+
 ### Configuration
 
+Your package is likely to have a configuration file. You will want to make your package configuration available through the handy `config()` Masonite helper. For this you will need to call `config(path, publish=False)` inside `configure()` method:
+
+```python
+def configure(self):
+    (
+        self.root("src/super_awesome_package")
+        .name("super_awesome")
+        .config("config/super_awesome.py")
+    )
+```
+
+This will load the package configuration file located at `src/super_awesome_package/config/super_awesome.py` into Masonite config. The configuration will then be available with `config("super_awesome.key")`.
+
+If you want to allow users to publish the configuration file into their own project you should add `publish=True` argument.
+
+```python
+def configure(self):
+    (
+        self.root("src/super_awesome_package")
+        .name("super_awesome")
+        .config("config/super_awesome.py", publish=True)
+    )
+```
+
+The [package publish]() command will publish the configuration into the defined project configuration folder. With the default project settings it would be in `config/super_awesome.py`.
+
+{% hint style="info" %}
+Configuration values located in packages and in local project will be merged. Values defined locally in the project takes precedance over the default values of the package.
+{% endhint %}
+
 ### Migrations
+
+If your package contains migrations you can register the migration files to be published in a project:
+
+```python
+def configure(self):
+    (
+        self.root("src/super_awesome_package")
+        .name("super_awesome")
+        .migrations("migrations/create_some_table.py", "migrations/create_other_table.py")
+    )
+```
+
+The [package publish]() command will publish the migrations files into the defined project migrations folder. With the default project settings it would be in `databases/migrations/`. Migrations file are published with a timestamp, so here it would result in those two files: `{timestamp}_create_some_table.py` and `{timestamp}_create_other_table.py`.
 
 ### Routes / Controllers
 
@@ -115,8 +239,35 @@ The following section will explain how to register those resources in your packa
 
 ### Assets
 
-## Commands
+### Commands
 
-# Installing a Package
+## Publishing Resources
 
-# Publishing a Package
+# Consuming a Package
+
+If the package has been released on PyPi you need to install it as any Python package:
+
+```bash
+$ pip install super-awesome-package
+```
+
+Then you should **follow package installation guidelines** but often it will consist in:
+
+- registering the package [Service Provider](#) in your project:
+
+```python
+from super_awesome_package.providers import SuperAwesomeProvider
+
+PROVIDERS = [
+  # ...
+  SuperAwesomeProvider,
+]
+```
+
+- publishing some files if you need to tweak package resources or configuration:
+
+```bash
+$ python craft package:publish super-awesome-package
+```
+
+You should be ready to use the package in your project !
