@@ -54,7 +54,7 @@ $ python craft task SayHi
 This will create a file under app/tasks/SayHi.py
 
 ```python
-from scheduler.Task import Task
+from masonite.scheduler.Task import Task
 
 class SayHi(Task):
 
@@ -137,7 +137,7 @@ Now that our task is able to be added to the container automatically, let's star
 Firstly, the constructor of all tasks are resolved by the container. You can fetch anything from the container that doesn't need the WSGI server to be running \(which is pretty much everything\). So we can fetch things like the Upload, Mail, Broadcast and Request objects. This will look something like:
 
 ```python
-from scheduler.Task import Task
+from masnoite.scheduler.Task import Task
 
 from masonite.request import Request
 
@@ -157,7 +157,7 @@ The handle method is where the logic of the task should live. This is where you 
 We can do something like fire an API call here:
 
 ```python
-from scheduler.Task import Task
+from masnoite.scheduler.Task import Task
 import requests
 
 class SayHi(Task):
@@ -176,7 +176,7 @@ The awesomeness of recurring tasks is telling the task when it should run. There
 A complete task could look something like:
 
 ```python
-from scheduler.Task import Task
+from masonite.scheduler.Task import Task
 import requests
 
 class SayHi(Task):
@@ -211,7 +211,7 @@ If the time on the task is `days` or `months` then you can also specify a `run_a
 You can also set timezones on individual tasks by setting a `timezone` attribute on the task:
 
 ```python
-from scheduler.Task import Task
+from masonite.scheduler.Task import Task
 import requests
 
 class SayHi(Task):
@@ -251,7 +251,7 @@ Masonite will fetch all tasks from the container by finding all subclasses of `s
 Even though we ran the task, we should not see any output. Let's change the task a bit by printing "Hi" and setting it to run every minute:
 
 ```python
-from scheduler.Task import Task
+from masnoite.scheduler.Task import Task
 
 
 class SayHi(Task):
@@ -284,7 +284,7 @@ You may also run a specific task by running the schedule:run command with a --ta
 Or you can give your task a name explicitly:
 
 ```python
-from scheduler.Task import Task
+from masonite.scheduler.Task import Task
 
 
 class SayHi(Task):
