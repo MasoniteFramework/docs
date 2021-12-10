@@ -6,7 +6,7 @@ Validations are based on rules where you can pass in a key or a list of keys to 
 You can see a [list of available rules here](validation.md#available-rules).
 {% endhint %}
 
-## Validating The Request
+# Validating The Request
 
 Incoming form or JSON data can be validated very simply. All you need to do is import the `Validator` class, resolve it, and use the necessary rule methods.
 
@@ -40,13 +40,34 @@ This validation will read like "user and email are required and the terms must b
 Note you can either pass in a single value or a list of values
 {% endhint %}
 
-## Creating a Rule
+# Displaying Errors in views
+
+You can easily display your errors in your views with a snippet like this:
+
+```html
+@if session().has('errors'):
+<div class="bg-yellow-400">
+    <div class="bg-yellow-200 text-yellow-800 px-4 py-2">
+        <ul>
+            @for key, error_list in session().get('errors').items():
+                @for error in error_list
+                    <li>{{ error }}</li>
+                @endfor
+            @endfor
+        </ul>
+    </div>
+</div>
+@endif
+```
+
+
+# Creating a Rule
 
 Sometimes you may cross a time where you need to create a new rule that isn't available in Masonite or there is such a niche use case that you need to build a rule for.
 
 In this case you can create a new rule.
 
-### Rule Command
+## Rule Command
 
 You can easily create a new rule boiler plate by running:
 
@@ -91,7 +112,7 @@ class equals_masonite(BaseValidation):
         return '{} is not required'.format(key)
 ```
 
-### Constructing our Rule
+## Constructing our Rule
 
 Our rule class needs 3 methods that you see when you run the rule command, a `passes`, `message` and `negated_message` methods.
 
@@ -159,7 +180,7 @@ def negated_message(self, key):
     return '{} must not be equal to Masonite'.format(key)
 ```
 
-### Registering our Rule
+## Registering our Rule
 
 Now the rule is created we can use it in 1 of 2 ways.
 
@@ -248,7 +269,7 @@ notice we called the method as if it was apart of the validator class this whole
 Registering rules is especially useful when creating packages for Masonite that contain new rules.
 {% endhint %}
 
-## Using The Validator Class
+# Using The Validator Class
 
 In addition to validating the request class we can also use the validator class directly. This is useful if you need to validate your own dictionary:
 
@@ -273,11 +294,11 @@ def show(self, validator: Validator):
 
 Just put the dictionary as the first argument and then each rule being its own argument.
 
-## Rule Enclosures
+# Rule Enclosures
 
 Rule enclosures are self contained classes with rules. You can use these to help reuse your validation logic. For example if you see you are using the same rules often you can use an enclosure to always keep them together and reuse them throughout your code base.
 
-### Rule Enclosure Command
+## Rule Enclosure Command
 
 You can create a rule enclosure by running:
 
@@ -301,7 +322,7 @@ class AcceptedTerms(RuleEnclosure):
         ]
 ```
 
-### Creating the Rule Enclosure
+## Creating the Rule Enclosure
 
 You can then fill the list with rules:
 
@@ -361,7 +382,7 @@ def show(self, request: Request):
         return request.back().with_errors(errors)
 ```
 
-## Message Bag
+# Message Bag
 
 Working with errors may be a lot especially if you have a lot of errors which results in quite a big dictionary to work with.
 
@@ -376,7 +397,7 @@ def show(self, request: Request):
     ) #== <masonite.validation.MessageBag>
 ```
 
-### Getting All Errors:
+## Getting All Errors:
 
 You can easily get all errors using the `all()` method:
 
@@ -390,13 +411,13 @@ errors.all()
 """
 ```
 
-### Checking for any errors
+## Checking for any errors
 
 ```python
 errors.any() #== True
 ```
 
-### Checking if the bag is Empty
+## Checking if the bag is Empty
 
 This is just the opposite of the `any()` method.
 
@@ -404,13 +425,13 @@ This is just the opposite of the `any()` method.
 errors.empty() #== False
 ```
 
-### Checking For a Specific Error
+## Checking For a Specific Error
 
 ```python
 errors.has('email') #== True
 ```
 
-### Getting the first Key:
+## Getting the first Key:
 
 ```python
 errors.all()
@@ -428,13 +449,13 @@ errors.first()
 """
 ```
 
-### Getting the Number of Errors:
+## Getting the Number of Errors:
 
 ```python
 errors.count() #== 2
 ```
 
-### Converting to JSON
+## Converting to JSON
 
 ```python
 errors.json()
@@ -443,13 +464,13 @@ errors.json()
 """
 ```
 
-### Get the Amount of Messages:
+## Get the Amount of Messages:
 
 ```python
 errors.amount('email') #== 1
 ```
 
-### Get the Messages:
+## Get the Messages:
 
 ```python
 errors.get('email')
@@ -458,7 +479,7 @@ errors.get('email')
 """
 ```
 
-### Get the Errors
+## Get the Errors
 
 ```python
 errors.errors()
@@ -467,7 +488,7 @@ errors.errors()
 """
 ```
 
-### Get all the Messages:
+## Get all the Messages:
 
 ```python
 errors.messages()
@@ -476,7 +497,7 @@ errors.messages()
 """
 ```
 
-### Merge a Dictionary
+## Merge a Dictionary
 
 You can also merge an existing dictionary into the bag with the errors:
 
@@ -484,7 +505,7 @@ You can also merge an existing dictionary into the bag with the errors:
 errors.merge({'key': 'value'})
 ```
 
-## Nested Validations
+# Nested Validations
 
 Sometimes you will need to check values that aren't on the top level of a dictionary like the examples shown here. In this case we can use dot notation to validate deeper dictionaries:
 
@@ -513,7 +534,7 @@ errors = request.validate(
 
 notice the dot notation here. Each `.` being a deeper level to the dictionary.
 
-### Nested Validations With Lists
+## Nested Validations With Lists
 
 Sometimes your validations will have lists and you will need to ensure that each element in the list validates. For example you want to make sure that a user passes in a list of names and ID's.
 
@@ -547,7 +568,7 @@ errors = request.validate(
 )
 ```
 
-## Custom Messages
+# Custom Messages
 
 All errors returned will be very generic. Most times you will need to specify some custom error that is more tailored to your user base.
 
@@ -572,7 +593,7 @@ Now instead of returning the generic errors, the error message returned will be 
 Leaving out a message will result in the generic one still being returned for that value.
 {% endhint %}
 
-## Exceptions
+# Exceptions
 
 By default, Masonite will not throw exceptions when it encounters failed validations. You can force Masonite to raise a `ValueError` when it hits a failed validation:
 
@@ -613,7 +634,7 @@ except ValueError as e:
     str(e) #== 'user.email is required'
 ```
 
-### Custom Exceptions
+## Custom Exceptions
 
 You can also specify which exceptions should be thrown with which key being checked by using a dictionary:
 
@@ -635,7 +656,7 @@ except CustomException as e:
 
 All other rules within an explicit exception error will throw the `ValueError`.
 
-## String Validation
+# String Validation
 
 In addition to using the methods provided below, you can also use each one as a pipe delimitted string. For example these two validations are identical:
 
@@ -660,7 +681,7 @@ errors = request.validate({
 
 These rules are identical so use whichever feels more comfortable.
 
-## Available Rules
+# Available Rules
 
 |  |  |  |  |  |
 | :--- | :--- | :--- | :--- | :--- |
@@ -711,7 +732,7 @@ These rules are identical so use whichever feels more comfortable.
 [truthy](validation.md#truthy)
 [when](validation.md#when) -->
 
-### Accepted
+## Accepted
 
 The accepted rule is most useful when seeing if a checkbox has been checked. When a checkbox is submitted it usually has the value of `on` so this rule will check to make sure the value is either on, 1, or yes.
 
@@ -724,7 +745,7 @@ The accepted rule is most useful when seeing if a checkbox has been checked. Whe
 validate.accepted('terms')
 ```
 
-### Active_domain
+## Active_domain
 
 This is used to verify that the domain being passed in is a DNS resolvable domain name. You can also do this for email addresses as well. The preferred search is domain.com but Masonite will strip out `http://`, `https://` and `www` automatically for you.
 
@@ -738,7 +759,7 @@ This is used to verify that the domain being passed in is a DNS resolvable domai
 validate.active_domain(['domain', 'email'])
 ```
 
-### After_today
+## After_today
 
 Used to make sure the date is a date after today. In this example, this will work for any day that is 2019-10-21 or later.
 
@@ -762,7 +783,7 @@ You may also pass in a timezone for this rule:
 validate.after_today('date', tz='America/New_York')
 ```
 
-### Before_today
+## Before_today
 
 Used to make sure the date is a date before today. In this example, this will work for any day that is 2019-10-19 or earlier.
 
@@ -786,7 +807,7 @@ You may also pass in a timezone for this rule:
 validate.before_today('date', tz='America/New_York')
 ```
 
-### Confirmed
+## Confirmed
 
 This rule is used to make sure a key is "confirmed". This is simply a `key_confirmation` representation of the key.
 
@@ -802,7 +823,7 @@ For example, if you need to confirm a `password` you would set the password conf
 validate.confirmed('password')
 ```
 
-### Contains
+## Contains
 
 This is used to make sure a value exists inside an iterable \(like a list or string\). You may want to check if the string contains the value Masonite for example:
 
@@ -815,7 +836,7 @@ This is used to make sure a value exists inside an iterable \(like a list or str
 validate.contains('description', 'Masonite')
 ```
 
-### Date
+## Date
 
 This is used to verify that the value is a valid date. [Pendulum](https://pendulum.eustace.io/docs/#parsing) module is used to verify validity. It supports the RFC 3339 format, most ISO 8601 formats and some other common formats.
 
@@ -828,7 +849,7 @@ This is used to verify that the value is a valid date. [Pendulum](https://pendul
 validate.date('date')
 ```
 
-### Different
+## Different
 
 Used to check that value is different from another field value. It is the opposite of
 [matches](#matches) validation rule.
@@ -843,7 +864,7 @@ Used to check that value is different from another field value. It is the opposi
 validate.different('first_name', 'last_name')
 ```
 
-### Distinct
+## Distinct
 
 Used to check that an array value contains distinct items.
 ```python
@@ -870,7 +891,7 @@ validate.distinct('users')  # would fail
 validate.distinct('users.*.id')  # would pass
 ```
 
-### Does_not
+## Does_not
 
 Used for running a set of rules when a set of rules does not match. Has a `then()` method as well. Can be seen as the opposite of when.
 
@@ -889,7 +910,7 @@ validate.does_not(
 )
 ```
 
-### Email
+## Email
 
 This is useful for verifying that a value is a valid email address
 
@@ -903,7 +924,7 @@ This is useful for verifying that a value is a valid email address
 validate.email('email')
 ```
 
-### Equals
+## Equals
 
 Used to make sure a dictionary value is equal to a specific value
 
@@ -916,7 +937,7 @@ Used to make sure a dictionary value is equal to a specific value
 validate.equals('age', 25)
 ```
 
-### Exists
+## Exists
 
 Checks to see if a key exists in the dictionary.
 
@@ -948,7 +969,7 @@ validate.when(
 )
 ```
 
-### File
+## File
 
 Used to make sure that value is a valid file.
 
@@ -983,7 +1004,7 @@ validate.file('document', mimes=['pdf', 'txt'], size='4MB')
 
 For image or video file type validation prefer the direct [image](validation.md#image) and [video](validation.md#video) validation rules.
 
-### Greater_than
+## Greater_than
 
 This is used to make sure a value is greater than a specific value
 
@@ -996,7 +1017,7 @@ This is used to make sure a value is greater than a specific value
 validate.greater_than('age', 18)
 ```
 
-### Image
+## Image
 
 Used to make sure that value is a valid image.
 
@@ -1017,7 +1038,7 @@ Additionally you can check image size as with basic file validator
 validate.image('avatar', size="2MB")
 ```
 
-### In_range
+## In_range
 
 Used when you need to check if an integer is within a given range of numbers
 
@@ -1030,7 +1051,7 @@ Used when you need to check if an integer is within a given range of numbers
 validate.in_range('attendees', min=24, max=64)
 ```
 
-### Ip
+## Ip
 
 You can also check if the input is a valid IPv4 address:
 
@@ -1043,7 +1064,7 @@ You can also check if the input is a valid IPv4 address:
 validate.ip('address')
 ```
 
-### Is_future
+## Is_future
 
 Checks to see the date and time passed is in the future. This will pass even if the datetime is 5 minutes in the future.
 
@@ -1067,7 +1088,7 @@ You may also pass in a timezone for this rule:
 validate.is_future('date', tz='America/New_York')
 ```
 
-### Is_list
+## Is_list
 
 Used to make sure the value is a list \(a Python list instance\)
 
@@ -1092,7 +1113,7 @@ validate.is_list('tags')
 validate.is_list('discounts_ref.*')
 ```
 
-### Is_in
+## Is_in
 
 Used to make sure if a value is in a specific value
 
@@ -1107,7 +1128,7 @@ validate.is_in('age', [2,4,5])
 
 notice how 5 is in the list
 
-### Is_past
+## Is_past
 
 Checks to see the date and time passed is in the past. This will pass even if the datetime is 5 minutes in the past.
 
@@ -1131,7 +1152,7 @@ You may also pass in a timezone for this rule:
 validate.is_past('date', tz='America/New_York')
 ```
 
-### Isnt
+## Isnt
 
 This will negate all rules. So if you need to get the opposite of any of these rules you will add them as rules inside this rule.
 
@@ -1150,7 +1171,7 @@ validate.isnt(
 
 This will produce an error because age it is looking to make sure age **is not in** the list now.
 
-### Json
+## Json
 
 Used to make sure a given value is actually a JSON object
 
@@ -1164,7 +1185,7 @@ Used to make sure a given value is actually a JSON object
 validate.json('payload')
 ```
 
-### Length
+## Length
 
 Used to make sure a string is of a certain length
 
@@ -1178,7 +1199,7 @@ Used to make sure a string is of a certain length
 validate.length('description', min=5, max=35)
 ```
 
-### Less_than
+## Less_than
 
 This is used to make sure a value is less than a specific value
 
@@ -1191,7 +1212,7 @@ This is used to make sure a value is less than a specific value
 validate.less_than('age', 18)
 ```
 
-### Matches
+## Matches
 
 Used to make sure the value matches another field value
 
@@ -1209,7 +1230,7 @@ Used to make sure the value matches another field value
 validate.matches('user1.role', 'user2.role')
 ```
 
-### None
+## None
 
 Used to make sure the value is None
 
@@ -1223,7 +1244,7 @@ Used to make sure the value is None
 validate.none('active')
 ```
 
-### Numeric
+## Numeric
 
 Used to make sure a value is a numeric value
 
@@ -1237,7 +1258,7 @@ Used to make sure a value is a numeric value
 validate.numeric('age')
 ```
 
-### One_of
+## One_of
 
 Sometimes you will want only one of several fields to be required. At least one of them need to be required.
 
@@ -1254,7 +1275,7 @@ validate.one_of(['user', 'accepted', 'location'])
 
 This will pass because at least 1 value has been found: `user`.
 
-### Phone
+## Phone
 
 You can also use the phone validator to validate the most common phone number formats:
 
@@ -1272,7 +1293,7 @@ The available patterns are:
 * `123-456-7890`
 * `(123)456-7890`
 
-### Postal Code
+## Postal Code
 
 Every country has their own postal code formats. We added regular expressions for over 130 countries which you can specify by using a comma separated string of country codes:
 
@@ -1287,7 +1308,7 @@ validate.postal_code('zip', "US,IN,GB")
 
 Please look up the "alpha-2 code" for available country formats.
 
-### Regex
+## Regex
 
 Sometimes you want to do more complex validations on some fields. This rule allows to validate against a regular expression directly. In the following example we check that `username` value is a valid user name \(without special characters and between 3 and 16 characters\).
 
@@ -1300,7 +1321,7 @@ Sometimes you want to do more complex validations on some fields. This rule allo
 validate.regex('username', pattern='^[a-z0-9_-]{3,16}$'))
 ```
 
-### Required
+## Required
 
 Used to make sure the value is actually available in the dictionary and not null. This will add errors if the key is not present. To check only the presence of the value in the dictionary use [exists](#exists).
 
@@ -1317,7 +1338,7 @@ validate.required('first_name')  # would fail
 validate.required('last_name')  # would fail
 ```
 
-### Required If
+## Required If
 
 Used to make sure that value is present and not empty only if an other field has a given value.
 ```python
@@ -1330,7 +1351,7 @@ Used to make sure that value is present and not empty only if an other field has
 validate.required_if('first_name', 'last_name', 'Gamji')
 ```
 
-### Required With
+## Required With
 
 Used to make sure that value is present and not empty onlyf if any of the other specified fields are present.
 ```python
@@ -1345,7 +1366,7 @@ validate.required_with('email', ['last_name', 'nick_name'])
 ```
 
 
-### String
+## String
 
 Used to make sure the value is a string
 
@@ -1359,7 +1380,7 @@ Used to make sure the value is a string
 validate.string('email')
 ```
 
-### Strong
+## Strong
 
 The strong rule is used to make sure a string has a certain amount of characters required to be considered a "strong" string.
 
@@ -1375,7 +1396,7 @@ This is really useful for passwords when you want to make sure a password has at
 validate.strong('password', length=8, special=2, uppercase=3)
 ```
 
-### Timezone
+## Timezone
 
 You can also validate that a value passed in a valid timezone
 
@@ -1388,7 +1409,7 @@ You can also validate that a value passed in a valid timezone
 validate.timezone('timezone')
 ```
 
-### Truthy
+## Truthy
 
 Used to make sure a value is a truthy value. This is anything that would pass in a simple if statement.
 
@@ -1402,7 +1423,7 @@ Used to make sure a value is a truthy value. This is anything that would pass in
 validate.truthy('active')
 ```
 
-### Uuid
+## Uuid
 
 Used to check that a value is a valid UUID. The UUID version (according to [RFC 4122](https://en.wikipedia.org/wiki/Universally_unique_identifier#Versions)) standard can optionally be verified (1,3,4 or 5). The default version 4.
 ```python
@@ -1417,7 +1438,7 @@ validate.uuid('doc_id')
 validate.uuid('doc_id', 3)  # or '3'
 ```
 
-### Video
+## Video
 
 Used to make sure that value is a valid video file.
 ```python
@@ -1437,7 +1458,7 @@ Additionally you can check video size as with basic file validator
 validate.video('document', size="2MB")
 ```
 
-### When
+## When
 
 Conditional rules. This is used when you want to run a specific set of rules only if a first set of rules succeeds.
 
