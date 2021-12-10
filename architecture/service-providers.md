@@ -1,54 +1,63 @@
-Service Providers are a critical architecture concept in Masonite. Masonite is built around an IOC container and service providers allow you to interact with this container to add functionality to your application. Service providers run in order inside your `PROVIDERS` list.
+Service Providers are the key building blocks to Masonite. The only thing they do is register things into the Service Container, or run logic on requests. If you look inside the `config/providers.py` file, you will find a `PROVIDERS` list which contains all the Service Providers involved in building the framework.
 
-A service provider is not limited on the features it can add your application. In fact, every aspect of Masonite is done through service providers. Everything from mail, queue and broadcasting features all the way to routing and view rendering.
+Although uncommon, You may create your own service provider and add it to your providers list to extend Masonite, or even remove some providers if you don't need their functionality. If you do create your own Service Provider, consider making it available on PyPi so others can install it into their framework.
 
-In most cases you don't have to create your own service providers but if you want to extend the framework, extend a feature or create your own features, then you should 
+# Creating a Provider
 
-# Getting Started
+We can create a Service Provider by simply using a craft command:
 
-In a default project, you can find your providers in the `config/providers.py` file. This will be a collection of all providers in your application from framework providers to third party providers to application specific providers you build yourself. Anytime you add a provider you will have to register your provider in your `PROVIDERS` list.
-
-# Creating Providers
-
-You can create a provider using a command:
-
-```
-python craft provider YourProvider
+```text
+$ python craft provider DashboardProvider
 ```
 
-This will create a provider that looks like this:
+This will create a new Service Provider under our `app/providers/DashboardProvider.py`. This new Service Provider will have two simple methods, a `register` method and a `boot` method. We'll explain both in detail.
+
+# Service Provider Execution
+
+There are a few architectural examples we will walk through to get you familiar with how Service Providers work under the hood. Let's look at a simple provider and walk through it.
 
 ```python
 from masonite.providers import Provider
+
 
 class YourProvider(Provider):
     def __init__(self, application):
         self.application = application
 
     def register(self):
-        pass
+        self.application.bind('User', User)
 
     def boot(self):
-        pass
+        print(self.application.make('User'))
 ```
 
-Providers have 2 methods: `register` and `boot`.
+We can see that we have a simple provider that registers the `User` model into the container. There are three key features we have to go into detail here.
 
-The register method is called when the provider is first loaded into the container. Use this to register new classes and features to your application.
 
-The boot method is called on every request. Use this to run logic needed during a request.
+## Register
 
-# Registering Providers
+In our `register` method, it's important that we only bind things into the container. When the provider is first registered to the container, the register method is ran and your classes will be registered to the container.
 
-You can easily add your provider to the `PROVIDERS` list in your `config/providers.py` file:
+## Boot
+
+The boot method will have access to everything that is registered in the container. The boot method is ran during requests and is actually resolved by the container. Because of this, we can actually rewrite our provider above as this:
 
 ```python
-from app.providers.YourProvider import YourProvider
+from masonite.provider import ServiceProvider
+from app.User import User
 
-PROVIDERS = [
-  #..
-  YourProvider,
-  #..
-]
+class UserModelProvider(ServiceProvider):
+    ''' Binds the User model into the Service Container '''
+
+    def __init__(self, application):
+        self.application = application
+
+    def register(self):
+        self.application.bind('User', User)
+
+    def boot(self, user: User):
+        print(user)
 ```
+
+> This will be exactly the same as above. Notice that the `boot` method is resolved by the container.
 
