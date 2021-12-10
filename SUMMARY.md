@@ -41,6 +41,10 @@
 * [Validation](features/validation.md)
 * [Views](features/views.md)
 
+## Architecture
+
+* [Service Providers](architecture/service-providers.md)
+
 ## Masonite ORM <a id="masonite-orm"></a>
 
 * [To Masonite ORM Docs](https://orm.masoniteproject.com)
