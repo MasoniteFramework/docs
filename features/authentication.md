@@ -79,7 +79,7 @@ ROUTES = [
   #..
 ]
 
-ROUTES += Auth.routes() 
+ROUTES += Auth.routes()
 ```
 
 This will register the following routes:
@@ -109,7 +109,3 @@ from masonite.request import Request
 def login(self, auth: Auth, request: Request):
   user = auth.guard("custom").attempt(request.input('email'), request.input("password")) #== <app.User.User>
 ```
-
-# Gates & Policies
-
-TBD
