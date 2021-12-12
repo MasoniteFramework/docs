@@ -47,6 +47,10 @@
 
 * [Service Providers](architecture/service-providers.md)
 
+## Security
+
+* [CORS](features/cors.md)
+
 ## Masonite ORM <a id="masonite-orm"></a>
 
 - [To Masonite ORM Docs](https://orm.masoniteproject.com)
