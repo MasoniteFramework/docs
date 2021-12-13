@@ -103,6 +103,16 @@ This will create a route you can authenticate you private channel on the fronten
 ROUTES += Broadcast.routes(auth_route="/pusher/auth")
 ```
 
+You will also need to add the `/pusher/auth` route to the CSRF exemption:
+
+```python
+class VerifyCsrfToken(Middleware):
+
+    exempt = [
+        '/pusher/auth'
+    ]
+```
+
 ## Presence Channels
 
 Presence channels work exactly the same as private channels except you can see who else is inside this channel. This is great for chatroom type applications.
