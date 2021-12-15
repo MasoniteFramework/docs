@@ -19,6 +19,7 @@
 - [Response](features/response.md)
 - [Request](features/request.md)
 - [Static Files](features/static-files.md)
+- [Views](features/views.md)
 
 ## Features
 
@@ -41,7 +42,6 @@
 - [Sessions](features/sessions.md)
 - [Task Scheduling](features/scheduling.md)
 - [Validation](features/validation.md)
-- [Views](features/views.md)
 
 ## Architecture
 
