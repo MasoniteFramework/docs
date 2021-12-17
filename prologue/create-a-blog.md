@@ -143,6 +143,16 @@ You'll notice now that we are returning the `blog` view but it does not exist ye
 
 All views are in the `templates` directory. We can create a new file called `templates/blog.html` .
 
+This can be done with the `touch` command on Unix systems:
+
+{% tabs %}
+{% tab title="terminal" %}
+```text
+$ touch templates/blog.html
+```
+{% endtab %}
+{% endtabs %}
+
 We can put some text in this file like:
 
 {% tabs %}
@@ -153,6 +163,17 @@ This is a blog
 ```
 {% endtab %}
 {% endtabs %}
+
+Let's run the migration for the first time:
+
+{% tabs %}
+{% tab title="terminal" %}
+```text
+$ python craft migrate
+```
+{% endtab %}
+{% endtabs %}
+
 
 and then run the server
 
@@ -294,7 +315,7 @@ This command simply creates the start of a migration that will create the posts 
 This will create a migration in the `databases/migrations` folder. Let's open that up and starting on line 6 we should see something that looks like:
 
 {% tabs %}
-{% tab title="databases/migrations/2018\_01\_09\_043202\_create\_posts\_table.py" %}
+{% tab title="databases/migrations/20YY\_MM\_DD\_ABCDEF\_create\_posts\_table.py" %}
 ```python
 def up(self):
     """
@@ -427,7 +448,7 @@ class Post(Model):
 
     @belongs_to('author_id', 'id')
     def author(self):
-        from app.User import User
+        from app.models.User import User
         return User
 ```
 {% endtab %}
@@ -583,10 +604,12 @@ Let's open back up routes/web.py and create a new route. Just add this to the `R
 {% tabs %}
 {% tab title="routes/web.py" %}
 ```python
-from masonite.routes import Get, Post
+from masonite.routes import Route
 ...
-
-Post('/blog/create', 'BlogController@store'),
+ROUTES = [
+    ...
+    Route.post('/blog/create', 'BlogController@store')
+]
 ```
 {% endtab %}
 {% endtabs %}
@@ -672,7 +695,7 @@ Let's get the `show` method to return the posts view with all the posts:
 {% tabs %}
 {% tab title="app/http/controllers/PostController.py" %}
 ```python
-from app.Post import Post
+from app.models.Post import Post
 
 ...
 
@@ -691,7 +714,7 @@ We need to add a route for this method:
 {% tabs %}
 {% tab title="routes/web.py" %}
 ```python
-Get('/posts', 'PostController@show')
+Route.get('/posts', 'PostController@show')
 ```
 {% endtab %}
 {% endtabs %}
@@ -743,7 +766,7 @@ Next we want to just show a single post. We need to add a route for this method:
 {% tabs %}
 {% tab title="routes/web.py" %}
 ```python
-Get('/post/@id', 'PostController@single')
+Route.get('/post/@id', 'PostController@single')
 ```
 {% endtab %}
 {% endtabs %}
@@ -855,8 +878,8 @@ Remember we made 2 controller methods so let's attach them to a route here:
 {% tabs %}
 {% tab title="routes/web.py" %}
 ```python
-Get('/post/@id/update', 'PostController@update'),
-Post('/post/@id/update', 'PostController@store'),
+Route.get('/post/@id/update', 'PostController@update'),
+Route.post('/post/@id/update', 'PostController@store'),
 ```
 {% endtab %}
 {% endtabs %}
@@ -888,7 +911,7 @@ def delete(self, request: Request):
 {% tabs %}
 {% tab title="routes/web.py" %}
 ```python
-Get('/post/@id/delete', 'PostController@delete'),
+Route.get('/post/@id/delete', 'PostController@delete'),
 ```
 {% endtab %}
 {% endtabs %}
