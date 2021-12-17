@@ -10,6 +10,14 @@ $ python craft
 
 This will show a list of commands already available for Masonite.
 
+Every command has a "help" screen which describes the command's available arguments and options. In
+order to view the help prefix the name of the command with `help`. For example, to see help of
+`serve` command you can run:
+
+```
+$ python craft help serve
+```
+
 # Creating Commands
 
 Commands can be created a simple basic command class and inheriting cleo's `Command` class:
@@ -30,7 +38,7 @@ class KeyCommand(Command):
         pass
 ```
 
- Once created you can register the command to Masonite's Service Container so it will show up in show up when you run `python craft`
+Once created you can register the command to Masonite's Service Container so it will show up in show up when you run `python craft`
 
 # Registering Commands
 
