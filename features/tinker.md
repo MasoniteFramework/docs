@@ -31,7 +31,8 @@ python craft tinker -i
 
 ## Auto-loading Models
 
-You can configure from which directory the models should be loaded with the `-d` flag. It should
+By default your app models are loaded from the location configured in your project Kernel.
+You can override the directory to load models from with the `-d` flag. It should
 be a path relative to your project root. For example you can run the following command if your
 models are located in a `models/` folder located at your project root:
 
