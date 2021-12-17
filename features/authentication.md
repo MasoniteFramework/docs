@@ -1,4 +1,30 @@
-Masonite makes authentication really simply.
+Masonite makes authentication really simply. 
+
+# Authentication Scaffold Command
+
+Masonite comes with a command to scaffold out a basic authentication system. You may use this as a great starting point for adding authentication to your application. This command will create controllers, views, and mailables for you.
+
+**If you would like to implement your own authentication from scratch you can skip to the sections below.**
+
+First run the command to add the news files:
+
+```python
+python craft auth
+```
+
+Then add the authentication routes to your routes file:
+
+```python
+from masonite.authentication import Auth
+
+ROUTES = [
+  # routes
+]
+
+ROUTES += Auth.routes()
+```
+
+You may then go to the `/login` or `/register` route to implement your authentication.
 
 # Configuration
 
