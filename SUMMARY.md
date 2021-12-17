@@ -41,15 +41,16 @@
 - [Queues and Jobs](features/queues.md)
 - [Sessions](features/sessions.md)
 - [Task Scheduling](features/scheduling.md)
+- [Tinker Shell (REPL)](features/tinker.md)
 - [Validation](features/validation.md)
 
 ## Architecture
 
-* [Service Providers](architecture/service-providers.md)
+- [Service Providers](architecture/service-providers.md)
 
 ## Security
 
-* [CORS](features/cors.md)
+- [CORS](features/cors.md)
 
 ## Masonite ORM <a id="masonite-orm"></a>
 
