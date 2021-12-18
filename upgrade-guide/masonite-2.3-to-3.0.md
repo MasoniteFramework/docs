@@ -24,7 +24,7 @@ $ pip uninstall orator
 $ pip install masonite==3.0
 ```
 
-That should be all you need to get the requirements up to date. 
+That should be all you need to get the requirements up to date.
 
 At this point Masonite will not work because our codebase is not updated to work with Masonite 3
 
@@ -32,7 +32,7 @@ Now we can start changing the application to get our app to run again.
 
 ## Request init Offset
 
-The request class is now not even initialized until a request is sent. Previously the request class acted as a singleton but it is now a new class that is initialized on every request. Because of this change, any place you previously had been fetching the request class before the request is sent will no longer work. This could be in several places but is likely most common to be in any class `__init__` methods that are initialized before a request was sent, like in a service provider where the `wsgi` attribute is `False`. 
+The request class is now not even initialized until a request is sent. Previously the request class acted as a singleton but it is now a new class that is initialized on every request. Because of this change, any place you previously had been fetching the request class before the request is sent will no longer work. This could be in several places but is likely most common to be in any class `__init__` methods that are initialized before a request was sent, like in a service provider where the `wsgi` attribute is `False`.
 
 ## Headers On Response
 
@@ -63,8 +63,6 @@ class CustomMiddleware(Middleware):
   def after(self):
   		self.response.header('IS_INERTIA', 'true')
 ```
-
-
 
 ## HTTP Header Prefix.
 
@@ -147,7 +145,7 @@ container.bind('Container', container)
 
 ## Craft File
 
-You may not have to make this change but in some previous versions of Masonite, the craft file that came with new projects was wrong. The file is called `craft` and is in the root of your project directory. If the changes in green already exist then your project is correct. If you have the code in red then make this diff change:
+You may not have to make this change but in some previous versions of Masonite, the craft file that came with new projects was wrong. The file is called `craft` and is in the root of your project directory. If the changes with the + sign already exist then your project is correct. If you have the code in strikethrough then make this diff change:
 
 ```diff
 - from masonite import info
@@ -193,7 +191,7 @@ $ python craft migrate
 
 If you used any helper routes inside your web.py file, these have been removed. You will now need to use only route classes:
 
-If you have code inside your web.py 
+If you have code inside your web.py
 
 ```python
 from masonite.helpers.routes import get
@@ -211,7 +209,7 @@ This applied for the helpers: `get`, `post`, `put`, `patch`, `delete` and `group
 
 In previous versions of Masonite, Masonite would set flashed messages for a 2 second expiration time. This caused numerous different issues like what happens when a page redirection took longer than 2 seconds or what happens when the client times are not synced correctly.
 
-Now we have took a "get and delete" approach. So now the flash data is deleted when it is retrieved. This means that flash data can stay in session until it is fetched. 
+Now we have took a "get and delete" approach. So now the flash data is deleted when it is retrieved. This means that flash data can stay in session until it is fetched.
 
 To do this we have a new method for the "get and delete" of flash data.
 
