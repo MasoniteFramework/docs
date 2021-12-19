@@ -116,15 +116,15 @@ But also notice we now have our show method that we specified in our route earli
 
 We can return a lot of different things in our controller but for now we can return a view from our controller. A view in Masonite are html files or "templates". They are not Python objects themselves like other Python frameworks. Views are what the users will see \(or view\).
 
-This is important as this is our first introduction to Python's IOC container. We specify in our parameter list that we need a view class and Masonite will inject it for us.
+This is important as this is our first introduction to Masonite's IOC container. We specify in our parameter list that we need a view class and Masonite will inject it for us.
 
-For now on we won't focus on the whole controller but just the sections we are worried about. A `...` means there is stuff in between code that we are not worried about:
+For now on we won't focus on the whole controller but just the sections we are worried about. A `...` means there is code in between that we are not worried about:
 
 {% tabs %}
 {% tab title="app/controllers/BlogController.py" %}
 ```python
 from masonite.view import View
-...
+# ...
 def show(self, view: View):
     return view.render('blog')
 ```
@@ -132,10 +132,6 @@ def show(self, view: View):
 {% endtabs %}
 
 Notice here we "type hinted" the `View` class. This is what Masonite calls "Auto resolving dependency injection". If this doesn't make sense to you right now don't worry. The more you read on the more you will understand.
-
-{% hint style="success" %}
-Be sure to learn more about the [Service Container](https://docs.masoniteproject.com/architectural-concepts/service-container).
-{% endhint %}
 
 ### Creating Our View
 
@@ -179,7 +175,7 @@ and open up `http://localhost:8000/blog`. You will see "This is a blog" in your 
 
 ## Authentication
 
-Most applications will require some form of authentication. Masonite comes with a craft command to scaffold out an authentication system for you. This should typically be ran on fresh installations of Masonite since it will create controllers routes and views for you.
+Most applications will require some form of authentication. Masonite comes with a craft command to scaffold out an authentication system for you. This should typically be ran on fresh installations of Masonite since it will create controllers, routes, and views for you.
 
 For our blog, we will need to setup some form of registration so we can get new users to start posting to our blog. We can create an authentication system by running the craft command:
 
@@ -212,7 +208,7 @@ We will check what was created for us in a bit.
 
 ### Database Setup
 
-In order to register these users, we will need a database. By default, Masonite uses SQLite. If you want to use a different database you can change the `DB_CONNECTION` in your `.env` file. For that you need to have a local database setup like MySQL or Postgres.
+In order to register these users, we will need a database. By default, Masonite uses SQLite. If you want to use a different database you can change the options that start with `DB_` in your `.env` file. For running MySQL or Postgres you will need to have those databases setup already.
 
 We have already run the migration command before, which was:
 
@@ -224,7 +220,7 @@ $ python craft migrate
 {% endtab %}
 {% endtabs %}
 
-If you want to use MySQL Open up the `.env` file in the root of your project and change the `DB_DATABASE` to `mysql`. Also, feel free to change the `DB_DATABASE` name to something else.
+If you want to use MySQL, open up the `.env` file in the root of your project and change the `DB_DATABASE` to `mysql`. Also, feel free to change the `DB_DATABASE` name to something else.
 
 {% tabs %}
 {% tab title="terminal" %}
@@ -237,7 +233,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=masonite
 DB_USERNAME=root
-DB_PASSWORD=root
+DB_PASSWORD=
 ```
 {% endtab %}
 {% endtabs %}
@@ -280,9 +276,11 @@ Password: password!!11AA
 
 ## Migrations
 
-Now that we have our authentication setup and we are comfortable with migrating our migrations, let's create a new migration where we will store our posts.
+We have looked at running migrations but let's look at how to create a new migration.
 
-Our posts table should have a few obvious columns that we will simplify for this tutorial part. Let's walk through how we create migrations with Masonite.
+Now that we have our authentication setup and we are comfortable with migrating our application, let's create a new migration where we will store our posts.
+
+Our posts table should have a few obvious columns that we will simplify for this tutorial part.
 
 ### Craft Command
 
@@ -296,7 +294,7 @@ $ python craft migration create_posts_table --create posts
 {% endtab %}
 {% endtabs %}
 
-This command simply creates the start of a migration that will create the posts table. By convention, table names should be plural \(and model names should be singular but more on this later\).
+This command simply creates the start of a migration file that we will use to create the posts table. By convention, table names should be plural \(and model names should be singular but more on this later\).
 
 This will create a migration in the `databases/migrations` folder. Let's open that up and starting on line 6 we should see something that looks like:
 
@@ -354,7 +352,7 @@ $ python craft migrate
 
 Now that we have our tables and migrations all done and we have a posts table, let's create a model for it.
 
-Models in Masonite are a bit different than other Python frameworks. Masonite uses an Active Record ORM. This basically means we will not be building our model and then translating that into a migration. Models and migrations are separate in Masonite. Our models will take shape of our tables regardless of what the table looks like.
+Models in Masonite are a bit different than other Python frameworks. Masonite uses an Active Record ORM. Models and migrations are separate in Masonite. Our models will take shape of our tables regardless of what the table looks like.
 
 ### Creating our Model
 
@@ -368,12 +366,12 @@ $ python craft model Post
 {% endtab %}
 {% endtabs %}
 
-Notice we used the singular form for our model. By default, Masonite ORM will check for the plural name of the class in our database \(in this case posts\) by simply appending an "s" onto the model. We will talk about how to specify the table explicitly in a bit.
+Notice we used the singular form for our model. By default, Masonite ORM will check for the plural name of the class in our database \(in this case posts\) by assuming the name of the table is the plural word of the model name. We will talk about how to specify the table explicitly in a bit.
 
-The model created now resides inside `app/Post.py` and when we open it up it should look like:
+The model created now resides inside `app/models/Post.py` and when we open it up it should look like:
 
 {% tabs %}
-{% tab title="app/Post.py" %}
+{% tab title="app/models/Post.py" %}
 ```python
 """Post Model."""
 from masoniteorm.models import Model
@@ -388,7 +386,7 @@ Simple enough, right? Like previously stated, we don't have to manipulate the mo
 
 ### Table Name
 
-Again, the table name that the model is attached to is the plural version of the model \(by appending an "s"\) but if you called your table something different such as "blog" instead of "blogs" we can specify the table name explicitly:
+Again, the table name that the model is attached to is the plural version of the model name but if you called your table something different such as "user_posts" instead of "posts" we can specify the table name explicitly:
 
 {% tabs %}
 {% tab title="app/Post.py" %}
@@ -397,14 +395,14 @@ Again, the table name that the model is attached to is the plural version of the
 from masoniteorm.models import Model
 
 class Post(Model):
-    __table__ = 'blog'
+    __table__ = 'user_posts'
 ```
 {% endtab %}
 {% endtabs %}
 
 ### Mass Assignment
 
-Masonite ORM by default protects against mass assignment as a security measure so we will explicitly need to set what columns we would like to be fillable:
+Masonite ORM by default protects against mass assignment as a security measure so we will explicitly need to set what columns we would like to be fillable (this way we can pass the column names into the `create` and `update` methods later).
 
 {% tabs %}
 {% tab title="app/Post.py" %}
@@ -423,7 +421,7 @@ class Post(Model):
 The relationship is pretty straight forward here. Remember that we created a foreign key in our migration. We can create that relationship in our model like so:
 
 {% tabs %}
-{% tab title="app/Post.py" %}
+{% tab title="app/models/Post.py" %}
 ```python
 """Post Model."""
 from masoniteorm.models import Model
@@ -440,10 +438,10 @@ class Post(Model):
 {% endtab %}
 {% endtabs %}
 
-Because of how Masonite does models, some models may rely on each other so it is typically better to perform the import inside the relationship like we did above to prevent any possibilities of circular imports.
+> Because of how Masonite does models, some models may rely on each other so it is typically better to perform the import inside the relationship like we did above to prevent any possibilities of circular imports.
 
 {% hint style="success" %}
-We won't go into much more detail here about different types of relationships but to learn more, refert to [Masonite ORM Relationships](https://orm.masoniteproject.com/models#relationships) documentation.
+We won't go into much more detail here about different types of relationships but to learn more, refer to [Masonite ORM Relationships](https://orm.masoniteproject.com/models#relationships) documentation.
 {% endhint %}
 
 ## Designing Our Blog
@@ -472,9 +470,9 @@ The URL for creating will be located at `/blog/create` and will be a simple form
 {% endtab %}
 {% endtabs %}
 
-Notice here we have this strange `{{ csrf_field }}` looking text. Masonite comes with CSRF protection so we need a token to render with the CSRF field.
+Notice here we have a `{{ csrf_field }}` below the `<form>` open tag. Masonite comes with CSRF protection so we need a token to render the hidden field with the CSRF token.
 
-Now because we have a foreign key in our posts table, we need to make sure the user is logged in before creating this so let's change up our template a bit:
+Now we need to make sure the user is logged in before creating this so let's change up our template a bit:
 
 {% tabs %}
 {% tab title="templates/blog.html" %}
@@ -502,12 +500,12 @@ Now because we have a foreign key in our posts table, we need to make sure the u
 `auth()` is a view helper function that either returns the current user or returns `None`.
 
 {% hint style="success" %}
-Masonite uses Jinja2 templating so if you don't understand this templating, be sure to [read their documentation](http://jinja.pocoo.org/docs/2.10/).
+Masonite uses Jinja2 templating so if you don't understand this templating, be sure to [Read Their Documentation](http://jinja.pocoo.org/docs/2.10/).
 {% endhint %}
 
 ### Static Files
 
-For simplicity sake, we won't be styling our blog with something like Bootstrap but it is important to learn how static files such as CSS files work with Masonite so let's walk through how to add a CSS file and add it to our blog.
+For simplicity sake, we won't be styling our blog with something like Bootstrap but it is important to learn how static files such as CSS works with Masonite so let's walk through how to add a CSS file and add it to our blog.
 
 Firstly, head to `storage/static/` and make a `blog.css` file and throw anything you like in it. For this tutorial we will make the html page slightly grey.
 
@@ -585,15 +583,15 @@ For more information on static files, checkout the [Static Files](the-basics/sta
 
 Notice that our action is going to `/blog/create` so we need to direct a route to our controller method. In this case we will direct it to a `store` method.
 
-Let's open back up routes/web.py and create a new route. Just add this to the `ROUTES` list:
+Let's open back up the `routes/web.py` file and create a new route. Just add this to the `ROUTES` list:
 
 {% tabs %}
 {% tab title="routes/web.py" %}
 ```python
 from masonite.routes import Route
-...
+# ...
 ROUTES = [
-    ...
+    # ...
     Route.post('/blog/create', 'BlogController@store')
 ]
 ```
@@ -621,7 +619,7 @@ Now notice above in the form we are going to be receiving 2 form inputs: title a
 {% tabs %}
 {% tab title="app/controllers/BlogController.py" %}
 ```python
-from app.Post import Post
+from app.models.Post import Post
 from masonite.request import Request
 # ...
 
@@ -639,17 +637,13 @@ def store(self, request: Request):
 
 Notice that we now used `request: Request` here. This is the `Request` object. Where did this come from? This is the power and beauty of Masonite and your first introduction to the [Service Container](architectural-concepts/service-container.md). The [Service Container](architectural-concepts/service-container.md) is an extremely powerful implementation as allows you to ask Masonite for an object \(in this case `Request`\) and get that object. This is an important concept to grasp so be sure to read the documentation further.
 
-{% hint style="success" %}
-Read more about the [Service Container](architectural-concepts/service-container.md) here.
-{% endhint %}
+Also notice we used an `input()` method. Masonite does not discriminate against different request methods so getting input on a `GET` or a `POST` request are done exactly the same way by using this `input` method.
 
-Also notice we used an `input()` method. Masonite does not discriminate against different request methods so getting input on a `GET` or a `POST` request doesn't matter. You will always use this input method.
-
-Go ahead and run the server using craft serve and head over to `http://localhost:8000/blog` and create a post. This should hit the `/blog/create` route with the `POST` request method and we should see "post created".
+Go ahead and run the server using craft serve again and head over to `http://localhost:8000/blog` and create a post. This should hit the `/blog/create` route with the `POST` request method and we should see "post created".
 
 ## Showing Our Posts
 
-Lets go ahead and show how we can show the posts we just created. In this part we will create 2 new templates to show all posts and a specific post.
+Lets go ahead and show how we can show the posts we just created. Now that we are more comfortabale using the framework, in this part we will create 2 new templates to show all posts and an individual post.
 
 ### Creating The Templates
 
@@ -757,7 +751,7 @@ Route.get('/post/@id', 'PostController@single')
 {% endtab %}
 {% endtabs %}
 
-Notice here we have a `@id` string. We can use this to grab that section of the URL in our controller in the next section below.
+Notice here we have a `@id` string. We can use this to grab that section of the URL in our controller in the next section below. This is like a route URL capture group.
 
 ### Single Method
 
@@ -766,7 +760,7 @@ Let's create a `single` method so we show a single post.
 {% tabs %}
 {% tab title="app/controllers/PostController.py" %}
 ```python
-from app.Post import Post
+from app.models.Post import Post
 from masonite.request import Request
 from masonite.view import View
 ...
@@ -805,7 +799,7 @@ Go ahead and run the server and head over the `http://localhost:8000/post/1` rou
 
 ## Updating and Deleting Posts
 
-By now, all of the logic we have gone over so far will take you a long way so let's just finish up quickly with updating and deleting a posts. We'll assume you are comfortable with what we have learned so far so we will run through this faster since this is just more of what were in the previous parts.
+By now, all of the logic we have gone over so far will take you a long way so let's just finish up quickly with updating and deleting posts. We'll assume you are comfortable with what we have learned so far so we will run through this faster since this is just more of what were doing in the previous parts.
 
 ### Update Controller Method
 
@@ -874,7 +868,7 @@ That should be it! We can now update our posts.
 
 ### Delete Method
 
-Let's expand a bit and made a delete method.
+Let's expand a bit and make a delete method.
 
 {% tabs %}
 {% tab title="app/controllers/PostController.py" %}
