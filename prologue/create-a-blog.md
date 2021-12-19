@@ -141,17 +141,7 @@ Be sure to learn more about the [Service Container](https://docs.masoniteproject
 
 You'll notice now that we are returning the `blog` view but it does not exist yet.
 
-All views are in the `templates` directory. We can create a new file called `templates/blog.html` .
-
-This can be done with the `touch` command on Unix systems:
-
-{% tabs %}
-{% tab title="terminal" %}
-```text
-$ touch templates/blog.html
-```
-{% endtab %}
-{% endtabs %}
+All views are in the `templates` directory. We can create a new file called `templates/blog.html`.
 
 We can put some text in this file like:
 
@@ -222,11 +212,22 @@ We will check what was created for us in a bit.
 
 ### Database Setup
 
-In order to register these users, we will need a database. Hopefully you already have some kind of local database setup like MySQL or Postgres but we will assume that you do not. In this case we can just use SQLite.
+In order to register these users, we will need a database. By default, Masonite uses SQLite. If you want to use a different database you can change the `DB_CONNECTION` in your `.env` file. For that you need to have a local database setup like MySQL or Postgres.
 
-Now we just need to change a few environment variables so Masonite can create the SQLite database.
+We have already run the migration command before, which was:
 
-These environment variable can be found in the `.env` file in the root of the project. Open that file up and you should see a few lines that look like:
+{% tabs %}
+{% tab title="terminal" %}
+```text
+$ python craft migrate
+```
+{% endtab %}
+{% endtabs %}
+
+If you want to use MySQL Open up the `.env` file in the root of your project and change the `DB_DATABASE` to `mysql`. Also, feel free to change the `DB_DATABSE` name to something else.
+
+{% tabs %}
+{% tab title="terminal" %}
 
 {% tabs %}
 {% tab title=".env" %}
@@ -235,21 +236,6 @@ DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=masonite
-DB_USERNAME=root
-DB_PASSWORD=root
-```
-{% endtab %}
-{% endtabs %}
-
-Go ahead and change those setting to your connection settings by adding `sqlite` to the `DB_CONNECTION` variable and whatever you want for your database which will be created for you when you migrate. We will call it `blog.db`:
-
-{% tabs %}
-{% tab title=".env" %}
-```text
-DB_CONNECTION=sqlite
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=blog.db
 DB_USERNAME=root
 DB_PASSWORD=root
 ```
