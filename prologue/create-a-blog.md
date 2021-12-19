@@ -16,7 +16,7 @@ You'll also see hint blocks that are blue. These should not be ignored and typic
 
 ## Installation
 
-This tutorial will assume you have already installed Masonite. If you haven't, be sure to read the [Installation](./) guide to get a fresh install of Masonite up and running. Once you have one up and running or if you already have it running, go ahead and continue on.
+This tutorial will assume you have already installed Masonite. If you haven't, be sure to read the [Installation](../) guide to get a fresh install of Masonite up and running. Once you have one up and running or if you already have it running, go ahead and continue on.
 
 ## Creating a Blog
 
@@ -224,7 +224,7 @@ $ python craft migrate
 {% endtab %}
 {% endtabs %}
 
-If you want to use MySQL Open up the `.env` file in the root of your project and change the `DB_DATABASE` to `mysql`. Also, feel free to change the `DB_DATABSE` name to something else.
+If you want to use MySQL Open up the `.env` file in the root of your project and change the `DB_DATABASE` to `mysql`. Also, feel free to change the `DB_DATABASE` name to something else.
 
 {% tabs %}
 {% tab title="terminal" %}
