@@ -34,7 +34,7 @@ For example, to create a `GET` request route it will look like:
 from masonite.routes import Route
 
 ROUTES = [
-	Route.get('/url', 'Controller@method')  
+    Route.get('/url', 'Controller@method')
 ]
 
 ```
