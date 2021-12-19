@@ -51,7 +51,7 @@ You can read more about routes in the [Routing](the-basics/routing.md) documenta
 
 We will start off by creating a view and controller to create a blog post.
 
-A controller is a simple class that holds controller methods. These controller methods will be what our routes will call so they will contain all of our application's business logic.
+A controller is a simply a class that inherits from Masonite's Controller class and contains controller methods. These controller methods will be what our routes will call so they will contain most of our application's business logic.
 
 {% hint style="info" %}
 Think of a controller method as a function in the `views.py` file if you are coming from the Django framework
@@ -76,7 +76,7 @@ You'll notice here we have a `BlogController@show` string. This means "use the b
 
 ## Creating a Controller
 
-All controllers are located in the `app/http/controllers` directory by default and Masonite promotes a 1 controller per file structure. This has proven efficient for larger application development because most developers use text editors with advanced search features such as Sublime, VSCode or Atom. Switching between classes in this instance is simple and promotes faster development. It's easy to remember where the controller exactly is because the name of the file is the controller.
+All controllers are located in the `app/controllers` directory by default and Masonite promotes a 1 controller per file structure. This has proven efficient for larger application development because most developers use text editors with advanced search features such as Sublime, VSCode or Atom. Switching between classes in this instance is simple and promotes faster development. It's easy to remember where the controller exactly is because the name of the file is the controller.
 
 You can of course move controllers around wherever you like them but the craft command line tool will default to putting them in separate files. If this seems weird to you it might be worth a try to see if you like this opinionated layout.
 
@@ -92,7 +92,7 @@ $ python craft controller Blog
 {% endtab %}
 {% endtabs %}
 
-This will create a controller in `app/http/controllers` directory that looks like this:
+This will create a controller in `app/controllers` directory that looks like this:
 
 {% tabs %}
 {% tab title="app/http/controller/BlogController.py" %}
@@ -121,7 +121,7 @@ This is important as this is our first introduction to Python's IOC container. W
 For now on we won't focus on the whole controller but just the sections we are worried about. A `...` means there is stuff in between code that we are not worried about:
 
 {% tabs %}
-{% tab title="app/http/controllers/BlogController.py" %}
+{% tab title="app/controllers/BlogController.py" %}
 ```python
 from masonite.view import View
 ...
@@ -603,7 +603,7 @@ ROUTES = [
 and create a new store method on our controller:
 
 {% tabs %}
-{% tab title="app/http/controllers/BlogController.py" %}
+{% tab title="app/controllers/BlogController.py" %}
 ```python
 ...
 def show(self, view: View):
@@ -619,7 +619,7 @@ def store(self):
 Now notice above in the form we are going to be receiving 2 form inputs: title and body. So let's import the `Post` model and create a new post with the input.
 
 {% tabs %}
-{% tab title="app/http/controllers/BlogController.py" %}
+{% tab title="app/controllers/BlogController.py" %}
 ```python
 from app.Post import Post
 from masonite.request import Request
@@ -679,7 +679,7 @@ Great! So now in our `show` method we will show all posts and then we will creat
 Let's get the `show` method to return the posts view with all the posts:
 
 {% tabs %}
-{% tab title="app/http/controllers/PostController.py" %}
+{% tab title="app/controllers/PostController.py" %}
 ```python
 from app.models.Post import Post
 
@@ -764,7 +764,7 @@ Notice here we have a `@id` string. We can use this to grab that section of the 
 Let's create a `single` method so we show a single post.
 
 {% tabs %}
-{% tab title="app/http/controllers/PostController.py" %}
+{% tab title="app/controllers/PostController.py" %}
 ```python
 from app.Post import Post
 from masonite.request import Request
@@ -812,7 +812,7 @@ By now, all of the logic we have gone over so far will take you a long way so le
 Let's just make an update method on the `PostController`:
 
 {% tabs %}
-{% tab title="app/http/controllers/PostController.py" %}
+{% tab title="app/controllers/PostController.py" %}
 ```python
 def update(self, view: View, request: Request):
     post = Post.find(request.param('id'))
@@ -877,7 +877,7 @@ That should be it! We can now update our posts.
 Let's expand a bit and made a delete method.
 
 {% tabs %}
-{% tab title="app/http/controllers/PostController.py" %}
+{% tab title="app/controllers/PostController.py" %}
 ```python
 from masonite.request import Request
 ...
