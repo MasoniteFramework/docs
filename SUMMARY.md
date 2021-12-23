@@ -47,6 +47,7 @@
 ## Architecture
 
 - [Service Providers](architecture/service-providers.md)
+- [Service Container](architecture/service-container.md)
 
 ## Security
 
