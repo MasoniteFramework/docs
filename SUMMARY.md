@@ -1,7 +1,6 @@
 # Table of contents
 
 - [Introduction and Installation](README.md)
-- [Sponsors](sponsors.md)
 
 ## Prologue
 
