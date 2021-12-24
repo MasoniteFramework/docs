@@ -112,13 +112,13 @@ For example, you would run `python3 -m venv venv` instead of `python -m venv ven
 First install the Masonite package:
 
 ```
-$ pip install masonite==4.0.0b1
+$ pip install masonite
 ```
 
 Then start a new project:
 
 ```
-$ start project . --branch 4.0
+$ start project .
 ```
 
 This will create a new project in the current directory as well install Masonite dependencies.
