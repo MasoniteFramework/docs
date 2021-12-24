@@ -118,7 +118,7 @@ $ pip install masonite
 Then start a new project:
 
 ```
-$ start project .
+$ project start .
 ```
 
 This will create a new project in the current directory as well install Masonite dependencies.

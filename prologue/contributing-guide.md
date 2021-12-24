@@ -6,7 +6,7 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 The framework has 2 main parts: The "masonite" repo and the "cookie-cutter" repo.
 
-The `MasoniteFramework/cookie-cutter` repository is the main repository that will install when creating new projects using the `start project` command. This is actually a full Masonite project. When you run `start project` it simply reaches out to this GitHub repo, fetches the zip and unzips it on your computer. Not much development will be done in this repository and won't be changed unless something requires changes in the default installation project structure.
+The `MasoniteFramework/cookie-cutter` repository is the main repository that will install when creating new projects using the `project start` command. This is actually a full Masonite project. When you run `project start` it simply reaches out to this GitHub repo, fetches the zip and unzips it on your computer. Not much development will be done in this repository and won't be changed unless something requires changes in the default installation project structure.
 
 The `MasoniteFramework/core` repository is deprecated and development has been moved into `MasoniteFramework/masonite`. This repository contains all the development of Masonite and contains all the releases for Masonite. If you need to fix a bug or add a new feature then this is the repository to fork and make your changes from.
 
