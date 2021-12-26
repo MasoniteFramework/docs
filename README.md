@@ -25,12 +25,12 @@ These, among many other features, are all shipped out of the box and ready to go
 
 In order to use Masonite, you’ll need:
 
-* Python 3.6+
+* Python 3.7+
 * Latest version of OpenSSL
 * Pip3
 
 {% hint style="warning" %}
-All commands of python and pip in this documentation is assuming they are pointing to the correct Python 3 versions. For example, anywhere you see the `python` command ran it is assuming that is a Python 3.6+ Python installation. If you are having issues with any installation steps just be sure the commands are for Python 3.6+ and not 2.7 or below.
+All commands of python and pip in this documentation is assuming they are pointing to the correct Python 3 versions. For example, anywhere you see the `python` command ran it is assuming that is a Python 376+ Python installation. If you are having issues with any installation steps just be sure the commands are for Python 3.7+ and not 2.7 or below.
 {% endhint %}
 
 ### Linux
@@ -49,7 +49,7 @@ Or you may need to specify your `python3.x-dev` version:
 
 {% code title="terminal" %}
 ```text
-$ sudo apt-get install python3.6-dev python3-pip libssl-dev build-essential python3-venv
+$ sudo apt-get install python3.7-dev python3-pip libssl-dev build-essential python3-venv
 ```
 {% endcode %}
 

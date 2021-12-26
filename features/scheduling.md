@@ -85,7 +85,7 @@ Although the command to `schedule:run` above is useful and needed, we still need
 We'll show you an example cron job and then we will walk through how to build it.
 
 ```text
-PATH=/Users/Masonite/Programming/project_name/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
+PATH=/Users/Masonite/Programming/project_name/venv/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.7/bin
 
 * * * * * cd /Users/Masonite/Programming/project_name && source venv/bin/activate && python craft schedule:run
 ```
@@ -103,7 +103,7 @@ Which will show an output of something like:
 ```terminal
 ...
 __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0
-PATH=/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
+PATH=/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.7/bin
 PWD=/Users/Masonite/Programming/masonite
 ...
 ```
@@ -121,7 +121,7 @@ $ env EDITOR=nano crontab -eqcszae3zd4rfdsxs
 and paste the `PATH` we just copied. Once we do that our cron should look like:
 
 ```text
-PATH=/Users/Masonite/Programming/masonitetesting/venv/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
+PATH=/Users/Masonite/Programming/masonitetesting/venv/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.7/bin
 ```
 
 Exit out of nano. Now we just need to setup the actual cron job:

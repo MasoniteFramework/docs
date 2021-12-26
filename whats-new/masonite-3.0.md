@@ -10,7 +10,7 @@ Below is a list of high level changes of things that are new or changed in Mason
 
 Since Python 3.9 came out we are dropping support for Python 3.5. Masonite adds some f string formats so Masonite will break on Python 3.5. Throughout Masonite 3.0 we will be upgrading the codebase to use features available to us that we were unable to do because of Python 3.5 support.
 
-Masonite 3 supports all Python version 3.6 and above.
+Masonite 3 supports all Python versions 3.6 and above.
 
 ## Headers
 
