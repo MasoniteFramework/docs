@@ -21,6 +21,7 @@
 
 ## Features
 
+- [API Development](features/api.md)
 - [Authentication](features/authentication.md)
 - [Authorization](features/authorization.md)
 - [Broadcasting](features/broadcasting.md)
