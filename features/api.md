@@ -77,6 +77,10 @@ This will attempt to import your user model but if you have a different model yo
 
 This command will also generate a secret key, you should store that secret key in an environment variable called `JWT_SECRET`. This will be used as a salt for encoding and decoding the JWT token.
 
+The `authenticates` key is used as a check to check against the database on every request to see if the token is set on the user. By default, the database is not called to check if the token is valid. One of the benefits of JWT is the need to not have to make a database call to validate the user but if you want that behavior, you can set this option to `True`
+
+
+
 ## Routes
 
 You should add some routes to your `web.py` file which can be used to authenticate users to give them JWT tokens:
@@ -178,3 +182,36 @@ This will create the below routes which will match up with your API Controller m
 | POST 	| /users 	| store 	| users.store 	| 
 | PUT/PATCH 	| /users/@id 	| update 	| users.update 	| 
 | DELETE 	| /users/@id 	| destroy 	| users.destroy 	| 
+
+## Authentication
+
+The routes we added earlier contain 2 authentication methods. The `/api/auth` route can be used to get a new authentication token:
+
+First, send a `POST` request with a `username` and `password` to get back a JWT token:
+
+```json
+{
+    "data": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHBpcmVzIjpudWxsLCJ2ZXJzaW9uIjpudWxsfQ.OFBijJFsVm4IombW6Md1RUsN5v_btPwl-qtY-QSTBQ0b7N2pca8BnnT4OjfXOVRrKCWaKUM3QsGj8zqxCD4xJg"
+}
+```
+
+You should then send this token with either a `token` input or a `Authorization` header:
+
+```
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHBpcmVzIjpudWxsLCJ2ZXJzaW9uIjpudWxsfQ.OFBijJFsVm4IombW6Md1RUsN5v_btPwl-qtY-QSTBQ0b7N2pca8BnnT4OjfXOVRrKCWaKUM3QsGj8zqxCD4xJg 
+```
+
+## Reauthentication
+
+If you do not set a value for the `expires` key in the configuration file then your JWT tokens will not expire and will be valid forever.
+
+If you do set an expiration time in your configuration file then the JWT token will expire after that amount of minutes. If the token expires, you will need to reauthenticate to get a new token. This can be done easily by sending the old token to get back a new one:
+
+You can do this by sending a POST request to `/api/reauth` with a `token` input containing the current JWT token. This will check the table for the token and if found, will generate a new token.
+
+## Versions
+
+One of the issues with JWT tokens is there is little that can be done to invalidate JWT tokens. Once a JWT token is valid, it is typically valid forever.
+
+One way to invalid JWT tokens, and force users to reauthenticate, is to specify a version. A JWT token authenticated will contain a version number if one exists. When the JWT token is validated, the version number in the token will check against the version number in the configuration file. If they do not match then the token is considered invalid and the user will have to reauthenticate to get back a new token.
+
