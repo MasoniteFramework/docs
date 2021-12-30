@@ -109,6 +109,14 @@ ROUTES = [
 
 Any routes inside this file will be grouped inside an api middleware stack.
 
+You will then have to add a binding to the container for the location of this file. You can do so in your `Kernel.py` file inside the `register_routes` method:
+
+```python
+def register_routes(self):
+    #..
+    self.application.bind("routes.api.location", "routes/api")
+```
+
 ## Middleware
 
 Since the routes in your `api.py` file are wrapped in an `api` middleware, you should add a middleware stack in your route middleware in your Kernel file:
