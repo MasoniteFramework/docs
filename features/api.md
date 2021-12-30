@@ -215,3 +215,29 @@ One of the issues with JWT tokens is there is little that can be done to invalid
 
 One way to invalid JWT tokens, and force users to reauthenticate, is to specify a version. A JWT token authenticated will contain a version number if one exists. When the JWT token is validated, the version number in the token will check against the version number in the configuration file. If they do not match then the token is considered invalid and the user will have to reauthenticate to get back a new token.
 
+# Loading Users
+
+Since we store the active api_token on the table we are able to retrieve the user using the `LoadUserMiddleware` and a new `guard` route middleware stack:
+
+First add the guard middleware stack and add the `LoadUserMiddleware` to the `api` stack. 
+
+```python
+##.. 
+"api": [
+    JWTAuthenticationMiddleware,
+    LoadUserMiddleware
+],
+"guard": [
+    GuardMiddleware
+],
+```
+
+Lastly, in your route or route groups you can specify the guard middleware and specify the guard name:
+
+```python
+# api.py
+ROUTES = [
+    #..
+    Route.get('/users', 'UserController@show').middleware(["guard:jwt"])
+]
+```
