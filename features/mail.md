@@ -35,7 +35,7 @@ from app.mailables.Welcome import Welcome
 class WelcomeController(Controller):
   
 	def welcome(self, mail: Mail):
-    mail.send(Welcome().to('user@example.com'))
+    mail.mailable(Welcome().to('user@example.com')).send()
 ```
 
 Notice at this point you can call any building options you want on the mailables to modify the behavior of it before sending.
