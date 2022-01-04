@@ -43,7 +43,7 @@ from app.tasks.SendInvoices import SendInvoices
 def register(self):
 
   self.application.make('scheduler').add(
-    SendInvoices().every_day()
+    SendInvoices().daily()
   )
 ```
 
