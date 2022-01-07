@@ -34,8 +34,8 @@ from app.mailables.Welcome import Welcome
 
 class WelcomeController(Controller):
   
-	def welcome(self, mail: Mail):
-    mail.send(Welcome().to('user@example.com'))
+    def welcome(self, mail: Mail):
+        mail.mailable(Welcome().to('user@example.com')).send()
 ```
 
 Notice at this point you can call any building options you want on the mailables to modify the behavior of it before sending.
@@ -66,9 +66,9 @@ Sending attachments is really simply with Masonite. Simply attach the file to th
 
 ```python
 user = user.find(1)
-mailable = WelcomeMailable().to(f"{user.name} <{user.email}>')
-mailable.attach("MAY-2021-invoice.pdf", "storage/pdf/invoice.pdf")
-mail.send(mailable)
+welcome_mailable = WelcomeMailable().to(f"{user.name} <{user.email}>')
+welcome_mailable.attach("MAY-2021-invoice.pdf", "storage/pdf/invoice.pdf")
+mail.mailable(welcome_mailable).send()
 ```
 
 You will then see your attachment in the email.
@@ -84,8 +84,8 @@ from app.mailables.Welcome import Welcome
 
 class WelcomeController(Controller):
   
-	def welcome(self):
-    return Welcome()
+    def welcome(self):
+        return Welcome()
 ```
 
 If you are using the `view()` option in your mailable then you will need to set the application on the mailable:
@@ -96,8 +96,8 @@ from wsgi import application
 
 class WelcomeController(Controller):
   
-	def welcome(self):
-    return Welcome().set_application(application)
+    def welcome(self):
+        return Welcome().set_application(application)
 ```
 
 # Changing Drivers

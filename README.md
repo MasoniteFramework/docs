@@ -1,6 +1,6 @@
 # Introduction and Installation
 
-The modern and developer centric Python web framework that strives for an actual batteries included developer tool with a lot of out of the box functionality with an extremely extendable architecture. Masonite is perfect for beginner developers getting into their first web applications as well as experienced devs that need to utilize the full potential of Masonite to get their applications done.
+Stop using old frameworks with just a few confusing features. Masonite is the developer focused dev tool with all the features you need for the rapid development you deserve. Masonite is perfect for beginners getting their first web app deployed or advanced developers and businesses that need to reach for the full fleet of features available.
 
 Masonite works hard to be fast and easy from install to deployment so developers can go from concept to creation in as quick and efficiently as possible. Use it for your next SaaS! Try it once and you’ll fall in love.
 
@@ -10,14 +10,13 @@ If you are more of a visual learner you can watch Masonite related tutorial vide
 
 ## Some Notable Features Shipped With Masonite
 
-* Easily send emails with the Mail Provider and the SMTP and Mailgun drivers.
-* Send websocket requests from your server with the Broadcast Provider and Pusher, Ably and PubNub drivers.
-* IOC container and auto resolving dependency injection.
-* Service Providers to easily add functionality to the framework.
-* Extremely simple static files configured and ready to go.
-* Active Record style ORM called Masonite ORM.
-* An extremely useful command line tool to assist in your development tasks.
-* Extremely extendable.
+* Mail support for sending emails quickly.
+* Queue support to speed your application up by sending jobs to run on a queue or asynchronously.
+* Notifications for sending notifications to your users simply and effectively.
+* Task scheduling to run your jobs on a schedule (like everyday at midnight) so you can set and forget your tasks.
+* Events you can listen for to execute listeners that perform your tasks when certain events happen in your app.
+* A BEAUTIFUL Active Record style ORM called Masonite ORM. Amazingness at your fingertips.
+* Many more features you need which you can find in the docs!
 
 These, among many other features, are all shipped out of the box and ready to go. Use what you need when you need it.
 
