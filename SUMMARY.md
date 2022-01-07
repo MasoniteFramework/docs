@@ -25,7 +25,7 @@
 - [Authentication](features/authentication.md)
 - [Authorization](features/authorization.md)
 - [Broadcasting](features/broadcasting.md)
-- [Caching](features/caching.md)
+- [Caching](features/cache.md)
 - [Compiling Assets](features/compiling-assets.md)
 - [Commands](features/commands.md)
 - [CSRF Protection](features/csrf.md)
