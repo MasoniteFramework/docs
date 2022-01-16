@@ -78,6 +78,151 @@ You may also pass a list of templates:
 View.composer(['dashboard', 'dashboard/users'], {'copyright': '2021'})
 ```
 
+# Helpers
+
+There are quite a few built in helpers in your views. Here is an extensive list of all view helpers:
+
+## Request
+
+You can get the request class:
+
+```markup
+<p> Path: {{ request().path }} </p>
+```
+
+## Asset
+
+You can get the location of static assets:
+
+You can create a path to an asset by using the `asset` helper:
+
+```markup
+...
+<img src="{{ asset('s3', 'profile.jpg') }}" alt="profile">
+...
+```
+
+this will render a URL like this:
+
+```markup
+<img src="https://s3.us-east-2.amazonaws.com/bucket/profile.jpg" alt="profile">
+```
+
+See your filesystems.py configuration for how how to set the paths up.
+
+## CSRF Field
+
+You can create a CSRF token hidden field to be used with forms:
+
+```markup
+<form action="/some/url" method="POST">
+    {{ csrf_field }}
+    <input ..>
+</form>
+```
+
+## CSRF Token
+
+You can get only the token that generates. This is useful for JS frontends where you need to pass a CSRF token to the backend for an AJAX call
+
+```markup
+<p> Token: {{ csrf_token }} </p>
+```
+
+## Current User
+
+You can also get the current authenticated user. This is the same as doing `request.user()`.
+
+```markup
+<p> User: {{ auth().email }} </p>
+```
+
+This will now submit this form as a PUT request.
+
+## Route
+
+You can get a route by it's name by using this method:
+
+```markup
+<form action="{{ route('route.name') }}" method="POST">
+    ..
+</form>
+```
+
+If your route contains variables you need to pass then you can supply a dictionary as the second argument.
+
+```markup
+<form action="{{ route('route.name', {'id': 1}) }}" method="POST">
+    ..
+</form>
+```
+
+or a list:
+
+```markup
+<form action="{{ route('route.name', [1]) }}" method="POST">
+    ..
+</form>
+```
+
+## Back
+
+This is useful for redirecting back to the previous page. If you supply this helper then the request.back\(\) method will go to this endpoint. It's typically good to use this to go back to a page after a form is submitted with errors:
+
+```markup
+<form action="/some/url" method="POST">
+    {{ back(request().path) }}
+</form>
+```
+
+Now when a form is submitted and you want to send the user back then in your controller you just have to do:
+
+```python
+def show(self, response: Response):
+    # Some failed validation
+    return response.back()
+```
+
+## Session
+
+You can access the session here:
+
+```markup
+<p> Error: {{ session().get('error') }} </p>
+```
+
+{% hint style="success" %}
+Learn more about session in the [Session](../advanced/sessions.md) documentation.
+{% endhint %}
+
+## Config
+
+This allows you to easily fetch configuration values in your templates:
+
+```markup
+<h2> App Name: {{ config('application.name') }}</h2>
+```
+
+
+## Cookie
+
+Gets a cookie:
+
+```markup
+<h2> Token: {{ cookie('token') }}</h2>
+```
+
+## Url
+
+Get the URL to a location:
+
+```markup
+<form action="{{ url('/about', full=True) }}" method="POST">
+
+</form>
+```
+
+
 # View Filters
 
 Jinja2 allows adding filters to your views. Before we explain how to add filters to all of your templates, let's explain exactly what a view filter is.

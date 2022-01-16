@@ -19,6 +19,27 @@ PROVIDERS = [
 
 This will register some required classes used for API development.
 
+
+You should now create an `api.py` file for adding your API routes to:
+
+```python
+# routes/api.py
+
+ROUTES = [
+    Route.get('/users', 'UsersController@index')
+]
+```
+
+You will then have to add a binding to the container for the location of this file. You can do so in your `Kernel.py` file inside the `register_routes` method:
+
+```python
+def register_routes(self):
+    #..
+    self.application.bind("routes.api.location", "routes/api")
+```
+
+Any routes inside this file will be grouped inside an api middleware stack.
+
 ## Model and Migrations
 
 Next, you must choose a model you want to be responsible for authentication. This is typically your User model. You will have to inherit the `AuthenticatesTokens` class onto this model:
@@ -73,13 +94,11 @@ DRIVERS = {
 }
 ```
 
-This will attempt to import your user model but if you have a different model you can change it in this file.
+This will attempt to import your user model but if you have a different model or if its in a different location you can change it in that model.
 
 This command will also generate a secret key, you should store that secret key in an environment variable called `JWT_SECRET`. This will be used as a salt for encoding and decoding the JWT token.
 
-The `authenticates` key is used as a check to check against the database on every request to see if the token is set on the user. By default, the database is not called to check if the token is valid. One of the benefits of JWT is the need to not have to make a database call to validate the user but if you want that behavior, you can set this option to `True`
-
-
+The `authenticates` key is used as a check to check against the database on every request to see if the token is set on the user. By default, the database is not called to check if the token is assigned to a user. One of the benefits of JWT is the need to not have to make a database call to validate the user but if you want that behavior, you can set this option to `True`
 
 ## Routes
 
@@ -97,25 +116,7 @@ ROUTES += Api.routes(auth_route="/api/auth", reauth_route="/api/reauth")
 
 The above parameters are the defaults already so if you don't want to change them then you don't have to specify them.
 
-You should now create an `api.py` file to add your routes to:
 
-```python
-# routes/api.py
-
-ROUTES = [
-    Route.get('/users', 'UsersController@index')
-]
-```
-
-Any routes inside this file will be grouped inside an api middleware stack.
-
-You will then have to add a binding to the container for the location of this file. You can do so in your `Kernel.py` file inside the `register_routes` method:
-
-```python
-def register_routes(self):
-    #..
-    self.application.bind("routes.api.location", "routes/api")
-```
 
 ## Middleware
 
