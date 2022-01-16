@@ -6,14 +6,14 @@ Default projects don't come with these features so you'll have to simply registe
 
 ## Provider
 
-First, register the APIProvider in your project by adding the service provider to your PROVIDERS list:
+First, register the ApiProvider in your project by adding the service provider to your PROVIDERS list:
 
 ```python
-from masonite.api.providers import APIProvider
+from masonite.api.providers import ApiProvider
 
 PROVIDERS = [
     #..
-    APIProvider
+    ApiProvider
 ]
 ```
 
