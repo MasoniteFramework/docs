@@ -53,20 +53,20 @@ Tasks will run as often as you specify them to run using the time options.
 
 You can specify the tasks to run as often as you need them to. Available options are:
 
-| Option                   | Description                                                  |
-| ------------------------ | ------------------------------------------------------------ |
-| `every_minute()`         | Specifies this task to run every minute                      |
-| `every_15_minutes()`     | Specifies this task to run every 15 minutes                  |
-| `every_30_minutes()`     | Specifies this task to run every 30 minutes                  |
-| `every_45_minutes()`     | Specifies this task to run every 45 minutes                  |
-| `hourly()`               | Specifies this task to run every hour.                       |
-| `daily()`                | Specifies this task to run every day at midnight             |
-| `weekly()`               | Specifies this task to run every week on sunday at 00:00     |
-| `monthly()`              | Specifies this task to run every first of the month at 00:00 |
-| `at(17)`                 | Specifies the time to run the job at. Can be used with other options like `daily()` |
+| Option                   | Description                                                                                               |
+| ------------------------ | --------------------------------------------------------------------------------------------------------- |
+| `every_minute()`         | Specifies this task to run every minute                                                                   |
+| `every_15_minutes()`     | Specifies this task to run every 15 minutes                                                               |
+| `every_30_minutes()`     | Specifies this task to run every 30 minutes                                                               |
+| `every_45_minutes()`     | Specifies this task to run every 45 minutes                                                               |
+| `hourly()`               | Specifies this task to run every hour.                                                                    |
+| `daily()`                | Specifies this task to run every day at midnight                                                          |
+| `weekly()`               | Specifies this task to run every week on sunday at 00:00                                                  |
+| `monthly()`              | Specifies this task to run every first of the month at 00:00                                              |
+| `at(17)`                 | Specifies the time to run the job at. Can be used with other options like `daily()`                       |
 | `run_every('7 minutes')` | Specifies the amount of time to run. Can be any combination of time like `7 months`, `4 days`, `3 weeks`. |
-| `daily_at(17)`           | Runs every day at the specified time. Time is in 24-hour time. `8` is "8 am" and `17` is "5pm". |
-| `at_twice([8,17])`       | Runs at 8am and 5pm.                                         |
+| `daily_at(17)`           | Runs every day at the specified time. Time is in 24-hour time. `8` is "8 am" and `17` is "5pm".           |
+| `at_twice([8,17])`       | Runs at 8am and 5pm.                                                                                      |
 
 # Running The Tasks
 
@@ -74,6 +74,18 @@ To run all the tasks that are registered, we can find and execute the ones that 
 
 ```terminal
 $ python craft schedule:run
+```
+
+To run only a specific registered task we can use `--task` option:
+
+```terminal
+$ python craft schedule:run --task MyTask
+```
+
+Finally we can force task(s) to run immediately we can use `--force` option. This can be especially useful when developing locally.
+
+```terminal
+$ python craft schedule:run --task MyTask --force
 ```
 
 ## Cron Jobs
@@ -136,4 +148,4 @@ The next part is dependant on your setup. If you have a virtual environment then
 
 Lastly we need to run the schedule command so we can append `&& craft schedule:run`
 
-Great! Now we have a cron job that will run the craft command every minute. Masonite will decide which classes need to be executed. 
+Great! Now we have a cron job that will run the craft command every minute. Masonite will decide which classes need to be executed.
