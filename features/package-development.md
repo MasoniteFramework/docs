@@ -4,6 +4,8 @@ Creating packages is very simple for Masonite. You can create a package and publ
 
 As a developer, you will be responsible for both making packages and consuming packages. In this documentation we'll talk about both. We'll start by talking about how to make a package and then talk about how to use that package or other third party packages.
 
+You can browse Masonite packages (official and community) on: [https://masonite-packages.herokuapp.com](https://masonite-packages.herokuapp.com) (alpha version).
+
 Masonite, being a Python framework, you can obviously use all Python packages that aren’t designed for a specific framework. For example, you can obviously use a library like `requests` but you can’t use specific Django Rest Framework.
 
 # Package Discovery
@@ -159,6 +161,18 @@ This will install `twine` if not installed yet, build the package, upload it to 
 {% hint style="warning" %}
 You should always check that the package name is available on PyPi and that the version number to publish has not been published before. Else you won't be able to publish your package.
 {% endhint %}
+
+#### Make the package available on masonite packages list
+
+To make your package available on [https://masonite-packages.herokuapp.com](https://masonite-packages.herokuapp.com) (alpha version) you need to add `Framework :: Masonite` in `setup.py` classifiers:
+
+```python
+# setup.py
+    classifiers=[
+        #...
+        "Framework :: Masonite",
+    ]
+```
 
 ## Registering Resources
 

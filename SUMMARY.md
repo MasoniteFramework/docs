@@ -67,7 +67,7 @@
 
 ## Official Packages
 
-- [Masonite Logging](official-packages/masonite-logging.md)
+- [Masonite Debugbar](official-packages/masonite-debugbar.md)
 
 ## How-to Guides
 
