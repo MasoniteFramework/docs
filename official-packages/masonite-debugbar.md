@@ -55,19 +55,19 @@ Masonite Debugbar collects data to show in your debugbar as a tab. Each collecto
 
 Below is a detailed explanation of each collector
 
-# Model Collector
+## Model Collector
 
 The model collector shows how many models are hydrated on that request. Whenever you make a query call, a model instance has to be created to store that rows data. This could be a costly operation depending on how many rows are in the table you are calling.
 
-# Queries Collector
+## Queries Collector
 
 The queries collector shows all the queries made during that request as well as the time it took to perform that query. Use this to see where bottle necks are in your application. Slow queries lead to slow load times for your users.
 
-# Request Collector
+## Request Collector
 
 The request collector shows you information related to the request such as inputs, parameters and headers.
 
-# Message Collector
+## Message Collector
 
 The message collector contains messages you can add in your application. Instead of adding a bunch of print statements you can add a message:
 
@@ -82,6 +82,24 @@ You could also add tags which will create a colored tag in the content tab:
 ```python
 Debugbar.get_collector('messages').add_message("a debug message", tags={"color": "green", "message": "tag name"})
 ```
+
+## Environment Collector
+
+This collector adds all of your environment variables to your debugbar as well as the Python and Masonite versions.
+
+## Measures Collector
+
+The measures collector you can use to measure 2 points in your application. By default there is the time it takes for your application to complete the whole request. You can start and stop any measures you want:
+
+```python
+from debugbar.facades import Debugbar
+
+Debugbar.start_measure("loop check")
+# .. Long running code
+Debugbar.stop_measure("loop check")
+```
+
+You will now see the time it takes to run this code in the measures tab
 
 # Adding Your Own Collectors
 
