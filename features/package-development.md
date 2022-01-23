@@ -176,7 +176,7 @@ class SuperAwesomeProvider(PackageProvider):
 
     def configure(self):
         (
-            self.root("src/super_awesome_package")
+            self.root("super_awesome_package")
             .name("super_awesome")
         )
 
@@ -186,9 +186,21 @@ class SuperAwesomeProvider(PackageProvider):
 
 `configure()` method is called in usual `register()` method and is used to register all resources used in your package.
 
-`root(path)` method should be called first and is used to specify the relative path to your package root from the package repository root.
+`root(import_path)` method should be called first and is used to specify the import path of your package. If your package needs to be used like this:
 
-`name(string)` method should be called in second and is used to specify the name of your package (not the PyPi package name neither the Python module name) but the name that will be used to reference your package in the publish command or in the resources paths (this should be a name without special characters annd spaces).
+```python
+from super_awesome_package.providers import SuperAwesomeProvider
+```
+
+Then `super_awesome_package` is the import path of your package. If your package is imported like this:
+
+```python
+from masonite.inertia.providers import InertiaProvider
+```
+
+Then `masonite.inertia` is the import path of your package.
+
+`name(string)` method should be called in second and is used to specify the name of your package (not the PyPi package name neither the Python module name) but the name that will be used to reference your package in the publish command or in the resources paths (it should be a name without special characters and spaces i.e. a Python valid name). This will also be the name of your package configuration file.
 
 ### Configuration
 
@@ -197,20 +209,20 @@ Your package is likely to have a configuration file. You will want to make your 
 ```python
 def configure(self):
     (
-        self.root("src/super_awesome_package")
+        self.root("super_awesome_package")
         .name("super_awesome")
         .config("config/super_awesome.py")
     )
 ```
 
-This will load the package configuration file located at `src/super_awesome_package/config/super_awesome.py` into Masonite config. The configuration will then be available with `config("super_awesome.key")`.
+This will load the package configuration file located at `super_awesome_package/config/super_awesome.py` into Masonite config. The configuration will then be available with `config("super_awesome.key")`.
 
 If you want to allow users to publish the configuration file into their own project you should add `publish=True` argument.
 
 ```python
 def configure(self):
     (
-        self.root("src/super_awesome_package")
+        self.root("super_awesome_package")
         .name("super_awesome")
         .config("config/super_awesome.py", publish=True)
     )
@@ -229,7 +241,7 @@ If your package contains migrations you can register the migration files to be p
 ```python
 def configure(self):
     (
-        self.root("src/super_awesome_package")
+        self.root("super_awesome_package")
         .name("super_awesome")
         .migrations("migrations/create_some_table.py", "migrations/create_other_table.py")
     )
@@ -241,12 +253,12 @@ The [package publish](#publishing-resources) command will publish the migrations
 
 If your package contains routes you can register them by providing your route files and the locations to load controllers (used by your routes) from. For this you will need to call `controllers(*locations)` and then `routes(*routes)` inside `configure()` method.
 
-If your routes are defined in `src/super_awesome_package/routes/api.py` and `src/super_awesome_package/routes/web.py` and the controllers files available in `src/super_awesome_package/controllers` you can do:
+If your routes are defined in `super_awesome_package/routes/api.py` and `super_awesome_package/routes/web.py` and the controllers files available in `super_awesome_package/controllers` you can do:
 
 ```python
 def configure(self):
     (
-        self.root("src/super_awesome_package")
+        self.root("super_awesome_package")
         .name("super_awesome")
         .controllers("controllers") # before routes !
         .routes("routes/api.py", "routes/web.py")
@@ -259,12 +271,12 @@ Now Masonite should be able to resolve new routes from your packages.
 
 If your package contains views you can register them by providing folders containing your views. For this you will need to call `views(*folders, publish=False)` inside `configure()` method. The views will be namespaced after your package name:
 
-For example if your package contains an `admin` folder located at `src/super_awesome_package/admin/` containing a `index.html` view you can do:
+For example if your package contains an `admin` folder located at `super_awesome_package/admin/` containing a `index.html` view you can do:
 
 ```python
 def configure(self):
     (
-        self.root("src/super_awesome_package")
+        self.root("super_awesome_package")
         .name("super_awesome")
         .views("admin")
     )
@@ -285,12 +297,12 @@ If you want to allow users to publish the view file into their own project so th
 
 If your project contains assets (such as JS, CSS or images files) you can register them to be published in the project by calling `assets(*paths)` inside `configure()` method.
 
-For example if your package contains an `assets` folder located at `src/super_awesome_package/assets/` containing some asset files and folders you can do:
+For example if your package contains an `assets` folder located at `super_awesome_package/assets/` containing some asset files and folders you can do:
 
 ```python
 def configure(self):
     (
-        self.root("src/super_awesome_package")
+        self.root("super_awesome_package")
         .name("super_awesome")
         .views("assets")
     )
@@ -307,7 +319,7 @@ from ..commands import MyPackageCommand, AnOtherCommand
 
 def configure(self):
     (
-        self.root("src/super_awesome_package")
+        self.root("super_awesome_package")
         .name("super_awesome")
         .commands(MyPackageCommand, AnOtherCommand)
     )
