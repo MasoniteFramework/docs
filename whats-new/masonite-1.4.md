@@ -8,7 +8,7 @@ If you are upgrading from Masonite 1.3 then please read the [Masonite 1.3 to 1.4
 
 ## Broadcast Support
 
-We recognize that in order for frameworks to keep up with modern web application, they require real time broadcasting. Masonite 1.4 brings basic broadcasting of events to masonite and comes with two drivers out of the box: `pusher` and `ably`. If you'd like to create more drivers then you can do so easily by reading the [About Drivers](../managers-and-drivers/about-drivers.md) documentation. If you do create a driver, please consider making it available on PyPi so others can install it into their projects or open an issue on GitHub and make to add it to the built in drivers.
+We recognize that in order for frameworks to keep up with modern web application, they require real time broadcasting. Masonite 1.4 brings basic broadcasting of events to masonite and comes with two drivers out of the box: `pusher` and `ably`. If you'd like to create more drivers then you can do so easily by reading the [About Drivers](broken-reference) documentation. If you do create a driver, please consider making it available on PyPi so others can install it into their projects or open an issue on GitHub and make to add it to the built in drivers.
 
 ## Caching
 
@@ -49,4 +49,3 @@ Now the constructor of all middleware is resolved by the container. This means y
 ## Fixed unused imports
 
 There were two unused imports in the models that Masonite created. These have been removed completely.
-

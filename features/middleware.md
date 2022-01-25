@@ -1,3 +1,5 @@
+# Middleware
+
 Middleware is an extremely important aspect of web applications as it allows you to run important code either before or after every request or even before or after certain routes. In this documentation we'll talk about how middleware works, how to consume middleware and how to create your own middlewar
 
 ## Getting Started
@@ -27,7 +29,6 @@ class Kernel:
     http_middleware = [
         EncryptCookies
     ]
-    
 ```
 
 Middleware will run on every inbound request to the application whether or not a route was found or not.
@@ -41,7 +42,7 @@ In our `config/middleware.py` file this might look something like:
 ```python
 from app.middleware.RouteMiddleware import RouteMiddleware
 class Kernel:
-  
+
   #..
 
   route_middleware = {
@@ -96,7 +97,7 @@ If we go to a route like `/dashboard/152/settings` then the value of 152 will be
 
 Middleware:
 
-* can live anywhere in your project, 
+* can live anywhere in your project,&#x20;
 * Inherit from Masonite's base middleware class
 * Contain a before and after method that accepts request and response parameters
 
@@ -116,7 +117,7 @@ class AuthenticationMiddleware(Middleware):
         return request
 ```
 
-**It's important to note that in order for the request lifecycle to continue, you must return the request class. If you do not return the request class, no other middleware will run after that middleware.** 
+**It's important to note that in order for the request lifecycle to continue, you must return the request class. If you do not return the request class, no other middleware will run after that middleware.**
 
 That's it! Now we just have to make sure our route picks this up. If we wanted this to execute after a request, we could use the exact same logic in the `after` method instead.
 

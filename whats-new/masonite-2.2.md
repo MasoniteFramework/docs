@@ -33,7 +33,7 @@ def show(self, user_id, view: View):
 ```
 
 {% hint style="success" %}
-Learn more in the [Controllers documentation here](../the-basics/controllers.md#passing-route-parameters).
+Learn more in the [Controllers documentation here](broken-reference).
 {% endhint %}
 
 ## Added a storage manager and disk storage drivers
@@ -45,7 +45,7 @@ This is used as a wrapper around I/O operations. It will also be a wrapper aroun
 We can now specify directly in the configuration file whether or not the threading or multiprocessing for the async type operations.
 
 {% hint style="success" %}
-Learn more in the [Queues documentation here](../useful-features/queues-and-jobs.md#async-driver).
+Learn more in the [Queues documentation here](broken-reference).
 {% endhint %}
 
 ## Added new HTTP Verbs
@@ -61,7 +61,7 @@ ROUTES = [
 ```
 
 {% hint style="success" %}
-Learn more in the [Routes documentation here](../the-basics/routing.md#http-verbs).
+Learn more in the [Routes documentation here](../features/routing.md#http-verbs).
 {% endhint %}
 
 ## JSON error responses
@@ -103,18 +103,18 @@ $ craft serve
 
 You can now specify it to NOT auto-reload by passing in 1 of these 2 commands:
 
-```text
+```
 $ craft serve -d
 $ craft serve --dont-reload
 ```
 
 {% hint style="success" %}
-Learn more in the [Craft commands documentation here](../the-craft-command/introduction.md#running-the-wsgi-server).
+Learn more in the [Craft commands documentation here](broken-reference).
 {% endhint %}
 
-## Added Accept\('\*'\) to drivers
+## Added Accept('\*') to drivers
 
-By default you can only upload image files because of security reasons but now you can disable that by doing an accept\('\*'\) option:
+By default you can only upload image files because of security reasons but now you can disable that by doing an accept('\*') option:
 
 ```python
 def show(self, upload: Upload):
@@ -122,13 +122,13 @@ def show(self, upload: Upload):
 ```
 
 {% hint style="success" %}
-Learn more in the [Uploading documentation here](../useful-features/uploading.md#accepting-specific-files).
+Learn more in the [Uploading documentation here](broken-reference).
 {% endhint %}
 
 ## Added much more view helpers
 
 {% hint style="success" %}
-Learn more in the [Views documentation here](../the-basics/views.md#helpers).
+Learn more in the [Views documentation here](broken-reference).
 {% endhint %}
 
 ## All Tests are now unittests
@@ -136,7 +136,7 @@ Learn more in the [Views documentation here](../the-basics/views.md#helpers).
 We moved from pytest to unittests for test structures.
 
 {% hint style="success" %}
-Learn more in the [Testing documentation here](../useful-features/testing.md#testing).
+Learn more in the [Testing documentation here](broken-reference).
 {% endhint %}
 
 ## Added a better way to run database tests
@@ -163,10 +163,10 @@ We can now do:
 </form>
 ```
 
-In order to learn how to use this you can visit the [documentation here](../the-basics/requests.md#form-back-redirection).
+In order to learn how to use this you can visit the [documentation here](broken-reference).
 
 {% hint style="success" %}
-Learn more in the [Requests documentation here](../the-basics/requests.md#redirecting-back).
+Learn more in the [Requests documentation here](broken-reference).
 {% endhint %}
 
 ## Added a completely new validation library
@@ -176,7 +176,7 @@ We built a new validation library from scratch and completely ripped out the old
 The new way is MUCH better. You can read about it in the new [validation section here](https://docs.masoniteproject.com/v/v2.2/advanced/validation).
 
 {% hint style="success" %}
-Learn more in the [Validation documentation here](../advanced/validation.md#validation).
+Learn more in the [Validation documentation here](broken-reference).
 {% endhint %}
 
 ## Auth class does not need the request class.
@@ -241,7 +241,7 @@ def show(self, auth: Auth):
 ```
 
 {% hint style="success" %}
-Learn more in the [Authentication documentation here](../security/authentication.md#authentication).
+Learn more in the [Authentication documentation here](broken-reference).
 {% endhint %}
 
 ## Changed all regex compiling to be done before the server starts
@@ -257,7 +257,7 @@ Masonite now has the ability to remember the previous container bindings for eac
 This is scheduled to be set by default in the next major version of Masonite
 
 {% hint style="success" %}
-Learn more in the [Service Container documentation here](../architectural-concepts/service-container.md#remembering).
+Learn more in the [Service Container documentation here](broken-reference).
 {% endhint %}
 
 ## Added a new `with_errors()` method in order to cut down on setting an errors session.
@@ -294,6 +294,5 @@ def show(self, request: Request, validate: Validator):
 ```
 
 {% hint style="success" %}
-Learn more in the [Requests documentation here](../advanced/validation.md#validating-the-request).
+Learn more in the [Requests documentation here](broken-reference).
 {% endhint %}
-

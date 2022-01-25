@@ -1,3 +1,5 @@
+# Hash ID's
+
 The Masonite hashing feature is a very useful feature to prevent exposing ID's in your application.
 
 Many times you need to expose your database primary keys to the frontend. For example, when updating a record, you might need to pass in a primary key value to a URL like `/users/10/settings`.
@@ -6,7 +8,7 @@ Typically you want to hide these key values from a hacker trying to change these
 
 With the Masonite hashing feature you can change a value like `10` to `l9avmeG` and prevent exposing those sensitive integer values.
 
-# Setup
+## Setup
 
 The Masonite hashing feature automatically decodes values before they get to the controller. To do this it you need to specify both a middleware to help decode the values as well as the provider to register the helper in the templates.
 
@@ -41,7 +43,7 @@ PROVIDERS = [
 
 This will register a template helper and some other useful features.
 
-# Helper
+## Helper
 
 You can use the helper directly to encode or decode integers easily:
 
@@ -53,11 +55,11 @@ def show(self):
   hashid('l9avmeG', decode=True) #== 10
 ```
 
-# Templates
+## Templates
 
 Inside your templates you can use the `hashid` template helper:
 
-```html
+```markup
 <!-- user.id == 10 -->
 <input type="hidden" name="user_id" value="{{ hashid(user.id) }}"
 ```
@@ -69,7 +71,7 @@ def store(self, request: Request):
   request.input("user_id") #== 10
 ```
 
-# Route Parameters
+## Route Parameters
 
 When using the template helper, you may also use the hashid feature for request params:
 
@@ -79,7 +81,7 @@ If you have a route like this:
 Route.get('/user/@user_id/updates', 'Controller@method')
 ```
 
-```html
+```markup
 <!-- user.id == 10 -->
 <form action="/user/{{ user.id }}/update" method="POST">
 </form>
@@ -91,4 +93,3 @@ Inside your controller you are able to get the unhashed request parameter:
 def store(self, request: Request):
   request.param('user_id') #== 10
 ```
-

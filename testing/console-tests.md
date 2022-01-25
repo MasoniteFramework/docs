@@ -1,4 +1,6 @@
-You can test your [custom commands](/features/commands) running in console with `craft` test helper.
+# Console Tests
+
+You can test your [custom commands](../features/commands/) running in console with `craft` test helper.
 
 ```python
 def test_my_command(self):
@@ -7,18 +9,18 @@ def test_my_command(self):
 
 This will programmatically run the command if it has been registered in your project and assert that no errors has been reported.
 
-## Available Assertions
+### Available Assertions
 
 The following assertions are available when testing command with `craft`.
 
-- [assertSuccess](#assertsuccess)
-- [assertHasErrors](#asserthaserrors)
-- [assertOutputContains](#assertoutputcontains)
-- [assertExactOutput](#assertexactoutput)
-- [assertOutputMissing](#assertoutputmissing)
-- [assertExactErrors](#assertexacterrors)
+* [assertSuccess](console-tests.md#assertsuccess)
+* [assertHasErrors](console-tests.md#asserthaserrors)
+* [assertOutputContains](console-tests.md#assertoutputcontains)
+* [assertExactOutput](console-tests.md#assertexactoutput)
+* [assertOutputMissing](console-tests.md#assertoutputmissing)
+* [assertExactErrors](console-tests.md#assertexacterrors)
 
-### assertSuccess
+#### assertSuccess
 
 Assert that command exited with code 0 meaning that it ran successfully.
 
@@ -26,7 +28,7 @@ Assert that command exited with code 0 meaning that it ran successfully.
 self.craft("my_command").assertSuccess()
 ```
 
-### assertHasErrors
+#### assertHasErrors
 
 Assert command output has errors.
 
@@ -34,7 +36,7 @@ Assert command output has errors.
 self.craft("my_command").assertHasErrors()
 ```
 
-### assertOutputContains
+#### assertOutputContains
 
 Assert command output contains the given string.
 
@@ -42,16 +44,15 @@ Assert command output contains the given string.
 self.craft("my_command").assertOutputContains(output)
 ```
 
-### assertExactOutput
+#### assertExactOutput
 
-Assert command output to be exactly the same as the given reference output.
-Be careful to add eventual `\n` line endings characters when using this assertion method.
+Assert command output to be exactly the same as the given reference output. Be careful to add eventual  line endings characters when using this assertion method.
 
 ```python
 self.craft("my_command").assertExactOutput(output)
 ```
 
-### assertOutputMissing
+#### assertOutputMissing
 
 Assert command output does not contain the given reference output.
 
@@ -59,7 +60,7 @@ Assert command output does not contain the given reference output.
 self.craft("my_command").assertOutputMissing(output)
 ```
 
-### assertExactErrors
+#### assertExactErrors
 
 Assert command output has exactly the given errors.
 

@@ -18,49 +18,49 @@ from masonite.request import Request
 class YourController:
     def __init__(self, request: Request):
         self.request = Request
-    
+
     def show(self):
         print(self.request) # <class masonite.request.Request>
 ```
 
 {% hint style="success" %}
-Read more in the [Controllers](../the-basics/controllers.md#container-resolving) documentation.
+Read more in the [Controllers](broken-reference) documentation.
 {% endhint %}
 
 ## Tinker Command
 
 There is a new command that starts a Python shell and imports the container for you already. Test it out to verify that objects are loaded into your container correctly. It's a great debugging tool.
 
-```text
+```
 $ craft tinker
 ```
 
 {% hint style="success" %}
-Read more in [The Craft Command Introduction](../the-craft-command/introduction.md#tinker-command) documentation.
+Read more in [The Craft Command Introduction](https://github.com/MasoniteFramework/docs/tree/cc200f671eabd39fe944c0b69c10e8b65f6b80f8/the-craft-command/introduction.md#tinker-command) documentation.
 {% endhint %}
 
 ## Show Routes Command
 
 Masonite 2 ships with an awesome little helper command that allows you to see all the routes in your application
 
-```text
+```
 $ craft show:routes
 ```
 
 {% hint style="success" %}
-Read more in [The Craft Command Introduction](../the-craft-command/introduction.md#show-routes-command) documentation.
+Read more in [The Craft Command Introduction](https://github.com/MasoniteFramework/docs/tree/cc200f671eabd39fe944c0b69c10e8b65f6b80f8/the-craft-command/introduction.md#show-routes-command) documentation.
 {% endhint %}
 
 ## Server Reloading
 
 A huge update to Masonite is the new `--reload` flag on the serve command. Now the server will automatically restart when it detects a file change. You can use the `-r` flag as a shorthand:
 
-```text
+```
 $ craft serve -r
 ```
 
 {% hint style="success" %}
-Read more in [The Craft Command](../the-craft-command/introduction.md#running-the-wsgi-server) Introduction documentation.
+Read more in [The Craft Command](https://github.com/MasoniteFramework/docs/tree/cc200f671eabd39fe944c0b69c10e8b65f6b80f8/the-craft-command/introduction.md#running-the-wsgi-server) Introduction documentation.
 {% endhint %}
 
 ## Autoloading
@@ -70,7 +70,7 @@ An incredible new feature is autoloading support. You can now list directories i
 You can also use this class as a standalone class in your own service providers.
 
 {% hint style="success" %}
-Read more in [Autoloading](../advanced/autoloading.md) documentation.
+Read more in [Autoloading](https://github.com/MasoniteFramework/docs/tree/cc200f671eabd39fe944c0b69c10e8b65f6b80f8/advanced/autoloading.md) documentation.
 {% endhint %}
 
 ## Updated Libraries
@@ -81,13 +81,13 @@ Updated all libraries to the latest version with the exception of the Pendulum l
 
 Previously you had to import classes like:
 
-```text
+```
 from masonite.drivers.UploadDriver import UploadDriver
 ```
 
 Now you can simply specify:
 
-```text
+```
 from masonite.drivers import UploadDriver
 ```
 
@@ -105,7 +105,7 @@ Removed the need for the redirection provider completely. You need to remove thi
 
 Renamed `Request.redirectTo` to `Request.redirect_to`
 
-Also removed the .send\(\) method and moved the dictionary into a parameter:
+Also removed the .send() method and moved the dictionary into a parameter:
 
 ```python
 def show(self):
@@ -113,7 +113,7 @@ def show(self):
 ```
 
 {% hint style="success" %}
-Read more in the [Requests](../the-basics/requests.md#redirection) documentation.
+Read more in the [Requests](broken-reference) documentation.
 {% endhint %}
 
 ## Request Only
@@ -121,7 +121,7 @@ Read more in the [Requests](../the-basics/requests.md#redirection) documentation
 Added a new Request.only method to fetch only specific inputs needed.
 
 {% hint style="success" %}
-Read more in [Requests](../the-basics/requests.md#only) documentation.
+Read more in [Requests](broken-reference) documentation.
 {% endhint %}
 
 ## Get Request Method
@@ -129,7 +129,7 @@ Read more in [Requests](../the-basics/requests.md#only) documentation.
 Added a new `Request.get_request_method()` method to the `Request` class.
 
 {% hint style="success" %}
-Read more in [Requests](../the-basics/requests.md#get-request-method-type) documentation.
+Read more in [Requests](broken-reference) documentation.
 {% endhint %}
 
 ## New Argument in Request.all
@@ -141,12 +141,12 @@ Request.all(internal_variables=False)
 ```
 
 {% hint style="success" %}
-Read more in [Requests](../the-basics/requests.md#input-data) documentation.
+Read more in [Requests](broken-reference) documentation.
 {% endhint %}
 
 ## Made several changes to the CSRF Middleware
 
-Because of the changes to internal framework variables, there are several changes to the CSRF middleware that comes in every application of Masonite. 
+Because of the changes to internal framework variables, there are several changes to the CSRF middleware that comes in every application of Masonite.
 
 {% hint style="success" %}
 Be sure to read the changes in the [Upgrade Guide 1.6 to 2.0](../upgrade-guide/masonite-1.6-to-2.0.md).
@@ -157,7 +157,7 @@ Be sure to read the changes in the [Upgrade Guide 1.6 to 2.0](../upgrade-guide/m
 Added a new default package to Masonite that allows scheduling recurring tasks:
 
 {% hint style="success" %}
-Read about Masonite Scheduler under the [Task Scheduling](../useful-features/task-scheduling.md) documentation.
+Read about Masonite Scheduler under the [Task Scheduling](broken-reference) documentation.
 {% endhint %}
 
 ## Added Database Seeding Support
@@ -165,7 +165,7 @@ Read about Masonite Scheduler under the [Task Scheduling](../useful-features/tas
 It's important during development that you have the ability to seed your database with dummy data. This will improve team development with Masonite to get everyones database setup accordingly.
 
 {% hint style="success" %}
-Read more in the [Database Seeding](../advanced/database-seeding.md) documentation.
+Read more in the [Database Seeding](https://github.com/MasoniteFramework/docs/tree/cc200f671eabd39fe944c0b69c10e8b65f6b80f8/advanced/database-seeding.md) documentation.
 {% endhint %}
 
 ## Added a New Static File Helper
@@ -173,7 +173,7 @@ Read more in the [Database Seeding](../advanced/database-seeding.md) documentati
 Now all templates have a new static function in them to improve rendering of static assets
 
 {% hint style="success" %}
-Read more in the [Static Files](../the-basics/static-files.md) documentation.
+Read more in the [Static Files](broken-reference) documentation.
 {% endhint %}
 
 ## Added a New Password Helper
@@ -187,14 +187,14 @@ password('secret') # returns bcrypt password
 ```
 
 {% hint style="success" %}
-Read more in the [Encryption](../security/encryption.md#hashing-passwords) documentation.
+Read more in the [Encryption](broken-reference) documentation.
 {% endhint %}
 
 ## Added Dot Notation To Upload Drivers And Dictionary Support To Driver Locations.
 
 You can now specify which location in your drivers you want to upload to using a new dot notation:
 
-```text
+```
 Upload.store(request().input('file'), 'disk.uploads')
 ```
 
@@ -211,7 +211,7 @@ DRIVERS = {
 ```
 
 {% hint style="success" %}
-Read more in the [Uploading](../useful-features/uploading.md#dot-notation) documentation.
+Read more in the [Uploading](broken-reference) documentation.
 {% endhint %}
 
 ## Added Status Code Provider
@@ -219,10 +219,9 @@ Read more in the [Uploading](../useful-features/uploading.md#dot-notation) docum
 Masonite 2 removes the bland error codes such as 404 and 500 errors and replaces them with a cleaner view. This also allows you to add custom error pages.
 
 {% hint style="success" %}
-Read more in the [Status Codes](../advanced/status-codes.md) documentation.
+Read more in the [Status Codes](broken-reference) documentation.
 {% endhint %}
 
 ## Added Explicitly Imported Providers
 
 Providers are now explicitly imported at the top of the file and added to your PROVIDERS list which is now located in `config/providers.py`. This completely removes the need for string providers and boosts the performance of the application sustantially
-

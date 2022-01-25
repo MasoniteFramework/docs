@@ -8,29 +8,29 @@ This is not an exhaustive list and not the only ways to contribute but they are 
 
 ## Contributing to Development
 
-Of course the project requires contributions to the main development aspects but it's not the only way. But if you would like to contribute to development then a great way to get started is to simply read through this documentation. Get acquainted with how the framework works, how [Controllers](../the-basics/controllers.md) and [Routing](../the-basics/routing.md) work and read the [Architectural Concepts](../architectural-concepts/request-lifecycle.md) documentation starting with the [Request Lifecycle](../architectural-concepts/request-lifecycle.md), then the [Service Providers](../architectural-concepts/service-providers.md) and finally the [Service Container](../architectural-concepts/service-container.md).
+Of course the project requires contributions to the main development aspects but it's not the only way. But if you would like to contribute to development then a great way to get started is to simply read through this documentation. Get acquainted with how the framework works, how [Controllers](broken-reference) and [Routing](../features/routing.md) work and read the [Architectural Concepts](broken-reference) documentation starting with the [Request Lifecycle](broken-reference), then the [Service Providers](broken-reference) and finally the [Service Container](broken-reference).
 
-It would also be good to read about the [Release Cycle](release-cycle.md) to get familiar with how Masonite does releases \(SemVer and RomVer\).
+It would also be good to read about the [Release Cycle](release-cycle.md) to get familiar with how Masonite does releases (SemVer and RomVer).
 
 ## Become a Feature Maintainer
 
-Feature Maintainers are people who are in charge of specific features \(such as [Caching](../useful-features/caching.md) or [Creating Packages](../advanced/creating-packages.md)\). These developers will be in charge of reviewing PR's and merging them into the development branch and also have direct contact with the repository owner to discuss.
+Feature Maintainers are people who are in charge of specific features (such as [Caching](broken-reference) or [Creating Packages](broken-reference)). These developers will be in charge of reviewing PR's and merging them into the development branch and also have direct contact with the repository owner to discuss.
 
 Feature maintainers must already have significant contributions to development of the repository they are trying to be a Feature Maintainer for. Although they do not have to be contributors to the actual feature they plan to maintain.
 
 ## Comment the Code
 
-If you don't want to touch the code and instead want to just look at it and figure it out, contribute some comments! Comments are an excellent way for future developers to read and understand the framework. Masonite strives on being extremely commented. Although most of the code itself does not need to be commented, some of the classes, modules, methods and functions do \(although a lot of them already are\).
+If you don't want to touch the code and instead want to just look at it and figure it out, contribute some comments! Comments are an excellent way for future developers to read and understand the framework. Masonite strives on being extremely commented. Although most of the code itself does not need to be commented, some of the classes, modules, methods and functions do (although a lot of them already are).
 
-Comments don't affect the working code so if you want to get used to contributing to open source or you just don't quite understand what a class method is doing or you are afraid of contributing and breaking the project \(there are tests\) then contributing comments is right for you!
+Comments don't affect the working code so if you want to get used to contributing to open source or you just don't quite understand what a class method is doing or you are afraid of contributing and breaking the project (there are tests) then contributing comments is right for you!
 
 ## Write Tests
 
-The [Masonite pip packages](https://pypi.org/search/?q=masonite) require testing \(The main repository does not\). If you want to search through all the tests in the tests directories of those repositories and write additional tests and use cases then that will be great! There are already over 100 tests but you can always write more. With more testing comes more stability. Especially as people start to contribute to the project. Check the tests that are already there and write any use cases that are missing. These tests can be things such as special characters in a url or other oddities that may not have been thought of when using TDD for that feature.
+The [Masonite pip packages](https://pypi.org/search/?q=masonite) require testing (The main repository does not). If you want to search through all the tests in the tests directories of those repositories and write additional tests and use cases then that will be great! There are already over 100 tests but you can always write more. With more testing comes more stability. Especially as people start to contribute to the project. Check the tests that are already there and write any use cases that are missing. These tests can be things such as special characters in a url or other oddities that may not have been thought of when using TDD for that feature.
 
 ## Contribute to Tutorials
 
-Once familiar with the project \(by either contributing or by building application using the framework\) it would be excellent if you could write or record tutorials and put them on [Medium](http://medium.com) or [YouTube](http://youtube.com). In order for the framework to be successful, it needs to have a plethora of documentation even outside of this documentation. It needs to have notoriety and if people are seeing the framework pop up in their favorite locations they will be more inclined to use the framework and contribute to it as well.
+Once familiar with the project (by either contributing or by building application using the framework) it would be excellent if you could write or record tutorials and put them on [Medium](http://medium.com) or [YouTube](http://youtube.com). In order for the framework to be successful, it needs to have a plethora of documentation even outside of this documentation. It needs to have notoriety and if people are seeing the framework pop up in their favorite locations they will be more inclined to use the framework and contribute to it as well.
 
 Plus there will be fantastic tutorials out there for beginners to find and watch and you could also build a following off the back of Masonite.
 
@@ -69,4 +69,3 @@ Every now and then will be a `requires discussion` label on an issue or pull req
 ## Create Packages
 
 Every framework needs great packages and we as the maintainers of Masonite can only do so much with coming out with great packages and maintaining the framework at the same time. We look forward to our community coming out with awesome additions to the Masonite ecosystem. If you have any issues then be sure to open in the gitter chatroom on the Github homepage.
-
