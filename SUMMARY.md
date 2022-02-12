@@ -30,6 +30,7 @@
 - [Commands](features/commands.md)
 - [CSRF Protection](features/csrf.md)
 - [Events](features/events.md)
+- [Exceptions](features/exceptions.md)
 - [Facades](features/facades.md)
 - [Filesystem and Uploading](features/uploading.md)
 - [Hash ID's](features/hashing.md)
