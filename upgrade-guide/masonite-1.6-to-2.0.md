@@ -4,7 +4,7 @@ Masonite 2 brings an incredible new release to the Masonite family. This release
 
 Upgrading from Masonite 1.6 to Masonite 2.0 shouldn't take very long although it does have the largest amount of changes in a single release. On an average sized project, this upgrade should take around 30 minutes. We'll walk you through the changes you have to make to your current project and explain the reasoning behind it
 
-## Application and Provider Configuration 
+## Application and Provider Configuration&#x20;
 
 Masonite 2 adds some improvements with imports. Previously we had to import providers and drivers like:
 
@@ -12,7 +12,7 @@ Masonite 2 adds some improvements with imports. Previously we had to import prov
 from masonite.providers.UploadProvider import UploadProvider
 ```
 
-Because of this, all framework [Service Providers](../architectural-concepts/service-providers.md) will need to cut out the redundant last part. The above code should be changed to:
+Because of this, all framework [Service Providers](broken-reference) will need to cut out the redundant last part. The above code should be changed to:
 
 ```python
 from masonite.providers import UploadProvider
@@ -106,7 +106,7 @@ for provider in container.make('WSGIProviders'):
 ```
 {% endcode %}
 
-Notice here we split the providers list when the server first boots up into two lists which significantly lowers the overhead of each request. 
+Notice here we split the providers list when the server first boots up into two lists which significantly lowers the overhead of each request.&#x20;
 
 {% hint style="info" %}
 This change should significantly boost speed performances as providers no longer have to be located via pydoc. You should see an immediate decrease in the time it takes for the application to serve a request. Rough time estimates say that this change should increase the request times by about 5x as fast.
@@ -168,7 +168,7 @@ You can check for what the class should look like from the [MasoniteFramework/ma
 
 ## Autoloading
 
-Masonite 2 comes with a new autoloader. This can load all classes in any directory you specify right into the [Service Container](../architectural-concepts/service-container.md) when the server first starts. This is incredibly useful for loading your models, commands or tasks right into the container.
+Masonite 2 comes with a new autoloader. This can load all classes in any directory you specify right into the [Service Container](broken-reference) when the server first starts. This is incredibly useful for loading your models, commands or tasks right into the container.
 
 Simply add a new `AUTOLOAD` constant in your `config/application.py` file. This is the entire section of the autoload configuration.
 
@@ -206,7 +206,7 @@ AUTOLOAD = [
 {% endcode %}
 
 {% hint style="warning" %}
-Be caution that this will autoload all models into the [Service Container](../architectural-concepts/service-container.md) with the class name as the key and the class as the binding.
+Be caution that this will autoload all models into the [Service Container](broken-reference) with the class name as the key and the class as the binding.
 {% endhint %}
 
 ## RedirectionProvider
@@ -240,7 +240,7 @@ PROVIDERS = [
 The .env got a small upgrade and in order to make the `APP_DEBUG` variable consistent, it should be set to either `True` or `False`. Previously this was set to something like `true` or `false`.
 
 {% code title=".env" %}
-```text
+```
 APP_DEBUG=True
 # or
 APP_DEBUG=False
@@ -256,6 +256,4 @@ That's it! You're all done upgrading Masonite 1.6 to Masonite 2.0. Build somethi
 {% hint style="success" %}
 Be sure to read about all the [changes in Masonite 2](../whats-new/masonite-2.0.md) to ensure that your application is completely up to date with many of the latest decisions and be sure to thoroughly test your application. Feel free to open an issue if any problems arise during upgrading.
 {% endhint %}
-
-
 

@@ -20,7 +20,7 @@ First let's upgrade Masonite to 2.2 first so we can see any exceptions that will
 
 Let's upgrade by doing:
 
-```text
+```
 pip install masonite==2.2.0
 ```
 
@@ -129,7 +129,7 @@ from masonite.validation import Validator
             return self.request.redirect_to('register').with_errors(errors)
 ```
 
-You can do a lot of other awesome things like rule enclosures. Read more under the [Validation documentation](../advanced/validation.md)
+You can do a lot of other awesome things like rule enclosures. Read more under the [Validation documentation](broken-reference)
 
 ### Auth class now auto resolves it's own request class
 
@@ -193,7 +193,7 @@ def show(self, request: Request, some: SomeClass):
     some #== <some.place.SomeClass x9279182>
 ```
 
-notice it now returns an object. This is because Masonite will check before it resolves the class if the class itself needs to be resolved \(if it is a class\). If `SomeClass` requires the request object, it will be passed automatically when you resolve it.
+notice it now returns an object. This is because Masonite will check before it resolves the class if the class itself needs to be resolved (if it is a class). If `SomeClass` requires the request object, it will be passed automatically when you resolve it.
 
 ## Testing
 
@@ -348,4 +348,3 @@ def test_owner_user_can_view(self):
         self.actingAs(User.find(1)).get('/some/protect/route').contains('Welcome')
     )
 ```
-

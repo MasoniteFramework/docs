@@ -46,7 +46,7 @@ def show(self):
     return view('welcome')
 ```
 
-Notice how we never imported anything from the module or Service Container. See the [Helper Functions](../the-basics/helper-functions.md) documentation for a more exhaustive list
+Notice how we never imported anything from the module or Service Container. See the [Helper Functions](broken-reference) documentation for a more exhaustive list
 
 ## Added a way to have global template variables
 
@@ -83,5 +83,4 @@ This will look for the controller in the `thirdparty.routes` module.
 
 ## Added Queues and Jobs
 
-Masonite now ships with a `QueueManager` class which can be used to build queue drivers. Masonite ships with an `async` driver which sends jobs to a background thread. These queues can process Jobs which ca be created with the new `craft job` command. See the [Queues and Jobs](../useful-features/queues-and-jobs.md) documentation for more information.
-
+Masonite now ships with a `QueueManager` class which can be used to build queue drivers. Masonite ships with an `async` driver which sends jobs to a background thread. These queues can process Jobs which ca be created with the new `craft job` command. See the [Queues and Jobs](broken-reference) documentation for more information.

@@ -14,7 +14,7 @@ The `CsrfProvider` simply loads the CSRF features into the container and the `Cs
 
 By default, all `POST` requests require a CSRF token. We can simply add a CSRF token in our forms by adding the `{{ csrf_field }}` tag to our form like so:
 
-```html
+```markup
 <form action="/dashboard" method="POST">
     {{ csrf_field }}
 
@@ -24,7 +24,7 @@ By default, all `POST` requests require a CSRF token. We can simply add a CSRF t
 
 This will add a hidden field that looks like:
 
-```html
+```markup
 <input type="hidden" name="__token" value="8389hdnajs8...">
 ```
 
@@ -34,7 +34,7 @@ If you attempt a `POST` request without the `{{ csrf_field }}` then you will rec
 
 You can get also get the token that is generated. This is useful for JS frontends where you need to pass a CSRF token to the backend for an AJAX call
 
-```html
+```markup
 <p> Token: {{ csrf_token }} </p>
 ```
 
@@ -42,7 +42,7 @@ You can get also get the token that is generated. This is useful for JS frontend
 
 For ajax calls, the best way to pass CSRF tokens is by setting the token inside a parent template inside a `meta` tag like this:
 
-```html
+```markup
 <meta name="csrf-token" content="{{ csrf_token }}">
 ```
 
@@ -100,4 +100,3 @@ class VerifyCsrfToken(Middleware):
 
     ...
 ```
-
