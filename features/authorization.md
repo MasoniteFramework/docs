@@ -79,16 +79,17 @@ else:
 
 ## Via the User Model
 
-`Authorizes` class can be added to your User model to allow handy permissions checking:
+`Authorizes` class can be added to your User model to allow quick permission checks:
 
 ```python
 from masonite.authentication import Authenticates
 from masonite.authorization import Authorizes
 
 class User(Model, Authenticates, Authorizes):
+    #..
 ```
 
-A fluent authorization api is now available on user instances:
+A fluent authorization api will now be available on `User` instances:
 
 ```python
 user.can("delete-post", post)
@@ -104,28 +105,30 @@ You can use the `for_user()` method on the Gate facade to make the verification 
 of the authenticated user.
 
 ```python
+from masonite.facades import Gate
+
 user = User.find(1)
 Gate.for_user(user).allows("create-post")
 ```
 
-## Gates Hooks
+## Gate Hooks
 
-During gate authorization process `before` and `after` hooks can be triggered.
+During the gate authorization process, `before` and `after` hooks can be triggered.
 
-A `before` hook can be added like this :
+A `before` hook can be added like this:
 
 ```python
-# here admin users will always be authorized whatever is happening after
+# here admin users will always be authorized based on the boolean value of this response
 Gate.before(lambda user, permission : user.role == "admin")
 ```
 
-The `after` hook is working the same way excepted that it will receive the authorization result.
+The `after` hook works the same way:
 
 ```python
 Gate.after(lambda user, permission, result : user.role == "admin")
 ```
 
-If after callback is returning a value it will take precedance over the gate result check.
+If the `after` callback is returning a value it will take priority over the gate result check.
 
 # Policies
 
@@ -133,7 +136,7 @@ Policies are classes that organize authorization logic around a specific model.
 
 ## Creating Policies
 
-You can running the craft command:
+You can run the craft command:
 
 ```
 $ python craft policy AccessAdmin
@@ -227,7 +230,7 @@ class PostPolicy(Policy):
 ```
 
 {% hint style="info" %}
-If a unknown policy is used a `PolicyDoesNotExist` exception will be raised.
+If an unknown policy is used then a `PolicyDoesNotExist` exception will be raised.
 {% endhint %}
 
 ## Authorizing Actions
