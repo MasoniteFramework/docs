@@ -129,23 +129,23 @@ If after callback is returning a value it will take precedance over the gate res
 
 # Policies
 
-Policies are classes that organize authorization logic around a particular model.
+Policies are classes that organize authorization logic around a specific model.
 
 ## Creating Policies
 
-You can create a policy by calling
+You can running the craft command:
 
 ```
 $ python craft policy AccessAdmin
 ```
 
-You can also create a model policy (with a set of predefined gates) by calling
+You can also create a policy with a set of predefined gates by using the `--model` flag:
 
 ```
 $ python craft policy Post --model
 ```
 
-A model policy comes with the common actions that we can perform on a Model:
+A model policy comes with common actions that we can perform on a model:
 
 ```python
 from masonite.authorization import Policy
@@ -181,6 +181,8 @@ from masonite.authorization import Policy
 
 
 class PostPolicy(Policy):
+    #.. 
+
     def publish(self, user):
         return user.email == "admin@masonite.com"
 
@@ -192,17 +194,23 @@ Then in your service provider (as for defining gates) you should register the po
 
 ```python
 from masonite.facades import Gate
+from app.models.Post import Post
+from app.models.User import User
+
+from app.policies.PostPolicy import PostPolicy
+from app.policies.UserPolicy import UserPolicy
 
 class MyAppProvider(Provider):
 
-    def boot(self):
+    #..
+
+    def register(self):
         Gate.register_policies(
-            [Post, PostPolicy],
-            [User, UserPolicy]
+            [(Post, PostPolicy), (User, UserPolicy)],
         )
 ```
 
-A policy for the Post model can looke like this:
+An example policy for the Post model may look like this:
 
 ```python
 from masonite.authorization import Policy
@@ -224,9 +232,11 @@ If a unknown policy is used a `PolicyDoesNotExist` exception will be raised.
 
 ## Authorizing Actions
 
-You can then use the `Gate` facade methods to authorize actions defined in your policies (as for the gates). With the previously defined `PostPolicy` we could for example make the following verifications:
+You can then use the `Gate` facade methods to authorize actions defined in your policies. With the previously defined `PostPolicy` we could make the following calls:
 
 ```python
+from masonite.facades import Gate
+
 post = Post.find(1)
 Gate.allows("update", post)
 Gate.denies("view", post)
