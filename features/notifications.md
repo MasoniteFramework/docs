@@ -168,7 +168,7 @@ class Welcome(Notification, Mailable):
 ```
 
 The notification will be sent using the default mail driver defined in `config/mail.py`. For more information about options to build mail notifications,
-please check out [Mailable options](features/mail.md#mail-options).
+please check out [Mailable options](mail.md#mail-options).
 
 If you want to override the mail driver for a given notification you can do:
 
