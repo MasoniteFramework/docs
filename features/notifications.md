@@ -167,6 +167,27 @@ class Welcome(Notification, Mailable):
         return ["mail"]
 ```
 
+The notification will be sent using the default mail driver defined in `config/mail.py`. For more information about options to build mail notifications,
+please check out [Mailable options](features/mail.md#mail-options).
+
+If you want to override the mail driver for a given notification you can do:
+
+```python
+class Welcome(Notification, Mailable):
+
+    def to_mail(self, notifiable):
+        return (
+            self.to(notifiable.email)
+            .subject("Welcome to our site!")
+            .from_("admin@example.com")
+            .text(f"Hello {notifiable.name}")
+            .driver("mailgun")
+        )
+
+    def via(self, notifiable):
+        return ["mail"]
+```
+
 ### Slack
 
 You should define a `to_slack` method on the notification class to specify how to build the slack notification content.
