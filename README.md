@@ -99,7 +99,7 @@ $ ./venv/Scripts/activate
 {% endcode %}
 
 {% hint style="info" %}
-The `python`command here is utilizing Python 3. Your machine may run Python 2 \(typically 2.7\) by default for UNIX machines. You may set an alias on your machine for Python 3 or simply run `python3`anytime you see the `python`command.
+The `python` command here is utilizing Python 3. Your machine may run Python 2 \(typically 2.7\) by default for UNIX machines. You may set an alias on your machine for Python 3 or simply run `python3` anytime you see the `python` command.
 
 For example, you would run `python3 -m venv venv` instead of `python -m venv venv`
 {% endhint %}
@@ -118,7 +118,21 @@ Then start a new project:
 $ project start .
 ```
 
-This will create a new project in the current directory as well install Masonite dependencies.
+This will create a new project in the current directory.
+
+{% hint style="info" %}
+If you want to create the project in a new directory (e.g. `my_project`) you must provide the directory name with `project start my_project`.
+{% endhint %}
+
+Then install Masonite dependencies:
+
+```
+$ project install
+```
+
+{% hint style="info" %}
+If you have created the project in a new directory you must go to this directory before running `project install`.
+{% endhint %}
 
 Once installed you can run the development server:
 
