@@ -4,7 +4,7 @@ You can test your [custom commands](../features/commands/) running in console wi
 
 ```python
 def test_my_command(self):
-    self.craft("my_command", "arg1", "arg2").assertSuccess()
+    self.craft("my_command", "arg1 arg2").assertSuccess()
 ```
 
 This will programmatically run the command if it has been registered in your project and assert that no errors has been reported.
