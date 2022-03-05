@@ -14,8 +14,10 @@ This whole snippet will look like this in your controller method:
 
 ```python
 from masonite.validation import Validator
+from masonite.request import Request
+from masonite.response import Response
 
-def show(self, request: Request, validate: Validator):
+def show(self, request: Request, response: Response, validate: Validator):
     """
     Incoming Input: {
         'user': 'username123',
@@ -24,14 +26,12 @@ def show(self, request: Request, validate: Validator):
     }
     """
     errors = request.validate(
-
         validate.required(['user', 'email']),
         validate.accepted('terms')
-
     )
 
     if errors:
-        return request.back().with_errors(errors)
+        return response.back().with_errors(errors)
 ```
 
 This validation will read like "user and email are required and the terms must be accepted" \(more on available rules and what they mean in a bit\)
@@ -342,9 +342,11 @@ class LoginForm(RuleEnclosure):
 You can then use the rule enclosure like this:
 
 ```python
+from masonite.request import Request
+from masonite.response import Response
 from app.rules.LoginForm import AcceptedTerms
 
-def show(self, request: Request):
+def show(self, request: Request, response: Response):
     """
     Incoming Input: {
         'user': 'username123',
@@ -356,7 +358,7 @@ def show(self, request: Request):
 
     if errors:
         request.session.flash('errors', errors)
-        return request.back()
+        return response.back()
 ```
 
 You can also use this in addition to other rules:
@@ -364,8 +366,10 @@ You can also use this in addition to other rules:
 ```python
 from app.rules.LoginForm import AcceptedTerms
 from masonite.validations import email
+from masonite.request import Request
+from masonite.response import Response
 
-def show(self, request: Request):
+def show(self, request: Request, response: Response):
     """
     Incoming Input: {
         'user': 'username123',
@@ -379,7 +383,7 @@ def show(self, request: Request):
     )
 
     if errors:
-        return request.back().with_errors(errors)
+        return response.back().with_errors(errors)
 ```
 
 # Message Bag
