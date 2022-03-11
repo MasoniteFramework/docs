@@ -1,4 +1,4 @@
-This section of the documentation will contain various tutorials. These are guides that are designed to take you from beginning to end on building various types of projects with Masonite. We may not explain things in much detail for each section as this part of the documentation is designed to just get you familiar with the inner workings of Masonite. 
+This section of the documentation will contain various tutorials. These are guides that are designed to take you from beginning to end on building various types of projects with Masonite. We may not explain things in much detail for each section as this part of the documentation is designed to just get you familiar with the inner workings of Masonite.
 
 Since this section of the documentation is designed to just get you up and coding with Masonite, any further explanations that should be presented are inside various "hint blocks." Once you are done with the tutorial or simply want to learn more about a topic it is advised that you go through each hint block and follow the links to dive deeper into the reference documentation which does significantly more explaining.
 
@@ -44,7 +44,7 @@ ROUTES = [
 We'll talk more about the controller in a little bit.
 
 {% hint style="success" %}
-You can read more about routes in the [Routing](the-basics/routing.md) documentation
+You can read more about routes in the [Routing](/the-basics/routing.md) documentation
 {% endhint %}
 
 ### Creating our Route:

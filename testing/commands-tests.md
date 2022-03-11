@@ -1,6 +1,6 @@
 # Commands Tests
 
-You can test your [custom commands](../features/commands/) running in console with `craft` test helper.
+You can test your [custom commands](/features/commands.md) running in console with `craft` test helper.
 
 ```python
 def test_my_command(self):

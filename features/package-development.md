@@ -377,7 +377,7 @@ $ pip install super-awesome-package
 
 Then you should **follow package installation guidelines** but often it will consist in:
 
-- registering the package [Service Provider](#) in your project:
+- registering the package [Service Provider](/architecture/service-providers.md) in your project:
 
 ```python
 from super_awesome_package.providers import SuperAwesomeProvider
