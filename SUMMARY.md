@@ -60,8 +60,8 @@
 ## Testing
 
 * [Getting Started](testing/getting-started.md)
-* [Database Tests](testing/database-tests.md)
 * [HTTP Tests](testing/http-tests.md)
+* [Database Tests](testing/database-tests.md)
 * [Commands Tests](testing/commands-tests.md)
 * [Console Tests](testing/console-tests.md)
 * [Mocking](testing/mocking.md)
