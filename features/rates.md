@@ -129,7 +129,7 @@ Route.post("/api/videos/", "UploadController@create").middleware("throttle:10/mi
 
 ### Using Limiters
 
-To be able to add throttling per users or to implement more complex logic you should use `Limiter`. `Limiter` are simple classes with a `handle(request)` method that will be called each time a throttled HTTP request is made.
+To be able to add throttling per users or to implement more complex logic you should use `Limiter`. `Limiter` are simple classes with a `allow(request)` method that will be called each time a throttled HTTP request is made.
 
 Some handy limiters are bundled into Masonite:
 
