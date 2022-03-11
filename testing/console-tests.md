@@ -6,8 +6,12 @@ console assertions.
 Output here is the standard output often name `stdout`.
 Error here is the standard error often name `stderr`.
 
-External packages, prints in your code or [Masonite commands](../features/commands/) can output content
-in console (as output or error).
+External packages, prints in your code can output content in console (as output or error).
+
+{% hint style="warning" %}
+If you want to assert content output by a Masonite command you should use [Commands Tests](/testing/commands-tests.md#available-assertions) assertions instead.
+{% endhint %}
+
 
 ### Available Assertions
 
