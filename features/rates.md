@@ -186,12 +186,13 @@ Now when making unauthenticated requests to our `/api` endpoints we will see som
 - `X-Rate-Limit-Limit` : `5`
 - `X-Rate-Limit-Remaining` : `4`
 
-After reaching the limit another header is added in the response, `X-Rate-Limit-Reset` which is the timestamp in seconds defining when rate limit will be reset and when api endpoint will be available again:
+After reaching the limit two headers are added in the response, `X-Rate-Limit-Reset` which is the timestamp in seconds defining when rate limit will be reset and when api endpoint will be available again and `Retry-After` which is the number of seconds in which rate limit will be reset:
 - `X-Rate-Limit-Limit` : `5`
 - `X-Rate-Limit-Remaining` : `0`
 - `X-Rate-Limit-Reset` : `1646998321`
+- `Retry-After` : `500`
 
-An `ThrottleRequestsException` exception is raised and a response with status code `429: Too Many Requests` and content `Too many attempts` is returned.
+A `ThrottleRequestsException` exception is raised and a response with status code `429: Too Many Requests` and content `Too many attempts` is returned.
 
 ### Customizing response
 
