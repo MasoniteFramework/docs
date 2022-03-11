@@ -3,8 +3,8 @@
 You can test what has been output to standard console during Masonite unit tests thanks to useful
 console assertions.
 
-Output here is the standard output often name `stdout`.
-Error here is the standard error often name `stderr`.
+Output here is the standard output often named `stdout`.
+Error here is the standard error often named `stderr`.
 
 External packages, prints in your code can output content in console (as output or error).
 
