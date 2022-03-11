@@ -39,7 +39,7 @@ Limit.unlimited()  # to define an unlimited limit
 
 Then to associate a given key to this limit we can do:
 ```python
-username = "sam"
+username = f"send_mail-{user.id}"
 Limit.per_hour(5).by(username)
 ```
 
@@ -49,26 +49,33 @@ This feature allows to simply limit calling a Python callable. Here we will limi
 
 Let's make one attempt:
 ```python
+
 def send_welcome_mail():
     # ...
 
-RateLimiter.attempt("sam", send_welcome_mail, max_attempts=3, delay=60*60)
+RateLimiter.attempt(f"send_mail-{user.id}", send_welcome_mail, max_attempts=3, delay=60*60)
+```
+
+Alternatively you can manually incrementing attempts:
+
+```python
+RateLimiter.hit(f"send_mail-{user.id}", delay=60*60)
 ```
 
 We can get the number of attempts:
 ```python
-RateLimiter.attempts("sam") #== 1
+RateLimiter.attempts(f"send_mail-{user.id}") #== 1
 ```
 
 We can get the number of remaining attempts:
 ```python
-RateLimiter.remaining("sam", 3) #== 2
+RateLimiter.remaining(f"send_mail-{user.id}", 3) #== 2
 ```
 
 We can check if too many attempts have been made:
 
 ```python
-if RateLimiter.too_many_attempts("sam", 3):
+if RateLimiter.too_many_attempts(f"send_mail-{user.id}", 3):
     print("limited")
 else:
     print("ok")
@@ -76,20 +83,35 @@ else:
 
 We can reset the number of attempts:
 ```python
-RateLimiter.reset_attempts("sam")
-RateLimiter.attempts("sam") #== 0
+RateLimiter.reset_attempts(f"send_mail-{user.id}")
+RateLimiter.attempts(f"send_mail-{user.id}") #== 0
 ```
 
 We can get the seconds in which will be able to attempt the action again:
 ```python
-RateLimiter.available_in("sam") #== 356
+RateLimiter.available_in(f"send_mail-{user.id}") #== 356
 ```
 
 We can get the UNIX timestamps in seconds when will be able to attempt the action again:
 ```python
-RateLimiter.available_at("sam") #== 1646998321
+RateLimiter.available_at(f"send_mail-{user.id}") #== 1646998321
 ```
 
+Here is a complete use case, that will determine if an email should be send to the given user:
+
+```python
+class WelcomeController(Controller):
+
+    def welcome(self, request: Request):
+        user = request.user()
+        rate_key = f"send_mail_{user.id}"
+        if (RateLimiter.remaining(rate_key, 2)):
+            WelcomeMail(user).send()
+            RateLimiter.hit(rate_key, delay=3600)
+        else:
+            seconds = RateLimiter.available_in(rate_key)
+            return "You may try again in {seconds} seconds."
+```
 
 ## Throttle HTTP Requests
 
