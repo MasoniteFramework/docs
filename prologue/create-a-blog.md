@@ -703,7 +703,7 @@ Route.get('/posts', 'PostController@show')
 
 Our posts view can be very simple:
 
-```html
+```markup
 <!-- templates/posts.html -->
 {% for post in posts %}
     {{ post.title }}
