@@ -57,12 +57,12 @@ class WelcomeNotification(Notification, Mailable):
 You can send your notification inside your controller easily by using the `Notification` class:
 
 ```python
-from masonite.notifications import Notification
+from masonite.notification import NotificationManager
 from app.notifications.Welcome import Welcome
 
 class WelcomeController(Controller):
 
-    def welcome(self, notification: Notification):
+    def welcome(self, notification: NotificationManager):
         notification.route('mail', 'sam@masonite.com').send(Welcome())
 ```
 
@@ -81,12 +81,12 @@ notification.route('mail', 'sam@masonite.com').route('slack', '#general').send(W
 If you want to send notifications e.g. to your users inside your application, you can [define them as notifiables](notifications.md#using-notifiables). Then you can still use `Notification` class to send notification:
 
 ```python
-from masonite.notifications import Notification
+from masonite.notification import NotificationManager
 from app.notifications.Welcome import Welcome
 
 class WelcomeController(Controller):
 
-    def welcome(self, notification: Notification):
+    def welcome(self, notification: NotificationManager):
         user = self.request.user()
         notification.send(user, Welcome())
 
@@ -109,7 +109,7 @@ ORM Models can be defined as `Notifiable` to allow notifications to be sent to t
 To set a Model as Notifiable, just add the `Notifiable` mixin to it:
 
 ```python
-from masonite.notifications import Notifiable
+from masonite.notification import Notifiable
 
 class User(Model, Notifiable):
     # ...
@@ -124,7 +124,7 @@ Then you can define how notifications should be routed for the different channel
 For example, with `mail` driver you can define:
 
 ```python
-from masonite.notifications import Notifiable
+from masonite.notification import Notifiable
 
 class User(Model, Notifiable):
     ...
@@ -139,7 +139,7 @@ This is actually the default behaviour of the mail driver so you won't have to w
 If you would like to queue the notification then you just need to inherit the `Queueable` class and it will automatically send your notifications into the queue to be processed later. This is a great way to speed up your application:
 
 ```python
-from masonite.notifications import Notification
+from masonite.notification import Notification
 from masonite.queues import Queueable
 
 class Welcome(Notification, Queueable):
@@ -167,12 +167,33 @@ class Welcome(Notification, Mailable):
         return ["mail"]
 ```
 
+The notification will be sent using the default mail driver defined in `config/mail.py`. For more information about options to build mail notifications,
+please check out [Mailable options](/features/mail.md#mail-options).
+
+If you want to override the mail driver for a given notification you can do:
+
+```python
+class Welcome(Notification, Mailable):
+
+    def to_mail(self, notifiable):
+        return (
+            self.to(notifiable.email)
+            .subject("Welcome to our site!")
+            .from_("admin@example.com")
+            .text(f"Hello {notifiable.name}")
+            .driver("mailgun")
+        )
+
+    def via(self, notifiable):
+        return ["mail"]
+```
+
 ### Slack
 
 You should define a `to_slack` method on the notification class to specify how to build the slack notification content.
 
 ```python
-from masonite.notifications.components import SlackComponent
+from masonite.notification.components import SlackComponent
 
 class Welcome(Notification):
 
@@ -232,7 +253,7 @@ $ pip install slackblocks
 Then you can import most of the blocks available in Slack documentation and start building your notification. You need to use the `block()` option. Once again you can chain as many blocks as you want.
 
 ```python
-from masonite.notifications.components import SlackComponent
+from masonite.notification.components import SlackComponent
 from slackblocks import HeaderBlock, ImageBlock, DividerBlock
 
 class Welcome(Notification):
@@ -321,7 +342,7 @@ You can also define (globally) `sms_from` which is the phone number or name that
 You should define a `to_vonage` method on the notification class to specify how to build the sms notification content.
 
 ```python
-from masonite.notifications.components import VonageComponent
+from masonite.notification.components import VonageComponent
 
 class Welcome(Notification):
 
@@ -440,7 +461,7 @@ Finally, keep in mind that database notifications can be used as any `Masonite O
 {% endhint %}
 
 ```python
-from masonite.notifications import DatabaseNotification
+from masonite.notification import DatabaseNotification
 
 DatabaseNotification.all()
 DatabaseNotification.where("type", "WelcomeNotification")
@@ -492,7 +513,7 @@ Masonite ships with a handful of notification channels, but you may want to writ
 Two methods need to be implemented in order to create a notification driver: `send` and `queue`.
 
 ```python
-from masonite.notifications.drivers import BaseDriver
+from masonite.notification.drivers import BaseDriver
 
 class VoiceDriver(BaseDriver):
 

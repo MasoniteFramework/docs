@@ -144,7 +144,7 @@ We can put some text in this file like:
 {% tabs %}
 {% tab title="templates/blog.html" %}
 
-```markup
+```html
 This is a blog
 ```
 {% endtab %}
@@ -459,7 +459,7 @@ The URL for creating will be located at `/blog/create` and will be a simple form
 {% tabs %}
 {% tab title="templates/blog.html" %}
 
-```markup
+```html
 <form action="/blog/create" method="POST">
     {{ csrf_field }}
 
@@ -477,7 +477,7 @@ Now we need to make sure the user is logged in before creating this so let's cha
 {% tabs %}
 {% tab title="templates/blog.html" %}
 
-```markup
+```html
 {% if auth() %}
     <form action="/blog/create" method="POST">
         {{ csrf_field }}
@@ -524,7 +524,7 @@ Now we can add it to our template like so right at the top:
 {% tabs %}
 {% tab title="templates/blog.html" %}
 
-```markup
+```html
 <link href="/static/blog.css" rel="stylesheet">
 {% if auth() %}
     <form action="/blog/create" method="POST">
@@ -552,7 +552,7 @@ Javascript files are the same exact thing:
 {% tabs %}
 {% tab title="templates/blog.html" %}
 
-```markup
+```html
 <link href="/static/blog.css" rel="stylesheet">
 {% if auth() %}
     <form action="/blog/create" method="POST">
@@ -726,7 +726,7 @@ Remember we made our author relationship before. Masonite ORM will take that rel
 {% tabs %}
 {% tab title="templates/posts.html" %}
 
-```markup
+```html
 {% for post in posts %}
     {{ post.title }} by {{ post.author.name }}
     <br>
@@ -786,7 +786,7 @@ We just need to display 1 post so lets just put together a simple view:
 {% tabs %}
 {% tab title="templates/single.html" %}
 
-```markup
+```html
 {{ post.title }}
 <br>
 {{ post.body }}
@@ -835,7 +835,7 @@ Since we are more comfortable with controllers we can go ahead and make two at o
 {% tabs %}
 {% tab templates/update.html" %}
 
-```markup
+```html
 <form action="/post/{{ post.id }}/update" method="POST">
     {{ csrf_field }}
 
@@ -905,7 +905,7 @@ We can throw a delete link right inside our update template:
 {% tabs %}
 {% tab title="templates/update.html" %}
 
-```markup
+```html
 <form action="/post/{{ post.id }}/update" method="POST">
     {{ csrf_field }}
 

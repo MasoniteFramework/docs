@@ -16,13 +16,8 @@ First, install the package:
 $ pip install masonite-debugbar
 ```
 
-Then publish the package:
 
-```
-$ python craft package:publish debugbar
-```
-
-Finally put the provider at the end of your provider list:
+Put the provider at the end of your provider list:
 
 ```python
 from debugbar.providers import DebugProvider
@@ -30,6 +25,12 @@ PROVIDERS = [
     #.. 
     DebugProvider
 ]
+```
+
+Then publish the package:
+
+```
+$ python craft package:publish debugbar
 ```
 
 Now when you go to a page in your application, you will see a debug bar at the bottom of the page.
