@@ -706,7 +706,7 @@ Our posts view can be very simple:
 {% tabs %}
 {% tab title="templates/posts.html" %}
 
-```markup
+```html
 {% for post in posts %}
     {{ post.title }}
     <br>

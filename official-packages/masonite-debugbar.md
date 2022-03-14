@@ -188,14 +188,11 @@ class YourCollector:
     
     def html(self):
         return """
-        <div data-gb-custom-block data-tag="for">
-
+        <div>
             <div class="flex justify-between p-4">
                 <p>{{ object.key }}: {{ object.value }}</p>
             </div>
-        
-
-</div>
+        </div>
         """
 ```
 
