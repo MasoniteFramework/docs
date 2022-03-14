@@ -703,10 +703,8 @@ Route.get('/posts', 'PostController@show')
 
 Our posts view can be very simple:
 
-{% tabs %}
-{% tab title="templates/posts.html" %}
-
-```
+```html
+<!-- templates/posts.html -->
 {% for post in posts %}
     {{ post.title }}
     <br>
@@ -714,8 +712,6 @@ Our posts view can be very simple:
     <hr>
 {% endfor %}
 ```
-{% endtab %}
-{% endtabs %}
 
 Go ahead and run the server and head over to `http://localhost:8000/posts` route. You should see a basic representation of your posts. If you only see 1, go to `http://localhost:8000/blog` to create more so we can show an individual post.
 
