@@ -723,12 +723,12 @@ Remember we made our author relationship before. Masonite ORM will take that rel
 {% tab title="templates/posts.html" %}
 
 ```html
-{% for post in posts %}
+@for post in posts
     {{ post.title }} by {{ post.author.name }}
     <br>
     {{ post.body }}
     <hr>
-{% endfor %}
+@endfor
 ```
 {% endtab %}
 {% endtabs %}
