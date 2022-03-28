@@ -478,7 +478,7 @@ Now we need to make sure the user is logged in before creating this so let's cha
 {% tab title="templates/blog.html" %}
 
 ```html
-{% if auth() %}
+@if auth() 
     <form action="/blog/create" method="POST">
         {{ csrf_field }}
 
@@ -490,9 +490,9 @@ Now we need to make sure the user is logged in before creating this so let's cha
 
         <input type="submit" value="Post!">
     </form>
-{% else %}
+@else
     <a href="/login">Please Login</a>
-{% endif %}
+@endif
 ```
 {% endtab %}
 {% endtabs %}
@@ -526,7 +526,7 @@ Now we can add it to our template like so right at the top:
 
 ```html
 <link href="/static/blog.css" rel="stylesheet">
-{% if auth() %}
+@if auth()
     <form action="/blog/create" method="POST">
         {{ csrf_field }}
 
@@ -538,9 +538,9 @@ Now we can add it to our template like so right at the top:
 
         <input type="submit" value="Post!">
     </form>
-{% else %}
+@else
     <a href="/login">Please Login</a>
-{% endif %}
+@endif
 ```
 {% endtab %}
 {% endtabs %}
@@ -554,7 +554,7 @@ Javascript files are the same exact thing:
 
 ```html
 <link href="/static/blog.css" rel="stylesheet">
-{% if auth() %}
+@if auth()
     <form action="/blog/create" method="POST">
         {{ csrf_field }}
 
@@ -566,9 +566,9 @@ Javascript files are the same exact thing:
 
         <input type="submit" value="Post!">
     </form>
-{% else %}
+@else
     <a href="/login">Please Login</a>
-{% endif %}
+@endif
 
 <script src="/static/script.js"></script>
 ```
