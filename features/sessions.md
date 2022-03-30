@@ -61,11 +61,5 @@ def store(self, session: Session):
 You can reset all data in a session:
 
 ```python
-session.reset()
-```
-
-Or you can reset only flash data:
-
-```python
-session.reset(flash_only=True)
+session.flush()
 ```
