@@ -31,8 +31,7 @@ class MyCommand(Command):
     command:signature
         {user : A positional argument for the command}
         {--f|flag : An optional argument for the command}
-        {--o|option=default: An optional argument for the command with default value}
-    """
+        {--o|option=default: An optional argument for the command with default value}"""
 
     def handle(self):
         pass
