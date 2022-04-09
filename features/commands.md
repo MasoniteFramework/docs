@@ -165,6 +165,14 @@ You can print messages to console with different formatting:
 - `self.error("Error Message")`: will output a message in bold red
 - `self.comment("Comment Message")`: will output a message in light blue
 
+## Advanced
+
+You can find more information and more features for creating commands in [Cleo documentation](https://cleo.readthedocs.io/en/latest/introduction.html).
+
+Masonite `Command` class is inheriting Cleo `Command` class so you should be able to use all Cleo features when
+creating commands.
+
+
 # Registering Commands
 
 Once created you can register the command to Masonite's [Service Container](../architecture/service-container.md)
