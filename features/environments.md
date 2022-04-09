@@ -45,7 +45,7 @@ Masonite configuration files or directly with `env()` helper.
 
 If some variables contain spaces you should put variable content into double quotes:
 
-```bash
+```
 APP_NAME="Masonite test project"
 ```
 
