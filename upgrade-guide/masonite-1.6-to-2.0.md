@@ -74,8 +74,8 @@ Then change the code logic of bootstrapping service providers from:
 ```python
 for provider in container.make('Application').PROVIDERS:
     locate(provider)().load_app(container).register()
-    
-for provider in container.make('Application').PROVIDERS: 
+
+for provider in container.make('Application').PROVIDERS:
     located_provider = locate(provider)().load_app(container)
     if located_provider.wsgi is False:
         container.resolve(locate(provider)().load_app(container).boot)
@@ -86,7 +86,7 @@ to:
 
 {% code title="wsgi.py" %}
 ```python
- for provider in container.make('ProvidersConfig').PROVIDERS: 
+ for provider in container.make('ProvidersConfig').PROVIDERS:
     located_provider = provider()
     located_provder.load_app(container).register()
     if located_provider.wsgi:
@@ -101,7 +101,7 @@ and change the logic in `bootstrap/start.py` to:
 
 {% code title="bootstrap/start.py" %}
 ```python
-for provider in container.make('WSGIProviders'): 
+for provider in container.make('WSGIProviders'):
     container.resolve(located_provider.boot)
 ```
 {% endcode %}
@@ -179,7 +179,7 @@ Simply add a new `AUTOLOAD` constant in your `config/application.py` file. This 
 | Autoload Directories
 |--------------------------------------------------------------------------
 |
-| List of directories that are used to find classes and autoload them into 
+| List of directories that are used to find classes and autoload them into
 | the Service Container. This is initially used to find models and load
 | them in but feel free to autoload any directories
 |
@@ -224,10 +224,10 @@ PROVIDERS = [
     ...
     'masonite.providers.RouteProvider',
     'masonite.providers.RedirectionProvider',
-    
+
     # New provider here above StartResponseProvider
     'masonite.providers.StatusCodeProvider',
-    
+
     'masonite.providers.StartResponseProvider',
     'masonite.providers.WhitenoiseProvider',
     ...

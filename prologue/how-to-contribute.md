@@ -8,7 +8,7 @@ This is not an exhaustive list and not the only ways to contribute but they are 
 
 ## Contributing to Development
 
-Of course the project requires contributions to the main development aspects but it's not the only way. But if you would like to contribute to development then a great way to get started is to simply read through this documentation. Get acquainted with how the framework works, how [Controllers](broken-reference) and [Routing](../features/routing.md) work and read the [Architectural Concepts](architectural-concepts) documentation starting with the [Request Lifecycle](broken-reference), then the [Service Providers](architectural-concepts/service-providers.md) and finally the [Service Container](architectural-concepts/service-container.md).
+Of course the project requires contributions to the main development aspects but it's not the only way. But if you would like to contribute to development then a great way to get started is to simply read through this documentation. Get acquainted with how the framework works, how [Controllers](broken-reference) and [Routing](../features/routing.md) work and read the [Architectural Concepts](architectural-concepts) documentation starting with the [Request Lifecycle](broken-reference), then the [Service Providers](architectural-concepts/service-providers.md) and finally the [Service Container](../architecture/service-container.md).
 
 It would also be good to read about the [Release Cycle](release-cycle.md) to get familiar with how Masonite does releases (SemVer and RomVer).
 

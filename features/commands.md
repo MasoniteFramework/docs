@@ -38,11 +38,11 @@ class KeyCommand(Command):
         pass
 ```
 
-Once created you can register the command to Masonite's [Service Container](architectural-concepts/service-container.md) so it will show up in show up when you run `python craft`
+Once created you can register the command to Masonite's [Service Container](../architecture/service-container.md) so it will show up in show up when you run `python craft`
 
 # Registering Commands
 
-To register command you will need to register them against Masonite's [Service Container](architectural-concepts/service-container.md). You can do so in a service provider
+To register command you will need to register them against Masonite's [Service Container](../architecture/service-container.md). You can do so in a service provider
 
 ```python
 from some.place.YourCommand import YourCommand
