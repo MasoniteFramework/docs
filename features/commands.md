@@ -26,12 +26,14 @@ Commands can be created with a simple command class inheriting from Masonite `Co
 from masonite.commands import Command
 
 class MyCommand(Command):
-    """Description of Command
+    """
+    Description of Command
 
     command:signature
         {user : A positional argument for the command}
         {--f|flag : An optional argument for the command}
-        {--o|option=default: An optional argument for the command with default value}"""
+        {--o|option=default: An optional argument for the command with default value}
+    """
 
     def handle(self):
         pass
