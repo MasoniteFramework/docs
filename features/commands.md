@@ -124,7 +124,7 @@ If the argument may or may not have a value, you can use the suffix `=?` instead
 ```python
 """
 command_name
-    {--iterations= : Description of the iterations argument}
+    {--iterations=?: Description of the iterations argument}
 """
 ```
 
