@@ -82,9 +82,9 @@ Inside the command, positional arguments can be retrieved with `self.argument(ar
 ## Optional Arguments
 
 Optional arguments are defined with dashes and can be used in any order in the command call. An optional
-argument can have a short name: `--force` option could have a short name `--f`.
+argument `--force` can have a short name `--f`.
 
-Here is how to define an optional argument called `force` with a description:
+Here is how to define two optional arguments `iterations` and `force` with a description:
 ```python
 """
 command_name
