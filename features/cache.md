@@ -108,7 +108,7 @@ You can easily add cache data using the`add` method. This will either fetch the 
 from masonite.cache import Cache
 
 def store(self, cache: Cache):
-  data = cache.add('age', '21')
+    data = cache.add('age', '21')
 ```
 
 If `age` key exists in the cache AND it is not expired, then "21" will be added to the cache and returned. If the `age` key does not exist or is not expired then it will return whatever data is in the cache for that key.
@@ -179,8 +179,8 @@ Remembering is a great way to save something to a cache using a callable:
 ```python
 from app.models import User
 
-remember("total_users", lambda cache: (
-  cache.put("total_users", User.all().count(), 300)
+cache.remember("total_users", lambda cache: (
+    cache.put("total_users", User.all().count(), 300)
 ))
 ```
 
