@@ -1,9 +1,8 @@
-Masonite provides a powerful caching feature to keep any data cached that may be needless or expensive to fetch on every request.
-
-Masonite caching allows you to save and fetch data, set expiration times and manage different cache stores.
+Masonite provides a powerful caching feature to keep any data cached that may be needless or expensive to fetch on every request. Masonite caching allows you to save and fetch data, set expiration times and manage different cache stores.
 
 Masonite supports the following cache drivers: [Redis](#redis), [Memcached](#memcached) and a basic [File](#file-cache) driver.
-We'll walk through how to configure a cache driver and use caching in this documentation.
+
+We'll walk through how to configure and use cache in this documentation.
 
 # Configuration
 
@@ -30,6 +29,7 @@ STORES = {
     # ...
 }
 ```
+{% endcode %}
 
 {% hint style="info" %}
 For production applications, it is recommended to use a more efficient driver such as `Memcached` or `Redis`.
@@ -38,7 +38,7 @@ For production applications, it is recommended to use a more efficient driver su
 ## File Cache
 
 File cache driver is storing data by saving it on the server's filesystem. It can be used as is
-without 3rd party service.
+without third party service.
 
 Location where Masonite will store cache data files defaults to `storage/framework/cache` in projet
 root directory but can be changed with `location` parameter.
@@ -50,7 +50,7 @@ Redis cache driver is requiring the `redis` python package, that you can install
 pip install redis
 ```
 
-Then you can should define Redis as default store and configure it with your Redis server parameters:
+Then you should define Redis as default store and configure it with your Redis server parameters:
 ```python
 STORES = {
     "default": "redis",
@@ -75,7 +75,7 @@ Memcached cache driver is requiring the `pymemcache` python package, that you ca
 pip install pymemcache
 ```
 
-Then you can should define Memcached as default store and configure it with your Memcached server parameters:
+Then you should define Memcached as default store and configure it with your Memcached server parameters:
 
 ```python
 STORES = {
@@ -152,7 +152,7 @@ You can also see if a value exists in the cache (and it is not expired):
 cache.has('age')
 ```
 
-# Forgetting Data
+## Forgetting Data
 
 If you want to forget an item in the cache you can:
 
@@ -162,7 +162,7 @@ cache.forget('age')
 
 This will remove this item from the cache.
 
-# Increment / Decrement Value
+## Increment / Decrement Value
 
 You can increment and decrement a value if it is an integer:
 
@@ -172,7 +172,7 @@ cache.increment('age') #== 22
 cache.decrement('age') #== 21
 ```
 
-# Remembering
+## Remembering
 
 Remembering is a great way to save something to a cache using a callable:
 
@@ -184,7 +184,7 @@ remember("total_users", lambda cache: (
 ))
 ```
 
-# Flushing the Cache
+## Flushing the Cache
 
 To delete everything in the cache you can simply flush it:
 
