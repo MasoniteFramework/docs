@@ -95,7 +95,7 @@ Finally ensure that the Memcached server is running and you're ready to [start u
 
 # Using the Cache
 
-You can access Cache service via the `Cache` facade or by resolving it from the [Service Container](architecture/service-container.md).
+You can access Cache service via the `Cache` facade or by resolving it from the [Service Container](../architecture/service-container.md).
 
 ## Storing Data
 
