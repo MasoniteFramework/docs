@@ -6,7 +6,7 @@ Also it might be useful to have more global environment variables that can be sh
 
 We'll walk through how to configure your environments in this documentation.
 
-# Environment Security
+# Security
 
 Environment variables should be set on a project per project basis inside your `.env` file.
 
@@ -18,11 +18,11 @@ That is why `.env` and `.env.*` are in the project `.gitignore` file by default,
 
 # Getting Started
 
-In a fresh Masonite installation project root directory will contain an `.env.example` file that defines minimum and common configuration values for a Masonite application. During the installation process, this file will be copied to `.env` file.
+In a fresh Masonite installation, a `.env.example` file located at project root directory will define minimum and common configuration values for a Masonite application. During the installation process, this file will be copied to `.env` file.
 
 If you have installed Masonite but do not see this `.env` file then you can create it manually and copy and paste the contents of `.env-example` file.
 
-# Environments Loading Order
+# Loading Order
 
 Environment files are loaded in this order:
 
@@ -41,7 +41,15 @@ APP_ENV=local
 When the server is ready all those variables will be loaded into the current environment ready to be accessed in the different
 Masonite configuration files or directly with `env()` helper.
 
-# Getting Environment Variables
+# Defining Variables
+
+If some variables contain spaces you should put variable content into double quotes:
+
+```bash
+APP_NAME="Masonite test project"
+```
+
+# Reading Variables
 
 ## os.getenv()
 
@@ -60,7 +68,7 @@ from masonite import env
 
 is_debug = env("APP_DEBUG", False) #== True (bool)
 ```
-Note that you can provide a default value if the environement variable is not defined. Default value is `""`.
+Note that you can provide a default value if the environment variable is not defined. Default value is `""`.
 For convenience this helper is casting types. Here are different examples of variables type casting:
 
 | Env Var Value | Casts to \(type\) |
@@ -74,7 +82,7 @@ For convenience this helper is casting types. Here are different examples of var
 | False | `False` \(bool\) |
 | smtp | `smtp` \(string\) |
 
-If you do not wish to cast the value then you can provide a third parameter `cast`:
+If you do not wish to cast the value then you can provide a third parameter `cast=False`:
 
 ```python
 from masonite import env
@@ -87,19 +95,25 @@ env('APP_DEBUG', False, cast=False) #== "False" (str)
 The current Masonite environment is defined through the `APP_ENV` variable located in your
 `.env` file. You can access it easily through the Masonite app `environment()` helper:
 
+```bash
+APP_ENV=local
+```
+
 ```python
 app.environment() #== local
 ```
 
 When running tests the environment will be set to `testing`.
-
-There are other helpers available regarding environment:
+You can use `is_running_tests()` helper to check if environment is `testing`:
 ```python
-
-app.is_production() #== True if APP_ENV=production
-
 app.is_running_tests() #== True if running tests
 ```
+
+You can also check if the environment is a production environment with:
+```python
+app.is_production() #== True if APP_ENV=production
+```
+
 
 # Debug Mode
 
