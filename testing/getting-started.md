@@ -2,13 +2,14 @@ Masonite testing is very simple. You can test very complex parts of your code wi
 
 Although Masonite uses `pytest` to run tests, Masonite's test suite is based on `unittest`. So you will use `unittest` syntax but run the tests with `pytest`. Because of this, all syntax will be in camelCase instead of PEP 8 lower_case_with_underscores. Just know that all TestCase assertions used during testing is in camelCase form to maintain unittest standards.
 
-## Environment
+# Testing Environment
 
-When running tests, Masonite will automatically set the environment to `testing`. You are free to define other testing environment configuration values as necessary.
+When running tests, Masonite will automatically set the [environment](../features/environments.md) to `testing`. You are free to define other testing environment configuration values as necessary.
 
 You can create a `.env.testing` file. Feel free to load any testing environment variables in here. By default they will not be commited. When `pytest` runs it will additionally load and override any additional environment variables.
 
-## Creating Tests
+
+# Creating Tests
 
 You can simply create a file starting with `test_` and then creating a test class inheriting from masonite `TestCase` class.
 
@@ -34,7 +35,7 @@ class SomeFeatureTest(TestCase):
 
 That's it! You're ready to start testing. Read on to learn how to build your test cases and run them.
 
-## Running Tests
+# Running Tests
 
 You can run tests by calling
 
@@ -61,9 +62,9 @@ Finally you can re-run the last failed tests automatically
 $ python -m pytest --last-failed
 ```
 
-## Building Tests
+# Building Tests
 
-### Test Life Cycle
+## Test Life Cycle
 
 When you run a test class each test method of this test class will be ran following a specific
 life cycle.
@@ -117,11 +118,11 @@ not make the assumptions that tests will be run in a given order. You should try
 tests idempotent.
 {% endhint %}
 
-### Chaining assertions
+## Chaining Assertions
 
 All methods that begin with `assert` can be chained together to run through many assertions. All other method will return some kind of boolean or value which you can use to do your own assertions.
 
-### Asserting exceptions
+## Asserting Exceptions
 
 Sometimes you need to assert that a given piece of code will raise a given exception. To do this you
 can use the standard `assertRaises()` context manager:
@@ -134,7 +135,7 @@ with self.assertRaises(ValidationError) as e:
 self.assertEqual(str(e.exception), "An error occured !")
 ```
 
-### Capturing test output
+## Capturing Output
 
 Sometimes you need to test the output of a function that prints to the console. To do this in your
 tests you can use the `captureOutput()` context manager:
@@ -147,7 +148,7 @@ with self.captureOutput() as output:
 self.assertEqual(output.getvalue().strip(), "Hello World !")
 ```
 
-## Helpers
+# Test Helpers
 
 Masonite comes with different helpers that can ease writing tests. Some of them have already been explained in sections above.
 
@@ -164,7 +165,7 @@ Masonite comes with different helpers that can ease writing tests. Some of them 
 - [fakeTimeInPast](#fakeTimeInPast)
 - [restoreTime](#restoreTime)
 
-### withExceptionsHandling
+## withExceptionsHandling
 
 Enable exceptions handling during testing.
 
@@ -172,7 +173,7 @@ Enable exceptions handling during testing.
 self.withExceptionsHandling()
 ```
 
-### withoutExceptionsHandling
+## withoutExceptionsHandling
 
 Disable exceptions handling during testing.
 
@@ -184,7 +185,7 @@ self.withoutExceptionsHandling()
 Note that exception handling is disabled by default during testing.
 {% endhint %}
 
-### withCsrf
+## withCsrf
 
 Enable CSRF protection during testing.
 
@@ -192,7 +193,7 @@ Enable CSRF protection during testing.
 self.withCsrf()
 ```
 
-### withoutCsrf
+## withoutCsrf
 
 Disable CSRF protection during testing.
 
@@ -204,7 +205,7 @@ self.withoutCsrf()
 Note that CSRF protection is disabled by default during testing.
 {% endhint %}
 
-### withCookies
+## withCookies
 
 Add cookies that will be used in the next request. This method accepts a dictionary of name / value pairs. Cookies dict is reset between each test.
 
@@ -212,7 +213,7 @@ Add cookies that will be used in the next request. This method accepts a diction
 self.withCookies(data)
 ```
 
-### withHeaders
+## withHeaders
 
 Add headers that will be used in the next request. This method accepts a dictionary of name / value pairs. Headers dict is reset between each test.
 
@@ -220,7 +221,7 @@ Add headers that will be used in the next request. This method accepts a diction
 self.withHeaders(data)
 ```
 
-### fakeTime
+## fakeTime
 
 Set a given pendulum instance to be returned when a `now` (or `today`, `tomorrow` `yesterday`) instance is created. It's really useful during tests to check
 timestamps logic.
@@ -237,7 +238,7 @@ self.assertEqual(pendulum.now(), given_date)
 When using those helpers you should not forget to reset the default `pendulum` behaviour with `restoreTime()` helper to avoid breaking other tests. It can be done directly in the test or in a `tearDown()` method.
 {% endhint %}
 
-### fakeTimeTomorrow
+## fakeTimeTomorrow
 
 Set the mocked time as tomorrow. (It's a shortcut to avoid doing `self.fakeTime(pendulum.tomorrow())`).
 
@@ -247,11 +248,11 @@ self.fakeTimeTomorrow()
 self.assertEqual(pendulum.now(), tomorrow)
 ```
 
-### fakeTimeYesterday
+## fakeTimeYesterday
 
 Set the mocked time as yesterday.
 
-### fakeTimeInFuture
+## fakeTimeInFuture
 
 Set the mocked time as an offset of a given unit of time in the future. Unit can be specified among pendulum units: `seconds`, `minutes`, `hours`, `days` (default), `weeks`, `months`, `years`.
 
@@ -265,7 +266,7 @@ self.fakeTimeInFuture(1, "months")
 self.assertEqual(pendulum.now().diff(real_now).in_months(), 1)
 ```
 
-### fakeTimeInPast
+## fakeTimeInPast
 
 Set the mocked time as an offset of a given unit of time in the past. Unit can be specified among pendulum units: `seconds`, `minutes`, `hours`, `days` (default), `weeks`, `months`, `years`.
 
@@ -273,7 +274,7 @@ Set the mocked time as an offset of a given unit of time in the past. Unit can b
 self.fakeTimeInPast(offset, unit="days")
 ```
 
-### restoreTime
+## restoreTime
 
 Restore the mocked time behaviour to default behaviour of `pendulum`. When using `fake` time helpers you should not forget to call this helper at the end.
 

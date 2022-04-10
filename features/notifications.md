@@ -276,8 +276,8 @@ Some blocks or elements might not be yet available in `slackblocks`, but most of
 
 You should define the related `route_notification_for_slack` method on your notifiable to return either
 
-* a webhook URL or a list of webhook URLs (if you're using [Incoming Webhooks](../#slack-incoming-webhooks))
-* a channel name/ID or a list of channels names/IDs (if you're using [Slack Web API](../#slack-web-api))
+* a webhook URL or a list of webhook URLs (if you're using [Incoming Webhooks](#slack-incoming-webhooks))
+* a channel name/ID or a list of channels names/IDs (if you're using [Slack Web API](#slack-web-api))
 
 ```python
 class User(Model, Notifiable):

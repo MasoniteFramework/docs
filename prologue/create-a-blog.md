@@ -1,4 +1,4 @@
-This section of the documentation will contain various tutorials. These are guides that are designed to take you from beginning to end on building various types of projects with Masonite. We may not explain things in much detail for each section as this part of the documentation is designed to just get you familiar with the inner workings of Masonite. 
+This section of the documentation will contain various tutorials. These are guides that are designed to take you from beginning to end on building various types of projects with Masonite. We may not explain things in much detail for each section as this part of the documentation is designed to just get you familiar with the inner workings of Masonite.
 
 Since this section of the documentation is designed to just get you up and coding with Masonite, any further explanations that should be presented are inside various "hint blocks." Once you are done with the tutorial or simply want to learn more about a topic it is advised that you go through each hint block and follow the links to dive deeper into the reference documentation which does significantly more explaining.
 
@@ -44,7 +44,7 @@ ROUTES = [
 We'll talk more about the controller in a little bit.
 
 {% hint style="success" %}
-You can read more about routes in the [Routing](the-basics/routing.md) documentation
+You can read more about routes in the [Routing](/the-basics/routing.md) documentation
 {% endhint %}
 
 ### Creating our Route:
@@ -478,7 +478,7 @@ Now we need to make sure the user is logged in before creating this so let's cha
 {% tab title="templates/blog.html" %}
 
 ```html
-{% if auth() %}
+@if auth()
     <form action="/blog/create" method="POST">
         {{ csrf_field }}
 
@@ -490,9 +490,9 @@ Now we need to make sure the user is logged in before creating this so let's cha
 
         <input type="submit" value="Post!">
     </form>
-{% else %}
+@else
     <a href="/login">Please Login</a>
-{% endif %}
+@endif
 ```
 {% endtab %}
 {% endtabs %}
@@ -526,7 +526,7 @@ Now we can add it to our template like so right at the top:
 
 ```html
 <link href="/static/blog.css" rel="stylesheet">
-{% if auth() %}
+@if auth()
     <form action="/blog/create" method="POST">
         {{ csrf_field }}
 
@@ -538,9 +538,9 @@ Now we can add it to our template like so right at the top:
 
         <input type="submit" value="Post!">
     </form>
-{% else %}
+@else
     <a href="/login">Please Login</a>
-{% endif %}
+@endif
 ```
 {% endtab %}
 {% endtabs %}
@@ -554,7 +554,7 @@ Javascript files are the same exact thing:
 
 ```html
 <link href="/static/blog.css" rel="stylesheet">
-{% if auth() %}
+@if auth()
     <form action="/blog/create" method="POST">
         {{ csrf_field }}
 
@@ -566,9 +566,9 @@ Javascript files are the same exact thing:
 
         <input type="submit" value="Post!">
     </form>
-{% else %}
+@else
     <a href="/login">Please Login</a>
-{% endif %}
+@endif
 
 <script src="/static/script.js"></script>
 ```
@@ -635,7 +635,7 @@ def store(self, request: Request):
 {% endtab %}
 {% endtabs %}
 
-Notice that we now used `request: Request` here. This is the `Request` object. Where did this come from? This is the power and beauty of Masonite and your first introduction to the [Service Container](architectural-concepts/service-container.md). The [Service Container](architectural-concepts/service-container.md) is an extremely powerful implementation as allows you to ask Masonite for an object \(in this case `Request`\) and get that object. This is an important concept to grasp so be sure to read the documentation further.
+Notice that we now used `request: Request` here. This is the `Request` object. Where did this come from? This is the power and beauty of Masonite and your first introduction to the [Service Container](../architecture/service-container.md). The [Service Container](../architecture/service-container.md) is an extremely powerful implementation as allows you to ask Masonite for an object \(in this case `Request`\) and get that object. This is an important concept to grasp so be sure to read the documentation further.
 
 Also notice we used an `input()` method. Masonite does not discriminate against different request methods so getting input on a `GET` or a `POST` request are done exactly the same way by using this `input` method.
 

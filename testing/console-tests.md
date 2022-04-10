@@ -1,69 +1,84 @@
 # Console Tests
 
-You can test your [custom commands](../features/commands/) running in console with `craft` test helper.
+You can test what has been output to standard console during Masonite unit tests thanks to useful
+console assertions.
 
-```python
-def test_my_command(self):
-    self.craft("my_command", "arg1 arg2").assertSuccess()
-```
+Output here is the standard output often named `stdout`.
+Error here is the standard error often named `stderr`.
 
-This will programmatically run the command if it has been registered in your project and assert that no errors has been reported.
+External packages, prints in your code can output content in console (as output or error).
+
+{% hint style="warning" %}
+If you want to assert content output by a Masonite command you should use [Commands Tests](/testing/commands-tests.md#available-assertions) assertions instead.
+{% endhint %}
+
 
 ### Available Assertions
 
-The following assertions are available when testing command with `craft`.
+The following assertions are available:
 
-* [assertSuccess](console-tests.md#assertsuccess)
-* [assertHasErrors](console-tests.md#asserthaserrors)
-* [assertOutputContains](console-tests.md#assertoutputcontains)
-* [assertExactOutput](console-tests.md#assertexactoutput)
-* [assertOutputMissing](console-tests.md#assertoutputmissing)
-* [assertExactErrors](console-tests.md#assertexacterrors)
+* [assertConsoleEmpty](console-tests.md#assertconsoleempty)
+* [assertConsoleNotEmpty](console-tests.md#assertconsolenotempty)
+* [assertConsoleExactOutput](console-tests.md#assertconsoleexactoutput)
+* [assertConsoleOutputContains](console-tests.md#assertconsoleoutputcontains)
+* [assertConsoleOutputMissing](console-tests.md#assertconsoleoutputmissing)
+* [assertConsoleHasErrors](console-tests.md#assertconsolehaserrors)
+* [assertConsoleExactError](console-tests.md#assertconsoleexacterror)
+* [assertConsoleErrorContains](console-tests.md#assertconsoleerrorcontains)
 
-#### assertSuccess
+#### assertConsoleEmpty
 
-Assert that command exited with code 0 meaning that it ran successfully.
+Assert that nothing has been printed to the console.
+
+#### assertConsoleNotEmpty
+
+Assert that something has been printed to the console (output or error).
+
+#### assertConsoleExactOutput
+
+Assert that console standard output is equal to given output.
 
 ```python
-self.craft("my_command").assertSuccess()
+print("Success !")
+self.assertConsoleExactOutput("Success !\n")
 ```
 
-#### assertHasErrors
+#### assertConsoleOutputContains
 
-Assert command output has errors.
+Assert that console standard output contains given output.
 
 ```python
-self.craft("my_command").assertHasErrors()
+print("Success !")
+self.assertConsoleOutputContains("Success")
 ```
 
-#### assertOutputContains
+#### assertConsoleOutputMissing
 
-Assert command output contains the given string.
+Assert that console standard output does not contain the given output.
 
 ```python
-self.craft("my_command").assertOutputContains(output)
+print("Success !")
+self.assertConsoleOutputMissing("hello")
 ```
 
-#### assertExactOutput
+#### assertConsoleHasErrors
 
-Assert command output to be exactly the same as the given reference output. Be careful to add eventual  line endings characters when using this assertion method.
+Assert that something has been output to console standard error.
+
+#### assertConsoleExactError
+
+Assert that console standard error is equal to given error.
 
 ```python
-self.craft("my_command").assertExactOutput(output)
+print("An error occured !", file=sys.stderr)
+self.assertConsoleExactError("An error occured !\n")
 ```
 
-#### assertOutputMissing
+#### assertConsoleErrorContains
 
-Assert command output does not contain the given reference output.
-
-```python
-self.craft("my_command").assertOutputMissing(output)
-```
-
-#### assertExactErrors
-
-Assert command output has exactly the given errors.
+Assert that console standard error contains given error.
 
 ```python
-self.craft("my_command").assertExactErrors(errors)
+print("An error occured !", file=sys.stderr)
+self.assertConsoleErrorContains("error")
 ```

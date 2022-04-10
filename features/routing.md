@@ -8,7 +8,7 @@ Routes are created by importing the `Route` class and defining the HTTP verb you
 from masonite.routes import Route
 
 ROUTES = [
-	Route.get('/welcome', 'WelcomeController@show')  
+	Route.get('/welcome', 'WelcomeController@show')
 ]
 ```
 
@@ -98,7 +98,7 @@ ROUTES = [
   Route.group([
     Route.get('/settings', 'DashboardController@settings').name('settings'),
     Route.get('/monitor', 'DashboardController@monitor').name('monitor'),
-  ], 
+  ],
   prefix="/dashboard",
   middleware=['web', 'cors'],
   name="dashboard."),
@@ -108,3 +108,18 @@ ROUTES = [
 
 The prefix and name options will prefix the options set in the routes inside the group. In the above example, the names of the routes would `dashboard.settings` with a URL of `/dashboard/settings` and `dashboard.monitor` and a URL of `/dashboard/monitor`.
 
+# List Routes
+
+Application routes can be listed with the `routes:list` Masonite command. Routes will be displayed
+in a table with relevant info such as route name, methods, controller and enabled middlewares for this route.
+
+Routes can be filtered by methods:
+```bash
+python craft routes:list -M POST,PUT
+```
+
+Routes can be filtered by name:
+
+```bash
+python craft routes:list -N users
+```

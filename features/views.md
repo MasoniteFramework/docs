@@ -22,7 +22,7 @@ class WelcomeController(Controller):
 
   def show(self, view: View):
     view.render('welcome', {
-    	"name": "Joe"  
+    	"name": "Joe"
     })
 ```
 
@@ -38,7 +38,7 @@ class WelcomeController(Controller):
   # Template is templates/greetings/welcome.html
   def show(self, view: View):
     view.render('greeting.welcome', {
-    	"name": "Joe"  
+    	"name": "Joe"
     })
 ```
 
@@ -192,7 +192,7 @@ You can access the session here:
 ```
 
 {% hint style="success" %}
-Learn more about session in the [Session](../advanced/sessions.md) documentation.
+Learn more about session in the [Session](/advanced/sessions.md) documentation.
 {% endhint %}
 
 ## Config
@@ -275,7 +275,7 @@ class UserModelProvider(ServiceProvider):
         return item.replace(' ', '-')
 ```
 
-> Make sure that you add filters in a [Service Provider](../architectural-concepts/service-providers.md) that has `wsgi=False` set. This prevents filters from being added on every single request which is not needed.
+> Make sure that you add filters in a [Service Provider](../architecture/service-providers.md) that has `wsgi=False` set. This prevents filters from being added on every single request which is not needed.
 
 # View Tests
 
@@ -508,7 +508,7 @@ Line Statements:
 <!-- components/base.html -->
 <html>
     <head>
-        @block css 
+        @block css
         <!-- block named "css" defined in child template will be inserted here -->
         @endblock
     </head>
@@ -551,14 +551,14 @@ Using alternative Jinja2 syntax:
 <!-- components/base.html -->
 <html>
     <head>
-        {% block css %} 
+        {% block css %}
         <!-- block named "css" defined in child template will be inserted here -->
         {% endblock %}
     </head>
 
 <body>
     <div class="container">
-        {% block content %} 
+        {% block content %}
         <!-- block named "content" defined in child template will be inserted here -->
         {% endblock %}
     </div>

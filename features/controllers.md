@@ -36,23 +36,23 @@ You may start building your controller out and adding the responses you need.
 
 ## Dependency Injection
 
-Your controller's constructor and controller methods are resolved by Masonite's Service Container. Because of this, you can simply typehint most of Masonite's classes in either the constructor or the methods:
+Your controller's constructor and controller methods are resolved by Masonite's [Service Container](../architecture/service-container.md). Because of this, you can simply typehint most of Masonite's classes in either the constructor or the methods:
 
 ```python
 def __init__(self, request: Request):
   self.request = request
 
-  #.. 
-  
+  #..
+
 def show(self, request: Request):
   return request.param('1')
 ```
 
-Read more about the benefits of the [Service Container]().
+Read more about the benefits of the [Service Container](../architecture/service-container.md).
 
 ## Responses
 
-Controllers can have different response types based on what you need to return. 
+Controllers can have different response types based on what you need to return.
 
 ### JSON
 

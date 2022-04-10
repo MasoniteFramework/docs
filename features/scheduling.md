@@ -35,16 +35,18 @@ class SendInvoices(Task):
 
 # Registering Tasks
 
-You must then register tasks to the Masonite scheduler. You can do so easily in a service provider:
+You must then register tasks to the Masonite scheduler. You can do so easily inside your app
+[Service Provider](../architecture/service-providers.md) (if you don't have one, you should [create one](../architecture/service-providers.md#creating-a-provider)):
 
 ```python
 from app.tasks.SendInvoices import SendInvoices
 
-def register(self):
+class AppProvider(Provider):
 
-  self.application.make('scheduler').add(
-    SendInvoices().daily()
-  )
+    def register(self):
+        self.application.make('scheduler').add(
+          SendInvoices().daily()
+        )
 ```
 
 Tasks will run as often as you specify them to run using the time options.
