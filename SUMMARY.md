@@ -18,6 +18,7 @@
 * [Request](features/request.md)
 * [Static Files](features/static-files.md)
 * [Views](features/views.md)
+* [Environments](features/environments.md)
 
 ## Features
 

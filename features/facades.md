@@ -27,6 +27,7 @@ The available facades are:
 - `Auth`
 - `Config`
 - `Url`
+- `Broadcast`
 
 # Creating Your Own Facades
 

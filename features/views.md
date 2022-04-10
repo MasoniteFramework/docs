@@ -275,7 +275,7 @@ class UserModelProvider(ServiceProvider):
         return item.replace(' ', '-')
 ```
 
-> Make sure that you add filters in a [Service Provider](/architecture/service-providers.md) that has `wsgi=False` set. This prevents filters from being added on every single request which is not needed.
+> Make sure that you add filters in a [Service Provider](../architecture/service-providers.md) that has `wsgi=False` set. This prevents filters from being added on every single request which is not needed.
 
 # View Tests
 

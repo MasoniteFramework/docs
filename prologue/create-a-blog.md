@@ -478,7 +478,7 @@ Now we need to make sure the user is logged in before creating this so let's cha
 {% tab title="templates/blog.html" %}
 
 ```html
-{% if auth() %}
+@if auth()
     <form action="/blog/create" method="POST">
         {{ csrf_field }}
 
@@ -490,9 +490,9 @@ Now we need to make sure the user is logged in before creating this so let's cha
 
         <input type="submit" value="Post!">
     </form>
-{% else %}
+@else
     <a href="/login">Please Login</a>
-{% endif %}
+@endif
 ```
 {% endtab %}
 {% endtabs %}
@@ -526,7 +526,7 @@ Now we can add it to our template like so right at the top:
 
 ```html
 <link href="/static/blog.css" rel="stylesheet">
-{% if auth() %}
+@if auth()
     <form action="/blog/create" method="POST">
         {{ csrf_field }}
 
@@ -538,9 +538,9 @@ Now we can add it to our template like so right at the top:
 
         <input type="submit" value="Post!">
     </form>
-{% else %}
+@else
     <a href="/login">Please Login</a>
-{% endif %}
+@endif
 ```
 {% endtab %}
 {% endtabs %}
@@ -554,7 +554,7 @@ Javascript files are the same exact thing:
 
 ```html
 <link href="/static/blog.css" rel="stylesheet">
-{% if auth() %}
+@if auth()
     <form action="/blog/create" method="POST">
         {{ csrf_field }}
 
@@ -566,9 +566,9 @@ Javascript files are the same exact thing:
 
         <input type="submit" value="Post!">
     </form>
-{% else %}
+@else
     <a href="/login">Please Login</a>
-{% endif %}
+@endif
 
 <script src="/static/script.js"></script>
 ```
@@ -635,7 +635,7 @@ def store(self, request: Request):
 {% endtab %}
 {% endtabs %}
 
-Notice that we now used `request: Request` here. This is the `Request` object. Where did this come from? This is the power and beauty of Masonite and your first introduction to the [Service Container](architectural-concepts/service-container.md). The [Service Container](architectural-concepts/service-container.md) is an extremely powerful implementation as allows you to ask Masonite for an object \(in this case `Request`\) and get that object. This is an important concept to grasp so be sure to read the documentation further.
+Notice that we now used `request: Request` here. This is the `Request` object. Where did this come from? This is the power and beauty of Masonite and your first introduction to the [Service Container](../architecture/service-container.md). The [Service Container](../architecture/service-container.md) is an extremely powerful implementation as allows you to ask Masonite for an object \(in this case `Request`\) and get that object. This is an important concept to grasp so be sure to read the documentation further.
 
 Also notice we used an `input()` method. Masonite does not discriminate against different request methods so getting input on a `GET` or a `POST` request are done exactly the same way by using this `input` method.
 
@@ -703,19 +703,15 @@ Route.get('/posts', 'PostController@show')
 
 Our posts view can be very simple:
 
-{% tabs %}
-{% tab title="templates/posts.html" %}
-
-```html
-{% for post in posts %}
+```markup
+<!-- templates/posts.html -->
+@for post in posts
     {{ post.title }}
     <br>
     {{ post.body }}
     <hr>
-{% endfor %}
+@endfor
 ```
-{% endtab %}
-{% endtabs %}
 
 Go ahead and run the server and head over to `http://localhost:8000/posts` route. You should see a basic representation of your posts. If you only see 1, go to `http://localhost:8000/blog` to create more so we can show an individual post.
 
@@ -727,12 +723,12 @@ Remember we made our author relationship before. Masonite ORM will take that rel
 {% tab title="templates/posts.html" %}
 
 ```html
-{% for post in posts %}
+@for post in posts
     {{ post.title }} by {{ post.author.name }}
     <br>
     {{ post.body }}
     <hr>
-{% endfor %}
+@endfor
 ```
 {% endtab %}
 {% endtabs %}

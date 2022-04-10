@@ -8,13 +8,13 @@ This is not an exhaustive list and not the only ways to contribute but they are 
 
 ## Contributing to Development
 
-Of course the project requires contributions to the main development aspects but it's not the only way. But if you would like to contribute to development then a great way to get started is to simply read through this documentation. Get acquainted with how the framework works, how [Controllers](/features/controllers.md) and [Routing](/features/routing.md) work and read architectural concepts starting with the [Request Lifecycle](/features/request.md), then the [Service Providers](/architecture/service-providers.md) and finally the [Service Container](/architecture/service-containers.md).
+Of course the project requires contributions to the main development aspects but it's not the only way. But if you would like to contribute to development then a great way to get started is to simply read through this documentation. Get acquainted with how the framework works, how [Controllers](../features/controllers.md) and [Routing](../features/routing.md) work and read the Architectural Concepts documentation starting with the Request Lifecycle, then the [Service Providers](../architecture/service-providers.md) and finally the [Service Container](../architecture/service-container.md).
 
 It would also be good to read about the [Release Cycle](/prologue/release-cycle.md) to get familiar with how Masonite does releases (SemVer and RomVer).
 
 ## Become a Feature Maintainer
 
-Feature Maintainers are people who are in charge of specific features (such as [Caching](/features/cache.md) or [Developing Packages](/features/package-development.md)). These developers will be in charge of reviewing PR's and merging them into the development branch and also have direct contact with the repository owner to discuss.
+Feature Maintainers are people who are in charge of specific features (such as [Caching](../features/cache.md) or [Creating Packages](../features/package-development.md)). These developers will be in charge of reviewing PR's and merging them into the development branch and also have direct contact with the repository owner to discuss.
 
 Feature maintainers must already have significant contributions to development of the repository they are trying to be a Feature Maintainer for. Although they do not have to be contributors to the actual feature they plan to maintain.
 
@@ -26,7 +26,7 @@ Comments don't affect the working code so if you want to get used to contributin
 
 ## Write Tests
 
-The [Masonite pip packages](https://pypi.org/search/?q=masonite) require testing (The main repository does not). If you want to search through all the tests in the tests directories of those repositories and write additional tests and use cases then that will be great! There are already over 100 tests but you can always write more. With more testing comes more stability. Especially as people start to contribute to the project. Check the tests that are already there and write any use cases that are missing. These tests can be things such as special characters in a url or other oddities that may not have been thought of when using TDD for that feature.
+[Masonite package](https://github.com/MasoniteFramework/masonite) requires testing. If you want to search through all the tests in the tests directories of those repositories and write additional tests and use cases then that will be great! There are already over 100 tests but you can always write more. With more testing comes more stability. Especially as people start to contribute to the project. Check the tests that are already there and write any use cases that are missing. These tests can be things such as special characters in a url or other oddities that may not have been thought of when using TDD for that feature.
 
 ## Contribute to Tutorials
 
