@@ -192,7 +192,7 @@ You can access the session here:
 ```
 
 {% hint style="success" %}
-Learn more about session in the [Session](../advanced/sessions.md) documentation.
+Learn more about session in the [Session](/advanced/sessions.md) documentation.
 {% endhint %}
 
 ## Config

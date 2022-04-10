@@ -44,7 +44,7 @@ ROUTES = [
 We'll talk more about the controller in a little bit.
 
 {% hint style="success" %}
-You can read more about routes in the [Routing](the-basics/routing.md) documentation
+You can read more about routes in the [Routing](/the-basics/routing.md) documentation
 {% endhint %}
 
 ### Creating our Route:
