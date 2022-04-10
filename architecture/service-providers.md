@@ -61,3 +61,16 @@ class UserModelProvider(ServiceProvider):
 
 > This will be exactly the same as above. Notice that the `boot` method is resolved by the container.
 
+# Registering the Service Provider
+
+Once you create your own service provider, it will need to be registered in the `PROVIDERS` list. This is likely in your `config/providers.py` file:
+
+```python
+PROVIDERS=[
+    #..
+    UserModelProvider,
+]
+```
+
+Once registered it will take your register and boot method into account when the framework boots up or registers.
+
