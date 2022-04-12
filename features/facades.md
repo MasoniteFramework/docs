@@ -1,7 +1,7 @@
 Facades are an easy way to access the [Service Container](../architecture/service-container.md) classes without making them from the [Service Container](../architecture/service-container.md).
 
 # Overview
-Facades are just a shortcut to a key in the IOC container. Instead of doing:
+Facades are just a shortcut to resolve a key in the [Service Container](../architecture/service-container.md). Instead of doing:
 
 ```python
 application.make("mail").send()
