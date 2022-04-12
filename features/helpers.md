@@ -77,7 +77,7 @@ if optional(request.user()).admin == 1:
   #.. do something
 ```
 
-# Configuration
+# Config
 
 You can easily get configuration values using dot notation:
 
@@ -111,3 +111,62 @@ from masonite.configuration import config
 key = config("application.hashing.bcrypt.rounds") #== 10
 ```
 
+# Dump
+
+You can easily dump variables into console for debugging, from inside a controller for example:
+For this you can use Dump facade or the built-in `dump` python method:
+
+```python
+from masonite.facades import Dump
+
+test = 1
+data = {"key": "value"}
+Dump.dump(test ,data)
+
+# OR
+
+dump(test, data)
+```
+
+This will dump data in console in a nice format to ease debugging.
+
+# Dump and Die
+
+If you want the code to stop and renders a dump page instead you can use the dump and die helper
+named `dd`:
+
+```python
+from masonite.facades import Dump
+
+test = 1
+data = {"key": "value"}
+Dump.dd(test ,data)
+
+# OR
+
+dd(test, data)
+```
+
+This will stop code at this line and renders a nice dump page where you can see all variables dumped
+until now.
+
+{% hint style="info" %}
+Note that dumps will accumulate into session. If you want to clear dumps, you can use `Dump.clear()`
+or you can enable the HTTP middleware `ClearDumpsBetweenRequestsMiddleware` to clear dumps
+between every requests.
+{% endhint %}
+
+{% code title="Kernel.py" %}
+
+```python
+from masonite.middleware import ClearDumpsBetweenRequestsMiddleware
+
+class Kernel:
+
+    http_middleware = [
+        #...
+        ClearDumpsBetweenRequestsMiddleware
+    ]
+```
+
+{% endcode %}
