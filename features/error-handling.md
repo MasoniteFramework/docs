@@ -1,6 +1,23 @@
+
+
+# Error Handler
+
+
+## Local / Production
+
+
+# Report Exceptions
+
+
+## Simple Exceptions
+
+## HTTP Exceptions
+
+## Renderable Exceptions
+
 Exceptions can be handled in Masonite by creating "Exception Handlers". These are custom classes you can build to override the way Masonite handles an exception that is thrown.
 
-# Building a Handler
+## Adding New Handlers
 
 A handler is a simple class with a `handle` method that Masonite will call when a specific exception is thrown by the application.
 
@@ -31,7 +48,7 @@ To register a custom exception handler for our `ZeroDivisionError` we would crea
 from app.exceptions.DivideException import DivideException
 
 self.application.bind(
-    "ZeroDivisionErrorHandler", 
+    "ZeroDivisionErrorHandler",
     DivideException(self.application)
 )
 ```
