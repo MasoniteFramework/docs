@@ -121,7 +121,7 @@ from masonite.facades import Dump
 
 test = 1
 data = {"key": "value"}
-Dump.dump(test ,data)
+Dump.dump(test, data)
 
 # OR
 
@@ -140,7 +140,7 @@ from masonite.facades import Dump
 
 test = 1
 data = {"key": "value"}
-Dump.dd(test ,data)
+Dump.dd(test, data)
 
 # OR
 
