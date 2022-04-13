@@ -12,6 +12,13 @@ url.url("/dashboard") #== example.com/dashboard
 
 The URL will come from the `APP_URL` in your application config file.
 
+It accepts a dictionary to add query string parameters when building the url:
+
+```python
+url.url("/search/users",  query_params={"search": "John Doe" "order": "asc"})
+#== http://masonite.app/users/?search=John%2Doe&order=asc
+```
+
 You can also generate a URL for an asset:
 
 ```python
@@ -29,6 +36,14 @@ You can also generate just a path:
 ```python
 url.route("users.profile", {"id": 1}, absolute=False) #== /users/1/profile/
 ```
+
+It accepts a dictionary to add query string parameters when building the route url:
+
+```python
+url.route("user.profile", {"id": 1}, query_params={"preview": 1})
+#== http://masonite.app/users/1/profile/?preview=1
+```
+
 
 # Compact
 
