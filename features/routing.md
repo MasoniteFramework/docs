@@ -14,7 +14,7 @@ ROUTES = [
 
 The first parameter is the URL you would like to be available in your application. In the above example, this will allow anybody to go to the `/welcome` URL.
 
-## Available Route Options
+## Available Route Methods
 
 You may choose to define any one of the available verbs:
 
@@ -36,17 +36,24 @@ Route.permanent_redirect('/old', '/new')
 
 # Route Options
 
-## Middleware
-
 You may define several available methods on your routes to modify their behavior during the request.
 
-The first option is to define middleware:
+## Middlewares
+
+You can add one or multiple [Routes Middlewares](/features/middleware.md#route-middleware):
 
 ```python
 Route.get('/welcome', 'WelcomeController@show').middleware('web')
+Route.get('/settings', 'WelcomeController@settings').middleware('auth', 'web')
 ```
 
-This will attach the middleware key to the route which will be picked up from your middleware configuration later in the request.
+This will attach the middleware key(s) to the route which will be picked up from your middleware configuration later in the request.
+
+You can exclude one or multiple [Routes Middlewares](/features/middleware.md#route-middleware) for a specific route:
+
+```python
+Route.get('/about', 'WelcomeController@about').exclude_middleware('auth', 'custom')
+```
 
 ## Name
 
@@ -61,7 +68,15 @@ Route.get('/welcome', 'WelcomeController@show').name('welcome')
 You can specify the parameters in the URL that will later be able to be retrieved in other parts of your application. You can do this easily by specify the parameter name attached to a `@` symbol:
 
 ```python
-Route.get('/dashboard/@user_id', 'WelcomeController@show').name('welcome')
+Route.get('/dashboard/@user_id', 'WelcomeController@show')
+```
+
+## Optional Parameters
+
+Sometimes you want to optionally match routes and route parameters. For example you may want to match `/dashboard/user` and `/dashboard/user/settings` to the same controller method. In this event you can use optional parameters which are simply replacing the `@` symbol with a `?`:
+
+```python
+Route.get('/dashboard/?option', 'WelcomeController@show')
 ```
 
 ## Domain
@@ -77,7 +92,7 @@ Route.get('/dashboard/@user_id', 'WelcomeController@show').domain('docs')
 Route compilers are a way to match on a certain route parameter by a specific type. For example, if you only watch to match where the `@user_id` is an integer. You can do this by appending a `:` character and compiler name to the parameter:
 
 ```python
-Route.get('/dashboard/@user_id:string', 'WelcomeController@show').name('welcome')
+Route.get('/dashboard/@user_id:string', 'WelcomeController@show')
 ```
 
 Available route compilers are:
