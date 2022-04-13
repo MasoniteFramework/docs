@@ -2,6 +2,7 @@ Masonite has several helpers available. Many helpers are used internally to help
 
 # Url
 
+## Url
 The Url helper allows you to create a full path URL:
 
 ```python
@@ -19,12 +20,14 @@ url.url("/search/users",  query_params={"search": "John Doe" "order": "asc"})
 #== http://masonite.app/users/?search=John%2Doe&order=asc
 ```
 
+## Asset
 You can also generate a URL for an asset:
 
 ```python
 url.asset("s3.invoices", "invoice-01-2021.pdf")
 ```
 
+## Route
 You can also generate a URL for a route by its route name:
 
 ```python
