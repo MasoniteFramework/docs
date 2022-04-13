@@ -116,7 +116,7 @@ All route compilers will need to be added to the top of your `register_routes()`
         #..
 ```
 
-> Note: The compile methods need to happen before the routes are loaded in this method. You may also put it in any method that appears before the `register_routes()` method.
+> Note: The compile methods need to happen before the routes are loaded in this method so make sure it is at the top. You may also put it in any method that appears before the `register_routes()` method.
 
 # Route Groups
 
