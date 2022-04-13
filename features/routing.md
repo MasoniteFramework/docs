@@ -87,6 +87,22 @@ Available route compilers are:
 * `string`
 * `signed`
 
+## Creating Route Compilers
+
+You can also create your own route compilers if you want to be able to support specific regex matches for routes.
+
+All route compilers will need to be added to the top of your `register_routes()` method in your `Kernel.py` file.
+
+```python
+    def register_routes(self):
+        Route.set_controller_locations(self.application.make("controllers.location"))
+        Route.compile("handle", r"([\@\w\-=]+)")
+
+        #..
+```
+
+> Note: The compile methods need to happen before the routes are loaded in this method. You may also put it in any method that appears before the `register_routes()` method.
+
 # Route Groups
 
 Route groups are a great way to group mulitple routes together that have similiar options like a prefix, or multiple routes with the same middleware.
