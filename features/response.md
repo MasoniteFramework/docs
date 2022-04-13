@@ -8,7 +8,7 @@ Cookies on the response class are attached to the response and rendered as part 
 from masonite.response import Response
 
 def show(self, response: Response):
-	response.cookie("key")
+    response.cookie("key")
 ```
 
 You can also set cookies on the response:
@@ -17,7 +17,7 @@ You can also set cookies on the response:
 from masonite.response import Response
 
 def show(self, response: Response):
-	response.cookie("Accepted-Cookies", "True")
+    response.cookie("Accepted-Cookies", "True")
 ```
 
 You can also delete cookies:
@@ -26,7 +26,7 @@ You can also delete cookies:
 from masonite.response import Response
 
 def show(self, response: Response):
-	response.delete_cookie("Accepted-Cookies")
+    response.delete_cookie("Accepted-Cookies")
 ```
 
 # Redirecting
@@ -39,7 +39,7 @@ First you can redirect to a simple URL:
 from masonite.response import Response
 
 def show(self, response: Response):
-	response.redirect('/home')
+    response.redirect('/home')
 ```
 
 You can redirect back to where the user came from:
@@ -48,7 +48,7 @@ You can redirect back to where the user came from:
 from masonite.response import Response
 
 def show(self, response: Response):
-	response.back()
+    response.back()
 ```
 
 If using the back method as part of a form request then you will need to use the back view helper as well:
@@ -68,7 +68,7 @@ You can also redirect to a route by its name:
 from masonite.response import Response
 
 def show(self, response: Response):
-	response.redirect(name='users.home')
+    response.redirect(name='users.home')
 ```
 
 This will find a named route `users.home` like:
@@ -83,7 +83,15 @@ You may also pass parameters to a route if the URL requires it:
 from masonite.response import Response
 
 def show(self, response: Response):
-	response.redirect(name='users.home', {"user_id", 1})
+    response.redirect(name='users.home', {"user_id", 1})
+```
+
+Finally you may also pass query string parameters to the url or route to redirect:
+
+```python
+def show(self, response: Response):
+    response.redirect(name='users.home', {"user_id", 1}, query_params={"mode": "preview"})
+#== will redirect to /dashboard/1?mode=preview
 ```
 
 # Headers
