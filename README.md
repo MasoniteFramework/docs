@@ -1,4 +1,8 @@
-# Introduction and Installation
+
+{% hint style="warning" %}
+You are browsing the `development` version of the documentation for an upcoming version of Masonite. It is subject to change.
+{% endhint %}
+
 
 Stop using old frameworks with just a few confusing features. Masonite is the developer focused dev tool with all the features you need for the rapid development you deserve. Masonite is perfect for beginners getting their first web app deployed or advanced developers and businesses that need to reach for the full fleet of features available.
 
