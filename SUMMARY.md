@@ -40,6 +40,7 @@
 * [Notifications](features/notifications.md)
 * [Package Development](features/package-development.md)
 * [Queues and Jobs](features/queues.md)
+* [Rate Limiting](features/rates.md)
 * [Sessions](features/sessions.md)
 * [Task Scheduling](features/scheduling.md)
 * [Tinker Shell (REPL)](features/tinker.md)
