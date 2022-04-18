@@ -28,8 +28,8 @@ When an exception is raised it will be caught by the ExceptionHandler. Then the 
 1. A `masonite.exception.SomeException` event will be fired.
 2. A specific ExceptionHandler will be used if it exists for the given exception.
 3. Exceptionite will then handle the error by rendering it in the console
-    a. and with the Exceptionite JSON response if accepted content is `application/json`
-    b. else with the Exceptionite HTML error page
+    - and with the Exceptionite JSON response if accepted content is `application/json`
+    - else with the Exceptionite HTML error page
 
 ### In Production
 
@@ -61,7 +61,7 @@ defined for it.
 
 ## HTTP Exceptions
 
-HTTP exceptions are standard exceptions using frequently used HTTP status codes such as 404 and 403.
+HTTP exceptions are standard exceptions using frequently used HTTP status codes such as 500, 404 or 403.
 
 Those exceptions will be rendered by the `HTTPExceptionHandler` with the corresponding status code and the corresponding default
 error template if it exists in `errors/`. (Note that in debug mode this template won't be rendered
