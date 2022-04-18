@@ -174,7 +174,7 @@ def show(self, request: Request):
 If the user is not authenticated then this will be set to `None`
 
 
-# IP
+# IP Address
 
 You can fetch the IP address (ipv4) from which the request has been made by adding the `IpMiddleware`
 to the HTTP middlewares of the project:
