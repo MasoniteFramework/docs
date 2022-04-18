@@ -59,19 +59,43 @@ There are different type of exceptions.
 Simple exceptions will be handled as a 500 Server Error if no [custom exceptions handlers](#adding-new-handlers) are
 defined for it.
 
-## HTTP Exceptions (TODO)
+## HTTP Exceptions
 
-Explain options and how they will be rendered
+HTTP exceptions are standard exceptions using frequently used HTTP status codes such as 404 and 403.
 
-If template is not found 500 error template will be used instead to ensure your error is still rendered.
-List HTTP exceptions here
-- PermissionDenied (403)
-- RouteNotFoundException, RecordNotFound (404)
-- BadRequest (400)
+Those exceptions will be rendered by the `HTTPExceptionHandler` with the corresponding status code and the corresponding default
+error template if it exists in `errors/`. (Note that in debug mode this template won't be rendered
+and the default Exceptionite error page will be rendered instead).
 
-Explain how to use options for those exceptions
+The following HTTP exceptions are bundled into Masonite:
 
-Explain how to create a custom one
+- AuthorizationException (403)
+- RouteNotFoundException (404)
+- ModelNotFound (404)
+
+In a default Masonite project, existing errors views are `errors/404.html`, `errors/403.html` and
+`errors/500.html`. Those views can be customized.
+
+You can also build a custom HTTP exception by setting `is_http_exception=True` to it and by defining
+the `get_response()` and `get_status()` method:
+
+```python
+class ExpiredToken(Exception):
+    is_http_exception = True
+
+    def get_response(self):
+        return "Expired API Token"
+
+    def get_status(self):
+        return 401
+```
+
+When the above exception is raised, Masonite will look for the error view `errors/401.html` in
+the default project views folder and will render it with a `401` status code. The content of `get_response()` method
+will be passed as the `message` context variable to the view.
+
+If this view does not exist the HTML response will be directly the content of the `get_response()` method
+with a `401` status code.
 
 ## Renderable Exceptions
 
