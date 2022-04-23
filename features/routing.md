@@ -14,6 +14,8 @@ ROUTES = [
 
 The first parameter is the URL you would like to be available in your application. In the above example, this will allow anybody to go to the `/welcome` URL.
 
+The second parameter is the [Controller](/features/controllers.md) you want to bind this route to.
+
 ## Available Route Methods
 
 You may choose to define any one of the available verbs:
@@ -32,6 +34,75 @@ In addition to these route verbs you can use built in routes:
 ```python
 Route.redirect('/old', '/new', status=301)
 Route.permanent_redirect('/old', '/new')
+```
+
+## Controller Binding
+
+There are multiple ways to bind a controller to a route.
+
+### String Binding
+You can use a string binding defining the controller class and its method `{ControllerClass}@{controller_method}`:
+
+```python
+Route.get('/welcome', 'WelcomeController@show')
+```
+
+{% hint style="warning" %}
+When using string binding, you must ensure that this controller class can be imported correctly and that
+the controller class is in a [registered controller location](/features/controllers.md#controller-locations).
+{% endhint %}
+
+Note that this is the prefered way as it will avoid circular dependencies as no import is required
+in your route file.
+
+### Class Binding
+
+You can import your controllers in your route file and provide a class name or a method class:
+
+```python
+from app.controllers import WelcomeController
+
+Route.get('/welcome', WelcomeController)
+```
+
+Here as no method has been defined the `__call__` method of the class will be bound to this route. It means that
+you should define this method in your controller:
+
+```python
+class WelcomeController(Controller):
+
+    def __call__(self, request:Request):
+        return "Welcome"
+```
+
+For convenience, you can provide the method class instead:
+
+```python
+from app.controllers import WelcomeController
+
+Route.get('/welcome', WelcomeController.show)
+```
+
+### Instance Binding
+
+You can also bind the route to a controller instance:
+
+```python
+from app.controllers import WelcomeController
+
+controller = WelcomeController()
+
+Route.get('/welcome', controller)
+```
+
+Here as no method has been defined the `__call__` method of the class will be bound to this route. It means that
+you should define this method in your controller:
+
+```python
+class WelcomeController(Controller):
+
+    def __call__(self, request:Request):
+        return "Welcome"
 ```
 
 # Route Options

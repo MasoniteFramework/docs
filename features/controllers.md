@@ -132,3 +132,38 @@ def show(self, request: Request):
   return User.find(request.param('user_id'))
 ```
 
+
+
+# Controller Locations
+
+Masonite will be able to pick up controllers (inheriting `Controller` class) using [string binding](../features/routing.md#controller-binding) in the registered controllers locations.
+
+The default registered controllers location is `app/controllers` and is defined in project `Kernel.py` configuration file:
+
+```python
+self.application.bind("controllers.location", "app/controllers")
+# ...
+Route.set_controller_locations(self.application.make("controllers.location"))
+```
+
+## Setting locations
+
+You can override the registered controllers location in `Kernel.py` file by editing the default
+binding `controllers.location`.
+
+## Adding locations
+
+You can multiple additional controller locations with `add_controller_locations`:
+
+```python
+from masonite.routes import Route
+
+Route.add_controller_locations("app/http/controllers", "other_module/controllers")
+```
+
+The best place to do this is in your `Kernel.py` file in the `register_routes()` method.
+
+{% hint style="warning" %}
+You should do it before registering routes, else registering routes will fail as Masonite will fail
+to resolve controller classes.
+{% endhint %}
