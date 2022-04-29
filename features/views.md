@@ -4,7 +4,7 @@ Views in Masonite are a great way to return HTML in your controllers. Views have
 
 By default, all templates for your views are located in the `templates` directory. To create a template, simply create a `.html` file inside this directory which we will reference to later.
 
-```html
+```markup
 <!-- Template in templates/welcome.html -->
 <html>
     <body>
@@ -58,11 +58,24 @@ View.share({
 
 Then inside your template you can do:
 
-```html
+```markup
 <div>
   Copyright {{ copyright }}
 </div>
 ```
+
+You will typically do this inside your app
+[Service Provider](../architecture/service-providers.md) (if you don't have one, you should [create one](../architecture/service-providers.md#creating-a-provider)):
+
+```python
+from masonite.facades import View
+
+class AppProvider(Provider):
+
+    def register(self):
+        View.share({'copyright': '2021'})
+```
+
 
 # View Composing
 
@@ -76,6 +89,18 @@ You may also pass a list of templates:
 
 ```python
 View.composer(['dashboard', 'dashboard/users'], {'copyright': '2021'})
+```
+
+You will typically do this inside your app
+[Service Provider](../architecture/service-providers.md) (if you don't have one, you should [create one](../architecture/service-providers.md#creating-a-provider)):
+
+```python
+from masonite.facades import View
+
+class AppProvider(Provider):
+
+    def register(self):
+        View.composer('dashboard', {'copyright': '2021'})
 ```
 
 # Helpers
@@ -255,33 +280,29 @@ def slug(variable, replace_with):
 
 ## Adding Filters
 
-We can add filters simply using the `filter` method on the `ViewClass` class. This will look something like:
+Adding filters is typically done inside your app
+[Service Provider](../architecture/service-providers.md) (if you don't have one, you should [create one](../architecture/service-providers.md#creating-a-provider)):
 
 ```python
-from masonite.view import View
+from masonite.facades import View
 
-class UserModelProvider(ServiceProvider):
-    """Binds the User model into the Service Container."""
 
-    wsgi = False
+class AppProvider(Provider):
 
-    ...
-
-    def boot(self, view: View):
-        view.filter('slug', self.slug)
+    def register(self):
+        View.('slug', self.slug)
 
     @staticmethod
     def slug(item):
         return item.replace(' ', '-')
 ```
 
-> Make sure that you add filters in a [Service Provider](../architecture/service-providers.md) that has `wsgi=False` set. This prevents filters from being added on every single request which is not needed.
 
 # View Tests
 
 View tests are simply custom boolean expressions that can be used in your templates. We may want to run boolean tests on specific objects to assert that they pass a test. For example we may want to test if a user is an owner of a company like this:
 
-```html
+```markup
 <div>
     {% if user is a_company_owner %}
         hey boss
@@ -291,23 +312,23 @@ View tests are simply custom boolean expressions that can be used in your templa
 </div>
 ```
 
-In order to do this we need to add a test on the `View` class. We can do this in a Service Provider. The Service Provider you choose should preferably have a `wsgi=False` attribute so the test isn't added on every single request which could potentially slow down the application.
+In order to do this we need to add a test on the `View` class. We can once again do this inside the app [Service Provider](../architecture/service-providers.md)
 
 The code is simple and looks something like this:
 
 ```python
-from masonite.view import View
-# ...
+from masonite.facades import View
+
 
 def a_company_owner(user):
     # Returns True or False
     return user.owner == 1
 
-class SomeProvider(Provider):
-    # ...
-    def register(self, view: View):
-                  # template alias
-        view.test('a_company_owner', a_company_owner)
+class AppProvider(Provider):
+
+    def register(self):
+        # template alias
+        View.test('a_company_owner', a_company_owner)
 ```
 
 That's it! Now we can use the `a_company_owner` in our templates just like the first code snippet above!
