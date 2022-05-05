@@ -27,6 +27,7 @@ Route.put('/welcome', 'WelcomeController@show')
 Route.patch('/welcome', 'WelcomeController@show')
 Route.delete('/welcome', 'WelcomeController@show')
 Route.options('/welcome', 'WelcomeController@show')
+Route.view('/url', 'view.name', {'key': 'value'})
 ```
 
 In addition to these route verbs you can use built in routes:
@@ -158,6 +159,7 @@ You can specify the subdomain you want this route to be matched to. If you only 
 Route.get('/dashboard/@user_id', 'WelcomeController@show').domain('docs')
 ```
 
+
 ## Route Compilers
 
 Route compilers are a way to match on a certain route parameter by a specific type. For example, if you only watch to match where the `@user_id` is an integer. You can do this by appending a `:` character and compiler name to the parameter:
@@ -209,6 +211,24 @@ ROUTES = [
 ```
 
 The prefix and name options will prefix the options set in the routes inside the group. In the above example, the names of the routes would `dashboard.settings` with a URL of `/dashboard/settings` and `dashboard.monitor` and a URL of `/dashboard/monitor`.
+
+# Route Views
+
+Route views are a quick way to return a view quickly without needing to build a controller just to return a view:
+
+```python
+ROUTES = [
+  Route.view("/url", "view.name", {"key": "value"})
+]
+```
+
+You could optionally pass in the methods you want this to be able to support if you needed to:
+
+```python
+ROUTES = [
+  Route.view("/url", "view.name", {"key": "value"}, method=["get", "post"])
+]
+```
 
 # List Routes
 
