@@ -247,6 +247,14 @@ Get the URL to a location:
 </form>
 ```
 
+## DD
+
+To help in debugging, you can use the `dd()` helper
+
+```markup
+{{ dd(variable) }}
+```
+
 
 # View Filters
 
