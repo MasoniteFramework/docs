@@ -14,7 +14,7 @@ This allows Masonite to be extremely modular.
 
 There are a few objects that are resolved by the container by default. These include your controller methods \(which are the most common and you have probably used them so far\) driver and middleware constructors and any other classes that are specified in the documentation.
 
-There are four methods that are important in interacting with the container: `bind`, `make` and `resolve`
+There are three methods that are important in interacting with the container: `bind`, `make` and `resolve`
 
 ### Bind
 
@@ -155,7 +155,7 @@ app.collect(Command)
 
 This is the most useful part of the container. It is possible to retrieve objects from the container by simply passing them into the parameter list of any object. Certain aspects of Masonite are resolved such as controller methods, middleware and drivers.
 
-For example, we can type hint that we want to get the `Request` class and put it into our controller. All controller methods are resolved by the container. Masonite 2.1 only supports annotations resolving by default:
+For example, we can type hint that we want to get the `Request` class and put it into our controller. All controller methods are resolved by the container.
 
 ```python
 def show(self, request: Request):
@@ -167,6 +167,27 @@ In this example, before the show method is called, Masonite will look at the par
 Masonite will know that you are trying to get the `Request` class and will actually retrieve that class from the container. Masonite will search the container for a `Request` class regardless of what the key is in the container, retrieve it, and inject it into the controller method. Effectively creating an IOC container with dependency injection. capabilities Think of this as a **get by value** instead of a **get by key** like the earlier example.
 
 Pretty powerful stuff, eh?
+
+Masonite will also resolve your custom, application-specific classes **including those that you have not explicitly bound with `app.bind()`.**
+
+Continuing with the example above, the following will work out of the box (assuming the relevant classes exist), without needing to bind the custom classes in the container:
+
+```python
+# elsewhere...
+class MyService:
+    def __init__(self, some_other_dependency: SomeOtherClass):
+        pass
+    
+    def do_something(self):
+        pass
+
+
+# in a controller...
+def show(self, request: Request, service: MyService):
+    request.user()
+    service.do_something()
+```
+
 
 ### Resolving Instances
 
