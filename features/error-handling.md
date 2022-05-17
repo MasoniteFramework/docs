@@ -71,23 +71,33 @@ The following HTTP exceptions are bundled into Masonite:
 
 - AuthorizationException (403)
 - RouteNotFoundException (404)
-- ModelNotFound (404)
+- ModelNotFoundException (404)
+- MethodNotAllowedException (405)
 
 In a default Masonite project, existing errors views are `errors/404.html`, `errors/403.html` and
 `errors/500.html`. Those views can be customized.
 
 You can also build a custom HTTP exception by setting `is_http_exception=True` to it and by defining
-the `get_response()` and `get_status()` method:
+the `get_response()`, `get_status()` and  `get_headers()` methods:
 
 ```python
 class ExpiredToken(Exception):
     is_http_exception = True
+
+    def __init__(self, token):
+        super().__init__()
+        self.expired_at = token.expired_at
 
     def get_response(self):
         return "Expired API Token"
 
     def get_status(self):
         return 401
+
+    def get_headers(self):
+        return {
+            "X-Expired-At": self.expired_at
+        }
 ```
 
 When the above exception is raised, Masonite will look for the error view `errors/401.html` in
