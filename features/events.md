@@ -12,7 +12,9 @@ Events are simple classes that you can create wherever you like:
 $ python craft event UserAdded
 ```
 
-This will create a simple class we can later emit
+This will create a simple class we can later emit.
+
+You can also fire events without an Event class. The event will just be a specific key you can listen to.
 
 ## Creating A Listener
 
@@ -40,26 +42,55 @@ The handle method will run when the listener runs. It will pass the event as the
 
 After your events and listeners are created you will need to register them to the event class.
 
-You can do this via a service provider:
+You can do this via the `AppProvider` or a [Service Provider](../architecture/service-providers.md) you will create yourself:
 
 ```python
 class EventsProvider(Provider):
-        def register(self):
-            self.application.make('event').listen(UserAddedEvent, [WelcomeListener])
+    def register(self):
+        self.application.make('event').listen(UserAddedEvent, [WelcomeListener])
 ```
+
+You can also listen to events without Event classes:
+
+```python
+class EventsProvider(Provider):
+    def register(self):
+        self.application.make('event').listen("users.added", [WelcomeListener])
+```
+
+Using event strings allow to use wildcard event listening. For example if the application is emitting multiple events
+related to users such as `users.added`, `users.updated` and `users.deleted` you can listen to all of those events at once:
+
+```python
+event.listen("users.*", [UsersListener])
+```
+
 
 ## Firing Events
 
-To fire an event you can use the `fire` method from the `Event` class:
+To fire an event with an event class you can use the `fire` method from the `Event` class:
 
 ```python
 from app.events import UserAddedEvent
 from masonite.events import Event
 
 class RegisterController:
-  def register(self, event: Event):
-    # Register user
-    event.fire(UserAddedEvent)
+    def register(self, event: Event):
+        # Register user
+        event.fire(UserAddedEvent)
+```
+
+To fire a simple event without a class you will use the same method:
+
+```python
+from app.events import UserAddedEvent
+from masonite.events import Event
+
+class RegisterController:
+    def register(self, event: Event):
+        # ...
+        # Register user
+        event.fire("users.added", user)
 ```
 
 ## Building a Welcome Email Listener
@@ -92,8 +123,8 @@ You can then register the event inside the provider:
 
 ```python
 class EventsProvider(Provider):
-        def register(self):
-            self.application.make('event').listen(UserAddedEvent, [WelcomeListener])
+    def register(self):
+        self.application.make('event').listen(UserAddedEvent, [WelcomeListener])
 ```
 
 When you emit the `UserAdded` event inside the controller, or somewhere else in the project, it will now send this email out.
