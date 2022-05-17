@@ -2,7 +2,7 @@ CORS is sometimes important to activate in your application. CORS allows you to 
 
 These "preflight" requests are OPTIONS requests that are sent at the same time as other non safe requests (POST, PUT, DELETE) and specifically designed to verify the CORS headers before allowing the other request to go through.
 
-To learn more about CORS please read [MDN documentation][https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS].
+To learn more about CORS please read [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 
 You can enable CORS protection by simply adding the CorsMiddleware into you middleware stack.
 
