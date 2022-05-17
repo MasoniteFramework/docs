@@ -19,8 +19,8 @@
 * [Static Files](features/static-files.md)
 * [Views](features/views.md)
 * [Environments](features/environments.md)
+* [Configuration](features/configuration.md)
 * [Error Handling](features/error-handling.md)
-
 
 ## Features
 
