@@ -86,4 +86,4 @@ This is mostly useful during tests, when you want to override a configuration op
         Config.set("mail.from_email", old_value)
 ```
 
-But if you simply want to have different configuration depending on the environment (development, testing or production) you should rely instead on [environment variables](../features/environments.md#) used to define configuration options.
+But if you simply want to have different configuration depending on the environment (development, testing or production) you should rely instead on [environment variables](/features/environments.md) used to define configuration options.
