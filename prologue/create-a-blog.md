@@ -758,7 +758,7 @@ Let's create a `single` method so we show a single post.
 ```python
 from app.models.Post import Post
 from masonite.request import Request
-from masonite.view import View
+from masonite.views import View
 ...
 
 def single(self, view: View, request: Request):

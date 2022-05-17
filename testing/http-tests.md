@@ -49,7 +49,7 @@ request = self.withHeaders({"X-TEST": "value"}).get("/").request
 self.assertEqual(request.header("X-Test"), "value")
 ```
 
-## Cookies
+## Request Cookies
 
 You may use the `withCookies()` method to set cookie values before making a request. This method accepts a dictionary of name / value pairs:
 
@@ -66,6 +66,27 @@ takes a given `User` record and authenticate him during the request.
 user = User.find(1)
 self.actingAs(user).get("/")
 ```
+
+The [authentication guard](../features/authentication.md#guards) can also be specified to authenticate
+the user with the given guard:
+
+```python
+user = User.find(1)
+self.actingAs(user, "web").get("/")
+```
+
+The user will be persisted only during the lifetime of the test. Each request made during the test
+will be authenticated with the given user. If you need to logout the user in the test, you can use `actingAsGuest()`
+method:
+
+```python
+def test_auth(self):
+    user = User.find(1)
+    self.actingAs(user).get("/home")
+
+    self.actingAsGuest().get("/about")
+```
+
 
 ## CSRF Protection
 
@@ -127,6 +148,8 @@ Masonite provides a variety of assertions methods to inspect and verify request/
 - [assertCreated](#assertcreated)
 - [assertSuccessful](#assertsuccessful)
 - [assertUnauthorized](#assertunauthorized)
+- [assertForbidden](#assertforbidden)
+- [assertError](#asserterror)
 - [assertHasHeader](#asserthasheader)
 - [assertHeaderMissing](#assertheadermissing)
 - [assertLocation](#assertlocation)
@@ -135,6 +158,7 @@ Masonite provides a variety of assertions methods to inspect and verify request/
 - [assertPlainCookie](#assertplaincookie)
 - [assertCookieExpired](#assertcookieexpired)
 - [assertCookieNotExpired](#assertcookienotexpired)
+- [assertCookieMissing](#assertcookiemissing)
 - [assertSessionHas](#assertsessionhas)
 - [assertSessionMissing](#assertsessionmissing)
 - [assertSessionHasErrors](#assertsessionhaserrors)
@@ -145,7 +169,6 @@ Masonite provides a variety of assertions methods to inspect and verify request/
 - [assertViewMissing](#assertviewmissing)
 - [assertAuthenticated](#assertauthenticated)
 - [assertGuest](#assertguest)
-- [assertAuthenticatedAs](#assertauthenticatedas)
 - [assertHasHttpMiddleware](#asserthashttpmiddleware)
 - [assertHasRouteMiddleware](#asserthasroutemiddleware)
 - [assertHasController](#asserthascontroller)
@@ -250,6 +273,14 @@ Assert that the response has as 403 status code
 
 ```python
 self.get("/").assertForbidden()
+```
+
+### assertError
+
+Assert that the response has as 500 status code
+
+```python
+self.get("/").assertError()
 ```
 
 ### assertHasHeader
@@ -395,7 +426,21 @@ self.get("/").assertViewMissing(key)
 Assert that a user is authenticated after the current request.
 
 ```python
-self.get("/").assertAuthenticated()
+self.get("/login").assertAuthenticated()
+```
+
+If a user instance is given it will assert that this user is authenticated:
+
+```python
+user = User.find(1)
+self.get("/login").assertAuthenticated(user)
+```
+
+The [authentication guard](../features/authentication.md#guards) can also be specified to check the
+authentication state on the given guard.
+
+```python
+self.get("/api/login").assertAuthenticated(user, "jwt")
 ```
 
 ### assertGuest
@@ -406,13 +451,9 @@ Assert that a user is not authenticated after the current request.
 self.get("/").assertGuest()
 ```
 
-### assertAuthenticatedAs
+The [authentication guard](../features/authentication.md#guards) can also be specified to check the
+authentication state on the given guard.
 
-Assert that a given user is authenticated after the current request.
-
-```python
-self.get("/").assertAuthenticatedAs(user)
-```
 
 ### assertHasHttpMiddleware
 
@@ -510,3 +551,63 @@ Assert that response is JSON and does not contain given path. The path can be a 
 ```python
 self.get("/").assertJsonMissing(path)
 ```
+
+## Dump Data During Tests
+
+Handy `dump` and `dd` helpers are available on the `HTTPTestResponse` returned by `get`, `post`, `put`, `patch`, or `delete` during a
+unit test.
+
+- [dumpRequestHeaders](#dumprequestheaders)
+- [dumpResponseHeaders](#dumpresponseheaders)
+- [ddHeaders](#ddheaders)
+- [dumpSession](#dumpsession)
+- [ddSession](#ddssession)
+
+### dumpRequestHeaders
+
+After getting a test response back from a request you can dump request headers in console by
+chaining this helper to the response:
+
+```python
+self.get("/register").assertRedirect().dumpRequestHeaders().assertSessionHas("success")
+```
+
+### dumpResponseHeaders
+
+After getting a test response back from a request you can dump response headers in console:
+
+```python
+self.get("/").dumpResponseHeaders()
+```
+
+
+### ddHeaders
+
+After getting a test response back from a request you can dump response and request headers in console and stop the
+test execution:
+
+```python
+self.get("/register").assertRedirect().ddHeaders().assertSessionHas("success")
+```
+
+Here `assertSessionHas` will not be executed as the test will be stopped before.
+
+### dumpSession
+
+After getting a test response back from a request you can dump session data in console by
+chaining this helper to the response:
+
+```python
+self.get("/register").assertRedirect().dumpSession().assertSessionHas("success")
+```
+
+### ddSession
+
+After getting a test response back from a request you can dump session data in console and stop the
+test execution:
+
+```python
+self.get("/register").assertRedirect().ddSession().assertSessionHas("success")
+```
+
+Here `assertSessionHas` will not be executed as the test will be stopped before.

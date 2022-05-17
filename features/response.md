@@ -39,7 +39,7 @@ First you can redirect to a simple URL:
 from masonite.response import Response
 
 def show(self, response: Response):
-    response.redirect('/home')
+    return response.redirect('/home')
 ```
 
 You can redirect back to where the user came from:
@@ -48,14 +48,14 @@ You can redirect back to where the user came from:
 from masonite.response import Response
 
 def show(self, response: Response):
-    response.back()
+    return response.back()
 ```
 
 If using the back method as part of a form request then you will need to use the back view helper as well:
 
 ```html
 <form>
-	{{ csrf_field }}
+  {{ csrf_field }}
   {{ back() }}
   <input type="text">
   ...
@@ -68,7 +68,7 @@ You can also redirect to a route by its name:
 from masonite.response import Response
 
 def show(self, response: Response):
-    response.redirect(name='users.home')
+    return response.redirect(name='users.home')
 ```
 
 This will find a named route `users.home` like:
@@ -83,16 +83,58 @@ You may also pass parameters to a route if the URL requires it:
 from masonite.response import Response
 
 def show(self, response: Response):
-    response.redirect(name='users.home', {"user_id", 1})
+    return response.redirect(name='users.home', {"user_id", 1})
 ```
 
 Finally you may also pass query string parameters to the url or route to redirect:
 
 ```python
 def show(self, response: Response):
-    response.redirect(name='users.home', {"user_id", 1}, query_params={"mode": "preview"})
+    return response.redirect(name='users.home', {"user_id", 1}, query_params={"mode": "preview"})
 #== will redirect to /dashboard/1?mode=preview
 ```
+
+## with_success
+
+You can redirect by flashing a success message into session:
+
+```python
+def show(self, response: Response):
+    return response.redirect('/home').with_success("Preferences have been saved !")
+```
+
+## with_errors
+
+You can redirect by flashing an error message or errors messages into session:
+
+```python
+def show(self, request: Request, response: Response):
+    return response.redirect('/home').with_errors("This account is disabled !")
+```
+
+You can directly use validation errors:
+
+```python
+def show(self, request: Request, response: Response):
+    errors = request.validate({
+        "name": required
+    })
+    return response.redirect('/home').with_errors(errors)
+```
+
+
+## with_input
+
+You can redirect by flashing form input into session, to re-populate the form when there are errors:
+
+```python
+def show(self, request: Request, response: Response):
+    errors = request.validate({
+        "name": required
+    })
+    return response.redirect('/home').with_errors(errors).with_input()
+```
+
 
 # Headers
 

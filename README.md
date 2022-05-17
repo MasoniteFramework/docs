@@ -33,7 +33,7 @@ In order to use Masonite, you’ll need:
 * Pip3
 
 {% hint style="warning" %}
-All commands of python and pip in this documentation is assuming they are pointing to the correct Python 3 versions. For example, anywhere you see the `python` command ran it is assuming that is a Python 376+ Python installation. If you are having issues with any installation steps just be sure the commands are for Python 3.7+ and not 2.7 or below.
+All commands of python and pip in this documentation is assuming they are pointing to the correct Python 3 versions. For example, anywhere you see the `python` command ran it is assuming that is a Python 3.7+ Python installation. If you are having issues with any installation steps just be sure the commands are for Python 3.7+ and not 2.7 or below.
 {% endhint %}
 
 ### Linux

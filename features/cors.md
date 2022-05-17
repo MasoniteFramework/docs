@@ -1,38 +1,19 @@
-CORS is sometimes important to activate in your application. CORS allows you to have a stronger layer of security over your application by specifying specific CORS headers in your responses. This is done through "preflight" requests. 
+CORS is sometimes important to activate in your application. CORS allows you to have a stronger layer of security over your application by specifying specific CORS headers in your responses. This is done through "preflight" requests.
 
-These "preflight" requests are OPTIONS requests that are sent at the same time as other non safe requests (POST, PUT, DELETE) an specifically designed to verify the CORS headers before allowing the other request to go through.
+These "preflight" requests are OPTIONS requests that are sent at the same time as other non safe requests (POST, PUT, DELETE) and specifically designed to verify the CORS headers before allowing the other request to go through.
 
-> If your application receives a preflight requests without having CORS enabled then you will get an error in the response.
+To learn more about CORS please read [MDN documentation][https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS].
+
+You can enable CORS protection by simply adding the CorsMiddleware into you middleware stack.
 
 # Getting Started
 
-To enable cors in Masonite, we simply need to create a CORSMiddleware file inside your project, inherit from Masonite's class, set your headers and add it to the HTTP middleware inside your Kernel.
-
-So first create your middleware class wherever you put your middleware. Here's an example class:
-
-```python
-from masonite.middleware import Middleware
-from masonite.middleware.route import CorsMiddleware
-
-class CorsMiddleware(CorsMiddleware):
-
-    headers = {
-        'Access-Control-Allow-Origin': "*",
-        "Access-Control-Allow-Methods": "DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT",
-        "Access-Control-Allow-Headers": "Content-Type, Accept, X-Requested-With",
-        "Access-Control-Max-Age": "3600",
-        "Access-Control-Allow-Credentials": "true"
-    }
-```
-
-You may add any valid CORS header. You can learn more about CORS headers in the [Mozilla Documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
-
-Once created you can add it to your `http_middleware` key in your `Kernel.py` class. 
+To enable CORS in Masonite, you just need to add the CorsMiddleware in your middleware stack to your `http_middleware` key in your `Kernel.py` class.
 
 **It is best to put the CORS middleware as the first middleware to prevent possible errors.**
 
 ```python
-from app.middleware.CorsMiddleware import CorsMiddleware
+from masonite.middleware import CorsMiddleware
 
 #..
 class Kernel:
@@ -44,4 +25,94 @@ class Kernel:
     #..
 ```
 
-Your application will now allow CORS requests to successfully go through.
+Your application will now handle CORS requests to successfully go through.
+
+# Configuration
+
+All CORS settings are configured in the dedicated configuration file `config/cors.py`. The default
+configuration options are:
+
+```python
+PATHS = ["api/*"]
+
+ALLOWED_METHODS = ["*"]
+
+ALLOWED_ORIGINS = ["*"]
+
+ALLOWED_HEADERS = ["*"]
+
+EXPOSED_HEADERS = []
+
+MAX_AGE = None
+
+SUPPORTS_CREDENTIALS = False
+```
+
+## Paths
+
+You can define paths for which you want CORS protection to be enabled. Multiple paths can be defined
+in the list and wildcards (*) can be used to define the paths.
+
+```python
+PATHS = ["api/*", "auth/"]
+```
+
+Here all requests made to `auth/` and to all API routes will be protected with CORS.
+
+## Allowed Methods
+
+The default is to protect all HTTP methods but a list of methods can be specified instead. This will set
+the `Access-Control-Allow-Methods` header in the response.
+
+For example CORS can be enabled for sensitive requests:
+
+```python
+ALLOWED_METHODS = ["POST", "PUT", "PATCH"]
+```
+
+## Allowed Origins
+
+The default is to allow all origins to access a resource on the server. Instead you can define a list of origins
+allowed to access the resources defined above (paths). Wildcards (*) can be used. This will set the `Access-Control-Allow-Origin` header in the response.
+
+```python
+ALLOWED_ORIGINS = ["*.example.com"]
+```
+
+Here `blog.example.com` and `forum.example.com` will e.g. be authorized to make requests to the application paths defined above.
+
+## Allowed Headers
+
+The default is to authorized all request headers during a CORS request, but you can define a list of headers confirming that these are permitted headers to be used with the actual request. This will set the `Access-Control-Allow-Headers` header in the response.
+
+```python
+ALLOWED_HEADERS = ["X-Test-1", "X-Test-2"]
+```
+
+## Exposed Headers
+
+The default is an empty list but you can define which headers will be accessible to the broswser e.g. with Javascript (with `getResponseHeader()`). This will set the `Access-Control-Expose-Headers` header in the response.
+
+```python
+EXPOSED_HEADERS = ["X-Client-Test-1"]
+```
+
+## Max Age
+
+This will set the `Access-Control-Max-Age` header in the response and will indicates how long the results of a preflight request can be cached. The default is `None` meaning it preflight request results will never be cached.
+
+You can indicate a cache duration in seconds:
+
+```python
+MAX_AGE = 3600
+```
+
+## Supports Credentials
+
+This will set the `Access-Control-Allow-Credentials` and will indicate whether or not the response to the request can be exposed when the `credentials` flag is true. The default is `False`.
+
+You can read more about it [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#access-control-allow-credentials).
+
+```python
+SUPPORTS_CREDENTIALS = True
+```

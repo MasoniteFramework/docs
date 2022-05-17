@@ -1,8 +1,8 @@
-The request and the response in Masonite work together to form a well formed response that a browser can read and render. The Request class is used to fetch any incoming cookies, headers, URL's, paths, request methods and other incoming data. 
+The request and the response in Masonite work together to form a well formed response that a browser can read and render. The Request class is used to fetch any incoming cookies, headers, URL's, paths, request methods and other incoming data.
 
 # Cookies
 
-> **Although both the request and response classes have headers and cookies, in most instances, when fetching cookies and headers, it should be fetched from the Request class. When setting headers and cookies it should be done on the response class.** 
+> **Although both the request and response classes have headers and cookies, in most instances, when fetching cookies and headers, it should be fetched from the Request class. When setting headers and cookies it should be done on the response class.**
 
 To get cookies you can do so simply:
 
@@ -30,7 +30,7 @@ def show(self, request: Request):
 
 # Headers
 
-> Although both the request and response classes have headers and cookies, in most instances, when fetching cookies and headers, it should be fetched from the Request class. When setting headers and cookies it should be done on the response class. 
+> Although both the request and response classes have headers and cookies, in most instances, when fetching cookies and headers, it should be fetched from the Request class. When setting headers and cookies it should be done on the response class.
 
 To get a request header you can do so simply:
 
@@ -172,3 +172,51 @@ def show(self, request: Request):
 ```
 
 If the user is not authenticated then this will be set to `None`
+
+
+# IP Address
+
+You can fetch the IP address (ipv4) from which the request has been made by adding the `IpMiddleware`
+to the HTTP middlewares of the project:
+
+```python
+# Kernel.py
+from masonite.middleware import IpMiddleware
+
+class Kernel:
+    http_middleware = [
+      # ...
+      IpMiddleware
+    ]
+```
+
+Then you can use the `ip()` helper:
+
+```python
+def show(self, request: Request):
+    request.ip()
+```
+
+IP address is retrieved from various HTTP request headers in the following order:
+
+- HTTP_CLIENT_IP
+- HTTP_X_FORWARDED_FOR
+- HTTP_X_FORWARDED
+- HTTP_X_CLUSTER_CLIENT_IP
+- HTTP_FORWARDED_FOR
+- HTTP_FORWARDED
+- REMOTE_ADDR
+
+The first non-private and non-reserved IP address found by resolving the different headers will
+be returned by the helper.
+
+The headers used and their order can be customized by overriding the `IpMiddleware` and changing
+the `headers` attribute:
+
+```python
+class CustomIpMiddleware(IpMiddleware):
+    headers = [
+      "HTTP_CLIENT_IP",
+      "REMOTE_ADDR"
+    ]
+```

@@ -148,6 +148,52 @@ with self.captureOutput() as output:
 self.assertEqual(output.getvalue().strip(), "Hello World !")
 ```
 
+## Overriding Debug Mode
+
+Sometimes you would need to change the debug mode value during the lifetime of a test. To do this
+you can use the `debugMode()` context manager:
+
+```python
+# run the code context with DEBUG enabled
+with self.debugMode() as output:
+    self.get("/").assertError()
+
+# run the code context with DEBUG disabled
+with self.debugMode(False) as output:
+    self.get("/").assertError()
+```
+
+## Dumping Data
+
+During tests execution, `print()` statements will not be visible. You can use the `dump()` test
+helper to dump data to console during a test:
+
+```python
+def test_can_create_user(self):
+    user = User.find(1)
+    self.get("/register").assertRedirect()
+    self.dump("Hello")
+    self.dump(user, "User with ID 1")
+```
+
+Note that you can provide a second argument to name the dump in console.
+
+## Stopping Test
+
+If you want to programmatically stop the test execution you can use the `stop()` helper. You can
+even provide a reason.
+
+```python
+def test_can_create_user(self):
+    user = User.find(1)
+    self.get("/register").assertRedirect()
+    self.stop("for debugging")  #== the test will be stopped here.
+
+    self.post("/login", {"email": user.email, "password": "secret"})
+```
+
+Test are stopped by returning a pytest 2 exit code (user interruption).
+
 # Test Helpers
 
 Masonite comes with different helpers that can ease writing tests. Some of them have already been explained in sections above.
