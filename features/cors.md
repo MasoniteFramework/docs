@@ -61,8 +61,10 @@ Here all requests made to `auth/` and to all API routes will be protected with C
 
 ## Allowed Methods
 
-The default is to protect all HTTP methods but a list of methods can be specified instead. For example CORS
-can be enabled for sensitive requests:
+The default is to protect all HTTP methods but a list of methods can be specified instead. This will set
+the `Access-Control-Allow-Methods` header in the response.
+
+For example CORS can be enabled for sensitive requests:
 
 ```python
 ALLOWED_METHODS = ["POST", "PUT", "PATCH"]
@@ -70,14 +72,14 @@ ALLOWED_METHODS = ["POST", "PUT", "PATCH"]
 
 ## Allowed Origins
 
-The default is to allow all origins to make a request to the application. Instead you can define a list of origins
-allowed to make requests on the paths define above. Wildcards (*) can be used.
+The default is to allow all origins to access a resource on the server. Instead you can define a list of origins
+allowed to access the resources defined above (paths). Wildcards (*) can be used. This will set the `Access-Control-Allow-Origin` header in the response.
 
 ```python
 ALLOWED_ORIGINS = ["*.example.com"]
 ```
 
-Here `blog.example.com` and `forum.example.com` will e.g. be authorized to make requests to the application.
+Here `blog.example.com` and `forum.example.com` will e.g. be authorized to make requests to the application paths defined above.
 
 ## Allowed Headers
 
