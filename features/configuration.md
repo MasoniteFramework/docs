@@ -1,6 +1,6 @@
 Configuration files in Masonite are gathered in one folder named `config` in default projects.
 
-Each feature can have some configuration in its own file named after the feature. For example you will find mail related configuration in `config/mail.py` file.
+Each feature can have some options in its own file named after the feature. For example you will find mail related options in `config/mail.py` file.
 
 
 # Getting Started
@@ -14,7 +14,7 @@ Then values are accessed based on the file they belong to and a dotted path can 
 Given the following `config/mail.py` file:
 
 ```python
-from src.masonite.environment import env
+from masonite.environment import env
 
 FROM_EMAIL = env("MAIL_FROM", "no-reply@masonite.com")
 
@@ -50,7 +50,7 @@ Config.get("database.mysql.port", 3306)
 or the `config` helper:
 
 ```python
-from masonite.helpers import config
+from masonite.configuration import config
 
 config("mail.from_email")
 # a default value can be provided

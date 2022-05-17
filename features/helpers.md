@@ -95,40 +95,6 @@ if optional(request.user()).admin == 1:
   #.. do something
 ```
 
-# Config
-
-You can easily get configuration values using dot notation:
-
-To get the application key for example:
-
-```python
-from masonite.configuration import config
-
-key = config("application.key")
-```
-
-Event more convenient is the ability to use dot notation even inside a dictionary inside a configuration file.
-
-Assuming you have a dictionary set inside a configuration like this:
-
-```python
-# config/appliation.py
-
-HASHING = {
-    "default": "bcrypt",
-    "bcrypt": {"rounds": 10},
-    "argon2": {"memory": 1024, "threads": 2, "time": 2},
-}
-```
-
-You may use dot notation to get any value inside the `HASHING` constant like this:
-
-```python
-from masonite.configuration import config
-
-key = config("application.hashing.bcrypt.rounds") #== 10
-```
-
 # Dump
 
 You can easily dump variables into console for debugging, from inside a controller for example:
