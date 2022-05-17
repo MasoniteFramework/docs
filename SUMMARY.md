@@ -49,6 +49,7 @@
 
 ## Architecture
 
+* [Request Lifecycle](architecture/request-lifecycle.md)
 * [Service Providers](architecture/service-providers.md)
 * [Service Container](architecture/service-container.md)
 
