@@ -178,3 +178,31 @@ You can add this binding in your AppProvider or in `Kernel.py`.
 {% endhint %}
 
 Now when your application throws a `ZeroDivisionError`, Masonite will use your handler rather than Masonite's own exception handlers.
+
+
+
+# Catch All Exceptions
+
+If you want to hook up an error tracking service such as Sentry or Rollbar you can do this through event listeners: each time an exception is raised, a `masonite.exception.{TheExceptionType}` is fired, allowing to run any custom logic.
+
+First [create a listener](/features/events.md#creating-a-listener) to run your custom logic:
+
+```python
+class SentryListener:
+
+    def __init__(self, application):
+        self.application = application
+
+    def handle(self, exception):
+        # process the exception with Sentry
+        # ...
+```
+
+In a [Service Provider](/architecture/service-providers.md) you then need to register this listener:
+
+```python
+class AppProvider(Provider):
+
+    def register(self):
+        self.application.make("event").listen("masonite.exception.*", [SentryListener])
+```
