@@ -209,16 +209,16 @@ Then you need to create a custom controller to implement your logic
 # app/controllers/BroadcastController.py
 from masonite.controllers import Controller
 from masonite.broadcasting import Broadcast
+from masonite.helpers import optional
 
 
 class BroadcastController(Controller):
 
     def authorize(self, request: Request, broadcast: Broadcast):
         channel_name = request.input("channel_name")
-        else:
         _, user_id = channel_name.split("-")
 
-        if int(user_id) == request.user().id:
+        if int(user_id) == optional(request.user()).id:
             return broadcast.driver("pusher").authorize(
                 channel_name, request.input("socket_id")
             )
