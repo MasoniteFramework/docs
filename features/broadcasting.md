@@ -189,6 +189,43 @@ class VerifyCsrfToken(Middleware):
 ```
 The reason for this is that the broadcast client will not send the CSRF token along with the POST authorization request.
 
+### Authorizing
+
+The default behaviour is to authorize everyone to access any private channels.
+
+If you want to customize channels authorization logic you can add your own broadcast authorization route with a custom controller.
+Let's imagine you want to authenticate channels per users, meaning that user with ID `1` will be able to authenticate to channel `private-1`, user with ID `2` to channel `private-2` and so on.
+
+First you need to remove `Broadcast.routes()` from your routes and add your own route
+
+```python
+# routes/web.py
+Route.post("/pusher/auth", "BroadcastController@authorize")
+```
+
+Then you need to create a custom controller to implement your logic
+
+```python
+# app/controllers/BroadcastController.py
+from masonite.controllers import Controller
+from masonite.broadcasting import Broadcast
+
+
+class BroadcastController(Controller):
+
+    def authorize(self, request: Request, broadcast: Broadcast):
+        channel_name = request.input("channel_name")
+        else:
+        _, user_id = channel_name.split("-")
+
+        if int(user_id) == request.user().id:
+            return broadcast.driver("pusher").authorize(
+                channel_name, request.input("socket_id")
+            )
+        else:
+            return False
+```
+
 ## Presence Channels
 
 Presence channels work exactly the same as private channels except you can see who else is inside this channel. This is great for chatroom type applications.
@@ -208,23 +245,11 @@ This will emit events on the `presence-channel_name` channel.
 
 ### Routing
 
-Adding the authentication route is also the exact same as private channels:
+Adding the authentication route is the same as for [Private channels](#routing).
 
-```python
-from masonite.broadcasting import Broadcast
+### Authorizing
 
-ROUTES = [
-  # Normal route list here
-]
-
-ROUTES += Broadcast.routes()
-```
-
-This will create a route you can authenticate you private channel on the frontend. The authorization route will be `/broadcasting/authorize` but you can change this to anything you like:
-
-```python
-ROUTES += Broadcast.routes(auth_route="/pusher/auth")
-```
+Authorizing channels is the same as for [Private channels](#authorizing).
 
 # Examples
 
