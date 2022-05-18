@@ -72,6 +72,8 @@ class UserAdded(CanBroadcast):
         return Channel("channel_name")
 ```
 
+Note that the event name emitted to the client will be the name of the class. Here it would be `UserAdded`.
+
 # Broadcasting Events
 
 You can broadcast the event using the `Broadcast` facade or by resolving `Broadcast` class from container.
@@ -175,19 +177,33 @@ ROUTES += Broadcast.routes()
 This will create a route you can authenticate you private channel on the frontend. The authorization route will be `/broadcasting/authorize` but you can change this to anything you like:
 
 ```python
-ROUTES += Broadcast.routes(auth_route="/pusher/auth")
+ROUTES += Broadcast.routes(auth_route="/pusher/user-auth")
 ```
 
-You will also need to add the `/pusher/auth` route to the CSRF exemption.
+Pusher is expecting the authentication route to be `/pusher/user-auth` [by default](https://pusher.com/docs/channels/server_api/authenticating-users/#client-side-setting-the-authentication-endpoint). If you want to change this client-side you can do it
+when creating Pusher instance
+
+```javascript
+const pusher = new Pusher("478b45309560f3456211", {
+  cluster: "eu",
+  userAuthentication: {
+    endpoint: "/broadcast/auth",
+  },
+});
+```
+
+You will also need to add the `/pusher/user-auth` route to the CSRF exemption.
 
 ```python
 class VerifyCsrfToken(Middleware):
 
     exempt = [
-        '/pusher/auth'
+        '/pusher/user-auth'
     ]
 ```
 The reason for this is that the broadcast client will not send the CSRF token along with the POST authorization request.
+
+If you want to keep CSRF protection you can read more about it [here](https://pusher.com/docs/channels/server_api/authenticating-users/#csrf-protected-authentication-endpoint).
 
 ### Authorizing
 
@@ -200,7 +216,7 @@ First you need to remove `Broadcast.routes()` from your routes and add your own 
 
 ```python
 # routes/web.py
-Route.post("/pusher/auth", "BroadcastController@authorize")
+Route.post("/pusher/user-auth", "BroadcastController@authorize")
 ```
 
 Then you need to create a custom controller to implement your logic
@@ -209,16 +225,16 @@ Then you need to create a custom controller to implement your logic
 # app/controllers/BroadcastController.py
 from masonite.controllers import Controller
 from masonite.broadcasting import Broadcast
+from masonite.helpers import optional
 
 
 class BroadcastController(Controller):
 
     def authorize(self, request: Request, broadcast: Broadcast):
         channel_name = request.input("channel_name")
-        else:
         _, user_id = channel_name.split("-")
 
-        if int(user_id) == request.user().id:
+        if int(user_id) == optional(request.user()).id:
             return broadcast.driver("pusher").authorize(
                 channel_name, request.input("socket_id")
             )
@@ -255,12 +271,139 @@ Authorizing channels is the same as for [Private channels](#authorizing).
 
 To get started more easily with event broadcasting in Masonite, two small examples are available here:
 - Sending public app releases notification to every users (using [Public channels](#public-channels))
-- Sending private user notifications to the logged in users (using [Private channels](#private-channels))
+- Sending private alerts to admin users (using [Private channels](#private-channels))
 
 ## Sending public app releases notification
 
-Examples are coming soon.
+To do this we need to create a `NewRelease` Broadcast event and trigger this event from the backend.
 
-## Sending private user notifications
+```python
+# app/broadcasts/NewRelease.py
+from masonite.broadcasting import CanBroadcast, Channel
 
-Examples are coming soon.
+class NewRelease(CanBroadcast):
+
+    def __init__(self, version):
+        self.version = version
+
+    def broadcast_on(self):
+        return Channel("releases")
+
+    def broadcast_with(self):
+        return {"message": f"Version {self.version} has been released !"}
+```
+
+```python
+from masonite.facades import Broadcast
+from app.broadcasts import NewRelease
+
+Broadcast.channel(NewRelease("4.0.0"))
+```
+
+On the frontend we need to listen to `releases` channel and subscribe to `NewRelease` events to display an alert box with the release message.
+
+```html
+<html lang="en">
+<head>
+  <title>Document</title>
+  <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+</head>
+<body>
+  <script>
+    const pusher = new Pusher("478b45309560f3456211", {
+      cluster: "eu"
+    });
+
+    const channel = pusher.subscribe('releases');
+    channel.bind('NewRelease', (data) => {
+      alert(data.message)
+    })
+  </script>
+</body>
+</html>
+```
+
+## Sending private alerts to admin users
+
+Let's imagine our User model has two roles `basic` and `admin` and that we want to send alerts to
+admin users only. The basic users should not be authorized to subscribe to the alerts.
+
+To achieve this on the backend we need to:
+- create a custom authentication route to authorize admin users only on channel `private-admins`
+- create a `AdminUserAlert` Broadcast event
+- trigger this event from the backend.
+
+Let's first create the authentication route and controller
+
+```python
+# routes/web.py
+Route.post("/pusher/user-auth", "BroadcastController@authorize")
+```
+
+```python
+# app/controllers/BroadcastController.py
+from masonite.controllers import Controller
+from masonite.broadcasting import Broadcast
+from masonite.helpers import optional
+
+
+class BroadcastController(Controller):
+
+    def authorize(self, request: Request, broadcast: Broadcast):
+        channel_name = request.input("channel_name")
+        if optional(request.user()).role == "admin" and channel_name == "private-admins":
+            return broadcast.driver("pusher").authorize(
+                channel_name, request.input("socket_id")
+            )
+        else:
+            return True
+```
+
+```python
+# app/broadcasts/UserAlert.py
+from masonite.broadcasting import CanBroadcast, Channel
+
+class AdminUserAlert(CanBroadcast):
+
+    def __init__(self, message, level="error"):
+        self.message = message
+        self.level = level
+
+    def broadcast_on(self):
+        return Channel("private-admins")
+
+    def broadcast_with(self):
+        return {"message": self.message, "level": self.level}
+```
+
+```python
+from masonite.facades import Broadcast
+from app.broadcasts import AdminUserAlert
+
+Broadcast.channel(AdminUserAlert("Some dependencies are outdated !", level="warning"))
+```
+
+On the frontend we need to listen to `private-admins` channel and subscribe to `AdminUserAlert` events to display an alert box with the message.
+
+```html
+<html lang="en">
+<head>
+  <title>Document</title>
+  <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+</head>
+<body>
+  <script>
+    const pusher = new Pusher("478b45309560f3456211", {
+      cluster: "eu"
+    });
+
+    const channel = pusher.subscribe('private-admins');
+    channel.bind('AdminUserAlert', (data) => {
+      alert(`[${data.level.toUpperCase()}] ${data.message}`)
+    })
+  </script>
+</body>
+</html>
+```
+
+You're ready to start broadcasting events in your app !
