@@ -351,12 +351,20 @@ class BroadcastController(Controller):
 
     def authorize(self, request: Request, broadcast: Broadcast):
         channel_name = request.input("channel_name")
-        if optional(request.user()).role == "admin" and channel_name == "private-admins":
+        authorized = True
+
+        # check permissions for private-admins channel else authorize every other channels
+        if channel_name == "private-admins":
+            # check that user is logged in and admin
+            if optional(request.user()).role != "admin":
+                authorized = False
+
+        if authorized:
             return broadcast.driver("pusher").authorize(
                 channel_name, request.input("socket_id")
             )
         else:
-            return True
+            return False
 ```
 
 ```python
