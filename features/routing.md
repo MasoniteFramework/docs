@@ -28,6 +28,8 @@ Route.patch('/welcome', 'WelcomeController@show')
 Route.delete('/welcome', 'WelcomeController@show')
 Route.options('/welcome', 'WelcomeController@show')
 Route.view('/url', 'view.name', {'key': 'value'})
+Route.resource('/users', 'UsersController')
+Route.api('/users', 'UsersApiController')
 ```
 
 In addition to these route verbs you can use built in routes:

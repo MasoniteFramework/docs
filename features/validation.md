@@ -40,26 +40,68 @@ This validation will read like "user and email are required and the terms must b
 Note you can either pass in a single value or a list of values
 {% endhint %}
 
-# Displaying Errors in views
+# Displaying Errors in Views
 
-You can easily display your errors in your views with a snippet like this:
+You can simply display validation errors in views like this:
 
 ```html
 @if session().has('errors'):
 <div class="bg-yellow-400">
-    <div class="bg-yellow-200 text-yellow-800 px-4 py-2">
-        <ul>
-            @for key, error_list in session().get('errors').items():
-                @for error in error_list
-                    <li>{{ error }}</li>
-                @endfor
-            @endfor
-        </ul>
-    </div>
+  <div class="bg-yellow-200 text-yellow-800 px-4 py-2">
+    <ul>
+      @for key, error_list in session().get('errors').items():
+        @for error in error_list
+          <li>{{ error }}</li>
+        @endfor
+      @endfor
+    </ul>
+  </div>
 </div>
 @endif
 ```
 
+If you want to handle errors in views specifically you will need to add the `ShareErrorsInSessionMiddleware` middleware into your
+route middlewares. `errors` will be injected to views as a [MessageBag](#message-bag) instance allowing to handle errors easily:
+
+```html
+@if errors.any():
+<div class="bg-yellow-400">
+  <div class="bg-yellow-200 text-yellow-800 px-4 py-2">
+    <ul>
+      @for key, message in errors.all().items()
+        <li>{{ message }}</li>
+      @endfor
+    </ul>
+  </div>
+</div>
+@endif
+
+<form method="post" action="/contact">
+  {{ csrf_field }}
+  <div>
+    <label for="name">Name</label>
+    <input type="text" name="name" placeholder="Name">
+    @if errors.has('name')
+    <span>{{ errors.get('name')[0] }}</span>
+    @endif
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="email" name="email" placeholder="Email">
+    @if errors.has('email')
+    <span>{{ errors.get('email')[0] }}</span>
+    @endif
+  </div>
+  <div>
+    <label for="message">Message</label>
+    <textarea name="message" placeholder="Message"></textarea>
+    @if errors.has('message')
+    <span>{{ errors.get('message')[0] }}</span>
+    @endif
+  </div>
+  <button type="submit">Send</button>
+</form>
+```
 
 # Creating a Rule
 

@@ -282,7 +282,7 @@ You should define the related `route_notification_for_slack` method on your noti
 ```python
 class User(Model, Notifiable):
 
-    def route_notification_for_slack(self, notification):
+    def route_notification_for_slack(self):
         """Examples for Incoming Webhooks."""
         # one webhook
         return "https://hooks.slack.com/services/..."
@@ -293,7 +293,7 @@ class User(Model, Notifiable):
 ```python
 class User(Model, Notifiable):
 
-    def route_notification_for_slack(self, notification):
+    def route_notification_for_slack(self):
         """Examples for Slack Web API."""
         # one channel name
         return "#general"
@@ -342,12 +342,12 @@ You can also define (globally) `sms_from` which is the phone number or name that
 You should define a `to_vonage` method on the notification class to specify how to build the sms notification content.
 
 ```python
-from masonite.notification.components import VonageComponent
+from masonite.notification.components import Sms
 
 class Welcome(Notification):
 
     def to_vonage(self, notifiable):
-        return VonageComponent().text("Welcome!")
+        return Sms().text("Welcome!")
 
     def via(self, notifiable):
         return ["vonage"]
@@ -358,13 +358,13 @@ class Welcome(Notification):
 If the SMS notification contains unicode characters, you should call the unicode method when constructing the notification
 
 ```python
-VonageComponent().text("Welcome unicode message!").set_unicode()
+Sms().text("Welcome unicode message!").set_unicode()
 ```
 
 The global `sms_from` number can be overriden inside the notification class:
 
 ```python
-VonageComponent().text("Welcome!").sms_from("+123 456 789")
+Sms().text("Welcome!").sms_from("+123 456 789")
 ```
 
 #### Routing to notifiable
@@ -374,7 +374,7 @@ You should define the related `route_notification_for_vonage` method on your not
 ```python
 class User(Model, Notifiable):
 
-    def route_notification_for_vonage(self, notification):
+    def route_notification_for_vonage(self):
         return self.phone
         # or return [self.mobile_phone, self.land_phone]
 ```
@@ -494,7 +494,7 @@ By default notifications will be broadcasted to channel(s) defined in `broadcast
 ```python
 class User(Model, Notifiable):
 
-    def route_notification_for_broadcast(self, notification):
+    def route_notification_for_broadcast(self):
         return ["general", f"user_{self.id}"]
 ```
 
