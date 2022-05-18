@@ -29,23 +29,19 @@ Your application will now handle CORS requests to successfully go through.
 
 # Configuration
 
-All CORS settings are configured in the dedicated configuration file `config/cors.py`. The default
+All CORS settings are configured in the dedicated security configuration file `config/security.py`. The default
 configuration options are:
 
 ```python
-PATHS = ["api/*"]
-
-ALLOWED_METHODS = ["*"]
-
-ALLOWED_ORIGINS = ["*"]
-
-ALLOWED_HEADERS = ["*"]
-
-EXPOSED_HEADERS = []
-
-MAX_AGE = None
-
-SUPPORTS_CREDENTIALS = False
+CORS = {
+    "paths": ["api/*"],
+    "allowed_methods": ["*"],
+    "allowed_origins": ["*"],
+    "allowed_headers": ["*"],
+    "exposed_headers": [],
+    "max_age": None,
+    "supports_credentials": False,
+}
 ```
 
 ## Paths
@@ -54,7 +50,7 @@ You can define paths for which you want CORS protection to be enabled. Multiple 
 in the list and wildcards (*) can be used to define the paths.
 
 ```python
-PATHS = ["api/*", "auth/"]
+    "paths": ["api/*", "auth/"]
 ```
 
 Here all requests made to `auth/` and to all API routes will be protected with CORS.
@@ -67,7 +63,7 @@ the `Access-Control-Allow-Methods` header in the response.
 For example CORS can be enabled for sensitive requests:
 
 ```python
-ALLOWED_METHODS = ["POST", "PUT", "PATCH"]
+    "allowed_methods": ["POST", "PUT", "PATCH"]
 ```
 
 ## Allowed Origins
@@ -76,7 +72,7 @@ The default is to allow all origins to access a resource on the server. Instead 
 allowed to access the resources defined above (paths). Wildcards (*) can be used. This will set the `Access-Control-Allow-Origin` header in the response.
 
 ```python
-ALLOWED_ORIGINS = ["*.example.com"]
+    "allowed_origins": ["*.example.com"]
 ```
 
 Here `blog.example.com` and `forum.example.com` will e.g. be authorized to make requests to the application paths defined above.
@@ -86,7 +82,7 @@ Here `blog.example.com` and `forum.example.com` will e.g. be authorized to make 
 The default is to authorized all request headers during a CORS request, but you can define a list of headers confirming that these are permitted headers to be used with the actual request. This will set the `Access-Control-Allow-Headers` header in the response.
 
 ```python
-ALLOWED_HEADERS = ["X-Test-1", "X-Test-2"]
+    "allowed_headers": ["X-Test-1", "X-Test-2"]
 ```
 
 ## Exposed Headers
@@ -94,7 +90,7 @@ ALLOWED_HEADERS = ["X-Test-1", "X-Test-2"]
 The default is an empty list but you can define which headers will be accessible to the broswser e.g. with Javascript (with `getResponseHeader()`). This will set the `Access-Control-Expose-Headers` header in the response.
 
 ```python
-EXPOSED_HEADERS = ["X-Client-Test-1"]
+    "exposed_headers": ["X-Client-Test-1"]
 ```
 
 ## Max Age
@@ -104,7 +100,7 @@ This will set the `Access-Control-Max-Age` header in the response and will indic
 You can indicate a cache duration in seconds:
 
 ```python
-MAX_AGE = 3600
+    "max_age": 3600
 ```
 
 ## Supports Credentials
@@ -114,5 +110,5 @@ This will set the `Access-Control-Allow-Credentials` and will indicate whether o
 You can read more about it [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#access-control-allow-credentials).
 
 ```python
-SUPPORTS_CREDENTIALS = True
+    "supports_credentials": True
 ```
