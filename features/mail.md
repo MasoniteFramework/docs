@@ -56,9 +56,9 @@ You can modify the behavior of the mailable by using any one of these options
 | `html('Welcome to Masonite')`           | Specifies the HTML version of the email.                     |
 | `view('mailables.view', {})`            | Specifies a view file with data to render the HTML version of the email |
 | `priority(1)`                           | Specifies the priority of the email, values should be 1 through 5. |
-| `low_priority()`                        | Sets the priortiy of the email to 1                          |
-| `high_priority()`                       | Sets the priortiy of the email to 5                          |
-| `attach('MAY.pdf', 'path/invoice.pdf')` | Attaches a file to the email                                 |
+| `low_priority()`                        | Sets the priortiy of the email to 5.                          |
+| `high_priority()`                       | Sets the priortiy of the email to 1.                         |
+| `attach('MAY.pdf', 'path/invoice.pdf')` | Attaches a file to the email.                                |
 
 # Sending Attachments
 
