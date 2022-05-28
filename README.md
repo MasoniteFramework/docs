@@ -63,7 +63,7 @@ $ sudo apt-get install python3.7-dev python3-pip libssl-dev build-essential pyth
 ## Installation
 
 {% hint style="success" %}
-Be sure to join the [Discord Community](https://discord.gg/DWW5E9uM) for help or guidance.
+Be sure to join the [Discord Community](https://slack.masoniteproject.com) for help or guidance.
 {% endhint %}
 
 Masonite excels at being simple to install and get going. If you are coming from previous versions of Masonite, the order of some of the installation steps have changed a bit.
