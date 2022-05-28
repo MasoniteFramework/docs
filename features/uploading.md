@@ -76,7 +76,8 @@ def store(self, storage: Storage, request: Request):
 | `move('/file1.jpg', '/file2,jpg')`        | Moves a file from 1 directory to another                                                                                                                 |
 | `prepend('file.log', 'content')`          | Prepends content to a file                                                                                                                               |
 | `append('file.log', 'content')`           | Appends content to a file                                                                                                                                |
-| `put('file.log', 'content')`              | Puts content to a file                                                                                                                                   |
+| `put('file.log', 'content')`              | Puts content to a file                
+| `get('file.log')`                         | Gets content of a file                |
 | `put_file('directory', resource, "name")` | Puts a file resource to a directory. Must be an instance of Masonite's `UploadedFile`. Takes an optional third `name` parameter to specify the file name |
 
 ### Uploading Form Files
