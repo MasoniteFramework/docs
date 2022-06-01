@@ -200,7 +200,7 @@ First [create a listener](/features/events.md#creating-a-listener) to run your c
 ```python
 class SentryListener:
 
-    def handle(self, exception):
+    def handle(self, exception_type: str, exception: Exception):
         # process the exception with Sentry
         # ...
 ```
