@@ -26,7 +26,7 @@ class Welcome(Mailable):
 
 # Sending Mailables
 
-You can send your mailable inside your controller easily by using the `Mail` class:
+You can send your mailable inside your controller easily by resolving the `Mail` class in your controller:
 
 ```python
 from masonite.mail import Mail
@@ -39,6 +39,15 @@ class WelcomeController(Controller):
 ```
 
 Notice at this point you can call any building options you want on the mailables to modify the behavior of it before sending.
+
+Note that you can also use the `Mail` facade anywhere in your code:
+
+```python
+from masonite.facades import Mail
+from app.mailables.Welcome import Welcome
+
+Mail.mailable(Welcome().to('user@example.com')).send()
+```
 
 # Mail Options
 
