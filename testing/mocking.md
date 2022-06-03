@@ -69,11 +69,11 @@ Here is an example of how to mock notifications sending in your tests:
 ```python
 def setUp(self):
     super().setUp()
-    self.fake("notifications")
+    self.fake("notification")
 
 def tearDown(self):
     super().tearDown()
-    self.restore("notifications")
+    self.restore("notification")
 
 def test_mock_notification(self):
     notification = self.application.make("notification")
