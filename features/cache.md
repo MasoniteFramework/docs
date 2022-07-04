@@ -40,7 +40,7 @@ For production applications, it is recommended to use a more efficient driver su
 File cache driver is storing data by saving it on the server's filesystem. It can be used as is
 without third party service.
 
-Location where Masonite will store cache data files defaults to `storage/framework/cache` in projet
+Location where Masonite will store cache data files defaults to `storage/framework/cache` in project
 root directory but can be changed with `location` parameter.
 
 ## Redis
