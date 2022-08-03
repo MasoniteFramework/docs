@@ -27,7 +27,7 @@ from app.User import User
 class UserModelProvider(ServiceProvider):
 
     def register(self):
-        self.applicationlication.bind('User', User)
+        self.application.bind('User', User)
 
     def boot(self):
         pass
