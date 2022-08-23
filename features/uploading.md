@@ -61,7 +61,7 @@ The first and most simplest method is taking a file and putting text into it. Fo
 
 ```python
 from masonite.filesystem import Storage
-from masonite.requests import Request
+from masonite.request import Request
 
 def store(self, storage: Storage, request: Request):
   storage.disk('local').put('errors/info.log', 'errors')
@@ -86,7 +86,7 @@ When uploading files from a form you will find the `put_file` method more useful
 
 ```python
 from masonite.filesystem import Storage
-from masonite.requests import Request
+from masonite.request import Request
 
 def store(self, storage: Storage, request: Request):
   path = storage.disk('local').put_file('avatars', request.input('avatar'))
