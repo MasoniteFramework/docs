@@ -1,4 +1,56 @@
-Masonite comes with a simple way to store sessions. Currently the only session driver available is the `cookie` driver which will store all session data in the users cookies.
+Masonite comes with a simple way to store sessions. Masonite supports the following session drivers: [Cookie](#cookie) and [Redis](#redis).
+
+# Configuration
+
+Session configuration is located at `config/session.py` file. In this file, you can configure which driver
+to use.
+
+Masonite is configured to use the Cookie session driver by default, named `cookie`.
+
+{% code title="config/session.py" %}
+```python
+DRIVERS = {
+    "default": "cookie",
+    "cookie": {},
+    "redis": {
+        "host": "127.0.0.1",
+        "port": 6379,
+        "password": "",
+        "options": {"db": 1},  # redis module driver specific options
+        "timeout": 60 * 60,
+        "namespace": "masonite4",
+    },
+}
+```
+{% endcode %}
+
+## Cookie
+
+Cookie driver will store all session data in the users cookies. It can be used as is.
+
+## Redis
+
+Redis driver is requiring the `redis` python package, that you can install with:
+```bash
+pip install redis
+```
+
+Then you should define Redis as default driver and configure it with your Redis server parameters:
+```python
+DRIVERS = {
+    "default": "redis",
+    "redis": {
+        "host": "127.0.0.1",
+        "port": 6379,
+        "password": "",
+        "options": {"db": 1},  # redis module driver specific options
+        "timeout": 60 * 60,
+        "namespace": "masonite4",
+    },
+}
+```
+
+Finally ensure that the Redis server is running and you're ready to start using sessions.
 
 # Saving Session Data
 

@@ -1,95 +1,73 @@
-# Hash ID's
+Masonite provides secure hashing for storing user passwords or other data. Bcrypt and Argon2 protocols
+can be used with Masonite (default is Bcrypt).
 
-The Masonite hashing feature is a very useful feature to prevent exposing ID's in your application.
+# Configuration
 
-Many times you need to expose your database primary keys to the frontend. For example, when updating a record, you might need to pass in a primary key value to a URL like `/users/10/settings`.
+Hashing configuration is located at `config/application.py` file. In this file, you can configure which protocol
+to use.
 
-Typically you want to hide these key values from a hacker trying to change these values easily.
-
-With the Masonite hashing feature you can change a value like `10` to `l9avmeG` and prevent exposing those sensitive integer values.
-
-## Setup
-
-The Masonite hashing feature automatically decodes values before they get to the controller. To do this it you need to specify both a middleware to help decode the values as well as the provider to register the helper in the templates.
-
-For the middleare you can add it easily:
-
+{% code title="config/application.py" %}
 ```python
-from masonite.essentials.middleware import HashIDMiddleware
-
-# ..
-route_middleware = {
-  "web": [
-    HashIDMiddleware,
-    SessionMiddleware, 
-    EncryptCookies,
-    VerifyCsrfToken,
-  ],
+HASHING = {
+    "default": "bcrypt",
+    "bcrypt": {"rounds": 10},
+    "argon2": {"memory": 1024, "threads": 2, "time": 2},
 }
 ```
+{% endcode %}
 
-You should put the Hash ID middleware towards the top of the middleware stack so it will decode the request properly before getting to the other middleware in the stack.
+# Hashing a string
 
-The provider should also be added:
-
-```python
-from masonite.providers import HashIDProvider
-
-PROVIDERS = [
-  # ..
-  HashIDProvider,
-]
-```
-
-This will register a template helper and some other useful features.
-
-## Helper
-
-You can use the helper directly to encode or decode integers easily:
+You can use the `Hash` facade to easily hash a string (e.g. a password):
 
 ```python
-from masonite.essentials.helpers import hashid
+from masonite.facades import Hash
 
-def show(self):
-  hashid(10) #== l9avmeG
-  hashid('l9avmeG', decode=True) #== 10
+Hash.make("secret") #== $2b$10$3Nm9sWFYhi.GUJ...
 ```
 
-## Templates
-
-Inside your templates you can use the `hashid` template helper:
-
-```markup
-<!-- user.id == 10 -->
-<input type="hidden" name="user_id" value="{{ hashid(user.id) }}"
-```
-
-When submitted to the backend the will now be the normal integer value of the user id:
+Note that you can return a hash as bytes with:
 
 ```python
-def store(self, request: Request):
-  request.input("user_id") #== 10
+from masonite.facades import Hash
+
+Hash.make_bytes("secret") #== b"$2b$10$3Nm9sWFYhi.GUJ..."
 ```
 
-## Route Parameters
+# Checking a string matches a Hash
 
-When using the template helper, you may also use the hashid feature for request params:
-
-If you have a route like this:
+To check that a plain-text string corresponds to a given hash you can do:
 
 ```python
-Route.get('/user/@user_id/updates', 'Controller@method')
+from masonite.facades import Hash
+
+Hash.check("secret", "$2b$10$3Nm9sWFYhi.GUJ...") #== True
 ```
 
-```markup
-<!-- user.id == 10 -->
-<form action="/user/{{ user.id }}/update" method="POST">
-</form>
-```
+# Verifying a Hash needs to be re-hashed
 
-Inside your controller you are able to get the unhashed request parameter:
+You can determine if the work factor used by the hashing protocol has changed since the string was hashed using `needs_rehash`:
 
 ```python
-def store(self, request: Request):
-  request.param('user_id') #== 10
+from masonite.facades import Hash
+
+Hash.needs_rehash("$2b$10$3Nm9sWFYhi.GUJ...") #== True
+```
+
+# Options
+
+You can change hashing protocol configuration on the fly for all Hash methods:
+
+```python
+from masonite.facades import Hash
+
+Hash.make("secret", options={"rounds": 5})
+```
+
+You can also change protocol on the fly:
+
+```python
+from masonite.facades import Hash
+
+Hash.make("secret", driver="argon2", options={"memory": 512, "threads": 8, "time": 2})
 ```
