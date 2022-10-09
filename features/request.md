@@ -111,9 +111,9 @@ def show(self, request: Request):
   request.get_host() #== example.com
 ```
 
-# Input
+# Inputs
 
-Input can be from any kind of request method. In Masonite, fetching the input is the same no matter which request method it is.
+Inputs can be from any kind of request method. In Masonite, fetching the input is the same no matter which request method it is.
 
 To fetch an input we can do:
 
@@ -135,6 +135,26 @@ from masonite.request import Request
 def show(self, request: Request):
   # GET /dashboard
   request.input('user_id', 5) #== 5
+```
+
+To fetch all inputs from request we can do:
+
+```python
+from masonite.request import Request
+
+def show(self, request: Request):
+  request.all() #== {"user_id": 1, "name": "John", "email": "john@masoniteproject.com"}
+```
+
+Or we can only fetch some inputs:
+
+To fetch all inputs from request we can do:
+
+```python
+from masonite.request import Request
+
+def show(self, request: Request):
+  request.only("user_id", "name") #== {"user_id": 1, "name": "John"}
 ```
 
 # Route Params
