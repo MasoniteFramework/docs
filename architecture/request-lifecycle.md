@@ -1,8 +1,8 @@
-It's important to know the life cycle of the request so you can understand what is going on under the hood in order to write better software. Whenever you have a better understanding of how your development tools work, you will feel more confident as you'll understand what exactly is going on. This documentation will try to explain in as much detail as needed the flow of the request from initiation to execution. To read about how to use the `Request` class, read the [Requests](../the-basics/requests.md) documentation.
+It's important to know the life cycle of the request so you can understand what is going on under the hood in order to write better software. Whenever you have a better understanding of how your development tools work, you will feel more confident as you'll understand what exactly is going on. This documentation will try to explain in as much detail as needed the flow of the request from initiation to execution. To read about how to use the `Request` class, read the [Requests](/features/request.md) documentation.
 
 # Overview
 
-Masonite is bootstrapped via [Service Providers](service-providers.md), these providers load features, hooks, drivers and other objects into the [Service Container](service-container.md) which can then be pulled out by you, the developer, and used in your views, middleware and drivers.
+Masonite is bootstrapped via [Service Providers](/architecture/service-providers.md), these providers load features, hooks, drivers and other objects into the [Service Container](/architecture/service-container.md) which can then be pulled out by you, the developer, and used in your views, middleware and drivers.
 
 With that being said, not all Service Providers need to be ran on every request and there are good times to load objects into the container. For example, loading routes into the container does not need to be ran on every request. Mainly because they won't change before the server is restarted again.
 
@@ -20,9 +20,7 @@ Also, more importantly, the WSGI key is binded into the container at this time. 
 This behavior can be changed by swapping that Service Provider with a different one if you do not want to use Whitenoise.
 {% endhint %}
 
-Once all the register methods are ran and all the boot methods of Service Providers where wsgi is false, and we have a WSGI key in the container, we can startup the server by using the value of the WSGI key.
-
-We then make an instance of the WSGI key from the container and set it to an application variable in order to better show what is happening. Then this is where the WSGI server is started.
+Once all the register methods are ran and all the boot methods of Service Providers are ran, we can startup the server.
 
 # The Server
 
@@ -61,7 +59,7 @@ class SomeMiddleware:
     ...
 ```
 
-This will inject the `Request` class into the constructor when that middleware is executed. Read more about how middleware works in the [Middleware](../advanced/middleware.md) documentation.
+This will inject the `Request` class into the constructor when that middleware is executed. Read more about how middleware works in the [Middleware](/features/middleware.md) documentation.
 
 This provider loads the ability to use sessions, adds a session helper to all views and even attaches a session attribute to the request class.
 
