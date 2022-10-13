@@ -21,6 +21,7 @@
 * [Environments](features/environments.md)
 * [Configuration](features/configuration.md)
 * [Error Handling](features/error-handling.md)
+* [Logging](features/logging.md)
 
 ## Features
 
