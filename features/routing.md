@@ -176,6 +176,7 @@ Available route compilers are:
 * `int` (alias for integer)
 * `string`
 * `signed`
+* `uuid`
 
 ## Creating Route Compilers
 
