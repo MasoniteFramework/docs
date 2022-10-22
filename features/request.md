@@ -156,6 +156,43 @@ from masonite.request import Request
 def show(self, request: Request):
   request.only("user_id", "name") #== {"user_id": 1, "name": "John"}
 ```
+### Getting Dictionary Input
+
+If your input is a dictionary you can access nested data in two ways. Take this code example:
+
+```python
+"""
+Request Payload: 
+{
+"user": {
+    "id": 1,
+    "addresses": [
+        {"id": 1, "street": "A Street"},
+        {"id": 2, "street": "B Street"}
+    ],
+	"name":{
+		"first":"user",
+		"last":"A"
+	}
+ }
+}
+"""
+```
+
+You can either access it normally:
+
+```python
+request.input('user')['name']['last'] # A
+```
+Or you can use dot notation to fetch the value for simplicity:
+
+```python
+request.input('user.name.last') # A
+```
+You can also use a \* wildcard to get all values from a dictionary list.:
+```python
+request.input('user.addresses.*.id') # [1,2]
+```
 
 # Route Params
 
