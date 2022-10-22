@@ -158,11 +158,11 @@ def show(self, request: Request):
 ```
 ### Getting Dictionary Input
 
-If your input is a dictionary you have two choices how you want to access the dictionary.Take this code example:
+If your input is a dictionary you can access nested data in two ways.Take this code example:
 
 ```python
 """
-Payload: 
+Request Payload: 
 {
 "user": {
     "id": 1,
