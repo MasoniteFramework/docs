@@ -50,7 +50,7 @@ STORES = {
 Two new providers have been created, that you will need to add them in `config/providers.py`file.
 
 ```python
-from masonite.providers import PresetsProvider, SecurityProvider
+from masonite.providers import PresetsProvider, SecurityProvider, LoggingProvider
 
 #...
 
@@ -58,6 +58,7 @@ PROVIDERS = [
     FrameworkProvider,
     HelpersProvider,
     SecurityProvider, # insert here
+    LoggingProvider, # insert here
     RouteProvider,
     #..
     ValidationProvider,
