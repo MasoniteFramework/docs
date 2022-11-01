@@ -61,7 +61,7 @@ The first and most simplest method is taking a file and putting text into it. Fo
 
 ```python
 from masonite.filesystem import Storage
-from masonite.requests import Request
+from masonite.request import Request
 
 def store(self, storage: Storage, request: Request):
   storage.disk('local').put('errors/info.log', 'errors')
@@ -76,7 +76,8 @@ def store(self, storage: Storage, request: Request):
 | `move('/file1.jpg', '/file2,jpg')`        | Moves a file from 1 directory to another                                                                                                                 |
 | `prepend('file.log', 'content')`          | Prepends content to a file                                                                                                                               |
 | `append('file.log', 'content')`           | Appends content to a file                                                                                                                                |
-| `put('file.log', 'content')`              | Puts content to a file                                                                                                                                   |
+| `put('file.log', 'content')`              | Puts content to a file                
+| `get('file.log')`                         | Gets content of a file                |
 | `put_file('directory', resource, "name")` | Puts a file resource to a directory. Must be an instance of Masonite's `UploadedFile`. Takes an optional third `name` parameter to specify the file name |
 
 ### Uploading Form Files
@@ -85,7 +86,7 @@ When uploading files from a form you will find the `put_file` method more useful
 
 ```python
 from masonite.filesystem import Storage
-from masonite.requests import Request
+from masonite.request import Request
 
 def store(self, storage: Storage, request: Request):
   path = storage.disk('local').put_file('avatars', request.input('avatar'))

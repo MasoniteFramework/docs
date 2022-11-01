@@ -83,14 +83,14 @@ You may also pass parameters to a route if the URL requires it:
 from masonite.response import Response
 
 def show(self, response: Response):
-    return response.redirect(name='users.home', {"user_id", 1})
+    return response.redirect(name='users.home', params={"user_id", 1})
 ```
 
 Finally you may also pass query string parameters to the url or route to redirect:
 
 ```python
 def show(self, response: Response):
-    return response.redirect(name='users.home', {"user_id", 1}, query_params={"mode": "preview"})
+    return response.redirect(name='users.home', params={"user_id", 1}, query_params={"mode": "preview"})
 #== will redirect to /dashboard/1?mode=preview
 ```
 

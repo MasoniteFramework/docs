@@ -35,7 +35,7 @@
 * [Events](features/events.md)
 * [Facades](features/facades.md)
 * [Filesystem and Uploading](features/uploading.md)
-* [Hash ID's](features/hashing.md)
+* [Hash ID's](features/hashid.md)
 * [Helpers](features/helpers.md)
 * [Mail](features/mail.md)
 * [Notifications](features/notifications.md)
@@ -55,6 +55,7 @@
 ## Security
 
 * [CORS](features/cors.md)
+* [Hashing](features/hashing.md)
 
 ## Masonite ORM
 

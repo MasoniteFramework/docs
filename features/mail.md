@@ -26,7 +26,7 @@ class Welcome(Mailable):
 
 # Sending Mailables
 
-You can send your mailable inside your controller easily by using the `Mail` class:
+You can send your mailable inside your controller easily by resolving the `Mail` class in your controller:
 
 ```python
 from masonite.mail import Mail
@@ -39,6 +39,15 @@ class WelcomeController(Controller):
 ```
 
 Notice at this point you can call any building options you want on the mailables to modify the behavior of it before sending.
+
+Note that you can also use the `Mail` facade anywhere in your code:
+
+```python
+from masonite.facades import Mail
+from app.mailables.Welcome import Welcome
+
+Mail.mailable(Welcome().to('user@example.com')).send()
+```
 
 # Mail Options
 
@@ -56,9 +65,9 @@ You can modify the behavior of the mailable by using any one of these options
 | `html('Welcome to Masonite')`           | Specifies the HTML version of the email.                     |
 | `view('mailables.view', {})`            | Specifies a view file with data to render the HTML version of the email |
 | `priority(1)`                           | Specifies the priority of the email, values should be 1 through 5. |
-| `low_priority()`                        | Sets the priortiy of the email to 1                          |
-| `high_priority()`                       | Sets the priortiy of the email to 5                          |
-| `attach('MAY.pdf', 'path/invoice.pdf')` | Attaches a file to the email                                 |
+| `low_priority()`                        | Sets the priortiy of the email to 5.                          |
+| `high_priority()`                       | Sets the priortiy of the email to 1.                         |
+| `attach('MAY.pdf', 'path/invoice.pdf')` | Attaches a file to the email.                                |
 
 # Sending Attachments
 
