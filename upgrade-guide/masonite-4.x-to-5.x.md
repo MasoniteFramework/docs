@@ -45,6 +45,31 @@ STORES = {
 }
 ```
 
+## Providers
+
+Two new providers have been created, that you will need to add them in `config/providers.py`file.
+
+```python
+from masonite.providers import PresetsProvider, SecurityProvider
+
+#...
+
+PROVIDERS = [
+    FrameworkProvider,
+    HelpersProvider,
+    SecurityProvider, # insert here
+    RouteProvider,
+    #..
+    ValidationProvider,
+    PresetsProvider, # insert here
+    AuthorizationProvider,
+    ORMProvider,
+    AppProvider,
+]
+```
+
+
+
 # Cache
 
 Memcached driver name has been fixed. It was called `Memcache` as its real name is `Memcached`.
