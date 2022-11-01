@@ -15,13 +15,13 @@ The Masonite hashing feature automatically decodes values before they get to the
 For the middleare you can add it easily:
 
 ```python
-from masonite.essentials.middleware import HashIDMiddleware
+from masonite.hashid.middleware import HashIDMiddleware
 
 # ..
 route_middleware = {
   "web": [
     HashIDMiddleware,
-    SessionMiddleware, 
+    SessionMiddleware,
     EncryptCookies,
     VerifyCsrfToken,
   ],
@@ -48,7 +48,7 @@ This will register a template helper and some other useful features.
 You can use the helper directly to encode or decode integers easily:
 
 ```python
-from masonite.essentials.helpers import hashid
+from masonite.hashid.helpers import hashid
 
 def show(self):
   hashid(10) #== l9avmeG
