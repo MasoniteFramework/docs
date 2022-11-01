@@ -227,7 +227,7 @@ models_path("blog/Article.py", absolute=False)  # app/models/blog/Article.py
 
 # URLs and Routes
 
-## Url
+## url
 The Url helper allows you to create a full path URL:
 
 ```python
@@ -245,14 +245,14 @@ url.url("/search/users",  query_params={"search": "John Doe" "order": "asc"})
 #== http://masonite.app/users/?search=John%2Doe&order=asc
 ```
 
-## Asset
+## asset
 You can also generate a URL for an asset:
 
 ```python
 url.asset("s3.invoices", "invoice-01-2021.pdf")
 ```
 
-## Route
+## route
 You can also generate a URL for a route by its route name:
 
 ```python
@@ -271,6 +271,9 @@ It accepts a dictionary to add query string parameters when building the route u
 url.route("user.profile", {"id": 1}, query_params={"preview": 1})
 #== http://masonite.app/users/1/profile/?preview=1
 ```
+
+## mix
+TODO
 
 # Python Helpers
 
