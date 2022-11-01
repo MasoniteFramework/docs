@@ -48,7 +48,7 @@ This will register a template helper and some other useful features.
 You can use the helper directly to encode or decode integers easily:
 
 ```python
-from masonite.hashid.helpers import hashid
+from masonite.helpers import hashid
 
 def show(self):
   hashid(10) #== l9avmeG
