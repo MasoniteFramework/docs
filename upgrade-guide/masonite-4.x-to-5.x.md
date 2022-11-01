@@ -23,4 +23,46 @@ The import path has changed for the following:
 
 - from masonite.essentials.middleware import HashIDMiddleware
 + from masonite.hashid.middleware import HashIDMiddleware
+
+
 ```
+
+# Config Changes
+
+## Cache
+
+Rename `memcache` driver to `memcached` to the `config/cache.py` file.
+
+```python
+STORES = {
+    "memcached": {
+        "driver": "memcached",
+        "host": "127.0.0.1",
+        "port": "11211",
+        "password": "",
+        "name": "masonite4",
+    },
+}
+```
+
+# Cache
+
+Memcached driver name has been fixed. It was called `Memcache` as its real name is `Memcached`.
+When using this driver you will now need to access it like this:
+```python
+self.application.make("cache").store("memcached").get("key")
+```
+or via the facade:
+```python
+Cache.store("memcached").get("key")
+```
+
+# Helpers
+
+All Masonite helpers can now be imported from `helpers` module to ease development experience.
+
+```python
+from masonite.helpers import config, url, env, app, optional, collect, compact
+```
+
+A new helper to access application container `app` has been introduced ! More information in [Helpers](../features/helpers.md#app) documentation.
