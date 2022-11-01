@@ -79,9 +79,9 @@ Then you should define Memcached as default store and configure it with your Mem
 
 ```python
 STORES = {
-    "default": "memcache",
-    "memcache": {
-        "driver": "memcache",
+    "default": "memcached",
+    "memcached": {
+        "driver": "memcached",
         "host": env("MEMCACHED_HOST", "127.0.0.1"),
         "port": env("MEMCACHED_PORT", "11211"),
         "password": env("MEMCACHED_PASSWORD"),
