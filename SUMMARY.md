@@ -77,6 +77,7 @@
 
 ## How-to Guides
 
+* [Handling AJAX requests with expired authentication](how-to-guides/expired-auth-with-ajax.md)
 * [Build Email Verification from Scratch With Masonite Framework and JSON Web Tokens](https://dev.to/nioperas06/build-email-verification-from-scratch-with-masonite-framework-and-json-web-tokens-mf7)
 * [Deploying a Masonite Application to Heroku](https://dev.to/masonite/deploying-a-masonite-application-to-heroku-45jp)
 * [How To Deploy Masonite to PythonAnywhere](https://dev.to/masonite/deploying-masonite-to-pythonanywhere-26lj)
