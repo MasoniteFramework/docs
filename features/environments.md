@@ -64,7 +64,7 @@ Notice that this method does not cast types, so here we got a string instead of 
 ## env()
 You can also use Masonite helper `env` to read an environment variable value. It looks like:
 ```python
-from masonite import env
+from masonite.environment import env
 
 is_debug = env("APP_DEBUG", False) #== True (bool)
 ```
@@ -85,7 +85,7 @@ For convenience this helper is casting types. Here are different examples of var
 If you do not wish to cast the value then you can provide a third parameter `cast=False`:
 
 ```python
-from masonite import env
+from masonite.environment import env
 ​
 env('APP_DEBUG', False, cast=False) #== "False" (str)
 ```
