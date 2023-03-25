@@ -56,7 +56,7 @@ You can then pass the token via the `X-CSRF-TOKEN` header instead of the `__toke
 
 ## Exempting Routes
 
-Not all routes may require CSRF protection such as OAuth authentication or various webhooks. In order to exempt routes from protection we can add it to the `exempt` class attribute in the middleware located at `app/http/middleware/CsrfMiddleware.py`:
+Not all routes may require CSRF protection such as OAuth authentication or various webhooks. In order to exempt routes from protection we can add it to the `exempt` class attribute in the middleware located at `app/middlewares/VerifyCsrfToken.py`:
 
 ```python
 from masonite.middleware import VerifyCsrfToken as Middleware
