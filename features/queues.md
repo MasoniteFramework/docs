@@ -156,7 +156,7 @@ class InvoiceController:
     # Jobs with no parameters
     queue.push(CreateInvoice())
 
-    # Jobs with paramaters
+    # Jobs with parameters
     # Create an invoice from a payment
     queue.push(CreateInvoice(Order.find(1).id))
 ```
@@ -165,9 +165,9 @@ You can also specify any number of options using keyword arguments on the push m
 
 ```python
 queue.push(
-  CreateInvoice(Order.find(1).id)
-  driver="async" # The queue driver to use
-  queue="invoices" # The queue name to put the job on
+  CreateInvoice(Order.find(1).id),
+  driver="async", # The queue driver to use
+  queue="invoices", # The queue name to put the job on
 )
 ```
 
