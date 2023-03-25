@@ -298,7 +298,7 @@ from masonite.facades import View
 class AppProvider(Provider):
 
     def register(self):
-        View.('slug', self.slug)
+        View.filter('slug', self.slug)
 
     @staticmethod
     def slug(item):
