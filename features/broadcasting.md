@@ -13,14 +13,20 @@ Server side configuration for broadcasting is done in `config/broadcast.py` conf
 You should create an account on Pusher Channels and then create a Pusher application on your account and get the related credentials (client, app_id, secret) and the cluster location name and put this into the broadcast pusher options.
 
 ```python
-"pusher": {
-    "driver": "pusher",
-    "app_id": "3456678"
-    "client": "478b45309560f3456211" # key
-    "secret": "ab4229346et64aa8908"
-    "cluster": "eu",
-    "ssl": False,
-},
+config/broadcast.py
+#..
+
+BROADCASTS = {
+    "default": "pusher",
+    "pusher": {
+        "driver": "pusher",
+        "app_id": "3456678",
+        "client": "478b45309560f3456211", # key
+        "secret": "ab4229346et64aa8908",
+        "cluster": "eu",
+        "ssl": False,
+    },
+}
 ```
 
 Finally make sure you install the `pusher` python package
@@ -133,6 +139,7 @@ Different channel types are included in Masonite.
 Inside the event class you can specify a Public channel. These channels allow anyone with a connection to listen to events on this channel:
 
 ```python
+from masonite.broadcasting import CanBroadcast
 from masonite.broadcasting import Channel
 
 class UserAdded(CanBroadcast):
@@ -150,6 +157,7 @@ Private channels are channels that start with a `private-` prefix. When using pr
 Private channels can only be broadasting on if users are logged in. When the channel is authorized, it will check if the user is currently authenticated before it broadcasts. If the user is not authenticated it will not broadcast anything on this channel.
 
 ```python
+from masonite.broadcasting import CanBroadcast
 from masonite.broadcasting import PrivateChannel
 
 class UserAdded(CanBroadcast):
@@ -195,6 +203,9 @@ const pusher = new Pusher("478b45309560f3456211", {
 You will also need to add the `/pusher/user-auth` route to the CSRF exemption.
 
 ```python
+from masonite.middleware import VerifyCsrfToken as Middleware
+
+
 class VerifyCsrfToken(Middleware):
 
     exempt = [
@@ -216,7 +227,13 @@ First you need to remove `Broadcast.routes()` from your routes and add your own 
 
 ```python
 # routes/web.py
-Route.post("/pusher/user-auth", "BroadcastController@authorize")
+from masonite.routes import Route
+
+
+ROUTES = [
+    Route.post("/pusher/user-auth", "BroadcastController@authorize")
+    #..
+]
 ```
 
 Then you need to create a custom controller to implement your logic
@@ -224,6 +241,7 @@ Then you need to create a custom controller to implement your logic
 ```python
 # app/controllers/BroadcastController.py
 from masonite.controllers import Controller
+from masonite.request import Request
 from masonite.broadcasting import Broadcast
 from masonite.helpers import optional
 
@@ -249,6 +267,7 @@ Presence channels work exactly the same as private channels except you can see w
 For Presence channels, the user also has to be authenticated.
 
 ```python
+from masonite.broadcasting import CanBroadcast
 from masonite.broadcasting import PresenceChannel
 
 class UserAdded(CanBroadcast):
@@ -337,12 +356,19 @@ Let's first create the authentication route and controller
 
 ```python
 # routes/web.py
-Route.post("/pusher/user-auth", "BroadcastController@authorize")
+from masonite.routes import Route
+
+
+ROUTES = [
+    Route.post("/pusher/user-auth", "BroadcastController@authorize")
+    #..
+]
 ```
 
 ```python
 # app/controllers/BroadcastController.py
 from masonite.controllers import Controller
+from masonite.request import Request
 from masonite.broadcasting import Broadcast
 from masonite.helpers import optional
 
