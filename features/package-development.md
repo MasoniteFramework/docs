@@ -320,7 +320,7 @@ def configure(self):
     (
         self.root("super_awesome_package")
         .name("super_awesome")
-        .views("assets")
+        .assets("assets")
     )
 ```
 
