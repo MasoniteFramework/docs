@@ -44,7 +44,7 @@ The service container is available in the `Request` object and can be retrieved 
 
 ```python
 def show(self, request: Request):
-    request.app() # will return the service container
+    request.app # will return the service container
 ```
 
 ### Simple Binding
@@ -218,7 +218,7 @@ def randomFunction(view: View):
     print(view)
 
 def show(self, request: Request):
-    request.app().resolve(randomFunction) # Will print the View object
+    request.app.resolve(randomFunction) # Will print the View object
 ```
 
 {% hint style="warning" %}

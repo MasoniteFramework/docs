@@ -298,13 +298,13 @@ def configure(self):
     )
 ```
 
-Views will be available in controllers:
-
+Views will be available in controllers under a namespace. Use `your_package_name:template` to reference your view:
+ 
 ```python
 class ProjectController(Controller):
 
     def index(self, view: View):
-        return view.render("super_awesome.admin.index")
+        return view.render("super_awesome:admin.index")
 ```
 
 If you want to allow users to publish the view file into their own project so they can tweak them you should add `publish=True` argument. The [package publish](#publishing-resources) command will publish the views files into the defined project views folder. With the default project settings it would be in `templates/vendor/super_awesome/admin/index.html`.
@@ -320,7 +320,7 @@ def configure(self):
     (
         self.root("super_awesome_package")
         .name("super_awesome")
-        .views("assets")
+        .assets("assets")
     )
 ```
 
