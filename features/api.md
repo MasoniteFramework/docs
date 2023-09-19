@@ -247,6 +247,6 @@ Lastly, in your route or route groups you can specify the guard middleware and s
 # api.py
 ROUTES = [
     #..
-    Route.get('/users', 'UserController@show').middleware(["guard:jwt"])
+    Route.get('/users', 'UserController@show').middleware("guard:jwt")
 ]
 ```
