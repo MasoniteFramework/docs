@@ -79,15 +79,15 @@ The request collector shows you information related to the request such as input
 The message collector contains messages you can add in your application. Instead of adding a bunch of print statements you can add a message:
 
 ```python
-from debugbar.facades import Debugbar
+from debugbar.debugger import Debugger
 
-Debugbar.get_collector('messages').add_message("a debug message")
+Debugger.get_collector('messages').add_message("a debug message")
 ```
 
 You could also add tags which will create a colored tag in the content tab:
 
 ```python
-Debugbar.get_collector('messages').add_message("a debug message", tags={"color": "green", "message": "tag name"})
+Debugger.get_collector('messages').add_message("a debug message", tags={"color": "green", "message": "tag name"})
 ```
 
 ### Environment Collector
@@ -99,11 +99,11 @@ This collector adds all of your environment variables to your debugbar as well a
 The measures collector you can use to measure 2 points in your application. By default there is the time it takes for your application to complete the whole request. You can start and stop any measures you want:
 
 ```python
-from debugbar.facades import Debugbar
+from debugbar.debugger import Debugger
 
-Debugbar.start_measure("loop check")
+Debugger.start_measure("loop check")
 # .. Long running code
-Debugbar.stop_measure("loop check")
+Debugger.stop_measure("loop check")
 ```
 
 You will now see the time it takes to run this code in the measures tab
