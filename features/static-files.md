@@ -8,7 +8,7 @@ The directories to include as keys are simply the location of your static file l
 
 For this setup, our `STATICFILES` constant should look like:
 
-{% code title="config/storage.py" %}
+{% code title="config/filesystem.py" %}
 
 ```python
 STATICFILES = {
@@ -63,7 +63,7 @@ this will render:
 
 You can also make the config location a dictionary and use dot notation:
 
-{% code title="config/storage.py" %}
+{% code title="config/filesystem.py" %}
 
 ```python
 ....
@@ -107,7 +107,7 @@ storage/
 
 and you can alias this in your `STATICFILES` constant:
 
-{% code title="config/storage.py" %}
+{% code title="config/filesystem.py" %}
 
 ```python
 STATICFILES = {
