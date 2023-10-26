@@ -30,6 +30,7 @@ Route.options('/welcome', 'WelcomeController@show')
 Route.view('/url', 'view.name', {'key': 'value'})
 Route.resource('/users', 'UsersController')
 Route.api('/users', 'UsersApiController')
+Route.fallback("WellcomeController@fallback")
 ```
 
 In addition to these route verbs you can use built in routes:
@@ -151,6 +152,14 @@ Sometimes you want to optionally match routes and route parameters. For example 
 
 ```python
 Route.get('/dashboard/?option', 'WelcomeController@show')
+```
+
+## Define a fallback route
+
+If you need to match any route that doesn't belong to the other route definitions you could use the `fallback` method. For example, when you want to manage front routes from a `react-router`.
+
+```python
+Route.fallback('WellcomeController@fallback')
 ```
 
 ## Domain
