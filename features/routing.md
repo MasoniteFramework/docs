@@ -194,6 +194,14 @@ All route compilers will need to be added to the top of your `register_routes()`
 
 > Note: The compile methods need to happen before the routes are loaded in this method so make sure it is at the top. You may also put it in any method that appears before the `register_routes()` method.
 
+# Fallback Routes
+
+Sometimes you may want to default a route if no other routes are found. since it won't require a url we just need to pass it a controller and action.
+
+```python
+Route.fallback("WelcomeController@fallback")
+```
+
 # Route Groups
 
 Route groups are a great way to group mulitple routes together that have similiar options like a prefix, or multiple routes with the same middleware.
