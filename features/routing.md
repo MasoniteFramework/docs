@@ -177,6 +177,7 @@ Available route compilers are:
 * `string`
 * `signed`
 * `uuid`
+* `any`
 
 ## Creating Route Compilers
 
