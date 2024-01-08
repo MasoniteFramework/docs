@@ -203,6 +203,8 @@ Sometimes you may want to default a route if no other routes are found. since it
 Route.fallback("WelcomeController@fallback")
 ```
 
+This route will be evaluated at the very end, after all the routes (including api routes) and **should be added just once**.
+
 # Route Groups
 
 Route groups are a great way to group mulitple routes together that have similiar options like a prefix, or multiple routes with the same middleware.
