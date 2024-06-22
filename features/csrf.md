@@ -38,6 +38,11 @@ You can get also get the token that is generated. This is useful for JS frontend
 <p> Token: {{ csrf_token }} </p>
 ```
 
+{% hint style="info" %}
+If you encounter an 'Invalid CSRF Token' error while running the development server, ensure that the domains in your .env file and config/application.py match the domain used by the development server (e.g., both should use either 127.0.0.1 or localhost).
+{% endhint %}
+
+
 ## AJAX / Vue / Axios
 
 For ajax calls, the best way to pass CSRF tokens is by setting the token inside a parent template inside a `meta` tag like this:
