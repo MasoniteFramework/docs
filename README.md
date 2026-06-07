@@ -1,5 +1,13 @@
 # Introduction and Installation
 
+{% hint style="danger" %}
+**This documentation covers Masonite 4, which is no longer maintained.**
+
+Masonite development continues at [masonitedev/masonite](https://github.com/masonitedev/masonite). Masonite 5 is published on PyPI as [`masonite-framework`](https://pypi.org/project/masonite-framework/) and its documentation lives at **[docs.masonite.dev](https://docs.masonite.dev)** — including the [Masonite 4.0 → 5.0 upgrade guide](https://docs.masonite.dev/upgrade-guide/masonite-4.0-to-5.0/).
+
+In memory of [Joseph "Joe" Mancuso](https://github.com/josephmancuso), creator of Masonite. ❤️
+{% endhint %}
+
 Stop using old frameworks with just a few confusing features. Masonite is the developer focused dev tool with all the features you need for the rapid development you deserve. Masonite is perfect for beginners getting their first web app deployed or advanced developers and businesses that need to reach for the full fleet of features available.
 
 Masonite works hard to be fast and easy from install to deployment so developers can go from concept to creation in as quick and efficiently as possible. Use it for your next SaaS! Try it once and you’ll fall in love.
