@@ -177,7 +177,7 @@ Continuing with the example above, the following will work out of the box (assum
 class MyService:
     def __init__(self, some_other_dependency: SomeOtherClass):
         pass
-    
+
     def do_something(self):
         pass
 
@@ -254,13 +254,13 @@ If you need to utilize a container outside the normal flow of Masonite like insi
 This would look something like:
 
 ```python
-from wsgi import container
+from masonite.container import Container
 from masonite import Queue
 
 class SomeCommand:
 
     def handle(self):
-        queue = container.make(Queue)
+        queue = Container().make(Queue)
         queue.push(..)
 ```
 
