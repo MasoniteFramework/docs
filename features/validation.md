@@ -64,11 +64,11 @@ If you want to handle errors in views specifically you will need to add the `Sha
 route middlewares. `errors` will be injected to views as a [MessageBag](#message-bag) instance allowing to handle errors easily:
 
 ```html
-@if errors.any():
+@if bag().any():
 <div class="bg-yellow-400">
   <div class="bg-yellow-200 text-yellow-800 px-4 py-2">
     <ul>
-      @for key, message in errors.all().items()
+      @for key, message in bag().all().items()
         <li>{{ message }}</li>
       @endfor
     </ul>
@@ -81,22 +81,22 @@ route middlewares. `errors` will be injected to views as a [MessageBag](#message
   <div>
     <label for="name">Name</label>
     <input type="text" name="name" placeholder="Name">
-    @if errors.has('name')
-    <span>{{ errors.get('name')[0] }}</span>
+    @if bag().has('name')
+    <span>{{ bag().get('name')[0] }}</span>
     @endif
   </div>
   <div>
     <label for="email">Email</label>
     <input type="email" name="email" placeholder="Email">
-    @if errors.has('email')
-    <span>{{ errors.get('email')[0] }}</span>
+    @if bag().has('email')
+    <span>{{ bag().get('email')[0] }}</span>
     @endif
   </div>
   <div>
     <label for="message">Message</label>
     <textarea name="message" placeholder="Message"></textarea>
-    @if errors.has('message')
-    <span>{{ errors.get('message')[0] }}</span>
+    @if bag().has('message')
+    <span>{{ bag().get('message')[0] }}</span>
     @endif
   </div>
   <button type="submit">Send</button>
@@ -448,7 +448,7 @@ def show(self, request: Request):
 You can easily get all errors using the `all()` method:
 
 ```python
-errors.all()
+bag().all()
 """
 {
   'email': ['Your email is required'],
@@ -460,7 +460,7 @@ errors.all()
 ## Checking for any errors
 
 ```python
-errors.any() #== True
+bag().any() #== True
 ```
 
 ## Checking if the bag is Empty
@@ -468,26 +468,26 @@ errors.any() #== True
 This is just the opposite of the `any()` method.
 
 ```python
-errors.empty() #== False
+bag().empty() #== False
 ```
 
 ## Checking For a Specific Error
 
 ```python
-errors.has('email') #== True
+bag().has('email') #== True
 ```
 
 ## Getting the first Key:
 
 ```python
-errors.all()
+bag().all()
 """
 {
   'email': ['Your email is required'],
   'name': ['Your name is required']
 }
 """
-errors.first()
+bag().first()
 """
 {
   'email': ['Your email is required']
@@ -498,13 +498,13 @@ errors.first()
 ## Getting the Number of Errors:
 
 ```python
-errors.count() #== 2
+bag().count() #== 2
 ```
 
 ## Converting to JSON
 
 ```python
-errors.json()
+bag().json()
 """
 '{"email": ["Your email is required"],"name": ["Your name is required"]}'
 """
@@ -513,13 +513,13 @@ errors.json()
 ## Get the Amount of Messages:
 
 ```python
-errors.amount('email') #== 1
+bag().amount('email') #== 1
 ```
 
 ## Get the Messages:
 
 ```python
-errors.get('email')
+bag().get('email')
 """
 ['Your email is required']
 """
@@ -528,7 +528,7 @@ errors.get('email')
 ## Get the Errors
 
 ```python
-errors.errors()
+bag().errors()
 """
 ['email', 'name']
 """
@@ -537,7 +537,7 @@ errors.errors()
 ## Get all the Messages:
 
 ```python
-errors.messages()
+bag().messages()
 """
 ['Your email is required', 'Your name is required']
 """
@@ -548,7 +548,7 @@ errors.messages()
 You can also merge an existing dictionary into the bag with the errors:
 
 ```python
-errors.merge({'key': 'value'})
+bag().merge({'key': 'value'})
 ```
 
 # Nested Validations
